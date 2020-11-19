@@ -1,9 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+// import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { HttpService } from "../../../shared/services/http.service";
 import { ValidationsService } from 'src/app/shared/services/validations.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+// import {} from 'googlemaps';
+
+
+import { MapsAPILoader } from '@agm/core';
+import { MouseEvent } from '@agm/core';
+// import { MouseEvent as AGMMouseEvent } from '@agm/core';
+// import { MapsAPILoader, MouseEvent } from '@agm/core';
+
+
+import { DataLayerService } from 'src/app/shared/services/data-layer.service';
+
 @Component({
   selector: 'app-users-add',
   templateUrl: './users-add.component.html',
@@ -14,15 +26,100 @@ export class UsersAddComponent implements OnInit {
   submitted: boolean;
   public user_Obj;
   public user_Msg;
+  latlong='';
+  items = ['Javascript', 'Typescript'];
+  // autocompletes;
+  language_Obj;
+
+  title: string = 'AGM project';
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  new_address: string;
+  private geoCoder;
+
+  
+  tagsCtrl1 = new FormControl(this.items);
+  tagsCtrl2 = new FormControl([]);
+
+
+  // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
+  // name = 'Angular';
+
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
+  
+  // constructor(
+  //   private mapsAPILoader: MapsAPILoader,
+  //   private ngZone: NgZone
+  // ) { }
+
+  // constructor(
+  //   private mapsAPILoader: MapsAPILoader,
+  //   private ngZone: NgZone
+  // ) { }
+
+
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    public service:HttpService) { }
+    private dl: DataLayerService,
+    public service:HttpService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
+    ) { }
 
   ngOnInit(){
     this.createForm();
+    this.LanguageList();
+    
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          this.new_address=place['formatted_address'];
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          // console.log("place-",place[0].formatted_address);
+          
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          
+          // console.log("latitude-",this.latitude);
+          // console.log("longitude-",this.longitude);
+
+
+
+
+          this.zoom = 12;
+        });
+      });
+    });
+
   }
+
+
+
+
+  onSelect(item) {
+    console.log('tag selected: value is' + item);
+  }
+
+
 
    /*========== Form Value Start Here========*/
    createForm() {
@@ -33,31 +130,27 @@ export class UsersAddComponent implements OnInit {
       mobile: ['', this.validation.onlyRequired_validator],
       address: ['', this.validation.onlyRequired_validator],
       gender: ['', this.validation.onlyRequired_validator],
-       monday_start: [''],
-      monday_end: [''],
-      tuesday_start: [''],
-      tuesday_end: [''],
-      wednesday_start: [''],
-      wednesday_end: [''],
-      thusday_start: [''],
-      thusday_end: [''],
-      friday_start: [''],
-      friday_end: [''],
-      saturday_start: [''],
-      saturday_end: [''],
+      languageid:[''],
+      latitude:[''],
+      longitude:[''],
     });
   }
   /*========== Form Value End Here========*/
   saveUser(){
-    console.log("form value",this.userForm.value);
     this.submitted = true;
     if (this.userForm.invalid) {
       return;
     }
     this.submitted = false;
+
+    this.userForm.value.latitude = this.latitude;
+    this.userForm.value.longitude = this.longitude
+    this.userForm.value.address =this.new_address;
+
+    console.log("form value",this.userForm.value);
     this.service.interpreterAdd(this.userForm.value)
     .subscribe(res => {
-        console.log("api response",res);
+        // console.log("api response",res);
         this.user_Obj = res
         this.user_Msg = res
         this.toastr.success(this.user_Msg.message,'', { timeOut: 1000 });
@@ -65,4 +158,57 @@ export class UsersAddComponent implements OnInit {
     });
   }
 
+  LanguageList(){
+    this.service.getLanguageList()
+    .subscribe(res => {
+        // console.log("api response",res);
+        this.language_Obj = res['data'];
+        console.log("my testing", this.language_Obj);
+    });
+  }
+
+
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+
+
+
+  markerDragEnd($event: any) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    console.log("latitude-",this.latitude);
+    console.log("longitude-",this.longitude);
+
+    this.getAddress(this.latitude, this.longitude);
+  }
+
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
+  }
 }

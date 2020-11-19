@@ -172,7 +172,7 @@ module.exports.removeLanguage = async function(req, res) {
 
 module.exports.getLanguages = function(req, res, next) {
     var sql = "SELECT * FROM languages order by id desc";
-    // console.log(sql)
+    console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {

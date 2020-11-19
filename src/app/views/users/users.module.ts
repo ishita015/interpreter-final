@@ -10,6 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+// import { BrowserModule } from '@angular/platform-browser';
+import { TagInputModule } from 'ngx-chips';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -20,8 +24,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxDatatableModule,
     ReactiveFormsModule,
     SharedComponentsModule,
+    TagInputModule,
     NgbModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38',//'AIzaSyBkH1R6_PO7fNY5L0z6CvV00oeNX8Vn0iE', 
+      libraries: ['places']
+    })
+    // GooglePlaceModule,
+    // BrowserModule
   ]
 })
 export class UsersModule { }
