@@ -1,0 +1,180 @@
+<div class="container">
+    <div class="row">
+       <div class="col-sm-12 text-center">
+          <h4>Requesting Interpreting Services</h4>
+          <p>Interpreting services can be requested via phone or email.</p>
+          <p><b>Contacts:</b> Michael House and Daisy Reyes</p>
+          <p><b>Phone:</b> (303) 274-2634</p>
+          <p><b>Email:</b> sitc@cescols.com</p>
+       </div>
+   </div>
+       <div class="row mainblock">
+       <div class="col-sm-12">
+          <h3>Information Required:</h3>
+          <div class="title-wrap">
+             <h4 class="cart-bottom-title section-bg-gray">Requester Information</h4>
+          </div>
+       </div>
+       <form [formGroup]="stepThreeForm">
+          <div class="col-sm-6">
+             <label>Business/Organization to Bill</label>
+             <input type="text" formControlName="business" class="form-control" placeholder="Business/Organization to Bill">
+             <div *ngIf="stepThreeForm.controls['business'].errors && ( !stepThreeForm.controls['business'].pristine || submitted ||stepThreeForm.controls['business'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['business'].errors.required">Business is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Requester Name </label>
+             <input type="text" class="form-control" formControlName="requester_name" placeholder="Requester Name">
+             <div *ngIf="stepThreeForm.controls['requester_name'].errors && ( !stepThreeForm.controls['requester_name'].pristine || submitted ||stepThreeForm.controls['requester_name'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['requester_name'].errors.required">Requester Name is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Office Phone</label>
+             <input type="text" class="form-control" formControlName="office_phone" placeholder="Office Phone">
+             <div *ngIf="stepThreeForm.controls['office_phone'].errors && ( !stepThreeForm.controls['office_phone'].pristine || submitted ||stepThreeForm.controls['office_phone'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['office_phone'].errors.required">Office Phone is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Cell Phone</label>
+             <input type="text" class="form-control" formControlName="cell_phone" placeholder="Cell Phone">
+             <div *ngIf="stepThreeForm.controls['cell_phone'].errors && ( !stepThreeForm.controls['cell_phone'].pristine || submitted ||stepThreeForm.controls['cell_phone'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-12">
+             <label>Email Address</label>
+             <input type="text" class="form-control" formControlName="email_address" placeholder="Email Address">
+             <div *ngIf="stepThreeForm.controls['email_address'].errors && ( !stepThreeForm.controls['email_address'].pristine || submitted ||stepThreeForm.controls['email_address'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['email_address'].errors.required">Email Address is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-12">
+             <div class="title-wrap">
+                <h4 class="cart-bottom-title section-bg-gray">Appointment Information</h4>
+             </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Location1</label>
+             <textarea class="form-control" rows="3" formControlName="location1" placeholder="Name of Building"></textarea>
+             <div *ngIf="stepThreeForm.controls['location1'].errors && ( !stepThreeForm.controls['location1'].pristine || submitted ||stepThreeForm.controls['location1'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['location1'].errors.required">Location is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Location2</label>
+             <textarea class="form-control" rows="3" formControlName="location2" placeholder="Address"></textarea>
+             <div *ngIf="stepThreeForm.controls['location2'].errors && ( !stepThreeForm.controls['location2'].pristine || submitted ||stepThreeForm.controls['location2'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['location2'].errors.required">Location is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Name of contact person at the assignment</label>
+             <input type="text" class="form-control" formControlName="name_assignment" placeholder="Name of contact person at the assignment">
+             <div *ngIf="stepThreeForm.controls['name_assignment'].errors && ( !stepThreeForm.controls['name_assignment'].pristine || submitted ||stepThreeForm.controls['name_assignment'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['name_assignment'].errors.required">Name Assignment is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Cell Phone # of contact person at the assignment</label>
+             <input type="text" class="form-control" formControlName="contact_assignment" placeholder="Cell Phone # of contact person at the assignment">
+             <div *ngIf="stepThreeForm.controls['contact_assignment'].errors && ( !stepThreeForm.controls['contact_assignment'].pristine || submitted ||stepThreeForm.controls['contact_assignment'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['contact_assignment'].errors.required">Contact Assignment is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Name of person requiring interpreter</label>
+             <input type="text" class="form-control" formControlName="interpreter" placeholder="Name of person requiring interpreter">
+             <div *ngIf="stepThreeForm.controls['interpreter'].errors && ( !stepThreeForm.controls['interpreter'].pristine || submitted ||stepThreeForm.controls['interpreter'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['interpreter'].errors.required">Interpreter is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Language/Languages</label>
+             <!-- <input type="text" class="form-control"  formControlName="language" placeholder="Language/Languages">
+             <div *ngIf="stepThreeForm.controls['language'].errors && ( !stepThreeForm.controls['language'].pristine || submitted ||stepThreeForm.controls['language'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['language'].errors.required">Language is required.</div>
+              </div> -->
+              <div class="form-group form-field">
+                <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
+                  <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
+                  <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
+                  <select class="form-control"  formControlName="language" id="language" name="language">
+                    <option value="" >Language</option>
+                    <option *ngFor="let lan of languageObj">
+                       {{lan?.name}}
+                    </option>
+                  </select>
+                <!-- </div> -->
+              </div>
+              <div *ngIf="stepThreeForm.controls['language'].errors && ( !stepThreeForm.controls['language'].pristine || submitted ||stepThreeForm.controls['language'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['language'].errors.required">Language is required.</div>
+                <!-- <div [hidden]="!stepThreeForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+             </div>
+          <div class="col-sm-6">
+             <label>Nature of Appointment / Appointment type</label>
+             <input type="text" class="form-control" formControlName="nature_of_appointment" placeholder="Nature of Appointment / Appointment type">
+             <div *ngIf="stepThreeForm.controls['nature_of_appointment'].errors && ( !stepThreeForm.controls['nature_of_appointment'].pristine || submitted ||stepThreeForm.controls['nature_of_appointment'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Date</label>
+             <input type="date" class="form-control" formControlName="date" placeholder="Date">
+             <div *ngIf="stepThreeForm.controls['date'].errors && ( !stepThreeForm.controls['date'].pristine || submitted ||stepThreeForm.controls['date'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['date'].errors.required">Date is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+             </div>
+          <div class="col-sm-6">
+             <label>Interpreter Start Time</label>
+             <input type="text" class="form-control" formControlName="start_time" placeholder="Interpreter Start Time">
+             <div *ngIf="stepThreeForm.controls['start_time'].errors && ( !stepThreeForm.controls['start_time'].pristine || submitted ||stepThreeForm.controls['start_time'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['start_time'].errors.required">Start time is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+              <div class="col-sm-6">
+             <label>Anticipated End Time</label>
+             <input type="text" class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+             <div *ngIf="stepThreeForm.controls['end_time'].errors && ( !stepThreeForm.controls['end_time'].pristine || submitted ||stepThreeForm.controls['end_time'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['end_time'].errors.required">End Time is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+             <div class="col-sm-12">
+             <label>Any interpreting equipment needs?</label>
+             <input type="text" formControlName="equipment" class="form-control" placeholder="Any interpreting equipment needs?">
+             <div *ngIf="stepThreeForm.controls['equipment'].errors && ( !stepThreeForm.controls['equipment'].pristine || submitted ||stepThreeForm.controls['equipment'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['equipment'].errors.required">Equipment is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-12">
+             <label>Additional Notes</label>
+             <textarea class="form-control" formControlName="notes" rows="3" placeholder="Additional Notes"></textarea>
+             <div *ngIf="stepThreeForm.controls['notes'].errors && ( !stepThreeForm.controls['notes'].pristine || submitted ||stepThreeForm.controls['notes'].touched )" class="error-msg">
+                <div [hidden]="!stepThreeForm.controls['notes'].errors.required">Notes is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+           <div class="col-sm-12">
+             <button type="button" (click)="submitForm3()" class="btn subbtn">Submit</button>
+          </div>
+       </form>
+   </div>
+    </div>

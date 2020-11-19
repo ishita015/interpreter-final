@@ -1,0 +1,186 @@
+<div class="container">
+    <div class="row">
+       <div class="col-sm-12 text-center">
+          <h4>Requesting Interpreting Services</h4>
+          <p>Interpreting services can be requested via phone or email.</p>
+          <p><b>Contacts:</b> Michael House and Daisy Reyes</p>
+          <p><b>Phone:</b> (303) 274-2634</p>
+          <p><b>Email:</b> sitc@cescols.com</p>
+       </div>
+   </div>
+       <div class="row mainblock">
+       <div class="col-sm-12">
+          <h3>Information Required:</h3>
+          <div class="title-wrap">
+             <h4 class="cart-bottom-title section-bg-gray">Requester Information</h4>
+          </div>
+       </div>
+       <form [formGroup]="stepNineForm">
+          <div class="col-sm-6">
+             <label>Caseworker Name</label>
+             <input type="text" formControlName="caseworker_name" class="form-control" placeholder="Caseworker Name">
+             <div *ngIf="stepNineForm.controls['caseworker_name'].errors && ( !stepNineForm.controls['caseworker_name'].pristine || submitted ||stepNineForm.controls['caseworker_name'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['caseworker_name'].errors.required">Caseworker Name is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Requester Name (if different than caseworker)</label>
+             <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name (if different than caseworker)">
+             <div *ngIf="stepNineForm.controls['requester_name'].errors && ( !stepNineForm.controls['requester_name'].pristine || submitted ||stepNineForm.controls['requester_name'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['requester_name'].errors.required">Requester Name is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Mesa County Human Services</label>
+             <input type="text" formControlName="human_services" class="form-control" placeholder="Mesa County Human Services">
+             <div *ngIf="stepNineForm.controls['requester_name'].errors && ( !stepNineForm.controls['requester_name'].pristine || submitted ||stepNineForm.controls['requester_name'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['requester_name'].errors.required">Human Services is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Office Phone</label>
+             <input type="text" formControlName="office_phone" class="form-control" placeholder="Office Phone">
+             <div *ngIf="stepNineForm.controls['office_phone'].errors && ( !stepNineForm.controls['office_phone'].pristine || submitted ||stepNineForm.controls['office_phone'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['office_phone'].errors.required">Office Phone is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Cell Phone</label>
+             <input type="text" formControlName="cell_phone"  class="form-control" placeholder="Cell Phone">
+             <div *ngIf="stepNineForm.controls['cell_phone'].errors && ( !stepNineForm.controls['cell_phone'].pristine || submitted ||stepNineForm.controls['cell_phone'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Email Address</label>
+             <input type="text"  formControlName="email_address" class="form-control" placeholder="Email Address">
+             <div *ngIf="stepNineForm.controls['email_address'].errors && ( !stepNineForm.controls['email_address'].pristine || submitted ||stepNineForm.controls['email_address'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['email_address'].errors.required">Email Address is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-12">
+             <label>Site Contact (if different from caseworker/requester)</label>
+             <input type="text" formControlName="site_contact"  class="form-control" placeholder="Site Contact (if different from caseworker/requester)">
+             <div *ngIf="stepNineForm.controls['site_contact'].errors && ( !stepNineForm.controls['site_contact'].pristine || submitted ||stepNineForm.controls['site_contact'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['site_contact'].errors.required">Site Contact is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-12">
+             <div class="title-wrap">
+                <h4 class="cart-bottom-title section-bg-gray">Appointment Information</h4>
+             </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Case Name</label>
+             <input type="text" formControlName="case" class="form-control" placeholder="Case Name">
+             <div *ngIf="stepNineForm.controls['case'].errors && ( !stepNineForm.controls['case'].pristine || submitted ||stepNineForm.controls['case'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['case'].errors.required">Case is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+            </div>
+          <div class="col-sm-6">
+             <label>Client Name (first and last, as relevant)</label>
+             <input type="text"  formControlName="client_name" class="form-control" placeholder="Client Name (first and last, as relevant)">
+             <div *ngIf="stepNineForm.controls['client_name'].errors && ( !stepNineForm.controls['client_name'].pristine || submitted ||stepNineForm.controls['client_name'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['client_name'].errors.required">Client Name is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Trails / Ref#</label>
+             <input type="text" formControlName="trails" class="form-control" placeholder="Trails / Ref#">
+             <div *ngIf="stepNineForm.controls['trails'].errors && ( !stepNineForm.controls['trails'].pristine || submitted ||stepNineForm.controls['trails'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['trails'].errors.required">Trails is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Language</label>
+             <div class="form-group form-field">
+                <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
+                  <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
+                  <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
+                  <select class="form-control"  formControlName="language" id="pin_code" name="pin_code">
+                    <option value="" >Language</option>
+                    <option *ngFor="let lan of languageObj">
+                       {{lan?.name}}
+                    </option>
+                  </select>
+                <!-- </div> -->
+              </div>
+              <div *ngIf="stepNineForm.controls['language'].errors && ( !stepNineForm.controls['language'].pristine || submitted ||stepNineForm.controls['language'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['language'].errors.required">Language is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Nature of Appointment / Appointment type</label>
+             <input type="text"  formControlName="nature_of_appointment" class="form-control" placeholder="Nature of Appointment / Appointment type">
+             <div *ngIf="stepNineForm.controls['nature_of_appointment'].errors && ( !stepNineForm.controls['nature_of_appointment'].pristine || submitted ||stepNineForm.controls['nature_of_appointment'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Date</label>
+             <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+             <div *ngIf="stepNineForm.controls['date'].errors && ( !stepNineForm.controls['date'].pristine || submitted ||stepNineForm.controls['date'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['date'].errors.required">Date is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Start Time</label>
+             <input type="text"  class="form-control"  formControlName="start_time"  placeholder="Interpreter Start Time">
+             <div *ngIf="stepNineForm.controls['start_time'].errors && ( !stepNineForm.controls['start_time'].pristine || submitted ||stepNineForm.controls['start_time'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['start_time'].errors.required">Start time is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>Anticipated End Time</label>
+             <input type="text"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+             <div *ngIf="stepNineForm.controls['end_time'].errors && ( !stepNineForm.controls['end_time'].pristine || submitted ||stepNineForm.controls['end_time'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['end_time'].errors.required">End Time is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+          <div class="col-sm-6">
+             <label>If simultaneous, how many receivers required?</label>
+             <input type="radio" formControlName="simultaneous"  value="0">No
+             <input type="radio" formControlName="simultaneous"  value="1">Yes
+             <div *ngIf="stepNineForm.controls['simultaneous'].errors && ( !stepNineForm.controls['simultaneous'].pristine || submitted ||stepNineForm.controls['simultaneous'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['simultaneous'].errors.required">Simultaneous is required.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div> 
+            </div>
+          <div class="col-sm-6">
+             <label>Service Requested</label>
+             <input type="radio" formControlName="service_requested"  value="1">Consecutive 
+             <input type="radio" formControlName="service_requested"  value="2">Simultaneous 
+             <div *ngIf="stepNineForm.controls['service_requested'].errors && ( !stepNineForm.controls['service_requested'].pristine || submitted ||stepNineForm.controls['service_requested'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['service_requested'].errors.required">Service Requested is required.</div>
+                <!-- <div [hidden]="!stepOneForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div> 
+          </div>
+          <div class="col-sm-12">
+             <label>Address</label>
+             <textarea class="form-control" formControlName="address"  rows="3" placeholder="Additional Notes"></textarea>
+             <div *ngIf="stepNineForm.controls['address'].errors && ( !stepNineForm.controls['address'].pristine || submitted ||stepNineForm.controls['address'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['address'].errors.required">Address is required.</div>
+                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
+          </div>
+           <div class="col-sm-12">
+             <button type="button" (click)="submitForm9()" class="btn subbtn">Submit</button>
+          </div>
+       </form>
+   </div>
+    </div>

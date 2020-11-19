@@ -94,7 +94,23 @@ app.post('/cesco/getPermission', userroleController.getUserPermission);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);
 
+app.post('/cesco/addServiceTwo', serviceController.addServiceTwo);
 
+app.post('/cesco/addServiceThree', serviceController.addServiceThree);
+
+app.post('/cesco/addServiceFour', serviceController.addServiceFour);
+
+app.post('/cesco/addServiceFive', serviceController.addServiceFive);
+
+app.post('/cesco/addServiceSix', serviceController.addServiceSix);
+
+app.post('/cesco/addServiceSeven', serviceController.addServiceSeven);
+
+app.post('/cesco/addServiceEight', serviceController.addServiceEight);
+
+app.post('/cesco/addServiceNine', serviceController.addServiceNine);
+
+app.post('/cesco/addServiceTen', serviceController.addServiceTen);
 // api end
 
 
