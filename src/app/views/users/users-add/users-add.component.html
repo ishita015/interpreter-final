@@ -1,0 +1,188 @@
+<div class="breadcrumb">
+    <!-- <h1>Language</h1> -->
+    <ul class="heading">
+        <li><a>User</a></li>
+        <li>Add</li> 
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form [formGroup]="userForm">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName">Name</label>
+                            <input type="text" class="form-control" formControlName="name"  placeholder="Name">
+                            <div *ngIf="userForm.controls['name'].errors && (!userForm.controls['name'].pristine || submitted ||userForm.controls['name'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['name'].errors.required">Name is required.</div>
+                              </div>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control"  formControlName="email"  placeholder="Email">
+                            <div *ngIf="userForm.controls['email'].errors && (!userForm.controls['email'].pristine || submitted ||userForm.controls['email'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['email'].errors.required">Email is required.</div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="MobileNo.">Mobile No.</label>
+                            <input type="text" class="form-control" formControlName="mobile"  placeholder="Mobile">
+                            <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="email">Password</label>
+                            <input type="password" class="form-control"  formControlName="password"  placeholder="password">
+                            <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Address">Address</label>
+                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
+                            <input type="text" class="form-control" formControlName="address"  placeholder="Address">
+                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['address'].errors.required">Address is required.</div> 
+                              </div>
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="gender" type="radio" id="gridRadios1"
+                                    value="Male" checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="gender" type="radio" id="gridRadios2"
+                                    value="Female">
+                                <label class="form-check-label" for="gridRadios2">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <p>Set time for Avaliblity</p>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="mondaystart">Monday Start</label>
+                            <input type="time" class="form-control" formControlName="monday_start">
+                            <!-- <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="mondayend">Monday End</label>
+                            <input type="time" class="form-control"  formControlName="monday_end"  >
+                            <!-- <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div> -->
+                        </div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="tuesdaystart">Tuesday Start</label>
+                            <input type="time" class="form-control" formControlName="tuesday_start" >
+                            <!-- <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="tuesdayend">Tuesday End</label>
+                            <input type="time" class="form-control"  formControlName="tuesday_end">
+                            <!-- <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div> -->
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="wednesdaystart">Wednesday Start</label>
+                            <input type="time" class="form-control" formControlName="wednesday_start">
+                            <!-- <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Wednesdayend">Wednesday End</label>
+                            <input type="time" class="form-control"  formControlName="wednesday_end">
+                            <!-- <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div> -->
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="thusdaystart">Thusday Start</label>
+                            <input type="time" class="form-control" formControlName="thusday_start">
+                            <!-- <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="thusdayend">Thusday End</label>
+                            <input type="time" class="form-control"  formControlName="thusday_end" >
+                            <!-- <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div> -->
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="fridaystart">Friday Start</label>
+                            <input type="time" class="form-control" formControlName="friday_start">
+                            <!-- <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="fridayend">Friday End</label>
+                            <input type="time" class="form-control"  formControlName="friday_end">
+                            <!-- <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div> -->
+                        </div>
+                     </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="saturdaystart">Saturday Start</label>
+                                <input type="time" class="form-control" formControlName="saturday_start">
+                                <!-- <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                    <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                                  </div> -->
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="saturdayend">Saturday End</label>
+                                <input type="time" class="form-control"  formControlName="saturday_end">
+                                <!-- <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                    <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                                  </div> -->
+                            </div>
+
+                         </div> 
+                   
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,21 @@
+Error: EACCES: permission denied, open './public/images/1603810310691.png'
+    at Object.openSync (fs.js:462:3)
+    at Object.writeFileSync (fs.js:1362:35)
+    at serviceController.updateService (/var/www/html/pro1/cleaning_app/API/controllers/adminControllers/serviceController.js:69:16)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:137:13)
+    at multerMiddleware (/var/www/html/pro1/cleaning_app/API/node_modules/multer/lib/make-middleware.js:18:41)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+Error: Connection lost: The server closed the connection.
+    at Protocol.end (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:112:13)
+    at Socket.<anonymous> (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:97:28)
+    at Socket.<anonymous> (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:502:10)
+    at Socket.emit (events.js:327:22)
+    at endReadableNT (_stream_readable.js:1220:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21) {
+  fatal: true,
+  code: 'PROTOCOL_CONNECTION_LOST'
+}

@@ -1,0 +1,38 @@
+<div class="breadcrumb">
+   
+    <ul class="heading">
+        <li><a>Module</a></li>
+        <li>Edit</li> 
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-5">
+            <div class="card-body">
+                <form [formGroup]="moduleEditForm" (ngSubmit)="submitEdit()">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Module</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="module_name"  id="title" placeholder="Title">
+                            <div *ngIf="moduleEditForm.controls['module_name'].errors && (!moduleEditForm.controls['module_name'].pristine || submitted ||moduleEditForm.controls['module_name'].touched )" class="error-msg">
+                                <div [hidden]="!moduleEditForm.controls['module_name'].errors.required">Module is required.</div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary float-right">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    

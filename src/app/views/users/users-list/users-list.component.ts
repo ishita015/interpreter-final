@@ -1,0 +1,135 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { HttpService } from 'src/app/shared/services/http.service';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+@Component({
+  selector: 'app-users-list',
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss']
+})
+export class UsersListComponent implements OnInit {
+  list_Obj: any[];
+  user_time: any[];
+  time_var;
+  userdelete_msg;
+  userData;
+  filteredUser;
+  searchControl: FormControl = new FormControl();
+  constructor(
+    private productService: ProductService,
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    public service:HttpService,
+    private router: Router,
+  ) { }
+
+  ngOnInit(){
+    this.interpreterList();
+    this.searchControl.valueChanges
+    .pipe(debounceTime(200))
+    .subscribe(value => {
+      this.filerData(value);
+    });
+    // this.products$ = this.productService.getProducts();
+  }
+
+
+  filerData(val) {
+    if (val) {
+      val = val.toLowerCase();
+    } else {
+      console.log("xxxxxxx",this.filteredUser);
+      return this.filteredUser = [... this.userData];
+    }
+
+    const columns = Object.keys( this.userData[0]);
+    if (!columns.length) {
+      return;
+    }
+
+    const rows =  this.userData.filter(function(d) {
+      for (let i = 0; i <= columns.length; i++) {
+        const column = columns[i];
+        // console.log(d[column]);
+        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.filteredUser = rows;
+  }
+
+
+
+  interpreterList(){
+    this.service.getInterpreterList()
+    .subscribe(res => {
+        console.log("api response",res);
+        this.list_Obj = res['data'];
+        this.userData = [...res['data']];
+        console.log("listttttttt", this.list_Obj);
+        this.filteredUser = this.list_Obj;
+        // this.toastr.success(this.reg_Msg.msg,'', { timeOut: 2000 });
+        // this.router.navigate(['/login'])
+    });
+}
+
+
+
+  deleteUser(id, modal) {
+    console.log("delete idddddddddd",id);
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+        .result.then((result) => {
+            this.service.getUserDelete(id)
+                .subscribe(res => {
+                    this.userdelete_msg = res;
+                    console.log("api",res );
+                    this.toastr.success(this.userdelete_msg.message,'', { timeOut: 1000 });
+                    // this.languageList();
+                })
+        }, (reason) => {
+    });
+}
+
+
+
+addUser(){
+  this.router.navigate(['/users/user-add']);
+}
+
+editUser(id,data){
+  console.log("idd",id);
+  console.log("data",data);
+  localStorage.setItem('userData', JSON.stringify(data));
+  
+}
+
+
+  
+
+timeView(id,modal) {
+  
+  
+  console.log("delete idddddddddd",id);
+  // this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+      // .result.then((result) => {
+          this.service.getInterpreterTime(id)
+              .subscribe(res => {
+                this.user_time = res['data'];
+          //         console.log("time api",res );
+                  // localStorage.setItem('usertime', JSON.stringify(this.user_time));
+                  this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true }) 
+                  // this.toastr.success(this.userdelete_msg.message,'', { timeOut: 1000 });
+                  // this.languageList();
+              })
+      // }, (reason) => {
+  // });
+}
+
+
+
+}

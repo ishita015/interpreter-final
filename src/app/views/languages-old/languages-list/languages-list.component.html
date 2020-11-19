@@ -1,0 +1,146 @@
+<div class="breadcrumb">
+    <!-- <h1>Language</h1> -->
+    <ul class="heading">
+        <li><a>Language</a></li>
+        <li>Edit</li> 
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row mb-3">
+    <div class="col-md-12 mb-3">
+        <button class="btn btn-primary float-right" (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card o-hidden">
+            <ngx-datatable *ngIf="list_Obj?.length" style="box-shadow: none" 
+            class="material fullscreen" [style.height]="60*list_Obj.length+60+'px'" 
+            [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="0" 
+                [rowHeight]="60" [scrollbarV]="true" 
+                [scrollbarH]="true" [rows]="list_Obj">
+                <ngx-datatable-column name="sno" [width]="20">
+                    <ng-template ngx-datatable-header-template>
+                     S.No
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        {{rowIndex +1}}
+                    </ng-template>
+                   </ngx-datatable-column>
+                <ngx-datatable-column name="Language Title" prop="name">
+                    <ng-template ngx-datatable-header-template>
+                        Language Title
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.name}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Language Code" prop="code">
+                    <ng-template ngx-datatable-header-template>
+                        Language Code
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.code}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Update Date" prop="updated_at">
+                    <ng-template ngx-datatable-header-template>
+                       Update Date
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.updated_at | date:'dd-MM-yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                       No.of Interpreter
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.Interpreter}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        No of Assignments  
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.Assessments}}
+                    </ng-template>
+                    
+                </ngx-datatable-column>
+                <ngx-datatable-column [flexGrow]="1" [sortable]="false">
+                    <ng-template ngx-datatable-header-template>
+                        Status
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <label class="switch" > 
+                            <input type="checkbox" [checked]="row.status == 1" 
+                            (click)="statusLanguageChange($event.target,row.status,row.id)">
+                            <span class="slider">
+                            </span>
+                          </label>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="120" [sortable]="false">
+                    <ng-template ngx-datatable-header-template>
+                        Actions
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-outline-success" (click)="Edit(row.id,row)" [routerLink]="['/languages/edit', row.id]">Edit</button>
+                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
+                        <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
+                            Delete
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            
+        </div>
+        <ng-container *ngIf="list_Obj?.length <= 0">
+            No Data Found
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #deleteConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alert</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure? you want to delete language.</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #viewConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">View Language</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="float-left"> 
+            <p class="mb-0"><strong>Language Title</strong></p>
+            <p>English</p>
+        </div> 
+          
+          <div class="float-right"> 
+            <p class="mb-0"><strong>Language Code</strong></p>
+            <p>en-us</p>
+        </div> 
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>
+

@@ -1,0 +1,2226 @@
+App started at port 3001!!
+[
+  RowDataPacket {
+    admin_id: 1,
+    admin_username: 'admin@gmail.com',
+    admin_status: 1,
+    created_date: 2020-10-06T03:47:59.000Z,
+    modify_date: 2020-10-06T21:35:44.000Z
+  }
+]
+err { pincode_status: 0 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+err { pincode_status: 1 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+err { pincode_status: 0 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+err { pincode_status: 1 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+err { pincode_status: 0 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+err { pincode_status: 0 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+App started at port 3001!!
+App started at port 3001!!
+App started at port 3001!!
+[
+  RowDataPacket {
+    admin_id: 1,
+    admin_username: 'admin@gmail.com',
+    admin_status: 1,
+    created_date: 2020-10-06T03:47:59.000Z,
+    modify_date: 2020-10-06T21:35:44.000Z
+  }
+]
+App started at port 3001!!
+App started at port 3001!!
+err { pincode_status: 1 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+err { pincode_status: 0 }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+[
+  RowDataPacket {
+    admin_id: 1,
+    admin_username: 'admin@gmail.com',
+    admin_status: 1,
+    created_date: 2020-10-06T03:47:59.000Z,
+    modify_date: 2020-10-06T21:35:44.000Z
+  }
+]
+aaaaaaaaa [
+  RowDataPacket {
+    id: 76,
+    pin_code: '200345',
+    location: 'khajrana',
+    pincode_status: '0',
+    created_date: 2020-10-26T22:58:42.000Z,
+    modify_date: 2020-10-26T22:58:42.000Z
+  }
+]
+aaaaaaaaa [
+  RowDataPacket {
+    id: 78,
+    pin_code: '452001',
+    location: 'indore',
+    pincode_status: '1',
+    created_date: 2020-10-18T22:54:04.000Z,
+    modify_date: 2020-10-21T21:13:11.000Z
+  }
+]
+aaaaaaaaa [
+  RowDataPacket {
+    id: 76,
+    pin_code: '200345',
+    location: 'khajrana',
+    pincode_status: '0',
+    created_date: 2020-10-26T22:58:42.000Z,
+    modify_date: 2020-10-26T22:58:42.000Z
+  }
+]
+aaaaaaaaa [
+  RowDataPacket {
+    id: 76,
+    pin_code: '200345',
+    location: 'khajrana',
+    pincode_status: '0',
+    created_date: 2020-10-26T22:58:42.000Z,
+    modify_date: 2020-10-26T22:58:42.000Z
+  }
+]
+errr null
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+errr null
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+App started at port 3001!!
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+id: 1
+errr [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+id: 2
+errr [
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+id: 1
+errr [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+id: 1
+errr [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+aaaaaaaaa [
+  RowDataPacket {
+    id: 76,
+    pin_code: '200345',
+    location: 'khajrana',
+    pincode_status: '0',
+    created_date: 2020-10-26T22:58:42.000Z,
+    modify_date: 2020-10-26T22:58:42.000Z
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 0  Warnings: 0',
+  protocol41: true,
+  changedRows: 0
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+Error: ER_BAD_NULL_ERROR: Column 'idVerification_status' cannot be null
+    at Query.Sequence._packetToError (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Query.ErrorPacket (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:278:23)
+    at Parser.write (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:502:10)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    --------------------
+    at Protocol._enqueue (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Connection.query (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:200:25)
+    at Object.idVerificationModel.changeStatus (/var/www/html/pro1/cleaning_app/API/models/adminModels/idVerificationModel.js:49:9)
+    at idVerificationController.changeIdVerificationStatus (/var/www/html/pro1/cleaning_app/API/controllers/adminControllers/idVerificationController.js:65:33)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+    at /var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/index.js:281:22
+    at param (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/index.js:354:14) {
+  code: 'ER_BAD_NULL_ERROR',
+  errno: 1048,
+  sqlMessage: "Column 'idVerification_status' cannot be null",
+  sqlState: '23000',
+  index: 0,
+  sql: 'UPDATE professional_id_verification SET `idVerification_status` = NULL WHERE id=1'
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+Error: ER_BAD_NULL_ERROR: Column 'idVerification_status' cannot be null
+    at Query.Sequence._packetToError (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+    at Query.ErrorPacket (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:278:23)
+    at Parser.write (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+    at Socket.<anonymous> (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:91:28)
+    at Socket.<anonymous> (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:502:10)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    --------------------
+    at Protocol._enqueue (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+    at Connection.query (/var/www/html/pro1/cleaning_app/API/node_modules/mysql/lib/Connection.js:200:25)
+    at Object.idVerificationModel.changeStatus (/var/www/html/pro1/cleaning_app/API/models/adminModels/idVerificationModel.js:49:9)
+    at idVerificationController.changeIdVerificationStatus (/var/www/html/pro1/cleaning_app/API/controllers/adminControllers/idVerificationController.js:65:33)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+    at next (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/layer.js:95:5)
+    at /var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/index.js:281:22
+    at param (/var/www/html/pro1/cleaning_app/API/node_modules/express/lib/router/index.js:354:14) {
+  code: 'ER_BAD_NULL_ERROR',
+  errno: 1048,
+  sqlMessage: "Column 'idVerification_status' cannot be null",
+  sqlState: '23000',
+  index: 0,
+  sql: 'UPDATE professional_id_verification SET `idVerification_status` = NULL WHERE id=1'
+}
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]
+null
+res [
+  RowDataPacket {
+    id: 1,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'user',
+    email: 'user@samosys.com',
+    mobile: '1234567890',
+    image: 'http://localhost:3001/images/1603463708108.png',
+    pin_code: '200345',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Sunday'
+  },
+  RowDataPacket {
+    id: 2,
+    type: 1,
+    wait_number: 78,
+    team_size: 12,
+    name: 'ishita',
+    email: 'ishita@gmail.com',
+    mobile: '7894561230',
+    image: 'http://192.168.0.4:3001/images/1603463052166.jpeg',
+    pin_code: '452001',
+    start_time: '8:30:00',
+    end_time: '9:30:00',
+    day_name: 'Monday'
+  }
+]

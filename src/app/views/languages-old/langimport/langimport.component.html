@@ -1,0 +1,36 @@
+<div class="breadcrumb">
+    <!-- <h1>Postcode</h1> -->
+    <ul class="heading">
+        <li><a>Language Import</a></li>
+        <!-- <li>Edit</li>  -->
+    </ul>
+    <!-- <button class="btn btn-outline-secondary header-btn  mb-sm-0 mb-3" [routerLink]="['/services/service-list']">Back To List</button> -->
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <!-- <div class="card-title mb-3">Form Inputs</div> -->
+                <!-- <form [formGroup]="serviceEditForm" (ngSubmit)="submit()"> -->
+                <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()">  
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Image">Excel File</label>
+                            <input type="file" name="file" class="form-control file_change" (change)="onFileSelect($event)" placeholder="Image">
+                        </div>
+                    </div>
+                 
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary float-right">Upload</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

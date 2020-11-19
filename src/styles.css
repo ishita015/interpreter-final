@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+.error-msg{
+    color:red;
+}
+@media (min-width: 1024px){
+    .auth-layout-wrap .auth-content {
+        min-width: 393px !important;
+    }
+}

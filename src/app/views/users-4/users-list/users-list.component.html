@@ -1,0 +1,93 @@
+<div class="">
+    <div class="breadcrumb">
+        <!-- <h1>Language</h1> -->
+        <ul class="heading">
+            <li><a>Users</a></li>
+            <li>List</li> 
+        </ul>
+    </div>
+  
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-primary float-right" [routerLink]="['/users/user-add']">Create</button>
+        </div>
+      <div class="col-md-12">
+          <div class="card  o-hidden">
+              <ngx-datatable
+              style="height: calc(100vh - 270px); box-shadow: none"
+              class="material fullscreen"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="0"
+              [rowHeight]="60"
+              [scrollbarV]="true"
+              [scrollbarH]="true"
+              [rows]="products$ | async">
+              <ngx-datatable-column name="sno" [width]="20">
+                <ng-template ngx-datatable-header-template>
+                 S.No
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                    {{rowIndex +1}}
+                </ng-template>
+               </ngx-datatable-column>
+                <ngx-datatable-column name="name">
+                  <ng-template ngx-datatable-header-template>
+                    Name
+                  </ng-template>
+                  <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.Assessments}}
+                </ng-template> -->
+                </ngx-datatable-column>
+                <ngx-datatable-column name="category">
+                  <ng-template ngx-datatable-header-template>
+                    Email
+                  </ng-template>
+                  <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.Assessments}}
+                </ng-template> -->
+                </ngx-datatable-column>
+                <ngx-datatable-column name="subtitle">
+                  <ng-template ngx-datatable-header-template>
+                    Mobile
+                  </ng-template>
+                  <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.Assessments}}
+                </ng-template> -->
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="120">
+                    <ng-template ngx-datatable-header-template>
+                        Actions
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-outline-success" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button>
+                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
+                        <button class="btn btn-outline-danger ml-2" (click)="deleteUser(row.id, deleteConfirmModal)">
+                            Delete
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+      </div>
+    </div>
+</div>  
+
+
+<ng-template #deleteConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alert</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure? you want to delete user.</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>

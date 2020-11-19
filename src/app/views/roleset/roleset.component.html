@@ -1,0 +1,82 @@
+<div class="breadcrumb">
+    <h1>Set Permission</h1>
+    <ul>
+        <!-- <li><a href="">Forms</a></li>
+        <li>Permission</li> -->
+    </ul>
+</div>
+
+<div class="border-top mb-5"></div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- <h4>Left Label Alignment</h4> -->
+        <!-- <p>A form control layout using row with left label alignment.</p> -->
+        <div class="card mb-5">
+            <div class="card-body">
+                <form>
+
+                   <div *ngFor="let result of dataResult;let i=index" class="form-group row">
+                        <div class="col-sm-2">{{result.module_name}}
+                            
+                        </div>
+                        
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input"  checked="{{result.view_permission =='true' ? 'checked' : ''}}" (change)="setCheck($event,'view_permission',i)" name="view_{{i}}" type="checkbox" id="gridCheck1">
+                                <label class="form-check-label" for="gridCheck1">
+                                    View
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input"  checked="{{result.add_permission =='true' ? 'checked' : ''}}" (change)="setCheck($event,'add_permission',i)" name="add_{{i}}" type="checkbox" id="gridCheck1">
+                                <label class="form-check-label" for="gridCheck1">
+                                    Add
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" (change)="setCheck($event,'edit_permission',i)" checked="{{result.edit_permission =='true' ? 'checked' : ''}}" name="edit_{{i}}" type="checkbox" id="gridCheck1">
+                                <label class="form-check-label" for="gridCheck1">
+                                    Edit
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" (change)="setCheck($event,'edit_permission',i)" checked="{{result.status_permission =='true' ? 'checked' : ''}}" name="status_{{i}}" type="checkbox" id="gridCheck1">
+                                <label class="form-check-label" for="gridCheck1">
+                                    Status
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" (change)="setCheck($event,'delete_permission',i)" checked="{{result.delete_permission =='true' ? 'checked' : ''}}"  name="delete_{{i}}" type="checkbox" id="gridCheck1">
+                                <label class="form-check-label" for="gridCheck1">
+                                    Delete
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="button" (click)="saveRole()" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="border-top mb-5"></div>
+
+<div class="row">
+    

@@ -1,0 +1,164 @@
+<div class="">
+    <div class="breadcrumb">
+      <ul class="heading">
+          <li><a>Interpreter </a></li>
+          <li>List</li>
+      </ul>
+  </div>
+    
+      <div class="separator-breadcrumb border-top"></div>
+  
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
+          </div>
+    </div>
+    <div class="col-md-12">
+        <button class="btn btn-primary float-right" (click)="addUser()">Create</button>
+    </div>
+        <div class="col-md-12">
+            <div class="card  o-hidden">
+                <ngx-datatable *ngIf="filteredUser?.length"
+                style="height: 500px; box-shadow: none"
+                class="material fullscreen"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="60"
+                [scrollbarV]="true"
+                [rows]="filteredUser">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                  <ng-template ngx-datatable-header-template>
+                   S.No
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                      {{rowIndex +1}}
+                  </ng-template>
+                 </ngx-datatable-column>
+                 <ngx-datatable-column name="Name" prop="name">
+                  <ng-template ngx-datatable-header-template>
+                    Name
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.name}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Email" prop="email">
+                  <ng-template ngx-datatable-header-template>
+                    Email
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.email}}
+                  </ng-template>
+                </ngx-datatable-column>
+                  <ngx-datatable-column name="Mobile" prop="mobile">
+                      <ng-template ngx-datatable-header-template>
+                        Mobile
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.mobile}}
+                      </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                        Gender
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.gender}}
+                    </ng-template>  
+                </ngx-datatable-column>
+               
+
+                  <ngx-datatable-column name="Status" prop="status">
+                    <ng-template ngx-datatable-header-template>
+                      Status
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                       
+                        <label class="switch" > 
+                            <input type="checkbox" [checked]="row.status == 1" 
+                            (click)="statusChange($event.target,row.status,row.id)">
+                            <span class="slider">
+                            </span>
+                          </label>
+
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [width]="120" [sortable]="false">
+                    <ng-template ngx-datatable-header-template>
+                        Actions
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-outline-secondary" (click)="timeView(row.id,viewTimeModal)">View</button>  
+                        <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button>
+                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
+                        <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
+                            Delete
+                        </button> -->
+                    </ng-template>
+                </ngx-datatable-column>
+
+              </ngx-datatable>
+            </div>
+          <ng-container *ngIf="list_Obj?.length <= 0">
+              No Data Found
+          </ng-container>
+        </div>
+          
+      </div>
+  </div>  
+
+<ng-template #viewTimeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Time View</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      
+      <ngx-datatable *ngIf="user_time?.length" style="box-shadow: none" 
+      class="material fullscreen" [style.height]="60*user_time.length+60+'px'" 
+      [columnMode]="'force'"
+          [headerHeight]="50" [footerHeight]="0" 
+          [rowHeight]="60" [scrollbarV]="false" 
+          [scrollbarH]="false" [rows]="user_time" >
+          
+          <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                  Day
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.day}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                  Start Time
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.start_time}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                 End time
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.end_time}}
+              </ng-template>
+          </ngx-datatable-column>
+          
+          
+      </ngx-datatable>
+   <ng-container *ngIf="user_time?.length <= 0">
+      No Data Found
+  </ng-container>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>

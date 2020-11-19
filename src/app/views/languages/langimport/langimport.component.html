@@ -1,0 +1,14 @@
+<div class="container">
+    <p>Select a file on your computer that contains the data that you would like to import or download the template to get a head start on creating the import file.</p>
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <input type="file" formControlName="image" (change)="uploadFile($event)">
+        </div>
+
+       
+        <div class="form-group">
+            <button class="btn btn-primary" >Import</button>
+            <!-- <button class="btn btn-danger btn-block btn-lg">Create</button> -->
+        </div>
+    </form>
+</div>
