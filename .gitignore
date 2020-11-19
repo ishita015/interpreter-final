@@ -2,4 +2,7 @@ node_modules
 api/node_modules
 api/config.js
 src/environments/environment.ts
-
+package.json
+package-lock.json
+api/package.json
+api/package-lock.json
