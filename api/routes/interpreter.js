@@ -12,11 +12,41 @@ const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
 const usermodel = new userModel();
 
+ 
+
+
+
+module.exports.getRole = function(req, res, next) {
+    var sql = "SELECT * FROM user_roles order by id desc";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
 
 
 // get interpreter
 module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT * FROM user WHERE role_id='2' ORDER BY id DESC";
+    var sql = "SELECT u.*,ur.role_name FROM user as u INNER JOIN user_roles as ur ON u.role_id=ur.id";
+    // var sql = "SELECT u.*,l.id,l.name as lang_name,l.code FROM user as u INNER JOIN languages as l ON l.id=u.primary_language WHERE u.id='"+user_id+"'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
@@ -182,7 +212,7 @@ module.exports.getInterpreterLanguage = async function(req, res, next) {
         //     }else if (resultdata[i].day =='4') {
         //         dayname="Thusday";
         //     }else if (resultdata[i].day =='5') {
-        //         dayname="Friday";
+        //         daynarole_id='2' me="Friday";
         //     }else if (resultdata[i].day =='6') {
         //         dayname="Saturday";
         //     }
@@ -310,10 +340,11 @@ module.exports.addInterpreter = async function(req, res) {
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let gender = req.body.gender;
     let primary_language = req.body.primary_language;
+    let role = req.body.role ? req.body.role : 2;
     
     password = cryptr.encrypt(password);
     
-    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"')";
+    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language)VALUES('"+role+"','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"')";
     console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;

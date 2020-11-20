@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 import { MapsAPILoader } from '@agm/core';
-import { MouseEvent } from '@agm/core';
+// import { MouseEvent } from '@agm/core';
 // import { MouseEvent as AGMMouseEvent } from '@agm/core';
 // import { MapsAPILoader, MouseEvent } from '@agm/core';
 
@@ -30,7 +30,7 @@ export class UsersAddComponent implements OnInit {
   items = ['Javascript', 'Typescript'];
   // autocompletes;
   language_Obj;
-
+  role_Obj;
   title: string = 'AGM project';
   latitude: number;
   longitude: number;
@@ -39,7 +39,7 @@ export class UsersAddComponent implements OnInit {
   new_address: string;
   private geoCoder;
   public newlanguageVal;
-  
+  public newrole;
   tagsCtrl1 = new FormControl(this.items);
   tagsCtrl2 = new FormControl([]);
 
@@ -77,7 +77,7 @@ export class UsersAddComponent implements OnInit {
   ngOnInit(){
     this.createForm();
     this.LanguageList();
-    
+    this.userRoleList();
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
@@ -120,7 +120,13 @@ export class UsersAddComponent implements OnInit {
    }
 
 
- 
+   
+
+  onChangeRole(id){
+    this.newrole = id.target.value;
+    console.log("iddddddddddd", this.newrole);
+   }
+
 
 
 
@@ -144,6 +150,8 @@ export class UsersAddComponent implements OnInit {
       latitude:[''],
       longitude:[''],
       primary_language:['', this.validation.onlyRequired_validator],
+      user_role:['', this.validation.onlyRequired_validator],
+      
     });
   }
   /*========== Form Value End Here========*/
@@ -158,6 +166,8 @@ export class UsersAddComponent implements OnInit {
     this.userForm.value.longitude = this.longitude
     this.userForm.value.address =this.new_address;
     this.userForm.value.language = this.newlanguageVal;
+    this.userForm.value.role = this.newrole;
+    
     console.log("form value",this.userForm.value);
     this.service.interpreterAdd(this.userForm.value)
     .subscribe(res => {
@@ -175,6 +185,15 @@ export class UsersAddComponent implements OnInit {
         // console.log("api response",res);
         this.language_Obj = res['data'];
         console.log("my testing", this.language_Obj);
+    });
+  }
+
+  userRoleList(){
+    this.service.roleList()
+    .subscribe(res => {
+        // console.log("api response",res);
+        this.role_Obj = res['data'];
+        console.log("my testing", this.role_Obj);
     });
   }
 

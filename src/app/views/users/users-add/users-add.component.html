@@ -12,6 +12,26 @@
         <div class="card mb-4">
             <div class="card-body">
                 <form [formGroup]="userForm">
+
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="picker1">Select Role</label>
+                            <select class="form-control"  (change)="onChangeRole($event)"  formControlName="user_role">
+                                <option value="">Select Role</option>
+                                <option *ngFor="let lan of role_Obj" [value]="lan.id">
+                                    {{lan?.role_name}}
+                                 </option>
+                            </select>
+                            <div *ngIf="userForm.controls['user_role'].errors && (!userForm.controls['user_role'].pristine || submitted ||userForm.controls['primary_language'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['user_role'].errors.required">Role is required.</div> 
+                              </div>
+                        </div>
+
+                    </div>
+
+
+
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName">Name</label>

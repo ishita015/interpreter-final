@@ -36,6 +36,16 @@
                       {{rowIndex +1}}
                   </ng-template>
                  </ngx-datatable-column>
+
+                 <ngx-datatable-column name="Name" prop="name">
+                  <ng-template ngx-datatable-header-template>
+                    Type
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.role_name}}
+                  </ng-template>
+                </ngx-datatable-column>
+
                  <ngx-datatable-column name="Name" prop="name">
                   <ng-template ngx-datatable-header-template>
                     Name

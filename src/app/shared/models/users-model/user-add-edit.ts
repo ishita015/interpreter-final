@@ -9,4 +9,5 @@ export interface UserAddEdit {
     latitude:any;
     longitude:any;
     primary_language:any;
+    user_role:any;
 }

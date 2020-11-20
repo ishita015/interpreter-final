@@ -116,6 +116,7 @@ app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 
+app.get('/cesco/getRole', interpreterController.getRole);
 // api end
 
 

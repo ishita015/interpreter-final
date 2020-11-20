@@ -38,10 +38,12 @@ export class HttpService {
   
 
   importLanguage(importData): Observable<any> {
-    return this.http.post(this.url + '/cesco/importLang',importData,this.httpFormData);
+    return this.http.post(this.url + '/cesco/importLang',importData,this.httpOptions);
   }
 
  
+
+  
  userRoleadd(updateInfo: UserroleEdit): Observable<any> {
   return this.http.post(this.url + '/cesco/userRoleAdd'  ,updateInfo,this.httpOptions);
  }
@@ -99,6 +101,12 @@ export class HttpService {
 
 
    /*=====Interpreter Section Apis Start======*/
+  roleList(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + '/cesco/getRole');
+  }
+ 
+
+
    getInterpreterList(): Observable<any> {
     return this.http.get(this.url + '/cesco/getInterpreter', this.httpOptions);
   }
