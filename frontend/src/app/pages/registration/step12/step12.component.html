@@ -15,26 +15,48 @@
              <h4 class="cart-bottom-title section-bg-gray">Requester Information</h4>
           </div>
        </div>
-       <form method="post">
+       <form [formGroup]="stepTwelveForm">
           <div class="col-sm-6">
              <label>School District or School to Bill</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="School District or School to Bill">
-          </div>
+             <input type="text" formControlName="school_district"  class="form-control" placeholder="School District or School to Bill">
+             <div *ngIf="stepTwelveForm.controls['school_district'].errors && ( !stepTwelveForm.controls['school_district'].pristine || submitted ||stepTwelveForm.controls['school_district'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['school_district'].errors.required">School District is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.school_district.hasError('minlength')">School District length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Requester Name</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Requester Name (if different than caseworker)">
-          </div>
+             <input type="text" formControlName="requester_name" class="form-control" placeholder="Requester Name (if different than caseworker)">
+             <div *ngIf="stepTwelveForm.controls['requester_name'].errors && ( !stepTwelveForm.controls['requester_name'].pristine || submitted ||stepTwelveForm.controls['requester_name'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['requester_name'].errors.required">Requester Name is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Office Phone</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Office Phone">
-          </div>
+             <input type="text"  onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="office_phone" class="form-control" placeholder="Office Phone">
+             <div *ngIf="stepTwelveForm.controls['office_phone'].errors && ( !stepTwelveForm.controls['office_phone'].pristine || submitted ||stepTwelveForm.controls['office_phone'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['office_phone'].errors.required">Office Phone is required.</div>
+               <div [hidden]="!stepTwelveForm.controls['office_phone'].hasError('minlength')">Office Phone length should be minimum 8 characters.</div>
+
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Cell Phone</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Cell Phone">
-          </div>
+             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="cell_phone"  class="form-control" placeholder="Cell Phone">
+             <div *ngIf="stepTwelveForm.controls['cell_phone'].errors && ( !stepTwelveForm.controls['cell_phone'].pristine || submitted ||stepTwelveForm.controls['cell_phone'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
+               <div [hidden]="!stepTwelveForm.controls['cell_phone'].hasError('minlength')">Cell Phone length should be minimum 8 characters.</div>
+
+             </div>
+            </div>
           <div class="col-sm-12">
              <label>Email Address</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Email Address">
+             <input type="text" formControlName="email_address" class="form-control" placeholder="Email Address">
+             <div *ngIf="stepTwelveForm.controls['email_address'].errors && ( !stepTwelveForm.controls['email_address'].pristine || submitted ||stepTwelveForm.controls['email_address'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['email_address'].errors.required">Email Address is required.</div>
+               <div [hidden]="!stepTwelveForm.controls['email_address'].errors.pattern">Invalid email.</div>
+             </div>
           </div>
           <div class="col-sm-12">
              <div class="title-wrap">
@@ -42,55 +64,117 @@
              </div>
           </div>
           <div class="col-sm-6">
-             <label>Location</label>
-             <textarea class="form-control" rows="3" placeholder="Name of School or Building"></textarea>
-          </div>
+             <label>Location1</label>
+             <textarea class="form-control" formControlName="location1"  placeholder="Name of School or Building"></textarea>
+             <div *ngIf="stepTwelveForm.controls['location1'].errors && ( !stepTwelveForm.controls['location1'].pristine || submitted ||stepTwelveForm.controls['location1'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['location1'].errors.required">Location1 is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.location1.hasError('minlength')">Location1 length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
-             <label>Location</label>
-             <textarea class="form-control" rows="3" placeholder="Location within school, of the assignment"></textarea>
-          </div>
+             <label>Location2</label>
+             <textarea class="form-control" formControlName="location2" placeholder="Location within school, of the assignment"></textarea>
+             <div *ngIf="stepTwelveForm.controls['location2'].errors && ( !stepTwelveForm.controls['location2'].pristine || submitted ||stepTwelveForm.controls['location2'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['location2'].errors.required">Location2 is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Name of contact person at the assignment</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Name of contact person at the assignment">
-          </div>
+             <input type="text"  formControlName="name_assignment" class="form-control" placeholder="Name of contact person at the assignment">
+             <div *ngIf="stepTwelveForm.controls['name_assignment'].errors && ( !stepTwelveForm.controls['name_assignment'].pristine || submitted ||stepTwelveForm.controls['name_assignment'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['name_assignment'].errors.required">Name Assignment is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.name_assignment.hasError('minlength')">Name Assignment length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Cell Phone # of contact person at the assignment</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Cell Phone # of contact person at the assignment">
-          </div>
+             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  class="form-control" formControlName="contact_assignment" class="form-control" placeholder="Cell Phone # of contact person at the assignment">
+             <div *ngIf="stepTwelveForm.controls['contact_assignment'].errors && ( !stepTwelveForm.controls['contact_assignment'].pristine || submitted ||stepTwelveForm.controls['contact_assignment'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['contact_assignment'].errors.required">Contact Assignment is required.</div>
+               <div [hidden]="!stepTwelveForm.controls['contact_assignment'].hasError('minlength')">Contact Assignment length should be minimum 8 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Last name of Student (if applicable)</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Last name of Student (if applicable)">
-          </div>
+             <input type="text"  formControlName="name_of_student" class="form-control" placeholder="Last name of Student (if applicable)">
+             <div *ngIf="stepTwelveForm.controls['name_of_student'].errors && ( !stepTwelveForm.controls['name_of_student'].pristine || submitted ||stepTwelveForm.controls['name_of_student'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['name_of_student'].errors.required">Name of Student is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.name_of_student.hasError('minlength')">Name of Student length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Language/Languages</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Language/Languages">
+             <div class="form-group form-field">
+               <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
+                 <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
+                 <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
+                 <select class="form-control"  (change)="onChange($event)" formControlName="language" id="pin_code" name="pin_code">
+                   <option value="" >Language</option>
+                   <option *ngFor="let lan of languageObj" [value]="lan.id">
+                      {{lan?.name}}
+                   </option>
+                 </select>
+               <!-- </div> -->
+             </div>
+             <div *ngIf="stepTwelveForm.controls['language'].errors && ( !stepTwelveForm.controls['language'].pristine || submitted ||stepTwelveForm.controls['language'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['language'].errors.required">Language is required.</div>
+               <!-- <div [hidden]="!stepTwelveForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+             </div>
           </div>
           <div class="col-sm-6">
              <label>Nature of Appointment / Appointment type</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Nature of Appointment / Appointment type">
-          </div>
+             <input type="text" formControlName="nature_of_appointment" class="form-control" placeholder="Nature of Appointment / Appointment type">
+             <div *ngIf="stepTwelveForm.controls['nature_of_appointment'].errors && ( !stepTwelveForm.controls['nature_of_appointment'].pristine || submitted ||stepTwelveForm.controls['nature_of_appointment'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
+               <div [hidden]="!stepTwelveForm.controls.nature_of_appointment.hasError('minlength')">Nature of Appointment length should be minimum 2 characters.</div>
+             </div>
+            </div>
           <div class="col-sm-6">
              <label>Date</label>
-             <input type="date" name="cas_name" class="form-control" placeholder="Date">
+             <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+             <div *ngIf="stepTwelveForm.controls['date'].errors && ( !stepTwelveForm.controls['date'].pristine || submitted ||stepTwelveForm.controls['date'].touched )" class="error-msg">
+                <div [hidden]="!stepTwelveForm.controls['date'].errors.required">Date is required.</div>
+                <!-- <div [hidden]="!stepTwelveForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+              </div>
           </div>
           <div class="col-sm-6">
              <label>Interpreter Start Time</label>
-             <input type="time" name="cas_name" class="form-control" placeholder="Interpreter Start Time">
+             <input type="time" formControlName="start_time" class="form-control" placeholder="Interpreter Start Time">
+             <div *ngIf="stepTwelveForm.controls['start_time'].errors && ( !stepTwelveForm.controls['start_time'].pristine || submitted ||stepTwelveForm.controls['start_time'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['start_time'].errors.required">Start time is required.</div>
+               <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+             </div>
           </div>
               <div class="col-sm-6">
              <label>Anticipated End Time</label>
-             <input type="time" name="cas_name" class="form-control" placeholder="Anticipated End Time">
-          </div>
+             <input type="time"  formControlName="end_time"  class="form-control" placeholder="Anticipated End Time">
+             <div *ngIf="stepTwelveForm.controls['end_time'].errors && ( !stepTwelveForm.controls['end_time'].pristine || submitted ||stepTwelveForm.controls['end_time'].touched )" class="error-msg">
+               <div [hidden]="!stepTwelveForm.controls['end_time'].errors.required">End Time is required.</div>
+               <!-- <div [hidden]="!stepTwelveForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+             </div>
+            </div>
           <div class="col-sm-12">
              <label>Any interpreting equipment needs?</label>
-             <input type="text" name="cas_name" class="form-control" placeholder="Any interpreting equipment needs?">
+             <input type="text" formControlName="equipment" class="form-control" placeholder="Any interpreting equipment needs?">
+             <div *ngIf="stepTwelveForm.controls['equipment'].errors && ( !stepTwelveForm.controls['equipment'].pristine || submitted ||stepTwelveForm.controls['equipment'].touched )" class="error-msg">
+                <div [hidden]="!stepTwelveForm.controls['equipment'].errors.required">Equipment is required.</div>
+                <div [hidden]="!stepTwelveForm.controls.equipment.hasError('minlength')">Equipment length should be minimum 2 characters.</div>
+              </div>
           </div>
           <div class="col-sm-12">
              <label>Additional Notes</label>
-             <textarea class="form-control" rows="3" placeholder="Additional Notes"></textarea>
+             <textarea class="form-control" formControlName="notes"   placeholder="Additional Notes"></textarea>
+             <div *ngIf="stepTwelveForm.controls['notes'].errors && ( !stepTwelveForm.controls['notes'].pristine || submitted ||stepTwelveForm.controls['notes'].touched )" class="error-msg">
+                <div [hidden]="!stepTwelveForm.controls['notes'].errors.required">Notes is required.</div>
+                <div [hidden]="!stepTwelveForm.controls.notes.hasError('minlength')">Notes length should be minimum 2 characters.</div>
+              </div>
           </div>
-           <div class="col-sm-12">
-             <button type="button" class="btn subbtn">Submit</button>
+          <div class="col-sm-6 text-left">
+            <button type="button"  (click)="stepTwelveForm.reset()" class="btn resetbtn">Reset</button>
+         </div>
+           <div class="col-sm-6 text-right">
+             <button type="button"  (click)="submitForm12();stepTwelveForm.reset()" class="btn subbtn">Submit</button>
           </div>
        </form>
    </div>

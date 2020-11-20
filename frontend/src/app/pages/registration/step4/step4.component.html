@@ -167,10 +167,10 @@
               </div>
             </div>
             <div class="col-sm-6 text-left">
-              <button type="button" class="btn resetbtn">Reset</button>
+              <button type="button" (click)="stepFourForm.reset()" class="btn resetbtn">Reset</button>
            </div>
            <div class="col-sm-6 text-right">
-             <button type="button" (click)="submitForm4()" class="btn subbtn">Submit</button>
+             <button type="button" (click)="submitForm4();stepFourForm.reset()" class="btn subbtn">Submit</button>
           </div>
        </form>
    </div>

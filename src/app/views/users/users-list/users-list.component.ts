@@ -18,6 +18,7 @@ export class UsersListComponent implements OnInit {
   userdelete_msg;
   userData;
   filteredUser;
+  viewUser_obj;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -111,25 +112,22 @@ editUser(id,data){
 
   
 
-timeView(id,modal) {
-  
-  
-  console.log("delete idddddddddd",id);
-  // this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-      // .result.then((result) => {
-          this.service.getInterpreterTime(id)
-              .subscribe(res => {
-                this.user_time = res['data'];
-          //         console.log("time api",res );
-                  // localStorage.setItem('usertime', JSON.stringify(this.user_time));
-                  this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true }) 
-                  // this.toastr.success(this.userdelete_msg.message,'', { timeOut: 1000 });
-                  // this.languageList();
-              })
-      // }, (reason) => {
-  // });
-}
+// userView(id) {
+//   this.router.navigate(['/users/user-view']);
+// }
 
+
+userView(id){
+  // localStorage.setItem('Id', JSON.stringify(id));
+  this.service.getInterpreterDetail(id).subscribe(res => {
+    // console.log("apiii", res);
+      this.viewUser_obj = res['data'][0];
+      console.log("view object",  this.viewUser_obj);
+      localStorage.setItem('userViewData', JSON.stringify(this.viewUser_obj));
+
+      this.router.navigate(['/users/user-view',id])
+  })
+}
 
 
 }

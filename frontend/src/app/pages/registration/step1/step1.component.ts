@@ -19,6 +19,7 @@ export class Step1Component implements OnInit {
   public newlanguageVal;
   constructor( public service:CommonService,
     private fb: FormBuilder,
+    public router: Router,
     private toastr: ToastrService,
     public validation: ValidationsService,) { }
 
@@ -31,12 +32,12 @@ export class Step1Component implements OnInit {
   createForm1() {
     this.stepOneForm = this.fb.group({
       caseworker_name: ['',this.validation.name_validation],
-      requester_name: ['',this.validation.name_validation],
+      requester_name: [''],
       adams_county: ['',this.validation.name_validation],
       office_phone: ['',this.validation.mobile_validator],
       cell_phone: ['',this.validation.mobile_validator],
       email_address: ['',this.validation.email_validator],
-      site_contact: ['',this.validation.mobile_validator],
+      site_contact: [''],
       case_name: ['',this.validation.name_validation],
       client_name: ['',this.validation.name_validation],
       trails: ['',this.validation.name_validation],
@@ -84,4 +85,6 @@ export class Step1Component implements OnInit {
         // this.step_Msg = res
     });
   }
+
+  
 }

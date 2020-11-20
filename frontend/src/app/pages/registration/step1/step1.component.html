@@ -27,10 +27,10 @@
         <div class="col-sm-6">
            <label>Requester Name (if different than caseworker)</label>
            <input type="text" class="form-control" formControlName="requester_name" placeholder="Requester Name (if different than caseworker)">
-           <div *ngIf="stepOneForm.controls['requester_name'].errors && ( !stepOneForm.controls['requester_name'].pristine || submitted ||stepOneForm.controls['requester_name'].touched )" class="error-msg">
+           <!-- <div *ngIf="stepOneForm.controls['requester_name'].errors && ( !stepOneForm.controls['requester_name'].pristine || submitted ||stepOneForm.controls['requester_name'].touched )" class="error-msg">
               <div [hidden]="!stepOneForm.controls['requester_name'].errors.required">Requester Name is required.</div>
               <div [hidden]="!stepOneForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
-            </div>
+            </div> -->
           </div>
         <div class="col-sm-6">
            <label>Adams County Department/Division</label>
@@ -67,10 +67,7 @@
         <div class="col-sm-12">
            <label>Site Contact (if different from caseworker/requester)</label>
            <input type="text" class="form-control" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="site_contact" placeholder="Site Contact (if different from caseworker/requester)">
-           <div *ngIf="stepOneForm.controls['site_contact'].errors && ( !stepOneForm.controls['site_contact'].pristine || submitted ||stepOneForm.controls['site_contact'].touched )" class="error-msg">
-              <div [hidden]="!stepOneForm.controls['site_contact'].errors.required">Site Contact is required.</div>
-              <div [hidden]="!stepOneForm.controls['site_contact'].hasError('minlength')">Site Contact length should be minimum 8 characters.</div>
-            </div>
+
           </div>
         <div class="col-sm-12">
            <div class="title-wrap">
@@ -184,10 +181,10 @@
             </div> 
           </div>
           <div class="col-sm-6 text-left">
-            <button type="button" class="btn resetbtn">Reset</button>
+            <button type="button" class="btn resetbtn"  (click)="stepOneForm.reset()" >Reset</button>
          </div>
         <div class="col-sm-6 text-right">
-           <button type="button" (click)="submitForm1()"  class="btn subbtn">Submit</button>
+           <button type="button" (click)="submitForm1();stepOneForm.reset()"  class="btn subbtn">Submit</button>
         </div>
      </form>
  </div>

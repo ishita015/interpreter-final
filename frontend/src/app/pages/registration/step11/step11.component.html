@@ -27,10 +27,7 @@
           <div class="col-sm-6">
              <label>Requester Name (if different than caseworker)</label>
              <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name (if different than caseworker)">
-             <div *ngIf="stepElevenForm.controls['requester_name'].errors && ( !stepElevenForm.controls['requester_name'].pristine || submitted ||stepElevenForm.controls['requester_name'].touched )" class="error-msg">
-                <div [hidden]="!stepElevenForm.controls['requester_name'].errors.required">Requester Name is required.</div>
-                <div [hidden]="!stepElevenForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
-              </div>
+             
           </div>
           <div class="col-sm-6">
              <label>North Metro Community Services</label>
@@ -69,10 +66,6 @@
           <div class="col-sm-12">
              <label>Site Contact (if different from caseworker/requester)</label>
              <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="site_contact" class="form-control" placeholder="Site Contact (if different from caseworker/requester)">
-             <div *ngIf="stepElevenForm.controls['site_contact'].errors && ( !stepElevenForm.controls['site_contact'].pristine || submitted ||stepElevenForm.controls['site_contact'].touched )" class="error-msg">
-                <div [hidden]="!stepElevenForm.controls['site_contact'].errors.required">Site Contact is required.</div>
-                <div [hidden]="!stepElevenForm.controls['site_contact'].hasError('minlength')">Site Contact length should be minimum 8 characters.</div>
-              </div>
           </div>
           <div class="col-sm-12">
              <div class="title-wrap">
@@ -89,7 +82,7 @@
           </div>
           <div class="col-sm-6">
              <label>Client Name (first and last, as relevant)</label>
-             <input type="text"   formControlName="client_name" class="form-control" placeholder="Client Name (first and last, as relevant)">
+             <input type="text"  formControlName="client_name" class="form-control" placeholder="Client Name (first and last, as relevant)">
              <div *ngIf="stepElevenForm.controls['client_name'].errors && ( !stepElevenForm.controls['client_name'].pristine || submitted ||stepElevenForm.controls['client_name'].touched )" class="error-msg">
                 <div [hidden]="!stepElevenForm.controls['client_name'].errors.required">Client Name is required.</div>
                 <div [hidden]="!stepElevenForm.controls.client_name.hasError('minlength')">Client Name length should be minimum 2 characters.</div>
@@ -181,10 +174,10 @@
               </div> 
             </div>
             <div class="col-sm-6 text-left">
-               <button type="button" class="btn resetbtn">Reset</button>
+               <button type="button" (click)="stepElevenForm.reset()" class="btn resetbtn">Reset</button>
             </div>
            <div class="col-sm-6 text-right">
-             <button type="button"  (click)="submitForm11()" class="btn subbtn">Submit</button>
+             <button type="button"  (click)="submitForm11();stepElevenForm.reset()" class="btn subbtn">Submit</button>
           </div>
        </form>
    </div>

@@ -829,3 +829,79 @@ module.exports.addServiceEleven = async function(req, res) {
         }
     });
 };
+
+
+
+
+
+module.exports.addServiceTwelve = async function(req, res) {
+    console.log('total request-',req.body);
+    //sql 1
+    let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
+    let requester_name = req.body.requester_name ? req.body.requester_name : "";
+    let health_department = req.body.department ? req.body.department : "";
+    let office_phone = req.body.office_phone ? req.body.office_phone : '0';
+    let cell_phone = req.body.cell_phone ? req.body.cell_phone : '0';
+    let email = req.body.email_address ? req.body.email_address : "";
+    let site_contact = req.body.site_contact ? req.body.site_contact : 0;
+
+    let business_bill =req.body.school_district ? req.body.school_district : "";
+    let north_metro_community_service=req.body.community_services ? req.body.community_services : 0;
+    let human_services =req.body.human_services ? req.body.human_services : "";
+    let ahs_department=req.body.ahs_department ? req.body.ahs_department : "";;
+
+    //sql 2
+    let case_name = req.body.case_name ? req.body.case_name : 0;
+    let client_name = req.body.client_name ? req.body.client_name : "";
+    let trails = req.body.trails ? req.body.trails : "";
+    let language = req.body.language ? req.body.language : ""; 
+    let appointment_type = req.body.nature_of_appointment ? req.body.nature_of_appointment : "";
+    let date = req.body.date ? req.body.date : "";
+    let start_time = req.body.start_time ? req.body.start_time : "";
+    let anticipated_end_time = req.body.end_time ? req.body.end_time :"";
+    let receivers_required = req.body.simultaneous ? req.body.simultaneous : "";
+    let address = req.body.location2 ? req.body.location2 : "";
+    let service_requested = req.body.service_requested ? req.body.service_requested : "";
+    
+    let name_of_contact_person =req.body.name_of_student ? req.body.name_of_student :"" ;
+    let cell_phone2=req.body.phone_number ? req.body.phone_number : 0;
+    let name_of_person =req.body.interpreter ? req.body.interpreter : "";
+    let doctor=req.body.name_of_provider ? req.body.name_of_provider : "";
+    
+    let patient =""; //not use may b duplicate field
+    
+    let claim_number = req.body.case ? req.body.case : "";
+    let school_name =req.body.location1 ? req.body.location1 : "";
+    let notes =req.body.notes ? req.body.notes : "";
+    
+    var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('12','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
+
+    console.log('sql12-',sql)
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        if(!err){
+
+            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
+
+
+            console.log('sql121-',sql1)
+            con.query(sql1, function(err, insert) {});
+ 
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Service request submitted successfully.",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+};

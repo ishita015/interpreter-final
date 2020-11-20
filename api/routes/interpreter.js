@@ -68,6 +68,7 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
                 email: resultdata[i].email,
                 gender: resultdata[i].gender,
                 address: resultdata[i].address,
+                primary_language: resultdata[i].lang_name,
                 interLanguage: langArr,
             }
             mainArr.push(mainObj); 

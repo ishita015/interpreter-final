@@ -111,6 +111,11 @@ app.post('/cesco/addServiceEight', serviceController.addServiceEight);
 app.post('/cesco/addServiceNine', serviceController.addServiceNine);
 
 app.post('/cesco/addServiceTen', serviceController.addServiceTen);
+
+app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
+
+app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
+
 // api end
 
 

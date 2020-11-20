@@ -30,12 +30,12 @@ export class Step11Component implements OnInit {
    createForm1() {
     this.stepElevenForm = this.fb.group({
       caseworker_name: ['',this.validation.name_validation],
-      requester_name: ['',this.validation.name_validation],
+      requester_name: [''],
       community_services:['',this.validation.name_validation],
       office_phone: ['',this.validation.mobile_validator],
       cell_phone: ['',this.validation.mobile_validator],
       email_address: ['',this.validation.email_validator],
-      site_contact: ['',this.validation.mobile_validator],
+      site_contact: [''],
       case_name: ['',this.validation.name_validation],
       client_name: ['',this.validation.name_validation],
       trails: ['',this.validation.name_validation],
