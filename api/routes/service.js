@@ -13,53 +13,134 @@ const cryptr = new Cryptr('myTotalySecretKey');
 // const usermodel = new userModel();
 
 
-
-
-
-
 module.exports.addServiceOne = async function(req, res) {
     console.log('total request-',req.body);
     //sql 1
-    let caseworker_name = req.body.caseworker_name;
-    let requester_name = req.body.requester_name;
-    let health_department = req.body.adams_county;
-    let office_phone = req.body.office_phone;
-    let cell_phone = req.body.cell_phone;
-    let email = req.body.email_address;
+    let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
+    let requester_name = req.body.requester_name ? req.body.requester_name : "";
+    let health_department = req.body.adams_county ? req.body.adams_county : "";
+    let office_phone = req.body.office_phone ? req.body.office_phone : '0';
+    let cell_phone = req.body.cell_phone ? req.body.cell_phone : '0';
+    let email = req.body.email_address ? req.body.email_address : "";
     let site_contact = req.body.site_contact ? req.body.site_contact : 0;
+
+    let business_bill ="";
+    let north_metro_community_service="";
+    let human_services ="";
+    let ahs_department='0';
+
+
 
 
     //sql 2
     let case_name = req.body.case_name ? req.body.case_name : 0;
-    let client_name = req.body.client_name;
-    let trails = req.body.trails;
-    let language = req.body.language; // current not use
-    let appointment_type = req.body.nature_of_appointment;
-    let date = req.body.date;
-    let start_time = req.body.start_time;
-    let anticipated_end_time = req.body.end_time;
-    let receivers_required = req.body.simultaneous;
-    let address = req.body.address;
-    let service_requested = req.body.service_requested;
+    let client_name = req.body.client_name ? req.body.client_name : "";
+    let trails = req.body.trails ? req.body.trails : "";
+    let language = req.body.language ? req.body.language : ""; 
+    let appointment_type = req.body.nature_of_appointment ? req.body.nature_of_appointment : "";
+    let date = req.body.date ? req.body.date : "";
+    let start_time = req.body.start_time ? req.body.start_time : "";
+    let anticipated_end_time = req.body.end_time ? req.body.end_time :"";
+    let receivers_required = req.body.simultaneous ? req.body.simultaneous : "";
+    let address = req.body.address ? req.body.address : "";
+    let service_requested = req.body.service_requested ? req.body.service_requested : "";
     
+    let name_of_contact_person ="";
+    let cell_phone2="";
+    let name_of_person ="";
+    let doctor="";
+    
+    let patient ="";
+    let claim_number="";
+    let school_name ="";
+    
+    var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('1','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
 
-    var sql = "INSERT INTO request_information_services(type,caseworker_name,requester_name,health_department,office_phone,cell_phone,email,site_contact,business_bill,north_metro_community_service,human_services,ahs_department)VALUES('1','"+caseworker_name+"','"+requester_name+"','"+health_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"','','','',0)";
-    // console.log('sql-',sql)
+
+    // var sql = "INSERT INTO request_information_services(type,caseworker_name,requester_name,health_department,office_phone,cell_phone,email,site_contact,business_bill,north_metro_community_service,human_services,ahs_department)VALUES('1','"+caseworker_name+"','"+requester_name+"','"+health_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"','','','',0)";
+    console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
 
-            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,trails,appointment_type,date,start_time,anticipated_end_time,receivers_required,address,service_requested,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+receivers_required+"','"+address+"','"+service_requested+"','','','','','','','')";
+            // var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,trails,appointment_type,date,start_time,anticipated_end_time,receivers_required,address,service_requested,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+receivers_required+"','"+address+"','"+service_requested+"','','','','','','','')";
+
+            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"')";
+
+
             console.log('sql1-',sql1)
             con.query(sql1, function(err, insert) {});
+ 
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Service submit successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+};
 
-            // for (var i = 0; i < languageid.length; i++) {
-            //     console.log("language id",languageid[i].id);
-            //     var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+languageid[i].id+"')";
-            //     con.query(sql1, function(err, insert) {});
-            // }
+module.exports.addServiceTwo = async function(req, res) {
+    console.log('total request-',req.body);
+    //sql 1
+    let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
+    let requester_name = req.body.requester_name ? req.body.requester_name : "";
+    let health_department = req.body.adams_county ? req.body.adams_county : "";
+    let office_phone = req.body.office_phone ? req.body.office_phone : '0';
+    let cell_phone = req.body.cell_phone ? req.body.cell_phone : '0';
+    let email = req.body.email_address ? req.body.email_address : "";
+    let site_contact = req.body.site_contact ? req.body.site_contact : 0;
 
-            
+    let business_bill ="";
+    let north_metro_community_service="";
+    let human_services ="";
+    let ahs_department=req.body.ahs_department ? req.body.ahs_department : "";;
+
+    //sql 2
+    let case_name = req.body.case_name ? req.body.case_name : 0;
+    let client_name = req.body.client_name ? req.body.client_name : "";
+    let trails = req.body.trails ? req.body.trails : "";
+    let language = req.body.language ? req.body.language : ""; 
+    let appointment_type = req.body.nature_of_appointment ? req.body.nature_of_appointment : "";
+    let date = req.body.date ? req.body.date : "";
+    let start_time = req.body.start_time ? req.body.start_time : "";
+    let anticipated_end_time = req.body.end_time ? req.body.end_time :"";
+    let receivers_required = req.body.simultaneous ? req.body.simultaneous : "";
+    let address = req.body.address ? req.body.address : "";
+    let service_requested = req.body.service_requested ? req.body.service_requested : "";
+    
+    let name_of_contact_person ="";
+    let cell_phone2="";
+    let name_of_person ="";
+    let doctor="";
+    
+    let patient ="";
+    let claim_number="";
+    let school_name ="";
+    
+    var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('2','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
+
+    console.log('sql-',sql)
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        if(!err){
+
+            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"')";
+
+
+            console.log('sql1-',sql1)
+            con.query(sql1, function(err, insert) {});
+ 
             res.json({
                 status: 1,
                 error_code: 0,
@@ -80,7 +161,14 @@ module.exports.addServiceOne = async function(req, res) {
 };
 
 
-module.exports.addServiceTwo = async function(req, res) {
+
+
+
+
+
+
+
+module.exports.addServiceTwo_old = async function(req, res) {
 console.log('total request-',req.body);
 //sql 1
 let caseworker_name = req.body.caseworker_name;
