@@ -1,0 +1,56 @@
+         body{
+         font-family: 'Varela Round', sans-serif;
+         }
+         h3{
+         font-weight: bold;
+         }
+         label{
+         display: block;
+         }
+         .form-control{
+         margin-bottom: 12px;
+         }
+         input[type=checkbox], input[type=radio] {
+         margin: 4px 9px 0;}
+         .title-wrap {
+         position: relative;
+         margin-bottom: 9px;
+         }
+         .title-wrap::before {
+         background-color: #e3e1e1;
+         content: "";
+         height: 1px;
+         left: 0;
+         position: absolute;
+         top: 10px;
+         transition: all .4s ease 0s;
+         width: 100%;
+         z-index: 1;
+         }
+         .title-wrap h4.cart-bottom-title {
+         display: inline-block;
+         font-size: 18px;
+         font-weight: 700;
+         margin: 0;
+         padding-right: 18px;
+         background-color: #f8f9f9;
+         position: relative;
+         z-index: 1;
+         color: #00097b;
+         }
+         .mainblock{
+         	    border: 1px solid #e2e2e2;
+    margin-top: 6px;
+    margin-bottom: 10px;
+         }
+         .subbtn{
+                background: #0d0161;
+    color: #fff;
+    padding: 4px 35px;
+    font-size: 17px;
+    margin-bottom: 11px;
+         }
+         .subbtn:hover{
+            background: #000;
+            color: #fff;
+         }

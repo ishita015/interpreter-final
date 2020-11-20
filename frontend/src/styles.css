@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+/* Toastr Messages Show Start */
+@import '~ngx-toastr/toastr';
+/* Toastr Messages Show End */
+/* Validation Error Start */
+.error-msg{color: red;}
+/* Validation Error End */
+
