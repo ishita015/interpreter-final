@@ -14,6 +14,7 @@ export class Step4Component implements OnInit {
   submitted: boolean;
   languageObj;
   step4_Obj;
+  public newlanguageVal;
   constructor(public service:CommonService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -27,22 +28,22 @@ export class Step4Component implements OnInit {
   /*==========Step Form Value Start Here========*/
   createForm1() {
     this.stepFourForm = this.fb.group({
-      business: ['',this.validation.onlyRequired_validator],
-      requester_name: ['',this.validation.onlyRequired_validator],
-      office_phone: ['',this.validation.onlyRequired_validator],
-      cell_phone: ['',this.validation.onlyRequired_validator],
-      email_address: ['',this.validation.onlyRequired_validator],
-      location1: ['',this.validation.onlyRequired_validator],
-      location2: ['',this.validation.onlyRequired_validator],
-      name_assignment: ['',this.validation.onlyRequired_validator],
-      contact_assignment: ['',this.validation.onlyRequired_validator],
-      interpreter: ['',this.validation.onlyRequired_validator],
-      nature_of_appointment:['',this.validation.onlyRequired_validator],
+      business: ['',this.validation.name_validation],
+      requester_name: ['',this.validation.name_validation],
+      office_phone: ['',this.validation.mobile_validator],
+      cell_phone: ['',this.validation.mobile_validator],
+      email_address: ['',this.validation.email_validator],
+      location1: ['',this.validation.name_validation],
+      location2: ['',this.validation.name_validation],
+      name_assignment: ['',this.validation.name_validation],
+      contact_assignment: ['',this.validation.mobile_validator],
+      interpreter: ['',this.validation.name_validation],
+      nature_of_appointment:['',this.validation.name_validation],
       language: ['',this.validation.onlyRequired_validator],
       date:['',this.validation.onlyRequired_validator],
       start_time:['',this.validation.onlyRequired_validator],
       end_time:['',this.validation.onlyRequired_validator],
-      notes:['',this.validation.onlyRequired_validator],
+      notes:['',this.validation.name_validation],
       })
   }
   /*==========Step Form Value Start Here========*/
@@ -56,6 +57,11 @@ export class Step4Component implements OnInit {
     });
    }
 
+   onChange(id){
+    this.newlanguageVal = id.target.value;
+    console.log("iddddddddddd", this.newlanguageVal);
+   }
+
    submitForm4(){
     console.log("form value",this.stepFourForm.value);
     this.submitted = true;
@@ -63,6 +69,7 @@ export class Step4Component implements OnInit {
       return;
     }
     this.submitted = false;
+    this.stepFourForm.value.language =  this.newlanguageVal;
     this.service.getStepFourForm(this.stepFourForm.value)
     .subscribe(res => {
         console.log("api response",res);

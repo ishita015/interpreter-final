@@ -308,30 +308,11 @@ module.exports.addInterpreter = async function(req, res) {
     let latitude = req.body.latitude ? req.body.latitude : 0;
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let gender = req.body.gender;
-    // let status = req.body.status;
+    let primary_language = req.body.primary_language;
     
-    // let monday_start = req.body.monday_start ? req.body.monday_start : 0;
-    // let monday_end = req.body.monday_end ? req.body.monday_end : 0;
-    // let tuesday_start = req.body.tuesday_start ? req.body.tuesday_start : 0;
-    // let tuesday_end = req.body.tuesday_end ? req.body.tuesday_end : 0;
-    // let wednesday_start = req.body.wednesday_start ? req.body.wednesday_start : 0;
-    // let wednesday_end = req.body.wednesday_end ? req.body.wednesday_end : 0;
-    // let thusday_start = req.body.thusday_start ? req.body.thusday_start : 0;
-    // let thusday_end = req.body.thusday_end ? req.body.thusday_end : 0;
-    // let friday_start = req.body.friday_start ? req.body.friday_start : 0;
-    // let friday_end = req.body.friday_end ? req.body.friday_end : 0;
-    // let saturday_start = req.body.saturday_start ? req.body.saturday_start : 0;
-    // let saturday_end = req.body.saturday_end ? req.body.saturday_end : 0;
-    
-
     password = cryptr.encrypt(password);
-    // name = name.charAt(0).toUpperCase() + name.slice(1);
-    // var min = 1000;
-    // var max = 9999;
-    // var activation_code_email = Math.floor(Math.random() * (+max - +min)) + +min;
-
-   
-    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"')";
+    
+    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"')";
     console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
@@ -342,30 +323,6 @@ module.exports.addInterpreter = async function(req, res) {
                 con.query(sql1, function(err, insert) {});
             }
 
-            // if(monday_start!=0){
-            //     var sql1 = "INSERT INTO interpreter_working_time(user_id,start_time,end_time,day)VALUES('"+last_id+"','"+monday_start+"','"+monday_end+"','1')";
-            //     con.query(sql1, function(err, insert) {});
-            // }
-            // if(tuesday_start!=0){
-            //     var sql2 = "INSERT INTO interpreter_working_time(user_id,start_time,end_time,day)VALUES('"+last_id+"','"+tuesday_start+"','"+tuesday_end+"','2')";
-            //     con.query(sql2, function(err, insert) {});
-            // }
-            // if(wednesday_start!=0){
-            //     var sql3 = "INSERT INTO interpreter_working_time(user_id,start_time,end_time,day)VALUES('"+last_id+"','"+wednesday_start+"','"+wednesday_end+"','3')";
-            //     con.query(sql3, function(err, insert) {});
-            // }
-            // if(thusday_start!=0){
-            //     var sql4 = "INSERT INTO interpreter_working_time(user_id,start_time,end_time,day)VALUES('"+last_id+"','"+thusday_start+"','"+thusday_end+"','4')";
-            //     con.query(sql4, function(err, insert) {});
-            // }          
-            // if(friday_start!=0){
-            //     var sql5 = "INSERT INTO interpreter_working_time(user_id,start_time,end_time,day)VALUES('"+last_id+"','"+friday_start+"','"+friday_end+"','5')";
-            //     con.query(sql5, function(err, insert) {});
-            // }
-            // if(saturday_start!=0){
-            //     var sql6 = "INSERT INTO interpreter_working_time(user_id,start_time,end_time,day)VALUES('"+last_id+"','"+saturday_start+"','"+saturday_end+"','6')";
-            //     con.query(sql6, function(err, insert) {});
-            // }
             
             common.sendRegistrationEmail(name,email);
 

@@ -21,7 +21,7 @@
              <input type="text" formControlName="caseworker_name" class="form-control" placeholder="Caseworker Name">
              <div *ngIf="stepTwoForm.controls['caseworker_name'].errors && ( !stepTwoForm.controls['caseworker_name'].pristine || submitted ||stepTwoForm.controls['caseworker_name'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['caseworker_name'].errors.required">Caseworker Name is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">Caseworker Name length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -29,7 +29,7 @@
              <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name (if different than caseworker)">
              <div *ngIf="stepTwoForm.controls['requester_name'].errors && ( !stepTwoForm.controls['requester_name'].pristine || submitted ||stepTwoForm.controls['requester_name'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['requester_name'].errors.required">Requester Name is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -37,23 +37,23 @@
              <input type="text" formControlName="ahs_department"  class="form-control" placeholder="AHS Department/Division">
              <div *ngIf="stepTwoForm.controls['ahs_department'].errors && ( !stepTwoForm.controls['ahs_department'].pristine || submitted ||stepTwoForm.controls['ahs_department'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['ahs_department'].errors.required">AHS Department is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.ahs_department.hasError('minlength')">AHS Department length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
              <label>Office Phone</label>
-             <input type="text" formControlName="office_phone" class="form-control" placeholder="Office Phone">
+             <input type="text" formControlName="office_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" placeholder="Office Phone">
              <div *ngIf="stepTwoForm.controls['office_phone'].errors && ( !stepTwoForm.controls['office_phone'].pristine || submitted ||stepTwoForm.controls['office_phone'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['office_phone'].errors.required">Office Phone is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls['office_phone'].hasError('minlength')">Office Phone length should be minimum 8 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
              <label>Cell Phone</label>
-             <input type="text" formControlName="cell_phone"  class="form-control" placeholder="Cell Phone">
+             <input type="text" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  class="form-control" placeholder="Cell Phone">
              <div *ngIf="stepTwoForm.controls['cell_phone'].errors && ( !stepTwoForm.controls['cell_phone'].pristine || submitted ||stepTwoForm.controls['cell_phone'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls['cell_phone'].hasError('minlength')">Cell Phone length should be minimum 8 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -61,15 +61,15 @@
              <input type="text"  formControlName="email_address" class="form-control" placeholder="Email Address">
              <div *ngIf="stepTwoForm.controls['email_address'].errors && ( !stepTwoForm.controls['email_address'].pristine || submitted ||stepTwoForm.controls['email_address'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['email_address'].errors.required">Email Address is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls['email_address'].errors.pattern">Invalid email.</div>
               </div>
             </div>
           <div class="col-sm-12">
              <label>Site Contact (if different from caseworker/requester)</label>
-             <input type="text" formControlName="site_contact"  class="form-control" placeholder="Site Contact (if different from caseworker/requester)">
+             <input type="text" formControlName="site_contact" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" placeholder="Site Contact (if different from caseworker/requester)">
              <div *ngIf="stepTwoForm.controls['site_contact'].errors && ( !stepTwoForm.controls['site_contact'].pristine || submitted ||stepTwoForm.controls['site_contact'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['site_contact'].errors.required">Site Contact is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls['site_contact'].hasError('minlength')">Site Contact length should be minimum 8 characters.</div>
               </div>
             </div>
           <div class="col-sm-12">
@@ -82,7 +82,7 @@
              <input type="text" formControlName="case_name" class="form-control" placeholder="Case Name">
              <div *ngIf="stepTwoForm.controls['case_name'].errors && ( !stepTwoForm.controls['case_name'].pristine || submitted ||stepTwoForm.controls['case_name'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['case_name'].errors.required">Case Name is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.case_name.hasError('minlength')">Case Name length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -90,7 +90,7 @@
              <input type="text"  formControlName="client_name" class="form-control" placeholder="Client Name (first and last, as relevant)">
              <div *ngIf="stepTwoForm.controls['client_name'].errors && ( !stepTwoForm.controls['client_name'].pristine || submitted ||stepTwoForm.controls['client_name'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['client_name'].errors.required">Client Name is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.client_name.hasError('minlength')">Client Name length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -98,7 +98,7 @@
              <input type="text" formControlName="trails" class="form-control" placeholder="Trails / Ref#">
              <div *ngIf="stepTwoForm.controls['trails'].errors && ( !stepTwoForm.controls['trails'].pristine || submitted ||stepTwoForm.controls['trails'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['trails'].errors.required">Trails is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.trails.hasError('minlength')">Trails length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -125,7 +125,7 @@
              <input type="text"  formControlName="nature_of_appointment" class="form-control" placeholder="Nature of Appointment / Appointment type">
              <div *ngIf="stepTwoForm.controls['nature_of_appointment'].errors && ( !stepTwoForm.controls['nature_of_appointment'].pristine || submitted ||stepTwoForm.controls['nature_of_appointment'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.nature_of_appointment.hasError('minlength')">Nature of Appointment length should be minimum 2 characters.</div>
               </div>
             </div>
           <div class="col-sm-6">
@@ -179,10 +179,13 @@
              <textarea formControlName="address" class="form-control" rows="3" placeholder="Address"></textarea>
              <div *ngIf="stepTwoForm.controls['address'].errors && ( !stepTwoForm.controls['address'].pristine || submitted ||stepTwoForm.controls['address'].touched )" class="error-msg">
                 <div [hidden]="!stepTwoForm.controls['address'].errors.required">Address is required.</div>
-                <!-- <div [hidden]="!stepOneForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepTwoForm.controls.address.hasError('minlength')">Address length should be minimum 2 characters.</div>
               </div> 
           </div>
-           <div class="col-sm-12">
+          <div class="col-sm-6 text-left">
+            <button type="button" class="btn resetbtn">Reset</button>
+         </div>
+           <div class="col-sm-6 text-right">
              <button type="button" (click) ="submitForm2()" class="btn subbtn">Submit</button>
           </div>
        </form>

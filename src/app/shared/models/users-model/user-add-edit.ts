@@ -8,4 +8,5 @@ export interface UserAddEdit {
     languageid:any;
     latitude:any;
     longitude:any;
+    primary_language:any;
 }

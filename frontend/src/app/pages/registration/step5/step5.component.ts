@@ -14,6 +14,7 @@ export class Step5Component implements OnInit {
   submitted: boolean;
   languageObj;
   step5_Obj;
+  public newlanguageVal;
   constructor(public service:CommonService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -27,24 +28,23 @@ export class Step5Component implements OnInit {
    /*==========Step Form Value Start Here========*/
    createForm1() {
     this.stepFiveForm = this.fb.group({
-      // email: ['',this.validation.email_validator],
-      caseworker_name: ['',this.validation.onlyRequired_validator],
-      requester_name: ['',this.validation.onlyRequired_validator],
-      department:['',this.validation.onlyRequired_validator],
-      office_phone: ['',this.validation.onlyRequired_validator],
-      cell_phone: ['',this.validation.onlyRequired_validator],
-      email_address: ['',this.validation.onlyRequired_validator],
-      site_contact: ['',this.validation.onlyRequired_validator],
-      case_name: ['',this.validation.onlyRequired_validator],
-      client_name: ['',this.validation.onlyRequired_validator],
-      trails: ['',this.validation.onlyRequired_validator],
+      caseworker_name: ['',this.validation.name_validation],
+      requester_name: ['',this.validation.name_validation],
+      department:['',this.validation.name_validation],
+      office_phone: ['',this.validation.mobile_validator],
+      cell_phone: ['',this.validation.mobile_validator],
+      email_address: ['',this.validation.email_validator],
+      site_contact: ['',this.validation.mobile_validator],
+      case_name: ['',this.validation.name_validation],
+      client_name: ['',this.validation.name_validation],
+      trails: ['',this.validation.name_validation],
       language: ['',this.validation.onlyRequired_validator],
-      nature_of_appointment:['',this.validation.onlyRequired_validator],
+      nature_of_appointment:['',this.validation.name_validation],
       date:['',this.validation.onlyRequired_validator],
       start_time:['',this.validation.onlyRequired_validator],
       end_time:['',this.validation.onlyRequired_validator],
       simultaneous:['',this.validation.onlyRequired_validator],
-      address:['',this.validation.onlyRequired_validator],
+      address:['',this.validation.name_validation],
       service_requested:['',this.validation.onlyRequired_validator],
       })
   }
@@ -59,6 +59,12 @@ export class Step5Component implements OnInit {
     });
    }
 
+
+   onChange(id){
+    this.newlanguageVal = id.target.value;
+    console.log("iddddddddddd", this.newlanguageVal);
+   }
+
   submitForm5(){
     console.log("form value",this.stepFiveForm.value);
     this.submitted = true;
@@ -66,6 +72,7 @@ export class Step5Component implements OnInit {
       return;
     }
     this.submitted = false;
+    this.stepFiveForm.value.language =  this.newlanguageVal;
     this.service.getStepFiveForm(this.stepFiveForm.value)
     .subscribe(res => {
         console.log("api response",res);

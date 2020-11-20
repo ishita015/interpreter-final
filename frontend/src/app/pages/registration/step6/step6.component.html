@@ -21,7 +21,7 @@
              <input type="text" formControlName="business" class="form-control" placeholder="Business/Organization to Bill">
              <div *ngIf="stepSixForm.controls['business'].errors && ( !stepSixForm.controls['business'].pristine || submitted ||stepSixForm.controls['business'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['business'].errors.required">Business is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls.business.hasError('minlength')">Business length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
@@ -29,23 +29,25 @@
              <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name">
              <div *ngIf="stepSixForm.controls['requester_name'].errors && ( !stepSixForm.controls['requester_name'].pristine || submitted ||stepSixForm.controls['requester_name'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['requester_name'].errors.required">Requester Name is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
              <label>Office Phone</label>
-             <input type="text"  formControlName="office_phone" class="form-control" placeholder="Office Phone">
+             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="office_phone" class="form-control" placeholder="Office Phone">
              <div *ngIf="stepSixForm.controls['office_phone'].errors && ( !stepSixForm.controls['office_phone'].pristine || submitted ||stepSixForm.controls['office_phone'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['office_phone'].errors.required">Office Phone is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls['office_phone'].hasError('minlength')">Office Phone length should be minimum 8 characters.</div>
+
               </div>
           </div>
           <div class="col-sm-6">
              <label>Cell Phone</label>
-             <input type="text"  formControlName="cell_phone" class="form-control" placeholder="Cell Phone">
+             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  formControlName="cell_phone" class="form-control" placeholder="Cell Phone">
              <div *ngIf="stepSixForm.controls['cell_phone'].errors && ( !stepSixForm.controls['cell_phone'].pristine || submitted ||stepSixForm.controls['cell_phone'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls['cell_phone'].hasError('minlength')">Cell Phone length should be minimum 8 characters.</div>
+
               </div>
           </div>
           <div class="col-sm-12">
@@ -53,7 +55,7 @@
              <input type="text" formControlName="email_address" class="form-control" placeholder="Email Address">
              <div *ngIf="stepSixForm.controls['email_address'].errors && ( !stepSixForm.controls['email_address'].pristine || submitted ||stepSixForm.controls['email_address'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['email_address'].errors.required">Email Address is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls['email_address'].errors.pattern">Invalid email.</div>
               </div>
           </div>
           <div class="col-sm-12">
@@ -65,16 +67,16 @@
              <label>Location1</label>
              <textarea class="form-control" formControlName="location1" rows="3" placeholder="Name of Building or Business"></textarea>
              <div *ngIf="stepSixForm.controls['location1'].errors && ( !stepSixForm.controls['location1'].pristine || submitted ||stepSixForm.controls['location1'].touched )" class="error-msg">
-                <div [hidden]="!stepSixForm.controls['location1'].errors.required">Location is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls['location1'].errors.required">Location1 is required.</div>
+                <div [hidden]="!stepSixForm.controls.location1.hasError('minlength')">Location1 length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
              <label>Location2</label>
              <textarea class="form-control" formControlName="location2" rows="3" placeholder="Address"></textarea>
              <div *ngIf="stepSixForm.controls['location2'].errors && ( !stepSixForm.controls['location2'].pristine || submitted ||stepSixForm.controls['location2'].touched )" class="error-msg">
-                <div [hidden]="!stepSixForm.controls['location2'].errors.required">Location is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls['location2'].errors.required">Location2 is required.</div>
+                <div [hidden]="!stepSixForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
@@ -82,15 +84,16 @@
              <input type="text" formControlName="name_assignment" class="form-control" placeholder="Name of contact person at the assignment">
              <div *ngIf="stepSixForm.controls['name_assignment'].errors && ( !stepSixForm.controls['name_assignment'].pristine || submitted ||stepSixForm.controls['name_assignment'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['name_assignment'].errors.required">Name Assignment is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls.name_assignment.hasError('minlength')">Name Assignment length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
              <label>Cell Phone # of contact person at the assignment</label>
-             <input type="text" formControlName="cell_phone"  class="form-control" placeholder="Cell Phone # of contact person at the assignment">
+             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="cell_phone"  class="form-control" placeholder="Cell Phone # of contact person at the assignment">
              <div *ngIf="stepSixForm.controls['cell_phone'].errors && ( !stepSixForm.controls['cell_phone'].pristine || submitted ||stepSixForm.controls['cell_phone'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls['cell_phone'].hasError('minlength')">Cell Phone length should be minimum 8 characters.</div>
+
               </div>
           </div>
           <div class="col-sm-6">
@@ -98,7 +101,7 @@
              <input type="text" formControlName="interpreter"  class="form-control" placeholder="Name of person requiring interpreter">
              <div *ngIf="stepSixForm.controls['interpreter'].errors && ( !stepSixForm.controls['interpreter'].pristine || submitted ||stepSixForm.controls['interpreter'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['interpreter'].errors.required">Interpreter is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls.interpreter.hasError('minlength')">Interpreter length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
@@ -107,9 +110,9 @@
                <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
                  <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
                  <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
-                 <select class="form-control"  formControlName="language" id="language" name="language">
+                 <select class="form-control" (change)="onChange($event)" formControlName="language" id="language" name="language">
                    <option value="" >Language</option>
-                   <option *ngFor="let lan of languageObj">
+                   <option *ngFor="let lan of languageObj" [value]="lan.id">
                       {{lan?.name}}
                    </option>
                  </select>
@@ -125,7 +128,7 @@
              <input type="text"  formControlName="nature_of_appointment" class="form-control" placeholder="Nature of Appointment / Appointment type">
              <div *ngIf="stepSixForm.controls['nature_of_appointment'].errors && ( !stepSixForm.controls['nature_of_appointment'].pristine || submitted ||stepSixForm.controls['nature_of_appointment'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls.nature_of_appointment.hasError('minlength')">Nature of Appointment length should be minimum 2 characters.</div>
               </div>
           </div>
           <div class="col-sm-6">
@@ -157,10 +160,13 @@
              <textarea class="form-control" formControlName="notes"  rows="3" placeholder="Additional Notes"></textarea>
              <div *ngIf="stepSixForm.controls['notes'].errors && ( !stepSixForm.controls['notes'].pristine || submitted ||stepSixForm.controls['notes'].touched )" class="error-msg">
                 <div [hidden]="!stepSixForm.controls['notes'].errors.required">Notes is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                <div [hidden]="!stepSixForm.controls.notes.hasError('minlength')">Notes length should be minimum 2 characters.</div>
               </div>
           </div>
-           <div class="col-sm-12">
+          <div class="col-sm-6 text-left">
+            <button type="button" class="btn resetbtn">Reset</button>
+         </div>
+           <div class="col-sm-6 text-right">
              <button type="button" (click)="submitForm6()" class="btn subbtn">Submit</button>
           </div>
        </form>

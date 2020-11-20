@@ -38,7 +38,7 @@ export class UsersAddComponent implements OnInit {
   address: string;
   new_address: string;
   private geoCoder;
-
+  public newlanguageVal;
   
   tagsCtrl1 = new FormControl(this.items);
   tagsCtrl2 = new FormControl([]);
@@ -114,6 +114,16 @@ export class UsersAddComponent implements OnInit {
 
 
 
+  onChange(id){
+    this.newlanguageVal = id.target.value;
+    console.log("iddddddddddd", this.newlanguageVal);
+   }
+
+
+ 
+
+
+
 
   onSelect(item) {
     console.log('tag selected: value is' + item);
@@ -133,6 +143,7 @@ export class UsersAddComponent implements OnInit {
       languageid:[''],
       latitude:[''],
       longitude:[''],
+      primary_language:['', this.validation.onlyRequired_validator],
     });
   }
   /*========== Form Value End Here========*/
@@ -146,7 +157,7 @@ export class UsersAddComponent implements OnInit {
     this.userForm.value.latitude = this.latitude;
     this.userForm.value.longitude = this.longitude
     this.userForm.value.address =this.new_address;
-
+    this.userForm.value.language = this.newlanguageVal;
     console.log("form value",this.userForm.value);
     this.service.interpreterAdd(this.userForm.value)
     .subscribe(res => {

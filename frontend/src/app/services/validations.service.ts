@@ -17,6 +17,6 @@ export class ValidationsService {
    password_validator = [Validators.required, Validators.minLength(6)];
  
    mobile_validator = [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern('^[0-9]+$')];
-   name_validation = [Validators.required, Validators.minLength(2), Validators.maxLength(50)]; 
+   name_validation = [Validators.required, Validators.minLength(2)]; 
    /*===========Validations Expression End here ===========*/
 }

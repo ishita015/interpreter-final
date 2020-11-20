@@ -76,7 +76,45 @@
 
 
 
+
+
+<!-- 
+                    <div class="col-sm-6">
+                        <label>Language/Languages</label>
+                        <div class="form-group form-field">
+                            <select class="form-control"  (change)="onChange($event)"  formControlName="language" id="pin_code" name="pin_code">
+                              <option value="" >Language</option>
+                              <option *ngFor="let lan of languageObj" [value]="lan.id">
+                                 {{lan?.name}}
+                              </option>
+                            </select>
+                        </div>
+                        <div *ngIf="stepTenForm.controls['language'].errors && ( !stepTenForm.controls['language'].pristine || submitted ||stepTenForm.controls['language'].touched )" class="error-msg">
+                          <div [hidden]="!stepTenForm.controls['language'].errors.required">Language is required.</div>
+                        </div>
+                     </div> -->
+
+
+
+
+
+
+
                     <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="picker1">Select Primary Language</label>
+                            <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
+                                <option value="">Select Language</option>
+                                <option *ngFor="let lan of language_Obj" [value]="lan.id">
+                                    {{lan?.name}}
+                                 </option>
+                            </select>
+                            <div *ngIf="userForm.controls['primary_language'].errors && (!userForm.controls['primary_language'].pristine || submitted ||userForm.controls['primary_language'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['primary_language'].errors.required">Language is required.</div> 
+                              </div>
+                        </div>
+
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Select Language</label>
                             <tag-input [formControl]="tagsCtrl2" formControlName="languageid" (onSelect)="onSelect($event)"
