@@ -12,7 +12,66 @@ const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
 const usermodel = new userModel();
 
- 
+
+
+
+
+
+
+module.exports.getTotalUser = function(req, res, next) {
+    var sql = "SELECT COUNT(id) as total_user FROM user";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+module.exports.getTotalLanguage = function(req, res, next) {
+    var sql = "SELECT COUNT(id) as total_user FROM languages";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
 
 
 
@@ -46,7 +105,7 @@ module.exports.getRole = function(req, res, next) {
 // get interpreter
 module.exports.getInterpreter = function(req, res, next) {
     var sql = "SELECT u.*,ur.role_name FROM user as u INNER JOIN user_roles as ur ON u.role_id=ur.id";
-    // var sql = "SELECT u.*,l.id,l.name as lang_name,l.code FROM user as u INNER JOIN languages as l ON l.id=u.primary_language WHERE u.id='"+user_id+"'";
+    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
@@ -77,11 +136,20 @@ module.exports.getInterpreter = function(req, res, next) {
 
 module.exports.getInterpreterDetail = async function(req, res, next) {
     let user_id = req.body.id ? req.body.id : 0;
-
+console.log(user_id)
+if(user_id=='0'){
+    res.json({
+        status: 0,
+        error_code: 0,
+        error_line: 6,
+        message: "please try again"
+    });
+    return true;
+}else{
     var mainArr = [];
     var resultdata = await usermodel.getInterpreterInfo(user_id);
 
-    // console.log("user info-",resultdata);
+    
 
     if (resultdata != "" && resultdata != undefined) {
         var mainObj = {};
@@ -93,18 +161,20 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
             }
             mainObj = {
                 id: resultdata[i].id,
+                role_id: resultdata[i].role_id,
                 name: resultdata[i].name,
                 mobile: resultdata[i].mobile,
                 email: resultdata[i].email,
                 gender: resultdata[i].gender,
                 address: resultdata[i].address,
                 primary_language: resultdata[i].lang_name,
+                primary_lang_id: resultdata[i].primary_lang_id,
                 interLanguage: langArr,
             }
             mainArr.push(mainObj); 
         } 
     }
-
+console.log("user info-",mainArr);
     if (mainArr && mainArr.length > 0) {
         res.json({
             status: 1,
@@ -122,6 +192,7 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
         });
         return true;
     }
+}
 }
     
 
@@ -212,7 +283,7 @@ module.exports.getInterpreterLanguage = async function(req, res, next) {
         //     }else if (resultdata[i].day =='4') {
         //         dayname="Thusday";
         //     }else if (resultdata[i].day =='5') {
-        //         daynarole_id='2' me="Friday";
+        //         dayname="Friday";
         //     }else if (resultdata[i].day =='6') {
         //         dayname="Saturday";
         //     }
@@ -300,7 +371,7 @@ module.exports.getInterpreterTime_old = async function(req, res, next) {
 // check interpreter email
 module.exports.checkeEmail = function(req, res) {
     let email = req.body.email ? req.body.email : 0;
-    var sql = "SELECT * FROM user WHERE role_id='2' AND email='"+email+"'";
+    var sql = "SELECT * FROM user WHERE email='"+email+"'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
@@ -340,11 +411,10 @@ module.exports.addInterpreter = async function(req, res) {
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let gender = req.body.gender;
     let primary_language = req.body.primary_language;
-    let role = req.body.role ? req.body.role : 2;
     
     password = cryptr.encrypt(password);
     
-    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language)VALUES('"+role+"','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"')";
+    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"')";
     console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
@@ -382,31 +452,68 @@ module.exports.addInterpreter = async function(req, res) {
 
 
 module.exports.updateInterpreter = async function(req, res) {
-    let name = req.body.name;
-    // let country_code = req.body.country_code;
-    let mobile = req.body.mobile;
-    let id = req.body.id;
-    // let lat = req.body.lat;
-    // let lang = req.body.lang;
-    // let gender = req.body.gender;
-    let sql = "UPDATE user SET name ='"+name+"',mobile ='"+mobile+"' WHERE id = '"+id+"'";
-    var query = con.query(sql, function(err, result) {
-        if(!err){
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 6,
-                message: "Update successfully",
-            });
-            return true;
-        }else{
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "server error",
-            });
-            return true;
-        }
-    });
+console.log(req.body)
+
+    let id = req.body.id ? req.body.id : 0;
+    let name = req.body.name ? req.body.name : "";
+    // let email = req.body.email;
+    // let password = req.body.password;
+    let languageid = req.body.languageid ? req.body.languageid : "";
+    let mobile = req.body.mobile ? req.body.mobile : '0';
+    let address = req.body.address ? req.body.address : "";
+    let latitude = req.body.latitude ? req.body.latitude : 0;
+    let longitude = req.body.longitude ? req.body.longitude : 0;
+    let gender = req.body.gender ? req.body.gender : "Male";
+    let primary_language = req.body.primary_lang_id ? req.body.primary_lang_id : '0';
+   
+    if(id=='0'){
+        //return false
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Invalid user id",
+        });
+        return true;
+    }else{
+        
+        let sql = "UPDATE user SET name ='"+name+"',mobile ='"+mobile+"',address ='"+address+"',latitude ='"+latitude+"',longitude ='"+longitude+"',gender ='"+gender+"',primary_language ='"+primary_language+"' WHERE id = '"+id+"'";
+
+        console.log("sql-update",sql)
+        var query = con.query(sql, function(err, result) {
+            if(!err){
+                if (languageid != "" && languageid != undefined) {
+                    let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
+                    con.query(sqlDelete, function(err, res_delete) {});
+        
+
+
+                    for (var i = 0; i < languageid.length; i++) {
+                        console.log("language id",languageid[i].id);
+                        var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
+                        con.query(sql1, function(err, insert) {});
+                    }
+                }
+    
+    
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "Update successfully",
+                });
+                return true;
+            }else{
+                res.json({
+                    status: 0,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "server error",
+                });
+                return true;
+            }
+        });
+    }
+
+    
 };

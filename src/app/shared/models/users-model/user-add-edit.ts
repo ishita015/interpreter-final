@@ -10,4 +10,5 @@ export interface UserAddEdit {
     longitude:any;
     primary_language:any;
     user_role:any;
+    primary_lang_id:any;
 }

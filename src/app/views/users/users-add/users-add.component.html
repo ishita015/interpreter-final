@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form [formGroup]="userForm">
 
-                    
+                     
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Role</label>
@@ -28,11 +28,7 @@
                               </div>
                         </div>
 
-                    </div>
 
-
-
-                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName">Name</label>
                             <input type="text" class="form-control" formControlName="name"  placeholder="Name">
@@ -40,15 +36,22 @@
                                 <div [hidden]="!userForm.controls['name'].errors.required">Name is required.</div>
                               </div>
                         </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control"  formControlName="email"  placeholder="Email">
+                            <input type="text" class="form-control"  formControlName="email" (blur)="checkEmail($event,$event.target.value)"  placeholder="Email">
                             <div *ngIf="userForm.controls['email'].errors && (!userForm.controls['email'].pristine || submitted ||userForm.controls['email'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['email'].errors.required">Email is required.</div>
                               </div>
                         </div>
-                    </div>
-                    <div class="row">
+
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="MobileNo.">Mobile No.</label>
                             <input type="text" class="form-control" formControlName="mobile"  placeholder="Mobile">
@@ -56,6 +59,9 @@
                                 <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                               </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Password</label>
                             <input type="password" class="form-control"  formControlName="password"  placeholder="password">
@@ -63,9 +69,8 @@
                                 <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
                               </div>
                         </div>
-                    </div>
-                    
-                    <div class="row">
+
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Address</label>
                            <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
@@ -74,54 +79,34 @@
                                 <div [hidden]="!userForm.controls['address'].errors.required">Address is required.</div> 
                               </div>
                         </div>
+                    </div>
+                    
+                    <div class="row">
+                        
 
                         <div class="col-md-6 form-group mb-3">
+                            <label for="Address">Gender</label>
+                           
+                              
                             <div class="form-check">
-                                <input class="form-check-input" formControlName="gender" type="radio" id="gridRadios1"
-                                    value="Male" checked>
                                 <label class="form-check-label" for="gridRadios1">
+                                <input class="form-check-input radio-inline " formControlName="gender" type="radio" id="gridRadios1"
+                                    value="Male" checked>
+                              
                                     Male
                                 </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" formControlName="gender" type="radio" id="gridRadios2"
+                          
+                                <label class="form-check-label pl-5" for="gridRadios2">
+                                <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios2"
                                     value="Female">
-                                <label class="form-check-label" for="gridRadios2">
+                             
                                     Female
                                 </label>
                             </div>
                         </div>
-                        
-                    </div>
 
 
-
-
-
-<!-- 
-                    <div class="col-sm-6">
-                        <label>Language/Languages</label>
-                        <div class="form-group form-field">
-                            <select class="form-control"  (change)="onChange($event)"  formControlName="language" id="pin_code" name="pin_code">
-                              <option value="" >Language</option>
-                              <option *ngFor="let lan of languageObj" [value]="lan.id">
-                                 {{lan?.name}}
-                              </option>
-                            </select>
-                        </div>
-                        <div *ngIf="stepTenForm.controls['language'].errors && ( !stepTenForm.controls['language'].pristine || submitted ||stepTenForm.controls['language'].touched )" class="error-msg">
-                          <div [hidden]="!stepTenForm.controls['language'].errors.required">Language is required.</div>
-                        </div>
-                     </div> -->
-
-
-
-
-
-
-
-                    <div class="row">
-                        <div class="col-md-6 form-group mb-3">
+                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Primary Language</label>
                             <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
                                 <option value="">Select Language</option>
@@ -133,6 +118,14 @@
                                 <div [hidden]="!userForm.controls['primary_language'].errors.required">Language is required.</div> 
                               </div>
                         </div>
+                        
+                    </div>
+
+
+
+
+                    <div class="row">
+                       
 
 
                         <div class="col-md-6 form-group mb-3">
@@ -145,24 +138,7 @@
                         </div>
                     </div>
 
-                    
-                    <!-- <div class="container">
-                      
-                        <div class="form-group">
-                          <label>Enter address</label>
-                          <input type="text" class="form-control" formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                        </div> 
-
-                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                            (dragEnd)="markerDragEnd($event)"></agm-marker>
-                        </agm-map>
-                      
-                        <h5>Address: {{address}}</h5>
-                        <div>Latitude: {{latitude}}</div>
-                        <div>Longitude: {{longitude}}</div>
-                    </div> -->
-
+                   
                     <input type="hidden" class="form-control" formControlName="latitude" >
                     <input type="hidden" class="form-control" formControlName="longitude"> 
 

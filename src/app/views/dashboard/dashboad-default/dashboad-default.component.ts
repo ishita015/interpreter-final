@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { echartStyles } from '../../../shared/echart-styles';
+import { HttpService } from 'src/app/shared/services/http.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-dashboad-default',
@@ -14,9 +16,14 @@ export class DashboadDefaultComponent implements OnInit {
     salesChartBar: EChartOption;
     salesChartPie: EChartOption;
 
-	constructor() { }
+    public totaluser_obj;
+    public totallanguage_obj;
+
+	constructor(public service:HttpService,  private router: Router,) { }
 
 	ngOnInit() {
+        this.totalUserList(1);
+        this.totalLanguageList();
 		this.chartLineOption1 = {
 			...echartStyles.lineFullWidth, ...{
 				series: [{
@@ -206,4 +213,29 @@ export class DashboadDefaultComponent implements OnInit {
         };
 	}
 
+    totalUserList(id){
+        this.service.getdashboardUsers()
+        .subscribe(res => {
+          console.log("apiiiiiiiiii response user", res);
+            this.totaluser_obj = res['data'][0];
+        })
+    }
+
+    totalLanguageList(){
+        this.service.getdashboardLanguage()
+        .subscribe(res => {
+          console.log("apiiiiiiiiii response service", res);
+            this.totallanguage_obj = res['data'][0];
+        })
+    }
+
+
+    users(){
+        this.router.navigate(['/users/user-list']);
+    }
+
+    language(){
+        this.router.navigate(['/languages/list']);
+    }
+   
 }

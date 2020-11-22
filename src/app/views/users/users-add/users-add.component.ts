@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 import { MapsAPILoader } from '@agm/core';
-// import { MouseEvent } from '@agm/core';
+//  import { MouseEvent } from '@agm/core';
 // import { MouseEvent as AGMMouseEvent } from '@agm/core';
 // import { MapsAPILoader, MouseEvent } from '@agm/core';
 
@@ -64,7 +64,8 @@ export class UsersAddComponent implements OnInit {
 
 
 
-  constructor(public validation: ValidationsService,
+  constructor(
+    public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
@@ -197,6 +198,20 @@ export class UsersAddComponent implements OnInit {
     });
   }
 
+
+  checkEmail($event,email){
+    console.log("email-",email)
+    // console.log("event-",$event)
+    this.service.checkUserEmail(email)
+    .subscribe(res => {
+      if(res['status']=='1'){
+          alert(res['message']);
+          // this.userForm.value.email = '';
+          $event.target.value="";
+      }
+     
+    });
+  }
 
 
   // Get Current Location Coordinates

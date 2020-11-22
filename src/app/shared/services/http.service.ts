@@ -135,7 +135,16 @@ export class HttpService {
     return this.http.post(this.url + '/cesco/getInterpreterDetail',{id:id},this.httpOptions);
   }
 
+
+
+
+  checkUserEmail(email): Observable<any> {
+    return this.http.post(this.url + '/cesco/checkeEmail',{email:email},this.httpOptions);
+  }
+ 
   
+  
+
   getInterpreterLang(id): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreterLanguage',{id:id},this.httpOptions);
   }
@@ -192,4 +201,16 @@ export class HttpService {
     }
 
      /*=====User Section Apis End======*/
+
+
+      /*=====Dashboard Section Apis Start======*/
+      getdashboardUsers(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalUser');
+      }
+    
+      getdashboardLanguage(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalLanguage');
+      }
+       /*=====Dashboard Section Apis End======*/
+
 }

@@ -62,8 +62,12 @@ var serviceController = require('./routes/service');
 // api start
 
 
+app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
+app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
+app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */
 
+app.post('/cesco/checkeEmail', interpreterController.checkeEmail);
 app.post('/cesco/getInterpreterDetail', interpreterController.getInterpreterDetail);
 app.post('/cesco/getInterpreterLanguage', interpreterController.getInterpreterLanguage);
 app.post('/cesco/getInterpreterDatatime', interpreterController.getInterpreterTime);
@@ -116,7 +120,6 @@ app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 
-app.get('/cesco/getRole', interpreterController.getRole);
 // api end
 
 
@@ -169,21 +172,21 @@ let upload = multer({
 const XLSX = require('xlsx');
 
 
- app.post('/cesco/importLang', upload.single("image"), async function(req, res){
+app.post('/cesco/importLang', upload.single("image"), async function(req, res){
 //  app.post('/cesco/importLang', async function(req, res){
-console.log("my testing-",req.files)
-  if(req.file=='undefined'){
-         res.json({
-            status: 0,
-            error_code: 0,
-            error_line: 6,
-            message: "Please try again",
-        });
-        return true;
-  }
+console.log("my testing-",req)
+//   if(req.file=='undefined'){
+//          res.json({
+//             status: 0,
+//             error_code: 0,
+//             error_line: 6,
+//             message: "Please try again",
+//         });
+//         return true;
+//   }
   // else{
       // console.log("filename- ",req.file.filename);
-      const workbook = XLSX.readFile('./public/'+req.file.filename);
+      const workbook = XLSX.readFile('./public/'+req.files.filename);
       // const workbook = XLSX.readFile('./public/file-1603293772518.xls');
       const [sheetName] = workbook.SheetNames;
       const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
