@@ -19,6 +19,7 @@ export class UsersListComponent implements OnInit {
   userData;
   filteredUser;
   viewUser_obj;
+  user_Obj;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -102,12 +103,12 @@ addUser(){
   this.router.navigate(['/users/user-add']);
 }
 
-editUser(id,data){
-  console.log("idd",id);
-  console.log("data",data);
-  localStorage.setItem('userData', JSON.stringify(data));
+// editUser(id,data){
+//   console.log("idd",id);
+//   console.log("data",data);
+//   localStorage.setItem('userData', JSON.stringify(data));
   
-}
+// }
 
 
   
@@ -115,6 +116,21 @@ editUser(id,data){
 // userView(id) {
 //   this.router.navigate(['/users/user-view']);
 // }
+
+
+editUser(id) {
+  console.log("permission idddddddddd",id);
+  this.service.getInterpreterDetail(id)
+    .subscribe(res => {
+        this.user_Obj = res['data'];
+        console.log("api response yes",this.user_Obj);
+        localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
+        // this.router.navigate(['/permission/setpermission',id]);
+        this.router.navigate(['/users/user-edit',id]);
+    })
+}
+
+
 
 
 userView(id){

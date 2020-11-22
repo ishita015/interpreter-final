@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { MapsAPILoader } from '@agm/core';
-// import { MouseEvent } from '@agm/core';
+ import { MouseEvent } from '@agm/core';
 
  import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 
