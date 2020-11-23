@@ -201,6 +201,37 @@ module.exports.getLanguages = function(req, res, next) {
 
 
 
+// check language email
+module.exports.checkLanguage = function(req, res) {
+    let code = req.body.code ? req.body.code : 0;
+    var sql = "SELECT * FROM languages WHERE code='"+code+"'";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result,
+                message: "Language already exists"
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
 
 module.exports.getLanguages = async function(req, res, next) {
     var mainArr = [];
@@ -255,11 +286,12 @@ module.exports.langStatusUpdate = async function(req, res) {
         
         let id = req.body.id ? req.body.id : 0;
         let status = req.body.status ? req.body.status : 0;
+        let new_status='';
         if(status=='0'){
-            status='1';
+            new_status='1';
         }
         if(status=='1'){
-            status='0';
+            new_status='0';
         }
         if(id=='0'){
             //return false
@@ -271,8 +303,9 @@ module.exports.langStatusUpdate = async function(req, res) {
             });
             return true;
         }else{
-            
-            let sql = "UPDATE languages SET status ='"+status+"' WHERE id = '"+id+"'";
+            console.log("status-",req.body.status)   
+            console.log("new_status-",new_status)   
+            let sql = "UPDATE languages SET status ='"+new_status+"' WHERE id = '"+id+"'";
     
             console.log("sql-update",sql)
             var query = con.query(sql, function(err, result) {
@@ -281,7 +314,7 @@ module.exports.langStatusUpdate = async function(req, res) {
                         status: 1,
                         error_code: 0,
                         error_line: 6,
-                        message: "Update successfully",
+                        message: "Status changes successfully",
                     });
                     return true;
                 }else{

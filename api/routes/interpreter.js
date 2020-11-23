@@ -539,15 +539,14 @@ console.log(req.body)
 
 module.exports.statusUpdate = async function(req, res) {
     console.log(req.body)
-    
-        
-        let id = req.body.id ? req.body.id : 0;
+    let id = req.body.id ? req.body.id : 0;
         let status = req.body.status ? req.body.status : 0;
+        let new_status='';
         if(status=='0'){
-            status='1';
+            new_status='1';
         }
         if(status=='1'){
-            status='0';
+            new_status='0';
         }
         if(id=='0'){
             //return false
@@ -560,7 +559,7 @@ module.exports.statusUpdate = async function(req, res) {
             return true;
         }else{
             
-            let sql = "UPDATE user SET status ='"+status+"' WHERE id = '"+id+"'";
+            let sql = "UPDATE user SET status ='"+new_status+"' WHERE id = '"+id+"'";
     
             console.log("sql-update",sql)
             var query = con.query(sql, function(err, result) {
@@ -569,7 +568,7 @@ module.exports.statusUpdate = async function(req, res) {
                         status: 1,
                         error_code: 0,
                         error_line: 6,
-                        message: "Update successfully",
+                        message: "Status changed successfully",
                     });
                     return true;
                 }else{

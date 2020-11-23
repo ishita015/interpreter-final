@@ -172,6 +172,14 @@ export class HttpService {
    /*=====Language Section Apis Start======*/
 
 
+
+   checkLanguage(code): Observable<any> {
+    return this.http.post(this.url + '/cesco/checkLanguage',{code:code},this.httpOptions);
+  }
+ 
+  
+
+
    langStatusUpdate(status,id): Observable<any> {
     return this.http.post(this.url + '/cesco/langStatusUpdate',{status:status,id:id},this.httpOptions);
    }

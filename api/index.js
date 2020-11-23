@@ -82,6 +82,7 @@ app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
+app.post('/cesco/checkLanguage', languageController.checkLanguage);
 app.post('/cesco/langStatusUpdate', languageController.langStatusUpdate);
 app.get('/cesco/getlanguages', languageController.getLanguages);
 app.post('/cesco/savelanguage', languageController.addLanguage);

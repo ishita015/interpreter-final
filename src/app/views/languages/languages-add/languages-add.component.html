@@ -25,7 +25,7 @@
                     <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-2 col-form-label">Language Code</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="code" id="code" 
+                            <input type="text" class="form-control" formControlName="code" id="code" (blur)="check_language($event,$event.target.value)" 
                             placeholder="code">
                               <div *ngIf="langaugeForm.controls['code'].errors && (!langaugeForm.controls['code'].pristine || submitted ||langaugeForm.controls['code'].touched )" class="error-msg">
                                 <div [hidden]="!langaugeForm.controls['code'].errors.required">Language Code is required.</div>

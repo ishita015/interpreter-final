@@ -73,6 +73,17 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Import Language', state: '/languages/excelImport', type: 'link' },
             ]
         },
+        {
+            name: 'Role & Permission',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+            type: 'link',
+            icon: 'i-Library',
+            state: '/permission/rolelist',
+            // sub: [
+            //     { icon: 'i-Bell', name: 'Role-List', state: '/permission/rolelist', type: 'link' },
+            //     { icon: 'i-Split-Horizontal-2-Window', name: 'Module-List', state: '/permission/modulelist', type: 'link' },
+            // ]
+        },
         {   
             name: 'User management',
             // description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
@@ -90,17 +101,7 @@ export class NavigationService {
         //     state: '/interpreter/interpreterList',
           
         // },
-        {
-            name: 'Role & Permission',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-            type: 'link',
-            icon: 'i-Library',
-            state: '/permission/rolelist',
-            // sub: [
-            //     { icon: 'i-Bell', name: 'Role-List', state: '/permission/rolelist', type: 'link' },
-            //     { icon: 'i-Split-Horizontal-2-Window', name: 'Module-List', state: '/permission/modulelist', type: 'link' },
-            // ]
-        },
+       
         // {
         //     name: 'Icons',
         //     description: '600+ premium icons',

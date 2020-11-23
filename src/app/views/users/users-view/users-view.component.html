@@ -46,7 +46,7 @@ primary_language: "Etta" -->
                             <p>Mobile- {{data.mobile}}</p>
                             <p>Gender- {{data.gender}}</p>
                             <p>Address- {{data.address}}</p>
-                            <p>User type- {{data.role_name}}</p>
+                            <p>User Type- {{data.role_name}}</p>
 
                         </div>
                         
@@ -55,16 +55,11 @@ primary_language: "Etta" -->
                             <p>
                                 {{data.primary_language}}
                             </p>
-                           
-
+                       
                             <h5 class="font-weight-bold">Secondary Language</h5>
                             <p *ngFor="let lang of data.interLanguage" >
                                 {{lang.name}}
                             </p>
-                           
-
-
-
                         </div>
                     </div>
                     <div class="row">

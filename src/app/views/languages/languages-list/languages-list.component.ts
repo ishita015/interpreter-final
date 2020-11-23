@@ -104,11 +104,10 @@ export class LanguagesListComponent implements OnInit {
       console.log("permission id",id);
       this.service.langStatusUpdate(status,id)
         .subscribe(res => {
-            // this.user_Obj = res['data'];
-            // console.log("api response yes",this.user_Obj);
-            // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
-            // this.router.navigate(['/permission/setpermission',id]);
-            // this.router.navigate(['/users/user-edit',id]);
+          this.language_msg = res;
+          console.log("api",res );
+          this.toastr.success(this.language_msg.message,'', { timeOut: 1000 });
+          this.languageList();
         })
     }
 

@@ -51,5 +51,21 @@ export class LanguagesAddComponent implements OnInit {
         this.router.navigate(['/languages/list']);  
     });
   }
+
+
+  check_language($event,code){
+    console.log("email-",code)
+    // console.log("event-",$event)
+    this.service.checkLanguage(code)
+    .subscribe(res => {
+      if(res['status']=='1'){
+          alert(res['message']);
+          // this.userForm.value.email = '';
+          $event.target.value="";
+      }
+     
+    });
+  }
+
   /*==========Add Api End Here========*/
 }
