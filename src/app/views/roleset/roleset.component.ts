@@ -53,7 +53,8 @@ export class RolesetComponent implements OnInit {
       this.service.userRoleadd(this.dataResult)
       .subscribe(res => {
           console.log("api response",res);
-          // this.toastr.success(this.role_Msg.message,'', { timeOut: 1000 });
+          this.role_Msg = res
+          this.toastr.success(this.role_Msg.message,'', { timeOut: 1000 });
            this.router.navigate(['/permission/rolelist']);  
       });
   }

@@ -96,18 +96,37 @@ export class LanguagesListComponent implements OnInit {
             });
     }
 
-    statusLanguageChange(ev,status,id){
-        console.log("statussss",status,id);
-        if(status == 1){
-            // this.toastr.success('Status Change Successfully!','' ,{ timeOut: 1000 });
-            this.user_status= 0;
-          }
-          else {
-            // this.toastr.success('Status Change Successfully!','' ,{ timeOut: 1000 }); 
-            this.user_status= 1;
-          }
 
+
+    statusLanguageChange(target,status,id) {
+      console.log("permission target",target);
+      console.log("permission status",status);
+      console.log("permission id",id);
+      this.service.langStatusUpdate(status,id)
+        .subscribe(res => {
+            // this.user_Obj = res['data'];
+            // console.log("api response yes",this.user_Obj);
+            // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
+            // this.router.navigate(['/permission/setpermission',id]);
+            // this.router.navigate(['/users/user-edit',id]);
+        })
     }
+
+
+
+
+    // statusLanguageChange(ev,status,id){
+    //     console.log("statussss",status,id);
+    //     if(status == 1){
+    //         // this.toastr.success('Status Change Successfully!','' ,{ timeOut: 1000 });
+    //         this.user_status= 0;
+    //       }
+    //       else {
+    //         // this.toastr.success('Status Change Successfully!','' ,{ timeOut: 1000 }); 
+    //         this.user_status= 1;
+    //       }
+
+    // }
 
     languageAddEditOpen(type){
         console.log("XXXXXXXXXXXXXXX",type);

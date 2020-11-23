@@ -78,7 +78,17 @@
                         {{row.gender}}
                     </ng-template>  
                 </ngx-datatable-column>
-               
+                
+                <ngx-datatable-column>
+                  <ng-template ngx-datatable-header-template>
+                      Created date
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      {{row.create_dt | date:'MM-dd-yyyy' }}
+                  </ng-template>  
+              </ngx-datatable-column>
+             
+
 
                   <ngx-datatable-column name="Status" prop="status">
                     <ng-template ngx-datatable-header-template>
@@ -87,7 +97,7 @@
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                        
                         <label class="switch" > 
-                            <input type="checkbox" [checked]="row.status == 1" 
+                            <input type="checkbox" [checked]="row.status == '1'" 
                             (click)="statusChange($event.target,row.status,row.id)">
                             <span class="slider">
                             </span>

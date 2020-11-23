@@ -54,7 +54,7 @@
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="MobileNo.">Mobile No.</label>
-                            <input type="text" class="form-control" formControlName="mobile"  placeholder="Mobile">
+                            <input type="text" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
                             <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                               </div>
@@ -129,8 +129,8 @@
 
 
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Address">Select Language</label>
-                            <tag-input [formControl]="tagsCtrl2" formControlName="languageid" (onSelect)="onSelect($event)"
+                            <label for="Address">Select Secondary Language</label>
+                            <tag-input [formControl]="tagsCtrl2" formControlName="languageid" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
                               theme="primary" placeholder="Type language name">
                               <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
                               </tag-input-dropdown>

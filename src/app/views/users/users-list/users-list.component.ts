@@ -133,6 +133,25 @@ editUser(id) {
 
 
 
+
+statusChange(target,status,id) {
+  console.log("permission target",target);
+  console.log("permission status",status);
+  console.log("permission id",id);
+  this.service.statusUpdate(status,id)
+    .subscribe(res => {
+        this.user_Obj = res['data'];
+        console.log("api response yes",this.user_Obj);
+        // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
+        // this.router.navigate(['/permission/setpermission',id]);
+        // this.router.navigate(['/users/user-edit',id]);
+    })
+}
+
+
+
+
+
 userView(id){
   // localStorage.setItem('Id', JSON.stringify(id));
   this.service.getInterpreterDetail(id).subscribe(res => {

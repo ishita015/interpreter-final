@@ -104,7 +104,7 @@ module.exports.getRole = function(req, res, next) {
 
 // get interpreter
 module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u INNER JOIN user_roles as ur ON u.role_id=ur.id";
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id ORDER BY u.id DESC";
     //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
@@ -147,7 +147,7 @@ if(user_id=='0'){
     return true;
 }else{
     var mainArr = [];
-    var resultdata = await usermodel.getInterpreterInfo(user_id);
+    var resultdata = await usermodel.getInterpreterInfo(user_id); 
 
     
 
@@ -168,6 +168,7 @@ if(user_id=='0'){
                 gender: resultdata[i].gender,
                 address: resultdata[i].address,
                 primary_language: resultdata[i].lang_name,
+                role_name: resultdata[i].role_name,
                 primary_lang_id: resultdata[i].primary_lang_id,
                 interLanguage: langArr,
             }
@@ -454,18 +455,31 @@ module.exports.addInterpreter = async function(req, res) {
 module.exports.updateInterpreter = async function(req, res) {
 console.log(req.body)
 
+
     let id = req.body.id ? req.body.id : 0;
+    let old_address='';
+    let old_latitude='';
+    let old_longitude = '';
+    var resultdata = await usermodel.getInterpreterInfo(id); 
+
+    if (resultdata != "" && resultdata != undefined) {
+        old_address =resultdata[0].address;
+        old_latitude = resultdata[0].latitude;
+        old_longitude = resultdata[0].longitude;
+    }
     let name = req.body.name ? req.body.name : "";
     // let email = req.body.email;
     // let password = req.body.password;
     let languageid = req.body.languageid ? req.body.languageid : "";
     let mobile = req.body.mobile ? req.body.mobile : '0';
-    let address = req.body.address ? req.body.address : "";
-    let latitude = req.body.latitude ? req.body.latitude : 0;
-    let longitude = req.body.longitude ? req.body.longitude : 0;
+    let address = req.body.address ? req.body.address : old_address;
+    let latitude = req.body.latitude ? req.body.latitude : old_latitude;
+    let longitude = req.body.longitude ? req.body.longitude : old_longitude;
     let gender = req.body.gender ? req.body.gender : "Male";
     let primary_language = req.body.primary_lang_id ? req.body.primary_lang_id : '0';
    
+
+
     if(id=='0'){
         //return false
         res.json({
@@ -517,3 +531,58 @@ console.log(req.body)
 
     
 };
+
+
+
+
+
+
+module.exports.statusUpdate = async function(req, res) {
+    console.log(req.body)
+    
+        
+        let id = req.body.id ? req.body.id : 0;
+        let status = req.body.status ? req.body.status : 0;
+        if(status=='0'){
+            status='1';
+        }
+        if(status=='1'){
+            status='0';
+        }
+        if(id=='0'){
+            //return false
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Invalid user id",
+            });
+            return true;
+        }else{
+            
+            let sql = "UPDATE user SET status ='"+status+"' WHERE id = '"+id+"'";
+    
+            console.log("sql-update",sql)
+            var query = con.query(sql, function(err, result) {
+                if(!err){
+                    res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "Update successfully",
+                    });
+                    return true;
+                }else{
+                    res.json({
+                        status: 0,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "server error",
+                    });
+                    return true;
+                }
+            });
+        }
+    
+        
+    };

@@ -25,12 +25,12 @@ class userClass {
     }
 
 
-
+    // var sql = "SELECT u.*,ur.role_name FROM user as u INNER JOIN user_roles as ur ON u.role_id=ur.id";
 
     getInterpreterInfo(user_id){
         return new Promise(function(resolve, reject) {
             // var sql = "SELECT * FROM user WHERE id='"+user_id+"'";
-            var sql = "SELECT u.*,l.id as primary_lang_id,l.name as lang_name,l.code FROM user as u LEFT JOIN languages as l ON l.id=u.primary_language WHERE u.id='"+user_id+"'";
+            var sql = "SELECT u.*,l.id as primary_lang_id,l.name as lang_name,l.code,ur.role_name FROM user as u LEFT JOIN languages as l ON l.id=u.primary_language LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.id='"+user_id+"'";
             console.log(sql);
                con.query(sql, function(err, result) {
                     if (result != "" && result != "undefined") {
@@ -58,6 +58,26 @@ class userClass {
             });
        });  
     }
+
+
+
+    
+    
+    getLanguage(){
+        return new Promise(function(resolve, reject) {
+         var sql = "SELECT * FROM languages order by id desc";
+         console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+     }
+ 
+    
 
     
 }

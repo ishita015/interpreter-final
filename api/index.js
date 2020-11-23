@@ -67,6 +67,11 @@ app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */
 
+
+
+
+
+app.post('/cesco/statusUpdate', interpreterController.statusUpdate);
 app.post('/cesco/checkeEmail', interpreterController.checkeEmail);
 app.post('/cesco/getInterpreterDetail', interpreterController.getInterpreterDetail);
 app.post('/cesco/getInterpreterLanguage', interpreterController.getInterpreterLanguage);
@@ -77,6 +82,7 @@ app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
+app.post('/cesco/langStatusUpdate', languageController.langStatusUpdate);
 app.get('/cesco/getlanguages', languageController.getLanguages);
 app.post('/cesco/savelanguage', languageController.addLanguage);
 app.post('/cesco/updatelanguage', languageController.updateLanguage);

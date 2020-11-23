@@ -40,22 +40,30 @@ primary_language: "Etta" -->
                     <div class="mt-3 mb-4 border-top"></div>
                     <div class="row mb-5">
                         <div class="col-md-6 mb-3 mb-sm-0">
-                            <h5 class="font-weight-bold">User Detail</h5>
+                            <h5 class="font-weight-bold">User Details</h5>
                             <p>Name- {{data.name}}</p>
                             <p>Email- {{data.email}}</p>
                             <p>Mobile- {{data.mobile}}</p>
                             <p>Gender- {{data.gender}}</p>
                             <p>Address- {{data.address}}</p>
-                            <p>Primary Language- {{data.primary_language}}</p>
+                            <p>User type- {{data.role_name}}</p>
 
                         </div>
                         
                         <div class="col-md-6 text-sm-right">
+                            <h5 class="font-weight-bold">Primary Language</h5>
+                            <p>
+                                {{data.primary_language}}
+                            </p>
+                           
+
                             <h5 class="font-weight-bold">Secondary Language</h5>
                             <p *ngFor="let lang of data.interLanguage" >
                                 {{lang.name}}
                             </p>
                            
+
+
 
                         </div>
                     </div>

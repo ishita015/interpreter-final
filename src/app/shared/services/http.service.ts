@@ -131,6 +131,12 @@ export class HttpService {
 
 
 
+  statusUpdate(status,id): Observable<any> {
+    return this.http.post(this.url + '/cesco/statusUpdate',{status:status,id:id},this.httpOptions);
+  }
+
+
+
   getInterpreterDetail(id): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreterDetail',{id:id},this.httpOptions);
   }
@@ -164,6 +170,13 @@ export class HttpService {
 
 
    /*=====Language Section Apis Start======*/
+
+
+   langStatusUpdate(status,id): Observable<any> {
+    return this.http.post(this.url + '/cesco/langStatusUpdate',{status:status,id:id},this.httpOptions);
+   }
+
+
    getLanguageList(): Observable<any[]> {
      return this.http.get<any[]>(this.url + '/cesco/getlanguages');
    }
