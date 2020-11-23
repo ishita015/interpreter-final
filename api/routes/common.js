@@ -82,11 +82,29 @@ module.exports.particlar_listing = function(req, res) {
 };
 
 
-module.exports.sendRegistrationEmail = function(name,email) {
+module.exports.sendRegistrationEmail = function(name,email,password) {
 
 //   var templateDir = 'routes/templates/';
 //   var otp = jade.renderFile(templateDir+'otp.jade', {username: "Gokul" ,Email: "gokul.rathod@consagous.com", Mobile: '9753331010' ,otp:'123456' });
-    let mailbody = "hi "+name+" Welcome to Interpreter application";
+
+
+let mailbody = "Hi "+name+", <br><br>";
+
+mailbody+="Cesco Linguistic Services, Welcomes You On-Board! <br>";
+mailbody+="Thank you for registering with Cesco Linguistic Services.<br><br>";
+
+mailbody+="Your Login details as follow<br>";
+mailbody+="Login:" +email+"<br>";
+mailbody+="Password:" +password+"<br>";
+mailbody+="Portal Link :Link : 103.15.67.74:4004 <br><br>";
+
+mailbody+="We look forward to fruitful collaboration. <br><br>";
+
+mailbody+="Cheers, <br>";
+
+mailbody+="Cesco Linguistic Services";
+
+// let mailbody = "hi "+name+" Welcome to Interpreter application";
   var transporter = nodemailer.createTransport({
         host: 'mail.samosys.com',
         port: 465,

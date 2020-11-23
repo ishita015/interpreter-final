@@ -404,6 +404,9 @@ module.exports.addInterpreter = async function(req, res) {
 
     let name = req.body.name;
     let email = req.body.email;
+
+    let first_password = req.body.password;
+
     let password = req.body.password;
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
@@ -427,7 +430,7 @@ module.exports.addInterpreter = async function(req, res) {
             }
 
             
-            common.sendRegistrationEmail(name,email);
+            common.sendRegistrationEmail(name,email,first_password);
 
             res.json({
                 status: 1,

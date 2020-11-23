@@ -65,7 +65,23 @@ class userClass {
     
     getLanguage(){
         return new Promise(function(resolve, reject) {
-         var sql = "SELECT * FROM languages order by id desc";
+         var sql = "SELECT * FROM languages WHERE status='1' order by id desc";
+         console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+     }
+
+
+     
+    languageExist(code){
+        return new Promise(function(resolve, reject) {
+         var sql = "SELECT * FROM languages WHERE code='"+code+"'";
          console.log(sql);
             con.query(sql, function(err, result) {
                  if (result != "" && result != "undefined") {

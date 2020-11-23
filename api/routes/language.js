@@ -14,54 +14,44 @@ const usermodel = new userModel();
 module.exports.addLanguage = async function(req, res) {
     console.log('sql-')
 
-    // let validator = new v(req.body, {
-    //     name: 'required',
-    //     code: 'required',
-    // });
     
     let name = req.body.name;
-    let code = req.body.code;
+    let code = req.body.code ? req.body.code : 0;
     
+    var resultdata = await usermodel.languageExist(code);
 
-    // let matched = await validator.check();
-    // if (!matched) {
-    //     var error;
-    //     for (var i = 0; i <= Object.values(validator.errors).length; i++) {
-    //         error = Object.values(validator.errors)[0].message;
-    //         break;
-    //     }
-    //     res.json({
-    //         status: 0,
-    //         error_code: 422,
-    //         error_line: 1,
-    //         message: error
-    //     });
-    //     return true;
-    // }
-
-    
-    var sql = "INSERT INTO languages(name, code)VALUES('"+name+"', '"+code+"')";
-    console.log('sql-',sql)
-    con.query(sql, function(err, insert) {
-        var last_id= insert.insertId;
-        if(!err){
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 6,
-                message: "Language add successfully",
-            });
-            return true;
-        }else{
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "server error",
-            });
-            return true;
-        }
-    });
+    if (resultdata != "" && resultdata != undefined) {
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Language already exists",
+        });
+        return true;
+    }else{
+        var sql = "INSERT INTO languages(name, code, status)VALUES('"+name+"', '"+code+"', '1')";
+        console.log('sql-',sql)
+        con.query(sql, function(err, insert) {
+            var last_id= insert.insertId;
+            if(!err){
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "Language add successfully",
+                });
+                return true;
+            }else{
+                res.json({
+                    status: 0,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "server error",
+                });
+                return true;
+            }
+        });
+    }
 };
 
 
