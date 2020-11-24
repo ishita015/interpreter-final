@@ -234,4 +234,7 @@ export class HttpService {
       }
        /*=====Dashboard Section Apis End======*/
 
+       public getJSON(): Observable<any> {
+        return this.http.get('https://api.myjson.com/bins/zg8of');
+      }
 }

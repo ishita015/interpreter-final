@@ -59,7 +59,7 @@ export class UsersEditComponent implements OnInit {
     private dl: DataLayerService,
   
   private mapsAPILoader: MapsAPILoader,
-  private ngZone: NgZone
+  // private ngZone: NgZone
   
     ) { }
 
@@ -75,9 +75,9 @@ export class UsersEditComponent implements OnInit {
 
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
+      // this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      // let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       // autocomplete.addListener("place_changed", () => {
       //   this.ngZone.run(() => {
       //     //get the place result

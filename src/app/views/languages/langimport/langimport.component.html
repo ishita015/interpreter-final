@@ -3,6 +3,7 @@
     <form [formGroup]="form" (ngSubmit)="submitForm()">
         <div class="form-group">
             <input type="file" formControlName="image" (change)="uploadFile($event)">
+            <button (click)="exportAsXLSX()" class="btn btn-info mb-4 mt-2">Download Excel</button>
         </div>
 
        

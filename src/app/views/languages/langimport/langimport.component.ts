@@ -8,7 +8,7 @@ import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ValidationsService } from 'src/app/shared/services/validations.service';
 
-
+import { ExcelServicesService } from '../../../shared/services/excel-services.service';
 
 @Component({
   selector: 'app-langimport',
@@ -21,7 +21,17 @@ export class LangimportComponent implements OnInit {
   //formData;
   selectedFile:File = null;
   fileToUpload: File = null;
-
+  data  =[
+    {
+    name: 'English',
+    code: 'en'
+    },
+    {
+      name: 'Hindi',
+      code: 'hi'
+    }
+];
+  excel=[];
   // serviceEditForm: FormGroup;
   // public data;
   // formData;
@@ -35,6 +45,7 @@ export class LangimportComponent implements OnInit {
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private router: Router,
+    private excelService:ExcelServicesService,
     public service:HttpService  
   ) { 
     this.form = this.formBuilder.group({
@@ -73,6 +84,17 @@ form: FormGroup;
       //(response) => console.log(response),
      // (error) => console.log(error)
     //)
+  }
+
+  exportAsXLSX(){
+    // this.service.getJSON().subscribe(data => {
+    //   console.log("mmmmmmmmmmmmmmmmmmmm",data);
+      
+      this.data.forEach(row => {
+        this.excel.push(row);
+      });
+    //  });
+    this.excelService.exportAsExcelFile(this.excel, 'sample');
   }
 
 /*

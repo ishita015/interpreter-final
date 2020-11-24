@@ -1,180 +1,180 @@
 <div class="container">
-    <div class="row">
-       <div class="col-sm-12 text-center">
-          <h4>Requesting Interpreting Services</h4>
-          <p>Interpreting services can be requested via phone or email.</p>
-          <p><b>Contacts:</b> Michael House and Daisy Reyes</p>
-          <p><b>Phone:</b> (303) 274-2634</p>
-          <p><b>Email:</b> sitc@cescols.com</p>
-       </div>
-   </div>
-       <div class="row mainblock">
-       <div class="col-sm-12">
-          <h3>Information Required:</h3>
-          <div class="title-wrap">
-             <h4 class="cart-bottom-title section-bg-gray">Requester Information</h4>
-          </div>
-       </div>
-       <form [formGroup]="stepTenForm">
-          <div class="col-sm-6">
-             <label>Business/Organization to Bill</label>
-             <input type="text" formControlName="business" class="form-control" placeholder="Business/Organization to Bill">
-             <div *ngIf="stepTenForm.controls['business'].errors && ( !stepTenForm.controls['business'].pristine || submitted ||stepTenForm.controls['business'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['business'].errors.required">Business is required.</div>
-                <div [hidden]="!stepTenForm.controls.business.hasError('minlength')">Business length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Requester Name </label>
-             <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name">
-             <div *ngIf="stepTenForm.controls['requester_name'].errors && ( !stepTenForm.controls['requester_name'].pristine || submitted ||stepTenForm.controls['requester_name'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['requester_name'].errors.required">Requester Name is required.</div>
-                <div [hidden]="!stepTenForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Office Phone</label>
-             <input type="text"  onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="office_phone" class="form-control" placeholder="Office Phone">
-             <div *ngIf="stepTenForm.controls['office_phone'].errors && ( !stepTenForm.controls['office_phone'].pristine || submitted ||stepTenForm.controls['office_phone'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['office_phone'].errors.required">Office Phone is required.</div>
-                <div [hidden]="!stepTenForm.controls['office_phone'].hasError('minlength')">Office Phone length should be minimum 8 characters.</div>
-
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Cell Phone</label>
-             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="cell_phone" class="form-control" placeholder="Office Phone">
-             <div *ngIf="stepTenForm.controls['cell_phone'].errors && ( !stepTenForm.controls['cell_phone'].pristine || submitted ||stepTenForm.controls['cell_phone'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
-                <div [hidden]="!stepTenForm.controls['cell_phone'].hasError('minlength')">Cell Phone length should be minimum 8 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-12">
-             <label>Email Address</label>
-             <input type="text" formControlName="email_address" class="form-control" placeholder="Email Address">
-             <div *ngIf="stepTenForm.controls['email_address'].errors && ( !stepTenForm.controls['email_address'].pristine || submitted ||stepTenForm.controls['email_address'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['email_address'].errors.required">Email Address is required.</div>
-                <div [hidden]="!stepTenForm.controls['email_address'].errors.pattern">Invalid email.</div>
-              </div>
-          </div>
-          <div class="col-sm-12">
-             <div class="title-wrap">
-                <h4 class="cart-bottom-title section-bg-gray">Appointment Information</h4>
-             </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Location1</label>
-             <textarea class="form-control" rows="3" formControlName="location1" placeholder="Name of Building/Clinic/Office off.."></textarea>
-             <div *ngIf="stepTenForm.controls['location1'].errors && ( !stepTenForm.controls['location1'].pristine || submitted ||stepTenForm.controls['location1'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['location1'].errors.required">Location1 is required.</div>
-                <div [hidden]="!stepTenForm.controls.location1.hasError('minlength')">Location1 length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Location2</label>
-             <textarea class="form-control" rows="3" formControlName="location2" placeholder="Address"></textarea>
-             <div *ngIf="stepTenForm.controls['location2'].errors && ( !stepTenForm.controls['location2'].pristine || submitted ||stepTenForm.controls['location2'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['location2'].errors.required">Location2 is required.</div>
-                <div [hidden]="!stepTenForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Name of contact person at the assignment</label>
-             <input type="text" formControlName="name_assignment" class="form-control" placeholder="Name of contact person at the assignment">
-             <div *ngIf="stepTenForm.controls['name_assignment'].errors && ( !stepTenForm.controls['name_assignment'].pristine || submitted ||stepTenForm.controls['name_assignment'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['name_assignment'].errors.required">Name Assignment is required.</div>
-                <div [hidden]="!stepTenForm.controls.name_assignment.hasError('minlength')">Name Assignment length should be minimum 2 characters.</div>
-              </div>
-            </div>
-          <div class="col-sm-6">
-             <label>Cell Phone # of contact person at the assignment</label>
-             <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  class="form-control" formControlName="contact_assignment" placeholder="Cell Phone # of contact person at the assignment">
-             <div *ngIf="stepTenForm.controls['contact_assignment'].errors && ( !stepTenForm.controls['contact_assignment'].pristine || submitted ||stepTenForm.controls['contact_assignment'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['contact_assignment'].errors.required">Contact Assignment is required.</div>
-                <div [hidden]="!stepTenForm.controls['contact_assignment'].hasError('minlength')">Contact Assignment length should be minimum 8 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Name of person requiring interpreter</label>
-             <input type="text" class="form-control" formControlName="interpreter" placeholder="Name of person requiring interpreter">
-             <div *ngIf="stepTenForm.controls['interpreter'].errors && ( !stepTenForm.controls['interpreter'].pristine || submitted ||stepTenForm.controls['interpreter'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['interpreter'].errors.required">Interpreter is required.</div>
-                <div [hidden]="!stepTenForm.controls.interpreter.hasError('minlength')">Interpreter length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Language/Languages</label>
-             <div class="form-group form-field">
-               <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
-                 <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
-                 <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
-                 <select class="form-control"  (change)="onChange($event)"  formControlName="language" id="pin_code" name="pin_code">
-                   <option value="" >Language</option>
-                   <option *ngFor="let lan of languageObj" [value]="lan.id">
-                      {{lan?.name}}
-                   </option>
-                 </select>
-               <!-- </div> -->
-             </div>
-             <div *ngIf="stepTenForm.controls['language'].errors && ( !stepTenForm.controls['language'].pristine || submitted ||stepTenForm.controls['language'].touched )" class="error-msg">
-               <div [hidden]="!stepTenForm.controls['language'].errors.required">Language is required.</div>
-               <!-- <div [hidden]="!stepTenForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
-             </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Nature of Appointment / Appointment type</label>
-             <input type="text"  formControlName="nature_of_appointment" class="form-control" placeholder="Nature of Appointment / Appointment type">
-             <div *ngIf="stepTenForm.controls['nature_of_appointment'].errors && ( !stepTenForm.controls['nature_of_appointment'].pristine || submitted ||stepTenForm.controls['nature_of_appointment'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
-                <div [hidden]="!stepTenForm.controls.nature_of_appointment.hasError('minlength')">Nature of Appointment length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Date</label>
-             <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
-             <div *ngIf="stepTenForm.controls['date'].errors && ( !stepTenForm.controls['date'].pristine || submitted ||stepTenForm.controls['date'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['date'].errors.required">Date is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
-              </div>
-          </div>
-          <div class="col-sm-6">
-             <label>Interpreter Start Time</label>
-             <input type="time"  class="form-control"  formControlName="start_time"  placeholder="Interpreter Start Time">
-             <div *ngIf="stepTenForm.controls['start_time'].errors && ( !stepTenForm.controls['start_time'].pristine || submitted ||stepTenForm.controls['start_time'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['start_time'].errors.required">Start time is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
-              </div>
-          </div>
-              <div class="col-sm-6">
-             <label>Anticipated End Time</label>
-             <input type="time"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
-             <div *ngIf="stepTenForm.controls['end_time'].errors && ( !stepTenForm.controls['end_time'].pristine || submitted ||stepTenForm.controls['end_time'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['end_time'].errors.required">End Time is required.</div>
-                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
-              </div>
-          </div>  
-              <div class="col-sm-12">
-             <label>Any interpreting equipment needs? </label>
-             <input type="text" formControlName="equipment" class="form-control" placeholder="Any interpreting equipment needs?">
-             <div *ngIf="stepTenForm.controls['equipment'].errors && ( !stepTenForm.controls['equipment'].pristine || submitted ||stepTenForm.controls['equipment'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['equipment'].errors.required">Equipment is required.</div>
-                <div [hidden]="!stepTenForm.controls.equipment.hasError('minlength')">Equipment length should be minimum 2 characters.</div>
-              </div>
-          </div>                            
-          <div class="col-sm-12">
-             <label>Additional Notes</label>
-             <textarea class="form-control" formControlName="notes"  rows="3" placeholder="Additional Notes"></textarea>
-             <div *ngIf="stepTenForm.controls['notes'].errors && ( !stepTenForm.controls['notes'].pristine || submitted ||stepTenForm.controls['notes'].touched )" class="error-msg">
-                <div [hidden]="!stepTenForm.controls['notes'].errors.required">Notes is required.</div>
-                <div [hidden]="!stepTenForm.controls.notes.hasError('minlength')">Notes length should be minimum 2 characters.</div>
-              </div>
-          </div>
-          <div class="col-sm-6 text-left">
-            <button type="button" (click)="stepTenForm.reset()" class="btn resetbtn">Reset</button>
+   <div class="row">
+      <div class="col-sm-12 text-center">
+         <h4>Requesting Interpreting Services</h4>
+         <p>Interpreting services can be requested via phone or email.</p>
+         <p><b>Contacts:</b> Michael House and Daisy Reyes</p>
+         <p><b>Phone:</b> (303) 274-2634</p>
+         <p><b>Email:</b> sitc@cescols.com</p>
+      </div>
+  </div>
+      <div class="row mainblock">
+      <div class="col-sm-12">
+         <h3>Information Required:</h3>
+         <div class="title-wrap">
+            <h4 class="cart-bottom-title section-bg-gray">Requester Information</h4>
          </div>
-           <div class="col-sm-6 text-right">
-             <button type="button" (click)="submitForm10();stepTenForm.reset()" class="btn subbtn">Submit</button>
-          </div>
-       </form>
+      </div>
+      <form [formGroup]="stepTenForm">
+         <div class="col-sm-6">
+            <label>Business/Organization to Bill</label>
+            <input type="text" formControlName="business" class="form-control" placeholder="Business/Organization to Bill">
+            <div *ngIf="stepTenForm.controls['business'].errors && ( !stepTenForm.controls['business'].pristine || submitted ||stepTenForm.controls['business'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['business'].errors.required">Business is required.</div>
+               <div [hidden]="!stepTenForm.controls.business.hasError('minlength')">Business length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Requester Name </label>
+            <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name">
+            <div *ngIf="stepTenForm.controls['requester_name'].errors && ( !stepTenForm.controls['requester_name'].pristine || submitted ||stepTenForm.controls['requester_name'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['requester_name'].errors.required">Requester Name is required.</div>
+               <div [hidden]="!stepTenForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Office Phone</label>
+            <input type="text"  onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="office_phone" class="form-control" placeholder="Office Phone">
+            <div *ngIf="stepTenForm.controls['office_phone'].errors && ( !stepTenForm.controls['office_phone'].pristine || submitted ||stepTenForm.controls['office_phone'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['office_phone'].errors.required">Office Phone is required.</div>
+               <div [hidden]="!stepTenForm.controls['office_phone'].hasError('minlength')">Office Phone length should be minimum 8 characters.</div>
+
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Cell Phone</label>
+            <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="cell_phone" class="form-control" placeholder="Office Phone">
+            <div *ngIf="stepTenForm.controls['cell_phone'].errors && ( !stepTenForm.controls['cell_phone'].pristine || submitted ||stepTenForm.controls['cell_phone'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
+               <div [hidden]="!stepTenForm.controls['cell_phone'].hasError('minlength')">Cell Phone length should be minimum 8 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-12">
+            <label>Email Address</label>
+            <input type="text" formControlName="email_address" class="form-control" placeholder="Email Address">
+            <div *ngIf="stepTenForm.controls['email_address'].errors && ( !stepTenForm.controls['email_address'].pristine || submitted ||stepTenForm.controls['email_address'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['email_address'].errors.required">Email Address is required.</div>
+               <div [hidden]="!stepTenForm.controls['email_address'].errors.pattern">Invalid email.</div>
+             </div>
+         </div>
+         <div class="col-sm-12">
+            <div class="title-wrap">
+               <h4 class="cart-bottom-title section-bg-gray">Appointment Information</h4>
+            </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Location1</label>
+            <textarea class="form-control" rows="3" formControlName="location1" placeholder="Name of Building/Clinic/Office off.."></textarea>
+            <div *ngIf="stepTenForm.controls['location1'].errors && ( !stepTenForm.controls['location1'].pristine || submitted ||stepTenForm.controls['location1'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['location1'].errors.required">Location1 is required.</div>
+               <div [hidden]="!stepTenForm.controls.location1.hasError('minlength')">Location1 length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Location2</label>
+            <textarea class="form-control" rows="3" formControlName="location2" placeholder="Address"></textarea>
+            <div *ngIf="stepTenForm.controls['location2'].errors && ( !stepTenForm.controls['location2'].pristine || submitted ||stepTenForm.controls['location2'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['location2'].errors.required">Location2 is required.</div>
+               <div [hidden]="!stepTenForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Name of contact person at the assignment</label>
+            <input type="text" formControlName="name_assignment" class="form-control" placeholder="Name of contact person at the assignment">
+            <div *ngIf="stepTenForm.controls['name_assignment'].errors && ( !stepTenForm.controls['name_assignment'].pristine || submitted ||stepTenForm.controls['name_assignment'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['name_assignment'].errors.required">Name Assignment is required.</div>
+               <div [hidden]="!stepTenForm.controls.name_assignment.hasError('minlength')">Name Assignment length should be minimum 2 characters.</div>
+             </div>
+           </div>
+         <div class="col-sm-6">
+            <label>Cell Phone # of contact person at the assignment</label>
+            <input type="text" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  class="form-control" formControlName="contact_assignment" placeholder="Cell Phone # of contact person at the assignment">
+            <div *ngIf="stepTenForm.controls['contact_assignment'].errors && ( !stepTenForm.controls['contact_assignment'].pristine || submitted ||stepTenForm.controls['contact_assignment'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['contact_assignment'].errors.required">Contact Assignment is required.</div>
+               <div [hidden]="!stepTenForm.controls['contact_assignment'].hasError('minlength')">Contact Assignment length should be minimum 8 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Name of person requiring interpreter</label>
+            <input type="text" class="form-control" formControlName="interpreter" placeholder="Name of person requiring interpreter">
+            <div *ngIf="stepTenForm.controls['interpreter'].errors && ( !stepTenForm.controls['interpreter'].pristine || submitted ||stepTenForm.controls['interpreter'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['interpreter'].errors.required">Interpreter is required.</div>
+               <div [hidden]="!stepTenForm.controls.interpreter.hasError('minlength')">Interpreter length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Language/Languages</label>
+            <div class="form-group form-field">
+              <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
+                <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
+                <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
+                <select class="form-control"  (change)="onChange($event)"  formControlName="language" id="pin_code" name="pin_code">
+                  <option value="" >Language</option>
+                  <option *ngFor="let lan of languageObj" [value]="lan.id">
+                     {{lan?.name}}
+                  </option>
+                </select>
+              <!-- </div> -->
+            </div>
+            <div *ngIf="stepTenForm.controls['language'].errors && ( !stepTenForm.controls['language'].pristine || submitted ||stepTenForm.controls['language'].touched )" class="error-msg">
+              <div [hidden]="!stepTenForm.controls['language'].errors.required">Language is required.</div>
+              <!-- <div [hidden]="!stepTenForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+            </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Nature of Appointment / Appointment type</label>
+            <input type="text"  formControlName="nature_of_appointment" class="form-control" placeholder="Nature of Appointment / Appointment type">
+            <div *ngIf="stepTenForm.controls['nature_of_appointment'].errors && ( !stepTenForm.controls['nature_of_appointment'].pristine || submitted ||stepTenForm.controls['nature_of_appointment'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['nature_of_appointment'].errors.required">Nature of Appointment is required.</div>
+               <div [hidden]="!stepTenForm.controls.nature_of_appointment.hasError('minlength')">Nature of Appointment length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Date</label>
+            <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+            <div *ngIf="stepTenForm.controls['date'].errors && ( !stepTenForm.controls['date'].pristine || submitted ||stepTenForm.controls['date'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['date'].errors.required">Date is required.</div>
+               <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+             </div>
+         </div>
+         <div class="col-sm-6">
+            <label>Interpreter Start Time</label>
+            <input type="time"  class="form-control"  formControlName="start_time"  placeholder="Interpreter Start Time">
+            <div *ngIf="stepTenForm.controls['start_time'].errors && ( !stepTenForm.controls['start_time'].pristine || submitted ||stepTenForm.controls['start_time'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['start_time'].errors.required">Start time is required.</div>
+               <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+             </div>
+         </div>
+             <div class="col-sm-6">
+            <label>Anticipated End Time</label>
+            <input type="time"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+            <div *ngIf="stepTenForm.controls['end_time'].errors && ( !stepTenForm.controls['end_time'].pristine || submitted ||stepTenForm.controls['end_time'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['end_time'].errors.required">End Time is required.</div>
+               <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+             </div>
+         </div>  
+             <div class="col-sm-12">
+            <label>Any interpreting equipment needs? </label>
+            <input type="text" formControlName="equipment" class="form-control" placeholder="Any interpreting equipment needs?">
+            <div *ngIf="stepTenForm.controls['equipment'].errors && ( !stepTenForm.controls['equipment'].pristine || submitted ||stepTenForm.controls['equipment'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['equipment'].errors.required">Equipment is required.</div>
+               <div [hidden]="!stepTenForm.controls.equipment.hasError('minlength')">Equipment length should be minimum 2 characters.</div>
+             </div>
+         </div>                            
+         <div class="col-sm-12">
+            <label>Additional Notes</label>
+            <textarea class="form-control" formControlName="notes"  rows="3" placeholder="Additional Notes"></textarea>
+            <div *ngIf="stepTenForm.controls['notes'].errors && ( !stepTenForm.controls['notes'].pristine || submitted ||stepTenForm.controls['notes'].touched )" class="error-msg">
+               <div [hidden]="!stepTenForm.controls['notes'].errors.required">Notes is required.</div>
+               <div [hidden]="!stepTenForm.controls.notes.hasError('minlength')">Notes length should be minimum 2 characters.</div>
+             </div>
+         </div>
+         <div class="col-sm-6 text-left">
+           <button type="button" (click)="stepTenForm.reset()" class="btn resetbtn">Reset</button>
+        </div>
+          <div class="col-sm-6 text-right">
+            <button type="button" (click)="submitForm10();stepTenForm.reset()" class="btn subbtn">Submit</button>
+         </div>
+      </form>
+  </div>
    </div>
-    </div>
