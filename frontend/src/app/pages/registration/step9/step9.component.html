@@ -26,14 +26,13 @@
           </div>
           <div class="col-sm-6">
              <label>Requester Name (if different than caseworker)</label>
-             <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name (if different than caseworker)">
-            
+             <input type="text" formControlName="requester_name"  class="form-control" placeholder="Requester Name (if different than caseworker)"> 
           </div>
           <div class="col-sm-6">
              <label>Mesa County Human Services</label>
              <input type="text" formControlName="human_services" class="form-control" placeholder="Mesa County Human Services">
-             <div *ngIf="stepNineForm.controls['requester_name'].errors && ( !stepNineForm.controls['requester_name'].pristine || submitted ||stepNineForm.controls['requester_name'].touched )" class="error-msg">
-                <div [hidden]="!stepNineForm.controls['requester_name'].errors.required">Human Services is required.</div>
+             <div *ngIf="stepNineForm.controls['human_services'].errors && ( !stepNineForm.controls['human_services'].pristine || submitted ||stepNineForm.controls['human_services'].touched )" class="error-msg">
+                <div [hidden]="!stepNineForm.controls['human_services'].errors.required">Human Services is required.</div>
                 <div [hidden]="!stepNineForm.controls.caseworker_name.hasError('minlength')">Human Services length should be minimum 2 characters.</div>
               </div>
             </div>
