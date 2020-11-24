@@ -26,7 +26,7 @@
             </div>
           <div class="col-sm-6">
              <label>Requester Name</label>
-             <input type="text" formControlName="requester_name" class="form-control" placeholder="Requester Name (if different than caseworker)">
+             <input type="text" formControlName="requester_name" class="form-control">
              <div *ngIf="stepTwelveForm.controls['requester_name'].errors && ( !stepTwelveForm.controls['requester_name'].pristine || submitted ||stepTwelveForm.controls['requester_name'].touched )" class="error-msg">
                <div [hidden]="!stepTwelveForm.controls['requester_name'].errors.required">Requester Name is required.</div>
                <div [hidden]="!stepTwelveForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
@@ -98,28 +98,20 @@
           <div class="col-sm-6">
              <label>Last name of Student (if applicable)</label>
              <input type="text"  formControlName="name_of_student" class="form-control" placeholder="Last name of Student (if applicable)">
-             <div *ngIf="stepTwelveForm.controls['name_of_student'].errors && ( !stepTwelveForm.controls['name_of_student'].pristine || submitted ||stepTwelveForm.controls['name_of_student'].touched )" class="error-msg">
-               <div [hidden]="!stepTwelveForm.controls['name_of_student'].errors.required">Name of Student is required.</div>
-               <div [hidden]="!stepTwelveForm.controls.name_of_student.hasError('minlength')">Name of Student length should be minimum 2 characters.</div>
-             </div>
             </div>
           <div class="col-sm-6">
              <label>Language/Languages</label>
              <div class="form-group form-field">
-               <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
-                 <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
-                 <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
                  <select class="form-control"  (change)="onChange($event)" formControlName="language" id="pin_code" name="pin_code">
                    <option value="" >Language</option>
                    <option *ngFor="let lan of languageObj" [value]="lan.id">
                       {{lan?.name}}
                    </option>
                  </select>
-               <!-- </div> -->
+              
              </div>
              <div *ngIf="stepTwelveForm.controls['language'].errors && ( !stepTwelveForm.controls['language'].pristine || submitted ||stepTwelveForm.controls['language'].touched )" class="error-msg">
                <div [hidden]="!stepTwelveForm.controls['language'].errors.required">Language is required.</div>
-               <!-- <div [hidden]="!stepTwelveForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
              </div>
           </div>
           <div class="col-sm-6">
@@ -135,7 +127,6 @@
              <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
              <div *ngIf="stepTwelveForm.controls['date'].errors && ( !stepTwelveForm.controls['date'].pristine || submitted ||stepTwelveForm.controls['date'].touched )" class="error-msg">
                 <div [hidden]="!stepTwelveForm.controls['date'].errors.required">Date is required.</div>
-                <!-- <div [hidden]="!stepTwelveForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
               </div>
           </div>
           <div class="col-sm-6">

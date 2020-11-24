@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { MapsAPILoader } from '@agm/core';
- import { MouseEvent } from '@agm/core';
+//import { MouseEvent } from '@agm/core';
 
  import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 
@@ -78,30 +78,30 @@ export class UsersEditComponent implements OnInit {
       this.geoCoder = new google.maps.Geocoder;
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          this.new_address=place['formatted_address'];
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          // console.log("place-",place[0].formatted_address);
+      // autocomplete.addListener("place_changed", () => {
+      //   this.ngZone.run(() => {
+      //     //get the place result
+      //     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      //     this.new_address=place['formatted_address'];
+      //     //verify result
+      //     if (place.geometry === undefined || place.geometry === null) {
+      //       return;
+      //     }
+      //     // console.log("place-",place[0].formatted_address);
           
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
+      //     //set latitude, longitude and zoom
+      //     this.latitude = place.geometry.location.lat();
+      //     this.longitude = place.geometry.location.lng();
           
-          console.log("latitude-",this.latitude);
-          console.log("longitude-",this.longitude);
+      //     console.log("latitude-",this.latitude);
+      //     console.log("longitude-",this.longitude);
 
 
 
 
-          this.zoom = 12;
-        });
-      });
+      //     this.zoom = 12;
+      //   });
+      // });
     });
 
   }

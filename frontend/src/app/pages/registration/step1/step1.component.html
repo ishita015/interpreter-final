@@ -27,10 +27,6 @@
         <div class="col-sm-6">
            <label>Requester Name (if different than caseworker)</label>
            <input type="text" class="form-control" formControlName="requester_name" placeholder="Requester Name (if different than caseworker)">
-           <!-- <div *ngIf="stepOneForm.controls['requester_name'].errors && ( !stepOneForm.controls['requester_name'].pristine || submitted ||stepOneForm.controls['requester_name'].touched )" class="error-msg">
-              <div [hidden]="!stepOneForm.controls['requester_name'].errors.required">Requester Name is required.</div>
-              <div [hidden]="!stepOneForm.controls.requester_name.hasError('minlength')">Requester Name length should be minimum 2 characters.</div>
-            </div> -->
           </div>
         <div class="col-sm-6">
            <label>Adams County Department/Division</label>
@@ -101,9 +97,6 @@
         <div class="col-sm-6">
            <label>Language</label>
            <div class="form-group form-field">
-              <!-- <div class="form-field__control" data-fa-icon="&#xf013;"> -->
-                <!-- <input id="pincode" type="text" (change)="func.addFocus()" onKeyPress="if(this.value.length==8) return false;"  (change)="postCheck()" formControlName="pin_code_id" class="form-field__input" placeholder=""/> -->
-                <!-- <label for="pincode" class="form-field__label">Service Area</label> -->
                 <select class="form-control" (change)="onChange($event)"  formControlName="language" id="language" name="language">
                   <option value="">Language</option>
                   <option *ngFor="let lan of languageObj" [value]="lan.id">

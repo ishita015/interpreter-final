@@ -44,7 +44,7 @@ export class Step12Component implements OnInit {
       end_time:['',this.validation.onlyRequired_validator],
       equipment:['',this.validation.onlyRequired_validator],
       notes:['',this.validation.name_validation],
-      name_of_student:['',this.validation.name_validation],
+      name_of_student:[''],
       })
   }
   /*==========Step Form Value Start Here========*/
