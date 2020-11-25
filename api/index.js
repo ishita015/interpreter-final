@@ -59,18 +59,20 @@ var languageController = require('./routes/language');
 var userroleController = require('./routes/userrole');
 var interpreterController = require('./routes/interpreter');
 var serviceController = require('./routes/service');
+var loginController = require('./routes/login');
 // api start
+
+
+
+
+//login api
+app.post('/cesco/userlogin', loginController.userlogin);
 
 
 app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
 app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */
-
-
-
-
-
 app.post('/cesco/statusUpdate', interpreterController.statusUpdate);
 app.post('/cesco/checkeEmail', interpreterController.checkeEmail);
 app.post('/cesco/getInterpreterDetail', interpreterController.getInterpreterDetail);
@@ -102,6 +104,7 @@ app.post('/cesco/removemodule', userroleController.removeModule);
 
 app.post('/cesco/getPermission', userroleController.getUserPermission);
 
+app.post('/cesco/getRequestData', serviceController.getRequestData);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);
 
