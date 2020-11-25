@@ -16,6 +16,40 @@ const cryptr = new Cryptr('myTotalySecretKey');
 
 
 
+
+// get form data
+module.exports.getRequestData = function(req, res) {
+    // let code = req.body.code ? req.body.code : 0;
+    var sql = "SELECT * FROM request_information_services ORDER BY id DESC";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result,
+                message: "Record found"
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+
 module.exports.addServiceOne = async function(req, res) {
     console.log('total request-',req.body);
     //sql 1

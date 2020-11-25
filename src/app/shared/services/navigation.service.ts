@@ -94,13 +94,13 @@ export class NavigationService {
             //     { icon: 'i-Clock-3', name: 'Languages-List', state: '/languages/list', type: 'link' },  
             // ]
         },
-        // {   
-        //     name: 'Interpreter',
-        //     type: 'link',
-        //     icon: 'i-Add-User',
-        //     state: '/interpreter/interpreterList',
+        {   
+            name: 'User Request',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/user-request/list',
           
-        // },
+        },
        
         // {
         //     name: 'Icons',

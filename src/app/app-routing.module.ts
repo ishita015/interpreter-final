@@ -27,6 +27,10 @@ const adminRoutes: Routes = [
       path: 'roleset',
       loadChildren: () => import('./views/roleset/roleset.module').then(m => m.RolesetModule)
     },
+    {
+      path: 'user-request',
+      loadChildren: () => import('./views/user-request/user-request.module').then(m => m.UserRequestModule)
+    },
 
     {
       path: 'uikits',

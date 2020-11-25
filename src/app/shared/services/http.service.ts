@@ -37,6 +37,13 @@ export class HttpService {
   }
   
 
+
+  getUserRequest(): Observable<any> {
+    return this.http.get(this.url + '/cesco/getRequestData', this.httpOptions);
+  }
+
+
+
   importLanguage(importData): Observable<any> {
     return this.http.post(this.url + '/cesco/importLang',importData,this.httpOptions);
   }
@@ -234,7 +241,4 @@ export class HttpService {
       }
        /*=====Dashboard Section Apis End======*/
 
-       public getJSON(): Observable<any> {
-        return this.http.get('https://api.myjson.com/bins/zg8of');
-      }
 }
