@@ -104,7 +104,7 @@ app.post('/cesco/removemodule', userroleController.removeModule);
 
 app.post('/cesco/getPermission', userroleController.getUserPermission);
 
-app.post('/cesco/getRequestData', serviceController.getRequestData);
+// app.post('/cesco/getRequestData', serviceController.getRequestData);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);
 
