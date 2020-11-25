@@ -21,6 +21,8 @@ export class UsersListComponent implements OnInit {
   viewUser_obj;
   user_Obj;
   status_msg;
+  roleData;
+  array_Obj;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -37,7 +39,14 @@ export class UsersListComponent implements OnInit {
     .subscribe(value => {
       this.filerData(value);
     });
-    // this.products$ = this.productService.getProducts();
+    this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
+    this.array_Obj = this.roleData['data'][0];
+    if(this.array_Obj.id){
+      this.array_Obj = this.roleData['data'][0];
+      console.log("roleData", this.array_Obj);
+    }
+    
+    
   }
 
 

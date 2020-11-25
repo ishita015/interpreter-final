@@ -45,10 +45,21 @@ export class NavigationService {
         childnavOpen: false
     };
     selectedItem: IMenuItem;
-    
+    roleData;
+    array1_Obj;
+  
     constructor() {
+        this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
+        this.array1_Obj = this.roleData['data'][0];
+        // console.log("iii");
+        
+        // console.log("ooooooooooooo",this.defaultMenu[3]);
+        if(this.array1_Obj.view_permission === 'false'){
+            this.defaultMenu.splice(3, 1);
+        }
     }
 
+  
     defaultMenu: IMenuItem[] = [
         {   
             name: 'Dashboard',
@@ -86,7 +97,7 @@ export class NavigationService {
         },
         {   
             name: 'User management',
-            // description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+         
             type: 'link',
             icon: 'i-Add-User',
             state: '/users/user-list',
@@ -94,13 +105,13 @@ export class NavigationService {
             //     { icon: 'i-Clock-3', name: 'Languages-List', state: '/languages/list', type: 'link' },  
             // ]
         },
-        // {   
-        //     name: 'Interpreter',
-        //     type: 'link',
-        //     icon: 'i-Add-User',
-        //     state: '/interpreter/interpreterList',
+        {   
+            name: 'User Request',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/user-request/list',
           
-        // },
+        },
        
         // {
         //     name: 'Icons',
@@ -241,4 +252,10 @@ export class NavigationService {
     //       this.menuItems.next(this.defaultMenu);
     //   }
     // }
+
+    ngOnInit(){
+        
+        
+
+    }
 }

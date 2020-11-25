@@ -79,13 +79,14 @@ export class SigninComponent implements OnInit {
                         this.log_Msg = res;
                         localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
                         localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
+                        localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
                         this.toastr.success(this.log_Msg.message,'', { timeOut: 2000 });
                         this.router.navigate(['/dashboard/v1']);
                         this.service.editPemisssion(this.log_Obj.role_id)
                         .subscribe(res => {
                           console.log("apiiiiiiiiii response", res);
                             this.role_obj = res;
-                            console.log("iiiiiiiiiiiiiiii", this.role_obj);
+                            console.log("role_obj", this.role_obj);
                             localStorage.setItem('Allpermission', JSON.stringify(this.role_obj));
                             // this.router.navigate(['/permission/setpermission',id]);
                         }) 

@@ -4,11 +4,12 @@ import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/aut
 //import { AuthGaurd } from './shared/services/auth.gaurd';
 import { BlankLayoutComponent } from './shared/components/layouts/blank-layout/blank-layout.component';
 import { AdminLayoutSidebarLargeComponent } from './shared/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component';
-
+import { AuthGaurd } from './shared/services/auth.gaurd';
 const adminRoutes: Routes = [
     {
       path: 'dashboard',
-      loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+      loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
+      canActivate: [AuthGaurd]
     },
     {
       path: 'languages',
@@ -26,6 +27,10 @@ const adminRoutes: Routes = [
     {
       path: 'roleset',
       loadChildren: () => import('./views/roleset/roleset.module').then(m => m.RolesetModule)
+    },
+    {
+      path: 'user-request',
+      loadChildren: () => import('./views/user-request/user-request.module').then(m => m.UserRequestModule)
     },
 
     {
