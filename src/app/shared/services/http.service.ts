@@ -162,42 +162,21 @@ export class HttpService {
     return this.http.post(this.url + '/cesco/checkeEmail',{email:email},this.httpOptions);
   }
  
-  
-  
-
   getInterpreterLang(id): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreterLanguage',{id:id},this.httpOptions);
   }
-
 
   getInterpreterTime(id): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreterDatatime',{id:id},this.httpOptions);
    }
 
-
-
-  /*=====Language Section Apis End======*/
-
-
-
-
-
-
-   /*=====Language Section Apis Start======*/
-
-
-
    checkLanguage(code): Observable<any> {
     return this.http.post(this.url + '/cesco/checkLanguage',{code:code},this.httpOptions);
-  }
+   }
  
-  
-
-
    langStatusUpdate(status,id): Observable<any> {
     return this.http.post(this.url + '/cesco/langStatusUpdate',{status:status,id:id},this.httpOptions);
    }
-
 
    getLanguageList(): Observable<any[]> {
      return this.http.get<any[]>(this.url + '/cesco/getlanguages');

@@ -18,12 +18,13 @@ export class DashboadDefaultComponent implements OnInit {
 
     public totaluser_obj;
     public totallanguage_obj;
-
+    public roleName;
 	constructor(public service:HttpService,  private router: Router,) { }
 
 	ngOnInit() {
         this.totalUserList(1);
         this.totalLanguageList();
+        this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.chartLineOption1 = {
 			...echartStyles.lineFullWidth, ...{
 				series: [{
