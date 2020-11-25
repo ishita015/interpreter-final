@@ -8,10 +8,10 @@ import { SharedComponentsModule } from 'src/app/shared/components/shared-compone
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagInputModule } from 'ngx-chips';
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
-import { AgmCoreModule } from '@agm/core';
+import { RequestDetailComponent } from './request-detail/request-detail.component';
 
 @NgModule({
-  declarations: [RequestListComponent, InterpreterListComponent],
+  declarations: [RequestListComponent, InterpreterListComponent, RequestDetailComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,10 +20,7 @@ import { AgmCoreModule } from '@agm/core';
     SharedComponentsModule,
     TagInputModule,
     NgbModule,
-    UserRequestRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38'
-    })
+    UserRequestRoutingModule
   ]
 })
 export class UserRequestModule { }
