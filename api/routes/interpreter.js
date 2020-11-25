@@ -17,6 +17,38 @@ const usermodel = new userModel();
 
 
 
+// get interpreter
+module.exports.getNearbyInterpreter = function(req, res, next) {
+    let service_id = req.body.service_id ? req.body.service_id : 0;
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2'";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
 
 module.exports.getTotalUser = function(req, res, next) {
     var sql = "SELECT COUNT(id) as total_user FROM user";

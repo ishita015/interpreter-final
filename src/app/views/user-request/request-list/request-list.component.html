@@ -68,52 +68,52 @@
                         {{row.health_department}}
                       </ng-template>
                   </ngx-datatable-column>
-                  <ngx-datatable-column>
+                  <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Community Service" prop="north_metro_community_service">
                         Community Service
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.north_metro_community_service}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Human Services" prop="human_services">
                         Human Services
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.human_services}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="AHS Department" prop="ahs_department">
                         AHS Department
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.ahs_department}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Office Phone" prop="office_phone">
                         Office Phone
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.office_phone}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Cell Phone" prop="cell_phone">
                         Cell Phone
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.cell_phone}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
                 <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Email" prop="email">
@@ -124,14 +124,14 @@
                     </ng-template>  
                 </ngx-datatable-column>
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Site Contact" prop="site_contact">
                         Site Contact
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.site_contact}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
                 
                 <ngx-datatable-column>
@@ -149,7 +149,7 @@
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     <button class="btn btn-outline-secondary" (click)="viewDetail(row.id)">View</button>  
-                    <button class="btn btn-outline-secondary" (click)="viewDetail(row.id)">Assign</button>  
+                    <button class="btn btn-outline-secondary" (click)="assignMyNearbyInterpreter(row.id)">Assign</button>  
                     <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Assign</button> -->
                 </ng-template>
             </ngx-datatable-column>

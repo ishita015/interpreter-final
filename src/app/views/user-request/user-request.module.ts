@@ -7,9 +7,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagInputModule } from 'ngx-chips';
+import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
-  declarations: [RequestListComponent],
+  declarations: [RequestListComponent, InterpreterListComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,7 +20,10 @@ import { TagInputModule } from 'ngx-chips';
     SharedComponentsModule,
     TagInputModule,
     NgbModule,
-    UserRequestRoutingModule
+    UserRequestRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38'
+    })
   ]
 })
 export class UserRequestModule { }

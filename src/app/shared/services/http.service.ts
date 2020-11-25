@@ -38,6 +38,13 @@ export class HttpService {
   
 
 
+
+  myNearbyInterpreter(service_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getNearbyInterpreter',{service_id:service_id},this.httpOptions);
+  }
+
+
+
   getUserRequest(): Observable<any> {
     return this.http.get(this.url + '/cesco/getRequestData', this.httpOptions);
   }

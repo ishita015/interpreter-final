@@ -14,7 +14,8 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class RequestListComponent implements OnInit {
   list_Obj: any[];
-  
+  interpreter_obj: any[];
+  view_interpreter;
   view_obj;
   userData;
   filteredUser;
@@ -83,14 +84,29 @@ export class RequestListComponent implements OnInit {
 
   userView(id){
     this.service.getInterpreterDetail(id).subscribe(res => {
-      // console.log("apiii", res);
         this.view_obj = res['data'][0];
         console.log("view object",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
 
-        this.router.navigate(['/users/user-view',id])
+        // this.router.navigate(['/users/user-view',id])
     })
   }
+
+
+
+
+  //assign interpreter
+  assignMyNearbyInterpreter(service_id){
+    this.service.myNearbyInterpreter(service_id).subscribe(res => {
+      console.log(res['data']);
+        this.interpreter_obj = res['data'];
+        console.log("view view_interpreter",  this.view_interpreter);
+        localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
+
+        this.router.navigate(['/user-request/interpreter-view',service_id])
+    })
+  }
+
 
 
 }
