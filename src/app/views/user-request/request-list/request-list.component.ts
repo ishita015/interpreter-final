@@ -82,20 +82,20 @@ export class RequestListComponent implements OnInit {
 
 
 
-  userView(id){
+  viewDetail(id){
     this.service.getInterpreterDetail(id).subscribe(res => {
         this.view_obj = res['data'][0];
-        console.log("view object",  this.view_obj);
+        // console.log("view object",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
 
-        // this.router.navigate(['/users/user-view',id])
+        this.router.navigate(['/user-request/request-view',id])
     })
   }
 
 
 
 
-  //assign interpreter
+  //assign
   assignMyNearbyInterpreter(service_id){
     this.service.myNearbyInterpreter(service_id).subscribe(res => {
       console.log(res['data']);
