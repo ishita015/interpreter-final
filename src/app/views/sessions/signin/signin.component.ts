@@ -5,6 +5,8 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
 import {ValidationsService} from "../../../shared/services/validations.service";
 import { HttpService } from "../../../shared/services/http.service";
+import { ToastrService } from 'ngx-toastr';
+import { PermissionService } from './../../../shared/services/permission.service';
 @Component({
     selector: 'app-signin',
     templateUrl: './signin.component.html',
@@ -16,12 +18,17 @@ export class SigninComponent implements OnInit {
     loadingText: string;
     signinForm: FormGroup;
     submitted: boolean;
+    public log_Msg;
+    public log_Obj;
+    public role_obj;
     constructor(
         private fb: FormBuilder,
         private auth: AuthService,
         private router: Router,
+        private toastr: ToastrService,
         public validation: ValidationsService,
-        public service:HttpService
+        public service:HttpService,
+        public permission:PermissionService
     ) {
         this.createForm();
      }
@@ -51,14 +58,38 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     this.submitted = true;
     this.loadingText = 'Sigining in...';
+    console.log('kkkkkkk',this.signinForm.value);
+    
     this.auth.signin(this.signinForm.value)
         .subscribe(res => {
+            console.log("login api",res);
+            this.log_Obj = res;
+            this.log_Msg = res
+            console.log("log object", this.log_Obj);
+          
             if (this.signinForm.value.email  === undefined || this.signinForm.value.email === '' ||
                     this.signinForm.value.password === undefined || this.signinForm.value.password === '') {
                 } 
-                else {
-                  this.router.navigate(['/dashboard/v1']);
-                }
+                    if(this.log_Obj.status == 0){
+                        this.log_Msg = res;
+                        this.toastr.error(this.log_Obj.message,'', { timeOut: 2000 });
+                    }
+                    else {
+                        this.log_Obj = res['data'][0];
+                        this.log_Msg = res;
+                        localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
+                        localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
+                        this.toastr.success(this.log_Msg.message,'', { timeOut: 2000 });
+                        this.router.navigate(['/dashboard/v1']);
+                        this.service.editPemisssion(this.log_Obj.role_id)
+                        .subscribe(res => {
+                          console.log("apiiiiiiiiii response", res);
+                            this.role_obj = res;
+                            console.log("iiiiiiiiiiiiiiii", this.role_obj);
+                            localStorage.setItem('Allpermission', JSON.stringify(this.role_obj));
+                            // this.router.navigate(['/permission/setpermission',id]);
+                        }) 
+                    }
             this.loading = false;
         });
  }
