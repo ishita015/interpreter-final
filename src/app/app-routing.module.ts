@@ -20,6 +20,10 @@ const adminRoutes: Routes = [
       loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule)
     },
     {
+      path: 'interpreter-request',
+      loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
+    },
+    {
       path: 'permission',
       loadChildren: () => import('./views/permission/permission.module').then(m => m.PermissionModule)
     },

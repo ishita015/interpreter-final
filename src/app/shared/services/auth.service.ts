@@ -46,8 +46,10 @@ export class AuthService {
     // return of({}).pipe(delay(1500));
   }
   signout() {
+    
     this.authenticated = false;
     this.store.setItem("demo_login_status", false);
+    localStorage.clear();
     this.router.navigateByUrl("/sessions/signin");
   }
 }

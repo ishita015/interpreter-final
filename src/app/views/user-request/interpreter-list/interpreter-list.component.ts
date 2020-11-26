@@ -4,6 +4,8 @@ import { MouseEvent } from '@agm/core';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { debounceTime } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 interface marker {
 	lat: number;
 	lng: number;
@@ -107,6 +109,8 @@ export class InterpreterListComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private modalService: NgbModal,
+    private router: Router,
     public service:HttpService){
     this.serviceid = JSON.parse(localStorage.getItem('serviceId'));
     console.log("id", this.serviceid);
@@ -162,33 +166,50 @@ export class InterpreterListComponent implements OnInit {
     });
   }
 
-  requestDetail(id,data){
+//   deleteRole(id, modal) {
+//     console.log("delete idddddddddd",id);
+//     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+//         .result.then((result) => {
+//             this.service.getRoleDelete(id)
+//                 .subscribe(res => {
+//                     this.language_msg = res;
+//                     console.log("api",res );
+//                     this.toastr.success(this.language_msg.message,'', { timeOut: 1000 });
+//                     this.roleList();
+//                 })
+//         }, (reason) => {
+//         });
+// }
+
+  requestDetail(id,data,modal){
 
     console.log("table row idddddd",id);
     this.requestId = id;
-    this.requestId = JSON.parse(localStorage.getItem('Id'));
+    // this.requestId = JSON.parse(localStorage.getItem('Id'));
     console.log("table row id2", this.requestId );
-    data = JSON.parse(localStorage.getItem('Info'));
     console.log("dataaaaaaaaaaaaaaaaaa",data);
     
     this.userId = JSON.parse(localStorage.getItem('serviceId'));
     console.log("userId", this.userId);
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    .result.then((result) => {
     this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
       console.log("ress",  res);
       this.requestStatus = res;
       if(this.requestStatus.status == 1){
         this.nameShow = data.name;
-        this.nameShow = data.label;
         this.addressShow = data.address;
         this.mobileShow =  data.mobile;
         this.emailShow =  data.email;
         this.toastr.success(this.requestStatus.message,'', { timeOut: 2000 });
+        this.router.navigate(['/user-request/list'])
       }
       else{
         this.toastr.error(this.requestStatus.message,'', { timeOut: 2000 });
       }
     })
-    
+  }, (reason) => {
+  });
   }
   // requestView(){
   //   console.log("aaaaaaaid", this.id);
