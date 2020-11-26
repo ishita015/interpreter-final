@@ -81,7 +81,6 @@ export class RequestListComponent implements OnInit {
 
 
 
-
   viewDetail(request_id){
 
     console.log("id--",  request_id);
@@ -100,12 +99,12 @@ export class RequestListComponent implements OnInit {
 
   //assign
   assignMyNearbyInterpreter(service_id){
+    localStorage.setItem('serviceId', JSON.stringify(service_id));
     this.service.myNearbyInterpreter(service_id).subscribe(res => {
       console.log(res['data']);
         this.interpreter_obj = res['data'];
         console.log("view view_interpreter",  this.view_interpreter);
         localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
-
         this.router.navigate(['/user-request/interpreter-view',service_id])
     })
   }

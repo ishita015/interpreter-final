@@ -59,7 +59,7 @@ module.exports.getRequestDetails = function(req, res) {
 module.exports.getRequestData = function(req, res) {
     // let code = req.body.code ? req.body.code : 0;
     var sql = "SELECT * FROM request_information_services ORDER BY id DESC";
-    console.log(sql)
+    console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
             res.json({
