@@ -68,6 +68,14 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
                     common.sendRequestEmail(caseworker_name,name,email);
                 }
             });
+
+            //update status
+            let updatesql = "UPDATE request_information_services SET status = '2' WHERE id = '"+service_id+"'";
+            con.query(updatesql, function(err, result) {});
+
+
+
+
             res.json({
                 status: 1,
                 error_code: 0,
