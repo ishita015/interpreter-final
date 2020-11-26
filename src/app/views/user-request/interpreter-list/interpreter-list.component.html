@@ -12,8 +12,12 @@
             <label for="test"><b>Address  :   </b></label>
             <span>  {{addressShow}}  </span>
         </div>
+        <div>
+          <label for="test"><b>Email  :   </b></label>
+          <span>  {{emailShow}}  </span>
+      </div>
       
-        <button class="btn btn-outline-secondary" *ngIf="requestBtn" (click)="requestDetail(row)">Request</button>  
+        <button class="btn btn-outline-secondary" *ngIf="requestBtn" (click)="requestDetail(id,info)">Request</button>  
 
     </div>
     <div class="col-md-8">
@@ -133,7 +137,7 @@
                 Actions
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                <button class="btn btn-outline-secondary" (click)="requestDetail(row.id)">Request</button>  
+                <button class="btn btn-outline-secondary"  (click)="requestDetail(row.id,row)">Request</button>  
                 <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Assign</button> -->
             </ng-template>
         </ngx-datatable-column>

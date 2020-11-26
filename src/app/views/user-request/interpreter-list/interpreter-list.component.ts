@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup ,FormControl} from '@angular/forms';
 import { MouseEvent } from '@agm/core';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { debounceTime } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 interface marker {
 	lat: number;
 	lng: number;
@@ -20,7 +21,7 @@ export class InterpreterListComponent implements OnInit {
   // google maps zoom level
   zoom: number = 8;
   list_Obj;
-  id;
+  serviceid;
   location;
   makerId;
   markers: Array<any> = [];
@@ -28,9 +29,11 @@ export class InterpreterListComponent implements OnInit {
   userData;
   nameShow;
   mobileShow;
+  emailShow;
   addressShow;
   requestId;
   userId;
+  requestStatus;
   requestBtn = false
   searchControl: FormControl = new FormControl();
   // initial center position for the map
@@ -40,12 +43,15 @@ export class InterpreterListComponent implements OnInit {
   a
 
   clickedMarker(label: string,id ,info, index: number) {
-    this.makerId = id;
+    this.requestId = id;
+    localStorage.setItem('Id', JSON.stringify(id));
+    localStorage.setItem('Info', JSON.stringify(info));
     this.nameShow = label;
     this.addressShow = info.address;
     this.mobileShow =  info.mobile;
+    this.emailShow = info.email;
     this.requestBtn = true;
-    console.log(`clicked the marker: ${label || index}`);
+    console.log(`clicked the marker: ${id || index}`);
     // this.markers[index].visible = false;
   }
   
@@ -99,9 +105,11 @@ export class InterpreterListComponent implements OnInit {
     });
   }
 
-  constructor(private formBuilder: FormBuilder, public service:HttpService){
-    this.id = JSON.parse(localStorage.getItem('serviceId'));
-    console.log("id", this.id);
+  constructor(private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    public service:HttpService){
+    this.serviceid = JSON.parse(localStorage.getItem('serviceId'));
+    console.log("id", this.serviceid);
   }
 
   filerData(val) {
@@ -129,8 +137,8 @@ export class InterpreterListComponent implements OnInit {
     this.filteredUser = rows;
   }
   assignMyNearbyInterpreter(){
-    console.log("iddd", this.id);
-    this.service.myNearbyInterpreter(this.id).subscribe(res => {
+    console.log("iddd", this.serviceid);
+    this.service.myNearbyInterpreter(this.serviceid).subscribe(res => {
       console.log(res['data']);
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
@@ -143,6 +151,7 @@ export class InterpreterListComponent implements OnInit {
             id:this.list_Obj[i].id,
             mobile:this.list_Obj[i].mobile,
             address:this.list_Obj[i].address,
+            email:this.list_Obj[i].email,
             draggable: false,
             visible: false,
             opacity: 0.7
@@ -153,14 +162,32 @@ export class InterpreterListComponent implements OnInit {
     });
   }
 
-  requestDetail(id){
+  requestDetail(id,data){
+
     console.log("table row idddddd",id);
     this.requestId = id;
-    console.log("row id ",this.makerId);
-  
+    this.requestId = JSON.parse(localStorage.getItem('Id'));
+    console.log("table row id2", this.requestId );
+    data = JSON.parse(localStorage.getItem('Info'));
+    console.log("dataaaaaaaaaaaaaaaaaa",data);
+    
     this.userId = JSON.parse(localStorage.getItem('serviceId'));
     console.log("userId", this.userId);
-    
+    this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
+      console.log("ress",  res);
+      this.requestStatus = res;
+      if(this.requestStatus.status == 1){
+        this.nameShow = data.name;
+        this.nameShow = data.label;
+        this.addressShow = data.address;
+        this.mobileShow =  data.mobile;
+        this.emailShow =  data.email;
+        this.toastr.success(this.requestStatus.message,'', { timeOut: 2000 });
+      }
+      else{
+        this.toastr.error(this.requestStatus.message,'', { timeOut: 2000 });
+      }
+    })
     
   }
   // requestView(){
