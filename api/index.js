@@ -78,6 +78,7 @@ app.get('/cesco/getRole', interpreterController.getRole);
 app.post('/cesco/getNearbyInterpreter', interpreterController.getNearbyInterpreter);
 app.post('/cesco/statusUpdate', interpreterController.statusUpdate);
 app.post('/cesco/checkeEmail', interpreterController.checkeEmail);
+
 app.post('/cesco/getInterpreterDetail', interpreterController.getInterpreterDetail);
 app.post('/cesco/getInterpreterLanguage', interpreterController.getInterpreterLanguage);
 app.post('/cesco/getInterpreterDatatime', interpreterController.getInterpreterTime);
@@ -107,6 +108,8 @@ app.post('/cesco/removemodule', userroleController.removeModule);
 
 app.post('/cesco/getPermission', userroleController.getUserPermission);
 
+
+app.post('/cesco/getRequestDetails', serviceController.getRequestDetails);
 app.get('/cesco/getRequestData', serviceController.getRequestData);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);

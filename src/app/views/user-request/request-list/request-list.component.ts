@@ -82,13 +82,16 @@ export class RequestListComponent implements OnInit {
 
 
 
-  viewDetail(id){
-    this.service.getInterpreterDetail(id).subscribe(res => {
+  viewDetail(request_id){
+
+    console.log("id--",  request_id);
+    this.service.getRequestDetail(request_id).subscribe(res => {
+        console.log("res--",  res);
         this.view_obj = res['data'][0];
-        // console.log("view object",  this.view_obj);
+        console.log("view object",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
 
-        this.router.navigate(['/user-request/request-view',id])
+        this.router.navigate(['/user-request/request-view',request_id])
     })
   }
 
