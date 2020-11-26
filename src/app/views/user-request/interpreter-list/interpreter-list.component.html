@@ -1,1 +1,147 @@
-<p>interpreter-list works!</p>
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <label for="test"><b>Name  :   </b></label>
+            <span>  {{nameShow}}  </span>
+        </div>
+        <div>
+            <label for="test"><b>Mobile No.  :   </b></label>
+            <span>  {{mobileShow}}  </span>
+        </div>
+        <div>
+            <label for="test"><b>Address  :   </b></label>
+            <span>  {{addressShow}}  </span>
+        </div>
+      
+        <button class="btn btn-outline-secondary" *ngIf="requestBtn" (click)="requestDetail(row)">Request</button>  
+
+    </div>
+    <div class="col-md-8">
+<agm-map 
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  [zoomControl]="true"
+  (mapClick)="mapClicked($event)">
+
+  <agm-marker 
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label,m.id,m,i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+      
+    <agm-info-window>
+      <strong>{{m.label}}</strong>
+    </agm-info-window>
+    
+  </agm-marker>
+  
+  <!--agm-circle [latitude]="lat + 0.3" [longitude]="lng" 
+      [radius]="5000"
+      [fillColor]="'red'"
+      [circleDraggable]="true"
+      [editable]="true">
+  </agm-circle-->
+
+</agm-map>
+</div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
+      </div>
+</div>
+
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable *ngIf="filteredUser?.length"
+            style="height: 500px; box-shadow: none"
+            class="material fullscreen"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="60"
+            [scrollbarV]="true"
+            [rows]="filteredUser">
+            <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+              <ng-template ngx-datatable-header-template>
+               S.No
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                  {{rowIndex +1}}
+              </ng-template>
+             </ngx-datatable-column>
+
+             <ngx-datatable-column name="Name" prop="name">
+                <ng-template ngx-datatable-header-template>
+                  Name
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.name}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Email" prop="email">
+                <ng-template ngx-datatable-header-template>
+                  Email
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.email}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Mobile" prop="mobile">
+                <ng-template ngx-datatable-header-template>
+                  Mobile
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.mobile}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Gender" prop="gender">
+                <ng-template ngx-datatable-header-template>
+                  Gender
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.gender}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Address" prop="address">
+                <ng-template ngx-datatable-header-template>
+                  Address
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.address}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Distance" prop="distance">
+                <ng-template ngx-datatable-header-template>
+                    Distance
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.distance}}
+                </ng-template>
+              </ngx-datatable-column>
+
+          <ngx-datatable-column [width]="150" [sortable]="false">
+            <ng-template ngx-datatable-header-template>
+                Actions
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                <button class="btn btn-outline-secondary" (click)="requestDetail(row.id)">Request</button>  
+                <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Assign</button> -->
+            </ng-template>
+        </ngx-datatable-column>
+
+          </ngx-datatable>
+        </div>
+      <ng-container *ngIf="list_Obj?.length <= 0">
+          No Data Found
+      </ng-container>
+    </div>
+</div>

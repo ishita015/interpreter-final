@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagInputModule } from 'ngx-chips';
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
 import { RequestDetailComponent } from './request-detail/request-detail.component';
-
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [RequestListComponent, InterpreterListComponent, RequestDetailComponent],
   imports: [
@@ -17,6 +17,11 @@ import { RequestDetailComponent } from './request-detail/request-detail.componen
     FormsModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      // please get your own API key here:
+      // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
+      apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38'
+    }),
     SharedComponentsModule,
     TagInputModule,
     NgbModule,
