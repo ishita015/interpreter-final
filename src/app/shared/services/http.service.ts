@@ -159,6 +159,9 @@ export class HttpService {
     return this.http.post(this.url + '/cesco/getInterpreterDetail',{id:id},this.httpOptions);
   }
 
+  sendInterpreterRequest(interpreter_id,service_id):Observable<any> {
+    return this.http.post(this.url + '/cesco/requestSendtoInterpreter',{interpreter_id:interpreter_id,service_id:service_id});
+  }
 
 
 
