@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./request-detail.component.scss']
 })
 export class RequestDetailComponent implements OnInit {
-
-  constructor() { }
+  data;
+  constructor() { 
+    this.data = JSON.parse(localStorage.getItem('userViewData'));
+    console.log("vvvvvvvvvvvvvvv",this.data);
+  }
 
   ngOnInit(): void {
   }

@@ -168,64 +168,64 @@ module.exports.getInterpreter = function(req, res, next) {
 
 module.exports.getInterpreterDetail = async function(req, res, next) {
     let user_id = req.body.id ? req.body.id : 0;
-console.log(user_id)
-if(user_id=='0'){
-    res.json({
-        status: 0,
-        error_code: 0,
-        error_line: 6,
-        message: "please try again"
-    });
-    return true;
-}else{
-    var mainArr = [];
-    var resultdata = await usermodel.getInterpreterInfo(user_id); 
-
-    
-
-    if (resultdata != "" && resultdata != undefined) {
-        var mainObj = {};
-        for (var i = 0; i < resultdata.length; i++) {
-            var langArr = [];
-            var langdata = await usermodel.getUserLanguage(user_id);
-            if (langdata != "" && langdata != undefined) {
-                langArr = langdata;
-            }
-            mainObj = {
-                id: resultdata[i].id,
-                role_id: resultdata[i].role_id,
-                name: resultdata[i].name,
-                mobile: resultdata[i].mobile,
-                email: resultdata[i].email,
-                gender: resultdata[i].gender,
-                address: resultdata[i].address,
-                primary_language: resultdata[i].lang_name,
-                role_name: resultdata[i].role_name,
-                primary_lang_id: resultdata[i].primary_lang_id,
-                interLanguage: langArr,
-            }
-            mainArr.push(mainObj); 
-        } 
-    }
-console.log("user info-",mainArr);
-    if (mainArr && mainArr.length > 0) {
-        res.json({
-            status: 1,
-            error_code: 0,
-            error_line: 1,
-            data: mainArr
-        });
-        return true;
-    } else {
+    console.log(user_id)
+    if(user_id=='0'){
         res.json({
             status: 0,
             error_code: 0,
             error_line: 6,
-            message: "No record found"
+            message: "please try again"
         });
         return true;
+    }else{
+        var mainArr = [];
+        var resultdata = await usermodel.getInterpreterInfo(user_id); 
+
+        console.log( "resultdata--",  resultdata)
+
+        if (resultdata != "" && resultdata != undefined) {
+            var mainObj = {};
+            for (var i = 0; i < resultdata.length; i++) {
+                var langArr = [];
+                var langdata = await usermodel.getUserLanguage(user_id);
+                if (langdata != "" && langdata != undefined) {
+                    langArr = langdata;
+                }
+                mainObj = {
+                    id: resultdata[i].id,
+                    role_id: resultdata[i].role_id,
+                    name: resultdata[i].name,
+                    mobile: resultdata[i].mobile,
+                    email: resultdata[i].email,
+                    gender: resultdata[i].gender,
+                    address: resultdata[i].address,
+                    primary_language: resultdata[i].lang_name,
+                    role_name: resultdata[i].role_name,
+                    primary_lang_id: resultdata[i].primary_lang_id,
+                    interLanguage: langArr,
+                }
+                mainArr.push(mainObj); 
+            } 
+        }
+    console.log("user info-",mainArr);
+        if (mainArr && mainArr.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: mainArr
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
     }
-}
 }
     
 

@@ -1,1 +1,65 @@
-<p>request-detail works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="print-area">
+                    <h5 class="font-weight-bold">User Request Details</h5>
+                    <div class="mt-3 mb-4 border-top"></div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 mb-3 mb-sm-0">
+                            <!--form 1 start-->
+                            <p>Caseworker- {{data.caseworker_name}}</p>
+                            <p>Business/Organization- {{data.business_bill}}</p>
+                            <p>Requester- {{data.requester_name}}</p>
+                            <p>Health Department/Division- {{data.health_department}}</p>
+                            <p>Community Service- {{data.north_metro_community_service}}</p>
+                            <p>Mesa Country Human Services- {{data.human_services}}</p>
+                            <p>AHS Department/Division- {{data.ahs_department}}</p>
+                            <p>Office Phone- {{data.office_phone}}</p>
+                            <p>Cell Phone- {{data.cell_phone}}</p>
+                            <p>Email- {{data.email}}</p>
+                            <p>Site Contact- {{data.site_contact}}</p>
+                            <p>Create Date- {{data.updated_at | date:'MM-dd-yyyy' }}</p>
+
+                            <!--form 1 end-->
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-sm-0">
+                            <p>Case Name- {{data.case_name}}</p>
+                            <p>Client Name- {{data.client_name}}</p>
+                            <p>Contact Person- {{data.name_of_contact_person}}</p>
+                            <p>Cell Phone- {{data.cell_phone}}</p>
+                            <p>Name Of Person Reqire Interpreter- {{data.name_of_person}}</p>
+                            <p>Name Of Provider/Doctor- {{data.doctor}}</p>
+                            <!-- <p>AHS Department- {{data.patient}}</p> -->
+                            <p>Case/Claim/ID Number- {{data.claim_number}}</p>
+                            <p>School Name or Building- {{data.school_name}}</p>
+                            <p>Trails/Reference- {{data.trails}}</p>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-sm-0">
+                        <!-- <div class="col-md-4 text-sm-right"> -->
+                            <!-- <h5 class="font-weight-bold">Primary Language</h5> -->
+                            <p>Appointment Type- {{data.appointment_type}}</p>
+                            <p>Date- {{data.date}}</p>
+                            <p>Start Time- {{data.start_time}}</p>
+                            <p>Anticipated End Time- {{data.anticipated_end_time}}</p>
+                            <p>Service Requested- {{data.service_requested}}</p>
+                            <p>How Many Receivers Required- {{data.receivers_required}}</p>
+                            <p>address- {{data.address}}</p>
+                            <p>Notes- {{data.notes}}</p>
+                            <p>Language- {{data.lang_name}}</p>
+                            
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                           
+                        </div>
+                    </div> -->
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
