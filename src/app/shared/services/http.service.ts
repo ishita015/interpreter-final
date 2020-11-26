@@ -155,9 +155,9 @@ export class HttpService {
   }
 
 
-  // getInterpreterDetail(id): Observable<any> {
-  //   return this.http.post(this.url + '/cesco/getInterpreterDetail',{id:id},this.httpOptions);
-  // }
+  getInterpreterDetail(id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getInterpreterDetail',{id:id},this.httpOptions);
+  }
 
 
 
