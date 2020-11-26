@@ -9,7 +9,41 @@ var nodemailer = require('nodemailer')
 var jade = require('jade');
 
 
-//contract code start
+
+
+
+module.exports.sendRequestEmail = function(caseworker_name,name,email) {
+
+    
+    let mailbody = "Hi "+name+", <br><br>";
+    
+    mailbody+=caseworker_name+" has been selected for your skills<br>";
+    mailbody+="Please accept appraisal";
+    
+    
+    // let mailbody = "hi "+name+" Welcome to Interpreter application";
+      var transporter = nodemailer.createTransport({
+            host: 'mail.samosys.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'test@samosys.com',
+                pass: 'test@#321',
+            }
+        });
+        var mailOptions = {
+            from: 'test@samosys.com',
+            to: email,
+            subject: 'Request send',
+            html: mailbody
+        };
+        transporter.sendMail(mailOptions, function(error, info) {});
+        return true;
+        
+    };
+    
+    
+
 
 
 

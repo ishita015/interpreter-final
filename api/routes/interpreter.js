@@ -1,16 +1,92 @@
 var con = require('../config');
 var common       = require('./common');
 const request = require('request');
-const v = require('node-input-validator');
 var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 var nodemailer = require('nodemailer')
 const Cryptr = require('cryptr');
-// const { IfStmt } = require('@angular/compiler');
+const { Validator } = require('node-input-validator');
 const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
 const usermodel = new userModel();
+
+
+
+
+
+
+// request mail send 
+module.exports.requestSendtoInterpreter = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required',
+        service_id: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let interpreter_id = req.body.interpreter_id;
+    let service_id = req.body.service_id;
+
+    
+
+    let name='';
+    let email='';
+    var interpreterDetail = await usermodel.getInterpreterInfo(interpreter_id);
+    if (interpreterDetail != "" && interpreterDetail != undefined) {
+        name=interpreterDetail[0].name;
+        email=interpreterDetail[0].email;
+    }
+
+
+    var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('"+service_id+"','"+interpreter_id+"','1')";
+    console.log('sql-',sql)
+    con.query(sql, function(err, insert) {
+        // let last_id= insert.insertId;
+        if(!err){
+            //get data in request form
+            var query = "SELECT * FROM request_information_services WHERE id='"+service_id+"'";
+            console.log(query)
+            con.query(query, function(err, result, fields) {
+                if (result && result.length > 0) {
+                    let caseworker_name = result[0].caseworker_name;
+                    common.sendRequestEmail(caseworker_name,name,email);
+                }
+            });
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Request send successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Server error",
+            });
+            return true;
+        }
+    });
+};
+
 
 
 

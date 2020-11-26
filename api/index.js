@@ -20,6 +20,7 @@ var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 //const v = require('node-input-validator');
+const { Validator } = require('node-input-validator');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 var nodemailer = require('nodemailer')
@@ -75,6 +76,7 @@ app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */
 
 
+app.post('/cesco/requestSendtoInterpreter', interpreterController.requestSendtoInterpreter);
 app.post('/cesco/getNearbyInterpreter', interpreterController.getNearbyInterpreter);
 app.post('/cesco/statusUpdate', interpreterController.statusUpdate);
 app.post('/cesco/checkeEmail', interpreterController.checkeEmail);
