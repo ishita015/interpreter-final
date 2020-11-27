@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonService } from './../../../services/common.service';
 import { ValidationsService } from 'src/app/services/validations.service';
 import { ToastrService } from 'ngx-toastr';
+import { MapsAPILoader } from '@agm/core';
 @Component({
   selector: 'app-step4',
   templateUrl: './step4.component.html',
   styleUrls: ['./step4.component.css']
 })
 export class Step4Component implements OnInit {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  private geoCoder;
+  lat_value:number;
+  long_value:number;
+  address1: string;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
+
+
   stepFourForm: FormGroup;
   submitted: boolean;
   languageObj;
@@ -18,12 +32,73 @@ export class Step4Component implements OnInit {
   constructor(public service:CommonService,
     private fb: FormBuilder,
     private toastr: ToastrService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
     public validation: ValidationsService,) { }
 
   ngOnInit() {
     this.languageList();
     this.createForm1();
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+  
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement,{});
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // console.log("latitude--",this.latitude)
+
+          
+          console.log("address--",place.formatted_address);
+          this.address1 = place.formatted_address;
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.lat_value =  this.latitude;
+          this.long_value =  this.longitude;
+
+          console.log("latitude 1--", this.lat_value)
+          console.log("longitude 2--", this.long_value)
+          this.zoom = 12;
+        });
+      });
+    });
   }
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+  
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+  
+    });
+  }
+  
+
 
   /*==========Step Form Value Start Here========*/
   createForm1() {

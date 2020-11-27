@@ -167,7 +167,8 @@
         </div>
         <div class="col-sm-12">
            <label>Address</label>
-           <textarea formControlName="address" class="form-control" rows="3" placeholder="Address"></textarea>
+           <input type="text" class="form-control" formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+           <!-- <textarea formControlName="address" class="form-control" rows="3" placeholder="Address"></textarea> -->
            <div *ngIf="stepFiveForm.controls['address'].errors && ( !stepFiveForm.controls['address'].pristine || submitted ||stepFiveForm.controls['address'].touched )" class="error-msg">
               <div [hidden]="!stepFiveForm.controls['address'].errors.required">Address is required.</div>
               <div [hidden]="!stepFiveForm.controls.address.hasError('minlength')">Address length should be minimum 2 characters.</div>

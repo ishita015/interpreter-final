@@ -158,11 +158,13 @@ export class InterpreterListComponent implements OnInit {
     });
   }
 
+  viewDetail(){
+    this.router.navigate(['/user-request/request-view',this.assignInfo.id])
+  }
+
   requestDetail(id,data,modal){
     this.requestId = id;
-    // console.log("table row iddddddd, interpreter",id);
     this.userId = JSON.parse(localStorage.getItem('serviceId'));
-    // console.log("service_id",  this.userId );
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
     this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
