@@ -87,8 +87,8 @@ export class InterpreterListComponent implements OnInit {
   mapClicked($event: MouseEvent) {
     console.log("eeeee",$event);
     this.markers.push({
-      lat: $event.lat,
-      lng: $event.lng,
+      lat: $event.coords.lat,
+      lng: $event.coords.lng,
       draggable: true,
       visible: true,
       opacity: 0.4
