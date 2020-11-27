@@ -16,11 +16,13 @@ const usermodel = new userModel();
 
 
 
-// get all request for interpreter
-module.exports.getRequestForInterpreter = async function(req, res) {
+// interpreter request accept/Reject 
+module.exports.interpreterRequestReply = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {
-        interpreter_id: 'required',
+        user_id: 'required',
+        ris_id: 'required',
+        res_type: 'required'
     });
     
     const matched = await v.check();
@@ -39,9 +41,70 @@ module.exports.getRequestForInterpreter = async function(req, res) {
     }
 
     //validation end
-    let interpreter_id = req.body.interpreter_id;
+    let user_id = req.body.user_id;
+    let ris_id = req.body.ris_id;
+    let res_type = req.body.res_type;
+    let status='0';
+    let message='0';
+    if(res_type=='2'){ // accept
+        status ='3'; 
+        message= "Request accept successfully";
+    }else if(res_type=='3'){ // reject
+        status='1';
+        message= "Request reject successfully";
+    }
+
     
-    var requestData = await usermodel.interpreterRequestList(interpreter_id);
+    //update status
+    let updatesql = "UPDATE interpreter_request SET status = '"+res_type+"' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
+    console.log("updatesql--",updatesql)
+    con.query(updatesql, function(err, result) {});
+
+    let sql = "UPDATE request_information_services SET status = '"+status+"' WHERE id = '"+ris_id+"'";
+    console.log("sql--",sql)
+    con.query(sql, function(err, result) {});
+    res.json({
+        status: 1,
+        error_code: 0,
+        error_line: 6,
+        message: message,
+    });
+    return true;
+};
+
+
+
+
+
+
+// get all request for interpreter
+module.exports.getRequestForInterpreter = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        role_id: 'required',
+        user_id: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let role_id = req.body.role_id;
+    let user_id = req.body.user_id;
+    
+    var requestData = await usermodel.interpreterRequestList(role_id,user_id);
     if (requestData != "" && requestData != undefined) {
         res.json({
             status: 1,

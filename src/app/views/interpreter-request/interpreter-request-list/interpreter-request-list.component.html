@@ -1,1 +1,132 @@
-<p>interpreter-request-list works!</p>
+<div class="">
+    <div class="breadcrumb">
+      <ul class="heading">
+          <li><a>Interpreter Request </a></li>
+          <li>List</li>
+      </ul>
+  </div>
+    
+      <div class="separator-breadcrumb border-top"></div>
+  
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
+          </div>
+    </div>
+
+
+
+<!-- anticipated_end_time: "10:30:00"
+cell_phone: "8989898989"
+code: "En"
+date: "2020-11-22"
+email: "sohel@gmail.com"
+lang_name: "English"
+mobile: "6565656565"
+name: "Sarika Jain 1"
+name_of_person: ""
+office_phone: "98989898998"
+requester_name: "sohel"
+ris_id: 2
+start_time: "09:29:00"
+status: 1 -->
+
+
+        <div class="col-md-12">
+            <div class="card  o-hidden">
+                <ngx-datatable *ngIf="filteredUser?.length"
+                style="height: 500px; box-shadow: none"
+                class="material fullscreen"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="60"
+                [scrollbarV]="true"
+                [rows]="filteredUser">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                  <ng-template ngx-datatable-header-template>
+                   S.No
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                      {{rowIndex +1}}
+                  </ng-template>
+                 </ngx-datatable-column>
+
+                 <ngx-datatable-column name="Caseworker" prop="caseworker_name">
+                  <ng-template ngx-datatable-header-template>
+                    Caseworker
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.caseworker_name}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                 <ngx-datatable-column name="Appointment Type" prop="appointment_type">
+                  <ng-template ngx-datatable-header-template>
+                    Appointment Type
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.appointment_type}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+                  <ng-template ngx-datatable-header-template>
+                    Cell Phone
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.cell_phone}}
+                  </ng-template>
+                </ngx-datatable-column>
+                  <ngx-datatable-column name="Requester" prop="requester_name">
+                      <ng-template ngx-datatable-header-template>
+                        Requester
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.requester_name}}
+                      </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Interpreter" prop="requester_name">
+                    <ng-template ngx-datatable-header-template>
+                        Interpreter
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.name}}
+                    </ng-template>  
+                </ngx-datatable-column>
+                
+                <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
+                  <ng-template ngx-datatable-header-template>
+                    Interpreter Mobile
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                      {{row.mobile}}
+                  </ng-template>  
+              </ngx-datatable-column>
+             
+
+
+                  <ngx-datatable-column [width]="120" [sortable]="false">
+                    <ng-template ngx-datatable-header-template>
+                        Actions
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
+                        <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
+                        <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button> -->
+                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
+                        <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
+                            Delete
+                        </button> -->
+                    </ng-template>
+                </ngx-datatable-column>
+
+              </ngx-datatable>
+            </div>
+          <ng-container *ngIf="list_Obj?.length <= 0">
+              No Data Found
+          </ng-container>
+        </div>
+          
+      </div>
+  </div>  
