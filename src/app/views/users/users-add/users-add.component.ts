@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 import { MapsAPILoader } from '@agm/core';
-// import { MouseEvent } from '@agm/core';
+import { MouseEvent } from '@agm/core';
 // import { MouseEvent as AGMMouseEvent } from '@agm/core';
 // import { MapsAPILoader, MouseEvent } from '@agm/core';
 
@@ -50,18 +50,6 @@ tagsCtrl2 = new FormControl([]);
 
 @ViewChild('search')
 public searchElementRef: ElementRef;
-
-
-// constructor(
-// private mapsAPILoader: MapsAPILoader,
-// private ngZone: NgZone
-// ) { }
-
-// constructor(
-// private mapsAPILoader: MapsAPILoader,
-// private ngZone: NgZone
-// ) { }
-
 
 
 constructor(
