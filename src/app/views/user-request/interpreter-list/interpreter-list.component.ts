@@ -186,8 +186,8 @@ export class InterpreterListComponent implements OnInit {
   }
 
 
-  viewDetail(){
-    this.router.navigate(['/user-request/request-view',this.assignInfo.id])
-  }
+  // viewDetail(){
+  //   this.router.navigate(['/user-request/request-view',this.assignInfo.id])
+  // }
 
 }
