@@ -1,20 +1,20 @@
 <div class="row">
   <div class="col-md-4">
       <div>
-          <label for="test"><b>Name  :   </b></label>
-          <span>  {{nameShow}}  </span>
+          <label for="test"><b>Caseworker Name  :   </b></label>
+          <span>  {{assignInfo.caseworker_name}}  </span>
       </div>
       <div>
-          <label for="test"><b>Mobile No.  :   </b></label>
-          <span>  {{mobileShow}}  </span>
+          <label for="test"><b>Requester Name  :   </b></label>
+          <span>  {{assignInfo.requester_name}}  </span>
       </div>
       <div>
-          <label for="test"><b>Address  :   </b></label>
-          <span>  {{addressShow}}  </span>
+          <label for="test"><b>Email  :   </b></label>
+          <span>  {{assignInfo.email}}  </span>
       </div>
       <div>
-        <label for="test"><b>Email  :   </b></label>
-        <span>  {{emailShow}}  </span>
+        <label for="test"><b>Mobile No. :   </b></label>
+        <span>  {{assignInfo.office_phone}}  </span>
     </div>
     
       <button class="btn btn-outline-secondary" *ngIf="requestBtn" (click)="requestDetail(id,info,requestConfirmModal)">Assign</button>  
@@ -31,7 +31,7 @@
 
 <agm-marker 
     *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label,m.id,m,i)"
+    (markerClick)="clickedMarker(m.label,m.id,m,i,requestConfirmModal)"
     [latitude]="m.lat"
     [longitude]="m.lng"
     [label]="m.label"
