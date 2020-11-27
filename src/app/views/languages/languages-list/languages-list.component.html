@@ -54,6 +54,16 @@
                     {{row.code}}
                   </ng-template>
                 </ngx-datatable-column>
+
+
+                <ngx-datatable-column name="Country" prop="country">
+                  <ng-template ngx-datatable-header-template>
+                    Country
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.country}}
+                  </ng-template>
+                </ngx-datatable-column>
                   
                 <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template>

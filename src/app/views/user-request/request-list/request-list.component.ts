@@ -71,7 +71,7 @@ export class RequestListComponent implements OnInit {
   userRequestList(){
     this.service.getUserRequest()
     .subscribe(res => {
-        console.log("api response",res);
+        console.log("api response 4545",res);
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
         console.log("listttttttt", this.list_Obj);

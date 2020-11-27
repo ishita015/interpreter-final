@@ -1,13 +1,13 @@
 var con = require('../config');
 var common       = require('./common');
 const request = require('request');
-const v = require('node-input-validator');
+const { Validator } = require('node-input-validator');
 var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 // var nodemailer = require('nodemailer')
 const Cryptr = require('cryptr');
-// const { IfStmt } = require('@angular/compiler');
+
 const cryptr = new Cryptr('myTotalySecretKey');
 // var userModel = require('./Models/userModels');
 // const usermodel = new userModel();
@@ -23,8 +23,29 @@ const cryptr = new Cryptr('myTotalySecretKey');
 
 
 // get form data 
-module.exports.getRequestDetails = function(req, res) {
-    let request_id = req.body.request_id ? req.body.request_id : 0;
+module.exports.getRequestDetails = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        request_id: 'required'        
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let request_id = req.body.request_id;
     var sql = "SELECT ris.*,ais.*,l.name as lang_name FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.id='"+request_id+"'";
     console.log("sql--",sql)
     con.query(sql, function(err, result, fields) {
@@ -57,7 +78,7 @@ module.exports.getRequestDetails = function(req, res) {
 
 // get form data
 module.exports.getRequestData = function(req, res) {
-    var sql = "SELECT ris.*,ais.language FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id WHERE status='1' ORDER BY id DESC";
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1' ORDER BY ris.id DESC";
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {

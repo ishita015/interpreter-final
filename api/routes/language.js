@@ -1,6 +1,6 @@
 var con = require('../config');
 const request = require('request');
-const v = require('node-input-validator');
+const { Validator } = require('node-input-validator');
 var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
@@ -12,11 +12,34 @@ const usermodel = new userModel();
 // add languages
 
 module.exports.addLanguage = async function(req, res) {
-    console.log('sql-')
+    //validation start
+    const v = new Validator(req.body, {
+        name: 'required',
+        code: 'required',
+        country: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
 
     
     let name = req.body.name;
-    let code = req.body.code ? req.body.code : 0;
+    let code = req.body.code;
+    let country = req.body.country;
     
     var resultdata = await usermodel.languageExist(code);
 
@@ -29,7 +52,7 @@ module.exports.addLanguage = async function(req, res) {
         });
         return true;
     }else{
-        var sql = "INSERT INTO languages(name, code, status)VALUES('"+name+"', '"+code+"', '1')";
+        var sql = "INSERT INTO languages(name, code,country, status)VALUES('"+name+"', '"+country+"','"+code+"', '1')";
         console.log('sql-',sql)
         con.query(sql, function(err, insert) {
             var last_id= insert.insertId;
@@ -167,7 +190,7 @@ module.exports.getLanguages = function(req, res, next) {
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
-        if (result && result.length > 0) {
+        if (result && result.length > 0) {addLanguage
             res.json({
                 status: 1,
                 error_code: 0,
@@ -237,6 +260,7 @@ module.exports.getLanguages = async function(req, res, next) {
                 id: resultdata[i].id,
                 name: resultdata[i].name,
                 code: resultdata[i].code ? resultdata[i].code : "N/A",
+                country: resultdata[i].country ? resultdata[i].country : "N/A",
                 created_at: resultdata[i].created_at ? resultdata[i].created_at : '',
                 updated_at: resultdata[i].updated_at ? resultdata[i].updated_at : '',
                 Interpreter: resultdata[i].Interpreter ? resultdata[i].Interpreter : '0',

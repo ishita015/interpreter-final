@@ -29,6 +29,7 @@ export class LanguagesAddComponent implements OnInit {
     this.langaugeForm = this.fb.group({
       name: ['', this.validation.onlyRequired_validator],
       code: ['', this.validation.onlyRequired_validator],
+      country: ['', this.validation.onlyRequired_validator],
     });
   }
   /*========== Form Value End Here========*/

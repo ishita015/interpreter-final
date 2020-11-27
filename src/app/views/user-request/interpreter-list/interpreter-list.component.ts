@@ -182,4 +182,10 @@ export class InterpreterListComponent implements OnInit {
   }, (reason) => {
   });
   }
+
+
+  viewDetail(){
+    this.router.navigate(['/user-request/request-view',this.assignInfo.id])
+  }
+
 }

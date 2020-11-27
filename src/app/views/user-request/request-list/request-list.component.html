@@ -60,14 +60,23 @@
                     {{row.requester_name}}
                   </ng-template>
                 </ngx-datatable-column>
-                  <ngx-datatable-column name="Health Department" prop="health_department">
+                  <!-- <ngx-datatable-column name="Health Department" prop="health_department">
                       <ng-template ngx-datatable-header-template>
                         Health Department
                       </ng-template>
                       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.health_department}}
                       </ng-template>
-                  </ngx-datatable-column>
+                  </ngx-datatable-column> -->
+                  <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template name="Language" prop="lang_name">
+                      Language
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.lang_name}}
+                    </ng-template>  
+                </ngx-datatable-column>
+                  
                   <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Community Service" prop="north_metro_community_service">
                         Community Service
@@ -123,6 +132,7 @@
                         {{row.email}}
                     </ng-template>  
                 </ngx-datatable-column>
+
 
                 <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Site Contact" prop="site_contact">
