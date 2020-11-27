@@ -76,6 +76,8 @@ app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */
 
+
+app.post('/cesco/interpreterRequestReply', interpreterController.interpreterRequestReply);
 app.post('/cesco/getRequestForInterpreter', interpreterController.getRequestForInterpreter);
 app.post('/cesco/requestSendtoInterpreter', interpreterController.requestSendtoInterpreter);
 app.post('/cesco/getNearbyInterpreter', interpreterController.getNearbyInterpreter);

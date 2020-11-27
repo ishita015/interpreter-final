@@ -37,6 +37,18 @@ export class HttpService {
   }
   
 
+  
+
+
+  interpreterReqReply(user_id,ris_id,res_type): Observable<any> {
+    return this.http.post(this.url + '/cesco/interpreterRequestReply',{user_id:user_id,ris_id:ris_id,res_type:res_type},this.httpOptions);
+  }
+
+
+  interpreterRequestList(role_id,user_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRequestForInterpreter',{role_id:role_id,user_id:user_id},this.httpOptions);
+  }
+
 
 
   myNearbyInterpreter(service_id): Observable<any> {
