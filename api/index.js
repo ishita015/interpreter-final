@@ -73,9 +73,10 @@ app.post('/cesco/userlogin', loginController.userlogin);
 app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
 app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 app.get('/cesco/getRole', interpreterController.getRole);
+
 /* interpreter api start */
 
-
+app.post('/cesco/getRequestForInterpreter', interpreterController.getRequestForInterpreter);
 app.post('/cesco/requestSendtoInterpreter', interpreterController.requestSendtoInterpreter);
 app.post('/cesco/getNearbyInterpreter', interpreterController.getNearbyInterpreter);
 app.post('/cesco/statusUpdate', interpreterController.statusUpdate);

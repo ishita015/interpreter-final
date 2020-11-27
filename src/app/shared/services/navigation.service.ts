@@ -46,17 +46,126 @@ export class NavigationService {
     };
     selectedItem: IMenuItem;
     roleData;
-    array1_Obj;
+    array1_Obj;array2_Obj;array3_Obj;array4_Obj;array5_Obj;
   
     constructor() {
         this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-        this.array1_Obj = this.roleData['data'][0];
-        // console.log("iii");
-        
-        // console.log("ooooooooooooo",this.defaultMenu[3]);
-        if(this.array1_Obj.view_permission === 'false'){
-            this.defaultMenu.splice(3, 1);
+        // console.log("roleData--", this.roleData);
+        this.array1_Obj = this.roleData['data'][0]; 
+        this.array2_Obj = this.roleData['data'][1];
+        this.array3_Obj = this.roleData['data'][2];
+        this.array4_Obj = this.roleData['data'][3];
+        this.array5_Obj = this.roleData['data'][4];
+        // if(this.array1_Obj.userRoleId != '1'){ //1 = super admin
+        //     if(this.array1_Obj.module_id == 1){ 
+        //         if(this.array1_Obj.view_permission === 'false'){
+        //             this.defaultMenu.splice(0, 1);
+        //         }   
+        //     }   
+        // }
+
+        if(this.array1_Obj.userRoleId != '1'){ //1 = super admin
+            if(this.array4_Obj.module_id == 4){  //4 = USER
+                if(this.array4_Obj.view_permission === 'false'){
+                    this.defaultMenu.splice(3, 1);
+                }   
+            }
+            
+            if(this.array5_Obj.module_id == 5){  //4 = user request
+                if(this.array5_Obj.view_permission === 'false'){
+                    this.defaultMenu.splice(4,1);
+                }   
+            }
         }
+
+        
+        // for (var i = 0; i < this.array1_Obj.length; i++) {
+        //     console.log("module_id", this.array1_Obj[i].module_id);
+        //     console.log("view_permission", this.array1_Obj[i].view_permission);
+        //     if(this.array1_Obj[i].module_id == i+1){ 
+        //         if(this.array1_Obj[i].view_permission === 'false'){
+        //             this.defaultMenu.splice(i, 1);
+        //         }   
+        //     } 
+        // }
+
+
+/*
+        for (var i = 0; i < this.array1_Obj.length; i++) {
+            console.log("userRoleId",this.array1_Obj[i].userRoleId);
+            console.log("module_id",this.array1_Obj[i].module_id);
+            if(this.array1_Obj[i].userRoleId != '1'){ //1 = super admin
+                if(this.array1_Obj[i].module_id == '1'){ //dashboard
+                    if(this.array1_Obj[i].view_permission === 'false'){
+                        this.defaultMenu.splice(0, 1);
+
+                        //  console.log("defaultMenu", this.defaultMenu[1].sub);
+
+                    }   
+                } 
+
+                // if(this.array1_Obj[i].module_id == '2' && this.array1_Obj[i].module_id == '3'){
+                //     if(this.array1_Obj[i].view_permission === 'false'){
+
+                //     }
+                // }
+
+                if(this.array1_Obj[i].module_id == '2'){ //language
+                    if(this.array1_Obj[i].view_permission === 'false'){
+                        this.defaultMenu[1].sub.splice(0,1);
+                        // this.defaultMenu.splice(1, 1);
+                    }   
+                }  
+                if(this.array1_Obj[i].module_id == '3'){ //import language
+                    if(this.array1_Obj[i].view_permission === 'false'){
+                        this.defaultMenu[1].sub.splice(1,1);
+                        // this.defaultMenu.splice(1, 1);
+                    }   
+                }  
+
+                // if(this.array1_Obj[i].view_permission === 'false'){
+                this.defaultMenu[1].sub.splice(2,1); //for permission module 
+                    // this.defaultMenu.splice(1, 1);
+                // }  
+
+
+                if(this.array1_Obj[i].module_id == '4'){ //User
+                    if(this.array1_Obj[i].view_permission === 'false'){
+                        this.defaultMenu[1].sub.splice(3,1);
+                        // this.defaultMenu.splice(1, 1);
+                    }   
+                }   
+
+                if(this.array1_Obj[i].module_id == '5'){ //User request
+                    if(this.array1_Obj[i].view_permission === 'false'){
+                        this.defaultMenu[1].sub.splice(4,1);
+                        // this.defaultMenu.splice(1, 1);
+                    }   
+                }  
+
+            }
+        }   
+*/
+        // add_permission: "true"
+        // delete_permission: "true"
+        // edit_permission: "false"
+        // id: 4
+        // // module_id: 1 = dashboard, 2 = language, 3= import, 4 = user, 5=user request
+        // module_name: "User"
+        // status_permission: "false"
+        // userRoleId: 2
+        // view_permission: "true"
+
+
+            // console.log("module_id-",this.array1_Obj.module_id)
+            // console.log("view_permission-",this.array1_Obj.view_permission)
+        // if(this.array1_Obj.userRoleId != '1'){
+            // if(this.array1_Obj.module_id == '1'){ //dashboard
+            //     if(this.array1_Obj.view_permission === 'false'){
+            //         this.defaultMenu.splice(0, 1);
+            //     }   
+            // } 
+             
     }
 
   
@@ -67,12 +176,6 @@ export class NavigationService {
             type: 'link',
             icon: 'i-Bar-Chart',
             state: '/dashboard/v1',
-            // sub: [
-            //     { icon: 'i-Clock-3', name: 'Version 1', state: '/dashboard/v1', type: 'link' },
-            //     { icon: 'i-Clock-4', name: 'Version 2', state: '/dashboard/v2', type: 'link' },
-            //     { icon: 'i-Over-Time', name: 'Version 3', state: '/dashboard/v3', type: 'link' },
-            //     { icon: 'i-Clock', name: 'Version 4', state: '/dashboard/v4', type: 'link' },
-            // ]
         },
         {   
             name: 'Language',
@@ -90,10 +193,6 @@ export class NavigationService {
             type: 'link',
             icon: 'i-Library',
             state: '/permission/rolelist',
-            // sub: [
-            //     { icon: 'i-Bell', name: 'Role-List', state: '/permission/rolelist', type: 'link' },
-            //     { icon: 'i-Split-Horizontal-2-Window', name: 'Module-List', state: '/permission/modulelist', type: 'link' },
-            // ]
         },
         {   
             name: 'User management',

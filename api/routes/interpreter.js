@@ -16,6 +16,61 @@ const usermodel = new userModel();
 
 
 
+// get all request for interpreter
+module.exports.getRequestForInterpreter = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let interpreter_id = req.body.interpreter_id;
+    
+    var requestData = await usermodel.interpreterRequestList(interpreter_id);
+    if (requestData != "" && requestData != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            data: requestData,
+            message: "Record Found",
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Record Not Found",
+        });
+        return true;
+    }
+};
+
+
+
+
+
+
+
+
+
+
 // request mail send 
 module.exports.requestSendtoInterpreter = async function(req, res) {
     //validation start
@@ -220,7 +275,7 @@ module.exports.getRole = function(req, res, next) {
 
 // get interpreter
 module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id ORDER BY u.id DESC";
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
     //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
