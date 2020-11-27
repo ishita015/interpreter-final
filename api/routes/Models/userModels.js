@@ -18,7 +18,7 @@ class userClass {
             var sql = "SELECT ir.status, u.id as user_id,u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language";
 
             if (role_id!=1) {
-                sql +=" WHERE ir.Interpreter_id='"+user_id+"'";
+                sql +=" WHERE ir.Interpreter_id='"+user_id+"' && (ir.status='1' || ir.status='2' )";
             }
 
             console.log(sql);

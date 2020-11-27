@@ -220,9 +220,34 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
 
 
 // get interpreter
-module.exports.getNearbyInterpreter = function(req, res, next) {
-    let service_id = req.body.service_id ? req.body.service_id : 0;
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2'";
+module.exports.getNearbyInterpreter = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        service_id: 'required',
+        language: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+
+    let service_id = req.body.service_id;
+    let language_id = req.body.language;
+    console.log("service_id--",service_id);
+
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)

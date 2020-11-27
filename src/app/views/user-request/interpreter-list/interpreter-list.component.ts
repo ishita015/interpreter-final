@@ -36,7 +36,7 @@ export class InterpreterListComponent implements OnInit {
   requestId;
   userId;
   requestStatus;
-  
+  language_id;
   assignInfo;
   searchControl: FormControl = new FormControl();
   // initial center position for the map
@@ -44,6 +44,16 @@ export class InterpreterListComponent implements OnInit {
   lng: number = 0;
   scroll: boolean = false;
   a
+
+
+  constructor(private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private modalService: NgbModal,
+    private router: Router,
+    public service:HttpService){
+    this.serviceid = JSON.parse(localStorage.getItem('serviceId'));
+  }
+
 
   clickedMarker(label: string,id ,info, index: number,modal) {
     this.requestId = id;
@@ -53,6 +63,7 @@ export class InterpreterListComponent implements OnInit {
     this.addressShow = info.address;
     this.mobileShow =  info.mobile;
     this.emailShow = info.email;
+    // this.language_id = info.language;
     this.userId = JSON.parse(localStorage.getItem('serviceId'));
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
@@ -89,8 +100,10 @@ export class InterpreterListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.assignMyNearbyInterpreter();
     this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
+    this.language_id = this.assignInfo.language;
+    this.assignMyNearbyInterpreter();
+    
     this.searchControl.valueChanges
     .pipe(debounceTime(200))
     .subscribe(value => {
@@ -98,13 +111,6 @@ export class InterpreterListComponent implements OnInit {
     });
   }
 
-  constructor(private formBuilder: FormBuilder,
-    private toastr: ToastrService,
-    private modalService: NgbModal,
-    private router: Router,
-    public service:HttpService){
-    this.serviceid = JSON.parse(localStorage.getItem('serviceId'));
-  }
 
   filerData(val) {
     if (val) {
@@ -130,7 +136,8 @@ export class InterpreterListComponent implements OnInit {
   }
 
   assignMyNearbyInterpreter(){
-    this.service.myNearbyInterpreter(this.serviceid).subscribe(res => {
+    console.log("language++",this.language_id)
+    this.service.myNearbyInterpreter(this.serviceid,this.language_id).subscribe(res => {
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
         this.filteredUser = this.list_Obj;

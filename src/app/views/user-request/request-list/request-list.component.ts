@@ -98,11 +98,11 @@ export class RequestListComponent implements OnInit {
   //assign
   assignMyNearbyInterpreter(service_id,info){
     console.log("id assign",service_id);
-    console.log("Infoooooooooooo",info);
+    console.log("Infoooooooooooo lang",info.language);
     
     localStorage.setItem('assignData', JSON.stringify(info));
     localStorage.setItem('serviceId', JSON.stringify(service_id));
-    this.service.myNearbyInterpreter(service_id).subscribe(res => {
+    this.service.myNearbyInterpreter(service_id,info.language).subscribe(res => {
       // console.log(res['data']);
         this.interpreter_obj = res['data'];
         console.log("interpreter_obj",  this.interpreter_obj);

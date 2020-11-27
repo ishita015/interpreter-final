@@ -57,8 +57,7 @@ module.exports.getRequestDetails = function(req, res) {
 
 // get form data
 module.exports.getRequestData = function(req, res) {
-    // let code = req.body.code ? req.body.code : 0;
-    var sql = "SELECT * FROM request_information_services ORDER BY id DESC";
+    var sql = "SELECT ris.*,ais.language FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id WHERE status='1' ORDER BY id DESC";
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {

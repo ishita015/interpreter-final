@@ -253,13 +253,6 @@ export class NavigationService {
             state: '/interpreter-request/list'
         },
        
-        {
-            name: 'Interpreter Request',
-            description: '600+ premium icons',
-            type: 'link',
-            icon: 'i-Cloud-Sun',
-            state: '/interpreter-request/interpreter-request-list'
-        },
         // {
         //     name: 'UI kits',
         //     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',

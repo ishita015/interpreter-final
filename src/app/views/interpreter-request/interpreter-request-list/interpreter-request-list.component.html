@@ -113,11 +113,6 @@ status: 1 -->
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
                         <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
-                        <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button> -->
-                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
-                        <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
-                            Delete
-                        </button> -->
                     </ng-template>
                 </ngx-datatable-column>
 
