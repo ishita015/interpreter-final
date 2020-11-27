@@ -49,13 +49,15 @@ export class NavigationService {
     array1_Obj;array2_Obj;array3_Obj;array4_Obj;array5_Obj;
   
     constructor() {
+       
+        
         this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
         // console.log("roleData--", this.roleData);
-        this.array1_Obj = this.roleData['data'][0]; 
-        this.array2_Obj = this.roleData['data'][1];
-        this.array3_Obj = this.roleData['data'][2];
-        this.array4_Obj = this.roleData['data'][3];
-        this.array5_Obj = this.roleData['data'][4];
+        this.array1_Obj = this.roleData['data'][0];  //for dashboard
+        this.array2_Obj = this.roleData['data'][1];  //for Language
+        this.array3_Obj = this.roleData['data'][2];  //for import Language
+        this.array4_Obj = this.roleData['data'][3];  //for User
+        this.array5_Obj = this.roleData['data'][4];  //for User request
         // if(this.array1_Obj.userRoleId != '1'){ //1 = super admin
         //     if(this.array1_Obj.module_id == 1){ 
         //         if(this.array1_Obj.view_permission === 'false'){
@@ -67,12 +69,44 @@ export class NavigationService {
         if(this.array1_Obj.userRoleId != '1'){ //1 = super admin
             if(this.array4_Obj.module_id == 4){  //4 = USER
                 if(this.array4_Obj.view_permission === 'false'){
+                    //remove user tab in sidebar
                     this.defaultMenu.splice(3, 1);
                 }   
             }
+            /*
+            if(this.array4_Obj.module_id == 1){  //1 = Dashboard
+                if(this.array4_Obj.view_permission === 'false'){
+                    //remove dashboard tab in sidebar
+                    this.defaultMenu.splice(0, 1);
+                }   
+            }
+            */
+            //other user not visible role & permission
+            this.defaultMenu.splice(2, 1);
+            // if language or import language are false than hide language tab in sidebar
+            if( ((this.array2_Obj.module_id == 2) && (this.array2_Obj.view_permission === 'false' )) && ((this.array3_Obj.module_id == 3) && (this.array3_Obj.view_permission === 'false' )) ){   
+                //hide language tab in sidebar
+                this.defaultMenu.splice(1, 1);
+            }else{
+                if(this.array2_Obj.module_id == 2){  //2 = Language
+                    if(this.array2_Obj.view_permission === 'false'){
+                        //hide language sub tab in sidebar
+                        this.defaultMenu.splice(2, 1);
+                    }   
+                }
+                if(this.array3_Obj.module_id == 3){  //3 = Import Language
+                    if(this.array3_Obj.view_permission === 'false'){
+                        //hide import language sub tab in sidebar
+                        this.defaultMenu[1].sub.splice(1, 1);
+                    }   
+                }
+            }
+
+
             
             if(this.array5_Obj.module_id == 5){  //4 = user request
                 if(this.array5_Obj.view_permission === 'false'){
+                    //hide user request tab in sidebar
                     this.defaultMenu.splice(4,1);
                 }   
             }
@@ -212,13 +246,13 @@ export class NavigationService {
           
         },
        
-        // {
-        //     name: 'Icons',
-        //     description: '600+ premium icons',
-        //     type: 'link',
-        //     icon: 'i-Cloud-Sun',
-        //     state: '/icons/iconsmind'
-        // },
+        {
+            name: 'Interpreter Request',
+            description: '600+ premium icons',
+            type: 'link',
+            icon: 'i-Cloud-Sun',
+            state: '/interpreter-request/interpreter-request-list'
+        },
         // {
         //     name: 'UI kits',
         //     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
@@ -346,10 +380,7 @@ export class NavigationService {
     //       break;
     //     case 'user':
     //       this.menuItems.next(this.userMenu);
-    //       break;
-    //     default:
-    //       this.menuItems.next(this.defaultMenu);
-    //   }
+    //       break;//1 = super admin
     // }
 
     ngOnInit(){

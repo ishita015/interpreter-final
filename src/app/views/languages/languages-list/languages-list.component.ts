@@ -20,6 +20,11 @@ export class LanguagesListComponent implements OnInit {
   user_status;
   languageData;
   filteredLanguage;
+  array_Obj;
+  roleData;
+  userId;
+  roleId;
+  role_id;
   searchControl: FormControl = new FormControl();
     constructor(
         private dl: DataLayerService,
@@ -31,12 +36,21 @@ export class LanguagesListComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+      this.userId = JSON.parse(localStorage.getItem('userId'));
+      this.roleId = JSON.parse(localStorage.getItem('roleId'));
         this.languageList();
         this.searchControl.valueChanges
         .pipe(debounceTime(200))
         .subscribe(value => {
             this.filerData(value);
         });
+
+        this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
+        this.array_Obj = this.roleData['data'][1];
+        if(this.array_Obj.id){
+          this.array_Obj = this.roleData['data'][1];
+          console.log("roleData xxxxxxxxxxxxxx", this.array_Obj);
+        }
     }
 
 
@@ -76,6 +90,9 @@ export class LanguagesListComponent implements OnInit {
             this.languageData = [...res['data']];
             console.log("listttttttt", this.list_Obj);
             this.filteredLanguage = this.list_Obj;
+            this.role_id = this.roleId;
+
+            console.log("role_id---",this.role_id)
             // this.toastr.success(this.reg_Msg.msg,'', { timeOut: 2000 });
             // this.router.navigate(['/login'])
         });

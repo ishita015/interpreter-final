@@ -97,7 +97,7 @@
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                        
                         <label class="switch" > 
-                            <input type="checkbox" [disabled]="array_Obj.status_permission !== 'true'" [checked]="row.status == '1'" 
+                            <input type="checkbox" [disabled] = "role_id!=1 ? array_Obj.status_permission !== 'true' : ''" [checked]="row.status == '1'" 
                             (click)="statusChange($event.target,row.status,row.id)">
                             <span class="slider">
                             </span>
@@ -111,14 +111,13 @@
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         <button class="btn btn-outline-secondary" (click)="userView(row.id)">View</button>  
-                        <button class="btn btn-outline-success ml-2"  [disabled]="array_Obj.edit_permission !== 'true'" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button>
+                        <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]" [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''" >Edit</button>
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
                         <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
                             Delete
                         </button> -->
                     </ng-template>
                 </ngx-datatable-column>
-
               </ngx-datatable>
             </div>
           <ng-container *ngIf="list_Obj?.length <= 0">

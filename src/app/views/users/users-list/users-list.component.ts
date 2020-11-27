@@ -23,6 +23,9 @@ export class UsersListComponent implements OnInit {
   status_msg;
   roleData;
   array_Obj;
+  userId;
+  roleId;
+  role_id;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -33,6 +36,8 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+    this.userId = JSON.parse(localStorage.getItem('userId'));
+    this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.interpreterList();
     this.searchControl.valueChanges
     .pipe(debounceTime(200))
@@ -40,13 +45,11 @@ export class UsersListComponent implements OnInit {
       this.filerData(value);
     });
     this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-    this.array_Obj = this.roleData['data'][0];
+    this.array_Obj = this.roleData['data'][3];
     if(this.array_Obj.id){
-      this.array_Obj = this.roleData['data'][0];
+      this.array_Obj = this.roleData['data'][3];
       console.log("roleData", this.array_Obj);
     }
-    
-    
   }
 
 
@@ -85,6 +88,9 @@ export class UsersListComponent implements OnInit {
         this.userData = [...res['data']];
         console.log("listttttttt", this.list_Obj);
         this.filteredUser = this.list_Obj;
+        this.role_id = this.roleId;
+
+        console.log("role_id---",this.role_id)
         // this.toastr.success(this.reg_Msg.msg,'', { timeOut: 2000 });
         // this.router.navigate(['/login'])
     });

@@ -15,7 +15,8 @@
           </div>
         </div>
         <div class="col-md-12">
-            <button class="btn btn-primary float-right" (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
+            <button class="btn btn-primary float-right"   [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''" 
+            (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
         </div>
         
         <div class="col-md-12">
@@ -86,7 +87,8 @@
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                      
                       <label class="switch" > 
-                          <input type="checkbox" [checked]="row.status == '1'" 
+                          <input type="checkbox" [disabled] = "role_id!=1 ? array_Obj.status_permission !== 'true' : ''" 
+                          [checked]="row.status == '1'" 
                           (click)="statusLanguageChange($event.target,row.status,row.id)">
                           <span class="slider">
                           </span>
@@ -116,9 +118,11 @@
                         Actions
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-outline-success" (click)="Edit(row.id,row)" [routerLink]="['/languages/edit', row.id]">Edit</button>
+                        <button class="btn btn-outline-success" (click)="Edit(row.id,row)" 
+                        [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''" [routerLink]="['/languages/edit', row.id]">Edit</button>
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
-                        <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
+                        <button class="btn btn-outline-danger ml-2" [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
+                        (click)="deleteLanguage(row.id, deleteConfirmModal)">
                             Delete
                         </button>
                     </ng-template>
