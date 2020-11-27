@@ -82,14 +82,12 @@ export class RequestListComponent implements OnInit {
 
 
   viewDetail(request_id){
-
     console.log("id--",  request_id);
     this.service.getRequestDetail(request_id).subscribe(res => {
         console.log("res--",  res);
         this.view_obj = res['data'][0];
         console.log("view object",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-
         this.router.navigate(['/user-request/request-view',request_id])
     })
   }
@@ -98,12 +96,16 @@ export class RequestListComponent implements OnInit {
 
 
   //assign
-  assignMyNearbyInterpreter(service_id){
+  assignMyNearbyInterpreter(service_id,info){
+    console.log("id assign",service_id);
+    console.log("Infoooooooooooo",info);
+    
+    localStorage.setItem('assignData', JSON.stringify(info));
     localStorage.setItem('serviceId', JSON.stringify(service_id));
     this.service.myNearbyInterpreter(service_id).subscribe(res => {
-      console.log(res['data']);
+      // console.log(res['data']);
         this.interpreter_obj = res['data'];
-        console.log("view view_interpreter",  this.view_interpreter);
+        console.log("interpreter_obj",  this.interpreter_obj);
         localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
         this.router.navigate(['/user-request/interpreter-view',service_id])
     })

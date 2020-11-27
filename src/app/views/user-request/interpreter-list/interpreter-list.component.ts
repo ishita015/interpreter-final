@@ -36,7 +36,8 @@ export class InterpreterListComponent implements OnInit {
   requestId;
   userId;
   requestStatus;
-  requestBtn = false
+  
+  assignInfo;
   searchControl: FormControl = new FormControl();
   // initial center position for the map
   lat: number = 0;
@@ -44,7 +45,7 @@ export class InterpreterListComponent implements OnInit {
   scroll: boolean = false;
   a
 
-  clickedMarker(label: string,id ,info, index: number) {
+  clickedMarker(label: string,id ,info, index: number,modal) {
     this.requestId = id;
     localStorage.setItem('Id', JSON.stringify(id));
     localStorage.setItem('Info', JSON.stringify(info));
@@ -52,15 +53,31 @@ export class InterpreterListComponent implements OnInit {
     this.addressShow = info.address;
     this.mobileShow =  info.mobile;
     this.emailShow = info.email;
-    this.requestBtn = true;
-    console.log(`clicked the marker: ${id || index}`);
+    this.userId = JSON.parse(localStorage.getItem('serviceId'));
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    .result.then((result) => {
+    this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
+      this.requestStatus = res;
+      if(this.requestStatus.status == 1){
+        this.toastr.success(this.requestStatus.message,'', { timeOut: 2000 });
+        this.router.navigate(['/user-request/list'])
+      }
+      else{
+        this.toastr.error(this.requestStatus.message,'', { timeOut: 2000 });
+      }
+    })
+  }, (reason) => {
+  });
+    // console.log("userId, service_id",  this.userId );
+    // console.log(`clicked the marker: ${id || index}`);
     // this.markers[index].visible = false;
   }
   
   mapClicked($event: MouseEvent) {
+    console.log("eeeee",$event);
     this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
+      lat: $event.lat,
+      lng: $event.lng,
       draggable: true,
       visible: true,
       opacity: 0.4
@@ -70,36 +87,10 @@ export class InterpreterListComponent implements OnInit {
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
-  
-  // markers: Array<any> = [
-	//   {
-	// 	  lat: 51.673858,
-	// 	  lng: 7.815982,
-	// 	  label: 'A',
-	// 	  draggable: true,
-  //     visible: false,
-  //     opacity: 0.7
-	//   },
-	//   {
-	// 	  lat: 51.373858,
-	// 	  lng: 7.215982,
-	// 	  label: 'B',
-	// 	  draggable: false,
-  //     visible: true,
-  //     opacity: 0.6
-	//   },
-	//   {
-	// 	  lat: 51.723858,
-	// 	  lng: 7.895982,
-	// 	  label: 'C',
-	// 	  draggable: true,
-  //     visible: true,
-  //     opacity: 0.4
-	//   }
-  // ]
-  
+
   ngOnInit() {
     this.assignMyNearbyInterpreter();
+    this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
     this.searchControl.valueChanges
     .pipe(debounceTime(200))
     .subscribe(value => {
@@ -113,14 +104,12 @@ export class InterpreterListComponent implements OnInit {
     private router: Router,
     public service:HttpService){
     this.serviceid = JSON.parse(localStorage.getItem('serviceId'));
-    console.log("id", this.serviceid);
   }
 
   filerData(val) {
     if (val) {
       val = val.toLowerCase();
     } else {
-      console.log("xxxxxxx",this.filteredUser);
       return this.filteredUser = [... this.userData];
     }
 
@@ -132,7 +121,6 @@ export class InterpreterListComponent implements OnInit {
     const rows =  this.userData.filter(function(d) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
-        // console.log(d[column]);
         if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
           return true;
         }
@@ -140,14 +128,13 @@ export class InterpreterListComponent implements OnInit {
     });
     this.filteredUser = rows;
   }
+
   assignMyNearbyInterpreter(){
-    console.log("iddd", this.serviceid);
     this.service.myNearbyInterpreter(this.serviceid).subscribe(res => {
-      console.log(res['data']);
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
         this.filteredUser = this.list_Obj;
-        for(let i=0; i < this.list_Obj.length; i++){
+        for(let i=0; i < this.list_Obj.length; i++){ 
           this.markers.push({
             lat:this.list_Obj[i].latitude,
             lng:this.list_Obj[i].longitude,
@@ -160,41 +147,18 @@ export class InterpreterListComponent implements OnInit {
             visible: false,
             opacity: 0.7
         })
-        }
-        console.log("markers-",this.markers);
-       
+        } 
     });
   }
 
-//   deleteRole(id, modal) {
-//     console.log("delete idddddddddd",id);
-//     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-//         .result.then((result) => {
-//             this.service.getRoleDelete(id)
-//                 .subscribe(res => {
-//                     this.language_msg = res;
-//                     console.log("api",res );
-//                     this.toastr.success(this.language_msg.message,'', { timeOut: 1000 });
-//                     this.roleList();
-//                 })
-//         }, (reason) => {
-//         });
-// }
-
   requestDetail(id,data,modal){
-
-    console.log("table row idddddd",id);
     this.requestId = id;
-    // this.requestId = JSON.parse(localStorage.getItem('Id'));
-    console.log("table row id2", this.requestId );
-    console.log("dataaaaaaaaaaaaaaaaaa",data);
-    
+    // console.log("table row iddddddd, interpreter",id);
     this.userId = JSON.parse(localStorage.getItem('serviceId'));
-    console.log("userId", this.userId);
+    // console.log("service_id",  this.userId );
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
     this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
-      console.log("ress",  res);
       this.requestStatus = res;
       if(this.requestStatus.status == 1){
         this.nameShow = data.name;
@@ -211,10 +175,4 @@ export class InterpreterListComponent implements OnInit {
   }, (reason) => {
   });
   }
-  // requestView(){
-  //   console.log("aaaaaaaid", this.id);
-  //   this.a = JSON.parse(localStorage.getItem('rowData'));
-  //     console.log("llllllll",this.a);
-      
-  // }
 }
