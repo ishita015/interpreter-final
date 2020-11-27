@@ -9,6 +9,23 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
     
+
+    //interpreter_request AS ir,user AS u ,request_information_services AS ris , appointment_information_services AS ais, languages AS l
+    interpreterRequestList(interpreter_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT ir.status, u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ir.Interpreter_id='"+interpreter_id+"'";
+            console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
+
     
     getUserLanguage(user_id){
         return new Promise(function(resolve, reject) {
