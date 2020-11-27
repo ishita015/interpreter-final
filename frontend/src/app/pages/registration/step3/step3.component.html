@@ -63,7 +63,7 @@
         </div>
         <div class="col-sm-6">
            <label>Location1</label>
-           <textarea class="form-control" rows="3" formControlName="location1" placeholder="Name of Building"></textarea>
+           <input class="form-control" rows="3" formControlName="location1" placeholder="Name of Building">
            <div *ngIf="stepThreeForm.controls['location1'].errors && ( !stepThreeForm.controls['location1'].pristine || submitted ||stepThreeForm.controls['location1'].touched )" class="error-msg">
               <div [hidden]="!stepThreeForm.controls['location1'].errors.required">Location1 is required.</div>
               <div [hidden]="!stepThreeForm.controls.location1.hasError('minlength')">Location1 length should be minimum 2 characters.</div>
@@ -71,7 +71,9 @@
           </div>
         <div class="col-sm-6">
            <label>Location2</label>
-           <textarea class="form-control" rows="3" formControlName="location2" placeholder="Address"></textarea>
+           <input type="text" class="form-control" formControlName="location2" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+
+           <!-- <input class="form-control" rows="3" formControlName="location2" placeholder="Address"> -->
            <div *ngIf="stepThreeForm.controls['location2'].errors && ( !stepThreeForm.controls['location2'].pristine || submitted ||stepThreeForm.controls['location2'].touched )" class="error-msg">
               <div [hidden]="!stepThreeForm.controls['location2'].errors.required">Location2 is required.</div>
               <div [hidden]="!stepThreeForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>

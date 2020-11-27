@@ -65,7 +65,8 @@
          </div>
          <div class="col-sm-6">
             <label>Location1</label>
-            <textarea class="form-control" formControlName="location1" rows="3" placeholder="Name of Building or Business"></textarea>
+            <input class="form-control" formControlName="location1" rows="3" placeholder="Name of Building or Business">
+            <!-- <textarea class="form-control" formControlName="location1" rows="3" placeholder="Name of Building or Business"></textarea> -->
             <div *ngIf="stepSevenForm.controls['location1'].errors && ( !stepSevenForm.controls['location1'].pristine || submitted ||stepSevenForm.controls['location1'].touched )" class="error-msg">
                <div [hidden]="!stepSevenForm.controls['location1'].errors.required">Location1 is required.</div>
                <div [hidden]="!stepSevenForm.controls.location1.hasError('minlength')">Location1 length should be minimum 2 characters.</div>
@@ -73,7 +74,8 @@
          </div>
          <div class="col-sm-6">
             <label>Location2</label>
-            <textarea class="form-control" formControlName="location2" rows="3" placeholder="Address"></textarea>
+            <input type="text" class="form-control" formControlName="location2" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+            <!-- <textarea class="form-control" formControlName="location2" rows="3" placeholder="Address"></textarea> -->
             <div *ngIf="stepSevenForm.controls['location2'].errors && ( !stepSevenForm.controls['location2'].pristine || submitted ||stepSevenForm.controls['location2'].touched )" class="error-msg">
                <div [hidden]="!stepSevenForm.controls['location2'].errors.required">Location2 is required.</div>
                <div [hidden]="!stepSevenForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
