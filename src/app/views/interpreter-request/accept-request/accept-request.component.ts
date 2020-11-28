@@ -6,13 +6,12 @@ import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-
 @Component({
-  selector: 'app-interpreter-request-list',
-  templateUrl: './interpreter-request-list.component.html',
-  styleUrls: ['./interpreter-request-list.component.scss']
+  selector: 'app-accept-request',
+  templateUrl: './accept-request.component.html',
+  styleUrls: ['./accept-request.component.scss']
 })
-export class InterpreterRequestListComponent implements OnInit {
+export class AcceptRequestComponent implements OnInit {
   
   userId;
   roleId;
@@ -89,7 +88,7 @@ export class InterpreterRequestListComponent implements OnInit {
 
   
   interpreterRequestData(){
-    this.service.interpreterRequestList(this.roleId,this.userId,'1')
+    this.service.interpreterRequestList(this.roleId,this.userId,'2')
     .subscribe(res => {
         console.log("api response",res);
         this.list_Obj = res['data'];
@@ -102,14 +101,5 @@ export class InterpreterRequestListComponent implements OnInit {
 
 
 
-  interpreterReply(user_id,ris_id,res_type){
-    this.service.interpreterReqReply(user_id,ris_id,res_type).subscribe(res => {
-      this.status_msg = res;
-      this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
-      this.interpreterRequestData();
-    })
-  }
-
-
-
 }
+

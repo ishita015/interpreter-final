@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
       <ul class="heading">
-          <li><a>Interpreter Request </a></li>
+          <li><a>Interpreter Accept Request </a></li>
           <li>List</li>
       </ul>
   </div>
@@ -14,6 +14,7 @@
             <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
           </div>
     </div>
+
 
 
         <div class="col-md-12">
@@ -86,40 +87,37 @@
                       {{row.mobile}}
                   </ng-template>  
               </ngx-datatable-column>
-             
-              <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+              <ngx-datatable-column [width]="120" [sortable]="false">
                 <ng-template ngx-datatable-header-template>Status
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                    <button class="btn btn-outline-secondary ml-2" >Request Pending</button>  
+                    <button class="btn btn-outline-secondary ml-2" >Request Accepted</button>  
                 </ng-template>
                
             </ngx-datatable-column>
             
             
-             <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId!='1'">
-                <ng-template ngx-datatable-header-template>Action
-                </ng-template>
-                
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
-                  <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
-              </ng-template>
-            </ngx-datatable-column>
             
             
+              
 
                   <!-- <ngx-datatable-column [width]="120" [sortable]="false">
-                    <ng-template ngx-datatable-header-template>
-                        Actions
+                    <ng-template ngx-datatable-header-template *ngIf="roleId=='1';then Status; else Actions">
                     </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
-                        <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
+                    <ng-template ngx-datatable-header-template #Status>Status
                     </ng-template>
-                </ngx-datatable-column> -->
-
+                    <ng-template ngx-datatable-header-template #Actions>Actions
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row" #Status>
+                        <button class="btn btn-outline-secondary ml-2" >Request Accept</button>  
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row" #Actions>
+                      <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
+                      <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
+                  </ng-template>
+                </ngx-datatable-column>
+ -->
               </ngx-datatable>
             </div>
           <ng-container *ngIf="list_Obj?.length <= 0">

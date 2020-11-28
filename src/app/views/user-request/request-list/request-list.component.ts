@@ -21,6 +21,8 @@ export class RequestListComponent implements OnInit {
   filteredUser;
   user_Obj;
   status_msg;
+  userId;
+  roleId;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -31,6 +33,12 @@ export class RequestListComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+    this.userId = JSON.parse(localStorage.getItem('userId'));
+    this.roleId = JSON.parse(localStorage.getItem('roleId'));
+
+    console.log("userId-",this.userId)
+    console.log("roleId-",this.roleId)
+
     this.userRequestList();
     this.searchControl.valueChanges
     .pipe(debounceTime(200))

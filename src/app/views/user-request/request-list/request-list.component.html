@@ -6,6 +6,7 @@
       </ul>
   </div>
     
+  
       <div class="separator-breadcrumb border-top"></div>
   
       <div class="row">
@@ -159,7 +160,7 @@
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     <button class="btn btn-outline-secondary" (click)="viewDetail(row.id)">View</button>  
-                    <button class="btn btn-outline-secondary ml-2" (click)="assignMyNearbyInterpreter(row.id,row)">Assign</button>  
+                    <button class="btn btn-outline-secondary ml-2" *ngIf="roleId=='1'" (click)="assignMyNearbyInterpreter(row.id,row)">Assign</button>  
                     <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Assign</button> -->
                 </ng-template>
             </ngx-datatable-column>

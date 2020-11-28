@@ -245,13 +245,23 @@ export class NavigationService {
             state: '/user-request/list',
           
         },
-        {
+        {   
+            name: 'Interpreter',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+            type: 'dropDown',
+            icon: 'i-Library',
+            sub: [
+                { icon: 'i-Bell', name: 'Request-List', state: '/interpreter-request/list', type: 'link' },
+                { icon: 'i-Split-Horizontal-2-Window', name: 'Accept List', state: '/interpreter-request/accept-list', type: 'link' },
+            ]
+        },
+       /* {
             name: 'Interpreter Request',
             description: '600+ premium icons',
             type: 'link',
             icon: 'i-Cloud-Sun',
             state: '/interpreter-request/list'
-        },
+        },*/
        
         // {
         //     name: 'UI kits',

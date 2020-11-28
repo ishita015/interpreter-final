@@ -45,8 +45,8 @@ export class HttpService {
   }
 
 
-  interpreterRequestList(role_id,user_id): Observable<any> {
-    return this.http.post(this.url + '/cesco/getRequestForInterpreter',{role_id:role_id,user_id:user_id},this.httpOptions);
+  interpreterRequestList(role_id,user_id,status): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRequestForInterpreter',{role_id:role_id,user_id:user_id,status:status},this.httpOptions);
   }
 
 

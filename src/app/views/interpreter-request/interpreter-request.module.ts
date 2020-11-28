@@ -10,11 +10,12 @@ import { SharedComponentsModule } from 'src/app/shared/components/shared-compone
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagInputModule } from 'ngx-chips';
 import { AgmCoreModule } from '@agm/core';
+import { AcceptRequestComponent } from './accept-request/accept-request.component';
 
 
 
 @NgModule({
-  declarations: [InterpreterRequestListComponent],
+  declarations: [InterpreterRequestListComponent, AcceptRequestComponent],
   imports: [
     CommonModule,
     InterpreterRequestRoutingModule,

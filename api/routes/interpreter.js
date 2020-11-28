@@ -83,6 +83,7 @@ module.exports.getRequestForInterpreter = async function(req, res) {
     const v = new Validator(req.body, {
         role_id: 'required',
         user_id: 'required',
+        status: 'required',
     });
     
     const matched = await v.check();
@@ -103,8 +104,9 @@ module.exports.getRequestForInterpreter = async function(req, res) {
     //validation end
     let role_id = req.body.role_id;
     let user_id = req.body.user_id;
+    let status = req.body.status;
     
-    var requestData = await usermodel.interpreterRequestList(role_id,user_id);
+    var requestData = await usermodel.interpreterRequestList(role_id,user_id,status);
     if (requestData != "" && requestData != undefined) {
         res.json({
             status: 1,
