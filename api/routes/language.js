@@ -40,6 +40,7 @@ module.exports.addLanguage = async function(req, res) {
     let name = req.body.name;
     let code = req.body.code;
     let country = req.body.country;
+    let description = req.body.description ? req.body.description : "";
     
     var resultdata = await usermodel.languageExist(code);
 
@@ -52,7 +53,7 @@ module.exports.addLanguage = async function(req, res) {
         });
         return true;
     }else{
-        var sql = "INSERT INTO languages(name, code,country, status)VALUES('"+name+"', '"+country+"','"+code+"', '1')";
+        var sql = "INSERT INTO languages(name, code,country, description,status)VALUES('"+name+"', '"+code+"','"+country+"', '"+description+"', '1')";
         console.log('sql-',sql)
         con.query(sql, function(err, insert) {
             var last_id= insert.insertId;
@@ -82,33 +83,38 @@ module.exports.addLanguage = async function(req, res) {
 
 
 module.exports.updateLanguage = async function(req, res) {
-    // let validator = new v(req.body, {
-    //     name: 'required',
-    //     code: 'required',
-    //     id: 'required',
-    // });
+    //validation start
+    const v = new Validator(req.body, {
+        name: 'required',
+        id: 'required',
+        // country: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+
     
     let name = req.body.name;
-    let code = req.body.code;
+    // let code = req.body.code;
+    let description = req.body.description ? req.body.description : "";
     let id = req.body.id;
 
-    // let matched = await validator.check();
-    // if (!matched) {
-    //     var error;
-    //     for (var i = 0; i <= Object.values(validator.errors).length; i++) {
-    //         error = Object.values(validator.errors)[0].message;
-    //         break;
-    //     }
-    //     res.json({
-    //         status: 0,
-    //         error_code: 422,
-    //         error_line: 1,
-    //         message: error
-    //     });
-    //     return true;
-    // }
 
-    let sql = "UPDATE languages SET name ='"+name+"', code ='"+code+"' WHERE id = '"+id+"'";
+    let sql = "UPDATE languages SET name ='"+name+"', description ='"+description+"' WHERE id = '"+id+"'";
     var query = con.query(sql, function(err, result) {
         if(!err){
             res.json({
@@ -261,6 +267,7 @@ module.exports.getLanguages = async function(req, res, next) {
                 name: resultdata[i].name,
                 code: resultdata[i].code ? resultdata[i].code : "N/A",
                 country: resultdata[i].country ? resultdata[i].country : "N/A",
+                description: resultdata[i].description ? resultdata[i].description : "N/A",
                 created_at: resultdata[i].created_at ? resultdata[i].created_at : '',
                 updated_at: resultdata[i].updated_at ? resultdata[i].updated_at : '',
                 Interpreter: resultdata[i].Interpreter ? resultdata[i].Interpreter : '0',

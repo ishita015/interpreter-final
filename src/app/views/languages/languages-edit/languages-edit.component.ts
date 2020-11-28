@@ -35,7 +35,9 @@ export class LanguagesEditComponent implements OnInit {
   createForm() {
     this.langaugeEditForm = this.fb.group({
       name: ['', this.validation.onlyRequired_validator],
-      code: ['', this.validation.onlyRequired_validator],
+      code: [''],
+      country: [''],
+      description: [''],
       id:['']
     });
   }
@@ -45,6 +47,8 @@ export class LanguagesEditComponent implements OnInit {
   patchValue(){
     this.langaugeEditForm.get('name').patchValue(this.data.name);
     this.langaugeEditForm.get('code').patchValue(this.data.code);
+    this.langaugeEditForm.get('country').patchValue(this.data.country);
+    this.langaugeEditForm.get('description').patchValue(this.data.description);
   }
 /*==========Edit Input Value End Here========*/
 

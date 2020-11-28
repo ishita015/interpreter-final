@@ -9,10 +9,14 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './views/profile/change-password/change-password.component';
+import { AdminProfileComponent } from './views/profile/admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ChangePasswordComponent,
+    AdminProfileComponent,
     //SetroleComponent,
   ],
   imports: [

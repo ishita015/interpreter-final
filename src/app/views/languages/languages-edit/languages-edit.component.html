@@ -1,5 +1,5 @@
 <div class="breadcrumb">
-   
+    <!-- <h1>Language</h1> -->
     <ul class="heading">
         <li><a>Language</a></li>
         <li>Edit</li> 
@@ -8,47 +8,58 @@
 
 <div class="separator-breadcrumb border-top"></div>
 <div class="row">
-    <div class="col-md-6">
-        <div class="card mb-5">
+    <div class="col-md-12">
+        <div class="card mb-4">
             <div class="card-body">
+                <!-- <form [formGroup]="langaugeForm"> -->
                 <form [formGroup]="langaugeEditForm" (ngSubmit)="submitEdit()">
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Language Title</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="name"  id="title" placeholder="Title">
+                    <div class="row">
+                        
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="language">Language Title</label>
+                            <input type="text" class="form-control" formControlName="name" id="name" placeholder="Language Title">
                             <div *ngIf="langaugeEditForm.controls['name'].errors && (!langaugeEditForm.controls['name'].pristine || submitted ||langaugeEditForm.controls['name'].touched )" class="error-msg">
                                 <div [hidden]="!langaugeEditForm.controls['name'].errors.required">Language Title is required.</div>
                               </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 col-form-label">Language Code</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="code" id="code" 
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="MobileNo.">Language Code.</label>
+                            <input type="text" class="form-control" formControlName="code" disabled id="code" 
                             placeholder="code">
-                            <div *ngIf="langaugeEditForm.controls['code'].errors && (!langaugeEditForm.controls['code'].pristine || submitted ||langaugeEditForm.controls['code'].touched )" class="error-msg">
-                                <div [hidden]="!langaugeEditForm.controls['code'].errors.required">Language Code is required.</div>
-                              </div>
-                            <!-- <select class="form-control">
-                                <option value="English">en-us</option>
-                                <option value="Hindi">hi-in</option>
-                                <option value="Italian">it-it</option>
-                              </select> -->
+                            
                         </div>
                     </div>
+
+                    <div class="row">
+                        
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control"  formControlName="country" disabled placeholder="Country">
+                            
+                        </div>
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="country">Description</label>
+                            <input type="text" class="form-control"  formControlName="description"  placeholder="Description">
+                        </div>
+                    </div>
+
+
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
-                        <!-- <div class="col-sm-10">
-                            <button type="submit" [routerLink]="['/languages/list']" class="btn btn-primary">Save</button>
-                        </div> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 
