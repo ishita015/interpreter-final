@@ -19,6 +19,153 @@ const cryptr = new Cryptr('myTotalySecretKey');
 
 
 
+module.exports.getTotalRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+module.exports.getTotalAssign = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_assign FROM interpreter_request WHERE status='1'";
+    console.log("sql 2-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+module.exports.getTotalinprogress = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_inprogress FROM interpreter_request WHERE status='2'";
+    console.log("sql 3-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+module.exports.getTotalComplete = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_complete FROM interpreter_request WHERE status='4'";
+    console.log("sql 4-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+module.exports.getTotalCancelled = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_cancelled FROM interpreter_request WHERE status='3'";
+    console.log("sql 5-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
 
 
 

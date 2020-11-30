@@ -154,6 +154,18 @@
                   </ng-template>  
               </ngx-datatable-column>
 
+
+              <ngx-datatable-column>
+                <ng-template ngx-datatable-header-template>
+                    Status
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <p *ngIf="row.is_reject == '0'">New</p>
+                    <p *ngIf="row.is_reject == '1'">Repeat</p>
+                </ng-template>  
+
+            </ngx-datatable-column>
+
               <ngx-datatable-column [width]="120" [sortable]="false">
                 <ng-template ngx-datatable-header-template>
                     Actions

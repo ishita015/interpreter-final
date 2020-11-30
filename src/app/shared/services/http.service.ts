@@ -240,10 +240,34 @@ export class HttpService {
       getdashboardUsers(): Observable<any[]> {
         return this.http.get<any[]>(this.url + '/cesco/getTotalUser');
       }
-    
+
+
       getdashboardLanguage(): Observable<any[]> {
         return this.http.get<any[]>(this.url + '/cesco/getTotalLanguage');
       }
+    
+      totalRequest(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalRequest');
+      }
+
+
+      totalAssign(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalAssign');
+      }
+
+
+      totalInprogress(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalInprogress');
+      }
+
+      totalComplete(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalComplete');
+      }
+
+      totalCancelled(): Observable<any[]> {
+        return this.http.get<any[]>(this.url + '/cesco/getTotalCancelled');
+      }
+
        /*=====Dashboard Section Apis End======*/
 
 }

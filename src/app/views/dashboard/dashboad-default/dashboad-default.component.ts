@@ -19,11 +19,25 @@ export class DashboadDefaultComponent implements OnInit {
     public totaluser_obj;
     public totallanguage_obj;
     public roleName;
+
+    public totalrequest_obj;
+    public totalassign_obj;
+    public totalinprogress_obj;
+    public totalcancel_obj;
+    public totalcomplete_obj;
+    
 	constructor(public service:HttpService,  private router: Router,) { }
 
 	ngOnInit() {
         this.totalUserList(1);
         this.totalLanguageList();
+
+        this.totalNewRequest();
+        this.total_assign();
+        this.total_inprogress();
+        this.total_complete();
+        this.total_cancelled();
+
         this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.chartLineOption1 = {
 			...echartStyles.lineFullWidth, ...{
@@ -229,6 +243,54 @@ export class DashboadDefaultComponent implements OnInit {
             this.totallanguage_obj = res['data'][0];
         })
     }
+
+   
+    totalNewRequest(){
+        this.service.totalRequest()
+        .subscribe(res => {
+        //   console.log("apiiiiiiiiii response service", res);
+            this.totalrequest_obj = res['data'][0];
+        })
+    }
+
+
+    total_assign(){
+        this.service.totalAssign()
+        .subscribe(res => {
+          console.log("apiiiiiiiiii response service", res);
+            this.totalassign_obj = res['data'][0];
+        })
+    }
+
+
+    total_inprogress(){
+        this.service.totalInprogress()
+        .subscribe(res => {
+          console.log("apiiiiiiiiii response service", res);
+            this.totalinprogress_obj = res['data'][0];
+        })
+    }
+
+
+    total_complete(){
+        this.service.totalComplete()
+        .subscribe(res => {
+          console.log("apiiiiiiiiii response service", res);
+            this.totalcomplete_obj = res['data'][0];
+        })
+    }
+
+
+    total_cancelled(){
+        this.service.totalCancelled()
+        .subscribe(res => {
+          console.log("apiiiiiiiiii response service", res);
+            this.totalcancel_obj = res['data'][0];
+        })
+    }
+
+
+
 
 
     users(){

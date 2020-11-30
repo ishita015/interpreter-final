@@ -72,6 +72,15 @@ app.post('/cesco/userlogin', loginController.userlogin);
 
 app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
 app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
+
+app.get('/cesco/getTotalRequest', serviceController.getTotalRequest);
+app.get('/cesco/getTotalAssign', serviceController.getTotalAssign);
+app.get('/cesco/getTotalInprogress', serviceController.getTotalinprogress);
+app.get('/cesco/getTotalComplete', serviceController.getTotalComplete);
+app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
+// app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
+
+
 app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */

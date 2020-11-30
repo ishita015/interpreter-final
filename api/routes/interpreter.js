@@ -15,6 +15,86 @@ const usermodel = new userModel();
 
 
 
+// change password 
+module.exports.changePassword = async function(req, res, next) { 
+    //validation start
+    const v = new Validator(req.body, {
+        user_id: 'required',
+        old_password: 'required',
+        new_password: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.user_id;
+    let old_password = req.body.old_password;
+    let new_password = req.body.new_password;
+
+    var userData  = await usermodel.getUserDetail(user_id);
+    if (userData != "" && userData != undefined) {
+        if (cryptr.decrypt(userData[0].password) == old_password) {
+            var enc_password = cryptr.encrypt(new_password);
+            var pwd_update = "UPDATE user SET password='"+enc_password+"' WHERE id ='"+user_id+"'";
+            con.query(pwd_update, function(err, results) {
+                if(results.affectedRows ==1){
+                    res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 2,
+                        message: "Password update successfully",
+                        // message :UPDATE_PASSWORD
+                    });
+                    return true;
+                }else{
+                    res.json({
+                        status: 0,
+                        error_code: 0,
+                        error_line: 3,
+                        message: "Please try again",
+                    });
+                    return true;  
+                }
+            });
+        }else{
+            //old password not match
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 4,
+                message: "Old password not match",
+            });
+            return true;  
+        }
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 5,
+            message: "Please try again",
+        });
+        return true;  
+    }
+};
+
+
+
+
+
+
 
 // interpreter request accept/Reject 
 module.exports.interpreterRequestReply = async function(req, res) {

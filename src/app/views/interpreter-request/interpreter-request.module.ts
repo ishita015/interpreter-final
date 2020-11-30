@@ -11,11 +11,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagInputModule } from 'ngx-chips';
 import { AgmCoreModule } from '@agm/core';
 import { AcceptRequestComponent } from './accept-request/accept-request.component';
+import { CompleteRequestComponent } from './complete-request/complete-request.component';
+import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
 
 
 
 @NgModule({
-  declarations: [InterpreterRequestListComponent, AcceptRequestComponent],
+  declarations: [InterpreterRequestListComponent, AcceptRequestComponent, CompleteRequestComponent, CancelledRequestComponent],
   imports: [
     CommonModule,
     InterpreterRequestRoutingModule,

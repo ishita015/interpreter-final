@@ -40,10 +40,14 @@ export class InterpreterListComponent implements OnInit {
   assignInfo;
   searchControl: FormControl = new FormControl();
   // initial center position for the map
-  lat: number = 0;
-  lng: number = 0;
+  // lat: number = 0;
+  // lng: number = 0;
   scroll: boolean = false;
-  a
+  
+
+
+  lat: number = 22.7261762;
+  lng: number = 76.1305457;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -56,6 +60,8 @@ export class InterpreterListComponent implements OnInit {
 
 
   clickedMarker(label: string,id ,info, index: number,modal) {
+    console.log("indexxxxx",index);
+    
     this.requestId = id;
     localStorage.setItem('Id', JSON.stringify(id));
     localStorage.setItem('Info', JSON.stringify(info));
@@ -65,7 +71,8 @@ export class InterpreterListComponent implements OnInit {
     this.emailShow = info.email;
     // this.language_id = info.language;
     this.userId = JSON.parse(localStorage.getItem('serviceId'));
-    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    if(index != 0){
+     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
     this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
       this.requestStatus = res;
@@ -79,6 +86,7 @@ export class InterpreterListComponent implements OnInit {
     })
   }, (reason) => {
   });
+}
     // console.log("userId, service_id",  this.userId );
     // console.log(`clicked the marker: ${id || index}`);
     // this.markers[index].visible = false;
@@ -101,9 +109,29 @@ export class InterpreterListComponent implements OnInit {
 
   ngOnInit() {
     this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
+
+    console.log("assignInfo  --",this.assignInfo)
     this.language_id = this.assignInfo.language;
+
+  this.markers = [
+	  {
+		  lat:22.7261762,
+      lng:76.1305457,
+      label: this.assignInfo.caseworker_name,
+      id:this.assignInfo.id,
+      mobile:this.assignInfo.cell_phone,
+      address:this.assignInfo.lang_name,
+      email:this.assignInfo.email,
+      draggable: false,
+      visible: false,
+      opacity: 0.7
+	  }
+	]
+
     this.assignMyNearbyInterpreter();
     
+
+
     this.searchControl.valueChanges
     .pipe(debounceTime(200))
     .subscribe(value => {
@@ -136,7 +164,7 @@ export class InterpreterListComponent implements OnInit {
   }
 
   assignMyNearbyInterpreter(){
-    console.log("language++",this.language_id)
+    console.log("language++",this.markers)
     this.service.myNearbyInterpreter(this.serviceid,this.language_id).subscribe(res => {
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
@@ -153,10 +181,13 @@ export class InterpreterListComponent implements OnInit {
             draggable: false,
             visible: false,
             opacity: 0.7
-        })
+         })
         } 
+        console.log("clicked the marker:", this.markers);
+
     });
   }
+//}
 
   viewDetail(){
     this.router.navigate(['/user-request/request-view',this.assignInfo.id])
