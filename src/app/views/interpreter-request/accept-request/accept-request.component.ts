@@ -26,6 +26,7 @@ export class AcceptRequestComponent implements OnInit {
   status_msg;
   roleData;
   array_Obj;
+  msg;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -99,6 +100,21 @@ export class AcceptRequestComponent implements OnInit {
     });
 }
 
+
+requestComplete(id, modal) {
+  console.log("idddddddddd",id);
+  this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+      .result.then((result) => {
+          this.service.interpreterReqCompleted(id,this.userId)
+            .subscribe(res => {
+                this.msg = res;
+                console.log("api",res );
+                this.toastr.success(this.msg.message,'', { timeOut: 1000 });
+                this.interpreterRequestData();
+            })
+      }, (reason) => {
+  });
+}
 
 
 }

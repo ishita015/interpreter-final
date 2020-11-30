@@ -81,7 +81,17 @@ export class SigninComponent implements OnInit {
                         localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
                         localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
                         this.toastr.success(this.log_Msg.message,'', { timeOut: 2000 });
-                        this.router.navigate(['/dashboard/v1']);
+
+                        if(this.log_Obj.role_id==1){
+                            this.router.navigate(['/dashboard/v1']);
+                        }else{
+                            this.router.navigate(['/dashboard/v2']);
+                        }
+
+                        
+
+                        // dashboard-v2
+
                         this.service.editPemisssion(this.log_Obj.role_id)
                         .subscribe(res => {
                           console.log("apiiiiiiiiii response", res);

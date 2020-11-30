@@ -15,6 +15,275 @@ const usermodel = new userModel();
 
 
 
+
+module.exports.getNewRequestCount = async function(req, res, next) {
+     //validation start
+    const v = new Validator(req.body, {
+        userId: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    var sql = "SELECT COUNT(id) as new_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+module.exports.getAcceptRequest = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        userId: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    
+    var sql = "SELECT COUNT(id) as accept_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='2'";
+    
+    console.log("sql 2-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+module.exports.getRejectRequest = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        userId: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    
+    
+    var sql = "SELECT COUNT(id) as reject_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='3'";
+    
+    console.log("sql 3-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+module.exports.getCompleteRequest = async function(req, res, next) {
+
+    //validation start
+    const v = new Validator(req.body, {
+        userId: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    
+
+    var sql = "SELECT COUNT(id) as complete_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='4'";
+    
+    console.log("sql 4-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+module.exports.getCancelledRequest = async function(req, res, next) {
+
+    
+    //validation start
+    const v = new Validator(req.body, {
+        userId: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    
+    var sql = "SELECT COUNT(id) as cancel_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='5'";
+    console.log("sql 5-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+
 // change password 
 module.exports.changePassword = async function(req, res, next) { 
     //validation start
@@ -126,11 +395,14 @@ module.exports.interpreterRequestReply = async function(req, res) {
     let res_type = req.body.res_type;
     let status='0';
     let message='0';
+    let isreject=0;
     if(res_type=='2'){ // accept
         status ='3'; 
+        isreject=0;
         message= "Request accept successfully";
     }else if(res_type=='3'){ // reject
         status='1';
+        isreject=1;
         message= "Request reject successfully";
     }
 
@@ -140,7 +412,7 @@ module.exports.interpreterRequestReply = async function(req, res) {
     console.log("updatesql--",updatesql)
     con.query(updatesql, function(err, result) {});
 
-    let sql = "UPDATE request_information_services SET status = '"+status+"' WHERE id = '"+ris_id+"'";
+    let sql = "UPDATE request_information_services SET status = '"+status+"',is_reject='"+isreject+"' WHERE id = '"+ris_id+"'";
     console.log("sql--",sql)
     con.query(sql, function(err, result) {});
     res.json({
@@ -151,6 +423,56 @@ module.exports.interpreterRequestReply = async function(req, res) {
     });
     return true;
 };
+
+
+
+
+
+module.exports.interpreterRequestComplete = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        id: 'required',
+        userId: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    let ris_id = req.body.id;
+    
+
+    
+    //update status
+    let updatesql = "UPDATE interpreter_request SET status = '4' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
+    console.log("updatesql--",updatesql)
+    con.query(updatesql, function(err, result) {});
+
+    let sql = "UPDATE request_information_services SET status = '4' WHERE id = '"+ris_id+"'";
+    console.log("sql--",sql)
+    con.query(sql, function(err, result) {});
+    res.json({
+        status: 1,
+        error_code: 0,
+        error_line: 6,
+        message: "Request completed successfully",
+    });
+    return true;
+};
+
 
 
 

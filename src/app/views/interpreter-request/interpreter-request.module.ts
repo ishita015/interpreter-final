@@ -13,11 +13,12 @@ import { AgmCoreModule } from '@agm/core';
 import { AcceptRequestComponent } from './accept-request/accept-request.component';
 import { CompleteRequestComponent } from './complete-request/complete-request.component';
 import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
+import { RejectRequestComponent } from './reject-reques/reject-request.component';
 
 
 
 @NgModule({
-  declarations: [InterpreterRequestListComponent, AcceptRequestComponent, CompleteRequestComponent, CancelledRequestComponent],
+  declarations: [InterpreterRequestListComponent, AcceptRequestComponent, CompleteRequestComponent, CancelledRequestComponent, RejectRequestComponent],
   imports: [
     CommonModule,
     InterpreterRequestRoutingModule,

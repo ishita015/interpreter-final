@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { echartStyles } from 'src/app/shared/echart-styles';
 import { ProductService } from 'src/app/shared/services/product.service';
-
+import { HttpService } from 'src/app/shared/services/http.service';
 @Component({
   selector: 'app-dashboard-v2',
   templateUrl: './dashboard-v2.component.html',
@@ -11,64 +11,70 @@ export class DashboardV2Component implements OnInit {
   chartPie1: any;
   chartLineOption3: any;
 	products$: any;
-
+	public roleName;
+	userId;
+	public newrequest_obj;
+    public accept_obj;
+    public reject_obj;
+    public totalcancel_obj;
+    public totalcomplete_obj;
   constructor(
-		private productService: ProductService
+		private productService: ProductService,public service:HttpService,
 	) { }
 
   ngOnInit() {
-    this.chartPie1 = {
-			...echartStyles.defaultOptions, ...{
-        legend: {
-          show: true,
-          bottom: 0,
-        },
-				series: [{
-          type: 'pie',
-          ...echartStyles.pieRing,
-
-          label: echartStyles.pieLabelCenterHover,
-					data: [{
-						name: 'Completed',
-						value: 80,
-						itemStyle: {
-							color: '#663399',
-						}
-					}, {
-						name: 'Pending',
-						value: 20,
-						itemStyle: {
-							color: '#ced4da',
-						}
-					}]
-				}]
-			}
-    };
-
-    this.chartLineOption3 = {
-			...echartStyles.lineNoAxis, ...{
-				series: [{
-					data: [40, 80, 20, 90, 30, 80, 40],
-					lineStyle: {
-						color: 'rgba(102, 51, 153, .86)',
-						width: 3,
-						shadowColor: 'rgba(0, 0, 0, .2)',
-						shadowOffsetX: -1,
-						shadowOffsetY: 8,
-						shadowBlur: 10
-					},
-					label: { show: true, color: '#212121' },
-					type: 'line',
-					smooth: true,
-					itemStyle: {
-						borderColor: 'rgba(69, 86, 172, 0.86)'
-					}
-				}]
-			}
-		};
-		this.chartLineOption3.xAxis.data = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-		this.products$ = this.productService.getProducts();
-
+	this.roleName = JSON.parse(localStorage.getItem('roleName'));
+	this.userId = JSON.parse(localStorage.getItem('userId'));
+	this.new_request();
+	this.accept_request();
+	this.reject_request();
+	this.complete_request();
+	this.cancelled_request();
   }
+
+
+   
+    new_request(){
+		this.service.newRequestCount(this.userId)
+		.subscribe(res => {
+		//   console.log("apiiiiiiiiii response service", res);
+			this.newrequest_obj = res['data'][0];
+		})
+	}
+
+
+	accept_request(){
+		this.service.acceptRequestCount(this.userId)
+		.subscribe(res => {
+		console.log("apiiiiiiiiii response service", res);
+			this.accept_obj = res['data'][0];
+		})
+	}
+
+
+	reject_request(){
+		this.service.rejectRequestCount(this.userId)
+		.subscribe(res => {
+		console.log("apiiiiiiiiii response service", res);
+			this.reject_obj = res['data'][0];
+		})
+	}
+
+
+	complete_request(){
+		this.service.completeRequestCount(this.userId)
+		.subscribe(res => {
+		console.log("apiiiiiiiiii response service", res);
+			this.totalcomplete_obj = res['data'][0];
+		})
+	}
+
+
+	cancelled_request(){
+		this.service.cancelledRequestCount(this.userId)
+		.subscribe(res => {
+			this.totalcancel_obj = res['data'][0];
+		})
+	}
 
 }

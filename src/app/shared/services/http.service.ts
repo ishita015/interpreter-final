@@ -268,6 +268,40 @@ export class HttpService {
         return this.http.get<any[]>(this.url + '/cesco/getTotalCancelled');
       }
 
+
+
+      //for interpreter dashboard
+
+      newRequestCount(userId): Observable<any> {
+        return this.http.post(this.url + '/cesco/getNewRequestCount',{userId:userId},this.httpOptions);
+      }
+
+
+      acceptRequestCount(userId): Observable<any> {
+        return this.http.post(this.url + '/cesco/getAcceptRequest',{userId:userId},this.httpOptions);
+      }
+
+
+      rejectRequestCount(userId): Observable<any> {
+        return this.http.post(this.url + '/cesco/getRejectRequest',{userId:userId},this.httpOptions);
+      }
+
+      completeRequestCount(userId): Observable<any> {
+        return this.http.post(this.url + '/cesco/getCompleteRequest',{userId:userId},this.httpOptions);
+      }
+
+      cancelledRequestCount(userId): Observable<any> {
+        // return this.http.get<any[]>(this.url + '/cesco/getCancelledRequest');
+        return this.http.post(this.url + '/cesco/getCancelledRequest',{userId:userId},this.httpOptions);
+      }
+
+
+      
+      interpreterReqCompleted(id,userId): Observable<any> {
+        return this.http.post(this.url + '/cesco/interpreterRequestComplete',{id:id,userId:userId},this.httpOptions);
+      }
+    
+
        /*=====Dashboard Section Apis End======*/
 
 }

@@ -11,10 +11,10 @@ const routes: Routes = [
     path: 'v1',
     component: DashboadDefaultComponent
   },
-  // {
-  //   path: 'v2',
-  //   component: DashboardV2Component
-  // },
+  {
+    path: 'v2',
+    component: DashboardV2Component
+  },
   // {
   //   path: 'v3',
   //   component: DashboardV3Component

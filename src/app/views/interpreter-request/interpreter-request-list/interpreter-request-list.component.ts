@@ -110,6 +110,4 @@ export class InterpreterRequestListComponent implements OnInit {
     })
   }
 
-
-
 }

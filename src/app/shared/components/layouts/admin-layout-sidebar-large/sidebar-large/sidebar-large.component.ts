@@ -40,9 +40,20 @@ export class SidebarLargeComponent implements OnInit {
       });
 
     this.navService.menuItems$.subscribe(items => {
-      this.nav = items;
+      var roleType=localStorage.getItem('roleId')
+
+      console.log('items',items)
+      if(roleType == '1'){
+        this.nav = items.v1
+
+      }else{
+        this.nav = items.v2
+      }
+      // console.log('dev',this.nav)
+      // console.log('------',roleType)
       this.setActiveFlag();
     });
+     
   }
 
   selectItem(item) {

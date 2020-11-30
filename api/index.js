@@ -69,11 +69,10 @@ var loginController = require('./routes/login');
 //login api
 app.post('/cesco/userlogin', loginController.userlogin);
 
-
+// for admin dashboard
 app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
 app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
-
-app.get('/cesco/getTotalRequest', serviceController.getTotalRequest);
+app.get('/cesco/getTotalRequest', serviceController.getTotalNewRequest);
 app.get('/cesco/getTotalAssign', serviceController.getTotalAssign);
 app.get('/cesco/getTotalInprogress', serviceController.getTotalinprogress);
 app.get('/cesco/getTotalComplete', serviceController.getTotalComplete);
@@ -81,11 +80,22 @@ app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 // app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 
 
+    // for interpreter dashboard
+
+app.post('/cesco/getNewRequestCount', interpreterController.getNewRequestCount);
+app.post('/cesco/getAcceptRequest', interpreterController.getAcceptRequest);
+app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
+app.post('/cesco/getCompleteRequest', interpreterController.getCompleteRequest);
+app.post('/cesco/getCancelledRequest', interpreterController.getCancelledRequest);
+
+
+
 app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */
 
 
+app.post('/cesco/interpreterRequestComplete', interpreterController.interpreterRequestComplete);
 app.post('/cesco/interpreterRequestReply', interpreterController.interpreterRequestReply);
 app.post('/cesco/getRequestForInterpreter', interpreterController.getRequestForInterpreter);
 app.post('/cesco/requestSendtoInterpreter', interpreterController.requestSendtoInterpreter);

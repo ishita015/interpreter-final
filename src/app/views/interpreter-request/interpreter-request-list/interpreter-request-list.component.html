@@ -18,7 +18,7 @@
 
         <div class="col-md-12">
             <div class="card  o-hidden">
-                <ngx-datatable *ngIf="filteredUser?.length"
+              <ngx-datatable *ngIf="filteredUser?.length"
                 style="height: 500px; box-shadow: none"
                 class="material fullscreen"
                 [columnMode]="'force'"
@@ -85,7 +85,7 @@
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.mobile}}
                   </ng-template>  
-              </ngx-datatable-column>
+               </ngx-datatable-column>
              
               <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
                 <ng-template ngx-datatable-header-template>Status
@@ -110,18 +110,8 @@
             
             
 
-                  <!-- <ngx-datatable-column [width]="120" [sortable]="false">
-                    <ng-template ngx-datatable-header-template>
-                        Actions
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
-                        <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
-                    </ng-template>
-                </ngx-datatable-column> -->
-
-              </ngx-datatable>
-            </div>
+            </ngx-datatable>
+          </div>
           <ng-container *ngIf="list_Obj?.length <= 0">
               No Data Found
           </ng-container>
