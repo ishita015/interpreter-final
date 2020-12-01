@@ -93,7 +93,7 @@ app.post('/cesco/getCancelledRequest', interpreterController.getCancelledRequest
 app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */
-
+app.post('/cesco/changePassword', interpreterController.changePassword);
 
 app.post('/cesco/interpreterRequestComplete', interpreterController.interpreterRequestComplete);
 app.post('/cesco/interpreterRequestReply', interpreterController.interpreterRequestReply);
@@ -190,7 +190,6 @@ app.post('/cesco/userRoleAdd', function(req, res) {
 
 
 
-
 /* image upload */
 const DIR = './public/';
 let storage = multer.diskStorage({
@@ -205,6 +204,97 @@ let storage = multer.diskStorage({
 let upload = multer({
     storage: storage
 });
+
+
+
+
+
+//update profile 
+app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        name: 'required',
+        mobile: 'required',
+        user_id: 'required',
+        address: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+
+
+
+    let user_id = req.body.user_id;
+    let name  = req.body.name;
+    let address = req.body.address;
+    //let latitude = req.body.lat ? req.body.lat:0;
+    //let longitude = req.body.long ? req.body.long:0;
+  
+    let mobile = req.body.mobile;
+
+   
+    var profileImg='';
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            profileImg=req.files[0].filename;
+        }
+    }
+    
+
+    if(profileImg==""){
+        var user_update = "UPDATE user SET name='"+name+"',address='"+address+"',mobile='"+mobile+"' WHERE id ='"+user_id+"'";
+    }else{
+        var user_update = "UPDATE user SET name='"+name+"',address='"+address+"',mobile='"+mobile+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
+    }
+
+    con.query(user_update, function(err, results) {
+        if(results.affectedRows ==1){
+            //image unlink in folder
+            // if(profileImg!="" && userprofile!=""){
+            //     var img_dir = DIR+''+userprofile;
+            //     fs.unlink(img_dir, (err) => {
+            //       if (err) {
+            //         console.error(err)
+            //         return
+            //       }
+            //       //file removed
+            //     })
+            // }
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message :"Update successfully",
+            });
+            return true;
+        }else{
+            //error
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 7,
+                message: "Please try again"
+            });
+            return true;
+        }
+    });     
+});
+
+
+
 
 
 

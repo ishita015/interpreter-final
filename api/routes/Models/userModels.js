@@ -10,6 +10,23 @@ let dt = new Date().getTime() / 1000;
 class userClass {
     
 
+
+    getUserDetail(user_id){
+        return new Promise(function(resolve, reject) {
+            let sql = "SELECT * from user where id='"+user_id+"'";
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);    
+                } else {
+                    resolve(false);
+                }
+            });
+        
+        });
+    }
+    
+
+
     // get all interpreter request
     interpreterRequestList(role_id,user_id,status){
         console.log("role_id--",role_id)
