@@ -101,30 +101,19 @@ export class UsersAddComponent implements OnInit {
 
     }
 
-
-
     onChange(id) {
         this.newlanguageVal = id.target.value;
         console.log("iddddddddddd", this.newlanguageVal);
     }
-
-
-
 
     onChangeRole(id) {
         this.newrole = id.target.value;
         console.log("iddddddddddd", this.newrole);
     }
 
-
-
-
-
     onSelect(item) {
         console.log('tag selected: value is' + item);
     }
-
-
 
     /*========== Form Value Start Here========*/
     createForm() {
