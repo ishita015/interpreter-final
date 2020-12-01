@@ -14,12 +14,12 @@
             <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-8">
             <button class="btn btn-primary float-right"   [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''" 
             (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
         </div>
         
-        <div class="col-md-12">
+        <div class="col-md-12 language_table">
             <div class="card  o-hidden">
                 <ngx-datatable *ngIf="filteredLanguage?.length"
                 style="height: 500px; box-shadow: none"
@@ -30,7 +30,7 @@
                 [rowHeight]="60"
                 [scrollbarV]="true"
                 [rows]="filteredLanguage">
-                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
                   <ng-template ngx-datatable-header-template>
                    S.No
                   </ng-template>
@@ -38,7 +38,7 @@
                       {{rowIndex +1}}
                   </ng-template>
                  </ngx-datatable-column>
-                 <ngx-datatable-column name="Language Title" prop="name">
+                 <ngx-datatable-column [minWidth]="50" name="Language Title" prop="name">
                   <ng-template ngx-datatable-header-template>
                     Language Title
                   </ng-template>
@@ -46,7 +46,7 @@
                     {{row.name}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Language Code" prop="code">
+                <ngx-datatable-column [minWidth]="50" name="Language Code" prop="code">
                   <ng-template ngx-datatable-header-template>
                     Language Code
                   </ng-template>
@@ -56,7 +56,7 @@
                 </ngx-datatable-column>
 
 
-                <ngx-datatable-column name="Country" prop="country">
+                <ngx-datatable-column [minWidth]="50" name="Country" prop="country">
                   <ng-template ngx-datatable-header-template>
                     Country
                   </ng-template>
@@ -65,7 +65,7 @@
                   </ng-template>
                 </ngx-datatable-column>
                   
-                <ngx-datatable-column>
+                <ngx-datatable-column [minWidth]="50">
                     <ng-template ngx-datatable-header-template>
                         No of Assignments
                     </ng-template>
@@ -73,7 +73,7 @@
                         {{row.Assessments}}
                     </ng-template>  
                 </ngx-datatable-column>
-                <ngx-datatable-column>
+                <ngx-datatable-column [minWidth]="50">
                   <ng-template ngx-datatable-header-template>
                       No.of Interpreter
                   </ng-template>
@@ -81,7 +81,7 @@
                       {{row.Interpreter}}
                   </ng-template>  
               </ngx-datatable-column>
-                <ngx-datatable-column name="Created Date" prop="created_at">
+                <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">
                       <ng-template ngx-datatable-header-template>
                         Created Date
                       </ng-template>
@@ -90,19 +90,18 @@
                       </ng-template>
                   </ngx-datatable-column>
                  
-                <ngx-datatable-column name="Status" prop="status">
+                <ngx-datatable-column [minWidth]="50" name="Status" prop="status">
                   <ng-template ngx-datatable-header-template>
                     Status
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                     
-                      <label class="switch" > 
-                          <input type="checkbox" [disabled] = "role_id!=1 ? array_Obj.status_permission !== 'true' : ''" 
-                          [checked]="row.status == '1'" 
-                          (click)="statusLanguageChange($event.target,row.status,row.id)">
-                          <span class="slider">
-                          </span>
-                        </label>
+                    <label class="switch switch-primary mt-2 mr-3"> 
+                      <input type="checkbox" [disabled] = "role_id!=1 ? array_Obj.status_permission !== 'true' : ''" 
+                      [checked]="row.status == '1'" 
+                      (click)="statusLanguageChange($event.target,row.status,row.id)">
+                      <span class="slider">
+                      </span>
+                    </label>
 
                   </ng-template>
                 </ngx-datatable-column>
@@ -123,15 +122,15 @@
 
                     </ng-template>
                   </ngx-datatable-column> -->
-                  <ngx-datatable-column [width]="120" [sortable]="false">
+                  <ngx-datatable-column [minWidth]="120" [sortable]="false">
                     <ng-template ngx-datatable-header-template>
                         Actions
                     </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-outline-success" (click)="Edit(row.id,row)" 
+                    <ng-template class="newbutton" ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-outline-success btnnew" (click)="Edit(row.id,row)" 
                         [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''" [routerLink]="['/languages/edit', row.id]">Edit</button>
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
-                        <button class="btn btn-outline-danger ml-2" [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
+                        <button class="btn btn-outline-danger ml-2 btnnew" [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
                         (click)="deleteLanguage(row.id, deleteConfirmModal)">
                             Delete
                         </button>

@@ -1,14 +1,69 @@
-<div class="row">
-    <div class="col-md-12">
+<div class="row mb-3">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-body">
                 <div id="print-area">
                     <h5 class="font-weight-bold">User Request Details</h5>
                     <div class="mt-3 mb-4 border-top"></div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 mb-3 mb-sm-0">
+    
+                        <div class="request_Tab userstable mb-3 mb-sm-0 ">
+
+                             
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Caseworker</td>
+                                        <td>{{data.caseworker_name}}</td>
+                                    </tr>
+                                      <tr>
+                                        <td>Business/Organization-</td>
+                                        <td>{{data.business_bill}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Requester</td>
+                                        <td>{{data.requester_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Health Department/Division</td>
+                                        <td>{{data.health_department}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Community Service</td>
+                                        <td>{{data.north_metro_community_service}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mesa Country Human Services</td>
+                                        <td>{{data.human_services}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>AHS Department/Division</td>
+                                        <td>{{data.ahs_department}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Office Phone</td>
+                                        <td>{{data.office_phone}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cell Phone</td>
+                                        <td>{{data.cell_phone}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Email</td>
+                                        <td>{{data.email}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Site Contact</td>
+                                        <td>{{data.site_contact}}</td>
+                                    </tr>
+                                       <tr>
+                                        <td>Create Date</td>
+                                        <td>{{data.updated_at | date:'MM-dd-yyyy' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                             <!--form 1 start-->
-                            <p>Caseworker- {{data.caseworker_name}}</p>
+                         <!--    <p>Caseworker- {{data.caseworker_name}}</p>
                             <p>Business/Organization- {{data.business_bill}}</p>
                             <p>Requester- {{data.requester_name}}</p>
                             <p>Health Department/Division- {{data.health_department}}</p>
@@ -19,39 +74,15 @@
                             <p>Cell Phone- {{data.cell_phone}}</p>
                             <p>Email- {{data.email}}</p>
                             <p>Site Contact- {{data.site_contact}}</p>
-                            <p>Create Date- {{data.updated_at | date:'MM-dd-yyyy' }}</p>
+                            <p>Create Date- {{data.updated_at | date:'MM-dd-yyyy' }}</p> -->
 
                             <!--form 1 end-->
-                        </div>
+              
 
-                        <div class="col-md-4 mb-3 mb-sm-0">
-                            <p>Case Name- {{data.case_name}}</p>
-                            <p>Client Name- {{data.client_name}}</p>
-                            <p>Contact Person- {{data.name_of_contact_person}}</p>
-                            <p>Cell Phone- {{data.cell_phone}}</p>
-                            <p>Name Of Person Reqire Interpreter- {{data.name_of_person}}</p>
-                            <p>Name Of Provider/Doctor- {{data.doctor}}</p>
-                            <!-- <p>AHS Department- {{data.patient}}</p> -->
-                            <p>Case/Claim/ID Number- {{data.claim_number}}</p>
-                            <p>School Name or Building- {{data.school_name}}</p>
-                            <p>Trails/Reference- {{data.trails}}</p>
-                        </div>
+                    
 
-                        <div class="col-md-4 mb-3 mb-sm-0">
-                        <!-- <div class="col-md-4 text-sm-right"> -->
-                            <!-- <h5 class="font-weight-bold">Primary Language</h5> -->
-                            <p>Appointment Type- {{data.appointment_type}}</p>
-                            <p>Date- {{data.date}}</p>
-                            <p>Start Time- {{data.start_time}}</p>
-                            <p>Anticipated End Time- {{data.anticipated_end_time}}</p>
-                            <p>Service Requested- {{data.service_requested}}</p>
-                            <p>How Many Receivers Required- {{data.receivers_required}}</p>
-                            <p>address- {{data.address}}</p>
-                            <p>Notes- {{data.notes}}</p>
-                            <p>Language- {{data.lang_name}}</p>
-                            
-                        </div>
-                    </div>
+        
+                   
                     <!-- <div class="row">
                         <div class="col-md-12">
                            
@@ -62,4 +93,117 @@
             </div>
         </div>
     </div>
+       <div class="col-md-6">
+        <div class="card">
+            <div class="card-body h-592">
+                             <h5 class="font-weight-bold">Case Details</h5>
+                    <div class="mt-3 mb-4 border-top"></div>
+                        <div class="request_Tab userstable mb-3 mb-sm-0 ">
+
+                           
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Case Name</td>
+                                        <td>{{data.name}}</td>
+                                    </tr>
+                                      <tr>
+                                        <td>Client Name-</td>
+                                        <td>{{data.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Contact Person</td>
+                                        <td>{{data.mobile}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cell Phone</td>
+                                        <td>{{data.gender}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Of Person Reqire Interpreter</td>
+                                        <td>{{data.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Of Provider/Doctor</td>
+                                        <td>{{data.role_name}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Case/Claim/ID Number-</td>
+                                        <td>{{data.role_name}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>School Name or Building</td>
+                                        <td>{{data.role_name}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Trails/Reference</td>
+                                        <td>{{data.role_name}}</td>
+                                    </tr>
+                                 
+                                </tbody>
+                            </table>
+                        </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                 <h5 class="font-weight-bold">Appointment Details</h5>
+                    <div class="mt-3 mb-4 border-top"></div>
+                <div class="row">
+                    <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
+                         <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Appointment Type</td>
+                                        <td>{{data.appointment_type}}</td>
+                                    </tr>
+                                      <tr>
+                                        <td>Date</td>
+                                        <td>{{data.date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Start Time</td>
+                                        <td>{{data.start_time}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Anticipated End Time</td>
+                                        <td>{{data.anticipated_end_time}}</td>
+                                    </tr>
+                                        <tr>
+                                        <td>Service Requested</td>
+                                        <td>{{data.receivers_required}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+       <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
+                         <table>
+                                <tbody>
+                                    <tr>
+                                        <td>How Many Receivers Required</td>
+                                        <td>{{data.receivers_required}}</td>
+                                    </tr>
+                                      <tr>
+                                        <td>address</td>
+                                        <td>{{data.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Notes</td>
+                                        <td>{{data.notes}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Language</td>
+                                        <td>{{data.lang_name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>

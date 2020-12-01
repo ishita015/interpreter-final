@@ -14,7 +14,7 @@
             <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
           </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-8">
         <button class="btn btn-primary float-right" *ngIf="array_Obj.add_permission == 'true'" (click)="addUser()">Create</button>
     </div>
         <div class="col-md-12">
@@ -28,7 +28,7 @@
                 [rowHeight]="60"
                 [scrollbarV]="true"
                 [rows]="filteredUser">
-                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
                   <ng-template ngx-datatable-header-template>
                    S.No
                   </ng-template>
@@ -37,7 +37,7 @@
                   </ng-template>
                  </ngx-datatable-column>
 
-                 <ngx-datatable-column name="Name" prop="name">
+                 <ngx-datatable-column name="Name" prop="name" [minWidth]="50"> 
                   <ng-template ngx-datatable-header-template>
                     Type
                   </ng-template>
@@ -46,7 +46,7 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                 <ngx-datatable-column name="Name" prop="name">
+                 <ngx-datatable-column name="Name" prop="name" [minWidth]="20">
                   <ng-template ngx-datatable-header-template>
                     Name
                   </ng-template>
@@ -54,7 +54,7 @@
                     {{row.name}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Email" prop="email">
+                <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
                   <ng-template ngx-datatable-header-template>
                     Email
                   </ng-template>
@@ -62,7 +62,7 @@
                     {{row.email}}
                   </ng-template>
                 </ngx-datatable-column>
-                  <ngx-datatable-column name="Mobile" prop="mobile">
+                  <ngx-datatable-column name="Mobile" prop="mobile" [minWidth]="30">
                       <ng-template ngx-datatable-header-template>
                         Mobile
                       </ng-template>
@@ -70,7 +70,7 @@
                         {{row.mobile}}
                       </ng-template>
                   </ngx-datatable-column>
-                  <ngx-datatable-column>
+                  <ngx-datatable-column [minWidth]="30">
                     <ng-template ngx-datatable-header-template>
                         Gender
                     </ng-template>
@@ -79,7 +79,7 @@
                     </ng-template>  
                 </ngx-datatable-column>
                 
-                <ngx-datatable-column>
+                <ngx-datatable-column [minWidth]="50">
                   <ng-template ngx-datatable-header-template>
                       Created date
                   </ng-template>
@@ -90,7 +90,7 @@
              
 
 
-                  <ngx-datatable-column name="Status" prop="status">
+                  <ngx-datatable-column name="Status" prop="status" [minWidth]="20">
                     <ng-template ngx-datatable-header-template>
                       Status
                     </ng-template>
@@ -105,13 +105,13 @@
 
                     </ng-template>
                   </ngx-datatable-column>
-                  <ngx-datatable-column [width]="120" [sortable]="false">
+                  <ngx-datatable-column [minWidth]="200" [sortable]="false">
                     <ng-template ngx-datatable-header-template>
                         Actions
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-outline-secondary" (click)="userView(row.id)">View</button>  
-                        <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]" [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''" >Edit</button>
+                        <button style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userView(row.id)">View</button>  
+                        <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]" [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''" >Edit</button>
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
                         <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
                             Delete

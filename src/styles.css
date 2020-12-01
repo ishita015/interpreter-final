@@ -1,9 +1,82 @@
 /* You can add global styles to this file, and also import other style files */
+/* atul custom css  */
+/* You can add global styles to this file, and also import other style files */
+.dashboard_block .card_red:hover {box-shadow: 0 4px 20px 1px rgb(225 43 107 / 37%), 0 1px 4px rgb(226 45 108 / 17%) !important; }
+.dashboard_block .card_gr:hover {box-shadow: 0 4px 20px 1px rgb(83 172 87 / 50%), 0 1px 4px rgb(45 148 50 / 31%) !important; }
+.dashboard_block .card:hover {box-shadow: 0 4px 20px 1px rgb(254 156 22 / 50%), 0 1px 4px rgb(253 156 23 / 39%); }
+.dashboard_block .cardsky:hover{box-shadow: 0 4px 20px 1px rgb(31 193 213 / 35%), 0 1px 4px rgb(20 186 206 / 14%);}
+.dashboard_block  .card {border-radius: 8px; box-shadow: none; border: 1px solid #dedede;     background: #fff;}
+.dashboard_block .card-icon{  border-radius: 10px; background-color: #999; padding: 15px; margin-top: 0; margin-right: 0; box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(255,152,0,.4); background: linear-gradient(60deg,#ffa726,#fb8c00);} .dashboard_block .card-icon i{    color: #fff;}
+.dashboard_block .cardtext{    color: #999; font-size: 18px; padding-top: 0;}
+.dashboard_block .totalnumber{color: #3c4858; font-size: 30px; font-weight: bold;text-align: center;}
+.dashboard_block .card-body{    padding: 12px 13px; cursor: pointer;}
+.dashboard_block .cardskyblue{background: linear-gradient(60deg,#26c6da,#00acc1) !important;}
+.dashboard_block .cardred{    background: linear-gradient(60deg,#ec407a,#d81b60) !important;}
+.dashboard_block .cardgreen{    background: linear-gradient(60deg,#66bb6a,#43a047) !important;}
+.checkboxedit input:checked + .slider {background-color: #663399 !important; }
+.btnnew{        padding: 2px 14px;
+    margin-top: 7px;
+    visibility: visible;
+    display: inline;}
+.borderflow{        background: #fff;border: 1px solid #e0e0e0; border-radius: 5px; padding: 10px 1px;}
+.borderflow:hover {box-shadow: 0 3px 4px #ccc; }
+.checkboxedit .slider:before {position: absolute; content: ""; height: 19px !important; width: 19px !important; left: 1px !important; bottom: 4px !important; background-color: white; transition: .4s; }
+.checkboxedit .switch .slider {width: 52px !important;}
+.checkboxedit .switch {position: relative; display: inline-block; width: 54px !important;  height: 25px !important; top: 6px !important; }
+.excellport .form-control{    width: 72%; display: inline-block;}
+.main-content-wrap {background: #eff2f5 !important; }
+.layout-sidebar-large .sidebar-left .navigation-left .nav-item.active {color: #ffffff !important; background: #3e116b !important; }
+
+.layout-sidebar-large .sidebar-left-secondary .childNav li.nav-item a:hover {background: #3e116b; color: #fff; }
+.layout-sidebar-large .sidebar-left-secondary .childNav li.nav-item a:hover i {color: #fff; }
+.card-icon-bg .card-body .content {margin: auto; display: inline; flex-direction: column; align-items: flex-start;     max-width: 100%;}
+.profile_right p{text-transform: capitalize;    font-weight: bold;    margin-top: 5px;}
+.userstable table{width: 100%;}
+.userstable table tr{border-bottom: 1px solid #e4e4e4;}
+.userstable  table tr td{padding-top: 10px;padding-bottom: 10px;}
+.userstable table tr td:first-child{color: grey;}
+.userstable table tr td:last-child{font-weight: bold;text-transform: capitalize;}
+.error-msg{color:red; }
+.request_Tab table tr td:first-child{width: 40%;}
+.h-592{height: 592px;}
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {
+    white-space: initial !important;
+    height: auto !important;
+  }
+  .buttondisplay{
+    white-space: none !important;
+    height: auto !important;
+  }
+  .buttonlabel {
+    text-overflow: none !important;
+    white-space: none !important;
+    overflow: visible !important;
+} 
+.datatable-body-cell-label .newbutton{
+    
+}
+.datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:last-child{width: 200px !important;}
+/* 
+.datatable-row-center .datatable-header-cell .datatable-header-cell .datatable-header-cell-template-wrap{width: 200px !important;} */
+@media (min-width: 1024px){.auth-layout-wrap .auth-content {min-width: 393px !important; } }
+/* end */
+
 .error-msg{
     color:red;
 }
+
 @media (min-width: 1024px){
     .auth-layout-wrap .auth-content {
         min-width: 393px !important;
+    }
+}
+@media (min-width: 560px){
+    ngx-datatable-column{
+        width:100% !important;
     }
 }
