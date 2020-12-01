@@ -211,6 +211,9 @@ let upload = multer({
 
 //update profile 
 app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
+
+    console.log("all request--",req.body);
+
     //validation start
     const v = new Validator(req.body, {
         name: 'required',
@@ -259,6 +262,8 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
     }else{
         var user_update = "UPDATE user SET name='"+name+"',address='"+address+"',mobile='"+mobile+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
     }
+
+    console.log("user_update sql--",user_update)
 
     con.query(user_update, function(err, results) {
         if(results.affectedRows ==1){

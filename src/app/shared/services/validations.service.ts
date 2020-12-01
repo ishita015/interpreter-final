@@ -12,7 +12,8 @@ export class ValidationsService {
   onlyRequired_validator = [Validators.required];
   email_validator = [Validators.required, Validators.minLength(6), Validators.maxLength(150),
     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,25}$')];
-  password_validator = [Validators.required, Validators.minLength(8), Validators.maxLength(20),
-    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{8,15}$')];
+  password_validator = [Validators.required, Validators.minLength(6)];
+  mobile_validator = [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern('^[0-9]+$')];
+  name_validation = [Validators.required, Validators.minLength(2), Validators.maxLength(50)]; 
   /*===========Validations Expression End here ===========*/
 }

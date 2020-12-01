@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../../../../services/navigation.service';
 import { SearchService } from '../../../../services/search.service';
 import { AuthService } from '../../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-sidebar-large',
@@ -15,6 +16,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
     constructor(
       private navService: NavigationService,
       public searchService: SearchService,
+      private router: Router,
       private auth: AuthService
     ) {
       this.notifications = [
@@ -93,4 +95,12 @@ export class HeaderSidebarLargeComponent implements OnInit {
       this.auth.signout();
     }
 
+    profile_btn(){
+      this.router.navigate(['/profile/admin-profile']);
+      
+    }
+
+    chnage_pass_btn(){
+      this.router.navigate(['/profile/change-password']);
+    }
 }

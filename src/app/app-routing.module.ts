@@ -16,6 +16,10 @@ const adminRoutes: Routes = [
       loadChildren: () => import('./views/languages/languages.module').then(m => m.LanguagesModule)
     },
     {
+      path: 'profile',
+      loadChildren: () => import('./views/profile/profile.module').then(m => m.ProfileModule)
+    },
+    {
       path: 'users',
       loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule)
     },

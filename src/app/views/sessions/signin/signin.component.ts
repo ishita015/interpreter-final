@@ -77,6 +77,7 @@ export class SigninComponent implements OnInit {
                     else {
                         this.log_Obj = res['data'][0];
                         this.log_Msg = res;
+                        localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
                         localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
                         localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
                         localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
