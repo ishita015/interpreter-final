@@ -71,7 +71,7 @@ export class NavigationService {
             type: 'dropDown',
             icon: 'i-Library',
             sub: [
-                { icon: 'i-Bell', name: 'Language-List', state: '/languages/list', type: 'link' },
+                { icon: 'i-Bell', name: 'Language List', state: '/languages/list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Import Language', state: '/languages/excelImport', type: 'link' },
             ]
         },
