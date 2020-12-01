@@ -38,7 +38,20 @@ export class InterpreterListComponent implements OnInit {
   requestStatus;
   language_id;
   assignInfo;
+  searchNameEmail = '';
+  distance = '';
+  rate = '';
+  rating = '';
+  distance_formdata;
+  rates_formdata;
+  ratings_formdata;
+  namemail_formdata;
+  api_res;
   searchControl: FormControl = new FormControl();
+  distances: FormControl = new FormControl();
+  rates: FormControl = new FormControl();
+  ratings: FormControl = new FormControl();
+  search_name_email: FormControl = new FormControl();
   // initial center position for the map
   // lat: number = 0;
   // lng: number = 0;
@@ -109,7 +122,6 @@ export class InterpreterListComponent implements OnInit {
 
   ngOnInit() {
     this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
-
     console.log("assignInfo  --",this.assignInfo)
     this.language_id = this.assignInfo.language;
 
@@ -129,18 +141,15 @@ export class InterpreterListComponent implements OnInit {
 	]
 
     this.assignMyNearbyInterpreter();
-    
-
-
-    this.searchControl.valueChanges
-    .pipe(debounceTime(200))
-    .subscribe(value => {
-      this.filerData(value);
-    });
+    // this.searchControl.valueChanges
+    // .pipe(debounceTime(200))
+    // .subscribe(value => {
+    //   this.filerData(value);
+    // });
   }
 
 
-  filerData(val) {
+  /*filerData(val) {
     if (val) {
       val = val.toLowerCase();
     } else {
@@ -162,30 +171,51 @@ export class InterpreterListComponent implements OnInit {
     });
     this.filteredUser = rows;
   }
-
+*/
   assignMyNearbyInterpreter(){
     console.log("language++",this.markers)
-    this.service.myNearbyInterpreter(this.serviceid,this.language_id).subscribe(res => {
-        this.list_Obj = res['data'];
-        this.userData = [...res['data']];
-        this.filteredUser = this.list_Obj;
-        for(let i=0; i < this.list_Obj.length; i++){ 
-          this.markers.push({
-            lat:this.list_Obj[i].latitude,
-            lng:this.list_Obj[i].longitude,
-            label: this.list_Obj[i].name,
-            id:this.list_Obj[i].id,
-            mobile:this.list_Obj[i].mobile,
-            address:this.list_Obj[i].address,
-            email:this.list_Obj[i].email,
-            draggable: false,
-            visible: false,
-            opacity: 0.7
-         })
-        } 
-        console.log("clicked the marker:", this.markers);
-
-    });
+    console.log("pppppppppp",  this.distances);
+     this.distance_formdata = this.distances.value ;
+     this.rates_formdata = this.rates.value;
+     this.ratings_formdata = this.ratings.value
+     this.namemail_formdata = this.search_name_email.value
+     console.log("distance_formdata valueeeeeeeeeeeeee", this.distance_formdata);
+     
+     this.distance = this.distance_formdata;
+     console.log("distance_formdata valueeeeeeeeeeeeee", this.distance);
+     this.searchNameEmail =  this.namemail_formdata ;
+     console.log("distance_formdata valueeeeeeeeeeeeee",  this.searchNameEmail);
+     this.rate = this.rates_formdata;
+     console.log("distance_formdata valueeeeeeeeeeeeee",   this.rate);
+     this.rating = this.ratings_formdata;
+     console.log("distance_formdata valueeeeeeeeeeeeee",   this.rating);
+    //  console.log("value set", this.distance);
+    this.service.myNearbyInterpreter(this.serviceid,this.language_id,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
+        if(res['status'] == 0){
+          this.list_Obj = '';
+          this.userData = '';
+          this.filteredUser = '';
+        }else{
+          this.list_Obj = res['data'];
+          this.userData = [...res['data']];
+          this.filteredUser = this.list_Obj;
+          for(let i=0; i < this.list_Obj.length; i++){ 
+            this.markers.push({
+              lat:this.list_Obj[i].latitude,
+              lng:this.list_Obj[i].longitude,
+              label: this.list_Obj[i].name,
+              id:this.list_Obj[i].id,
+              mobile:this.list_Obj[i].mobile,
+              address:this.list_Obj[i].address,
+              email:this.list_Obj[i].email,
+              draggable: false,
+              visible: false,
+              opacity: 0.7
+          })
+          } 
+          console.log("clicked the marker:", this.markers);
+        }
+      });
   }
 //}
 

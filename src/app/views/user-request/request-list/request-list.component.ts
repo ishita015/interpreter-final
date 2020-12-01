@@ -23,6 +23,10 @@ export class RequestListComponent implements OnInit {
   status_msg;
   userId;
   roleId;
+  searchNameEmail = '';
+  distance = '';
+  rate = '';
+  rating = '';
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -110,7 +114,7 @@ export class RequestListComponent implements OnInit {
     
     localStorage.setItem('assignData', JSON.stringify(info));
     localStorage.setItem('serviceId', JSON.stringify(service_id));
-    this.service.myNearbyInterpreter(service_id,info.language).subscribe(res => {
+    this.service.myNearbyInterpreter(service_id,info.language,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
       // console.log(res['data']);
         this.interpreter_obj = res['data'];
         console.log("interpreter_obj",  this.interpreter_obj);

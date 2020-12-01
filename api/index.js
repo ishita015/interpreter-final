@@ -267,17 +267,7 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 
     con.query(user_update, function(err, results) {
         if(results.affectedRows ==1){
-            //image unlink in folder
-            // if(profileImg!="" && userprofile!=""){
-            //     var img_dir = DIR+''+userprofile;
-            //     fs.unlink(img_dir, (err) => {
-            //       if (err) {
-            //         console.error(err)
-            //         return
-            //       }
-            //       //file removed
-            //     })
-            // }
+            
             res.json({
                 status: 1,
                 error_code: 0,
@@ -307,46 +297,68 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 const XLSX = require('xlsx');
 
 
-app.post('/cesco/importLang', upload.single("image"), async function(req, res){
-//  app.post('/cesco/importLang', async function(req, res){
-console.log("my testing-",req)
-//   if(req.file=='undefined'){
-//          res.json({
-//             status: 0,
-//             error_code: 0,
-//             error_line: 6,
-//             message: "Please try again",
-//         });
-//         return true;
-//   }
-  // else{
-      // console.log("filename- ",req.file.filename);
-      const workbook = XLSX.readFile('./public/'+req.files.filename);
-      // const workbook = XLSX.readFile('./public/file-1603293772518.xls');
-      const [sheetName] = workbook.SheetNames;
-      const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
-      console.log(jsonData)
 
-      for (var i = 0; i < jsonData.length; i++) {
-        // console.log('result-',jsonData[i].name);
-        // console.log('result-',jsonData[i].code);
 
-        var sql = "INSERT INTO languages (name,code,status) values ('"+jsonData[i].name+"','"+jsonData[i].code+"','1')";
-        console.log('sql-',sql)
-        var query = con.query(sql, function(err, result) {});
-      }
-      
-      res.json({
-          status: 1,
-          error_code: 0,
-          error_line: 6,
-          message: "Language import successfully",
-      });
-      return true;
-  // }
+//update profile 
+app.post('/cesco/importLang', upload.any(),async function(req, res, next) {
+    console.log('result-',req.files);
+    console.log('file name-',req.files[0].filename);
 
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            const workbook = XLSX.readFile('./public/'+req.files[0].filename);
+            const [sheetName] = workbook.SheetNames;
+            const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
+            console.log(jsonData)
+
+            for (var i = 0; i < jsonData.length; i++) {
+                // console.log('result-',jsonData[i].name);
+                // console.log('result-',jsonData[i].code);
+                var sql = "INSERT INTO languages (name,code,status) values ('"+jsonData[i].name+"','"+jsonData[i].code+"','1')";
+                console.log('sql-',sql)
+                var query = con.query(sql, function(err, result) {});            
+                
+             }
+
+            //image unlink in folder
+            if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+                fs.unlink('./public/'+req.files[0].filename, (err) => {
+                  if (err) {
+                    console.error(err)
+                    return
+                  }
+                  //file removed
+                })
+            }
+
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Language import successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Invalid excel file",
+            });
+            return true;    
+        }
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Invalid excel file",
+        });
+        return true;
+    }
 });
- 
+
 
 
 

@@ -53,8 +53,8 @@ export class HttpService {
 
 
 
-  myNearbyInterpreter(service_id,language): Observable<any> {
-    return this.http.post(this.url + '/cesco/getNearbyInterpreter',{service_id:service_id,language:language},this.httpOptions);
+  myNearbyInterpreter(service_id,language,searchNameEmail,distance,rate,rating): Observable<any> {
+    return this.http.post(this.url + '/cesco/getNearbyInterpreter',{service_id:service_id,language:language,searchNameEmail:searchNameEmail,distance:distance,rate:rate,rating:rating},this.httpOptions);
   }
 
 
@@ -66,7 +66,7 @@ export class HttpService {
 
 
   importLanguage(importData): Observable<any> {
-    return this.http.post(this.url + '/cesco/importLang',importData,this.httpOptions);
+    return this.http.post(this.url + '/cesco/importLang',importData);
   }
 
  
