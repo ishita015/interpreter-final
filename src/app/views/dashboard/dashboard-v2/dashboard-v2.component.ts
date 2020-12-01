@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { echartStyles } from 'src/app/shared/echart-styles';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { HttpService } from 'src/app/shared/services/http.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard-v2',
   templateUrl: './dashboard-v2.component.html',
@@ -19,7 +20,7 @@ export class DashboardV2Component implements OnInit {
     public totalcancel_obj;
     public totalcomplete_obj;
   constructor(
-		private productService: ProductService,public service:HttpService,
+		private productService: ProductService,public service:HttpService,private router: Router
 	) { }
 
   ngOnInit() {
@@ -76,5 +77,26 @@ export class DashboardV2Component implements OnInit {
 			this.totalcancel_obj = res['data'][0];
 		})
 	}
+
+
+	newRequest(){
+        this.router.navigate(['/interpreter-request/list']);
+    }
+
+
+    acceptRquest(){
+        this.router.navigate(['/interpreter-request/accept-list']);
+    }
+    
+    RejectRequest(){
+        this.router.navigate(['/interpreter-request/reject-list']);
+    }
+    
+    completeRequest(){
+        this.router.navigate(['/interpreter-request/completed-list']);
+    }
+    cancelRequest(){
+        this.router.navigate(['/interpreter-request/cancelled-list']);
+    }
 
 }

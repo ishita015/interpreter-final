@@ -119,9 +119,14 @@ export class DashboadDefaultComponent implements OnInit {
     new_request(){
         this.router.navigate(['/user-request/list']);
     }
+
+
+    assign_request(){
+        this.router.navigate(['/interpreter-request/list']);
+    }
     
     accept_request(){
-        this.router.navigate(['/interpreter-request/list']);
+        this.router.navigate(['/interpreter-request/accept-list']);
     }
     
     complete_request(){
