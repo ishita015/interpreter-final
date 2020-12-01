@@ -9,7 +9,49 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
     
+    getNearInterpreterInfo(service_id,language_id,searchNameEmail,distance,rate,rating){
+        return new Promise(function(resolve, reject) { 
 
+            console.log("service_id",service_id)
+            console.log("language_id",language_id)
+            console.log("searchNameEmail",searchNameEmail)
+            console.log("rate",rate)
+            console.log("distance",distance)
+            console.log("rating",rating)
+
+            let lat = 22.7261762;
+            let lang = 76.1305457;
+
+
+            // SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '22.7261762' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '22.7261762' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '76.1305457' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='52' && (u.distance <= '50') ORDER BY u.distance ASC
+
+
+
+            var sql = "SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '"+lat+"' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '"+lat+"' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '"+lang+"' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
+            
+            if(distance != 0 ) { 
+                sql += " && (u.distance <= '"+distance+"')"; 
+                // sql += " && (u.distance >= '"+min_distance+"' && u.distance <= '"+max_distance+"')"; 
+            }
+
+            
+            if(searchNameEmail != "" ) { 
+                sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + searchNameEmail + "%')"; 
+            }
+
+    
+            sql += " ORDER BY u.distance ASC";  
+
+            console.log("sql-",sql);
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        }); 
+    }
 
     getUserDetail(user_id){
         return new Promise(function(resolve, reject) {

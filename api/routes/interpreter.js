@@ -649,12 +649,36 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
 
     let service_id = req.body.service_id;
     let language_id = req.body.language;
-    console.log("service_id--",service_id);
+    let searchNameEmail = req.body.searchNameEmail ? req.body.searchNameEmail : "";
+    let distance = req.body.distance ? req.body.distance : "";
+    let rate = req.body.rate ? req.body.rate : "";
+    let rating = req.body.rating ? req.body.rating : "";
+    
+    // console.log("service_id--",service_id);
+    var nearData = await usermodel.getNearInterpreterInfo(service_id,language_id,searchNameEmail,distance,rate,rating);
+    console.log("nearData-",nearData)
+    if (nearData != "" && nearData != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 1,
+            data: nearData
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "No record found"
+        });
+        return true;
+    }
 
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
+
+    /*var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -672,7 +696,7 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
             });
             return true;
         }
-    });
+    });*/
 };
 
 
