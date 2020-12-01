@@ -9,6 +9,8 @@ import { RoleAddEdit } from '../models/permission-model/role-add-edit';
 import { ModuleAddEdit } from '../models/permission-model/module-add-edit';
 import { UserroleEdit } from '../models/roleset-model/userrole-edit';
 import { LanguageImport } from '../models/language-model/language-import';
+import { AdminProfile } from '../models/admin-profile';
+import { ChangePassword } from '../models/change-password';
 
 
 @Injectable({
@@ -303,5 +305,17 @@ export class HttpService {
     
 
        /*=====Dashboard Section Apis End======*/
+
+
+        /*=====Profile Section Apis Start======*/
+
+      getProfileUpadte(profileupdateInfo: AdminProfile): Observable<any> {
+        return this.http.post(this.url + '/cesco/profileUpdate',profileupdateInfo);
+      }
+  
+      changePassword(changepassInfo: ChangePassword): Observable<any> {
+        return this.http.post(this.url + '/cesco/changePassword',changepassInfo,this.httpOptions);
+      }
+        /*=====Profile Section Apis End======*/
 
 }
