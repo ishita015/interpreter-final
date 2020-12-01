@@ -87,7 +87,7 @@ export class AdminProfileComponent implements OnInit {
     this.adminProfileForm.value.user_id = this.userId; 
     console.log("userIdddd",this.adminProfileForm.value.user_id);
     
-    formData.append('name', this.adminProfileForm.value.name);
+    formData.append('name', this.editdata.name);
     formData.append('user_id', this.adminProfileForm.value.user_id);
     formData.append('mobile', this.adminProfileForm.value.mobile);
     formData.append('address', this.adminProfileForm.value.address);

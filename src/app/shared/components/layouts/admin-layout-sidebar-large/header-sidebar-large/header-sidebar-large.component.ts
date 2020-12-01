@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header-sidebar-large.component.scss']
 })
 export class HeaderSidebarLargeComponent implements OnInit {
-
+  updatedata;
     notifications: any[];
 
     constructor(
@@ -67,6 +67,9 @@ export class HeaderSidebarLargeComponent implements OnInit {
     }
   
     ngOnInit() {
+      this.updatedata = JSON.parse(localStorage.getItem('loginData'));
+      console.log("update data");
+      
     }
   
     toggelSidebar() {

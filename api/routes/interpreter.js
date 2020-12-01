@@ -1102,10 +1102,10 @@ module.exports.addInterpreter = async function(req, res) {
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let gender = req.body.gender;
     let primary_language = req.body.primary_language;
-    
+    let rate = req.body.rate ? req.body.rate : 0;
     password = cryptr.encrypt(password);
     
-    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"')";
+    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"')";
     console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;

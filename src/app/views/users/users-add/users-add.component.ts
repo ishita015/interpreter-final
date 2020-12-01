@@ -118,7 +118,7 @@ export class UsersAddComponent implements OnInit {
     /*========== Form Value Start Here========*/
     createForm() {
         this.userForm = this.fb.group({
-            name: ['', this.validation.onlyRequired_validator],
+            name: ['', this.validation.name_validation],
             email: ['', this.validation.onlyRequired_validator],
             password: ['', this.validation.onlyRequired_validator],
             mobile: ['', this.validation.onlyRequired_validator],
@@ -139,7 +139,6 @@ export class UsersAddComponent implements OnInit {
             return;
         }
         this.submitted = false;
-
         this.userForm.value.latitude = this.latitude;
         this.userForm.value.longitude = this.longitude
         this.userForm.value.address = this.new_address;
