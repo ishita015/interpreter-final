@@ -76,7 +76,7 @@ export class NavigationService {
             ]
         },
         {
-            name: 'User Roles & Permissions',
+            name: 'User Role & Permissions',
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
             type: 'link',
             icon: 'i-Library',
