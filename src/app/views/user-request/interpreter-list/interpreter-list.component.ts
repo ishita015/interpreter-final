@@ -173,22 +173,15 @@ export class InterpreterListComponent implements OnInit {
   }
 */
   assignMyNearbyInterpreter(){
-    console.log("language++",this.markers)
-    console.log("pppppppppp",  this.distances);
      this.distance_formdata = this.distances.value ;
      this.rates_formdata = this.rates.value;
      this.ratings_formdata = this.ratings.value
      this.namemail_formdata = this.search_name_email.value
-     console.log("distance_formdata valueeeeeeeeeeeeee", this.distance_formdata);
-     
      this.distance = this.distance_formdata;
-     console.log("distance_formdata valueeeeeeeeeeeeee", this.distance);
      this.searchNameEmail =  this.namemail_formdata ;
-     console.log("distance_formdata valueeeeeeeeeeeeee",  this.searchNameEmail);
      this.rate = this.rates_formdata;
-     console.log("distance_formdata valueeeeeeeeeeeeee",   this.rate);
      this.rating = this.ratings_formdata;
-     console.log("distance_formdata valueeeeeeeeeeeeee",   this.rating);
+     
     //  console.log("value set", this.distance);
     this.service.myNearbyInterpreter(this.serviceid,this.language_id,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
         if(res['status'] == 0){
@@ -210,7 +203,8 @@ export class InterpreterListComponent implements OnInit {
               email:this.list_Obj[i].email,
               draggable: false,
               visible: false,
-              opacity: 0.7
+              opacity: 0.7,
+              icon:"./assets/images/faces/placeholder.png"
           })
           } 
           console.log("clicked the marker:", this.markers);
