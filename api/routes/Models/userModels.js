@@ -9,6 +9,19 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    checkRequestSend(interpreter_id,service_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreter_request WHERE job_id='"+service_id+"' && Interpreter_id='"+interpreter_id+"'";
+            console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        }); 
+    }
 
 
     getRequestreLatLong(service_id){
@@ -48,15 +61,10 @@ class userClass {
             }else{
                 sql += " && u.distance <= '100'"; 
             }
-
-            
-              
+  
             if(rate != 0 ) { 
                 sql += " && u.interpreter_rate <= '"+rate+"'"; 
-                // sql += " && (u.distance >= '"+min_distance+"' && u.distance <= '"+max_distance+"')"; 
             }
-
-
 
             if(searchNameEmail != "" ) { 
                 sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + searchNameEmail + "%')"; 

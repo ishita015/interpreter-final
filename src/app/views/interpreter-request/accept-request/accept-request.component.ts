@@ -100,17 +100,24 @@ export class AcceptRequestComponent implements OnInit {
     });
 }
 
-
+// 
 requestComplete(id, modal) {
   console.log("idddddddddd",id);
   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
           this.service.interpreterReqCompleted(id,this.userId)
             .subscribe(res => {
-                this.msg = res;
-                console.log("api",res );
-                this.toastr.success(this.msg.message,'', { timeOut: 1000 });
-                this.interpreterRequestData();
+              this.msg = res;
+              if (res['status'] == '1') {
+                  this.toastr.success(this.msg.message,'', { timeOut: 1000 });
+                
+                  this.router.navigate(['/interpreter-request/completed-list']);
+              }
+              // else{
+              //   this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+              //   this.router.navigate(['/interpreter-request/list']);
+              // }
+
             })
       }, (reason) => {
   });

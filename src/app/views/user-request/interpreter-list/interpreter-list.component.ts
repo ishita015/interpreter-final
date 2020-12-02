@@ -196,10 +196,13 @@ export class InterpreterListComponent implements OnInit {
     //  console.log("value set", this.distance);
     this.service.myNearbyInterpreter(this.serviceid,this.language_id,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
         if(res['status'] == 0){
+       
           this.list_Obj = '';
           this.userData = '';
           this.filteredUser = '';
+          
         }else{
+         
           this.list_Obj = res['data'];
           this.userData = [...res['data']];
           this.filteredUser = this.list_Obj;

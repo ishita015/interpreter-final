@@ -414,6 +414,14 @@ module.exports.interpreterRequestReply = async function(req, res) {
 
     let sql = "UPDATE request_information_services SET status = '"+status+"',is_reject='"+isreject+"' WHERE id = '"+ris_id+"'";
     console.log("sql--",sql)
+
+    if(res_type==3){
+        var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('"+user_id+"','"+ris_id+"')";
+        console.log('his_sql-',his_sql)
+        con.query(his_sql, function(err, insert) {});
+    }
+
+
     con.query(sql, function(err, result) {});
     res.json({
         status: 1,
@@ -565,7 +573,6 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
     let interpreter_id = req.body.interpreter_id;
     let service_id = req.body.service_id;
 
-    
 
     let name='';
     let email='';
@@ -575,28 +582,12 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
         email=interpreterDetail[0].email;
     }
 
-
-    var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('"+service_id+"','"+interpreter_id+"','1')";
-    console.log('sql-',sql)
-    con.query(sql, function(err, insert) {
-        // let last_id= insert.insertId;
-        if(!err){
-            //get data in request form
-            var query = "SELECT * FROM request_information_services WHERE id='"+service_id+"'";
-            console.log(query)
-            con.query(query, function(err, result, fields) {
-                if (result && result.length > 0) {
-                    let caseworker_name = result[0].caseworker_name;
-                    common.sendRequestEmail(caseworker_name,name,email);
-                }
-            });
-
-            //update status
-            let updatesql = "UPDATE request_information_services SET status = '2' WHERE id = '"+service_id+"'";
-            con.query(updatesql, function(err, result) {});
-
-
-
+    var lastData = await usermodel.checkRequestSend(interpreter_id,service_id);
+    if (lastData != "" && lastData != undefined) {
+        let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='"+service_id+"' && Interpreter_id='"+interpreter_id+"'";
+        con.query(updatesql, function(err, result) {
+            let updatesql1 = "UPDATE request_information_services SET status = '2' WHERE id = '"+service_id+"'";
+            con.query(updatesql1, function(err, result) {});
 
             res.json({
                 status: 1,
@@ -605,16 +596,46 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
                 message: "Request send successfully",
             });
             return true;
-        }else{
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "Server error",
-            });
-            return true;
-        }
-    });
+
+        });
+    }else{
+
+        var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('"+service_id+"','"+interpreter_id+"','1')";
+        console.log('sql-',sql)
+        con.query(sql, function(err, insert) {
+            // let last_id= insert.insertId;
+            if(!err){
+                //get data in request form
+                var query = "SELECT * FROM request_information_services WHERE id='"+service_id+"'";
+                console.log(query)
+                con.query(query, function(err, result, fields) {
+                    if (result && result.length > 0) {
+                        let caseworker_name = result[0].caseworker_name;
+                        common.sendRequestEmail(caseworker_name,name,email);
+                    }
+                });
+
+                //update status
+                let updatesql = "UPDATE request_information_services SET status = '2' WHERE id = '"+service_id+"'";
+                con.query(updatesql, function(err, result) {});
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "Request send successfully",
+                });
+                return true;
+            }else{
+                res.json({
+                    status: 0,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "Server error",
+                });
+                return true;
+            }
+        });
+    }
 };
 
 

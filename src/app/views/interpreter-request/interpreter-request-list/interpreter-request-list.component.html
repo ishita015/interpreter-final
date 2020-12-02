@@ -103,8 +103,18 @@
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>  
-                  <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
+                  <button class="btn btn-outline-danger ml-2"
+                  (click)="interpreterReply(row.user_id,row.ris_id,'2', acceptConfirmModal)">
+                  Accept
+                  </button>
+
+                  <button class="btn btn-outline-danger ml-2"
+                  (click)="interpreterReply(row.user_id,row.ris_id,'3', rejectConfirmModal)">
+                  Reject
+                  </button>
+
+                  <!-- <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>   -->
+                  <!-- <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>   -->
               </ng-template>
             </ngx-datatable-column>
             
@@ -119,3 +129,35 @@
           
       </div>
   </div>  
+  <ng-template #acceptConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alert</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure? you want to Accept Request?</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #rejectConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alert</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure? you want to Reject Request?</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+  </ng-template>

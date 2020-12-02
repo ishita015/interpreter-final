@@ -102,12 +102,54 @@ export class InterpreterRequestListComponent implements OnInit {
 
 
 
-  interpreterReply(user_id,ris_id,res_type){
+
+// requestComplete(id, modal) {
+interpreterReply(user_id,ris_id,res_type,modal){
+  
+  this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+      .result.then((result) => {
+        this.service.interpreterReqReply(user_id,ris_id,res_type)
+            .subscribe(res => {
+              console.log("res---", res)
+              this.status_msg = res;
+              if (res['status'] == '1') {
+                this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+                // location.reload();
+
+                if(res_type=='2'){
+                  this.router.navigate(['/interpreter-request/accept-list']);
+                }else{
+                  this.router.navigate(['/interpreter-request/reject-list']);
+                }
+                
+                // this.interpreterRequestData();
+              }else{
+                this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+                this.router.navigate(['/interpreter-request/list']);
+              }
+            })
+      }, (reason) => {
+  });
+}
+
+
+
+/*
+  interpreterReply_old(user_id,ris_id,res_type,modal){
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     this.service.interpreterReqReply(user_id,ris_id,res_type).subscribe(res => {
       this.status_msg = res;
-      this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
-      this.interpreterRequestData();
+        if (res['status'] == '1') {
+          this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+          // location.reload();
+          this.router.navigate(['/interpreter-request/reject-list']);
+          // this.interpreterRequestData();
+        }else{
+          this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+          this.router.navigate(['/interpreter-request/list']);
+        }
     })
+    });
   }
-
+*/
 }
