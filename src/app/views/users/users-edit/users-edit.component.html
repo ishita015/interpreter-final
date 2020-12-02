@@ -105,6 +105,16 @@
                     </div>
 
                     
+                    <div class="row">
+                        <div *ngIf="data[0].role_id == '2'"  class="col-md-6 form-group mb-3">
+                                <label for="rate">Rate</label>
+                                <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
+                                <!-- <div *ngIf="userForm.controls['rate'].errors && (!userForm.controls['rate'].pristine || submitted ||userForm.controls['rate'].touched )" class="error-msg">
+                                    <div [hidden]="!userForm.controls['rate'].errors.required">Rate is required.</div>
+                                </div> -->
+                        </div>
+                    </div>
+
                     <input type="hidden" class="form-control" formControlName="latitude" >
                     <input type="hidden" class="form-control" formControlName="longitude"> 
 

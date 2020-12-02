@@ -41,7 +41,7 @@ export class UsersEditComponent implements OnInit {
   address: string;
   new_address: string;
   private geoCoder;
-
+  role_id;
 
 
 
@@ -67,7 +67,7 @@ export class UsersEditComponent implements OnInit {
     this. createForm();  
     // this.data = JSON.parse(localStorage.getItem('userData'));
     this.data = JSON.parse(localStorage.getItem('interpreterInfo'));
-    // console.log("data user-",this.data[0]);
+    console.log("data user- ",this.data[0]);
     console.log("interLanguage-",this.data[0].interLanguage);
    this.patchValue();
     this.LanguageList();
@@ -95,10 +95,6 @@ export class UsersEditComponent implements OnInit {
           
           // console.log("latitude-",this.latitude);
           // console.log("longitude-",this.longitude);
-
-
-
-
           this.zoom = 12;
         });
       });
@@ -106,14 +102,9 @@ export class UsersEditComponent implements OnInit {
 
   }
 
-
-
-
   onSelect(item) {
-    
     console.log('tag selected: value is' + item);
   }
-
 
   /*========== Form Value Start Here========*/
   createForm() {
@@ -129,10 +120,12 @@ export class UsersEditComponent implements OnInit {
     longitude:[''],
     primary_lang_id:['', this.validation.onlyRequired_validator],
     user_role:['', this.validation.onlyRequired_validator],
-      id:['']
+      id:[''],
+      rate:[''],
     });
   }
   // /*========== Form Value End Here========*/
+  
   /*========== Edit Input Value Start Here========*/
   patchValue(){
     this.userEditForm.get('user_role').patchValue(this.data[0].role_id);
@@ -142,23 +135,17 @@ export class UsersEditComponent implements OnInit {
     this.userEditForm.get('address').patchValue(this.data[0].address);
     this.userEditForm.get('latitude').patchValue(this.data[0].latitude);
     this.userEditForm.get('longitude').patchValue(this.data[0].longitude);
-
     //let itemsAsObjects = [{id: 0, display: 'Angular'}, {id: 1, display: 'React'}];
-
     this.userEditForm.get('languageid').patchValue(this.data[0].interLanguage);
-
-
     this.userEditForm.get('primary_lang_id').patchValue(this.data[0].primary_lang_id);
     // this.userEditForm.patchValue({ primary_lang_id:  this.data[0].primary_lang_id});
     this.userEditForm.get('gender').patchValue(this.data[0].gender);
-    
-    
-  }
-
-
-
+    if(this.data[0].role_id == '2'){
+      this.userEditForm.get('rate').patchValue(this.data[0].rate);
+    }
   
-
+ 
+  }
 
 /*==========Edit Input Value End Here========*/ 
   submitUser(){
@@ -174,8 +161,6 @@ export class UsersEditComponent implements OnInit {
     this.userEditForm.value.longitude = this.longitude
     this.userEditForm.value.address =this.new_address;
     this.userEditForm.value.language = this.newlanguageVal;
-    
-
     this.userEditForm.value.id =  this.data[0].id
     console.log("user value-",this.userEditForm.value)
       // console.log("api response",res);
@@ -191,11 +176,6 @@ export class UsersEditComponent implements OnInit {
         }
   
 
-onChange(id){
-  this.newlanguageVal = id.target.value;
-  console.log("iddddddddddd", this.newlanguageVal);
- }
-
 
 
 
@@ -204,21 +184,22 @@ LanguageList(){
   .subscribe(res => {
       // console.log("api response",res);
       this.language_Obj = res['data'];
-      console.log("my testing", this.language_Obj);
+      // console.log("my testing", this.language_Obj);
   });
 }
-
 
 userRoleList(){
   this.service.roleList()
   .subscribe(res => {
-      // console.log("api response",res);
+      // console.log("api response testing",res);
       this.role_Obj = res['data'];
-      console.log("my testing", this.role_Obj);
   });
 }
 
-
+onChange(id){
+  this.newlanguageVal = id.target.value;
+  // console.log("iddddddddddd", this.newlanguageVal);
+}
 
   // Get Current Location Coordinates
   private setCurrentLocation() {

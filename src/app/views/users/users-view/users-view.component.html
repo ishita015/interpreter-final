@@ -67,6 +67,10 @@ primary_language: "Etta" -->
                                         <td>User Type</td>
                                         <td>{{data.role_name}}</td>
                                     </tr>
+                                    <tr *ngIf="data.role_id == '2'">
+                                        <td>Rate</td>
+                                        <td>{{data.rate}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
