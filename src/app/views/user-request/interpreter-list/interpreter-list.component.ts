@@ -72,6 +72,43 @@ export class InterpreterListComponent implements OnInit {
   }
 
 
+
+  ngOnInit() {
+    this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
+
+    this.lat = this.assignInfo.latitude;
+    this.lng = this.assignInfo.longitude;
+  
+
+    console.log("my testing lat long  --",this.assignInfo)
+    this.language_id = this.assignInfo.language;
+
+  this.markers = [
+	  {
+		  lat:this.assignInfo.latitude,
+      lng:this.assignInfo.longitude,
+      label: this.assignInfo.caseworker_name,
+      id:this.assignInfo.id,
+      mobile:this.assignInfo.cell_phone,
+      address:this.assignInfo.lang_name,
+      email:this.assignInfo.email,
+      draggable: false,
+      visible: false,
+      opacity: 0.7
+	  }
+	]
+
+    this.assignMyNearbyInterpreter();
+    // this.searchControl.valueChanges
+    // .pipe(debounceTime(200))
+    // .subscribe(value => {
+    //   this.filerData(value);
+    // });
+  }
+
+
+
+
   clickedMarker(label: string,id ,info, index: number,modal) {
     console.log("indexxxxx",index);
     
@@ -120,33 +157,7 @@ export class InterpreterListComponent implements OnInit {
     console.log('dragEnd', m, $event);
   }
 
-  ngOnInit() {
-    this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
-    console.log("assignInfo  --",this.assignInfo)
-    this.language_id = this.assignInfo.language;
-
-  this.markers = [
-	  {
-		  lat:22.7261762,
-      lng:76.1305457,
-      label: this.assignInfo.caseworker_name,
-      id:this.assignInfo.id,
-      mobile:this.assignInfo.cell_phone,
-      address:this.assignInfo.lang_name,
-      email:this.assignInfo.email,
-      draggable: false,
-      visible: false,
-      opacity: 0.7
-	  }
-	]
-
-    this.assignMyNearbyInterpreter();
-    // this.searchControl.valueChanges
-    // .pipe(debounceTime(200))
-    // .subscribe(value => {
-    //   this.filerData(value);
-    // });
-  }
+  
 
 
   /*filerData(val) {
@@ -233,6 +244,7 @@ export class InterpreterListComponent implements OnInit {
         this.router.navigate(['/user-request/list'])
       }
       else{
+        this.router.navigate(['/user-request/list'])
         this.toastr.error(this.requestStatus.message,'', { timeOut: 2000 });
       }
     })

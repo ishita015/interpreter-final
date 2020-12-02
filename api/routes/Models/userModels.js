@@ -27,9 +27,10 @@ class userClass {
             if(distance != 0 ) { 
                 sql += " && (u.distance <= '"+distance+"')"; 
                 // sql += " && (u.distance >= '"+min_distance+"' && u.distance <= '"+max_distance+"')"; 
-            }else{
-                sql += " && (u.distance <= '50')"; 
             }
+            // else{
+            //     sql += " && (u.distance <= '1000')"; 
+            // }
 
             
             if(searchNameEmail != "" ) { 

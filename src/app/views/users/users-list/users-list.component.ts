@@ -89,6 +89,7 @@ export class UsersListComponent implements OnInit {
         this.filteredUser = this.list_Obj;
         this.role_id = this.roleId;
       }else{
+        this.response_msg=res;
         this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
         this.router.navigate(['/users/user-list'])
       }

@@ -26,7 +26,7 @@ export class RequestListComponent implements OnInit {
   searchNameEmail = '';
   distance = '';
   rate = '';
-  rating = '';
+  rating = '';resp_msg;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -83,11 +83,16 @@ export class RequestListComponent implements OnInit {
   userRequestList(){
     this.service.getUserRequest()
     .subscribe(res => {
-        console.log("api response 4545",res);
+      if(res['status'] == 1){
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
         console.log("listttttttt", this.list_Obj);
         this.filteredUser = this.list_Obj;
+      }else{
+        this.resp_msg = res;
+        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+      }
+        
     });
   }
 
@@ -96,11 +101,16 @@ export class RequestListComponent implements OnInit {
   viewDetail(request_id){
     console.log("id--",  request_id);
     this.service.getRequestDetail(request_id).subscribe(res => {
-        console.log("res--",  res);
+      if(res['status'] == 1){
         this.view_obj = res['data'][0];
         console.log("view object",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
         this.router.navigate(['/user-request/request-view',request_id])
+      }else{
+        this.resp_msg = res;
+        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+      }
+        
     })
   }
 
@@ -115,7 +125,6 @@ export class RequestListComponent implements OnInit {
     localStorage.setItem('assignData', JSON.stringify(info));
     localStorage.setItem('serviceId', JSON.stringify(service_id));
     this.service.myNearbyInterpreter(service_id,info.language,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
-      // console.log(res['data']);
         this.interpreter_obj = res['data'];
         console.log("interpreter_obj",  this.interpreter_obj);
         localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
