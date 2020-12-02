@@ -182,7 +182,7 @@
             <button type="button" class="btn resetbtn"  (click)="stepOneForm.reset()" >Reset</button>
          </div>
         <div class="col-sm-6 text-right">
-           <button type="button" (click)="submitForm1()"  class="btn subbtn">Submit</button>
+           <button type="button" (click)="submitForm1();stepOneForm.reset()"  class="btn subbtn">Submit</button>
         </div>
      </form>
  </div>
