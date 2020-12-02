@@ -654,8 +654,15 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
     let rate = req.body.rate ? req.body.rate : "";
     let rating = req.body.rating ? req.body.rating : "";
     
+    let lat;let long;
+    var getLatlong = await usermodel.getRequestreLatLong(service_id);
+    if (getLatlong != "" && getLatlong != undefined) {
+        lat=getLatlong[0].latitude;
+        long=getLatlong[0].longitude;
+    }
+
     // console.log("service_id--",service_id);
-    var nearData = await usermodel.getNearInterpreterInfo(service_id,language_id,searchNameEmail,distance,rate,rating);
+    var nearData = await usermodel.getNearInterpreterInfo(lat,long,language_id,searchNameEmail,distance,rate,rating);
     console.log("nearData-",nearData)
     if (nearData != "" && nearData != undefined) {
         res.json({

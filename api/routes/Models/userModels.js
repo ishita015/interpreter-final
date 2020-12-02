@@ -8,29 +8,46 @@ let dt = new Date().getTime() / 1000;
     dt = Math.floor(dt);
 
 class userClass {
+
+
+
+    getRequestreLatLong(service_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM appointment_information_services WHERE ris_id='"+service_id+"'";
+            console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
     
-    getNearInterpreterInfo(service_id,language_id,searchNameEmail,distance,rate,rating){
+    getNearInterpreterInfo(lat,lang,language_id,searchNameEmail,distance,rate,rating){
         return new Promise(function(resolve, reject) { 
 
-            console.log("service_id",service_id)
+            // console.log("service_id",service_id)
             console.log("language_id",language_id)
             console.log("searchNameEmail",searchNameEmail)
             console.log("rate",rate)
             console.log("distance",distance)
             console.log("rating",rating)
+            console.log("lat",lat)
+            console.log("long",lang)
 
-            let lat = 22.7261762;
-            let lang = 76.1305457;
+            // let lat = 22.7261762;
+            // let lang = 76.1305457; 
 
             var sql = "SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '"+lat+"' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '"+lat+"' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '"+lang+"' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
             
             if(distance != 0 ) { 
                 sql += " && (u.distance <= '"+distance+"')"; 
                 // sql += " && (u.distance >= '"+min_distance+"' && u.distance <= '"+max_distance+"')"; 
+            }else{
+                sql += " && (u.distance <= '100')"; 
             }
-            // else{
-            //     sql += " && (u.distance <= '1000')"; 
-            // }
 
             
             if(searchNameEmail != "" ) { 

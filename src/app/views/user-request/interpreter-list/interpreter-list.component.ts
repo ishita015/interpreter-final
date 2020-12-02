@@ -216,7 +216,7 @@ export class InterpreterListComponent implements OnInit {
               visible: false,
               opacity: 0.7,
               icon:"./assets/images/faces/placeholder.png"
-          })
+           })
           } 
           console.log("clicked the marker:", this.markers);
         }
