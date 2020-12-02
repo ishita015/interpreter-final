@@ -1112,15 +1112,20 @@ module.exports.addServiceTwelve = async function(req, res) {
     let claim_number = req.body.case ? req.body.case : "";
     let school_name =req.body.location1 ? req.body.location1 : "";
     let notes =req.body.notes ? req.body.notes : "";
-    
-    var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('12','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
+    let type =req.body.type ? req.body.type : '1';
+
+    let latitude =req.body.latitude ? req.body.latitude : "";
+    let longitude =req.body.longitude ? req.body.longitude : '1';
+
+
+    var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('"+type+"','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
 
     console.log('sql12-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
 
-            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
+            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes,latitude,longitude)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"','"+latitude+"','"+longitude+"')";
 
 
             console.log('sql121-',sql1)

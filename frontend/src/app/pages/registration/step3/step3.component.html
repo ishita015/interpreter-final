@@ -76,7 +76,7 @@
            <!-- <input class="form-control" rows="3" formControlName="location2" placeholder="Address"> -->
            <div *ngIf="stepThreeForm.controls['location2'].errors && ( !stepThreeForm.controls['location2'].pristine || submitted ||stepThreeForm.controls['location2'].touched )" class="error-msg">
               <div [hidden]="!stepThreeForm.controls['location2'].errors.required">Location2 is required.</div>
-              <div [hidden]="!stepThreeForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
+              <!-- <div [hidden]="!stepThreeForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div> -->
             </div>
           </div>
         <div class="col-sm-6">

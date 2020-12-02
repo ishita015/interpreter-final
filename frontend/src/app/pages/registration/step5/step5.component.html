@@ -171,7 +171,7 @@
            <!-- <textarea formControlName="address" class="form-control" rows="3" placeholder="Address"></textarea> -->
            <div *ngIf="stepFiveForm.controls['address'].errors && ( !stepFiveForm.controls['address'].pristine || submitted ||stepFiveForm.controls['address'].touched )" class="error-msg">
               <div [hidden]="!stepFiveForm.controls['address'].errors.required">Address is required.</div>
-              <div [hidden]="!stepFiveForm.controls.address.hasError('minlength')">Address length should be minimum 2 characters.</div>
+              <!-- <div [hidden]="!stepFiveForm.controls.address.hasError('minlength')">Address length should be minimum 2 characters.</div> -->
             </div>
           </div>
           <div class="col-sm-6 text-left">
