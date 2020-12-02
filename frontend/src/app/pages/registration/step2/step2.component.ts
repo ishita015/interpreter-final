@@ -21,10 +21,6 @@ export class Step2Component implements OnInit {
   address1: string;
   @ViewChild('search')
   public searchElementRef: ElementRef;
-
-
-
-
   stepTwoForm: FormGroup;
   submitted: boolean;
   step2_Obj;
@@ -119,8 +115,11 @@ export class Step2Component implements OnInit {
       start_time:['',this.validation.onlyRequired_validator],
       end_time:['',this.validation.onlyRequired_validator],
       simultaneous:['',this.validation.onlyRequired_validator],
-      address:['',this.validation.name_validation],
+      address:['',this.validation.onlyRequired_validator],
       service_requested:['',this.validation.onlyRequired_validator],
+      latitude:[''],
+      longitude:[''],
+      type:['2'],
       })
   }
   /*==========Step Form Value Start Here========*/
@@ -141,13 +140,20 @@ export class Step2Component implements OnInit {
 
   submitForm2(){
     console.log("form value",this.stepTwoForm.value);
+    console.log("address1--", this.address1);
+    console.log("lat_value--", this.latitude);
+    console.log("long_value--", this.longitude);
+    this.stepTwoForm.value.language =  this.newlanguageVal;
+    this.stepTwoForm.value.address = this.address1;
+    this.stepTwoForm.value.latitude = this.latitude;
+    this.stepTwoForm.value.longitude = this.longitude;
     this.submitted = true;
     if (this.stepTwoForm.invalid) {
       return;
     }
     this.submitted = false;
     this.stepTwoForm.value.language =  this.newlanguageVal;
-    this.service.getStepTwoForm(this.stepTwoForm.value)
+    this.service.getStepTwelveForm(this.stepTwoForm.value)
     .subscribe(res => {
         console.log("api response",res);
         this.step2_Obj = res;
