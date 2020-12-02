@@ -2,40 +2,9 @@
     <div class="col-md-7">
         <div class="card">
             <div class="card-body">
-                <!-- <div class="d-flex mb-5" *ngIf="viewMode === 'edit'">
-                    <span class="m-auto"></span>
-                    <button class="btn btn-outline-secondary mr-3" (click)="viewMode = 'print'">Cancel</button>
-                    <btn-loading btnClass="btn-primary" [loading]="saving" (click)="saveInvoice()">Save</btn-loading>
-                </div> -->
-                <!-- <div class="d-sm-flex mb-5" *ngIf="viewMode !== 'edit'">
-                    <span class="m-auto"></span>
-                    <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" routerLink="/invoice">Back To Invoices</button>
-                    <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" (click)="viewMode = 'edit'">Edit Invoice</button>
-                    <button class="btn btn-primary mb-sm-0 mb-3" (click)="print()">Print Invoice</button>
-                </div> -->
+              
                 <!---===== Print Area =======-->
                 <div id="print-area">
-                    <!-- <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="font-weight-bold">Order Info</h4>
-                            <p>#{{invoice.orderNumber}}</p>
-                        </div>
-                        <div class="col-md-6 text-sm-right">
-                            <p><strong>Order status: </strong> {{invoice?.orderStatus}}</p>
-                            <p><strong>Order date: </strong> {{invoice?.orderDate | date}}</p>
-                        </div>
-                    </div> -->
-                    
-                    <!-- id: 34, name: "testng", mobile: "456456464", email: "gokul@gmail.com", gender: "Male", …}
-address: "Indore, Madhya Pradesh, India"
-email: "gokul@gmail.com"
-gender: "Male"
-id: 34
-interLanguage: (3) [{…}, {…}, {…}]
-mobile: "456456464"
-name: "testng"
-primary_language: "Etta" -->
-
                     <h5 class="font-weight-bold">User Details</h5>
                     <div class="mt-3 mb-4 border-top"></div>
                     <div class="row mb-5">
@@ -68,8 +37,8 @@ primary_language: "Etta" -->
                                         <td>{{data.role_name}}</td>
                                     </tr>
                                     <tr *ngIf="data.role_id == '2'">
-                                        <td>Rate</td>
-                                        <td>{{data.rate}}</td>
+                                        <td>Rate/Hour</td>
+                                        <td>${{data.interpreter_rate}}</td>
                                     </tr>
                                 </tbody>
                             </table>

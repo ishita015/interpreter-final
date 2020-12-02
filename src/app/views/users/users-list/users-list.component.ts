@@ -25,7 +25,7 @@ export class UsersListComponent implements OnInit {
   array_Obj;
   userId;
   roleId;
-  role_id;
+  role_id;response_msg;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -48,7 +48,7 @@ export class UsersListComponent implements OnInit {
     this.array_Obj = this.roleData['data'][3]; //
     if(this.array_Obj.id){
       this.array_Obj = this.roleData['data'][3];
-      console.log("roleData", this.array_Obj);
+      // console.log("roleData", this.array_Obj);
     }
   }
 
@@ -83,16 +83,17 @@ export class UsersListComponent implements OnInit {
   interpreterList(){
     this.service.getInterpreterList()
     .subscribe(res => {
-        console.log("api response",res);
+      if(res['status'] == 1){
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
-        console.log("listttttttt", this.list_Obj);
         this.filteredUser = this.list_Obj;
         this.role_id = this.roleId;
-
-        console.log("role_id---",this.role_id)
-        // this.toastr.success(this.reg_Msg.msg,'', { timeOut: 2000 });
-        // this.router.navigate(['/login'])
+      }else{
+        this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
+        this.router.navigate(['/users/user-list'])
+      }
+        
+        
     });
 }
 
@@ -119,15 +120,6 @@ addUser(){
   this.router.navigate(['/users/user-add']);
 }
 
-// editUser(id,data){
-//   console.log("idd",id);
-//   console.log("data",data);
-//   localStorage.setItem('userData', JSON.stringify(data));
-  
-// }
-
-
-  
 
 // userView(id) {
 //   this.router.navigate(['/users/user-view']);

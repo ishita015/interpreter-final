@@ -856,6 +856,7 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
                     address: resultdata[i].address,
                     primary_language: resultdata[i].lang_name,
                     role_name: resultdata[i].role_name,
+                    interpreter_rate: resultdata[i].interpreter_rate,
                     primary_lang_id: resultdata[i].primary_lang_id,
                     interLanguage: langArr,
                 }
@@ -1143,10 +1144,48 @@ module.exports.addInterpreter = async function(req, res) {
 
 
 module.exports.updateInterpreter = async function(req, res) {
-console.log(req.body)
+    //validation start
+    const v = new Validator(req.body, {
+        id: 'required',
+        name: 'required',
+        mobile: 'required',
+        languageid: 'required',
+        // address: 'required',
+        // latitude: 'required',
+        // longitude: 'required',
+        gender: 'required',
+        primary_lang_id: 'required',
+        languageid: 'required',
+        id: 'required',
+        languageid: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
 
 
-    let id = req.body.id ? req.body.id : 0;
+
+    let id = req.body.id;
+    let name = req.body.name;
+    let languageid = req.body.languageid;
+    let mobile = req.body.mobile;
+    let gender = req.body.gender;
+    let primary_language = req.body.primary_lang_id;
+    let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
+
+
     let old_address='';
     let old_latitude='';
     let old_longitude = '';
@@ -1157,67 +1196,48 @@ console.log(req.body)
         old_latitude = resultdata[0].latitude;
         old_longitude = resultdata[0].longitude;
     }
-    let name = req.body.name ? req.body.name : "";
-    // let email = req.body.email;
-    // let password = req.body.password;
-    let languageid = req.body.languageid ? req.body.languageid : "";
-    let mobile = req.body.mobile ? req.body.mobile : '0';
+
     let address = req.body.address ? req.body.address : old_address;
     let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     let longitude = req.body.longitude ? req.body.longitude : old_longitude;
-    let gender = req.body.gender ? req.body.gender : "Male";
-    let primary_language = req.body.primary_lang_id ? req.body.primary_lang_id : '0';
-   
+
+    let sql = "UPDATE user SET name ='"+name+"',mobile ='"+mobile+"',address ='"+address+"',latitude ='"+latitude+"',longitude ='"+longitude+"',gender ='"+gender+"',primary_language ='"+primary_language+"',interpreter_rate ='"+interpreter_rate+"' WHERE id = '"+id+"'";
+
+    console.log("sql-update",sql)
+    var query = con.query(sql, function(err, result) {
+        if(!err){
+            if (languageid != "" && languageid != undefined) {
+                let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
+                con.query(sqlDelete, function(err, res_delete) {});
+    
 
 
-    if(id=='0'){
-        //return false
-        res.json({
-            status: 0,
-            error_code: 0,
-            error_line: 6,
-            message: "Invalid user id",
-        });
-        return true;
-    }else{
-        
-        let sql = "UPDATE user SET name ='"+name+"',mobile ='"+mobile+"',address ='"+address+"',latitude ='"+latitude+"',longitude ='"+longitude+"',gender ='"+gender+"',primary_language ='"+primary_language+"' WHERE id = '"+id+"'";
-
-        console.log("sql-update",sql)
-        var query = con.query(sql, function(err, result) {
-            if(!err){
-                if (languageid != "" && languageid != undefined) {
-                    let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
-                    con.query(sqlDelete, function(err, res_delete) {});
-        
-
-
-                    for (var i = 0; i < languageid.length; i++) {
-                        console.log("language id",languageid[i].id);
-                        var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
-                        con.query(sql1, function(err, insert) {});
-                    }
+                for (var i = 0; i < languageid.length; i++) {
+                    console.log("language id",languageid[i].id);
+                    var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
+                    con.query(sql1, function(err, insert) {});
                 }
-    
-    
-                res.json({
-                    status: 1,
-                    error_code: 0,
-                    error_line: 6,
-                    message: "Update successfully",
-                });
-                return true;
-            }else{
-                res.json({
-                    status: 0,
-                    error_code: 0,
-                    error_line: 6,
-                    message: "server error",
-                });
-                return true;
             }
-        });
-    }
+
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Update successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+    
 
     
 };

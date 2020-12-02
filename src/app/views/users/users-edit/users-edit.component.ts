@@ -141,7 +141,7 @@ export class UsersEditComponent implements OnInit {
     // this.userEditForm.patchValue({ primary_lang_id:  this.data[0].primary_lang_id});
     this.userEditForm.get('gender').patchValue(this.data[0].gender);
     if(this.data[0].role_id == '2'){
-      this.userEditForm.get('rate').patchValue(this.data[0].rate);
+      this.userEditForm.get('rate').patchValue(this.data[0].interpreter_rate);
     }
   
  
@@ -166,12 +166,16 @@ export class UsersEditComponent implements OnInit {
       // console.log("api response",res);
     this.service.updateInterpreter(this.userEditForm.value)
                   .subscribe(res => {
-                      // console.log("api response",res);
+                    if(res['status'] == 1){
                       this.useredit_Obj = res
                       this.useredit_Msg = res;
                       console.log("api response", this.useredit_Obj);
                       this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
                       this.router.navigate(['/users/user-list']);  
+                    }else{
+                      this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+                      this.router.navigate(['/users/user-list']);  
+                    }                        
           });
         }
   
@@ -182,9 +186,12 @@ export class UsersEditComponent implements OnInit {
 LanguageList(){
   this.service.getLanguageList()
   .subscribe(res => {
-      // console.log("api response",res);
+    if(res['status'] == 1){
       this.language_Obj = res['data'];
-      // console.log("my testing", this.language_Obj);
+    }else{
+      this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+      this.router.navigate(['/users/user-list']);  
+    }
   });
 }
 
