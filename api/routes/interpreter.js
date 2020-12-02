@@ -713,7 +713,7 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
 
 
 module.exports.getTotalUser = function(req, res, next) {
-    var sql = "SELECT COUNT(id) as total_user FROM user";
+    var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id !='1'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
