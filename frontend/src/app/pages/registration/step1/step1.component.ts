@@ -30,8 +30,6 @@ export class Step1Component implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
   
-
-
   stepOneForm: FormGroup;
   submitted: boolean;
   public step1_Obj;
@@ -58,22 +56,21 @@ export class Step1Component implements OnInit {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           // console.log("latitude--",this.latitude)
-
-          
           console.log("address--",place.formatted_address);
           this.address1 = place.formatted_address;
+
+
+          console.log("address are coming--",this.address1);
+
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-
-
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.lat_value =  this.latitude;
-          this.long_value =  this.longitude;
-
-          console.log("latitude 1--", this.lat_value)
-          console.log("longitude 2--", this.long_value)
+          // this.lat_value =  this.latitude;
+          // this.long_value =  this.longitude;
+          console.log("latitude 1--", this.latitude)
+          console.log("longitude 2--", this.longitude)
           this.zoom = 12;
         });
       });
@@ -85,7 +82,6 @@ export class Step1Component implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-
         this.zoom = 8;
         this.getAddress(this.latitude, this.longitude);
       });
@@ -126,10 +122,10 @@ export class Step1Component implements OnInit {
       start_time:['',this.validation.onlyRequired_validator],
       end_time:['',this.validation.onlyRequired_validator],
       simultaneous:['',this.validation.onlyRequired_validator],
-      address:['',this.validation.name_validation],
-      // latitude:[''],
-      // longitude:[''],
-      // type:['1'],
+      address:['',this.validation.onlyRequired_validator],
+      latitude:[''],
+      longitude:[''],
+      type:['1'],
       service_requested:['',this.validation.onlyRequired_validator],
       })
   }
@@ -151,18 +147,28 @@ export class Step1Component implements OnInit {
    }
 
   submitForm1(){
-    console.log("form value",this.stepOneForm.value);
-    console.log("lat,long, addres", this.lat_value, this.long_value);
+    // console.log("latitude 1--", this.latitude)
+    // console.log("longitude 2--", this.longitude)
+    console.log("address1--", this.address1);
+    console.log("lat_value--", this.latitude);
+    console.log("long_value--", this.longitude);
+    this.stepOneForm.value.language =  this.newlanguageVal;
+    this.stepOneForm.value.address = this.address1;
+    this.stepOneForm.value.latitude = this.latitude;
+    this.stepOneForm.value.longitude = this.longitude;
+    // console.log("form value",this.stepOneForm.value);
     this.submitted = true;
     if (this.stepOneForm.invalid) {
       return;
     }
     this.submitted = false;
-    this.stepOneForm.value.language =  this.newlanguageVal;
-    // this.stepOneForm.value.address = this.address1;
-    // this.stepOneForm.value.latitude = this.lat_value;
-    // this.stepOneForm.value.longitude = this.long_value;
-    this.service.getStepOneForm(this.stepOneForm.value)
+   
+
+    console.log("all val in form", this.stepOneForm.value);
+
+    // this.service.getStepOneForm(this.stepOneForm.value)
+    this.service.getStepTwelveForm(this.stepOneForm.value)
+    
     .subscribe(res => {
         console.log("api response",res);
         this.step1_Obj = res;

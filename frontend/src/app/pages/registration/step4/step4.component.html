@@ -77,7 +77,7 @@
            <!-- <input class="form-control" formControlName="location2" rows="3" placeholder="Address"> -->
            <div *ngIf="stepFourForm.controls['location2'].errors && ( !stepFourForm.controls['location2'].pristine || submitted ||stepFourForm.controls['location2'].touched )" class="error-msg">
               <div [hidden]="!stepFourForm.controls['location2'].errors.required">Location2 is required.</div>
-              <div [hidden]="!stepFourForm.controls.location1.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
+              <!-- <div [hidden]="!stepFourForm.controls.location1.hasError('minlength')">Location2 length should be minimum 2 characters.</div> -->
             </div>
           </div>
         <div class="col-sm-6">

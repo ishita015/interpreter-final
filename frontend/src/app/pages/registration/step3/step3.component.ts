@@ -109,7 +109,7 @@ export class Step3Component implements OnInit {
       cell_phone: ['',this.validation.mobile_validator],
       email_address: ['',this.validation.email_validator],
       location1: ['',this.validation.name_validation],
-      location2: ['',this.validation.name_validation],
+      location2: ['',this.validation.onlyRequired_validator],
       name_assignment: ['',this.validation.name_validation],
       contact_assignment: ['',this.validation.mobile_validator],
       interpreter: ['',this.validation.name_validation],
@@ -120,6 +120,9 @@ export class Step3Component implements OnInit {
       end_time:['',this.validation.onlyRequired_validator],
       equipment:['',this.validation.name_validation],
       notes:['',this.validation.name_validation],
+      latitude:[''],
+      longitude:[''],
+      type:['3'],
       })
   }
   /*==========Step Form Value Start Here========*/
@@ -141,12 +144,20 @@ export class Step3Component implements OnInit {
    submitForm3(){
     console.log("form value",this.stepThreeForm.value);
     this.submitted = true;
+    console.log("form value",this.stepThreeForm.value);
+    console.log("address1--", this.address1);
+    console.log("lat_value--", this.latitude);
+    console.log("long_value--", this.longitude);
+    this.stepThreeForm.value.language =  this.newlanguageVal;
+    this.stepThreeForm.value.location2 = this.address1;
+    this.stepThreeForm.value.latitude = this.latitude;
+    this.stepThreeForm.value.longitude = this.longitude;
     if (this.stepThreeForm.invalid) {
       return;
     }
     this.submitted = false;
     this.stepThreeForm.value.language =  this.newlanguageVal;
-    this.service.getStepThreeForm(this.stepThreeForm.value)
+    this.service.getStepTwelveForm(this.stepThreeForm.value)
     .subscribe(res => {
         console.log("api response",res);
         this.step3_Obj = res;
