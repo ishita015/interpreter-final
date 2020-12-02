@@ -7,6 +7,7 @@ var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 // var nodemailer = require('nodemailer')
 const Cryptr = require('cryptr');
+const { empty } = require('rxjs');
 
 const cryptr = new Cryptr('myTotalySecretKey');
 // var userModel = require('./Models/userModels');
@@ -1099,7 +1100,7 @@ module.exports.addServiceTwelve = async function(req, res) {
     let start_time = req.body.start_time ? req.body.start_time : "";
     let anticipated_end_time = req.body.end_time ? req.body.end_time :"";
     let receivers_required = req.body.simultaneous ? req.body.simultaneous : "";
-    let address = req.body.location2 ? req.body.location2 : "";
+    // let address = req.body.location2 ? req.body.location2 : "";
     let service_requested = req.body.service_requested ? req.body.service_requested : "";
     
     let name_of_contact_person =req.body.name_of_student ? req.body.name_of_student :"" ;
@@ -1114,6 +1115,19 @@ module.exports.addServiceTwelve = async function(req, res) {
     let notes =req.body.notes ? req.body.notes : "";
     let type =req.body.type ? req.body.type : '1';
 
+
+    let newaddress='';
+
+    if (req.body.address != "" && req.body.address != undefined) {
+        newaddress = req.body.address;   
+    }else{
+        if (req.body.location2 != "" && req.body.location2 != undefined) {
+            newaddress = req.body.location2;   
+        }else{
+            newaddress = req.body.virtual_meeting;   
+        }
+    }
+
     let latitude =req.body.latitude ? req.body.latitude : "";
     let longitude =req.body.longitude ? req.body.longitude : '1';
 
@@ -1125,7 +1139,7 @@ module.exports.addServiceTwelve = async function(req, res) {
         let last_id= insert.insertId;
         if(!err){
 
-            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes,latitude,longitude)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"','"+latitude+"','"+longitude+"')";
+            var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes,latitude,longitude)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+newaddress+"','"+language+"','"+notes+"','"+latitude+"','"+longitude+"')";
 
 
             console.log('sql121-',sql1)
