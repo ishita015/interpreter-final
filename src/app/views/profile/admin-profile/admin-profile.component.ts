@@ -18,6 +18,7 @@ export class AdminProfileComponent implements OnInit {
   url:any = '';
   editdata;
   userId;
+  public log_Obj;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -40,7 +41,7 @@ export class AdminProfileComponent implements OnInit {
       email: [''],
       user_id:[''],
       address:['',this.validation.onlyRequired_validator],
-      image:['',this.validation.onlyRequired_validator],
+      image:[''],
     });
   }
   /*========== Form Value End Here========*/
@@ -83,11 +84,10 @@ export class AdminProfileComponent implements OnInit {
     this.submitted = false;
     const formData: any = new FormData();
     this.adminProfileForm.value.image = this.selectedFile;
-    console.log("iii", this.adminProfileForm.value.image);
-    this.adminProfileForm.value.user_id = this.userId; 
-    console.log("userIdddd",this.adminProfileForm.value.user_id);
     
-    formData.append('name', this.editdata.name);
+    this.adminProfileForm.value.user_id = this.userId; 
+    
+    formData.append('name', this.adminProfileForm.value.name);
     formData.append('user_id', this.adminProfileForm.value.user_id);
     formData.append('mobile', this.adminProfileForm.value.mobile);
     formData.append('address', this.adminProfileForm.value.address);
@@ -96,20 +96,16 @@ export class AdminProfileComponent implements OnInit {
     
     this.service.getProfileUpadte(formData)
     .subscribe(res => {
-      // if(res['status']=='0'){
-        console.log("api response",res);
+      if(res['status']=='1'){
+        this.log_Obj = res['data'][0];
+        localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
         this.admin_Obj = res;
         this.admin_Msg = res;
         this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/languages/list']);  
-      // }
-      // else{
-      //   console.log("api response",res);
-      //   this.admin_Obj = res;
-      //   this.admin_Msg = res;
-      //   this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
-      //   // this.router.navigate(['/languages/list']);  
-      // }
+      }else{
+        this.admin_Msg = res;
+        this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+      }
     });
   }
 }

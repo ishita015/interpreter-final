@@ -1329,7 +1329,7 @@ module.exports.updateInterpreter = async function(req, res) {
                     con.query(sql1, function(err, insert) {});
                 }
             }
-
+            
 
             res.json({
                 status: 1,

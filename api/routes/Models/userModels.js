@@ -29,6 +29,32 @@ class userClass {
     // }
 
 
+    // user login
+    loginCheck(email,password) {
+        return new Promise(function(resolve, reject) {
+            let sql = "SELECT * from user where email='"+email+"'";
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    if(result[0].password =='' || result[0].password == undefined){
+                        resolve(false);
+                    }else{
+                        const decryptedString = cryptr.decrypt(result[0].password);
+                        if (password == decryptedString) {
+                            resolve(result);
+                        } else {
+                            resolve(false);
+                        }
+                  }
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+
+
+
 
     checkRequestSend(interpreter_id,service_id){
         return new Promise(function(resolve, reject) {

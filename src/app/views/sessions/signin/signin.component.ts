@@ -73,10 +73,12 @@ export class SigninComponent implements OnInit {
                     if(this.log_Obj.status == 0){
                         this.log_Msg = res;
                         this.toastr.error(this.log_Obj.message,'', { timeOut: 2000 });
-                    }
-                    else {
+                    } else {
                         this.log_Obj = res['data'][0];
                         this.log_Msg = res;
+
+                        console.log('log_Obj--', this.log_Obj);
+
                         localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
                         localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
                         localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
@@ -88,8 +90,6 @@ export class SigninComponent implements OnInit {
                         }else{
                             this.router.navigate(['/dashboard/v2']);
                         }
-
-                        
 
                         // dashboard-v2
 

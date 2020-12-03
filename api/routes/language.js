@@ -111,10 +111,16 @@ module.exports.updateLanguage = async function(req, res) {
     let name = req.body.name;
     // let code = req.body.code;
     let description = req.body.description ? req.body.description : "";
+    let country = req.body.country ? req.body.country : "";
     let id = req.body.id;
-
-
-    let sql = "UPDATE languages SET name ='"+name+"', description ='"+description+"' WHERE id = '"+id+"'";
+    let sql;
+    if (country != "" && country != undefined) {  
+        sql = "UPDATE languages SET name ='"+name+"',country ='"+country+"', description ='"+description+"' WHERE id = '"+id+"'";
+    }else{
+        sql = "UPDATE languages SET name ='"+name+"', description ='"+description+"' WHERE id = '"+id+"'";
+    }
+    console.log("sql--",sql)
+    
     var query = con.query(sql, function(err, result) {
         if(!err){
             res.json({
