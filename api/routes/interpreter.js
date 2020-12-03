@@ -146,7 +146,10 @@ module.exports.getRejectRequest = async function(req, res, next) {
     let user_id = req.body.userId;
     
     
-    var sql = "SELECT COUNT(id) as reject_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='3'";
+    // var sql = "SELECT COUNT(id) as reject_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && status='3'";
+
+
+    var sql = "SELECT COUNT(id) as reject_request FROM interpreter_request WHERE Interpreter_id='"+user_id+"' && (status='3' || is_reject='1')";
     
     console.log("sql 3-",sql)
     con.query(sql, function(err, result, fields) {
@@ -393,22 +396,32 @@ module.exports.interpreterRequestReply = async function(req, res) {
     let user_id = req.body.user_id;
     let ris_id = req.body.ris_id;
     let res_type = req.body.res_type;
+
+
+    var rejectData  = await usermodel.checkRequestSend(user_id,ris_id);
+    let rejectreq = '0';
+    if (rejectData != "" && rejectData != undefined) {
+        rejectreq = rejectData[0].is_reject;
+    }
+
     let status='0';
     let message='0';
     let isreject=0;
     if(res_type=='2'){ // accept
         status ='3'; 
         isreject=0;
+
         message= "Request accept successfully";
     }else if(res_type=='3'){ // reject
         status='1';
         isreject=1;
+        rejectreq=1; //for inter request table
         message= "Request reject successfully";
     }
 
     
     //update status
-    let updatesql = "UPDATE interpreter_request SET status = '"+res_type+"' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
+    let updatesql = "UPDATE interpreter_request SET status = '"+res_type+"', is_reject='"+rejectreq+"' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
     console.log("updatesql--",updatesql)
     con.query(updatesql, function(err, result) {});
 
@@ -681,16 +694,53 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
         lat=getLatlong[0].latitude;
         long=getLatlong[0].longitude;
     }
+    // var mainArr = [];
+    // var main_array = [];
+    // var localArr = [];
 
+    var mainArr1 = [];
     // console.log("service_id--",service_id);
     var nearData = await usermodel.getNearInterpreterInfo(lat,long,language_id,searchNameEmail,distance,rate,rating);
-    console.log("nearData-",nearData)
+    console.log("nearData hello-",nearData)
     if (nearData != "" && nearData != undefined) {
+        var mainObj1 = {};
+        for (var i = 0; i < nearData.length; i++) {
+
+            var rejectData  = await usermodel.checkRequestSend(nearData[i].id,service_id);
+            let rejectreq = '0';
+            if (rejectData != "" && rejectData != undefined) {
+                rejectreq = rejectData[0].is_reject;
+            }
+        
+
+            mainObj1 = {
+                id: nearData[i].id,
+                role_id: nearData[i].role_id,
+                name: nearData[i].name,
+                mobile: nearData[i].mobile,
+                email: nearData[i].email,
+                profile_img: nearData[i].profile_img,
+                gender: nearData[i].gender,
+                address: nearData[i].address,
+                interpreter_rate: nearData[i].interpreter_rate,
+                latitude: nearData[i].latitude,
+                longitude: nearData[i].longitude,
+                primary_language: nearData[i].primary_language,
+                status: nearData[i].status,
+                create_dt: nearData[i].create_dt,
+                distance: nearData[i].distance,
+                is_reject: rejectreq
+            }   
+            mainArr1.push(mainObj1);
+        }
+
+
+
         res.json({
             status: 1,
             error_code: 0,
             error_line: 1,
-            data: nearData
+            data: mainArr1
         });
         return true;
     }else{
@@ -702,30 +752,8 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
         });
         return true;
     }
-
-
-    /*var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
-    console.log(sql)
-    con.query(sql, function(err, result, fields) {
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });*/
 };
+
 
 
 
