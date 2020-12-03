@@ -83,7 +83,7 @@ export class RejectRequestComponent implements OnInit {
 
   
   interpreterRequestData(){
-    this.service.interpreterRequestList(this.roleId,this.userId,'3')
+    this.service.interpreterRejectList(this.roleId,this.userId,'3')
     .subscribe(res => {
         console.log("api response",res);
         this.list_Obj = res['data'];

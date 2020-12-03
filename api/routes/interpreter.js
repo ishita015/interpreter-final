@@ -556,6 +556,61 @@ module.exports.getRequestForInterpreter = async function(req, res) {
 
 
 
+// get all request for interpreter
+module.exports.getRejectDataInterpreter = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        role_id: 'required',
+        user_id: 'required',
+        status: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let role_id = req.body.role_id;
+    let user_id = req.body.user_id;
+    let status = req.body.status;
+    
+    var requestData = await usermodel.interpreterRejectData(role_id,user_id,status);
+    if (requestData != "" && requestData != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            data: requestData,
+            message: "Record Found",
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Record Not Found",
+        });
+        return true;
+    }
+};
+
+
+
+
+
+
 
 
 

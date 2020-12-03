@@ -53,6 +53,16 @@ export class HttpService {
 
 
 
+
+  interpreterRejectList(role_id,user_id,status): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRejectDataInterpreter',{role_id:role_id,user_id:user_id,status:status},this.httpOptions);
+  }
+
+
+
+
+
+
   myNearbyInterpreter(service_id,language,searchNameEmail,distance,rate,rating): Observable<any> {
     return this.http.post(this.url + '/cesco/getNearbyInterpreter',{service_id:service_id,language:language,searchNameEmail:searchNameEmail,distance:distance,rate:rate,rating:rating},this.httpOptions);
   }

@@ -88,6 +88,7 @@ app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
 app.post('/cesco/getCompleteRequest', interpreterController.getCompleteRequest);
 app.post('/cesco/getCancelledRequest', interpreterController.getCancelledRequest);
 
+app.post('/cesco/getRejectDataInterpreter', interpreterController.getRejectDataInterpreter);
 
 
 app.get('/cesco/getRole', interpreterController.getRole);
