@@ -42,9 +42,9 @@ export class UsersEditComponent implements OnInit {
   new_address: string;
   private geoCoder;
   role_id;
-
-
-
+  editData;
+  json_Obj;
+  Id;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -64,15 +64,14 @@ export class UsersEditComponent implements OnInit {
     ) { }
 
   ngOnInit(){
-    this. createForm();  
-    // this.data = JSON.parse(localStorage.getItem('userData'));
+    this.createForm();  
+     this.Id = JSON.parse(localStorage.getItem('rowId'));
+     console.log("iddddddddddd",  this.Id );
+     
     this.data = JSON.parse(localStorage.getItem('interpreterInfo'));
-    console.log("data user- ",this.data[0]);
-    console.log("interLanguage-",this.data[0].interLanguage);
-   this.patchValue();
     this.LanguageList();
     this.userRoleList();
-
+    this.editUser();
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -110,16 +109,16 @@ export class UsersEditComponent implements OnInit {
   createForm() {
     this.userEditForm = this.fb.group({ 
     name: ['', this.validation.onlyRequired_validator],
-    email: ['', this.validation.onlyRequired_validator],
-    password: ['', this.validation.onlyRequired_validator],
+    email: [{value: '', disabled: true}],
+    // password: ['', this.validation.onlyRequired_validator],
     mobile: ['', this.validation.onlyRequired_validator],
     address: ['', this.validation.onlyRequired_validator],
     gender: ['', this.validation.onlyRequired_validator],
-    languageid:[''],
+    languageid:['', this.validation.onlyRequired_validator],
     latitude:[''],
     longitude:[''],
     primary_lang_id:['', this.validation.onlyRequired_validator],
-    user_role:['', this.validation.onlyRequired_validator],
+    user_role:[{value: '', disabled: true}],
       id:[''],
       rate:[''],
     });
@@ -128,32 +127,40 @@ export class UsersEditComponent implements OnInit {
   
   /*========== Edit Input Value Start Here========*/
   patchValue(){
-    this.userEditForm.get('user_role').patchValue(this.data[0].role_id);
-    this.userEditForm.get('email').patchValue(this.data[0].email);
-    this.userEditForm.get('name').patchValue(this.data[0].name);
-    this.userEditForm.get('mobile').patchValue(this.data[0].mobile);
-    this.userEditForm.get('address').patchValue(this.data[0].address);
-    this.userEditForm.get('latitude').patchValue(this.data[0].latitude);
-    this.userEditForm.get('longitude').patchValue(this.data[0].longitude);
+    this.userEditForm.get('user_role').patchValue( this.json_Obj.role_id);
+    this.userEditForm.get('email').patchValue( this.json_Obj.email);
+    this.userEditForm.get('name').patchValue( this.json_Obj.name);
+    this.userEditForm.get('mobile').patchValue( this.json_Obj.mobile);
+    this.userEditForm.get('address').patchValue( this.json_Obj.address);
+    this.userEditForm.get('latitude').patchValue( this.json_Obj.latitude);
+    this.userEditForm.get('longitude').patchValue( this.json_Obj.longitude);
     //let itemsAsObjects = [{id: 0, display: 'Angular'}, {id: 1, display: 'React'}];
-    this.userEditForm.get('languageid').patchValue(this.data[0].interLanguage);
-    this.userEditForm.get('primary_lang_id').patchValue(this.data[0].primary_lang_id);
-    // this.userEditForm.patchValue({ primary_lang_id:  this.data[0].primary_lang_id});
-    this.userEditForm.get('gender').patchValue(this.data[0].gender);
-    if(this.data[0].role_id == '2'){
-      this.userEditForm.get('rate').patchValue(this.data[0].interpreter_rate);
+    this.userEditForm.get('languageid').patchValue( this.json_Obj.interLanguage);
+    this.userEditForm.get('primary_lang_id').patchValue( this.json_Obj.primary_lang_id);
+    // this.userEditForm.patchValue({ primary_lang_id:   this.json_Obj.primary_lang_id});
+    this.userEditForm.get('gender').patchValue( this.json_Obj.gender);
+    if( this.json_Obj.role_id == '2'){
+      this.userEditForm.get('rate').patchValue( this.json_Obj.interpreter_rate);
     }
-  
- 
   }
 
+  editUser() {
+    console.log("edit id",this.Id);
+    this.service.getInterpreterDetail( this.Id)
+      .subscribe(res => {
+          this.json_Obj = res['data']['0'];
+          this.patchValue();
+          console.log("edit api",this.json_Obj);
+          localStorage.setItem('editData', JSON.stringify(this.json_Obj));
+      })
+  }
 /*==========Edit Input Value End Here========*/ 
   submitUser(){
     console.log("formmmmmmmmmmmm",this.userEditForm.value);
     // console.log("form value",this.userEditForm.value);
       this.submitted = true;
       if (this.userEditForm.invalid) {
-        // return;
+        return;
       }
       this.submitted = false;
 
@@ -161,8 +168,8 @@ export class UsersEditComponent implements OnInit {
     this.userEditForm.value.longitude = this.longitude
     this.userEditForm.value.address =this.new_address;
     this.userEditForm.value.language = this.newlanguageVal;
-    this.userEditForm.value.id =  this.data[0].id
-    console.log("user value-",this.userEditForm.value)
+    this.userEditForm.value.id = this.json_Obj.id
+    console.log("user value-",this.userEditForm.value.id)
       // console.log("api response",res);
     this.service.updateInterpreter(this.userEditForm.value)
                   .subscribe(res => {
@@ -172,10 +179,11 @@ export class UsersEditComponent implements OnInit {
                       console.log("api response", this.useredit_Obj);
                       this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
                       this.router.navigate(['/users/user-list']);  
-                    }else{
-                      this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
-                      this.router.navigate(['/users/user-list']);  
-                    }                        
+                    }
+                    // else{
+                    //   this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+                    //   this.router.navigate(['/users/user-list']);  
+                    // }                        
           });
         }
   

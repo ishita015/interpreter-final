@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">User Role</label>
-                            <select class="form-control" disabled formControlName="user_role">
+                            <select class="form-control" formControlName="user_role">
                                 <option *ngFor="let role of role_Obj" [value]="role.id" [selected]="role.id=='user_role'">
                                     {{role?.role_name}}
                                  </option>
@@ -37,7 +37,7 @@
                         
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" disabled  formControlName="email"  placeholder="Email">
+                            <input type="text" class="form-control" formControlName="email"  placeholder="Email">
                         </div>
 
 
@@ -92,7 +92,9 @@
                                     {{lan?.name}}
                                  </option>
                             </select>
-                           
+                            <div *ngIf="userEditForm.controls['primary_lang_id'].errors && (!userEditForm.controls['primary_lang_id'].pristine || submitted ||userEditForm.controls['primary_lang_id'].touched )" class="error-msg">
+                                <div [hidden]="!userEditForm.controls['primary_lang_id'].errors.required">Language is required.</div> 
+                              </div>
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="language">Select Secondary Language</label>
@@ -101,6 +103,9 @@
                               <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
                               </tag-input-dropdown>
                             </tag-input>
+                            <div *ngIf="userEditForm.controls['languageid'].errors && (!userEditForm.controls['languageid'].pristine || submitted ||userEditForm.controls['languageid'].touched )" class="error-msg">
+                                <div [hidden]="!userEditForm.controls['languageid'].errors.required">Secondary Language is required.</div> 
+                              </div>
                         </div>
                     </div>
 
