@@ -1,87 +1,96 @@
 <div class="">
-  <div class="breadcrumb">
-      <ul>
-          <li><a class="heading"><b>{{roleName}}</b> Dashboard</a></li>
-          <!-- <li>Version 1</li> -->
-      </ul>
-  </div>
+    <div class="breadcrumb">
+        <ul>
+            <li><a class="heading"><b>{{roleName}}</b> Dashboard</a></li>
+            <!-- <li>Version 1</li> -->
+        </ul>
+    </div>
 
-  <div class="separator-breadcrumb border-top"></div>
- 
-  <div class="row">
-      <div (click) = "newRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">New Request</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{newrequest_obj?.new_request}}</p>
+    <div class="separator-breadcrumb border-top"></div>
 
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-      <div (click) = "acceptRquest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">In Progress</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{accept_obj?.accept_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-  
-      </div>
+    <div class="row dashboard_block">
+        <!-- ICON BG -->
+        <div (click) = "newRequest()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon">
+                    <i class="i-Add-User"></i>
+                    </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">New Request</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{newrequest_obj?.new_request}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
+        <div (click) = "acceptRquest()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card cardsky card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body  text-center">
+                    <div class="card-icon cardskyblue">
+                    <i class="i-Financial"></i>
+                    </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">In Progress</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{accept_obj?.accept_request}}</p>
 
-
-      <div (click) = "RejectRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">Rejected</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{reject_obj?.reject_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
-      <div (click) = "completeRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">Completed</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{totalcomplete_obj?.complete_request}}</p>
+        <div (click) = "RejectRequest()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon cardred">                   
+                         <i class="i-Financial"></i>
+                        </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">Rejected</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{reject_obj?.reject_request}}</p>
 
-                  </div>
-              </div>
-          </div>
-      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-      <div (click) = "cancelRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">Cancelled</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{totalcancel_obj?.cancel_request}}</p>
+        <div (click) = "completeRequest()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card_gr card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon cardgreen">
+                    <i class="i-Financial"></i>
+                    </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">Completed</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{totalcomplete_obj?.complete_request}}</p>
 
-                  </div>
-              </div>
-          </div>
-      </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
 
-      
 
-  </div>
+
+        <div (click) = "cancelRequest()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon">
+                    <i class="i-Financial"></i>
+                   </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">Cancelled</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{totalcancel_obj?.cancel_request}}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
