@@ -26,6 +26,7 @@ export class UsersListComponent implements OnInit {
   userId;
   roleId;
   role_id;response_msg;
+  json_Obj;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -45,11 +46,11 @@ export class UsersListComponent implements OnInit {
       this.filerData(value);
     });
     this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-    this.array_Obj = this.roleData['data'][3]; //
-    if(this.array_Obj.id){
-      this.array_Obj = this.roleData['data'][3];
-      // console.log("roleData", this.array_Obj);
-    }
+    // this.array_Obj = this.roleData['data'][3]; 
+    // if(this.array_Obj.id){
+    //   this.array_Obj = this.roleData['data'][3];
+    //   // console.log("roleData", this.array_Obj);
+    // }
   }
 
 
@@ -127,21 +128,22 @@ addUser(){
 // }
 
 
-editUser(id) {
+editUser(id,data) {
   console.log("permission idddddddddd",id);
+  console.log("data",data);
+  localStorage.setItem('rowId', JSON.stringify(id));
   this.service.getInterpreterDetail(id)
     .subscribe(res => {
         this.user_Obj = res['data'];
-        console.log("api response yes",this.user_Obj);
+        this.json_Obj = res['data']['0']
+        console.log("edit api",this.json_Obj.id);
+        localStorage.setItem('editData', JSON.stringify(this.json_Obj));
         localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
         // this.router.navigate(['/permission/setpermission',id]);
         this.router.navigate(['/users/user-edit',id]);
+        // location.reload();
     })
 }
-
-
-
-
 
 statusChange(target,status,id) {
   console.log("permission target",target);

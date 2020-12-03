@@ -24,8 +24,6 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(){
     this.createForm();
     this.userId = JSON.parse(localStorage.getItem('userId'));
-    console.log("userIddddddd",  this.userId);
-    
   }
 
     /*========== Form Value Start Here========*/
@@ -69,8 +67,6 @@ export class ChangePasswordComponent implements OnInit {
       }
       this.submitted = false;
       this.adminProfileForm.value.user_id = this.userId;
-      console.log("useridddddddddd",  this.adminProfileForm.value.user_id);
-      
       this.service.changePassword(this.adminProfileForm.value)
       .subscribe(res => {
         // if(res['status']=='0'){
@@ -78,6 +74,7 @@ export class ChangePasswordComponent implements OnInit {
           this.admin_Obj = res;
           this.admin_Msg = res;
           this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+          this.adminProfileForm.reset();
           // this.router.navigate(['/languages/list']);  
         // }
         // else{
