@@ -11,6 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardV3Component } from './dashboard-v3/dashboard-v3.component';
 import { DashboardV4Component } from './dashboard-v4/dashboard-v4.component';
 
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ColorPickerModule } from 'ngx-color-picker';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +22,11 @@ import { DashboardV4Component } from './dashboard-v4/dashboard-v4.component';
     NgxEchartsModule,
     NgxDatatableModule,
     NgbModule,
+    ColorPickerModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     DashboardRoutingModule
   ],
   declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component]
