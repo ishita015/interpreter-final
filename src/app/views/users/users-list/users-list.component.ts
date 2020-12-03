@@ -131,14 +131,15 @@ addUser(){
 editUser(id,data) {
   console.log("permission idddddddddd",id);
   console.log("data",data);
+  localStorage.setItem('editData', JSON.stringify(data));
   localStorage.setItem('rowId', JSON.stringify(id));
   this.service.getInterpreterDetail(id)
     .subscribe(res => {
         this.user_Obj = res['data'];
         this.json_Obj = res['data']['0']
         console.log("edit api",this.json_Obj.id);
-        localStorage.setItem('editData', JSON.stringify(this.json_Obj));
-        localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
+        // localStorage.setItem('editData', JSON.stringify(this.json_Obj));
+        // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
         // this.router.navigate(['/permission/setpermission',id]);
         this.router.navigate(['/users/user-edit',id]);
         // location.reload();

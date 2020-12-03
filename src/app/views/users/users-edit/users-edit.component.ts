@@ -45,6 +45,7 @@ export class UsersEditComponent implements OnInit {
   editData;
   json_Obj;
   Id;
+  editdata;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -57,18 +58,15 @@ export class UsersEditComponent implements OnInit {
     private router: Router,
     private route : ActivatedRoute,
     private dl: DataLayerService,
-  
-  private mapsAPILoader: MapsAPILoader,
-  private ngZone: NgZone
-  
-    ) { }
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(){
     this.createForm();  
      this.Id = JSON.parse(localStorage.getItem('rowId'));
-     console.log("iddddddddddd",  this.Id );
-     
-    this.data = JSON.parse(localStorage.getItem('interpreterInfo'));
+      this.data = JSON.parse(localStorage.getItem('editData'));
+      console.log("edit data",this.data);
     this.LanguageList();
     this.userRoleList();
     this.editUser();
