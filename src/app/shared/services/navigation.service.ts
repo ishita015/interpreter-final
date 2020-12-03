@@ -103,7 +103,8 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/interpreter-request/completed-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
             ]
-        }
+        },
+       
     ];
 
 
@@ -130,7 +131,7 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/interpreter-request/completed-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
             ]
-        }
+        },
     ];
 
 
