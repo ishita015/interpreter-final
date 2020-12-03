@@ -46,11 +46,11 @@ export class UsersListComponent implements OnInit {
       this.filerData(value);
     });
     this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-    this.array_Obj = this.roleData['data'][3]; //
-    if(this.array_Obj.id){
-      this.array_Obj = this.roleData['data'][3];
-      // console.log("roleData", this.array_Obj);
-    }
+    // this.array_Obj = this.roleData['data'][3]; 
+    // if(this.array_Obj.id){
+    //   this.array_Obj = this.roleData['data'][3];
+    //   // console.log("roleData", this.array_Obj);
+    // }
   }
 
 
