@@ -83,21 +83,6 @@ export class InterpreterListComponent implements OnInit {
     console.log("my testing lat long  --",this.assignInfo)
     this.language_id = this.assignInfo.language;
 
-  this.markers = [
-	  {
-		  lat:this.assignInfo.latitude,
-      lng:this.assignInfo.longitude,
-      label: this.assignInfo.caseworker_name,
-      id:this.assignInfo.id,
-      mobile:this.assignInfo.cell_phone,
-      address:this.assignInfo.lang_name,
-      email:this.assignInfo.email,
-      draggable: false,
-      visible: false,
-      opacity: 0.7
-	  }
-	]
-
     this.assignMyNearbyInterpreter();
     // this.searchControl.valueChanges
     // .pipe(debounceTime(200))
@@ -196,10 +181,48 @@ export class InterpreterListComponent implements OnInit {
     //  console.log("value set", this.distance);
     this.service.myNearbyInterpreter(this.serviceid,this.language_id,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
         if(res['status'] == 0){
+       
           this.list_Obj = '';
           this.userData = '';
           this.filteredUser = '';
+
+          this.markers = [
+            {
+              lat:this.assignInfo.latitude,
+              lng:this.assignInfo.longitude,
+              label: this.assignInfo.caseworker_name,
+              id:this.assignInfo.id,
+              mobile:this.assignInfo.cell_phone,
+              address:this.assignInfo.lang_name,
+              email:this.assignInfo.email,
+              draggable: false,
+              visible: false,
+              opacity: 0.7
+            }
+          ]
+
+          // console.log(this.markers)
+          // console.log(this.markers[0])
+          // this.markers=[];
+          // this.markers.filter(item => item !== this.markers[0]);
         }else{
+          
+          this.markers = [
+            {
+              lat:this.assignInfo.latitude,
+              lng:this.assignInfo.longitude,
+              label: this.assignInfo.caseworker_name,
+              id:this.assignInfo.id,
+              mobile:this.assignInfo.cell_phone,
+              address:this.assignInfo.lang_name,
+              email:this.assignInfo.email,
+              draggable: false,
+              visible: false,
+              opacity: 0.7
+            }
+          ]
+
+
           this.list_Obj = res['data'];
           this.userData = [...res['data']];
           this.filteredUser = this.list_Obj;

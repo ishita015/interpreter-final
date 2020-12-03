@@ -28,8 +28,11 @@ export class LanguagesEditComponent implements OnInit {
     this. createForm();  
     this.data = JSON.parse(localStorage.getItem('languageData'));
     console.log("data", this.data);
+    console.log("country",this.data.country);
+    
     this.patchValue();
   }
+
 
   /*========== Form Value Start Here========*/
   createForm() {
@@ -37,6 +40,7 @@ export class LanguagesEditComponent implements OnInit {
       name: ['', this.validation.onlyRequired_validator],
       code: [''],
       country: [''],
+      // country: [{value: '', disabled: this.data.country != 'N/A' ? true : false }],   
       description: [''],
       id:['']
     });

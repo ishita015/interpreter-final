@@ -88,6 +88,7 @@ app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
 app.post('/cesco/getCompleteRequest', interpreterController.getCompleteRequest);
 app.post('/cesco/getCancelledRequest', interpreterController.getCancelledRequest);
 
+app.post('/cesco/getRejectDataInterpreter', interpreterController.getRejectDataInterpreter);
 
 
 app.get('/cesco/getRole', interpreterController.getRole);
@@ -268,13 +269,21 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
     con.query(user_update, function(err, results) {
         if(results.affectedRows ==1){
             
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 6,
-                message :"Update successfully",
+            var loginsql = "SELECT u.*,ur.role_name FROM user AS u INNER JOIN user_roles AS ur ON u.role_id=ur.id WHERE u.id='"+user_id+"'";
+
+            // console.log("loginsql--", loginsql)
+
+            con.query(loginsql, function(err, result, fields) {
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 6,
+                    data: result,
+                    message: "Update successfully",
+                });
+                return true;
             });
-            return true;
+
         }else{
             //error
             res.json({
