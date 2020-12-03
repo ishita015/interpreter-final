@@ -1,37 +1,93 @@
-<div class="row">
-    <div class="col-md-7">
+<style type="text/css">
+    .profilesec {}
+    .profile_pic {text-align: center;}
+    .profile_pic img{     width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid #ededed; } 
+    .profiletitle h4{     font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    color: #222222;}
+    .profilecontent h5{    color: #484848;}
+    .profilecontent .basic_info li a i {
+        position: relative;
+    left: 0px;
+    top: 4px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #002763;
+    padding-right: 10px;
+    font-weight: bold;
+}
+.profilecontent ul{
+    list-style: none;
+        padding-left: 10px;
+}
+.profilecontent ul li{
+        margin-bottom: 10px;
+}
+
+
+
+    .lan_block .list-inline {
+    padding-left: 16px;
+    list-style: disc;
+    display: flex;
+}
+.lan_block .list-inline-item:not(:last-child) {
+    margin-right: 0.5rem;
+    padding-right: 18px;
+}
+.lan_block .list-inline-item {
+    display: list-item;
+}
+.basic_info a {
+    color: #002763;
+    font-weight: bold;
+    position: relative;
+}
+</style>
+<div class="row mainblock">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="profilesec">
+                    <div class="profile_pic">
+                    <img src="./assets/images/faces/1.jpg">
+                    </div>
+                    <div class="profiletitle mt-2">
+
+                        <h4>{{data.name}}</h4>
+                    </div>
+                    <div class="profilecontent">
+                        <ul class="list basic_info">
+                                        <li><a href="#"><i class="i-Envelope"></i> {{data.email}}</a></li>
+                                        <li><a href="#"><i class="i-Telephone"></i> {{data.mobile}}</a></li>
+                                        <li><a href="#"><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
+                                        <li><a href="#"><i class="i-Address-Book"></i> {{data.address}}</a></li>
+                                    </ul>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
         <div class="card">
             <div class="card-body">
               
                 <!---===== Print Area =======-->
                 <div id="print-area">
                     <h5 class="font-weight-bold">User Details</h5>
-                    <div class="mt-3 mb-4 border-top"></div>
-                    <div class="row mb-5">
-                        <div class="col-md-12 userstable">
+                    <div class=" mb-2 border-top"></div>
+                    <div class="row mb-2">
+                        <div class="col-md-12 userstable mb-3">
                              
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>{{data.name}}</td>
-                                    </tr>
-                                      <tr>
-                                        <td>Email</td>
-                                        <td>{{data.email}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mobile</td>
-                                        <td>{{data.mobile}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gender</td>
-                                        <td>{{data.gender}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address</td>
-                                        <td>{{data.address}}</td>
-                                    </tr>
                                     <tr>
                                         <td>User Type</td>
                                         <td>{{data.role_name}}</td>
@@ -42,6 +98,25 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-md-12 lan_block mt-1 mb-1">
+                           <h5 class="font-weight-bold">Language Details</h5>
+                         <div class="mb-2 border-top"></div>
+                       
+                                <div class="pri_lan">
+                              <h6 class="font-weight-bold">Primary Language</h6>
+                              <ul class="list-inline">
+                                <li class="list-inline-item"> {{data.primary_language}}</li>
+                                </ul>   
+                            </div>
+                        
+                            <div class="sec_lan">
+                                <h6 class="font-weight-bold">Secondary Language</h6>
+                              <ul class="list-inline">
+                                <li *ngFor="let lang of data.interLanguage" class="list-inline-item">{{lang.name}}</li>
+                                </ul>   
+                            </div>
+                        
                         </div>
                       <!--   <div class="col-md-2 mb-3 mb-sm-0">
                             <h5 class="font-weight-bold">User Details</h5>
@@ -70,7 +145,7 @@
             </div>
         </div>
     </div>
-        <div class="col-md-5">
+       <!--  <div class="col-md-5">
         <div class="card">
             <div class="card-body">
                 <div class="col-md-12 text-sm-right">
@@ -88,5 +163,5 @@
                         </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

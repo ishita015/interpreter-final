@@ -14,10 +14,7 @@
 .dashboard_block .cardred{    background: linear-gradient(60deg,#ec407a,#d81b60) !important;}
 .dashboard_block .cardgreen{    background: linear-gradient(60deg,#66bb6a,#43a047) !important;}
 .checkboxedit input:checked + .slider {background-color: #663399 !important; }
-.btnnew{        padding: 2px 14px;
-    margin-top: 7px;
-    visibility: visible;
-    display: inline;}
+.btnnew{        padding: 2px 14px; margin-top: 0px; visibility: visible; display: inline;}
 .borderflow{        background: #fff;border: 1px solid #e0e0e0; border-radius: 5px; padding: 10px 1px;}
 .borderflow:hover {box-shadow: 0 3px 4px #ccc; }
 .checkboxedit .slider:before {position: absolute; content: ""; height: 19px !important; width: 19px !important; left: 1px !important; bottom: 4px !important; background-color: white; transition: .4s; }
@@ -39,44 +36,51 @@
 .error-msg{color:red; }
 .request_Tab table tr td:first-child{width: 40%;}
 .h-592{height: 592px;}
-.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {
-    white-space: initial !important;
-    height: auto !important;
-  }
-  .buttondisplay{
-    white-space: none !important;
-    height: auto !important;
-  }
-  .buttonlabel {
-    text-overflow: none !important;
-    white-space: none !important;
-    overflow: visible !important;
-} 
-.datatable-body-cell-label .newbutton{
-    
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {white-space: initial !important; height: auto !important; }
+  .buttondisplay{white-space: none !important; height: auto !important; }
+.datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:last-child{min-width: 200px !important; min-height: auto !important;}
+.lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell:last-child{min-width: 200px !important;}
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:first-child{min-width: 80px !important; min-height: auto !important;}
+.lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell:first-child{min-width: 80px !important;}
+
+.role_block .datatable-row-wrapper .datatable-body-row .datatable-row-center {
+    transform: translate3d(0px, 0px, 0px) !important;
+    backface-visibility: hidden;
+    width: 100% !important;
 }
-.datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+.role_block .datatable-header .datatable-header-inner .datatable-row-center{
+     transform: translate3d(0px, 0px, 0px) !important;
+    backface-visibility: hidden;
+    width: 100% !important;
 }
-.datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:last-child{width: 200px !important;}
+
+
 /* 
 .datatable-row-center .datatable-header-cell .datatable-header-cell .datatable-header-cell-template-wrap{width: 200px !important;} */
-@media (min-width: 1024px){.auth-layout-wrap .auth-content {min-width: 393px !important; } }
-/* end */
 
-.error-msg{
-    color:red;
+/* end */
+@media (max-width: 1024px){
+
+    .lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell{width: 100% !important;  min-width: 100px !important;}
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell {width: 100% !important; min-width: 100px !important; }
+  .lang_block .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {white-space: inherit !important; height: auto !important; overflow: inherit !important; }
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {word-break: break-all; text-overflow: initial; white-space: inherit; overflow: visible; }
+}
+.error-msg{color:red; }
+@media only screen and (min-width: 320px) and (max-width: 500px) {
+
+.datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell{width: 100% !important;  min-width: 100px !important;}
+ .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell {width: 100% !important; min-width: 100px !important; }
+.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {white-space: inherit !important; height: auto !important; overflow: inherit !important; }
+ .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell .datatable-body-cell-label {word-break: break-all; text-overflow: initial; white-space: inherit; overflow: visible; }
+    .lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell{width: 100% !important;  min-width: 100px !important;}
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell {width: 100% !important; min-width: 100px !important; }
+  .lang_block .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {white-space: inherit !important; height: auto !important; overflow: inherit !important; }
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {word-break: break-all; text-overflow: initial; white-space: inherit; overflow: visible; }
+    ngx-datatable-column{width:100% !important; }
 }
 
 @media (min-width: 1024px){
-    .auth-layout-wrap .auth-content {
-        min-width: 393px !important;
-    }
-}
-@media (min-width: 560px){
-    ngx-datatable-column{
-        width:100% !important;
-    }
+    .auth-layout-wrap .auth-content {min-width: 393px !important; }
 }
