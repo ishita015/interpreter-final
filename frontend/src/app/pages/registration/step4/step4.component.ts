@@ -39,6 +39,7 @@ export class Step4Component implements OnInit {
   ngOnInit() {
     this.languageList();
     this.createForm1();
+    this.date_func();
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -125,6 +126,37 @@ export class Step4Component implements OnInit {
       })
   }
   /*==========Step Form Value Start Here========*/
+
+     /*==========Today and future date function start here========*/
+     date_func(){
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+    }
+      /*==========Today and future date function end here========*/
+  
+     /*==========Start and end time valid function start here========*/
+  
+     start_end_time(e){ 
+      var beginningTime = this.stepFourForm.value.start_time;
+      var endTime = this.stepFourForm.value.end_time;
+      // var beginningTime = moment(this.stepFourForm.value.start_time, 'h:mma');
+      // var endTime = moment(this.stepFourForm.value.end_time, 'h:mma');
+      if (beginningTime > endTime) {
+        this.stepFourForm.controls['start_time'].setValue('');
+        this.stepFourForm.controls['end_time'].setValue('');
+        this.toastr.error("Invalid Time",'', { timeOut: 2000 });
+      }
+      if (beginningTime == endTime) {
+        this.stepFourForm.controls['start_time'].setValue('');
+        this.stepFourForm.controls['end_time'].setValue('');
+        this.toastr.error("Invalid Time",'', { timeOut: 2000 });
+      }
+      if (beginningTime < endTime) {
+        // this.toastr.success("Valid Time ",'', { timeOut: 2000 });
+      }
+     }
+      /*==========Start and end time valid function end here========*/
+  
 
   languageList(){
     this.service.getLanguage()

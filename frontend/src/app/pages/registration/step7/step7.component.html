@@ -78,7 +78,7 @@
             <!-- <textarea class="form-control" formControlName="location2" rows="3" placeholder="Address"></textarea> -->
             <div *ngIf="stepSevenForm.controls['location2'].errors && ( !stepSevenForm.controls['location2'].pristine || submitted ||stepSevenForm.controls['location2'].touched )" class="error-msg">
                <div [hidden]="!stepSevenForm.controls['location2'].errors.required">Location2 is required.</div>
-               <div [hidden]="!stepSevenForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
+               <!-- <div [hidden]="!stepSevenForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div> -->
              </div>
          </div>
          <div class="col-sm-6">
@@ -143,7 +143,7 @@
            </div>
          <div class="col-sm-12">
             <label>Date</label>
-            <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+            <input type="date" name="setTodaysDate" formControlName="date"  class="form-control" placeholder="Date">
             <div *ngIf="stepSevenForm.controls['date'].errors && ( !stepSevenForm.controls['date'].pristine || submitted ||stepSevenForm.controls['date'].touched )" class="error-msg">
                <div [hidden]="!stepSevenForm.controls['date'].errors.required">Date is required.</div>
                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -159,7 +159,7 @@
          </div>
              <div class="col-sm-6">
             <label>Anticipated End Time</label>
-            <input type="time"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+            <input type="time" (change)="start_end_time($event)" class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
             <div *ngIf="stepSevenForm.controls['end_time'].errors && ( !stepSevenForm.controls['end_time'].pristine || submitted ||stepSevenForm.controls['end_time'].touched )" class="error-msg">
                <div [hidden]="!stepSevenForm.controls['end_time'].errors.required">End Time is required.</div>
                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->

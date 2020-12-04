@@ -21,9 +21,6 @@ export class Step3Component implements OnInit {
   address1: string;
   @ViewChild('search')
   public searchElementRef: ElementRef;
-
-
-
   stepThreeForm: FormGroup;
   submitted: boolean;
   languageObj;
@@ -39,6 +36,7 @@ export class Step3Component implements OnInit {
   ngOnInit() {
     this.languageList();
     this.createForm1();
+    this.date_func();
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -48,15 +46,11 @@ export class Step3Component implements OnInit {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           // console.log("latitude--",this.latitude)
-
-          
           console.log("address--",place.formatted_address);
           this.address1 = place.formatted_address;
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-
-
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.lat_value =  this.latitude;
@@ -126,6 +120,37 @@ export class Step3Component implements OnInit {
       })
   }
   /*==========Step Form Value Start Here========*/
+
+   /*==========Today and future date function start here========*/
+   date_func(){
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+  }
+    /*==========Today and future date function end here========*/
+
+   /*==========Start and end time valid function start here========*/
+
+   start_end_time(e){ 
+    var beginningTime = this.stepThreeForm.value.start_time;
+    var endTime = this.stepThreeForm.value.end_time;
+    // var beginningTime = moment(this.stepThreeForm.value.start_time, 'h:mma');
+    // var endTime = moment(this.stepThreeForm.value.end_time, 'h:mma');
+    if (beginningTime > endTime) {
+      this.stepThreeForm.controls['start_time'].setValue('');
+      this.stepThreeForm.controls['end_time'].setValue('');
+      this.toastr.error("Invalid Time",'', { timeOut: 2000 });
+    }
+    if (beginningTime == endTime) {
+      this.stepThreeForm.controls['start_time'].setValue('');
+      this.stepThreeForm.controls['end_time'].setValue('');
+      this.toastr.error("Invalid Time",'', { timeOut: 2000 });
+    }
+    if (beginningTime < endTime) {
+      // this.toastr.success("Valid Time ",'', { timeOut: 2000 });
+    }
+   }
+    /*==========Start and end time valid function end here========*/
+
 
   languageList(){
     this.service.getLanguage()

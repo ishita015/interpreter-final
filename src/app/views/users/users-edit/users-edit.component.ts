@@ -169,15 +169,14 @@ export class UsersEditComponent implements OnInit {
     this.userEditForm.value.id = this.json_Obj.id
     console.log("user value-",this.userEditForm.value.id)
       // console.log("api response",res);
-    this.service.updateInterpreter(this.userEditForm.value)
-                  .subscribe(res => {
-                    if(res['status'] == 1){
-                      this.useredit_Obj = res
-                      this.useredit_Msg = res;
-                      console.log("api response", this.useredit_Obj);
-                      this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
-                      this.router.navigate(['/users/user-list']);  
-                    }
+    this.service.updateInterpreter(this.userEditForm.value).subscribe(res => {
+        if(res['status'] == 1){
+          this.useredit_Obj = res
+          this.useredit_Msg = res;
+          console.log("api response", this.useredit_Obj);
+          this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+          this.router.navigate(['/users/user-list']);  
+        }
                     // else{
                     //   this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
                     //   this.router.navigate(['/users/user-list']);  

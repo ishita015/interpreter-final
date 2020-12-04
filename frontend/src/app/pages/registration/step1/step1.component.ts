@@ -5,6 +5,7 @@ import { CommonService } from './../../../services/common.service';
 import { ValidationsService } from 'src/app/services/validations.service';
 import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader } from '@agm/core';
+import * as moment from 'moment';
 interface marker {
 	lat: number;
 	lng: number;
@@ -36,6 +37,11 @@ export class Step1Component implements OnInit {
   public languageObj;
   step_Msg;
   public newlanguageVal;
+
+  startTime;
+  endTime;
+  strStartTime;
+  strEndTime
   constructor( public service:CommonService,
     private fb: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
@@ -47,10 +53,11 @@ export class Step1Component implements OnInit {
   ngOnInit() {
     this.createForm1();
     this.languageList();
+    this.date_func();
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
-  
+      
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement,{});
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -131,6 +138,13 @@ export class Step1Component implements OnInit {
   }
   /*==========Step Form Value Start Here========*/
 
+  /*==========Today and future date function start here========*/
+  date_func(){
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+  }
+ /*==========Today and future date function end here========*/
+
   languageList(){
     this.service.getLanguage()
     .subscribe(res => {
@@ -146,6 +160,30 @@ export class Step1Component implements OnInit {
     console.log("iddddddddddd", this.newlanguageVal);
    }
 
+     /*==========Start and end time valid function start here========*/
+
+   start_end_time(e){ 
+    var beginningTime = this.stepOneForm.value.start_time;
+    var endTime = this.stepOneForm.value.end_time;
+    // var beginningTime = moment(this.stepOneForm.value.start_time, 'h:mma');
+    // var endTime = moment(this.stepOneForm.value.end_time, 'h:mma');
+    if (beginningTime > endTime) {
+      this.stepOneForm.controls['start_time'].setValue('');
+      this.stepOneForm.controls['end_time'].setValue('');
+      this.toastr.error("Invalid Time",'', { timeOut: 2000 });
+    }
+    if (beginningTime == endTime) {
+      this.stepOneForm.controls['start_time'].setValue('');
+      this.stepOneForm.controls['end_time'].setValue('');
+      this.toastr.error("Invalid Time",'', { timeOut: 2000 });
+    }
+    if (beginningTime < endTime) {
+      // this.toastr.success("Valid Time ",'', { timeOut: 2000 });
+    }
+   }
+    /*==========Start and end time valid function end here========*/
+
+
   submitForm1(){
     // console.log("latitude 1--", this.latitude)
     // console.log("longitude 2--", this.longitude)
@@ -156,7 +194,14 @@ export class Step1Component implements OnInit {
     this.stepOneForm.value.address = this.address1;
     this.stepOneForm.value.latitude = this.latitude;
     this.stepOneForm.value.longitude = this.longitude;
-    // console.log("form value",this.stepOneForm.value);
+   
+    // if(beginningTime && endTime){
+    //   alert(1)
+    //   console.log(beginningTime.isBefore(endTime)); // true
+    //   return beginningTime.isBefore(endTime);
+    // }
+   
+
     this.submitted = true;
     if (this.stepOneForm.invalid) {
       return;

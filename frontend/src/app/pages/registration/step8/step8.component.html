@@ -56,7 +56,8 @@
          </div>
          <div class="col-sm-6">
             <label>Location1</label>
-            <textarea class="form-control" rows="3" formControlName="location1" placeholder="Name of Building/Clinic/Office off.."></textarea>
+            <input class="form-control" formControlName="location1" rows="3" placeholder="Name of Building or Business">
+            <!-- <textarea class="form-control" rows="3" formControlName="location1" placeholder="Name of Building/Clinic/Office off.."></textarea> -->
             <div *ngIf="stepEightForm.controls['location1'].errors && ( !stepEightForm.controls['location1'].pristine || submitted ||stepEightForm.controls['location1'].touched )" class="error-msg">
                <div [hidden]="!stepEightForm.controls['location1'].errors.required">Location1 is required.</div>
                <div [hidden]="!stepEightForm.controls.location1.hasError('minlength')">location1 length should be minimum 2 characters.</div>
@@ -64,10 +65,11 @@
            </div>
          <div class="col-sm-6">
             <label>Location2</label>
-            <textarea class="form-control" rows="3" formControlName="location2" placeholder="Address"></textarea>
+            <input type="text" class="form-control" formControlName="location2" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+            <!-- <textarea class="form-control" rows="3" formControlName="location2" placeholder="Address"></textarea> -->
             <div *ngIf="stepEightForm.controls['location2'].errors && ( !stepEightForm.controls['location2'].pristine || submitted ||stepEightForm.controls['location2'].touched )" class="error-msg">
                <div [hidden]="!stepEightForm.controls['location2'].errors.required">Location2 is required.</div>
-               <div [hidden]="!stepEightForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div>
+               <!-- <div [hidden]="!stepEightForm.controls.location2.hasError('minlength')">Location2 length should be minimum 2 characters.</div> -->
              </div>
          </div>
          <div class="col-sm-12">
@@ -133,7 +135,7 @@
          </div>
          <div class="col-sm-6">
             <label>Date</label>
-            <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+            <input type="date" name="setTodaysDate"  formControlName="date"  class="form-control" placeholder="Date">
             <div *ngIf="stepEightForm.controls['date'].errors && ( !stepEightForm.controls['date'].pristine || submitted ||stepEightForm.controls['date'].touched )" class="error-msg">
                <div [hidden]="!stepEightForm.controls['date'].errors.required">Date is required.</div>
                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -149,7 +151,7 @@
          </div>
              <div class="col-sm-6">
             <label>Anticipated End Time</label>
-            <input type="time"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+            <input type="time" (change)="start_end_time($event)" class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
             <div *ngIf="stepEightForm.controls['end_time'].errors && ( !stepEightForm.controls['end_time'].pristine || submitted ||stepEightForm.controls['end_time'].touched )" class="error-msg">
                <div [hidden]="!stepEightForm.controls['end_time'].errors.required">End Time is required.</div>
                <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
