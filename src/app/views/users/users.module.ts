@@ -14,10 +14,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { BrowserModule } from '@angular/platform-browser';
 import { TagInputModule } from 'ngx-chips';
 import { AgmCoreModule } from '@agm/core';
+import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
+
+//calendar
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 @NgModule({
-  declarations: [UsersAddComponent, UsersEditComponent, UsersListComponent, UsersViewComponent],
+  declarations: [UsersAddComponent, UsersEditComponent, UsersListComponent, UsersViewComponent, ViewCalendarComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,6 +32,11 @@ import { AgmCoreModule } from '@agm/core';
     SharedComponentsModule,
     TagInputModule,
     NgbModule,
+    ColorPickerModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     UsersRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38',//'AIzaSyBkH1R6_PO7fNY5L0z6CvV00oeNX8Vn0iE', 

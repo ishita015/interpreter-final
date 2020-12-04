@@ -124,7 +124,7 @@
           </div>
         <div class="col-sm-6">
            <label>Date</label>
-           <input type="date" formControlName="date" class="form-control" placeholder="Date">
+           <input type="date" name="setTodaysDate" formControlName="date" class="form-control" placeholder="Date">
            <div *ngIf="stepTwoForm.controls['date'].errors && ( !stepTwoForm.controls['date'].pristine || submitted ||stepTwoForm.controls['date'].touched )" class="error-msg">
               <div [hidden]="!stepTwoForm.controls['date'].errors.required">Date is required.</div>
               <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -140,7 +140,7 @@
           </div>  
         <div class="col-sm-6">
            <label>Anticipated End Time</label>
-           <input type="time" formControlName="end_time" class="form-control" placeholder="Anticipated End Time">
+           <input type="time" formControlName="end_time" (change)="start_end_time($event)" class="form-control" placeholder="Anticipated End Time">
            <div *ngIf="stepTwoForm.controls['end_time'].errors && ( !stepTwoForm.controls['end_time'].pristine || submitted ||stepTwoForm.controls['end_time'].touched )" class="error-msg">
               <div [hidden]="!stepTwoForm.controls['end_time'].errors.required">End Time is required.</div>
               <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->

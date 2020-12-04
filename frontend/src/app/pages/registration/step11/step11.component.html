@@ -125,7 +125,7 @@
          </div>
          <div class="col-sm-6">
             <label>Date</label>
-            <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+            <input type="date" name="setTodaysDate" formControlName="date"  class="form-control" placeholder="Date">
             <div *ngIf="stepElevenForm.controls['date'].errors && ( !stepElevenForm.controls['date'].pristine || submitted ||stepElevenForm.controls['date'].touched )" class="error-msg">
                <div [hidden]="!stepElevenForm.controls['date'].errors.required">Date is required.</div>
                <!-- <div [hidden]="!stepElevenForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -141,7 +141,7 @@
          </div>
          <div class="col-sm-6">
             <label>Anticipated End Time</label>
-            <input type="time" formControlName="end_time" class="form-control" placeholder="Anticipated End Time">
+            <input type="time" (change)="start_end_time($event)" formControlName="end_time" class="form-control" placeholder="Anticipated End Time">
             <div *ngIf="stepElevenForm.controls['end_time'].errors && ( !stepElevenForm.controls['end_time'].pristine || submitted ||stepElevenForm.controls['end_time'].touched )" class="error-msg">
                <div [hidden]="!stepElevenForm.controls['end_time'].errors.required">End Time is required.</div>
                <!-- <div [hidden]="!stepElevenForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -167,10 +167,12 @@
          </div>
          <div class="col-sm-12">
             <label>Address or virtual meeting link</label>
-            <textarea class="form-control" formControlName="virtual_meeting"  placeholder="Address or virtual meeting link"></textarea>
+            <input type="text" class="form-control" formControlName="virtual_meeting" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+
+            <!-- <textarea class="form-control" formControlName="virtual_meeting"  placeholder="Address or virtual meeting link"></textarea> -->
             <div *ngIf="stepElevenForm.controls['virtual_meeting'].errors && ( !stepElevenForm.controls['virtual_meeting'].pristine || submitted ||stepElevenForm.controls['virtual_meeting'].touched )" class="error-msg">
                <div [hidden]="!stepElevenForm.controls['virtual_meeting'].errors.required">Virtual Meeting is required.</div>
-               <div [hidden]="!stepElevenForm.controls.virtual_meeting.hasError('minlength')">Virtual Meeting length should be minimum 2 characters.</div>
+               <!-- <div [hidden]="!stepElevenForm.controls.virtual_meeting.hasError('minlength')">Virtual Meeting length should be minimum 2 characters.</div> -->
              </div> 
            </div>
            <div class="col-sm-6 text-left">

@@ -121,7 +121,7 @@
           </div>
         <div class="col-sm-6">
            <label>Date</label>
-           <input type="date" class="form-control" formControlName="date" placeholder="Date">
+           <input type="date" name="setTodaysDate" class="form-control" formControlName="date" placeholder="Date">
            <div *ngIf="stepOneForm.controls['date'].errors && ( !stepOneForm.controls['date'].pristine || submitted ||stepOneForm.controls['date'].touched )" class="error-msg">
               <div [hidden]="!stepOneForm.controls['date'].errors.required">Date is required.</div>
               <!-- <div [hidden]="!stepOneForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -129,7 +129,7 @@
           </div>
         <div class="col-sm-6">
            <label>Start Time</label>
-           <input type="time"  class="form-control" formControlName="start_time" placeholder="Start Time">
+           <input type="time" class="form-control" id="txtStartTime" formControlName="start_time" placeholder="Start Time">
            <div *ngIf="stepOneForm.controls['start_time'].errors && ( !stepOneForm.controls['start_time'].pristine || submitted ||stepOneForm.controls['start_time'].touched )" class="error-msg">
               <div [hidden]="!stepOneForm.controls['start_time'].errors.required">Start Time is required.</div>
               <!-- <div [hidden]="!stepOneForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -137,7 +137,7 @@
           </div>
         <div class="col-sm-6">
            <label>Anticipated End Time</label>
-           <input type="time"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+           <input type="time"  class="form-control" id="txtEndTime" (change)="start_end_time($event)" formControlName="end_time" placeholder="Anticipated End Time">
            <div *ngIf="stepOneForm.controls['end_time'].errors && ( !stepOneForm.controls['end_time'].pristine || submitted ||stepOneForm.controls['end_time'].touched )" class="error-msg">
               <div [hidden]="!stepOneForm.controls['end_time'].errors.required">End Time is required.</div>
               <!-- <div [hidden]="!stepOneForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->

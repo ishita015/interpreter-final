@@ -125,7 +125,7 @@
           </div>
           <div class="col-sm-6">
              <label>Date</label>
-             <input type="date"  formControlName="date"  class="form-control" placeholder="Date">
+             <input type="date" name="setTodaysDate" formControlName="date"  class="form-control" placeholder="Date">
              <div *ngIf="stepNineForm.controls['date'].errors && ( !stepNineForm.controls['date'].pristine || submitted ||stepNineForm.controls['date'].touched )" class="error-msg">
                 <div [hidden]="!stepNineForm.controls['date'].errors.required">Date is required.</div>
                 <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -141,7 +141,7 @@
           </div>
           <div class="col-sm-6">
              <label>Anticipated End Time</label>
-             <input type="time"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
+             <input type="time" (change)="start_end_time($event)"  class="form-control" formControlName="end_time" placeholder="Anticipated End Time">
              <div *ngIf="stepNineForm.controls['end_time'].errors && ( !stepNineForm.controls['end_time'].pristine || submitted ||stepNineForm.controls['end_time'].touched )" class="error-msg">
                 <div [hidden]="!stepNineForm.controls['end_time'].errors.required">End Time is required.</div>
                 <!-- <div [hidden]="!stepTwoForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -167,10 +167,11 @@
           </div>
           <div class="col-sm-12">
              <label>Address</label>
-             <textarea class="form-control" formControlName="address"  rows="3" placeholder="Additional Notes"></textarea>
+             <input type="text" class="form-control" formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+             <!-- <textarea class="form-control" formControlName="address"  rows="3" placeholder="Additional Notes"></textarea> -->
              <div *ngIf="stepNineForm.controls['address'].errors && ( !stepNineForm.controls['address'].pristine || submitted ||stepNineForm.controls['address'].touched )" class="error-msg">
                 <div [hidden]="!stepNineForm.controls['address'].errors.required">Address is required.</div>
-                <div [hidden]="!stepNineForm.controls.address.hasError('minlength')">Address length should be minimum 2 characters.</div>
+                <!-- <div [hidden]="!stepNineForm.controls.address.hasError('minlength')">Address length should be minimum 2 characters.</div> -->
               </div>
           </div>
           <div class="col-sm-6 text-left">
