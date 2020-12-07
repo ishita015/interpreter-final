@@ -10,7 +10,7 @@ import {
 	isSameDay,
 	isSameMonth
 } from 'date-fns';
-
+import { DatePipe } from '@angular/common';
 import { CalendarAppEvent } from 'src/app/shared/models/calendar-event.model';
 import { CalendarAppService } from './../../calendar/calendar-app.service';
 import { CalendarFormDialogComponent } from '../../calendar/calendar-form-dialog/calendar-form-dialog.component';
@@ -24,20 +24,24 @@ import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 export class DashboardV2Component implements OnInit {
 	public view = 'month';
 	public viewDate = new Date();
+
+
+
 	@ViewChild('eventDeleteConfirm', { static: true }) eventDeleteConfirm;
 	public activeDayIsOpen = true;
 	public refresh: Subject<any> = new Subject();
 	public events: CalendarAppEvent[];
+	// events: Array<any> = [];
 	private actions: CalendarEventAction[];
 
 
-
-
-
-
-
-  chartPie1: any;
-  chartLineOption3: any;
+	pipe = new DatePipe('en-US');
+	// now = Date.now();
+	  
+	new_date;
+		
+	chartPie1: any;
+	chartLineOption3: any;
 	products$: any;
 	public roleName;
 	userId;
@@ -45,7 +49,8 @@ export class DashboardV2Component implements OnInit {
     public accept_obj;
     public reject_obj;
     public totalcancel_obj;
-    public totalcomplete_obj;
+	public totalcomplete_obj;
+	cal_data;
   constructor(
 		private productService: ProductService,public service:HttpService,
 		private router: Router,
@@ -66,6 +71,8 @@ export class DashboardV2Component implements OnInit {
 		}];
 	 }
 
+	 
+
   ngOnInit() {
 	this.roleName = JSON.parse(localStorage.getItem('roleName'));
 	this.userId = JSON.parse(localStorage.getItem('userId'));
@@ -74,15 +81,37 @@ export class DashboardV2Component implements OnInit {
 	this.reject_request();
 	this.complete_request();
 	this.cancelled_request();
-	this.loadEvents();
+	// this.loadEvents();
+	
+	this.getInterpreterRequestInfo();
   }
 
 
+ 
+
    
+  getInterpreterRequestInfo(){
+	this.service.interpreterDashboardData(this.userId)
+	.subscribe(res => {
+		if(res['status']=='1'){
+			this.cal_data = res['data'];
+			this.events = [];
+			for(let i=0; i < this.cal_data.length; i++){ 
+				var dataArray = this.cal_data[i].date.split(/[ -]/);
+				this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
+				this.events.push ({
+					start: this.new_date,
+					title: this.cal_data[i].appointment_type
+				});
+			}
+		}		
+	})
+  }
+
+
     new_request(){
 		this.service.newRequestCount(this.userId)
 		.subscribe(res => {
-		//   console.log("apiiiiiiiiii response service", res);
 			this.newrequest_obj = res['data'][0];
 		})
 	}
@@ -91,7 +120,6 @@ export class DashboardV2Component implements OnInit {
 	accept_request(){
 		this.service.acceptRequestCount(this.userId)
 		.subscribe(res => {
-		console.log("apiiiiiiiiii response service", res);
 			this.accept_obj = res['data'][0];
 		})
 	}
@@ -100,7 +128,6 @@ export class DashboardV2Component implements OnInit {
 	reject_request(){
 		this.service.rejectRequestCount(this.userId)
 		.subscribe(res => {
-		console.log("apiiiiiiiiii response service", res);
 			this.reject_obj = res['data'][0];
 		})
 	}
@@ -109,7 +136,6 @@ export class DashboardV2Component implements OnInit {
 	complete_request(){
 		this.service.completeRequestCount(this.userId)
 		.subscribe(res => {
-		console.log("apiiiiiiiiii response service", res);
 			this.totalcomplete_obj = res['data'][0];
 		})
 	}
@@ -157,6 +183,8 @@ export class DashboardV2Component implements OnInit {
 			.getEvents()
 			.subscribe((events: CalendarEvent[]) => {
 				this.events = this.initEvents(events);
+				console.log("events--",this.events)
+
 			});
 	}
 
@@ -254,17 +282,17 @@ export class DashboardV2Component implements OnInit {
 		}
 	}
 
-	public eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-		event.start = newStart;
-		event.end = newEnd;
+	// public eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+	// 	event.start = newStart;
+	// 	event.end = newEnd;
 
-		this.calendarService
-			.updateEvent(event)
-			.subscribe(events => {
-				this.events = this.initEvents(events);
-				this.refresh.next();
-			});
-	}
+	// 	this.calendarService
+	// 		.updateEvent(event)
+	// 		.subscribe(events => {
+	// 			this.events = this.initEvents(events);
+	// 			this.refresh.next();
+	// 		});
+	// }
 
 
 

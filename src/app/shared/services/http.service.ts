@@ -112,6 +112,10 @@ export class HttpService {
    /*=====Role Section Apis End======*/
 
 
+   interpreterDashboardData(userId): Observable<any> {
+    return this.http.post(this.url + '/cesco/getIntAccReqDashboardData',{userId:userId},this.httpOptions);
+  }
+
 
 
   /*=====Module Section Apis Start======*/

@@ -2,7 +2,7 @@
   <div class="breadcrumb">
       <ul>
           <li><a class="heading"><b>{{roleName}}</b> Dashboard</a></li>
-          <!-- <li>Version 1</li> -->
+          <!-- <li>Version 1</li> cal_data -->
       </ul>
   </div>
 
@@ -90,80 +90,9 @@
             </div>
         </div>
     </div>
-      <!-- <div (click) = "newRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">New Request</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{newrequest_obj?.new_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-      <div (click) = "acceptRquest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">In Progress</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{accept_obj?.accept_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-  
-      </div>
-
-
-
-
-      <div (click) = "RejectRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">Rejected</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{reject_obj?.reject_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-
-      <div (click) = "completeRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">Completed</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{totalcomplete_obj?.complete_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-      <div (click) = "cancelRequest()" class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-              <div class="card-body text-center">
-                  <i class="i-Financial"></i>
-                  <div class="content">
-                      <p class="text-muted mt-2 mb-0">Cancelled</p>
-                      <p class="text-primary text-24 line-height-1 mb-2">{{totalcancel_obj?.cancel_request}}</p>
-
-                  </div>
-              </div>
-          </div>
-      </div> -->
+    
   </div>
-<!-------------------------------------CALENDAR FORM-------------------------------------->
+<!-------------------------------------CALENDAR FORM- cal_data ------------------------------------->
 
 <div class="mb-4">
     <button class="btn btn-rounded btn-primary" (click)="addEvent()">Add Event</button>
@@ -209,20 +138,20 @@
           ngbTooltip="Month view">
             <i class="i-Calendar"></i>
           </button>
-          <button 
+          <!-- <button 
           class="btn btn-rounded btn-icon btn-primary m-1" 
           (click)="view = 'week'" 
           [class.active]="view === 'week'"
           ngbTooltip="Week view">
             <i class="i-Split-Vertical-2"></i>
-          </button>
-          <button  
+          </button> -->
+          <!-- <button  
           class="btn btn-rounded btn-icon btn-primary m-1" 
           (click)="view = 'day'" 
           [class.active]="view === 'day'"
           ngbTooltip="Day view">
             <i class="i-Align-Justify-All"></i>
-          </button>
+          </button> -->
         </div>
       </div>
       <!-- <mat-divider></mat-divider> -->
@@ -241,26 +170,26 @@
           (eventClicked)="handleEvent('edit', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-month-view>
-        <mwl-calendar-week-view
+        <!-- <mwl-calendar-week-view
           *ngSwitchCase="'week'"
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
           (eventClicked)="handleEvent('edit', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)">
-        </mwl-calendar-week-view>
-        <mwl-calendar-day-view
+        </mwl-calendar-week-view> -->
+        <!-- <mwl-calendar-day-view
           *ngSwitchCase="'day'"
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
           (eventClicked)="handleEvent('edit', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)">
-        </mwl-calendar-day-view>
+        </mwl-calendar-day-view> -->
       </div>
     </div>
   </div>
-
+<!-- 
   <ng-template #eventDeleteConfirm let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-title">Delete Event?</h4>
@@ -273,5 +202,5 @@
       <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.dismiss('cancel')">No</button>
       <button type="button" ngbAutofocus class="btn btn-rounded btn-danger" (click)="modal.close('Ok')">Yes</button>
     </div>
-</ng-template>
+</ng-template> -->
 
