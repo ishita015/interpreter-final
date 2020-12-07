@@ -112,7 +112,7 @@
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         <button style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userView(row.id)">View</button>  
                         <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button>
-                        <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button>
+                        <!-- <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button> -->
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
                         <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
                             Delete
