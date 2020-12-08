@@ -698,7 +698,8 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
     let email='';
     var interpreterDetail = await usermodel.getInterpreterInfo(interpreter_id);
     if (interpreterDetail != "" && interpreterDetail != undefined) {
-        name=interpreterDetail[0].name;
+        // name=interpreterDetail[0].name;
+        name= interpreterDetail[i].first_name+" "+interpreterDetail[i].last_name;
         email=interpreterDetail[0].email;
     }
 
@@ -823,12 +824,14 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
             mainObj1 = {
                 id: nearData[i].id,
                 role_id: nearData[i].role_id,
-                name: nearData[i].name,
+                name: nearData[i].first_name+" "+nearData[i].last_name,
                 mobile: nearData[i].mobile,
                 email: nearData[i].email,
                 profile_img: nearData[i].profile_img,
                 gender: nearData[i].gender,
                 address: nearData[i].address,
+                apartment: nearData[i].apartment,
+                street: nearData[i].street,
                 interpreter_rate: nearData[i].interpreter_rate,
                 latitude: nearData[i].latitude,
                 longitude: nearData[i].longitude,
@@ -985,66 +988,80 @@ module.exports.getInterpreter = function(req, res, next) {
 
 
 module.exports.getInterpreterDetail = async function(req, res, next) {
-    let user_id = req.body.id ? req.body.id : 0;
+    //validation start
+    const v = new Validator(req.body, {
+        id: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+
+    let user_id = req.body.id;
     console.log(user_id)
-    if(user_id=='0'){
+    var mainArr = [];
+    var resultdata = await usermodel.getInterpreterInfo(user_id); 
+
+    console.log( "resultdata--",  resultdata)
+
+    if (resultdata != "" && resultdata != undefined) {
+        var mainObj = {};
+        for (var i = 0; i < resultdata.length; i++) {
+            var langArr = [];
+            var langdata = await usermodel.getUserLanguage(user_id);
+            if (langdata != "" && langdata != undefined) {
+                langArr = langdata;
+            }
+            mainObj = {
+                id: resultdata[i].id,
+                role_id: resultdata[i].role_id,
+                name: resultdata[i].first_name+" "+resultdata[i].last_name,
+                mobile: resultdata[i].mobile,
+                email: resultdata[i].email,
+                gender: resultdata[i].gender,
+                address: resultdata[i].address,
+                apartment: resultdata[i].apartment,
+                street: resultdata[i].street,
+                primary_language: resultdata[i].lang_name,
+                role_name: resultdata[i].role_name,
+                interpreter_rate: resultdata[i].interpreter_rate,
+                primary_lang_id: resultdata[i].primary_lang_id,
+                interLanguage: langArr,
+            }
+            mainArr.push(mainObj); 
+        } 
+    }
+    console.log("user info-",mainArr);
+    if (mainArr && mainArr.length > 0) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 1,
+            data: mainArr
+        });
+        return true;
+    } else {
         res.json({
             status: 0,
             error_code: 0,
             error_line: 6,
-            message: "please try again"
+            message: "No record found"
         });
         return true;
-    }else{
-        var mainArr = [];
-        var resultdata = await usermodel.getInterpreterInfo(user_id); 
-
-        console.log( "resultdata--",  resultdata)
-
-        if (resultdata != "" && resultdata != undefined) {
-            var mainObj = {};
-            for (var i = 0; i < resultdata.length; i++) {
-                var langArr = [];
-                var langdata = await usermodel.getUserLanguage(user_id);
-                if (langdata != "" && langdata != undefined) {
-                    langArr = langdata;
-                }
-                mainObj = {
-                    id: resultdata[i].id,
-                    role_id: resultdata[i].role_id,
-                    name: resultdata[i].name,
-                    mobile: resultdata[i].mobile,
-                    email: resultdata[i].email,
-                    gender: resultdata[i].gender,
-                    address: resultdata[i].address,
-                    primary_language: resultdata[i].lang_name,
-                    role_name: resultdata[i].role_name,
-                    interpreter_rate: resultdata[i].interpreter_rate,
-                    primary_lang_id: resultdata[i].primary_lang_id,
-                    interLanguage: langArr,
-                }
-                mainArr.push(mainObj); 
-            } 
-        }
-    console.log("user info-",mainArr);
-        if (mainArr && mainArr.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: mainArr
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
     }
+    
 }
     
 
@@ -1221,8 +1238,28 @@ module.exports.getInterpreterTime_old = async function(req, res, next) {
 
 
 // check interpreter email
-module.exports.checkeEmail = function(req, res) {
-    let email = req.body.email ? req.body.email : 0;
+module.exports.checkeEmail = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        email: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+    let email = req.body.email;
+
     var sql = "SELECT * FROM user WHERE email='"+email+"'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
@@ -1248,20 +1285,52 @@ module.exports.checkeEmail = function(req, res) {
 };
 
 
-
 // add interpreter
 module.exports.addInterpreter = async function(req, res) {
-    console.log('total request-',req.body)
+     //validation start
+    const v = new Validator(req.body, {
+        first_name: 'required',
+        last_name: 'required',
+        email: 'required',
+        password: 'required',
+        languageid: 'required',
+        mobile: 'required',
+        address: 'required',
+        apartment: 'required',
+        street: 'required',
+        latitude: 'required',
+        longitude: 'required',
+        gender: 'required',
+        primary_language: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
 
-    let name = req.body.name;
+
+
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
     let email = req.body.email;
-
     let first_password = req.body.password;
-
     let password = req.body.password;
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
     let address = req.body.address;
+    let apartment = req.body.apartment;
+    let street = req.body.street;
     let latitude = req.body.latitude ? req.body.latitude : 0;
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let gender = req.body.gender;
@@ -1269,7 +1338,7 @@ module.exports.addInterpreter = async function(req, res) {
     let rate = req.body.rate ? req.body.rate : 0;
     password = cryptr.encrypt(password);
     
-    var sql = "INSERT INTO user(role_id,name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate)VALUES('2','"+name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"')";
+    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"')";
     console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
@@ -1280,7 +1349,7 @@ module.exports.addInterpreter = async function(req, res) {
                 con.query(sql1, function(err, insert) {});
             }
 
-            
+            var name = first_name+" "+last_name;
             common.sendRegistrationEmail(name,email,first_password);
 
             res.json({
@@ -1310,7 +1379,8 @@ module.exports.updateInterpreter = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {
         id: 'required',
-        name: 'required',
+        first_name: 'required',
+        last_name: 'required',
         mobile: 'required',
         languageid: 'required',
         // address: 'required',
@@ -1341,13 +1411,15 @@ module.exports.updateInterpreter = async function(req, res) {
 
 
     let id = req.body.id;
-    let name = req.body.name;
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
     let gender = req.body.gender;
     let primary_language = req.body.primary_lang_id;
     let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
-
+    let apartment = req.body.apartment ? req.body.apartment : "";
+    let street = req.body.street ? req.body.street : "";
 
     let old_address='';
     let old_latitude='';
@@ -1364,7 +1436,7 @@ module.exports.updateInterpreter = async function(req, res) {
     let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET name ='"+name+"',mobile ='"+mobile+"',address ='"+address+"',latitude ='"+latitude+"',longitude ='"+longitude+"',gender ='"+gender+"',primary_language ='"+primary_language+"',interpreter_rate ='"+interpreter_rate+"' WHERE id = '"+id+"'";
+    let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',address ='"+address+"',latitude ='"+latitude+"',longitude ='"+longitude+"',gender ='"+gender+"',primary_language ='"+primary_language+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"' WHERE id = '"+id+"'";
 
     console.log("sql-update",sql)
     var query = con.query(sql, function(err, result) {

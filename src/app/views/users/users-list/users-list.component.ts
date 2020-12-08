@@ -100,7 +100,6 @@ export class UsersListComponent implements OnInit {
 }
 
 
-
   deleteUser(id, modal) {
     console.log("delete idddddddddd",id);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })

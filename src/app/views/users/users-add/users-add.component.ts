@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 import { MapsAPILoader } from '@agm/core';
-import { MouseEvent } from '@agm/core';
+// import { MouseEvent } from '@agm/core';
 // import { MouseEvent as AGMMouseEvent } from '@agm/core';
 // import { MapsAPILoader, MouseEvent } from '@agm/core';
 
@@ -118,11 +118,14 @@ export class UsersAddComponent implements OnInit {
     /*========== Form Value Start Here========*/
     createForm() {
         this.userForm = this.fb.group({
-            name: ['', this.validation.name_validation],
+            first_name: ['', this.validation.name_validation],
+            last_name: ['', this.validation.name_validation],
             email: ['', this.validation.onlyRequired_validator],
             password: ['', this.validation.onlyRequired_validator],
             mobile: ['', this.validation.onlyRequired_validator],
             address: ['', this.validation.onlyRequired_validator],
+            apartment:['', this.validation.onlyRequired_validator],
+            street:['', this.validation.onlyRequired_validator],
             gender: ['', this.validation.onlyRequired_validator],
             languageid: [''],
             latitude: [''],

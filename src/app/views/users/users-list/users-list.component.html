@@ -46,12 +46,12 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                 <ngx-datatable-column name="Name" prop="name" [minWidth]="20">
-                  <ng-template ngx-datatable-header-template>
-                    Name
+                 <ngx-datatable-column name="Full Name" prop="name" [minWidth]="20" >
+                  <ng-template ngx-datatable-header-template >
+                   Full Name
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.name}}
+                    <span (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Email" prop="email" [minWidth]="70">

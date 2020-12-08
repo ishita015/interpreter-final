@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { MapsAPILoader } from '@agm/core';
-//import { MouseEvent } from '@agm/core';
+// import { MouseEvent } from '@agm/core';
 
  import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 
@@ -106,11 +106,14 @@ export class UsersEditComponent implements OnInit {
   /*========== Form Value Start Here========*/
   createForm() {
     this.userEditForm = this.fb.group({ 
-    name: ['', this.validation.onlyRequired_validator],
+      first_name: ['', this.validation.name_validation],
+      last_name: ['', this.validation.name_validation],
     email: [{value: '', disabled: true}],
     // password: ['', this.validation.onlyRequired_validator],
     mobile: ['', this.validation.onlyRequired_validator],
     address: ['', this.validation.onlyRequired_validator],
+    apartment:['', this.validation.onlyRequired_validator],
+    street:['', this.validation.onlyRequired_validator],
     gender: ['', this.validation.onlyRequired_validator],
     languageid:['', this.validation.onlyRequired_validator],
     latitude:[''],
@@ -127,7 +130,10 @@ export class UsersEditComponent implements OnInit {
   patchValue(){
     this.userEditForm.get('user_role').patchValue( this.json_Obj.role_id);
     this.userEditForm.get('email').patchValue( this.json_Obj.email);
-    this.userEditForm.get('name').patchValue( this.json_Obj.name);
+    this.userEditForm.get('first_name').patchValue( this.json_Obj.first_name);
+    this.userEditForm.get('last_name').patchValue( this.json_Obj.last_name);
+    this.userEditForm.get('apartment').patchValue( this.json_Obj.apartment);
+    this.userEditForm.get('street').patchValue( this.json_Obj.street);
     this.userEditForm.get('mobile').patchValue( this.json_Obj.mobile);
     this.userEditForm.get('address').patchValue( this.json_Obj.address);
     this.userEditForm.get('latitude').patchValue( this.json_Obj.latitude);
