@@ -1027,7 +1027,9 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
             mainObj = {
                 id: resultdata[i].id,
                 role_id: resultdata[i].role_id,
-                name: resultdata[i].first_name+" "+resultdata[i].last_name,
+                // name: resultdata[i].first_name+" "+resultdata[i].last_name,
+                first_name:resultdata[i].first_name,
+                last_name: resultdata[i].last_name,
                 mobile: resultdata[i].mobile,
                 email: resultdata[i].email,
                 gender: resultdata[i].gender,

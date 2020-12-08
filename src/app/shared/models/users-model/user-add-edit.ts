@@ -11,4 +11,8 @@ export interface UserAddEdit {
     primary_language:any;
     user_role:any;
     primary_lang_id:any;
+    first_name:any;
+    last_name:any;
+    apartment:any;
+    street:any;
 }
