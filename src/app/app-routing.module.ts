@@ -41,10 +41,10 @@ const adminRoutes: Routes = [
       loadChildren: () => import('./views/user-request/user-request.module').then(m => m.UserRequestModule)
     },
 
-    {
-      path: 'chating',
-      loadChildren: () => import('./views/chating/chating.module').then(m => m.ChatingModule)
-    },
+    // {
+    //   path: 'chating',
+    //   loadChildren: () => import('./views/chating/chating.module').then(m => m.ChatingModule)
+    // },
     {
       path: 'uikits',
       loadChildren: () => import('./views/ui-kits/ui-kits.module').then(m => m.UiKitsModule)
