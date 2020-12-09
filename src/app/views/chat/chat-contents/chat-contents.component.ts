@@ -54,16 +54,17 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
 
     this.service.currentMessage.subscribe(message => {
     this.message = (message) ? message : ''
-    
+    })
+
+
     this.userChat();
       this.service
       .getMessages()
-      .subscribe((message: string) => {
-        this.messageList.push(message);
+      .subscribe((res: string) => {
+        this.messageList.push(res);
         this.scrollToBottom();
-        // console.log("messageList",this.messageList)
       });
-    })
+
    }
 
   ngOnDestroy() {
@@ -87,13 +88,14 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   
 
 
-  sendMessage(e) {
+  message_send(e) {
     console.log(e);
     
     this.textForm = this.msgForm.form.value.message;
     if(this.textForm!='' && this.textForm!=undefined && this.textForm!=null){
       this.service.sendMessage(this.textForm,this.userId,this.message.id,this.message.group_id);
     }
+    this.msgForm.form.reset();
   }
 
 
