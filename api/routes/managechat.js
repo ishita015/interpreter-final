@@ -35,9 +35,14 @@ module.exports.getContactList = async function(req, res, next) {
     }
 
     var mainArr1 = [];
-    var user_id         = req.body.user_id;
-    var checkResults = await chatapi.getContactData(user_id);
-    // console.log("contact list", checkResults)
+    var user_id = req.body.user_id;
+    let roleid=1;
+    if(user_id==1){
+        roleid=2;
+    }
+
+    var checkResults = await chatapi.getContactData(user_id,roleid);
+    // console.log("contact list", checkResults) 
     if (checkResults != "" && checkResults != undefined) {
         var mainObj1 = {};
         for (var i = 0; i < checkResults.length; i++) {

@@ -7,10 +7,10 @@ let dt = new Date().getTime() / 1000;
 
 class chatClass {
 
-    getContactData(user_id){
+    getContactData(user_id,roleid){
         return new Promise(function(resolve, reject) {
             // let sql = "SELECT u.*,c_sender.group_id as c_group_id,c_receiver.group_id as r_group_id from user as u LEFT join chatroom as c_sender on c_sender.sender_id = u.id LEFT join chatroom as c_receiver on c_receiver.receiver_id = u.id where u.id != '"+user_id+"'";
-            let sql = "SELECT * FROM `user` WHERE id != '"+user_id+"'"
+            let sql = "SELECT * FROM `user` WHERE id != '"+user_id+"' && role_id = '"+roleid+"'"
             console.log("contact sql", sql);
 
             con.query(sql, function(err, result) {
