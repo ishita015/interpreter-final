@@ -33,7 +33,7 @@ export class SidebarCompactComponent implements OnInit {
       });
 
     this.navService.menuItems$.subscribe(items => {
-      this.nav = items;
+      // this.nav = items;
       this.setActiveFlag();
     });
   }
