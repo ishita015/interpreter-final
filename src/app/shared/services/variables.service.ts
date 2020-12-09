@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class VariablesService {
   public actionType; /*------Add Edit Type Data variable------*/
+  public loadingCollection = false;
   constructor() { }
 }

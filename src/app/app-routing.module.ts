@@ -42,6 +42,10 @@ const adminRoutes: Routes = [
     },
 
     {
+      path: 'chating',
+      loadChildren: () => import('./views/chating/chating.module').then(m => m.ChatingModule)
+    },
+    {
       path: 'uikits',
       loadChildren: () => import('./views/ui-kits/ui-kits.module').then(m => m.UiKitsModule)
     },

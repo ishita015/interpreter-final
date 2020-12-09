@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User, ChatService } from '../chat.service';
+import { HttpService } from "../../../shared/services/http.service";
+import { Router } from '@angular/router';
+import { VariablesService } from 'src/app/shared/services/variables.service';
 
 @Component({
   selector: 'app-chat-left-sidebar',
@@ -13,41 +16,68 @@ export class ChatLeftSidebarComponent implements OnInit {
   loadDataSub: Subscription;
 
   isSidenavOpen = true;
-
+  userId;
+  contact_Obj;
+  group_id;
   currentUser: User = new User();
   contacts: any[];
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService,public service: HttpService,private router: Router,public variable:VariablesService
+    ) {}
 
   ngOnInit() {
-    // this.chatService.onChatsUpdated
-    //   .subscribe(updatedChats => {
-    //     this.chats = updatedChats;
-    //   });
-
-    this.userUpdateSub = this.chatService.onUserUpdated
-      .subscribe(updatedUser => {
-        this.currentUser = updatedUser;
-      });
-
-    this.loadDataSub = this.chatService.loadChatData()
-      .subscribe(res => {
-        this.currentUser = this.chatService.user;
-        // this.chats = this.chatService.chats;
-        this.contacts = this.chatService.contacts;
-      });
-  }
-  ngOnDestroy() {
-    if ( this.userUpdateSub ) { this.userUpdateSub.unsubscribe(); }
-    if ( this.loadDataSub ) { this.loadDataSub.unsubscribe(); }
+    this.userId = JSON.parse(localStorage.getItem('userId'));
+    this.getContactList();
   }
 
-  getChatByContact(contactId) {
-    this.chatService.getChatByContact(contactId)
-      .subscribe(res => {
-        console.log('from sub', res);
-      }, err => {
-        console.log(err);
-      });
+
+  getContactList(){
+    this.service.getContactData(this.userId)  
+    .subscribe(res => {
+      if(res['status'] == 1){
+        // this.contact_Obj = res['data'];
+
+        this.contacts= res['data'];
+        console.log("yes",this.contacts);
+        
+
+        // this.messageList=this.chat_Obj;
+        // localStorage.setItem('messageList', JSON.stringify(this.chat_Obj));
+      }
+        
+        
+    });
   }
+
+
+  getChatByContact(contact) {
+    this.variable.loadingCollection = true;
+    this.service.changeMessage(contact);
+    
+    if(contact.group_id =='0'){
+      console.log("group_id",contact.group_id)  
+      // send request
+      // alert(this.userId)
+      // alert(contact.id)
+        this.service.requestSend(this.userId,contact.id).subscribe(res => {
+         if(res['status'] == 1){
+          // alert(3)
+          this.getContactList();  
+         }
+      })
+    }
+
+   
+  }
+
+
+
+  // getChatByContact(contactId) {
+  //   this.chatService.getChatByContact(contactId)
+  //     .subscribe(res => {
+  //       console.log('from sub', res);
+  //     }, err => {
+  //       console.log(err);
+  //     });
+  // }
 }

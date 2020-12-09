@@ -19,7 +19,7 @@ var formidable = require('formidable');
 var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
-//const v = require('node-input-validator');
+
 const { Validator } = require('node-input-validator');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
@@ -35,6 +35,7 @@ app.use(bodyParser.json({limit:'50mb'}));
 var con = require('./config');
 var base_url = "";
 var room = []
+
 
 app.all('/*', function(req, res, next) {
      // Website you wish to allow to connect
@@ -61,8 +62,27 @@ var userroleController = require('./routes/userrole');
 var interpreterController = require('./routes/interpreter');
 var serviceController = require('./routes/service');
 var loginController = require('./routes/login');
+
+var chatController = require('./routes/managechat');
 // api start
 
+
+//chat start api
+app.post('/cesco/getContactList', chatController.getContactList);
+
+app.post('/cesco/getChatData', chatController.getChats);
+app.post('/cesco/sendRequest', chatController.sendRequest);
+app.post('/cesco/userAcceptRequest', chatController.userAcceptRequest);
+app.post('/cesco/chat-userDeclineRequest', chatController.userDeclineRequest);
+app.post('/cesco/chat-userPendingRequestlist', chatController.userpendingRequestlist);
+app.post('/cesco/chat-groupInfo', chatController.groupInfo);
+app.post('/cesco/chat-removeUserInGroup', chatController.removeUserInGroup);
+
+app.post('/cesco/chat-addUserInGroup', chatController.addUserInGroup);
+app.post('/cesco/chat-UserBlockUnblock', chatController.chatUserBlockUnblock);
+app.post('/cesco/chat-userBlockList', chatController.chatUserBlockList);
+
+//chat end api
 
 
 
@@ -163,8 +183,6 @@ app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 
 // api end
-
-
 
 
 app.post('/cesco/userRoleAdd', function(req, res) {
@@ -370,6 +388,88 @@ app.post('/cesco/importLang', upload.any(),async function(req, res, next) {
 });
 
 
+
+
+
+io.sockets.on('connection', function(socket) {
+    console.log(room + ' joined the chat.');
+    socket.on('room', function(room) {
+        console.log(room + ' joined the chat.');
+        socket.room = room;
+        socket.join(room);
+    });
+
+    // socket.on('typing', function(group_id,sender_id) {
+    //     var group_id = request.group_id;
+    //     var sender_id = request.sender_id;
+    //     // var sender_name = request.sender_name;
+    //     var message = request.message ? request.message : 'Typing..';
+    //     io.sockets.in(group_id).emit('responce_typing', {
+    //         status: 1,
+    //         group_id: group_id,
+    //         sender_id: sender_id,
+    //         message: message
+    //     });
+    // });
+
+
+
+    socket.on('sendChat', function(message,sender_id,receiver_id,group_id) {
+        saveChatInDatabase(message,sender_id,receiver_id,group_id);
+    });
+
+
+    
+    function saveChatInDatabase(message,sender_id,receiver_id,group_id) {
+        var new_date = Date.now();
+            new_date = moment(new_date).unix();
+
+        if(group_id!='0' && group_id!=undefined){
+            let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+group_id+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','text','0','0')";
+
+            console.log(sql);
+            con.query(sql, function(err, result) {
+                if(result.affectedRows == 1){
+                    io.sockets.emit('responce_chat', {
+                        chatRoomId: group_id,
+                        receiverId: receiver_id,
+                        senderId: sender_id,
+                        msg: message,
+                        sendTimestamp: new_date
+                    });
+                }else{
+                    throw err;
+                }
+            });
+        }else{
+            var sql1 = "SELECT group_id FROM chatroom WHERE (sender_id='"+sender_id+"' && receiver_id='"+receiver_id+"') || (receiver_id='"+sender_id+"' && sender_id='"+receiver_id+"')";
+
+            con.query(sql1, function(err, result, fields) {
+                if (result && result.length > 0) {
+                    var groupId=result[0].group_id;
+                    let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+groupId+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','text','0','0')";
+
+                    console.log(sql);
+                    con.query(sql, function(err, result) {
+                        if(result.affectedRows == 1){
+                            io.sockets.emit('responce_chat', {
+                                chatRoomId: groupId,
+                                receiverId: receiver_id,
+                                senderId: sender_id,
+                                msg: message,
+                                sendTimestamp: new_date
+                            });
+                        }else{
+                            throw err;
+                        }
+                    });
+                }
+            });
+
+        }
+        //    message = mysql_real_escape_string(message);     
+    }
+});
 
 
 

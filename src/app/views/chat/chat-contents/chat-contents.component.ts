@@ -4,6 +4,8 @@ import { ChatService, ChatCollection, User, Chat } from '../chat.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { HttpService } from 'src/app/shared/services/http.service';
+import { VariablesService } from 'src/app/shared/services/variables.service';
 
 @Component({
   selector: 'app-chat-contents',
@@ -25,60 +27,69 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
 
   @ViewChildren('msgInput') msgInput;
   @ViewChild('msgForm') msgForm: NgForm;
-
-  constructor(public chatService: ChatService) {}
+  incomingmsg = [];
+  messageList:  string[] = [];
+  msg = '';
+  userId;
+  reciever_id;
+  sendData;
+  historyData;
+  textForm;
+  userName;
+  message;
+  groupId;
+  chat_Obj;
+  loggeduser;
+  constructor(public chatService: ChatService, private service: HttpService,
+    public variable: VariablesService) { }
 
   ngOnInit() {
-    // Listen for user update
-    this.userUpdateSub = this.chatService.onUserUpdated.subscribe(user => {
-      console.log(user);
-      this.user = user;
-    });
-
-    // Listen for contact change
-    this.chatSelectSub = this.chatService.onChatSelected.subscribe(res => {
-      if (res) {
-        this.chatCollection = res.chatCollection;
-        this.activeContact = res.contact;
-        this.initMsgForm();
-      }
-    });
-
-    // Listen for chat update
-    this.chatUpdateSub = this.chatService.onChatsUpdated.subscribe(chat => {
-      this.chatCollection.chats.push(chat);
-      this.scrollToBottom();
-    });
-  }
+    this.userId = JSON.parse(localStorage.getItem('userId'));
+    this.loggeduser = JSON.parse(localStorage.getItem('loggeduser'));
+    this.service.currentMessage.subscribe(message => {
+    this.message = (message) ? message : ''
+    
+    this.userChat();
+      this.service
+      .getMessages()
+      .subscribe((message: string) => {
+        this.messageList.push(message);
+        this.scrollToBottom();
+        // console.log("messageList",this.messageList)
+      });
+    })
+   }
 
   ngOnDestroy() {
-    if ( this.userUpdateSub ) { this.userUpdateSub.unsubscribe(); }
-    if ( this.chatSelectSub ) { this.chatSelectSub.unsubscribe(); }
-    if ( this.chatUpdateSub ) { this.chatUpdateSub.unsubscribe(); }
+    if (this.userUpdateSub) { this.userUpdateSub.unsubscribe(); }
+    if (this.chatSelectSub) { this.chatSelectSub.unsubscribe(); }
+    if (this.chatUpdateSub) { this.chatUpdateSub.unsubscribe(); }
   }
+
+  userChat(){
+    this.service.getUserChat(this.userId,this.message.group_id)  
+    .subscribe(res => {
+      if(res['status'] == 1){
+        this.chat_Obj = res['data'];
+        this.messageList=this.chat_Obj;
+        console.log("messageList",this.messageList)
+      } else{
+        this.messageList=[];
+      }
+    });
+  }
+  
+
 
   sendMessage(e) {
-    const chat: Chat = {
-      contactId: this.chatService.user.id,
-      text: this.msgForm.form.value.message,
-      time: new Date().toISOString()
-    };
-
-    this.chatCollection.chats.push(chat);
-    this.chatService
-      .updateChats(this.chatCollection.id, [...this.chatCollection.chats])
-      .subscribe(res => {
-        this.initMsgForm();
-      });
-
-    // Only for demo purpose
-    this.chatService.autoReply({
-      contactId: this.activeContact.id,
-      text: `Hi, I\'m ${this.activeContact.name}. Your imaginary friend.`,
-      time: new Date().toISOString()
-    });
+    console.log(e);
+    
+    this.textForm = this.msgForm.form.value.message;
+    this.service.sendMessage(this.textForm,this.userId,this.message.id,this.message.group_id);
+    // message.target.value = "";
 
   }
+
 
   initMsgForm() {
     setTimeout(() => {

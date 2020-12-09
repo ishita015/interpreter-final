@@ -18,6 +18,7 @@ export class SigninComponent implements OnInit {
     loadingText: string;
     signinForm: FormGroup;
     submitted: boolean;
+    name;
     public log_Msg;
     public log_Obj;
     public role_obj;
@@ -80,9 +81,15 @@ export class SigninComponent implements OnInit {
                         console.log('log_Obj--', this.log_Obj);
 
                         localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+                        this.name=this.log_Obj.first_name+" "+this.log_Obj.last_name;
+                        
+
+                        
+
                         localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
                         localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
                         localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
+                        localStorage.setItem('loggeduser', JSON.stringify(this.name));
                         this.toastr.success(this.log_Msg.message,'', { timeOut: 2000 });
 
                         if(this.log_Obj.role_id==1){

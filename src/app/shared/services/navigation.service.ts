@@ -104,6 +104,20 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
             ]
         },
+
+        {   
+            name: 'Chat',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/chat/chat',
+        },
+
+        // {   
+        //     name: 'test Chat',
+        //     type: 'link',
+        //     icon: 'i-Add-User',
+        //     state: '/chating/chat',
+        // },
        
     ];
 
@@ -131,6 +145,12 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/interpreter-request/completed-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
             ]
+        },
+        {   
+            name: 'Chat',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/chat/chat',
         },
     ];
 
