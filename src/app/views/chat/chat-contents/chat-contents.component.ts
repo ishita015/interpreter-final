@@ -91,9 +91,9 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
     console.log(e);
     
     this.textForm = this.msgForm.form.value.message;
-    this.service.sendMessage(this.textForm,this.userId,this.message.id,this.message.group_id);
-    // message.target.value = "";
-
+    if(this.textForm!='' && this.textForm!=undefined && this.textForm!=null){
+      this.service.sendMessage(this.textForm,this.userId,this.message.id,this.message.group_id);
+    }
   }
 
 

@@ -19,7 +19,7 @@
           <div class="message flex-grow-1">
             <div class="d-flex">
               <p class="mb-1 text-title text-16 flex-grow-1">{{loggeduser}}</p>
-              <span class="text-small text-muted">{{chat.sendTimestamp | date}}</span>
+              <span class="text-small text-muted">{{chat.sendTimestamp * 1000 | date}}</span>
             </div>
             <p class="m-0">{{chat.msg}}</p>
           </div>
@@ -33,7 +33,7 @@
         <div class="message flex-grow-1">
           <div class="d-flex">
             <p class="mb-1 text-title text-16 flex-grow-1">{{message?.name}}</p>
-            <span class="text-small text-muted">{{chat.sendTimestamp | date}}</span>
+            <span class="text-small text-muted">{{chat.sendTimestamp * 1000 | date}}</span>
           </div>
           <p class="m-0">{{chat.msg}}</p>
         </div>
