@@ -21,11 +21,16 @@ export class ChatLeftSidebarComponent implements OnInit {
   group_id;
   currentUser: User = new User();
   contacts: any[];
-
+  login_data;
   constructor(private chatService: ChatService,public service: HttpService,private router: Router,public variable:VariablesService
     ) {}
 
   ngOnInit() {
+    this.login_data = JSON.parse(localStorage.getItem('loginData'));
+    // this.login_data.profile_img
+
+    // console.log("profile_img",this.login_data.profile_img)
+
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.getContactList();
   }

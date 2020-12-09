@@ -40,12 +40,18 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   groupId;
   chat_Obj;
   loggeduser;
+  login_data
   constructor(public chatService: ChatService, private service: HttpService,
     public variable: VariablesService) { }
 
   ngOnInit() {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.loggeduser = JSON.parse(localStorage.getItem('loggeduser'));
+    this.login_data = JSON.parse(localStorage.getItem('loginData'));
+    // this.login_data.profile_img
+
+    console.log("profile_img",this.login_data.profile_img)
+
     this.service.currentMessage.subscribe(message => {
     this.message = (message) ? message : ''
     

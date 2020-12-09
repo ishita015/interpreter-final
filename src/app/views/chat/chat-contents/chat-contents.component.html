@@ -15,7 +15,7 @@
       <div *ngIf="chat.senderId == userId">
         <div class="d-flex user">
 
-          <img src="./assets/images/faces/2.jpg" class="avatar-sm rounded-circle mr-3">
+          <img src="./assets/images/faces/{{login_data.profile_img}}" class="avatar-sm rounded-circle mr-3">
           <div class="message flex-grow-1">
             <div class="d-flex">
               <p class="mb-1 text-title text-16 flex-grow-1">{{loggeduser}}</p>
@@ -37,7 +37,7 @@
           </div>
           <p class="m-0">{{chat.msg}}</p>
         </div>
-        <img src="./assets/images/faces/1.jpg" class="avatar-sm rounded-circle ml-3">
+        <img src="./assets/images/faces/{{message.profile_img}}" class="avatar-sm rounded-circle ml-3">
       </div>
     </div>
     </div>

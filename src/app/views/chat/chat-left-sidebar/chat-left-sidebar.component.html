@@ -31,7 +31,7 @@
     [ngClass]="{online: contact.status === 'online'}"
     (click)="getChatByContact(contact)">
     <!-- assets/images/faces/13.jpg -->
-    <img [src]="assets/images/faces/13" alt="" class="avatar-sm rounded-circle mr-3">
+    <img src="/assets/images/faces/{{contact.profile_img}}" alt="" class="avatar-sm rounded-circle mr-3">
       <h6 class="">{{contact.name}}</h6>
     </div>
   </div>
