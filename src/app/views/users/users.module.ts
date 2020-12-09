@@ -14,8 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { BrowserModule } from '@angular/platform-browser';
 import { TagInputModule } from 'ngx-chips';
 import { AgmCoreModule } from '@agm/core';
-// import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 
+import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 //calendar
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -24,7 +24,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 //ViewCalendarComponent
 
 @NgModule({
-  declarations: [UsersAddComponent, UsersEditComponent, UsersListComponent, UsersViewComponent],
+  declarations: [UsersAddComponent, UsersEditComponent, ViewCalendarComponent, UsersListComponent, UsersViewComponent],
   imports: [
     CommonModule,
     FormsModule,
