@@ -78,7 +78,7 @@
                     No.of Interpreter
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.Interpreter}}
+                  <span (click)="interpreter()">{{row.Interpreter}}</span>
                 </ng-template>  
             </ngx-datatable-column>
               <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">

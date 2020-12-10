@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* atul custom css  */
 /* You can add global styles to this file, and also import other style files */
+
 .dashboard_block .card_red:hover {box-shadow: 0 4px 20px 1px rgb(225 43 107 / 37%), 0 1px 4px rgb(226 45 108 / 17%) !important; }
 .dashboard_block .card_gr:hover {box-shadow: 0 4px 20px 1px rgb(83 172 87 / 50%), 0 1px 4px rgb(45 148 50 / 31%) !important; }
 .dashboard_block .card:hover {box-shadow: 0 4px 20px 1px rgb(254 156 22 / 50%), 0 1px 4px rgb(253 156 23 / 39%); }
@@ -39,11 +40,14 @@
 .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {white-space: initial !important; height: auto !important; }
   .buttondisplay{white-space: none !important; height: auto !important; }
 .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:last-child{min-width: 200px !important; min-height: auto !important;}
-.lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell:last-child{min-width: 200px !important;}
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:last-child{min-width: 230px !important; min-height: auto !important;}
+.lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell:last-child{min-width: 230px !important;}
 .lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:first-child{min-width: 80px !important; min-height: auto !important;}
 .lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell:first-child{min-width: 80px !important;}
-
+.lang_block .datatable-body-cell-label:last-child {
+  display: inline-flex !important;
+}
+.lang_block .btn{    padding: 4px 5px;}
 .role_block .datatable-row-wrapper .datatable-body-row .datatable-row-center {
     transform: translate3d(0px, 0px, 0px) !important;
     backface-visibility: hidden;
@@ -54,7 +58,7 @@
     backface-visibility: hidden;
     width: 100% !important;
 }
-
+.eye-icon{float: right; margin-right: 6px;margin-top: -23px;position: relative;}
 
 /* 
 .datatable-row-center .datatable-header-cell .datatable-header-cell .datatable-header-cell-template-wrap{width: 200px !important;} */

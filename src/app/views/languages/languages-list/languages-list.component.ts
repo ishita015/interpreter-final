@@ -154,5 +154,8 @@ export class LanguagesListComponent implements OnInit {
         console.log("data",data);
         localStorage.setItem('languageData', JSON.stringify(data));
     }
+    interpreter(){
+      this.router.navigate(['/languages/interpreter-detail']);
+    }
     
 }
