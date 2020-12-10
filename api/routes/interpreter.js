@@ -14,6 +14,142 @@ const usermodel = new userModel();
 
 
 
+
+// add interpreter
+module.exports.addInterpreterEvents = async function(req, res) {
+    //validation start
+   const v = new Validator(req.body, {
+       user_id: 'required',
+       title: 'required',
+    //    description: 'required',
+       date: 'required',
+       start_time: 'required',
+       end_time: 'required'
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+
+
+   let user_id = req.body.user_id;
+   let title = req.body.title;
+   let date = req.body.date;
+   let start_time = req.body.start_time;
+   let end_time = req.body.end_time;
+   let description = req.body.description ? req.body.description : "";
+   
+   var sql = "INSERT INTO interpreter_event(user_id,title,description,date,start_time,end_time)VALUES('"+user_id+"','"+title+"','"+description+"','"+date+"','"+start_time+"','"+end_time+"')";
+   console.log('sql-',sql)
+   con.query(sql, function(err, insert) {
+       let last_id= insert.insertId;
+       if(!err){
+           res.json({
+               status: 1,
+               error_code: 0,
+               error_line: 6,
+               message: "Interpreter event add successfully",
+           });
+           return true;
+       }else{
+           res.json({
+               status: 0,
+               error_code: 0,
+               error_line: 6,
+               message: "server error",
+           });
+           return true;
+       }
+   });
+};
+
+
+
+
+// user_id
+// ris_id
+// notes
+
+module.exports.adminReminderForinterpreter = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        user_id: 'required',
+        ris_id: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.user_id;
+    let ris_id = req.body.ris_id;
+    let notes = req.body.notes ? req.body.notes : "";
+
+
+    var resultData  = await usermodel.getRequestDetails(user_id,ris_id);
+    if (resultData != "" && resultData != undefined) {
+        var name=resultData[0].last_name+" "+resultData[0].first_name;
+        var date = resultData[0].date;
+        var start_time = resultData[0].start_time;
+        var end_time = resultData[0].anticipated_end_time;
+        var interpreter_email = resultData[0].interpreter_email;
+
+        // send mail are pending
+        common.sendReminderEmail(name,interpreter_email,date,start_time,end_time,notes);
+
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            message: "Reminder send successfully",
+        });
+        return true;
+    }else{
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            message: "Request failed",
+        });
+        return true;
+    }
+    
+    
+
+};
+
+
+
+
+
+
+
+
+
 module.exports.getIntAccReqDashboardData = async function(req, res, next) {
     //validation start
     const v = new Validator(req.body, {

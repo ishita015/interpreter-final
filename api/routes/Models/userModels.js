@@ -9,24 +9,21 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
-    // interpreterRejectList(role_id,user_id,status){
-    //     return new Promise(function(resolve, reject) {
-    //         var sql = "SELECT ir.status,ir.is_reject, u.id as user_id,u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ir.is_reject='1'";
+    
+    getRequestDetails(user_id,ris_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT ir.status,u.id as user_id,u.first_name,u.last_name,u.mobile,u.email as interpreter_email,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.anticipated_end_time,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ir.Interpreter_id='"+user_id+"' && ir.job_id='"+ris_id+"'";
 
-    //         if (role_id!=1) {
-    //             sql +=" && ir.Interpreter_id='"+user_id+"'";
-    //         }
-
-    //         console.log("check sql",sql);
-    //         con.query(sql, function(err, result) {
-    //              if (result != "" && result != "undefined") {
-    //                  resolve(result);
-    //              } else {
-    //                  resolve(false);
-    //              }
-    //          });
-    //     });  
-    // }
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
 
 
     // user login

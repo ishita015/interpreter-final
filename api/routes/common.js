@@ -12,6 +12,47 @@ var jade = require('jade');
 
 
 
+
+
+module.exports.sendReminderEmail = function(name,interpreter_email,date,start_time,end_time,notes) {
+
+    
+    let mailbody = "Hi "+name+", <br><br>";
+
+    mailbody+=" This is admin reminder mail your working date is "+date+" and time is "+start_time+" to "+end_time+" <br>";
+    if(notes!="" && notes!=undefined){
+        mailbody+="Additional admin notes are : " +notes;
+    }
+    
+    
+    
+    // let mailbody = "hi "+name+" Welcome to Interpreter application";
+      var transporter = nodemailer.createTransport({
+            host: 'mail.samosys.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'test@samosys.com',
+                pass: 'test@#321',
+            }
+        });
+        var mailOptions = {
+            from: 'test@samosys.com',
+            to: interpreter_email,
+            subject: 'Reminder',
+            html: mailbody
+        };
+        transporter.sendMail(mailOptions, function(error, info) {});
+        return true;
+        
+    };
+    
+    
+
+
+
+
+
 module.exports.sendRequestEmail = function(caseworker_name,name,email) {
 
     

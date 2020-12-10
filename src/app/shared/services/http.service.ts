@@ -68,6 +68,21 @@ export class HttpService {
     });
   }
 
+  public typingMessageEmit(group_id,sender_id) {
+    this.socket.emit('typing', group_id,sender_id);
+  }
+
+
+
+  public typingMessageOn = () => {
+    return Observable.create((observer) => {
+      this.socket.on('typing', (message) => {
+        observer.next(message);
+      });
+    });
+  }
+
+
 
   requestSend(user_id,request_user_id): Observable<any> {
     return this.http.post(this.url + '/cesco/sendRequest', { user_id: user_id, request_user_id: request_user_id }, this.httpOptions);
