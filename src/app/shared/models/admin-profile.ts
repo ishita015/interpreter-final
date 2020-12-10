@@ -1,5 +1,6 @@
 export interface AdminProfile {
-    name:any,
+    first_name:any,
+    last_name:any,
     mobile: any,
     address:any,
     image:any,

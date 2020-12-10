@@ -134,6 +134,9 @@ app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
+
+
+app.post('/cesco/getSelectLangInterpreter', languageController.getSelectLangInterpreter);
 app.post('/cesco/checkLanguage', languageController.checkLanguage);
 app.post('/cesco/langStatusUpdate', languageController.langStatusUpdate);
 app.get('/cesco/getlanguages', languageController.getLanguages);
@@ -236,7 +239,8 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 
     //validation start
     const v = new Validator(req.body, {
-        name: 'required',
+        first_name: 'required',
+        last_name: 'required',
         mobile: 'required',
         user_id: 'required',
         address: 'required'
@@ -261,7 +265,8 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 
 
     let user_id = req.body.user_id;
-    let name  = req.body.name;
+    let first_name  = req.body.first_name;
+    let last_name  = req.body.last_name;
     let address = req.body.address;
     //let latitude = req.body.lat ? req.body.lat:0;
     //let longitude = req.body.long ? req.body.long:0;
@@ -278,9 +283,9 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
     
 
     if(profileImg==""){
-        var user_update = "UPDATE user SET name='"+name+"',address='"+address+"',mobile='"+mobile+"' WHERE id ='"+user_id+"'";
+        var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"' WHERE id ='"+user_id+"'";
     }else{
-        var user_update = "UPDATE user SET name='"+name+"',address='"+address+"',mobile='"+mobile+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
+        var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
     }
 
     console.log("user_update sql--",user_update)
@@ -474,7 +479,6 @@ io.sockets.on('connection', function(socket) {
 
 
 /* end */
-
 
 var port = process.env.PORT || 3300;
 server.listen(port);

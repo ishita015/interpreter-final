@@ -17,7 +17,7 @@ export class InterpreterDetailsComponent implements OnInit {
   list_Obj: any[];
   languageData;
   filteredLanguage;
- 
+  lang_id;
   searchControl: FormControl = new FormControl();
   constructor(   private dl: DataLayerService,
     private modalService: NgbModal,
@@ -27,7 +27,8 @@ export class InterpreterDetailsComponent implements OnInit {
     private router: Router,) { }
 
   ngOnInit(){
-      this.languageList();
+      this.lang_id = JSON.parse(localStorage.getItem('lang_id'));
+      this.selectLangInterpreter();
       this.searchControl.valueChanges
       .pipe(debounceTime(200))
       .subscribe(value => {
@@ -61,14 +62,14 @@ export class InterpreterDetailsComponent implements OnInit {
   }
 
 
-
-languageList(){
-    this.service.getLanguageList()
+  // getLangSelectInterpreter(language_id)
+  selectLangInterpreter(){
+    this.service.getLangSelectInterpreter(this.lang_id)
     .subscribe(res => {
-        console.log("api response",res);
+        // console.log("api response",res);
         this.list_Obj = res['data'];
         this.languageData = [...res['data']];
-        console.log("listttttttt", this.list_Obj);
+        // console.log("listttttttt", this.list_Obj);
         this.filteredLanguage = this.list_Obj;
     });
 }

@@ -38,12 +38,12 @@
                       {{rowIndex +1}}
                   </ng-template>
                  </ngx-datatable-column>
-                 <ngx-datatable-column  name="Interpreter Name" prop="name">
+                 <ngx-datatable-column  name="Interpreter Name" prop="first_name">
                   <ng-template ngx-datatable-header-template>
                    Interpreter Name
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.name}}
+                    {{row.first_name}} {{row.last_name}}
                   </ng-template>
                 </ngx-datatable-column>
 

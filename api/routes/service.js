@@ -226,7 +226,7 @@ module.exports.getRequestDetails = async function(req, res) {
 
 // get form data
 module.exports.getRequestData = function(req, res) {
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1' ORDER BY ris.id DESC";
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1' ORDER BY ris.id DESC";
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {

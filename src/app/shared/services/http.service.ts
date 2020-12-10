@@ -90,7 +90,9 @@ export class HttpService {
 
 
 
-
+  getLangSelectInterpreter(language_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getSelectLangInterpreter', { language_id: language_id }, this.httpOptions);
+  }
 
 
 

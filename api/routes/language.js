@@ -9,6 +9,97 @@ const usermodel = new userModel();
 
 
 
+
+
+module.exports.getSelectLangInterpreter = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        language_id: 'required'        
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+
+    let language_id = req.body.language_id;
+    var sql = "SELECT u.id,u.first_name,u.last_name,l.name FROM languages as l INNER JOIN user as u ON u.primary_language=l.id WHERE l.id='"+language_id+"'";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result,
+                message: "Record found"
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+
+
+
+    var resultdata = await usermodel.languageExist(code);
+
+    if (resultdata != "" && resultdata != undefined) {
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Language already exists",
+        });
+        return true;
+    }else{
+        var sql = "INSERT INTO languages(name, code,country, description,status)VALUES('"+name+"', '"+code+"','"+country+"', '"+description+"', '1')";
+        console.log('sql-',sql)
+        con.query(sql, function(err, insert) {
+            var last_id= insert.insertId;
+            if(!err){
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "Language add successfully",
+                });
+                return true;
+            }else{
+                res.json({
+                    status: 0,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "server error",
+                });
+                return true;
+            }
+        });
+    }
+};
+
+
+
+
+
 // add languages
 
 module.exports.addLanguage = async function(req, res) {

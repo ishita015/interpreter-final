@@ -91,7 +91,8 @@ export class AdminProfileComponent implements OnInit {
     
     this.adminProfileForm.value.user_id = this.userId; 
     
-    formData.append('name', this.adminProfileForm.value.name);
+    formData.append('first_name', this.adminProfileForm.value.first_name);
+    formData.append('last_name', this.adminProfileForm.value.last_name);
     formData.append('user_id', this.adminProfileForm.value.user_id);
     formData.append('mobile', this.adminProfileForm.value.mobile);
     formData.append('address', this.adminProfileForm.value.address);
