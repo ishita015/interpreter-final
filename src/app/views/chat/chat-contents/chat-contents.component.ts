@@ -53,12 +53,12 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
     console.log("profile_img",this.login_data.profile_img)
 
     this.service.currentMessage.subscribe(message => {
-    this.message = (message) ? message : ''
+       this.message = (message) ? message : ''
+       console.log("group_id missing--",this.message)
+       this.userChat();
     })
-
-
-    this.userChat();
-      this.service
+    
+    this.service
       .getMessages()
       .subscribe((res: string) => {
         this.messageList.push(res);
@@ -74,14 +74,16 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   }
 
   userChat(){
+    // console.log("group_id--",this.message.group_id)
     this.service.getUserChat(this.userId,this.message.group_id)  
     .subscribe(res => {
+      // console.log("chat res--",res)
       if(res['status'] == 1){
         this.chat_Obj = res['data'];
         this.messageList=this.chat_Obj;
         console.log("messageList",this.messageList)
       } else{
-        this.messageList=[];
+         this.messageList=[];
       }
     });
   }

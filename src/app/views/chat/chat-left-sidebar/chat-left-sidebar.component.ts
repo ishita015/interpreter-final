@@ -56,17 +56,17 @@ export class ChatLeftSidebarComponent implements OnInit {
 
 
   getChatByContact(contact) {
+    this.variable.user_chat_img=true;
+    console.log("select contact",contact);
+
     this.variable.loadingCollection = true;
     this.service.changeMessage(contact);
     
     if(contact.group_id =='0'){
       console.log("group_id",contact.group_id)  
       // send request
-      // alert(this.userId)
-      // alert(contact.id)
         this.service.requestSend(this.userId,contact.id).subscribe(res => {
          if(res['status'] == 1){
-          // alert(3)
           this.getContactList();  
          }
       })

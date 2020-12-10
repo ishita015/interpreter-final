@@ -3,7 +3,7 @@
     <a appSidebarToggler="chat-sidebar" class="link-icon d-md-none">
       <i class="icon-regular i-Right ml-0 mr-3"></i>
     </a>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" *ngIf="variable.user_chat_img">
       <img src="./assets/images/faces/{{message.profile_img}}" class="avatar-sm rounded-circle mr-2">
       <p class="m-0 text-title text-16 flex-grow-1">{{message?.name}}</p>
     </div>
