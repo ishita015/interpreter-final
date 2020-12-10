@@ -36,7 +36,9 @@ export class AdminProfileComponent implements OnInit {
    /*========== Form Value Start Here========*/
    createForm() {
     this.adminProfileForm = this.fb.group({
-      name: ['',this.validation.name_validation],
+      first_name:['',this.validation.name_validation],
+      last_name:['',this.validation.name_validation],
+      // name: ['',this.validation.name_validation],
       mobile: ['',this.validation.mobile_validator],
       email: [''],
       user_id:[''],
@@ -48,7 +50,9 @@ export class AdminProfileComponent implements OnInit {
 
    /*========== Edit Input Value Start Here========*/
    patchValue(){
-    this.adminProfileForm.get('name').patchValue(this.editdata.name);
+    this.adminProfileForm.get('first_name').patchValue(this.editdata.first_name);
+    this.adminProfileForm.get('last_name').patchValue(this.editdata.last_name);
+
     this.adminProfileForm.get('mobile').patchValue(this.editdata.mobile);
     this.adminProfileForm.get('email').patchValue(this.editdata.email);
     this.adminProfileForm.get('address').patchValue(this.editdata.address);

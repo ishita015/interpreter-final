@@ -1,0 +1,69 @@
+<div class="">
+    <div class="breadcrumb">
+      <ul class="heading">
+          <li><a>Interpreter Details </a></li>
+          <!-- <li>List</li> -->
+      </ul>
+  </div>
+    
+      <div class="separator-breadcrumb border-top"></div>
+  
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
+          </div>
+        </div>
+        <!-- <div class="col-md-8">
+            <button class="btn btn-primary float-right"   [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''" 
+            (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
+        </div>
+         -->
+        <div class="col-md-12 language_table lang_block">
+            <div class="card  o-hidden">
+                <ngx-datatable *ngIf="filteredLanguage?.length"
+                style="height: 500px; box-shadow: none"
+                class="material fullscreen"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="60"
+                [scrollbarV]="true"
+                [rows]="filteredLanguage">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+                  <ng-template ngx-datatable-header-template>
+                   S.No
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                      {{rowIndex +1}}
+                  </ng-template>
+                 </ngx-datatable-column>
+                 <ngx-datatable-column  name="Interpreter Name" prop="name">
+                  <ng-template ngx-datatable-header-template>
+                   Interpreter Name
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.name}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column  name="Language" prop="name">
+                  <ng-template ngx-datatable-header-template>
+                    Language
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.name}}
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          <ng-container *ngIf="list_Obj?.length <= 0">
+              No Data Found
+          </ng-container>
+        </div>
+          
+      </div>
+  </div>  
+  
+  
+  

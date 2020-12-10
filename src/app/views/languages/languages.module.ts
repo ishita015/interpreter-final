@@ -11,6 +11,7 @@ import { LanguagesEditComponent } from './languages-edit/languages-edit.componen
 import { LanguagesViewComponent } from './languages-view/languages-view.component';
 import { LanguagesAddEditComponent } from './languages-add-edit/languages-add-edit.component';
 import { LangimportComponent } from './langimport/langimport.component';
+import { InterpreterDetailsComponent } from './interpreter-details/interpreter-details.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,6 @@ import { LangimportComponent } from './langimport/langimport.component';
   declarations: [
     LanguagesAddComponent, 
     LanguagesListComponent, 
-    LanguagesEditComponent, LanguagesViewComponent, LanguagesAddEditComponent, LangimportComponent]
+    LanguagesEditComponent, LanguagesViewComponent, LanguagesAddEditComponent, LangimportComponent, InterpreterDetailsComponent]
 })
 export class LanguagesModule { }

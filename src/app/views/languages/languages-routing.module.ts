@@ -6,6 +6,7 @@ import { LanguagesEditComponent } from './languages-edit/languages-edit.componen
 import { LanguagesViewComponent } from './languages-view/languages-view.component';
 import { LanguagesAddEditComponent } from './languages-add-edit/languages-add-edit.component';
 import { LangimportComponent } from './langimport/langimport.component';
+import { InterpreterDetailsComponent } from './interpreter-details/interpreter-details.component';
 
 const routes: Routes = [
   { path: 'list', component: LanguagesListComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'edit/:id', component: LanguagesEditComponent }, 
   { path: 'view/:id', component: LanguagesViewComponent }, 
   { path: 'excelImport', component: LangimportComponent }, 
+  { path: 'interpreter-detail', component: InterpreterDetailsComponent },
 ];
 
 @NgModule({
