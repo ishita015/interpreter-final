@@ -44,6 +44,7 @@ export class ViewCalendarComponent implements OnInit {
 	public totalcomplete_obj;
 	cal_data;
 	new_date;
+	calendar_Id;
 	//-- Calendar variable End --//
 	constructor(
 		private modalService: NgbModal,
@@ -67,20 +68,14 @@ export class ViewCalendarComponent implements OnInit {
 	ngOnInit() {
 		this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.userId = JSON.parse(localStorage.getItem('userId'));
+		this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));
 		// this.loadEvents();
-		this.new_request();
-		this.accept_request();
-		this.reject_request();
-		this.complete_request();
-		this.cancelled_request();
-		// this.loadEvents();
-		
 		this.getInterpreterRequestInfo();
 	}
 	// ================================ Calendar Function Start=============================== //
 
 	getInterpreterRequestInfo(){
-		this.service.interpreterDashboardData(this.userId)
+		this.service.interpreterDashboardData(this.calendar_Id)
 		.subscribe(res => {
 			if(res['status']=='1'){
 				this.cal_data = res['data'];
@@ -98,66 +93,6 @@ export class ViewCalendarComponent implements OnInit {
 	  }
 	
 	
-		new_request(){
-			this.service.newRequestCount(this.userId)
-			.subscribe(res => {
-				this.newrequest_obj = res['data'][0];
-			})
-		}
-	
-	
-		accept_request(){
-			this.service.acceptRequestCount(this.userId)
-			.subscribe(res => {
-				this.accept_obj = res['data'][0];
-			})
-		}
-	
-	
-		reject_request(){
-			this.service.rejectRequestCount(this.userId)
-			.subscribe(res => {
-				this.reject_obj = res['data'];
-			})
-		}
-	
-	
-		complete_request(){
-			this.service.completeRequestCount(this.userId)
-			.subscribe(res => {
-				this.totalcomplete_obj = res['data'][0];
-			})
-		}
-	
-	
-		cancelled_request(){
-			this.service.cancelledRequestCount(this.userId)
-			.subscribe(res => {
-				this.totalcancel_obj = res['data'][0];
-			})
-		}
-	
-	
-		newRequest(){
-			this.router.navigate(['/interpreter-request/list']);
-		}
-	
-	
-		acceptRquest(){
-			this.router.navigate(['/interpreter-request/accept-list']);
-		}
-		
-		RejectRequest(){
-			this.router.navigate(['/interpreter-request/reject-list']);
-		}
-		
-		completeRequest(){
-			this.router.navigate(['/interpreter-request/completed-list']);
-		}
-		cancelRequest(){
-			this.router.navigate(['/interpreter-request/cancelled-list']);
-		}
-		
 		// ================================ Calendar Function End=============================== //
 	
 
