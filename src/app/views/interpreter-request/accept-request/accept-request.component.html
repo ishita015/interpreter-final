@@ -36,14 +36,14 @@
                 </ng-template>
                </ngx-datatable-column>
 
-               <ngx-datatable-column name="Caseworker" prop="caseworker_name">
+               <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
                 <ng-template ngx-datatable-header-template>
                   Caseworker
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   {{row.caseworker_name}}
                 </ng-template>
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
 
                <ngx-datatable-column name="Appointment Type" prop="appointment_type">
                 <ng-template ngx-datatable-header-template>
@@ -61,14 +61,14 @@
                   {{row.cell_phone}}
                 </ng-template>
               </ngx-datatable-column>
-                <ngx-datatable-column name="Requester" prop="requester_name">
+                <!-- <ngx-datatable-column name="Requester" prop="requester_name">
                     <ng-template ngx-datatable-header-template>
                       Requester
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.requester_name}}
                     </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
                 <ngx-datatable-column name="Interpreter" prop="requester_name">
                   <ng-template ngx-datatable-header-template>
                       Interpreter
@@ -86,6 +86,15 @@
                     {{row.mobile}}
                 </ng-template>  
              </ngx-datatable-column>
+
+             <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                  Requested date
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.date | date:'MM-dd-yyyy' }}
+              </ng-template>  
+          </ngx-datatable-column>
            
             <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
               <ng-template ngx-datatable-header-template>Status
@@ -98,12 +107,13 @@
           </ngx-datatable-column>
           
           
-          <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId!='1'">
+          <ngx-datatable-column [width]="130" [sortable]="false" >
             <ng-template ngx-datatable-header-template>Action
             </ng-template>
             
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-              <button class="btn btn-outline-danger ml-2"
+            <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" >
+              <button class="btn btn-outline-secondary" (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
+              <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Completed
               </button>
@@ -144,5 +154,28 @@
   <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
       <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #reminderConfirmModal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Reminder</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="noteForm">
+      <div class="form-group">
+        <label>Note</label>
+        <textarea class="form-control" formControlName="notes" rows="3" placeholder="Optional"></textarea>
+      </div>
+    </form>
+  
+    </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+      <button type="button" ngbAutofocus class="btn btn-wide btn-success btn-rounded" (click)="modal.close('Ok')">Send</button>
   </div>
 </ng-template>

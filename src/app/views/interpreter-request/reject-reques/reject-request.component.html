@@ -37,14 +37,14 @@
                 </ng-template>
                </ngx-datatable-column>
 
-               <ngx-datatable-column name="Caseworker" prop="caseworker_name">
+               <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
                 <ng-template ngx-datatable-header-template>
                   Caseworker
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   {{row.caseworker_name}}
                 </ng-template>
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
 
                <ngx-datatable-column name="Appointment Type" prop="appointment_type">
                 <ng-template ngx-datatable-header-template>
@@ -62,14 +62,14 @@
                   {{row.cell_phone}}
                 </ng-template>
               </ngx-datatable-column>
-                <ngx-datatable-column name="Requester" prop="requester_name">
+                <!-- <ngx-datatable-column name="Requester" prop="requester_name">
                     <ng-template ngx-datatable-header-template>
                       Requester
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.requester_name}}
                     </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
                 <ngx-datatable-column name="Interpreter" prop="requester_name">
                   <ng-template ngx-datatable-header-template>
                       Interpreter
@@ -88,6 +88,15 @@
                 </ng-template>  
             </ngx-datatable-column>
             <ngx-datatable-column [width]="120" [sortable]="false">
+
+              <ngx-datatable-column>
+                <ng-template ngx-datatable-header-template>
+                    Requested date
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.date | date:'MM-dd-yyyy' }}
+                </ng-template>  
+            </ngx-datatable-column>
               <ng-template ngx-datatable-header-template>Status
               </ng-template>
               

@@ -386,4 +386,13 @@ export class HttpService {
   }
   /*=====Profile Section Apis End======*/
 
+/*=====Request Section Apis Start======*/
+getReminderRequest(user_id, ris_id,notes): Observable<any> {
+  return this.http.post(this.url + '/cesco/adminReminderForinterpreter', { user_id: user_id, ris_id: ris_id,notes:notes }, this.httpOptions);
+}
+
+/*=====Request Section Apis End======*/
+
+
+
 }
