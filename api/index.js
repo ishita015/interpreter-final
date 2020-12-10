@@ -431,17 +431,15 @@ io.sockets.on('connection', function(socket) {
     function saveChatInDatabase(message,sender_id,receiver_id,group_id) {
         var new_date = Date.now();
             new_date = moment(new_date).unix();
-        message = mysql_real_escape_string(message);     
+        // message = mysql_real_escape_string(message);     
         if(group_id!='0' && group_id!=undefined){
             let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+group_id+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','text','0','0')";
 
             console.log(sql);
             con.query(sql, function(err, result) {
                 if(result.affectedRows == 1){
-                    // io.to(socket.id).emit('privateMessage', {message: <message goes here>});
                     // io.sockets.in(group_id).emit('responce_chat', {
-                    // io.sockets.emit('responce_chat', {
-                    io.to.in(group_id).emit('responce_chat', {
+                    io.sockets.emit('responce_chat', {
                         chatRoomId: group_id,
                         receiverId: receiver_id,
                         senderId: sender_id,
@@ -463,8 +461,8 @@ io.sockets.on('connection', function(socket) {
                     console.log(sql);
                     con.query(sql, function(err, result) {
                         if(result.affectedRows == 1){
-                            io.to.in(groupId).emit('responce_chat', {
                             // io.sockets.in(groupId).emit('responce_chat', {
+                            io.sockets.emit('responce_chat', {
                                 chatRoomId: groupId,
                                 receiverId: receiver_id,
                                 senderId: sender_id,
@@ -478,36 +476,6 @@ io.sockets.on('connection', function(socket) {
                 }
             });
         }       
-    }
-
-    mysql_real_escape_string = function(str) {
-        
-        if (typeof(str) === "undefined" || str == "" || str === null) {
-            return str;
-        }
-
-        return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function(char) {
-            switch (char) {
-                case "\0":
-                    return "\\0";
-                case "\x08":
-                    return "\\b";
-                case "\x09":
-                    return "\\t";
-                case "\x1a":
-                    return "\\z";
-                case "\n":
-                    return "\\n";
-                case "\r":
-                    return "\\r";
-                case "\"":
-                case "'":
-                case "\\":
-                case "%":
-                    return "\\" + char; // prepends a backslash to backslash, percent,
-                    // and double/single quotes
-            }
-        });
     }
 
 });
