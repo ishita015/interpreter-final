@@ -27,9 +27,6 @@ export class ChatLeftSidebarComponent implements OnInit {
 
   ngOnInit() {
     this.login_data = JSON.parse(localStorage.getItem('loginData'));
-    // this.login_data.profile_img
-
-    // console.log("profile_img",this.login_data.profile_img)
 
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.getContactList();
@@ -40,17 +37,8 @@ export class ChatLeftSidebarComponent implements OnInit {
     this.service.getContactData(this.userId)  
     .subscribe(res => {
       if(res['status'] == 1){
-        // this.contact_Obj = res['data'];
-
         this.contacts= res['data'];
-        console.log("yes",this.contacts);
-        
-
-        // this.messageList=this.chat_Obj;
-        // localStorage.setItem('messageList', JSON.stringify(this.chat_Obj));
-      }
-        
-        
+      }        
     });
   }
 
@@ -74,15 +62,4 @@ export class ChatLeftSidebarComponent implements OnInit {
 
    
   }
-
-
-
-  // getChatByContact(contactId) {
-  //   this.chatService.getChatByContact(contactId)
-  //     .subscribe(res => {
-  //       console.log('from sub', res);
-  //     }, err => {
-  //       console.log(err);
-  //     });
-  // }
 }

@@ -48,13 +48,9 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.loggeduser = JSON.parse(localStorage.getItem('loggeduser'));
     this.login_data = JSON.parse(localStorage.getItem('loginData'));
-    // this.login_data.profile_img
-
-    console.log("profile_img",this.login_data.profile_img)
 
     this.service.currentMessage.subscribe(message => {
        this.message = (message) ? message : ''
-       console.log("group_id missing--",this.message)
        this.userChat();
     })
     
@@ -74,14 +70,11 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   }
 
   userChat(){
-    // console.log("group_id--",this.message.group_id)
     this.service.getUserChat(this.userId,this.message.group_id)  
     .subscribe(res => {
-      // console.log("chat res--",res)
       if(res['status'] == 1){
         this.chat_Obj = res['data'];
         this.messageList=this.chat_Obj;
-        console.log("messageList",this.messageList)
       } else{
          this.messageList=[];
       }

@@ -146,7 +146,14 @@ module.exports.getChats = async function(req, res) {
                     return true;
                 }
             })
-                    
+        }else{
+            res.json({
+                status: 0,
+                errorcode: 152,
+                error_line: 2,
+                message: "No message found."
+            });
+            return true;
         } 
         /*else {
             var sql = "SELECT (SELECT if(sender_id = '" + user_id + "' , reciver_mute, '0') FROM chatroom where group_id = '" + group_id + "') as reciver_mute, (SELECT if(receiver_id = '" + user_id + "' , sender_mute, '0') FROM chatroom where group_id = '" + group_id + "') as sender_mute FROM chatroom where group_id = '" + group_id + "'";
