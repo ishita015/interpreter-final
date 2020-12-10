@@ -397,7 +397,7 @@ app.post('/cesco/importLang', upload.any(),async function(req, res, next) {
 
 
 
-
+//----------------------socket start-----------------------------
 
 io.sockets.on('connection', function(socket) {
     console.log(room + ' joined the chat.');
@@ -438,8 +438,10 @@ io.sockets.on('connection', function(socket) {
             console.log(sql);
             con.query(sql, function(err, result) {
                 if(result.affectedRows == 1){
-                    io.sockets.in(group_id).emit('responce_chat', {
+                    // io.to(socket.id).emit('privateMessage', {message: <message goes here>});
+                    // io.sockets.in(group_id).emit('responce_chat', {
                     // io.sockets.emit('responce_chat', {
+                        io.to.in(socket.group_id).emit('responce_chat', {
                         chatRoomId: group_id,
                         receiverId: receiver_id,
                         senderId: sender_id,
@@ -461,7 +463,8 @@ io.sockets.on('connection', function(socket) {
                     console.log(sql);
                     con.query(sql, function(err, result) {
                         if(result.affectedRows == 1){
-                            io.sockets.in(groupId).emit('responce_chat', {
+                            io.to.in(socket.groupId).emit('responce_chat', {
+                            // io.sockets.in(groupId).emit('responce_chat', {
                                 chatRoomId: groupId,
                                 receiverId: receiver_id,
                                 senderId: sender_id,
