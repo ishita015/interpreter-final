@@ -16,6 +16,7 @@ import { CalendarAppService } from './../../calendar/calendar-app.service';
 import { CalendarFormDialogComponent } from '../../calendar/calendar-form-dialog/calendar-form-dialog.component';
 import { Utils } from 'src/app/shared/utils';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-dashboard-v2',
   templateUrl: './dashboard-v2.component.html',
@@ -51,10 +52,11 @@ export class DashboardV2Component implements OnInit {
     public totalcancel_obj;
 	public totalcomplete_obj;
 	cal_data;
+
   constructor(
 		private productService: ProductService,public service:HttpService,
 		private router: Router,
-
+		private fb: FormBuilder,
 		private modalService: NgbModal,
 		private calendarService: CalendarAppService,
 	) {
@@ -82,12 +84,13 @@ export class DashboardV2Component implements OnInit {
 	this.complete_request();
 	this.cancelled_request();
 	// this.loadEvents();
+
 	
 	this.getInterpreterRequestInfo();
   }
 
 
- 
+  
 
    
   getInterpreterRequestInfo(){
@@ -203,35 +206,38 @@ export class DashboardV2Component implements OnInit {
 
 	}
 
-	public addEvent() {
-		const dialogRef = this.modalService.open(CalendarFormDialogComponent, {centered: true});
-		dialogRef.componentInstance.data = {
-			action: 'add',
-			date: new Date()
-		};
-		dialogRef.result
-			.then((res) => {
+	// public addEvent() {
+	// 	const dialogRef = this.modalService.open(CalendarFormDialogComponent, {centered: true});
+	// 	dialogRef.componentInstance.data = {
+	// 		action: 'add',
+	// 		date: new Date()
+	// 	};
+	// 	dialogRef.result
+	// 		.then((res) => {
 
-				if (!res) {
-					return;
-				}
+	// 			if (!res) {
+	// 				return;
+	// 			}
 
-				const dialogAction = res.action;
-				const responseEvent = res.event;
-				responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
-				responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
-				this.calendarService
-					.addEvent(responseEvent)
-					.subscribe(events => {
-						this.events = this.initEvents(events);
-						this.refresh.next(true);
-						console.log(this.events);
+	// 			const dialogAction = res.action;
+	// 			const responseEvent = res.event;
+	// 			responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
+	// 			responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
+	// 			this.calendarService
+	// 				.addEvent(responseEvent)
+	// 				.subscribe(events => {
+	// 					this.events = this.initEvents(events);
+	// 					this.refresh.next(true);
+	// 					console.log(this.events);
 
-					});
-			}).catch(e => {
-				console.log(e);
-			});
-	}
+	// 				});
+	// 		}).catch(e => {
+	// 			console.log(e);
+	// 		});
+	// }
+
+
+
 
 	public handleEvent(action: string, event: CalendarAppEvent): void {
 		const dialogRef = this.modalService.open(CalendarFormDialogComponent, {centered: true});
@@ -294,6 +300,14 @@ export class DashboardV2Component implements OnInit {
 	// 		});
 	// }
 
+	
+	
 
+	// ================================ Add Calendar Start =============================== //
+	addEvent() {
+		this.router.navigate(['/dashboard/add']);
+		
+	  }
+    // ================================ Add Calendar End =============================== //
 
 }

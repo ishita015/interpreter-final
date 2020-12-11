@@ -20,6 +20,7 @@ import { SharedPipesModule } from './pipes/shared-pipes.module';
     SharedDirectivesModule,
     SharedPipesModule,
     RouterModule
-  ]
+  ],
+  
 })
 export class SharedModule { }

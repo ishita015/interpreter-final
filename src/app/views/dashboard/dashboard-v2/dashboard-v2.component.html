@@ -204,3 +204,80 @@
     </div>
 </ng-template> -->
 
+<ng-template #addCalenderConfirmModal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Add</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="addCalForm" class="event-form p-3">
+      <div class="row">
+       
+        <div class="col-md-12 form-group">
+          <label>Title</label>
+          <input 
+            class="form-control form-control-rounded" 
+            formControlName="title" 
+            placeholder="Title">
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Start Date</label>
+          <div class="input-group">
+            <input type="time"
+            class="form-control form-control-rounded"
+            placeholder="Start Date"
+            name="startDate" 
+            formControlName="start_time">
+          </div>
+        </div>
+  
+        <div class="col-md-6 form-group">
+          <label>End Date</label>
+          <div class="input-group">
+            <input type="time"
+            class="form-control form-control-rounded"
+            placeholder="End Date" 
+            name="endDate" 
+            formControlName="end_time">
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Date</label>
+          <input 
+            type="date" 
+            name="setTodaysDate"
+            class="form-control form-control-rounded"
+            formControlName="date" 
+            placeholder="Date">
+        </div>
+  
+        <div class="col-md-12 form-group">
+          <label>Description</label>
+          <textarea 
+            class="form-control form-control-rounded" 
+            formControlName="description" 
+            placeholder="Description" 
+            max-rows="4">
+            </textarea>
+        </div>
+      </div>
+  
+    </form>
+    
+  
+    </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+      <button type="button" ngbAutofocus class="btn btn-wide btn btn-primary btn-rounded" (click)="modal.close('Ok')">Save</button>
+  </div>
+</ng-template>

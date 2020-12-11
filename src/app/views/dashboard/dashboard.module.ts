@@ -15,6 +15,9 @@ import { DashboardV4Component } from './dashboard-v4/dashboard-v4.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { AddCalenderComponent } from './add-calender/add-calender.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +25,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     NgxEchartsModule,
     NgxDatatableModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     ColorPickerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -29,6 +34,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
     }),
     DashboardRoutingModule
   ],
-  declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component]
+  declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component, AddCalenderComponent]
 })
 export class DashboardModule { }
