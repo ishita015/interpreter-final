@@ -13,7 +13,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./interpreter-request-list.component.scss']
 })
 export class InterpreterRequestListComponent implements OnInit {
-  
+  view_obj;
   userId;
   roleId;
   list_Obj: any[];
@@ -27,6 +27,7 @@ export class InterpreterRequestListComponent implements OnInit {
   status_msg;
   roleData;
   array_Obj;
+  resp_msg;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -132,6 +133,23 @@ interpreterReply(user_id,ris_id,res_type,modal){
             })
       }, (reason) => {
   });
+}
+
+
+viewDetail(request_id){
+  console.log("id--",  request_id);
+  this.service.getRequestDetail(request_id).subscribe(res => {
+    if(res['status'] == 1){
+      this.view_obj = res['data'][0];
+      console.log("view object",  this.view_obj);
+      localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
+      this.router.navigate(['/user-request/request-view',request_id])
+    }else{
+      this.resp_msg = res;
+      this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+    }
+      
+  })
 }
 
 

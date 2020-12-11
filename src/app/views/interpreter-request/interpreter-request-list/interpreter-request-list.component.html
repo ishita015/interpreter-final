@@ -16,7 +16,7 @@
     </div>
 
 
-        <div class="col-md-12">
+        <div class="col-md-12 lang_block">
             <div class="card  o-hidden">
               <ngx-datatable *ngIf="filteredUser?.length"
                 style="height: 500px; box-shadow: none"
@@ -112,6 +112,7 @@
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <button class="btn btn-outline-secondary" (click)="viewDetail(row.ris_id)">View</button>  
                   <button class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.user_id,row.ris_id,'2', acceptConfirmModal)">
                   Accept
