@@ -16,6 +16,69 @@ const usermodel = new userModel();
 
 
 
+module.exports.deleteLocalEvent = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        user_id: 'required',
+        event_id: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.user_id;
+    let event_id = req.body.event_id;
+
+    if(event_id=='0'){
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 1,
+            message: "User request is not deleted, Please contact admin support."
+        });
+        return true;
+    }else{
+        let sqlDelete = "DELETE FROM interpreter_event WHERE id = '"+event_id+"' && user_id = '"+user_id+"'";
+        con.query(sqlDelete, function(err, res_delete) {
+            if(err){
+                res.json({
+                    status: 0,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "Please try again"
+                });
+                return true;
+            }else{
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 1,
+                    message: "Event delete successfully"
+                });
+                return true;
+            }
+        });
+    }
+};
+
+
+
+
+
+
 
 
 
@@ -235,31 +298,91 @@ module.exports.getIntAccReqDashboardData = async function(req, res, next) {
     //validation end
     let user_id = req.body.userId;
     
-    // interpreter_request as ir,request_information_services as ris,appointment_information_services as ais
-    var sql = "SELECT ir.status as int_req_status,ris.id as request_id,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ris.status,ais.appointment_type,ais.date,ais.start_time,ais.anticipated_end_time,ais.address FROM interpreter_request as ir INNER JOIN request_information_services as ris ON ris.id=ir.job_id INNER JOIN appointment_information_services as ais ON ais.ris_id=ris.id WHERE ir.Interpreter_id='"+user_id+"' && ir.status='2'";
-    
-    console.log("sql 2-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
+    var mainArr1 = [];
+    var resultData  = await usermodel.getInterpreterRequestInfo(user_id);
+    if (resultData != "" && resultData != undefined) {
+        var mainObj1 = {};
+        for (var i = 0; i < resultData.length; i++) {
+            mainObj1 = {
+                id: '0',
+                title: resultData[i].appointment_type,
+                date: resultData[i].date,
+                start_time: resultData[i].start_time,
+                end_time: resultData[i].anticipated_end_time
+            }   
+            mainArr1.push(mainObj1);
         }
-    });
+    }
+
+
+    var localResult  = await usermodel.getInterpreterLocalEvents(user_id);
+    if (localResult != "" && localResult != undefined) {
+        var mainObj2 = {};
+        for (var j = 0; j < localResult.length; j++) {
+            mainObj2 = {
+                id: localResult[j].id,
+                title: localResult[j].title,
+                date: localResult[j].date,
+                start_time: localResult[j].start_time,
+                end_time: localResult[j].end_time
+            }   
+            mainArr1.push(mainObj2);
+        }
+    }
+
+    console.log("mainArr1",mainArr1)
+
+    if (mainArr1 != "" && mainArr1 != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 1,
+            data: mainArr1
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "No record found"
+        });
+        return true;
+    }
 };
+
+
+
+
+
+
+
+
+
+//     var sql = "SELECT ir.status as int_req_status,ris.id as request_id,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ris.status,ais.appointment_type,ais.date,ais.start_time,ais.anticipated_end_time,ais.address FROM interpreter_request as ir INNER JOIN request_information_services as ris ON ris.id=ir.job_id INNER JOIN appointment_information_services as ais ON ais.ris_id=ris.id WHERE ir.Interpreter_id='"+user_id+"' && ir.status='2'";
+    
+//     console.log("sql 2-",sql)
+//     con.query(sql, function(err, result, fields) {
+//         // console.log("result-",result)
+//         if (result && result.length > 0) {
+//             res.json({
+//                 status: 1,
+//                 error_code: 0,
+//                 error_line: 1,
+//                 data: result
+//             });
+//             return true;
+//         } else {
+//             res.json({
+//                 status: 0,
+//                 error_code: 0,
+//                 error_line: 6,
+//                 message: "No record found"
+//             });
+//             return true;
+//         }
+//     });
+// };
 
 
 
@@ -895,9 +1018,12 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
     let email='';
     var interpreterDetail = await usermodel.getInterpreterInfo(interpreter_id);
     if (interpreterDetail != "" && interpreterDetail != undefined) {
+        console.log("resylt", interpreterDetail)
+
         // name=interpreterDetail[0].name;
-        name= interpreterDetail[i].first_name+" "+interpreterDetail[i].last_name;
+        name= interpreterDetail[0].first_name+" "+interpreterDetail[0].last_name;
         email=interpreterDetail[0].email;
+        
     }
 
     var lastData = await usermodel.checkRequestSend(interpreter_id,service_id);

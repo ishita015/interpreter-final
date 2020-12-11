@@ -9,6 +9,46 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+
+    
+     getInterpreterRequestInfo(user_id){
+        return new Promise(function(resolve, reject) {
+              // interpreter_request as ir,request_information_services as ris,appointment_information_services as ais
+            var sql = "SELECT ir.status as int_req_status,ris.id as request_id,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ris.status,ais.appointment_type,ais.date,ais.start_time,ais.anticipated_end_time,ais.address FROM interpreter_request as ir INNER JOIN request_information_services as ris ON ris.id=ir.job_id INNER JOIN appointment_information_services as ais ON ais.ris_id=ris.id WHERE ir.Interpreter_id='"+user_id+"' && ir.status='2'";
+
+
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
+
+
+    
+    getInterpreterLocalEvents(user_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreter_event WHERE user_id='"+user_id+"'";
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
+
+
+
+
     
     getRequestDetails(user_id,ris_id){
         return new Promise(function(resolve, reject) {

@@ -110,6 +110,7 @@ app.post('/cesco/getCancelledRequest', interpreterController.getCancelledRequest
 
 app.post('/cesco/getRejectDataInterpreter', interpreterController.getRejectDataInterpreter);
 app.post('/cesco/getInterpreterEvents', interpreterController.getInterpreterEvents);
+app.post('/cesco/deleteLocalEvent', interpreterController.deleteLocalEvent);
 
 
 app.post('/cesco/addInterpreterEvents', interpreterController.addInterpreterEvents);

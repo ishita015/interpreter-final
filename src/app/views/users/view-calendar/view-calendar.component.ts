@@ -85,7 +85,7 @@ export class ViewCalendarComponent implements OnInit {
 					this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
 					this.events.push ({
 						start: this.new_date,
-						title: this.cal_data[i].appointment_type
+						title: this.cal_data[i].title
 					});
 				}
 			}		

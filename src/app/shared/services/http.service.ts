@@ -103,6 +103,10 @@ export class HttpService {
 
   //------------socket end
 
+  removeLocalEvents(user_id,event_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/deleteLocalEvent', { user_id: user_id,event_id:event_id }, this.httpOptions);
+  }
+
 
 
   interpreterLocalEvents(user_id): Observable<any> {

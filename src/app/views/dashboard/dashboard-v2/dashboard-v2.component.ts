@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { Subject } from 'rxjs';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import {
 	isSameDay,
 	isSameMonth
@@ -59,6 +60,7 @@ export class DashboardV2Component implements OnInit {
 		private fb: FormBuilder,
 		private modalService: NgbModal,
 		private calendarService: CalendarAppService,
+		private toastr: ToastrService
 	) {
 		this.actions = [{
 			label: '<i class="i-Edit m-1 text-secondary"></i>',
@@ -68,7 +70,7 @@ export class DashboardV2Component implements OnInit {
 		}, {
 			label: '<i class="i-Close m-1 text-danger"></i>',
 			onClick: ({ event }: { event: CalendarEvent }): void => {
-				this.removeEvent(event);
+				// this.removeEvent(event);
 			}
 		}];
 	 }
@@ -86,10 +88,8 @@ export class DashboardV2Component implements OnInit {
 	// this.loadEvents();
 	//get admin assign
 	this.getInterpreterRequestInfo();
-	//get local events
-	this.getMyLocalEvents();
-  }
-
+}
+	
 
   
 
@@ -99,13 +99,14 @@ export class DashboardV2Component implements OnInit {
 	.subscribe(res => {
 		if(res['status']=='1'){
 			this.cal_data = res['data'];
-			this.events = [];
+			this.events = [];	
 			for(let i=0; i < this.cal_data.length; i++){ 
 				var dataArray = this.cal_data[i].date.split(/[ -]/);
 				this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
 				this.events.push ({
 					start: this.new_date,
-					title: this.cal_data[i].appointment_type
+					title: this.cal_data[i].title,
+					_id:this.cal_data[i].id,
 				});
 			}
 		}		
@@ -113,26 +114,24 @@ export class DashboardV2Component implements OnInit {
   }
 
 
-  // get local events
-  getMyLocalEvents(){
-	  console.log("userId",this.userId)
-	this.service.interpreterLocalEvents(this.userId)
-	.subscribe(res => {
-		console.log("local events", res)
-		if(res['status']=='1'){
-			this.local_data = res['data'];
-			this.events = [];
-			for(let i=0; i < this.local_data.length; i++){ 
-				var dataArray = this.local_data[i].date.split(/[ -]/);
-				this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
-				this.events.push ({
-					start: this.new_date,
-					title: this.local_data[i].title
-				});
-			}
-		}		
-	})
-  }
+	public removeEvent(event,e) {
+		this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+			.result.then((result) => {
+				// this.service.interpreterLocalEvents(this.userId)
+				this.service.removeLocalEvents(this.userId,e.event._id)
+					.subscribe(res => {
+						// this.events = this.initEvents(events);
+						console.log("resp",res)
+						this.toastr.success(res.message,'', { timeOut: 1000 });
+						// this.refresh.next();
+						this.getInterpreterRequestInfo();
+					});
+			}, (reason) => {
+
+		});
+
+}
+
 
 
 
@@ -216,20 +215,7 @@ export class DashboardV2Component implements OnInit {
 			});
 	}
 
-	public removeEvent(event) {
-		this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
-			.result.then((result) => {
-				this.calendarService
-				.deleteEvent(event._id)
-					.subscribe(events => {
-						this.events = this.initEvents(events);
-						this.refresh.next();
-					});
-			}, (reason) => {
 
-			});
-
-	}
 
 	// public addEvent() {
 	// 	const dialogRef = this.modalService.open(CalendarFormDialogComponent, {centered: true});
@@ -288,7 +274,7 @@ export class DashboardV2Component implements OnInit {
 							console.log(this.events);
 						});
 				} else if (dialogAction === 'delete') {
-					this.removeEvent(event);
+					// this.removeEvent(event);
 				}
 
 			})

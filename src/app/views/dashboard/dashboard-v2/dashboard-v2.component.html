@@ -167,7 +167,7 @@
           [refresh]="refresh"
           [activeDayIsOpen]="activeDayIsOpen"
           (dayClicked)="dayClicked($event.day)"
-          (eventClicked)="handleEvent('edit', $event.event)"
+          (eventClicked)="removeEvent('delete',$event, eventDeleteConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-month-view>
         <!-- <mwl-calendar-week-view
@@ -189,7 +189,7 @@
       </div>
     </div>
   </div>
-<!-- 
+
   <ng-template #eventDeleteConfirm let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-title">Delete Event?</h4>
@@ -198,12 +198,13 @@
       </button>
     </div>
     
+    <div class="modal-body">Are you sure want to delete this event?</div>
     <div class="modal-footer">
       <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.dismiss('cancel')">No</button>
       <button type="button" ngbAutofocus class="btn btn-rounded btn-danger" (click)="modal.close('Ok')">Yes</button>
     </div>
-</ng-template> -->
-
+</ng-template> 
+<!-- 
 <ng-template #addCalenderConfirmModal let-modal>
   <div class="modal-header">
       <h4 class="modal-title" id="modal-title">Add</h4>
@@ -280,4 +281,4 @@
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
       <button type="button" ngbAutofocus class="btn btn-wide btn btn-primary btn-rounded" (click)="modal.close('Ok')">Save</button>
   </div>
-</ng-template>
+</ng-template> -->
