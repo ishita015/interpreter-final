@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { echartStyles } from 'src/app/shared/echart-styles';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { HttpService } from 'src/app/shared/services/http.service';
@@ -18,10 +18,11 @@ import { CalendarFormDialogComponent } from '../../calendar/calendar-form-dialog
 import { Utils } from 'src/app/shared/utils';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { FormBuilder, FormGroup } from '@angular/forms';
+declare var $;
 @Component({
-  selector: 'app-dashboard-v2',
-  templateUrl: './dashboard-v2.component.html',
-  styleUrls: ['./dashboard-v2.component.scss']
+	selector: 'app-dashboard-v2',
+	templateUrl: './dashboard-v2.component.html',
+	styleUrls: ['./dashboard-v2.component.scss']
 })
 export class DashboardV2Component implements OnInit {
 	public view = 'month';
@@ -30,6 +31,7 @@ export class DashboardV2Component implements OnInit {
 
 
 	@ViewChild('eventDeleteConfirm', { static: true }) eventDeleteConfirm;
+	@ViewChild('eventViewConfirm', { static: true }) eventViewConfirm;
 	public activeDayIsOpen = true;
 	public refresh: Subject<any> = new Subject();
 	public events: CalendarAppEvent[];
@@ -39,23 +41,24 @@ export class DashboardV2Component implements OnInit {
 
 	pipe = new DatePipe('en-US');
 	// now = Date.now();
-	  
+
 	new_date;
-		
+
 	chartPie1: any;
 	chartLineOption3: any;
 	products$: any;
 	public roleName;
 	userId;
 	public newrequest_obj;
-    public accept_obj;
-    public reject_obj;
-    public totalcancel_obj;
+	public accept_obj;
+	public reject_obj;
+	public totalcancel_obj;
 	public totalcomplete_obj;
 	cal_data;
 	local_data;
-  constructor(
-		private productService: ProductService,public service:HttpService,
+	viewObj;
+	constructor(
+		private productService: ProductService, public service: HttpService,
 		private router: Router,
 		private fb: FormBuilder,
 		private modalService: NgbModal,
@@ -73,129 +76,151 @@ export class DashboardV2Component implements OnInit {
 				// this.removeEvent(event);
 			}
 		}];
-	 }
-
-	 
-
-  ngOnInit() {
-	this.roleName = JSON.parse(localStorage.getItem('roleName'));
-	this.userId = JSON.parse(localStorage.getItem('userId'));
-	this.new_request();
-	this.accept_request();
-	this.reject_request();
-	this.complete_request();
-	this.cancelled_request();
-	// this.loadEvents();
-	//get admin assign
-	this.getInterpreterRequestInfo();
-}
-	
-
-  
-
-   // get admin assign
-  getInterpreterRequestInfo(){
-	this.service.interpreterDashboardData(this.userId)
-	.subscribe(res => {
-		if(res['status']=='1'){
-			this.cal_data = res['data'];
-			this.events = [];	
-			for(let i=0; i < this.cal_data.length; i++){ 
-				var dataArray = this.cal_data[i].date.split(/[ -]/);
-				this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
-				this.events.push ({
-					start: this.new_date,
-					title: this.cal_data[i].title,
-					_id:this.cal_data[i].id,
-				});
-			}
-		}		
-	})
-  }
+	}
 
 
-	public removeEvent(event,e) {
+
+	ngOnInit() {
+		this.roleName = JSON.parse(localStorage.getItem('roleName'));
+		this.userId = JSON.parse(localStorage.getItem('userId'));
+		this.new_request();
+		this.accept_request();
+		this.reject_request();
+		this.complete_request();
+		this.cancelled_request();
+		// this.loadEvents();
+		//get admin assign
+		this.getInterpreterRequestInfo();
+	}
+
+
+
+
+	// get admin assign
+	getInterpreterRequestInfo() {
+		this.service.interpreterDashboardData(this.userId)
+			.subscribe(res => {
+				if (res['status'] == '1') {
+					this.cal_data = res['data'];
+					this.events = [];
+					for (let i = 0; i < this.cal_data.length; i++) {
+						var dataArray = this.cal_data[i].date.split(/[ -]/);
+						this.new_date = new Date(dataArray[0], dataArray[1] - 1, dataArray[2]);
+						this.events.push({
+							start: this.new_date,
+							title: this.cal_data[i].title,
+							_id: this.cal_data[i].id,
+						});
+					}
+				}
+			})
+	}
+
+	public viewEvent(e) {
+		this.service
+			.interpreterViewEvents(this.userId, e.event._id)
+			.subscribe(result => {
+				console.log("view api ", result);
+				this.viewObj = result;
+				console.log("response ", this.viewObj);
+			});
+		this.modalService.open(this.eventViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+			.result.then((result) => {
+			});
+
+	}
+
+	editCalender(data, id) {
+		console.log("idddddddddddddd",data, id);
+		localStorage.setItem('editData', JSON.stringify(data));
+		this.router.navigate(['/dashboard/edit']);
+	}
+
+
+	public removeEvent(id) {
+		console.log("idddddddd",id);
 		this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
 			.result.then((result) => {
 				// this.service.interpreterLocalEvents(this.userId)
-				this.service.removeLocalEvents(this.userId,e.event._id)
-					.subscribe(res => {
-						// this.events = this.initEvents(events);
-						console.log("resp",res)
-						this.toastr.success(res.message,'', { timeOut: 1000 });
-						// this.refresh.next();
-						this.getInterpreterRequestInfo();
-					});
-			}, (reason) => {
+				// 		this.service.removeLocalEvents(this.userId,e.event._id)
+				// 			.subscribe(res => {
+				// 				// this.events = this.initEvents(events);
+				// 				console.log("resp",res)
+				// 				this.toastr.success(res.message,'', { timeOut: 1000 });
+				// 				// this.refresh.next();
+				// 				this.getInterpreterRequestInfo();
+				// 			});
+				// 	}, (reason) => {
 
-		});
+			}
+			);
 
-}
-
-
-
+	}
 
 
-    new_request(){
+
+
+
+	new_request() {
 		this.service.newRequestCount(this.userId)
-		.subscribe(res => {
-			this.newrequest_obj = res['data'][0];
-		})
+			.subscribe(res => {
+				this.newrequest_obj = res['data'][0];
+			})
 	}
 
 
-	accept_request(){
+	accept_request() {
 		this.service.acceptRequestCount(this.userId)
-		.subscribe(res => {
-			this.accept_obj = res['data'][0];
-		})
+			.subscribe(res => {
+				this.accept_obj = res['data'][0];
+			})
 	}
 
 
-	reject_request(){
+	reject_request() {
 		this.service.rejectRequestCount(this.userId)
-		.subscribe(res => {
-			this.reject_obj = res['data'][0];
-		})
+			.subscribe(res => {
+				this.reject_obj = res['data'][0];
+			})
 	}
 
 
-	complete_request(){
+	complete_request() {
 		this.service.completeRequestCount(this.userId)
-		.subscribe(res => {
-			this.totalcomplete_obj = res['data'][0];
-		})
+			.subscribe(res => {
+				this.totalcomplete_obj = res['data'][0];
+			})
 	}
 
 
-	cancelled_request(){
+	cancelled_request() {
 		this.service.cancelledRequestCount(this.userId)
-		.subscribe(res => {
-			this.totalcancel_obj = res['data'][0];
-		})
+			.subscribe(res => {
+				this.totalcancel_obj = res['data'][0];
+			})
 	}
 
 
-	newRequest(){
-        this.router.navigate(['/interpreter-request/list']);
-    }
-
-
-    acceptRquest(){
-        this.router.navigate(['/interpreter-request/accept-list']);
-    }
-    
-    RejectRequest(){
-        this.router.navigate(['/interpreter-request/reject-list']);
-    }
-    
-    completeRequest(){
-        this.router.navigate(['/interpreter-request/completed-list']);
-    }
-    cancelRequest(){
-        this.router.navigate(['/interpreter-request/cancelled-list']);
+	newRequest() {
+		this.router.navigate(['/interpreter-request/list']);
 	}
-	
+
+
+	acceptRquest() {
+		this.router.navigate(['/interpreter-request/accept-list']);
+	}
+
+	RejectRequest() {
+		this.router.navigate(['/interpreter-request/reject-list']);
+	}
+
+	completeRequest() {
+		this.router.navigate(['/interpreter-request/completed-list']);
+	}
+	cancelRequest() {
+		this.router.navigate(['/interpreter-request/cancelled-list']);
+	}
+
 	// ================================ calendar =============================== //
 
 	private initEvents(events): CalendarAppEvent[] {
@@ -210,7 +235,7 @@ export class DashboardV2Component implements OnInit {
 			.getEvents()
 			.subscribe((events: CalendarEvent[]) => {
 				this.events = this.initEvents(events);
-				console.log("events--",this.events)
+				console.log("events--", this.events)
 
 			});
 	}
@@ -251,7 +276,7 @@ export class DashboardV2Component implements OnInit {
 
 
 	public handleEvent(action: string, event: CalendarAppEvent): void {
-		const dialogRef = this.modalService.open(CalendarFormDialogComponent, {centered: true});
+		const dialogRef = this.modalService.open(CalendarFormDialogComponent, { centered: true });
 		dialogRef.componentInstance.data = { event, action };
 		dialogRef
 			.result
@@ -311,14 +336,14 @@ export class DashboardV2Component implements OnInit {
 	// 		});
 	// }
 
-	
-	
+
+
 
 	// ================================ Add Calendar Start =============================== //
 	addEvent() {
 		this.router.navigate(['/dashboard/add']);
-		
-	  }
-    // ================================ Add Calendar End =============================== //
+
+	}
+	// ================================ Add Calendar End =============================== //
 
 }
