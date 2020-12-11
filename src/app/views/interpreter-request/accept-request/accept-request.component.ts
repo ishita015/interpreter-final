@@ -144,9 +144,10 @@ export class AcceptRequestComponent implements OnInit {
       this.service.getReminderRequest(id,risId,this.noteForm.value.notes)
         .subscribe(res => {
           this.reminder = res;
+          // this.msg.message = res;
           console.log("reminder form", this.reminder);
-          if (res['status'] == '1') {
-            this.toastr.success(this.msg.message, '', { timeOut: 1000 });
+          if (res['status'] == 1) {
+            this.toastr.success(this.reminder.message, '', { timeOut: 2000 });
             this.router.navigate(['/interpreter-request/accept-list']);
           }
         })

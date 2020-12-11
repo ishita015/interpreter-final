@@ -14,6 +14,7 @@ export class AddCalenderComponent implements OnInit {
   submitted: boolean;
   data_Obj;
   data_Msg;
+  Id;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -23,6 +24,8 @@ export class AddCalenderComponent implements OnInit {
   ngOnInit(){
     this.createForm();
     this.date_func();
+    this.Id = JSON.parse(localStorage.getItem('userId'));
+   
   }
 
    /*==========Today and future date function start here========*/
@@ -74,6 +77,7 @@ export class AddCalenderComponent implements OnInit {
         return;
       }
       this.submitted = false;
+      this.addCalForm.value.user_id = this.Id;
       this.service.getAddCalender(this.addCalForm.value)
       .subscribe(res => {
         if(res['status']=='0'){
