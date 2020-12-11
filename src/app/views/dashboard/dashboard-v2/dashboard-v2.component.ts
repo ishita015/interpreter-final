@@ -52,7 +52,7 @@ export class DashboardV2Component implements OnInit {
     public totalcancel_obj;
 	public totalcomplete_obj;
 	cal_data;
-
+	local_data;
   constructor(
 		private productService: ProductService,public service:HttpService,
 		private router: Router,
@@ -84,15 +84,16 @@ export class DashboardV2Component implements OnInit {
 	this.complete_request();
 	this.cancelled_request();
 	// this.loadEvents();
-
-	
+	//get admin assign
 	this.getInterpreterRequestInfo();
+	//get local events
+	this.getMyLocalEvents();
   }
 
 
   
 
-   
+   // get admin assign
   getInterpreterRequestInfo(){
 	this.service.interpreterDashboardData(this.userId)
 	.subscribe(res => {
@@ -110,6 +111,30 @@ export class DashboardV2Component implements OnInit {
 		}		
 	})
   }
+
+
+  // get local events
+  getMyLocalEvents(){
+	  console.log("userId",this.userId)
+	this.service.interpreterLocalEvents(this.userId)
+	.subscribe(res => {
+		console.log("local events", res)
+		if(res['status']=='1'){
+			this.local_data = res['data'];
+			this.events = [];
+			for(let i=0; i < this.local_data.length; i++){ 
+				var dataArray = this.local_data[i].date.split(/[ -]/);
+				this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
+				this.events.push ({
+					start: this.new_date,
+					title: this.local_data[i].title
+				});
+			}
+		}		
+	})
+  }
+
+
 
 
     new_request(){

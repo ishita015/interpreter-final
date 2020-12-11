@@ -109,7 +109,7 @@ app.post('/cesco/getCompleteRequest', interpreterController.getCompleteRequest);
 app.post('/cesco/getCancelledRequest', interpreterController.getCancelledRequest);
 
 app.post('/cesco/getRejectDataInterpreter', interpreterController.getRejectDataInterpreter);
-
+app.post('/cesco/getInterpreterEvents', interpreterController.getInterpreterEvents);
 
 
 app.post('/cesco/addInterpreterEvents', interpreterController.addInterpreterEvents);
@@ -429,6 +429,7 @@ io.sockets.on('connection', function(socket) {
 
     
     function saveChatInDatabase(message,sender_id,receiver_id,group_id) {
+        var testchatRoom = '1010';
         var new_date = Date.now();
             new_date = moment(new_date).unix();
         // message = mysql_real_escape_string(message);     
@@ -439,7 +440,8 @@ io.sockets.on('connection', function(socket) {
             con.query(sql, function(err, result) {
                 if(result.affectedRows == 1){
                     // io.sockets.in(group_id).emit('responce_chat', {
-                    io.sockets.emit('responce_chat', {
+                    io.sockets.in(testchatRoom).emit('responce_chat', {
+                    // io.sockets.emit('responce_chat', {
                         chatRoomId: group_id,
                         receiverId: receiver_id,
                         senderId: sender_id,
@@ -462,7 +464,8 @@ io.sockets.on('connection', function(socket) {
                     con.query(sql, function(err, result) {
                         if(result.affectedRows == 1){
                             // io.sockets.in(groupId).emit('responce_chat', {
-                            io.sockets.emit('responce_chat', {
+                            io.sockets.in(testchatRoom).emit('responce_chat', {
+                            // io.sockets.emit('responce_chat', {
                                 chatRoomId: groupId,
                                 receiverId: receiver_id,
                                 senderId: sender_id,

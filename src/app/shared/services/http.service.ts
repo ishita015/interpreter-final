@@ -105,6 +105,11 @@ export class HttpService {
 
 
 
+  interpreterLocalEvents(user_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getInterpreterEvents', { user_id: user_id }, this.httpOptions);
+  }
+
+
 
   getLangSelectInterpreter(language_id): Observable<any> {
     return this.http.post(this.url + '/cesco/getSelectLangInterpreter', { language_id: language_id }, this.httpOptions);
