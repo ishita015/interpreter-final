@@ -99,6 +99,8 @@ export class DashboardV2Component implements OnInit {
 	.subscribe(res => {
 		if(res['status']=='1'){
 			this.cal_data = res['data'];
+			console.log("cal_data",this.cal_data)
+
 			this.events = [];	
 			for(let i=0; i < this.cal_data.length; i++){ 
 				var dataArray = this.cal_data[i].date.split(/[ -]/);
@@ -107,6 +109,10 @@ export class DashboardV2Component implements OnInit {
 					start: this.new_date,
 					title: this.cal_data[i].title,
 					_id:this.cal_data[i].id,
+					color: {
+						primary: this.cal_data[i].id=="0" ? "#77a024" : "#1153e3",
+						secondary: this.cal_data[i].id =="0" ? "#11e3ad" : "#9c24a0",
+					  }
 				});
 			}
 		}		
