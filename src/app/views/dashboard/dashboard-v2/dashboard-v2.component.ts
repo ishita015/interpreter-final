@@ -147,24 +147,23 @@ export class DashboardV2Component implements OnInit {
 	}
 
 
-	public removeEvent(id) {
-		console.log("idddddddd",id);
+	public removeEvent(e) {
+	console.log("idddddddd",e);
+	
 		this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
 			.result.then((result) => {
-				// this.service.interpreterLocalEvents(this.userId)
-				// 		this.service.removeLocalEvents(this.userId,e.event._id)
-				// 			.subscribe(res => {
-				// 				// this.events = this.initEvents(events);
-				// 				console.log("resp",res)
-				// 				this.toastr.success(res.message,'', { timeOut: 1000 });
-				// 				// this.refresh.next();
-				// 				this.getInterpreterRequestInfo();
-				// 			});
-				// 	}, (reason) => {
+				this.service.interpreterLocalEvents(this.userId)
+				this.service.removeLocalEvents(this.userId,e)
+					.subscribe(res => {
+						// this.events = this.initEvents(events);
+						console.log("resp",res)
+						this.toastr.success(res.message,'', { timeOut: 1000 });
+						// this.refresh.next();
+						this.getInterpreterRequestInfo();
+					});
+			}, (reason) => {
 
-			}
-			);
-
+		});
 	}
 
 

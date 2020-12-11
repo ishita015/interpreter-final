@@ -102,11 +102,9 @@ export class HttpService {
 
 
   //------------socket end
-
   removeLocalEvents(user_id,event_id): Observable<any> {
     return this.http.post(this.url + '/cesco/deleteLocalEvent', { user_id: user_id,event_id:event_id }, this.httpOptions);
   }
-
 
 
   interpreterLocalEvents(user_id): Observable<any> {
@@ -423,6 +421,12 @@ getAddCalender(addInfo: AddCalender): Observable<any> {
   return this.http.post(this.url + '/cesco/addInterpreterEvents', addInfo);
 }
 
+interpreterViewEvents(user_id,event_id): Observable<any> {
+  return this.http.post(this.url + '/cesco/getLocalEventsData', { user_id: user_id, event_id: event_id }, this.httpOptions);
+}
+getUpdateCalender(addInfo: AddCalender): Observable<any> {
+  return this.http.post(this.url + '/cesco/updateInterpreterEvents',  addInfo);
+}
 /*=====Add Calender Apis End======*/
 
 

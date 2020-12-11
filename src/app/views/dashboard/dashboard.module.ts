@@ -18,6 +18,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { AddCalenderComponent } from './add-calender/add-calender.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditCalenderComponent } from './edit-calender/edit-calender.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,6 +35,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     }),
     DashboardRoutingModule
   ],
-  declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component, AddCalenderComponent]
+  declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component, AddCalenderComponent, EditCalenderComponent]
 })
 export class DashboardModule { }

@@ -61,7 +61,7 @@
                                    
                             </div>
                             <div *ngIf="addCalForm.controls['end_time'].errors && ( !addCalForm.controls['end_time'].pristine || submitted ||addCalForm.controls['end_time'].touched )" class="error-msg">
-                                <div [hidden]="!addCalForm.controls['end_time'].errors.required">Start Time is required.</div>
+                                <div [hidden]="!addCalForm.controls['end_time'].errors.required">End Time is required.</div>
                                 <!-- <div [hidden]="!addCalForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
                               </div>
                         </div>
