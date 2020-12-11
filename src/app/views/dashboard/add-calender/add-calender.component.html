@@ -1,0 +1,96 @@
+<div class="breadcrumb">
+    <!-- <h1>Language</h1> -->
+    <ul class="heading">
+        <li><a>Calender</a></li>
+        <li>Add</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form [formGroup]="addCalForm">
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label>Title</label>
+                            <input class="form-control " formControlName="title" placeholder="Title">
+                            <div *ngIf="addCalForm.controls['title'].errors && ( !addCalForm.controls['title'].pristine || submitted ||addCalForm.controls['title'].touched )" class="error-msg">
+                                <div [hidden]="!addCalForm.controls['title'].errors.required">Title is required.</div>
+                              </div>
+                        </div>
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            
+                                <label>Date</label>
+                                <input type="date" name="setTodaysDate" class="form-control" formControlName="date"
+                                    placeholder="Date">
+                                    <div *ngIf="addCalForm.controls['date'].errors && ( !addCalForm.controls['date'].pristine || submitted ||addCalForm.controls['date'].touched )" class="error-msg">
+                                        <div [hidden]="!addCalForm.controls['date'].errors.required">Date is required.</div>
+                                        <!-- <div [hidden]="!addCalForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                                      </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group mb-3">
+                           
+                            <label>Start Date</label>
+                            <div class="input-group">
+                                <input type="time" class="form-control" placeholder="Start Date"
+                                    name="startDate" formControlName="start_time">
+                                    
+                            </div>
+                            <div *ngIf="addCalForm.controls['start_time'].errors && ( !addCalForm.controls['start_time'].pristine || submitted ||addCalForm.controls['start_time'].touched )" class="error-msg">
+                                <div [hidden]="!addCalForm.controls['start_time'].errors.required">Start Time is required.</div>
+                                <!-- <div [hidden]="!addCalForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                              </div>
+                        </div>
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label>End Date</label>
+                            <div class="input-group">
+                                <input type="time" class="form-control" (change)="start_end_time($event)" placeholder="End Date" name="endDate"
+                                    formControlName="end_time">
+                                   
+                            </div>
+                            <div *ngIf="addCalForm.controls['end_time'].errors && ( !addCalForm.controls['end_time'].pristine || submitted ||addCalForm.controls['end_time'].touched )" class="error-msg">
+                                <div [hidden]="!addCalForm.controls['end_time'].errors.required">Start Time is required.</div>
+                                <!-- <div [hidden]="!addCalForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group mb-3">
+                           
+                                <label>Description</label>
+                                <textarea class="form-control" formControlName="description" placeholder="Description">
+                              </textarea>
+                              <div *ngIf="addCalForm.controls['description'].errors && ( !addCalForm.controls['description'].pristine || submitted ||addCalForm.controls['description'].touched )" class="error-msg">
+                                <div [hidden]="!addCalForm.controls['description'].errors.required">Description is required.</div>
+                              </div>
+                          
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <!-- <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button> -->
+                            <button type="button" (click)="addCalender()" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

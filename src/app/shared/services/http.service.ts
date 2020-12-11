@@ -13,6 +13,7 @@ import { AdminProfile } from '../models/admin-profile';
 import { ChangePassword } from '../models/change-password';
 import { Socket } from 'ngx-socket-io';
 import { Chat } from '../models/chat';
+import { AddCalender } from '../models/add-calender';
 @Injectable({
   providedIn: 'root'
 })
@@ -84,7 +85,7 @@ export class HttpService {
 
 
 
-  requestSend(user_id,request_user_id): Observable<any> {
+  requestSend(user_id, request_user_id): Observable<any> {
     return this.http.post(this.url + '/cesco/sendRequest', { user_id: user_id, request_user_id: request_user_id }, this.httpOptions);
   }
 
@@ -401,13 +402,19 @@ export class HttpService {
   }
   /*=====Profile Section Apis End======*/
 
-/*=====Request Section Apis Start======*/
-getReminderRequest(user_id, ris_id,notes): Observable<any> {
-  return this.http.post(this.url + '/cesco/adminReminderForinterpreter', { user_id: user_id, ris_id: ris_id,notes:notes }, this.httpOptions);
+  /*=====Request Section Apis Start======*/
+  getReminderRequest(user_id, ris_id, notes): Observable<any> {
+    return this.http.post(this.url + '/cesco/adminReminderForinterpreter', { user_id: user_id, ris_id: ris_id, notes: notes }, this.httpOptions);
+  }
+
+  /*=====Request Section Apis End======*/
+
+/*=====Add Calender Section Apis Start======*/
+getAddCalender(addInfo: AddCalender): Observable<any> {
+  return this.http.post(this.url + '/cesco/addInterpreterEvents', addInfo);
 }
 
-/*=====Request Section Apis End======*/
-
+/*=====Add Calender Apis End======*/
 
 
 }
