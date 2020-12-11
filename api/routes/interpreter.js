@@ -16,6 +16,63 @@ const usermodel = new userModel();
 
 
 
+module.exports.getLocalEventsData = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        user_id: 'required',
+        event_id: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.user_id;
+    let event_id = req.body.event_id;
+    // interpreter_request as ir,request_information_services as ris,appointment_information_services as ais
+    var sql = "SELECT * FROM interpreter_event WHERE user_id='"+user_id+"' && id='"+event_id+"'";
+    
+    console.log("local event sql-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+
 module.exports.deleteLocalEvent = async function(req, res, next) {
     //validation start
     const v = new Validator(req.body, {
