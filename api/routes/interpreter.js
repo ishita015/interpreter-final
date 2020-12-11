@@ -16,6 +16,75 @@ const usermodel = new userModel();
 
 
 
+
+
+
+// add interpreter
+module.exports.updateInterpreterEvents = async function(req, res) {
+    //validation start
+   const v = new Validator(req.body, {
+        
+       id: 'required',
+       title: 'required',
+       date: 'required',
+       start_time: 'required',
+       end_time: 'required'
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+
+
+   let id = req.body.id;
+   let title = req.body.title;
+   let date = req.body.date;
+   let start_time = req.body.start_time;
+   let end_time = req.body.end_time;
+   let description = req.body.description ? req.body.description : "";
+   
+   let sql = "UPDATE interpreter_event SET title ='"+title+"',description ='"+description+"', date ='"+date+"', start_time='"+start_time+"',end_time ='"+end_time+"' WHERE id = '"+id+"'";  
+
+
+   console.log('sql-',sql)
+   con.query(sql, function(err, insert) {
+       if(!err){
+           res.json({
+               status: 1,
+               error_code: 0,
+               error_line: 6,
+               message: "Event update successfully",
+           });
+           return true;
+       }else{
+           res.json({
+               status: 0,
+               error_code: 0,
+               error_line: 6,
+               message: "server error",
+           });
+           return true;
+       }
+   });
+};
+
+
+
+
+
+
 module.exports.getLocalEventsData = async function(req, res, next) {
     //validation start
     const v = new Validator(req.body, {

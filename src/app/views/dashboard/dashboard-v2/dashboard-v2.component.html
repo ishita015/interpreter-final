@@ -138,20 +138,20 @@
           ngbTooltip="Month view">
             <i class="i-Calendar"></i>
           </button>
-          <!-- <button 
+          <button 
           class="btn btn-rounded btn-icon btn-primary m-1" 
           (click)="view = 'week'" 
           [class.active]="view === 'week'"
           ngbTooltip="Week view">
             <i class="i-Split-Vertical-2"></i>
-          </button> -->
-          <!-- <button  
+          </button> 
+          <button  
           class="btn btn-rounded btn-icon btn-primary m-1" 
           (click)="view = 'day'" 
           [class.active]="view === 'day'"
           ngbTooltip="Day view">
             <i class="i-Align-Justify-All"></i>
-          </button> -->
+          </button> 
         </div>
       </div>
       <!-- <mat-divider></mat-divider> -->
@@ -170,22 +170,22 @@
           (eventClicked)="viewEvent($event,eventViewConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-month-view>
-        <!-- <mwl-calendar-week-view
+        <mwl-calendar-week-view
           *ngSwitchCase="'week'"
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
           (eventClicked)="handleEvent('edit', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)">
-        </mwl-calendar-week-view> -->
-        <!-- <mwl-calendar-day-view
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
           *ngSwitchCase="'day'"
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
           (eventClicked)="handleEvent('edit', $event.event)"
           (eventTimesChanged)="eventTimesChanged($event)">
-        </mwl-calendar-day-view> -->
+        </mwl-calendar-day-view> 
       </div>
     </div>
   </div>

@@ -58,7 +58,7 @@ export class DashboardV2Component implements OnInit {
 	local_data;
 	viewObj;
 	constructor(
-		private productService: ProductService, public service: HttpService,
+		private productService: ProductService,public service:HttpService,
 		private router: Router,
 		private fb: FormBuilder,
 		private modalService: NgbModal,
@@ -76,45 +76,55 @@ export class DashboardV2Component implements OnInit {
 				// this.removeEvent(event);
 			}
 		}];
-	}
+	 }
+
+	 
+
+  ngOnInit() {
+	this.roleName = JSON.parse(localStorage.getItem('roleName'));
+	this.userId = JSON.parse(localStorage.getItem('userId'));
+	this.new_request();
+	this.accept_request();
+	this.reject_request();
+	this.complete_request();
+	this.cancelled_request();
+	// this.loadEvents();
+	//get admin assign
+	this.getInterpreterRequestInfo();
+}
+	
+
+  
+
+   // get admin assign
+  getInterpreterRequestInfo(){
+	this.service.interpreterDashboardData(this.userId)
+	.subscribe(res => {
+		if(res['status']=='1'){
+			this.cal_data = res['data'];
+			console.log("cal_data",this.cal_data)
+
+			this.events = [];	
+			for(let i=0; i < this.cal_data.length; i++){ 
+				var dataArray = this.cal_data[i].date.split(/[ -]/);
+				this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
+				this.events.push ({
+					start: this.new_date,
+					title: this.cal_data[i].title,
+					_id:this.cal_data[i].id,
+					color: {
+						primary: this.cal_data[i].id=="0" ? "#77a024" : "#1153e3",
+						secondary: this.cal_data[i].id =="0" ? "#11e3ad" : "#9c24a0",
+					  }
+				});
+			}
+		}		
+	})
+  }
+	
 
 
 
-	ngOnInit() {
-		this.roleName = JSON.parse(localStorage.getItem('roleName'));
-		this.userId = JSON.parse(localStorage.getItem('userId'));
-		this.new_request();
-		this.accept_request();
-		this.reject_request();
-		this.complete_request();
-		this.cancelled_request();
-		// this.loadEvents();
-		//get admin assign
-		this.getInterpreterRequestInfo();
-	}
-
-
-
-
-	// get admin assign
-	getInterpreterRequestInfo() {
-		this.service.interpreterDashboardData(this.userId)
-			.subscribe(res => {
-				if (res['status'] == '1') {
-					this.cal_data = res['data'];
-					this.events = [];
-					for (let i = 0; i < this.cal_data.length; i++) {
-						var dataArray = this.cal_data[i].date.split(/[ -]/);
-						this.new_date = new Date(dataArray[0], dataArray[1] - 1, dataArray[2]);
-						this.events.push({
-							start: this.new_date,
-							title: this.cal_data[i].title,
-							_id: this.cal_data[i].id,
-						});
-					}
-				}
-			})
-	}
 
 	public viewEvent(e) {
 		this.service

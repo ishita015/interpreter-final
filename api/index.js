@@ -113,7 +113,7 @@ app.post('/cesco/getInterpreterEvents', interpreterController.getInterpreterEven
 app.post('/cesco/deleteLocalEvent', interpreterController.deleteLocalEvent);
 
 
-
+app.post('/cesco/updateInterpreterEvents', interpreterController.updateInterpreterEvents);
 app.post('/cesco/getLocalEventsData', interpreterController.getLocalEventsData);
 app.post('/cesco/addInterpreterEvents', interpreterController.addInterpreterEvents);
 app.post('/cesco/getIntAccReqDashboardData', interpreterController.getIntAccReqDashboardData);
