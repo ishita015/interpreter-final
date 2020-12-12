@@ -61,7 +61,7 @@
                        
                         <div class="col-md-6 form-group mb-3">
                             <label for="MobileNo.">Mobile No.</label>
-                            <input type="text" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                            <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
                             <div *ngIf="userEditForm.controls['mobile'].errors && (!userEditForm.controls['mobile'].pristine || submitted ||userEditForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!userEditForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                               </div>

@@ -34,7 +34,7 @@
                             <input type="text" class="form-control" formControlName="first_name"  placeholder="First Name">
                             <div *ngIf="userForm.controls['first_name'].errors && (!userForm.controls['first_name'].pristine || submitted ||userForm.controls['first_name'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['first_name'].errors.required">First Name is required.</div>
-                                <div [hidden]="!userForm.controls.name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
+                                <div [hidden]="!userForm.controls.first_name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                             <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
                             <div *ngIf="userForm.controls['last_name'].errors && (!userForm.controls['last_name'].pristine || submitted ||userForm.controls['last_name'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['last_name'].errors.required">Last Name is required.</div>
-                                <div [hidden]="!userForm.controls.name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>  
+                                <div [hidden]="!userForm.controls.last_name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
 
                           <div class="col-md-6 form-group mb-3">
                             <label for="MobileNo.">Mobile No.</label>
-                            <input type="text" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                            <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
                             <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                               </div>

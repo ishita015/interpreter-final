@@ -10,6 +10,7 @@ import { TagInputModule } from 'ngx-chips';
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { AgmCoreModule } from '@agm/core';
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [RequestListComponent, InterpreterListComponent, RequestDetailComponent],
   imports: [
@@ -17,6 +18,7 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
     AgmCoreModule.forRoot({
       // please get your own API key here:
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en

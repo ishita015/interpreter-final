@@ -14,7 +14,7 @@ import { AcceptRequestComponent } from './accept-request/accept-request.componen
 import { CompleteRequestComponent } from './complete-request/complete-request.component';
 import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
 import { RejectRequestComponent } from './reject-reques/reject-request.component';
-
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import { RejectRequestComponent } from './reject-reques/reject-request.component
     InterpreterRequestRoutingModule,
     FormsModule,
     NgxDatatableModule,
+    NgxMaskModule.forRoot(),
     ReactiveFormsModule,
     SharedComponentsModule,
     TagInputModule,

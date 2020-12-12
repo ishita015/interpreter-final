@@ -14,7 +14,7 @@
       </div>
       <div>
         <label for="test"><b>Mobile No. :   </b></label>
-        <span>  {{assignInfo.office_phone}}  </span>
+        <span>  {{assignInfo.office_phone | mask: '(000) 000-0000'}}  </span>
     </div>
 
     <button class="btn btn-outline-secondary" (click)="viewDetail()">View Detail</button>  
@@ -155,7 +155,7 @@
                 Mobile
               </ng-template>
               <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.mobile}}
+                {{row.mobile | mask: '(000) 000-0000'}}
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Gender" prop="gender">

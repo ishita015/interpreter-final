@@ -22,7 +22,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
-
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent],
   imports: [
@@ -31,6 +31,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     NgxDatatableModule,
     SharedComponentsModule,
     NgbModule,
+    NgxMaskModule.forRoot(),
     TagInputModule,
     ColorPickerModule,
     CalendarModule.forRoot({
