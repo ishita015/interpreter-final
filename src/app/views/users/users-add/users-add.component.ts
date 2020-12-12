@@ -15,7 +15,7 @@ import { MapsAPILoader } from '@agm/core';
 
 
 import { DataLayerService } from 'src/app/shared/services/data-layer.service';
- 
+ import { FunctionService } from './../../../shared/services/function.service'
 @Component({
     selector: 'app-users-add',
     templateUrl: './users-add.component.html',
@@ -57,6 +57,7 @@ export class UsersAddComponent implements OnInit {
         private fb: FormBuilder,
         private toastr: ToastrService,
         private router: Router,
+        public func :FunctionService,
         private dl: DataLayerService,
         public service: HttpService,
         private mapsAPILoader: MapsAPILoader,
@@ -136,6 +137,7 @@ export class UsersAddComponent implements OnInit {
         });
     }
     /*========== Form Value End Here========*/
+    
     saveUser() {
         this.submitted = true;
         if (this.userForm.invalid) {
@@ -147,7 +149,7 @@ export class UsersAddComponent implements OnInit {
         this.userForm.value.address = this.new_address;
         this.userForm.value.language = this.newlanguageVal;
         this.userForm.value.role = this.newrole;
-
+        // this.func.formatPhoneNumber(this.userForm.value.mobile);
         console.log("form value", this.userForm.value);
         this.service.interpreterAdd(this.userForm.value)
             .subscribe(res => {

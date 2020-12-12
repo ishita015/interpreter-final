@@ -67,7 +67,7 @@
                         Mobile
                       </ng-template>
                       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.mobile}}
+                        {{row.mobile  | mask: '(000) 000-0000'}}
                       </ng-template>
                   </ngx-datatable-column>
                   <ngx-datatable-column [minWidth]="30">
@@ -84,7 +84,7 @@
                       Created date
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.create_dt | date:'MM-dd-yyyy' }}
+                      {{row.create_dt | date:'MM/dd/yyyy' }}
                   </ng-template>  
               </ngx-datatable-column>
              

@@ -59,7 +59,7 @@
                   Cell Phone
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.cell_phone}}
+                  {{row.cell_phone | mask: '(000) 000-0000'}}
                 </ng-template>
               </ngx-datatable-column>
                 <!-- <ngx-datatable-column name="Requester" prop="requester_name">
@@ -84,7 +84,7 @@
                   Interpreter Mobile
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.mobile}}
+                    {{row.mobile | mask: '(000) 000-0000'}}
                 </ng-template>  
             </ngx-datatable-column>
 
@@ -93,7 +93,7 @@
                   Requested date
               </ng-template>
               <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.date | date:'MM-dd-yyyy' }}
+                  {{row.date | date:'MM/dd/yyyy' }}
               </ng-template>  
           </ngx-datatable-column>
             <ngx-datatable-column [width]="120" [sortable]="false">

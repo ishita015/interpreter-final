@@ -6,6 +6,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import {FunctionService} from './../../../shared/services/function.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -28,12 +29,14 @@ export class UsersListComponent implements OnInit {
   role_id; response_msg;
   json_Obj;
   searchControl: FormControl = new FormControl();
+ 
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public service: HttpService,
     private router: Router,
+    public func:FunctionService
   ) { }
 
   ngOnInit() {

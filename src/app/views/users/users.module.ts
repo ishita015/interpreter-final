@@ -20,7 +20,7 @@ import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
-
+import { NgxMaskModule } from 'ngx-mask';
 //ViewCalendarComponent
 
 @NgModule({
@@ -30,6 +30,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     FormsModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
     SharedComponentsModule,
     TagInputModule,
     NgbModule,

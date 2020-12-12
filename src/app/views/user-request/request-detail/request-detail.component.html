@@ -41,11 +41,11 @@
                                     </tr>
                                      <tr>
                                         <td>Office Phone</td>
-                                        <td>{{data.office_phone}}</td>
+                                        <td>{{data.office_phone | mask: '(000) 000-0000'}}</td>
                                     </tr>
                                      <tr>
                                         <td>Cell Phone</td>
-                                        <td>{{data.cell_phone}}</td>
+                                        <td>{{data.cell_phone | mask: '(000) 000-0000'}}</td>
                                     </tr>
                                      <tr>
                                         <td>Email</td>
@@ -53,11 +53,11 @@
                                     </tr>
                                      <tr>
                                         <td>Site Contact</td>
-                                        <td>{{data.site_contact}}</td>
+                                        <td>{{data.site_contact | mask: '(000) 000-0000'}}</td>
                                     </tr>
                                        <tr>
                                         <td>Create Date</td>
-                                        <td>{{data.updated_at | date:'MM-dd-yyyy' }}</td>
+                                        <td>{{data.updated_at | date:'MM/dd/yyyy' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -108,7 +108,7 @@
                                     </tr>
                                       <tr>
                                         <td>Date</td>
-                                        <td>{{data.date}}</td>
+                                        <td>{{data.date | date:'MM/dd/yyyy' }}</td>
                                     </tr>
                                     <tr>
                                         <td>Start Time</td>
