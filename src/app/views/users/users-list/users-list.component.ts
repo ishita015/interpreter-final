@@ -39,7 +39,7 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
-    this.interpreterList();
+    this.userList();
     this.searchControl.valueChanges
       .pipe(debounceTime(200))
       .subscribe(value => {
@@ -81,8 +81,8 @@ export class UsersListComponent implements OnInit {
 
 
 
-  interpreterList() {
-    this.service.getInterpreterList()
+  userList() {
+    this.service.getAllUserList()
       .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];

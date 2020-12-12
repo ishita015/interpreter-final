@@ -102,6 +102,14 @@ export class HttpService {
 
 
   //------------socket end
+
+
+  requestAssignAllInterpreter(request_id,allInterpreter): Observable<any> {
+    return this.http.post(this.url + '/cesco/assignAllInterpreter', {request_id:request_id,allInterpreter:allInterpreter}, this.httpOptions);
+  }
+
+
+
   removeLocalEvents(user_id,event_id): Observable<any> {
     return this.http.post(this.url + '/cesco/deleteLocalEvent', { user_id: user_id,event_id:event_id }, this.httpOptions);
   }
@@ -222,6 +230,14 @@ export class HttpService {
   /*=====Interpreter Section Apis Start======*/
   roleList(): Observable<any[]> {
     return this.http.get<any[]>(this.url + '/cesco/getRole');
+  }
+
+
+
+
+
+  getAllUserList(): Observable<any> {
+    return this.http.get(this.url + '/cesco/getAllUser', this.httpOptions);
   }
 
 

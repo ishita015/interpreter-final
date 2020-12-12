@@ -61,8 +61,8 @@
 <br/>
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="form-group">
+  <div class="col-md-2">
+    <div class="form-grup">
       <input id="search" placeholder="Name/Email" [formControl]="search_name_email"  class="form-control form-control-rounded" type="text">
     </div>
 </div>
@@ -111,6 +111,9 @@
   <button class="btn btn-outline-secondary"  (click)="assignMyNearbyInterpreter()">Apply</button>  
 </div>
 
+<div class="col-md-2">
+  <button class="btn btn-outline-secondary" (click)="assignAllInterpreter()" >Assign All</button>  
+</div>
   <div class="col-md-12">
       <div class="card  o-hidden">
           <ngx-datatable *ngIf="filteredUser?.length"

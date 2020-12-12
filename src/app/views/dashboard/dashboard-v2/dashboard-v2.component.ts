@@ -32,6 +32,7 @@ export class DashboardV2Component implements OnInit {
 
 	@ViewChild('eventDeleteConfirm', { static: true }) eventDeleteConfirm;
 	@ViewChild('eventViewConfirm', { static: true }) eventViewConfirm;
+	@ViewChild('requestViewConfirm', { static: true }) requestViewConfirm;
 	public activeDayIsOpen = true;
 	public refresh: Subject<any> = new Subject();
 	public events: CalendarAppEvent[];
@@ -112,6 +113,7 @@ export class DashboardV2Component implements OnInit {
 					start: this.new_date,
 					title: this.cal_data[i].title,
 					_id:this.cal_data[i].id,
+					request_id:this.cal_data[i].request_id,
 					color: {
 						primary: this.cal_data[i].id=="0" ? "#77a024" : "#1153e3",
 						secondary: this.cal_data[i].id =="0" ? "#11e3ad" : "#9c24a0",
@@ -127,16 +129,28 @@ export class DashboardV2Component implements OnInit {
 
 
 	public viewEvent(e) {
+		console.log("view all data _id", e);
 		this.service
 			.interpreterViewEvents(this.userId, e.event._id)
 			.subscribe(result => {
-				console.log("view api ", result);
-				this.viewObj = result;
-				console.log("response ", this.viewObj);
+				if(result['status']=='1'){
+					console.log("result", result);
+					this.viewObj = result;
+					console.log("response ", this.viewObj);
+
+					this.modalService.open(this.eventViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+						.result.then((result) => {
+					});
+				}else{
+					
+					this.router.navigate(['/user-request/request-view/'+e.event.request_id]);
+					// this.modalService.open(this.requestViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+					// 	.result.then((result) => {
+					// });
+				}
+				
 			});
-		this.modalService.open(this.eventViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
-			.result.then((result) => {
-			});
+			
 
 	}
 

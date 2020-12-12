@@ -14,6 +14,116 @@ const usermodel = new userModel();
 
 
 
+/*
+
+
+id: 10,
+    role_id: 2,
+    name: 'N/A N/A',
+    mobile: '65456456456',
+    email: 'developer@gmail.com',
+    profile_img: 'default.png',
+    gender: 'Male',
+    address: 'Bhopal, Madhya Pradesh, India',
+    apartment: '0',
+    street: '0',
+    interpreter_rate: 30,
+    latitude: 23.2599333,
+    longitude: 77.412615,
+    primary_language: 52,
+    status: 0,
+    create_dt: '2020-11-23T06:20:26.000Z',
+    distance: 0,
+    is_reject: '0'
+*/
+
+
+
+
+//req.body.allInterpreter
+
+// add interpreter
+module.exports.assignAllInterpreter = async function(req, res) {
+    console.log("all body",req.body)
+    //validation start
+   const v = new Validator(req.body, {
+        
+       allInterpreter: 'required', //array
+       request_id: 'required',
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+
+   let allInterpreter = req.body.allInterpreter;
+   let service_id = req.body.request_id;
+
+
+    for (var i = 0; i < allInterpreter.length; i++) {
+        let interpreter_id=allInterpreter[i].id;
+        let name=allInterpreter[i].name;
+        let email=allInterpreter[i].email;
+        var lastData = await usermodel.checkRequestSend(interpreter_id,service_id);
+
+        if (lastData != "" && lastData != undefined) {
+            let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='"+service_id+"' && Interpreter_id='"+interpreter_id+"'";
+            con.query(updatesql, function(err, result) {});
+        }else{
+            var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('"+service_id+"','"+interpreter_id+"','1')";
+            console.log('sql-',sql)
+            con.query(sql, function(err, insert) {
+                if(!err){
+                    var query = "SELECT * FROM request_information_services WHERE id='"+service_id+"'";
+                    console.log(query)
+                    con.query(query, function(err, result, fields) {
+                        if (result && result.length > 0) {
+                            let caseworker_name = result[0].caseworker_name;
+                            common.sendRequestEmail(caseworker_name,name,email);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+     //update status
+    let updatesql = "UPDATE request_information_services SET status = '2' WHERE id = '"+service_id+"'";
+    con.query(updatesql, function(err, result) {
+        if(!err){
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Request assign successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }     
+    });
+};
+
+
+
 
 
 
@@ -431,6 +541,7 @@ module.exports.getIntAccReqDashboardData = async function(req, res, next) {
         for (var i = 0; i < resultData.length; i++) {
             mainObj1 = {
                 id: '0',
+                request_id: resultData[i].request_id,
                 title: resultData[i].appointment_type,
                 date: resultData[i].date,
                 start_time: resultData[i].start_time,
@@ -447,6 +558,7 @@ module.exports.getIntAccReqDashboardData = async function(req, res, next) {
         for (var j = 0; j < localResult.length; j++) {
             mainObj2 = {
                 id: localResult[j].id,
+                request_id: '0',
                 title: localResult[j].title,
                 date: localResult[j].date,
                 start_time: localResult[j].start_time,
@@ -1430,6 +1542,164 @@ module.exports.getInterpreter = function(req, res, next) {
         }
     });
 };
+
+
+
+
+
+
+
+// get interpreter
+module.exports.getInterpreter = function(req, res, next) {
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
+    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+// get interpreter
+module.exports.getInterpreter = function(req, res, next) {
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
+    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+// get interpreter
+module.exports.getInterpreter = function(req, res, next) {
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
+    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+// get interpreter
+module.exports.getInterpreter = function(req, res, next) {
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
+    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+// get All User
+module.exports.getAllUser = function(req, res, next) {
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE (u.role_id!=1 && u.role_id!=2) ORDER BY u.id DESC";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
 
 
 

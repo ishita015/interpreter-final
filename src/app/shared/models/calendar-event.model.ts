@@ -15,10 +15,12 @@ export class CalendarAppEvent implements CalendarEvent {
   start: Date;
   end?: Date;
   title: string;
+ // event_type: string;
   color?: {
     primary: string;
     secondary: string;
   };
+  request_id?: string;
   actions?: CalendarEventAction[];
   allDay?: boolean;
   cssClass?: string;

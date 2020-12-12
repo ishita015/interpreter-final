@@ -113,6 +113,7 @@ app.post('/cesco/getInterpreterEvents', interpreterController.getInterpreterEven
 app.post('/cesco/deleteLocalEvent', interpreterController.deleteLocalEvent);
 
 
+app.post('/cesco/assignAllInterpreter', interpreterController.assignAllInterpreter);
 app.post('/cesco/updateInterpreterEvents', interpreterController.updateInterpreterEvents);
 app.post('/cesco/getLocalEventsData', interpreterController.getLocalEventsData);
 app.post('/cesco/addInterpreterEvents', interpreterController.addInterpreterEvents);
@@ -135,6 +136,9 @@ app.post('/cesco/getInterpreterDetail', interpreterController.getInterpreterDeta
 app.post('/cesco/getInterpreterLanguage', interpreterController.getInterpreterLanguage);
 app.post('/cesco/getInterpreterDatatime', interpreterController.getInterpreterTime);
 app.get('/cesco/getInterpreter', interpreterController.getInterpreter);
+
+app.get('/cesco/getAllUser', interpreterController.getAllUser);
+
 app.post('/cesco/saveInterpreter', interpreterController.addInterpreter);
 app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);

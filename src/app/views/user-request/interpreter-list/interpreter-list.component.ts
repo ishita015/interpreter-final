@@ -276,6 +276,27 @@ export class InterpreterListComponent implements OnInit {
   }
 
 
+
+
+  
+
+  assignAllInterpreter(){
+    console.log("j",this.list_Obj)
+    this.service.requestAssignAllInterpreter(this.serviceid,this.list_Obj).subscribe(res => {
+      console.log("res",res)
+      this.requestStatus = res;
+      if(res['status']=='1'){
+        this.router.navigate(['/user-request/list'])
+        this.toastr.success(this.requestStatus.message,'', { timeOut: 2000 });
+      }else{
+        this.router.navigate(['/user-request/list'])
+        this.toastr.error(this.requestStatus.message,'', { timeOut: 2000 });
+      }
+      
+    });
+    
+  }
+
   // viewDetail(){
   //   this.router.navigate(['/user-request/request-view',this.assignInfo.id])
   // }
