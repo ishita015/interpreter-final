@@ -1,0 +1,188 @@
+<div class="breadcrumb">
+    <!-- <h1>Language</h1> -->
+    <ul class="heading">
+        <li><a>User</a></li>
+        <li>Add</li> 
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form [formGroup]="userForm">
+
+                     
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="picker1">Select Role</label>
+                            <select class="form-control"  (change)="onChangeRole($event)"  formControlName="user_role">
+                                <option value="">Select Role</option>
+                                <option *ngFor="let lan of role_Obj" [value]="lan.id">
+                                    {{lan?.role_name}}
+                                 </option>
+                            </select>
+                            <div *ngIf="userForm.controls['user_role'].errors && (!userForm.controls['user_role'].pristine || submitted ||userForm.controls['primary_language'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['user_role'].errors.required">Role is required.</div> 
+                              </div>
+                        </div>
+
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" formControlName="first_name"  placeholder="First Name">
+                            <div *ngIf="userForm.controls['first_name'].errors && (!userForm.controls['first_name'].pristine || submitted ||userForm.controls['first_name'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['first_name'].errors.required">First Name is required.</div>
+                                <div [hidden]="!userForm.controls.name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Last">Last Name</label>
+                            <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
+                            <div *ngIf="userForm.controls['last_name'].errors && (!userForm.controls['last_name'].pristine || submitted ||userForm.controls['last_name'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['last_name'].errors.required">Last Name is required.</div>
+                                <div [hidden]="!userForm.controls.name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>  
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control"  formControlName="email" (blur)="checkEmail($event,$event.target.value)"  placeholder="Email">
+                            <div *ngIf="userForm.controls['email'].errors && (!userForm.controls['email'].pristine || submitted ||userForm.controls['email'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['email'].errors.required">Email is required.</div>
+                              </div>
+                        </div>
+
+
+                      
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="email">Password</label>
+                            <input type="password" class="form-control"  formControlName="password"  placeholder="password">
+                            <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div>
+                        </div>
+
+                          <div class="col-md-6 form-group mb-3">
+                            <label for="MobileNo.">Mobile No.</label>
+                            <input type="text" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                            <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                              </div>
+                        </div>
+                        
+                       
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Address">Address</label>
+                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
+                            <input type="text" class="form-control"  formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['address'].errors.required">Address is required.</div> 
+                              </div>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Apartment">Apartment</label>
+                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
+                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
+                            <div *ngIf="userForm.controls['apartment'].errors && (!userForm.controls['apartment'].pristine || submitted ||userForm.controls['apartment'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['apartment'].errors.required">Apartment is required.</div> 
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Street">Street</label>
+                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
+                           <input type="text" class="form-control" formControlName="street"  placeholder="Street">
+                            <div *ngIf="userForm.controls['street'].errors && (!userForm.controls['street'].pristine || submitted ||userForm.controls['street'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['street'].errors.required">Street is required.</div> 
+                              </div>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Gender">Gender</label>
+                            <div class="form-check">
+                                <label class="form-check-label" for="gridRadios1">
+                                <input class="form-check-input radio-inline " formControlName="gender" type="radio" id="gridRadios1"
+                                    value="Male" checked>
+                              
+                                    Male
+                                </label>
+                          
+                                <label class="form-check-label pl-5" for="gridRadios2">
+                                <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios2"
+                                    value="Female">
+                             
+                                    Female
+                                </label>
+
+                                <label class="form-check-label pl-5" for="gridRadios3">
+                                    <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios3"
+                                        value="Other">
+                                 
+                                        Other
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="picker1">Select Primary Language</label>
+                            <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
+                                <option value="">Select Language</option>
+                                <option *ngFor="let lan of language_Obj" [value]="lan.id">
+                                    {{lan?.name}}
+                                 </option>
+                            </select>
+                            <div *ngIf="userForm.controls['primary_language'].errors && (!userForm.controls['primary_language'].pristine || submitted ||userForm.controls['primary_language'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['primary_language'].errors.required">Language is required.</div> 
+                              </div>
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Language">Select Secondary Language</label>
+                            <tag-input [formControl]="tagsCtrl2" formControlName="languageid" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
+                              theme="primary" placeholder="Type language name">
+                              <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
+                              </tag-input-dropdown>
+                            </tag-input>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                     <div *ngIf="this.newrole == '2'" class="col-md-6 form-group mb-3">
+                        <label for="rate">Rate</label>
+                        <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
+                        <!-- <div *ngIf="userForm.controls['rate'].errors && (!userForm.controls['rate'].pristine || submitted ||userForm.controls['rate'].touched )" class="error-msg">
+                            <div [hidden]="!userForm.controls['rate'].errors.required">Rate is required.</div>
+                        </div> -->
+                    </div>
+                  
+                </div>
+                    <input type="hidden" class="form-control" formControlName="latitude" >
+                    <input type="hidden" class="form-control" formControlName="longitude"> 
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

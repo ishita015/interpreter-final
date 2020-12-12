@@ -90,6 +90,12 @@ export class NavigationService {
             state: '/users/user-list',
         },
         {   
+            name: 'Interpreter management',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/interpreter/interpreter-list',
+        },
+        {   
             name: 'Requests',
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
             type: 'dropDown',

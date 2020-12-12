@@ -24,6 +24,10 @@ const adminRoutes: Routes = [
       loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule)
     },
     {
+      path: 'interpreter',
+      loadChildren: () => import('./views/interpreter-management/interpreter-management.module').then(m => m.InterpreterManagementModule)
+    },
+    {
       path: 'interpreter-request',
       loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
     },
