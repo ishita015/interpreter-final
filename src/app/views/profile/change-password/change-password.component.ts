@@ -16,6 +16,9 @@ export class ChangePasswordComponent implements OnInit {
   admin_Msg;
   userId;
   public showHideBtn = true;
+  public showHideNew = true;
+  public showHideOld = true;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -95,5 +98,15 @@ export class ChangePasswordComponent implements OnInit {
     }
     /*==========Password Show/Hide Function End Here========*/
   
-  
+   /*==========Password Show/Hide Function Start Here========*/
+   showHideNewPassword(){
+    this.showHideNew = this.showHideNew === false;
+  }
+  /*==========Password Show/Hide Function End Here========*/
+
+   /*==========Password Show/Hide Function Start Here========*/
+   showHideOldPassword(){
+    this.showHideOld = this.showHideOld === false;
+  }
+  /*==========Password Show/Hide Function End Here========*/
 }
