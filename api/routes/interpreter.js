@@ -2039,9 +2039,9 @@ module.exports.addInterpreter = async function(req, res) {
         });
         return true;
     }
+    
 
-
-
+    let user_role = req.body.user_role;
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
     let email = req.body.email;
@@ -2059,7 +2059,7 @@ module.exports.addInterpreter = async function(req, res) {
     let rate = req.body.rate ? req.body.rate : 0;
     password = cryptr.encrypt(password);
     
-    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"')";
+    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street)VALUES('"+user_role+"','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"')";
     console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
