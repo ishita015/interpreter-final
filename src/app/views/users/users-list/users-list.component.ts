@@ -156,7 +156,7 @@ export class UsersListComponent implements OnInit {
       .subscribe(res => {
         this.status_msg = res;
         this.toastr.success(this.status_msg.message, '', { timeOut: 1000 });
-        this.interpreterList();
+        this.userList();
       })
   }
 
