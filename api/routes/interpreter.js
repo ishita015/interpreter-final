@@ -1432,8 +1432,8 @@ module.exports.getNearbyInterpreter = async function(req, res, next) {
 
 
 
-module.exports.getTotalUser = function(req, res, next) {
-    var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id !='1'";
+module.exports.getTotalInterpreter = function(req, res, next) {
+    var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id ='2'";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
@@ -1456,6 +1456,39 @@ module.exports.getTotalUser = function(req, res, next) {
         }
     });
 };
+
+
+
+
+
+
+
+module.exports.getTotalUser = function(req, res, next) {
+    var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id !='1' && role_id !='2'";
+    console.log(sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
 
 
 

@@ -19,7 +19,7 @@ export class DashboadDefaultComponent implements OnInit {
     public totaluser_obj;
     public totallanguage_obj;
     public roleName;
-
+    public totalinter_obj;
     public totalrequest_obj;
     public totalassign_obj;
     public totalinprogress_obj;
@@ -37,7 +37,7 @@ export class DashboadDefaultComponent implements OnInit {
         this.total_inprogress();
         this.total_complete();
         this.total_cancelled();
-
+        this.total_interpreter();
         this.roleName = JSON.parse(localStorage.getItem('roleName'));
 	}
 
@@ -48,6 +48,19 @@ export class DashboadDefaultComponent implements OnInit {
             this.totaluser_obj = res['data'][0];
         })
     }
+
+
+
+    total_interpreter(){
+        this.service.getdashboardInterpreter()
+        .subscribe(res => {
+        //   console.log("apiiiiiiiiii response service", res);
+            this.totalinter_obj = res['data'][0];
+        })
+    }
+
+
+
 
     totalLanguageList(){
         this.service.getdashboardLanguage()
@@ -102,6 +115,9 @@ export class DashboadDefaultComponent implements OnInit {
         })
     }
 
+
+
+    
 
 
 

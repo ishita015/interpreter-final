@@ -351,6 +351,11 @@ export class HttpService {
 
 
   /*=====Dashboard Section Apis Start======*/
+  getdashboardInterpreter(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + '/cesco/getTotalInterpreter');
+  }
+
+
   getdashboardUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.url + '/cesco/getTotalUser');
   }
