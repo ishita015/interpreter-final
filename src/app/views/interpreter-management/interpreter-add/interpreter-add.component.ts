@@ -36,7 +36,8 @@ export class InterpreterAddComponent implements OnInit {
     public newrole;
     tagsCtrl1 = new FormControl(this.items);
     tagsCtrl2 = new FormControl([]);
-
+    // languageid = [];
+    
     selectedFile:File = null;
     // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
     // name = 'Angular';
@@ -165,7 +166,9 @@ export class InterpreterAddComponent implements OnInit {
 
 
     saveUser(){
-        console.log("languageid",this.userForm.value.languageid);
+
+       
+        console.log("languageid 1",this.userForm.value.languageid);
         // console.log("form value",this.adminProfileForm.value);
         this.submitted = true;
         if (this.userForm.invalid) {
@@ -174,6 +177,13 @@ export class InterpreterAddComponent implements OnInit {
         this.submitted = false;
 
         const formData: any = new FormData();
+
+        // for(let id of this.userForm.value.languageid){
+        //     console.log("language--id",id);
+        //     formData.append('languageid',id);
+        // }
+
+        // console.log("languageid",this.userForm.value.languageid);
 
         this.userForm.value.image = this.selectedFile;
         

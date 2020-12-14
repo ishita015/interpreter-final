@@ -68,7 +68,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
   
     ngOnInit() {
       this.updatedata = JSON.parse(localStorage.getItem('loginData'));
-      console.log("update data");
+      console.log("update data", this.updatedata.profile_img);
       
     }
   

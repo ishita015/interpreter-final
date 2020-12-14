@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser')
 var path = require('path');
 var ip = require("ip");
+
 var mysql = require('mysql');
 var request = require('ajax-request'); // ubunto
 const requests = require('request'); // cento s
@@ -10,6 +11,10 @@ var async = require("async");
 var cors = require('cors');
 var app = express(); 
 app.use(cors())
+
+// const app       = express();
+app.use(express.static('public'));
+
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var cron = require('node-cron');
@@ -139,8 +144,8 @@ app.get('/cesco/getInterpreter', interpreterController.getInterpreter);
 
 app.get('/cesco/getAllUser', interpreterController.getAllUser);
 
-app.post('/cesco/saveInterpreter', interpreterController.addInterpreter);
-app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
+// app.post('/cesco/saveInterpreter', interpreterController.addInterpreter);
+// app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
@@ -198,6 +203,104 @@ app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 // api end
 
 
+
+// // add interpreter
+// module.exports.addInterpreter = async function(req, res) {
+//     //validation start
+//    const v = new Validator(req.body, {
+//        first_name: 'required',
+//        last_name: 'required',
+//        email: 'required',
+//        password: 'required',
+//        languageid: 'required',
+//        mobile: 'required',
+//        address: 'required',
+//        apartment: 'required',
+//        street: 'required',
+//        latitude: 'required',
+//        longitude: 'required',
+//        gender: 'required',
+//        primary_language: 'required'
+//    });
+   
+//    const matched = await v.check();
+   
+//    if (!matched) {
+//        var error;
+//        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+//            error = Object.values(v.errors)[0].message;
+//            break;
+//        }
+//        res.json({
+//            status: 0,
+//            message: error
+//        });
+//        return true;
+//    }
+   
+
+//    let user_role = req.body.user_role;
+//    let first_name = req.body.first_name;
+//    let last_name = req.body.last_name;
+//    let email = req.body.email;
+//    let first_password = req.body.password;
+//    let password = req.body.password;
+//    let languageid = req.body.languageid;
+//    let mobile = req.body.mobile;
+//    let address = req.body.address;
+//    let apartment = req.body.apartment;
+//    let street = req.body.street;
+//    let latitude = req.body.latitude ? req.body.latitude : 0;
+//    let longitude = req.body.longitude ? req.body.longitude : 0;
+//    let gender = req.body.gender;
+//    let primary_language = req.body.primary_language;
+//    let rate = req.body.rate ? req.body.rate : 0;
+//    password = cryptr.encrypt(password);
+   
+//    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street)VALUES('"+user_role+"','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"')";
+//    console.log('sql-',sql)
+//    con.query(sql, function(err, insert) {
+//        let last_id= insert.insertId;
+//        if(!err){
+//            for (var i = 0; i < languageid.length; i++) {
+//                console.log("language id",languageid[i].id);
+//                var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+languageid[i].id+"')";
+//                con.query(sql1, function(err, insert) {});
+//            }
+
+//            var name = first_name+" "+last_name;
+//            common.sendRegistrationEmail(name,email,first_password);
+
+//            res.json({
+//                status: 1,
+//                error_code: 0,
+//                error_line: 6,
+//                message: "Interpreter add successfully",
+//            });
+//            return true;
+//        }else{
+//            res.json({
+//                status: 0,
+//                error_code: 0,
+//                error_line: 6,
+//                message: "server error",
+//            });
+//            return true;
+//        }
+//    });
+// };
+
+
+
+
+
+
+
+
+
+
+
+
 app.post('/cesco/userRoleAdd', function(req, res) {
   let data =req.body;
   for (var i = 0; i < data.length; i++) {
@@ -224,7 +327,7 @@ app.post('/cesco/userRoleAdd', function(req, res) {
 
 
 /* image upload */
-const DIR = './public/';
+const DIR = './public/user';
 let storage = multer.diskStorage({
     destination: function(req, file, callback) {
         callback(null, DIR);
@@ -236,6 +339,236 @@ let storage = multer.diskStorage({
 
 let upload = multer({
     storage: storage
+});
+
+
+
+
+
+
+
+//update profile 
+app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        first_name: 'required',
+        last_name: 'required',
+        email: 'required',
+        password: 'required',
+        languageid: 'required',
+        mobile: 'required',
+        address: 'required',
+        apartment: 'required',
+        street: 'required',
+        latitude: 'required',
+        longitude: 'required',
+        gender: 'required',
+        primary_language: 'required'
+    });
+
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    
+
+   let first_name = req.body.first_name;
+   let last_name = req.body.last_name;
+   let email = req.body.email;
+   let first_password = req.body.password;
+   let password = req.body.password;
+   let languageid = req.body.languageid;
+   let mobile = req.body.mobile;
+   let address = req.body.address;
+   let apartment = req.body.apartment;
+   let street = req.body.street;
+   let latitude = req.body.latitude ? req.body.latitude : 0;
+   let longitude = req.body.longitude ? req.body.longitude : 0;
+   let gender = req.body.gender;
+   let primary_language = req.body.primary_language;
+   let rate = req.body.rate ? req.body.rate : 0;
+   password = cryptr.encrypt(password);
+
+   
+    var profileImg='default.png';
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            profileImg=req.files[0].filename;
+        }
+    }
+    
+
+    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street,profile_img)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"','"+profileImg+"')";
+
+    console.log("image",sql)
+
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        if(!err){
+            /*console.log("2 nd language-id", languageid);
+            if (languageid != "" && languageid != undefined) {
+                let sec_lang=JSON.parse(languageid)
+                // let sec_lang = JSON.stringify(languageid);
+
+                console.log("language id",sec_lang);
+                for (var i = 0; i < sec_lang.length; i++) {
+                    console.log("language id",sec_lang[i].id);
+                    var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+sec_lang[i].id+"')";
+                    con.query(sql1, function(err, insert) {});
+                }
+            }
+ */
+            var name = first_name+" "+last_name;
+            common.sendRegistrationEmail(name,email,first_password);
+ 
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Interpreter add successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+});
+
+
+
+
+
+
+//update profile 
+app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next) {
+     //validation start
+     const v = new Validator(req.body, {
+        id: 'required',
+        first_name: 'required',
+        last_name: 'required',
+        mobile: 'required',
+        languageid: 'required',
+        // address: 'required',
+        // latitude: 'required',
+        // longitude: 'required',
+        gender: 'required',
+        primary_lang_id: 'required',
+        languageid: 'required',
+        languageid: 'required'
+     });
+ 
+     const matched = await v.check();
+     
+     if (!matched) {
+         var error;
+         for (var i = 0; i <= Object.values(v.errors).length; i++) {
+             error = Object.values(v.errors)[0].message;
+             break;
+         }
+         res.json({
+             status: 0,
+             message: error
+         });
+         return true;
+     }
+ 
+     
+     
+    let id = req.body.id;
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let languageid = req.body.languageid;
+    let mobile = req.body.mobile;
+    let gender = req.body.gender;
+    let primary_language = req.body.primary_lang_id;
+    let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
+    let apartment = req.body.apartment ? req.body.apartment : "";
+    let street = req.body.street ? req.body.street : "";
+
+    let address = req.body.address ? req.body.address : '';
+    let latitude = req.body.latitude ? req.body.latitude : '';
+    let longitude = req.body.longitude ? req.body.longitude : '';
+
+   
+    
+    var profileImg='';
+     if (typeof req.files !== 'undefined' && req.files.length > 0) {
+ 
+         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+             profileImg=req.files[0].filename;
+         }
+     }
+
+
+     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',,gender ='"+gender+"',primary_language ='"+primary_language+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"'"; 
+    
+     
+    if(profileImg!=""){
+        sql += ",profile_img ='"+profileImg+"'";
+    }
+
+    if(address!=""){    
+        if(latitude!="" && longitude!=""){        
+         sql += ",address ='"+address+"', latitude ='"+latitude+"',longitude ='"+longitude+"'";
+        }
+    }
+
+    sql += " WHERE id = '"+id+"'";
+
+    // console.log(sql);
+    console.log("sql-update",sql)
+    var query = con.query(sql, function(err, result) {
+        if(!err){
+            /*if (languageid != "" && languageid != undefined) {
+                let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
+                con.query(sqlDelete, function(err, res_delete) {});
+    
+
+
+                for (var i = 0; i < languageid.length; i++) {
+                    console.log("language id",languageid[i].id);
+                    var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
+                    con.query(sql1, function(err, insert) {});
+                }
+            }
+            */
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Update successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+    
 });
 
 
@@ -337,13 +670,31 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 
 
 
+/* image upload */
+const EXCLDIR = './public';
+let excelImp = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, EXCLDIR);
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+let exclupload = multer({
+    excelImp: excelImp
+});
+
+
+
+
 const XLSX = require('xlsx');
 
 
 
 
 //update profile 
-app.post('/cesco/importLang', upload.any(),async function(req, res, next) {
+app.post('/cesco/importLang', exclupload.any(),async function(req, res, next) {
     console.log('result-',req.files);
     console.log('file name-',req.files[0].filename);
 

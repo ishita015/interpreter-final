@@ -4,7 +4,7 @@
       <i class="icon-regular i-Right ml-0 mr-3"></i>
     </a>
     <div class="d-flex align-items-center" *ngIf="variable.user_chat_img">
-      <img src="./assets/images/faces/{{message.profile_img}}" class="avatar-sm rounded-circle mr-2">
+      <img src="http://192.168.0.4:3300/user/{{message.profile_img}}" class="avatar-sm rounded-circle mr-2">
       <p class="m-0 text-title text-16 flex-grow-1">{{message?.name}}</p>
     </div>
   </div>
@@ -15,7 +15,7 @@
       <div *ngIf="chat.senderId == userId">
         <div class="d-flex user">
 
-          <img src="./assets/images/faces/{{login_data.profile_img}}" class="avatar-sm rounded-circle mr-3">
+          <img src="http://192.168.0.4:3300/user/{{login_data.profile_img}}" class="avatar-sm rounded-circle mr-3">
           <div class="message flex-grow-1">
             <div class="d-flex">
               <p class="mb-1 text-title text-16 flex-grow-1">{{loggeduser}}</p>
@@ -37,7 +37,7 @@
           </div>
           <p class="m-0">{{chat.msg}}</p>
         </div>
-        <img src="./assets/images/faces/{{message.profile_img}}" class="avatar-sm rounded-circle ml-3">
+        <img src="http://192.168.0.4:3300/user/{{message.profile_img}}" class="avatar-sm rounded-circle ml-3">
       </div>
     </div>
     </div>
