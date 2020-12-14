@@ -80,16 +80,13 @@
                 </ngx-datatable-column>
                 
                 <ngx-datatable-column [minWidth]="50">
-                  <ng-template ngx-datatable-header-template>
-                      Created date
+                  <ng-template  ngx-datatable-header-template>
+                    <span title="Created date">Created date </span>
                   </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  <ng-template  ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.create_dt | date:'MM/dd/yyyy' }}
                   </ng-template>  
               </ngx-datatable-column>
-             
-
-
                   <ngx-datatable-column name="Status" prop="status" [minWidth]="20">
                     <ng-template ngx-datatable-header-template>
                       Status

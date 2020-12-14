@@ -17,7 +17,9 @@
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input id="password" class="form-control form-control-rounded" formControlName="password" type="password">
+              <input id="password" [type]="showHideNew ? 'password' : 'text'"  class="form-control form-control-rounded" formControlName="password" type="password">
+              <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span class="eye-icon"
+                [ngClass]="{'fa': true, 'fa-eye': (!showHideNew), 'fa-eye-slash': (showHideNew)}"></span></a>
               <div *ngIf="signinForm.controls['password'].errors && ( !signinForm.controls['password'].pristine || submitted ||signinForm.controls['password'].touched )" class="error-msg">
                 <div [hidden]="!signinForm.controls['password'].errors.required">Password Is Required.</div>
             </div>
