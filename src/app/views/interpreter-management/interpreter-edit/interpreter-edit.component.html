@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form [formGroup]="userEditForm">
                     <div class="row">
-                        <div class="col-md-6 form-group mb-3">
+                        <!-- <div class="col-md-6 form-group mb-3">
                             <label for="picker1">User Role</label>
                             <select class="form-control" formControlName="user_role">
                                 <option *ngFor="let role of role_Obj" [value]="role.id" [selected]="role.id=='user_role'">
@@ -21,7 +21,7 @@
                                  </option>
                             </select>
                             
-                        </div>
+                        </div> -->
 
 
                         <div class="col-md-6 form-group mb-3">
@@ -32,14 +32,6 @@
                                 <div [hidden]="!userEditForm.controls.name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
-
-                    </div>
-
-
-
-                    <div class="row">
-
-
                         <div class="col-md-6 form-group mb-3">
                             <label for="Last">Last Name</label>
                             <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
@@ -48,7 +40,12 @@
                                 <div [hidden]="!userEditForm.controls.name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
-                        
+
+                    </div>
+
+
+
+                    <div class="row">  
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Email</label>
                             <input type="text" class="form-control"  formControlName="email"  placeholder="Email">
@@ -56,9 +53,6 @@
                                 <div [hidden]="!userEditForm.controls['email'].errors.required">Email is required.</div>
                               </div>
                         </div>
-                    </div>
-                    <div class="row">
-                       
                         <div class="col-md-6 form-group mb-3">
                             <label for="MobileNo.">Mobile No.</label>
                             <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
@@ -66,7 +60,8 @@
                                 <div [hidden]="!userEditForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                               </div>
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Address</label>
                             <input type="text" class="form-control"  formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
@@ -74,11 +69,6 @@
                                 <div [hidden]="!userEditForm.controls['address'].errors.required">Address is required.</div> 
                               </div> -->
                         </div>
-                       
-                    </div>
-                
-    
-                    <div class="row">
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Apartment">Apartment</label>
@@ -88,6 +78,11 @@
                                 <div [hidden]="!userEditForm.controls['apartment'].errors.required">Apartment is required.</div> 
                               </div>
                         </div>
+                       
+                    </div>
+                
+    
+                    <div class="row">
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Street">Street</label>
@@ -97,8 +92,7 @@
                                 <div [hidden]="!userEditForm.controls['street'].errors.required">Street is required.</div> 
                               </div>
                         </div>   
-                    </div>
-                    <div class="row">
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Gender</label>
                            
@@ -125,6 +119,9 @@
                                 </label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                       
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Primary Language</label>
                             <select class="form-control"  (change)="onChange($event)"  formControlName="primary_lang_id">
@@ -137,9 +134,6 @@
                                 <div [hidden]="!userEditForm.controls['primary_lang_id'].errors.required">Language is required.</div> 
                               </div>
                         </div>
-                    </div>
-   
-                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="language">Select Secondary Language</label>
                             <tag-input [formControl]="tagsCtrl2" formControlName="languageid" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
@@ -151,12 +145,20 @@
                                 <div [hidden]="!userEditForm.controls['languageid'].errors.required">Secondary Language is required.</div> 
                               </div>
                         </div>
-                        <div *ngIf="data.role_id == '2'"  class="col-md-6 form-group mb-3">
+                    </div>
+   
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
                                 <label for="rate">Rate</label>
                                 <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
                                 <!-- <div *ngIf="userEditForm.controls['rate'].errors && (!userEditForm.controls['rate'].pristine || submitted ||userEditForm.controls['rate'].touched )" class="error-msg">
                                     <div [hidden]="!userEditForm.controls['rate'].errors.required">Rate is required.</div>
                                 </div> -->
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
                         </div>
                     </div>
 

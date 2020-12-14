@@ -46,7 +46,9 @@ export class InterpreterEditComponent implements OnInit {
   json_Obj;
   Id;
   editdata;
+  selectedFile:File = null;
   @ViewChild('search')
+
   public searchElementRef: ElementRef;
 
   
@@ -119,16 +121,17 @@ export class InterpreterEditComponent implements OnInit {
     latitude:[''],
     longitude:[''],
     primary_lang_id:['', this.validation.onlyRequired_validator],
-    user_role:[{value: '', disabled: true}],
+    // user_role:[{value: '', disabled: true}],
       id:[''],
       rate:[''],
+      image:[''],
     });
   }
   // /*========== Form Value End Here========*/
   
   /*========== Edit Input Value Start Here========*/
   patchValue(){
-    this.userEditForm.get('user_role').patchValue( this.json_Obj.role_id);
+    // this.userEditForm.get('user_role').patchValue( this.json_Obj.role_id);
     this.userEditForm.get('email').patchValue( this.json_Obj.email);
     this.userEditForm.get('first_name').patchValue( this.json_Obj.first_name);
     this.userEditForm.get('last_name').patchValue( this.json_Obj.last_name);
@@ -158,6 +161,15 @@ export class InterpreterEditComponent implements OnInit {
           localStorage.setItem('editData', JSON.stringify(this.json_Obj));
       })
   }
+
+   /*==========Single Image Function Start Here========*/
+   onSingleFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    console.log("imagesss", this.selectedFile);
+}
+/*==========Single Image Function End Here========*/
+
 /*==========Edit Input Value End Here========*/ 
   submitUser(){
     console.log("formmmmmmmmmmmm",this.userEditForm.value);
@@ -167,15 +179,40 @@ export class InterpreterEditComponent implements OnInit {
         return;
       }
       this.submitted = false;
+      const formData: any = new FormData();
 
     this.userEditForm.value.latitude = this.latitude;
     this.userEditForm.value.longitude = this.longitude
     this.userEditForm.value.address =this.new_address;
     this.userEditForm.value.language = this.newlanguageVal;
-    this.userEditForm.value.id = this.json_Obj.id
+    this.userEditForm.value.id = this.json_Obj.id;
+    this.userEditForm.value.image = this.selectedFile;
+
+
+
+     
+    formData.append('first_name', this.userEditForm.value.first_name);
+    formData.append('last_name', this.userEditForm.value.last_name);
+    formData.append('email', this.userEditForm.value.email);
+    formData.append('mobile', this.userEditForm.value.mobile);
+    formData.append('address', this.new_address);
+    formData.append('password', this.userEditForm.value.password);
+    formData.append('apartment', this.userEditForm.value.apartment);
+    formData.append('street', this.userEditForm.value.street);
+    formData.append('gender', this.userEditForm.value.gender);
+    formData.append('latitude', this.latitude);
+    formData.append('longitude', this.longitude);
+    formData.append('languageid', this.userEditForm.value.languageid);
+    formData.append('id', this.json_Obj.id);
+    formData.append('primary_language', this.newlanguageVal);
+    formData.append('rate', this.userEditForm.value.rate);
+    // formData.append('latitude', this.userForm.value.address);
+
+
+    formData.append('image', this.selectedFile);
     console.log("user value-",this.userEditForm.value.id)
       // console.log("api response",res);
-    this.service.updateInterpreter(this.userEditForm.value).subscribe(res => {
+    this.service.updateInterpreter(formData).subscribe(res => {
         if(res['status'] == 1){
           this.useredit_Obj = res
           this.useredit_Msg = res;

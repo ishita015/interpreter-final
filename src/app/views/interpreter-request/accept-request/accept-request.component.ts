@@ -31,8 +31,8 @@ export class AcceptRequestComponent implements OnInit {
   noteForm: FormGroup;
   view_obj;
   resp_msg;
-  ReadOnlyStyleGuideNotes: boolean;
-  call_check:boolean;
+  ReadOnlyStyleGuideNotes: boolean =false;
+  call_check:boolean = false;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -164,7 +164,6 @@ export class AcceptRequestComponent implements OnInit {
   call_Check(){
     if(this.ReadOnlyStyleGuideNotes){
       this.ReadOnlyStyleGuideNotes = false;
-      this.call_check = true;
     }
     else{
       this.ReadOnlyStyleGuideNotes = true;
@@ -183,18 +182,18 @@ export class AcceptRequestComponent implements OnInit {
   }
   sms_check(){
     if( this.call_check){
-      this.call_check = false;
+      this.call_check = true;
     }
     else{
-      this.call_check = true;
+      this.call_check = false;
     }
   }
   push_check(){
     if( this.call_check){
-      this.call_check = false;
+      this.call_check = true;
     }
     else{
-      this.call_check = true;
+      this.call_check = false;
     }
   }
 
