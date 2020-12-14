@@ -13,9 +13,9 @@
             <div class="card-body">
                 <form [formGroup]="userForm">
 
-                     
+                   
                     <div class="row">
-                        <div class="col-md-6 form-group mb-3">
+                        <!-- <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Role</label>
                             <select class="form-control"  (change)="onChangeRole($event)"  formControlName="user_role">
                                 <option value="">Select Role</option>
@@ -26,7 +26,7 @@
                             <div *ngIf="userForm.controls['user_role'].errors && (!userForm.controls['user_role'].pristine || submitted ||userForm.controls['primary_language'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['user_role'].errors.required">Role is required.</div> 
                               </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="col-md-6 form-group mb-3">
@@ -37,9 +37,7 @@
                                 <div [hidden]="!userForm.controls.first_name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="Last">Last Name</label>
                             <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
@@ -49,6 +47,11 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
+                       
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Email</label>
                             <input type="text" class="form-control"  formControlName="email" (blur)="checkEmail($event,$event.target.value)"  placeholder="Email">
@@ -57,11 +60,6 @@
                               </div>
                         </div>
 
-
-                      
-                    </div>
-                    <div class="row">
-                        
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Password</label>
                             <input type="password" class="form-control"  formControlName="password"  placeholder="password">
@@ -70,18 +68,21 @@
                               </div>
                         </div>
 
-                          <div class="col-md-6 form-group mb-3">
+
+                      
+                    </div>
+                    <div class="row">
+                        
+                        
+
+                        <div class="col-md-6 form-group mb-3">
                             <label for="MobileNo.">Mobile No.</label>
                             <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
                             <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                               </div>
                         </div>
-                        
-                       
-                    </div>
-                    
-                    <div class="row">
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Address</label>
                            <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
@@ -90,6 +91,12 @@
                                 <div [hidden]="!userForm.controls['address'].errors.required">Address is required.</div> 
                               </div>
                         </div>
+                        
+                       
+                    </div>
+                    
+                    <div class="row">
+                        
                         <div class="col-md-6 form-group mb-3">
                             <label for="Apartment">Apartment</label>
                            <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
@@ -98,10 +105,7 @@
                                 <div [hidden]="!userForm.controls['apartment'].errors.required">Apartment is required.</div> 
                               </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        
                         <div class="col-md-6 form-group mb-3">
                             <label for="Street">Street</label>
                            <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
@@ -110,6 +114,11 @@
                                 <div [hidden]="!userForm.controls['street'].errors.required">Street is required.</div> 
                               </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        
+                       
                         <div class="col-md-6 form-group mb-3">
                             <label for="Gender">Gender</label>
                             <div class="form-check">
@@ -135,9 +144,8 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
+
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Primary Language</label>
@@ -151,6 +159,11 @@
                                 <div [hidden]="!userForm.controls['primary_language'].errors.required">Language is required.</div> 
                               </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+
+                      
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Language">Select Secondary Language</label>
@@ -160,6 +173,12 @@
                               </tag-input-dropdown>
                             </tag-input>
                         </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
+                        </div>
+
                     </div>
 
                     <div class="row">

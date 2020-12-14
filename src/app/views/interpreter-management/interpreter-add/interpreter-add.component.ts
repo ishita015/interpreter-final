@@ -37,7 +37,7 @@ export class InterpreterAddComponent implements OnInit {
     tagsCtrl1 = new FormControl(this.items);
     tagsCtrl2 = new FormControl([]);
 
-
+    selectedFile:File = null;
     // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
     // name = 'Angular';
 
@@ -85,9 +85,6 @@ export class InterpreterAddComponent implements OnInit {
                   // console.log("latitude-",this.latitude);
                   // console.log("longitude-",this.longitude);
 
-
-
-
                   this.zoom = 12;
               });
           });
@@ -97,13 +94,13 @@ export class InterpreterAddComponent implements OnInit {
 
   onChange(id) {
       this.newlanguageVal = id.target.value;
-      console.log("iddddddddddd", this.newlanguageVal);
+    //   console.log("iddddddddddd", this.newlanguageVal);
   }
 
-  onChangeRole(id) {
-      this.newrole = id.target.value;
-      console.log("iddddddddddd", this.newrole);
-  }
+//   onChangeRole(id) {
+//       this.newrole = id.target.value;
+//       console.log("iddddddddddd", this.newrole);
+//   }
 
   onSelect(item) {
       console.log('tag selected: value is' + item);
@@ -125,33 +122,93 @@ export class InterpreterAddComponent implements OnInit {
             latitude: [''],
             longitude: [''],
             primary_language: ['', this.validation.onlyRequired_validator],
-            user_role: ['', this.validation.onlyRequired_validator],
+            // user_role: ['', this.validation.onlyRequired_validator],
             rate:[''],
+            image:[''],
         });
     }
     /*========== Form Value End Here========*/
-    saveUser() {
+    
+
+    /*==========Single Image Function Start Here========*/
+    onSingleFileChange(event){
+        let file: File = event.target.files[0];
+        this.selectedFile= file;
+        console.log("imagesss", this.selectedFile);
+    }
+  /*==========Single Image Function End Here========*/
+
+
+
+    // saveUser() {
+    //     this.submitted = true;
+    //     if (this.userForm.invalid) {
+    //         return;
+    //     }
+    //     this.submitted = false;
+    //     this.userForm.value.latitude = this.latitude;
+    //     this.userForm.value.longitude = this.longitude;
+    //     this.userForm.value.address = this.new_address;
+    //     this.userForm.value.language = this.newlanguageVal;
+    //     // this.userForm.value.role = this.newrole;
+
+    //     console.log("form value", this.userForm.value);
+    //     this.service.interpreterAdd(this.userForm.value)
+    //         .subscribe(res => {
+    //             // console.log("api response",res);
+    //             this.user_Obj = res
+    //             this.user_Msg = res
+    //             this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
+    //             this.router.navigate(['/interpreter/interpreter-list']);
+    //         });
+    // }
+
+
+    saveUser(){
+        console.log("languageid",this.userForm.value.languageid);
+        // console.log("form value",this.adminProfileForm.value);
         this.submitted = true;
         if (this.userForm.invalid) {
-            return;
+          return;
         }
         this.submitted = false;
-        this.userForm.value.latitude = this.latitude;
-        this.userForm.value.longitude = this.longitude
-        this.userForm.value.address = this.new_address;
-        this.userForm.value.language = this.newlanguageVal;
-        this.userForm.value.role = this.newrole;
 
-        console.log("form value", this.userForm.value);
-        this.service.interpreterAdd(this.userForm.value)
-            .subscribe(res => {
-                // console.log("api response",res);
-                this.user_Obj = res
-                this.user_Msg = res
-                this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
-                this.router.navigate(['/interpreter/interpreter-list']);
-            });
-    }
+        const formData: any = new FormData();
+
+        this.userForm.value.image = this.selectedFile;
+        
+        // this.userForm.value.user_id = this.userId; 
+        
+        formData.append('first_name', this.userForm.value.first_name);
+        formData.append('last_name', this.userForm.value.last_name);
+        formData.append('email', this.userForm.value.email);
+        formData.append('mobile', this.userForm.value.mobile);
+        formData.append('address', this.new_address);
+        formData.append('password', this.userForm.value.password);
+        formData.append('apartment', this.userForm.value.apartment);
+        formData.append('street', this.userForm.value.street);
+        formData.append('gender', this.userForm.value.gender);
+        formData.append('latitude', this.latitude);
+        formData.append('longitude', this.longitude);
+        formData.append('languageid', this.userForm.value.languageid);
+        formData.append('primary_language', this.newlanguageVal);
+        formData.append('rate', this.userForm.value.rate);
+        // formData.append('latitude', this.userForm.value.address);
+
+
+        formData.append('image', this.selectedFile);
+        
+        
+        this.service.interpreterAdd(formData).subscribe(res => {
+            this.user_Obj = res
+            this.user_Msg = res
+            this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
+            this.router.navigate(['/interpreter/interpreter-list']);
+        });
+      }
+
+
+
 
     LanguageList() {
       this.service.getLanguageList()

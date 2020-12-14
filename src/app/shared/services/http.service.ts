@@ -250,9 +250,14 @@ export class HttpService {
   //   return this.http.post(this.url + '/cesco/savelanguage',addInfo,this.httpOptions);
   // }
 
+  // interpreterAdd(interaddInfo: UserAddEdit): Observable<any> {
+  //   return this.http.post(this.url + '/cesco/saveInterpreter', interaddInfo, this.httpOptions);
+  // }
+
   interpreterAdd(interaddInfo: UserAddEdit): Observable<any> {
-    return this.http.post(this.url + '/cesco/saveInterpreter', interaddInfo, this.httpOptions);
+    return this.http.post(this.url + '/cesco/saveInterpreter', interaddInfo);
   }
+
 
   // getUserUpadte(userupdateInfo: UserAddEdit): Observable<any> {
   //  return this.http.post(this.url + '/cesco/updatelanguage',userupdateInfo,this.httpOptions);
