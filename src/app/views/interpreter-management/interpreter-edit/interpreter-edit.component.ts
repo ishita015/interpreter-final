@@ -181,15 +181,6 @@ export class InterpreterEditComponent implements OnInit {
       this.submitted = false;
       const formData: any = new FormData();
 
-    // this.userEditForm.value.latitude = this.latitude;
-    // this.userEditForm.value.longitude = this.longitude
-    // this.userEditForm.value.address =this.new_address;
-    // this.userEditForm.value.primary_lang_id = this.newlanguageVal;
-    // this.userEditForm.value.id = this.json_Obj.id;
-    // this.userEditForm.value.image = this.selectedFile;
-
-
-
      
     formData.append('first_name', this.userEditForm.value.first_name);
     formData.append('last_name', this.userEditForm.value.last_name);
