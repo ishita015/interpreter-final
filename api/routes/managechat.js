@@ -117,13 +117,13 @@ module.exports.getChats = async function(req, res) {
     var is_group = req.body.is_group ? req.body.is_group : 0;
     let group_id = req.body.group_id;
     
-    let sql = "select *,(select count(id) from message where chatRoomId = '" + group_id + "' ) as total_records from (select * from message where chatRoomId = '" + group_id + "' ORDER BY id DESC) tmp order by tmp.id DESC";
+    let sql = "select *,(select count(id) from message where chatRoomId = '" + group_id + "' ) as total_records from (select * from message where chatRoomId = '" + group_id + "' ORDER BY id ASC) tmp order by tmp.id ASC";
 
     console.log("sql -1", sql)
 
     con.query(sql, (error, results, fields) => {
         if (results && results.length > 0) {
-            let sql = "select *, (SELECT if(sender_id = '" + user_id + "' || receiver_id = '" + user_id + "' , reciver_mute, '0') FROM chatroom where group_id = '" + group_id + "') as reciver_mute, (SELECT if(receiver_id = '" + user_id + "' || sender_id = '" + user_id + "' , sender_mute, '0') FROM chatroom where group_id = '" + group_id + "') as sender_mute, (select count(id) from message where chatRoomId = '" + group_id + "' ) as total_records from (select * from message where chatRoomId = '" + group_id + "' ORDER BY id DESC) tmp order by tmp.id DESC";
+            let sql = "select *, (SELECT if(sender_id = '" + user_id + "' || receiver_id = '" + user_id + "' , reciver_mute, '0') FROM chatroom where group_id = '" + group_id + "') as reciver_mute, (SELECT if(receiver_id = '" + user_id + "' || sender_id = '" + user_id + "' , sender_mute, '0') FROM chatroom where group_id = '" + group_id + "') as sender_mute, (select count(id) from message where chatRoomId = '" + group_id + "' ) as total_records from (select * from message where chatRoomId = '" + group_id + "' ORDER BY id ASC) tmp order by tmp.id ASC";
                   
             console.log("sql -2", sql)
             con.query(sql, (error, resultss, fields) => {
