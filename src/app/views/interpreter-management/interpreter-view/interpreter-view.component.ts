@@ -99,5 +99,70 @@ export class InterpreterViewComponent implements OnInit {
 		}
 	}
 
+	private initEvents(events): CalendarAppEvent[] {
+		return events.map(event => {
+			event.actions = this.actions;
+			return new CalendarAppEvent(event);
+		});
+	}
+
+	public loadEvents() {
+		this.calendarService
+			.getEvents()
+			.subscribe((events: CalendarEvent[]) => {
+				this.events = this.initEvents(events);
+				console.log("events--", this.events)
+
+			});
+	}
+
+
+	public handleEvent(action: string, event: CalendarAppEvent): void {
+		const dialogRef = this.modalService.open(CalendarFormDialogComponent, { centered: true });
+		dialogRef.componentInstance.data = { event, action };
+		dialogRef
+			.result
+			.then(res => {
+				if (!res) {
+					return;
+				}
+				const dialogAction = res.action;
+				const responseEvent = res.event;
+				responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
+				responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
+				console.log(res);
+				if (dialogAction === 'save') {
+
+					this.calendarService
+						.updateEvent(responseEvent)
+						.subscribe(events => {
+							this.events = this.initEvents(events);
+							this.refresh.next();
+							console.log(this.events);
+						});
+				} else if (dialogAction === 'delete') {
+					// this.removeEvent(event);
+				}
+
+			})
+			.catch(e => {
+				console.log(e);
+			});
+	}
+
+
+	// public eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+	// 	event.start = newStart;
+	// 	event.end = newEnd;
+
+	// 	this.calendarService
+	// 		.updateEvent(event)
+	// 		.subscribe(events => {
+	// 			this.events = this.initEvents(events);
+	// 			this.refresh.next();
+	// 		});
+	// }
+
+
 
 }
