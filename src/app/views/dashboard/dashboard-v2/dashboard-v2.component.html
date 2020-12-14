@@ -175,7 +175,7 @@
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
-          (eventClicked)="handleEvent('edit', $event.event)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-week-view>
         <mwl-calendar-day-view
@@ -183,7 +183,7 @@
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
-          (eventClicked)="handleEvent('edit', $event.event)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-day-view> 
       </div>
