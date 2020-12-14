@@ -206,7 +206,7 @@
           [refresh]="refresh"
           [activeDayIsOpen]="activeDayIsOpen"
           (dayClicked)="dayClicked($event.day)"
-          (eventClicked)="handleEvent('edit', $event.event)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-month-view>
         <mwl-calendar-week-view
@@ -214,7 +214,7 @@
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
-          (eventClicked)="handleEvent('edit', $event.event)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-week-view>
         <mwl-calendar-day-view
@@ -222,9 +222,34 @@
           [viewDate]="viewDate"
           [events]="events"
           [refresh]="refresh"
-          (eventClicked)="handleEvent('edit', $event.event)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
           (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-day-view>
       </div>
     </div>
   </div>
+
+
+<ng-template #eventViewConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">View Event</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+  <span>{{viewObj?.data[0]?.title}}</span> 
+  <span class="view_left">{{viewObj?.data[0]?.start_time}}</span> 
+ 
+    <p class="mt-2 mb-0">{{viewObj?.data[0]?.end_time}}</p> 
+    <p class="mt-2">{{viewObj?.data[0]?.description}}</p> 
+ 
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.close('Ok')">Cancel</button>
+    <!-- <button type="button" ngbAutofocus class="btn btn-rounded btn-success" (click)="editCalender(viewObj?.data[0],viewObj?.data[0]?.id);modal.close('Ok')">Edit</button>
+    <button type="button" ngbAutofocus class="btn btn-rounded btn-danger"  (click)="removeEvent(viewObj?.data[0]?.id,eventDeleteConfirm);modal.close('Ok')">Delete</button> -->
+  </div>
+</ng-template>

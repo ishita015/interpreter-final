@@ -28,6 +28,7 @@ export class InterpreterViewComponent implements OnInit {
 
   public view = 'month';
 	public viewDate = new Date();
+	@ViewChild('eventViewConfirm', { static: true }) eventViewConfirm;
 	@ViewChild('eventDeleteConfirm', { static: true }) eventDeleteConfirm;
 	public activeDayIsOpen = false;
 	public refresh: Subject<any> = new Subject();
@@ -45,7 +46,8 @@ export class InterpreterViewComponent implements OnInit {
 	public totalcomplete_obj;
 	cal_data;
 	new_date;
-  calendar_Id;
+	viewObj;
+  interpreter_Id;
   data
 	//-- Calendar variable End --//
 	constructor(
@@ -61,29 +63,94 @@ export class InterpreterViewComponent implements OnInit {
     this.data = JSON.parse(localStorage.getItem('userViewData'));
 		this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.userId = JSON.parse(localStorage.getItem('userId'));
-		this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));
+		this.interpreter_Id = JSON.parse(localStorage.getItem('userViewData'));
+		// console.log("calendar_Id",this.interpreter_Id.id);
 		// this.loadEvents();
 		this.getInterpreterRequestInfo();
 	}
 
-  getInterpreterRequestInfo(){
-		this.service.interpreterDashboardData(this.calendar_Id)
+//   getInterpreterRequestInfo(){
+// 		this.service.interpreterDashboardData(this.interpreter_Id.id)
+// 		.subscribe(res => {
+// 			if(res['status']=='1'){
+// 				this.cal_data = res['data'];
+// 				this.events = [];
+// 				for(let i=0; i < this.cal_data.length; i++){ 
+// 					var dataArray = this.cal_data[i].date.split(/[ -]/);
+// 					this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
+// 					this.events.push ({
+// 						start: this.new_date,
+// 						title: this.cal_data[i].title
+// 					});
+// 				}
+// 			}else{
+// 				console.log(res)
+// 			}		
+// 		})
+// 	  }
+
+
+
+	  // get admin assign
+	  getInterpreterRequestInfo(){
+		this.service.interpreterDashboardData(this.interpreter_Id.id)
 		.subscribe(res => {
 			if(res['status']=='1'){
 				this.cal_data = res['data'];
-				this.events = [];
+				console.log("cal_data",this.cal_data)
+	
+				this.events = [];	
 				for(let i=0; i < this.cal_data.length; i++){ 
 					var dataArray = this.cal_data[i].date.split(/[ -]/);
 					this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
 					this.events.push ({
 						start: this.new_date,
-						title: this.cal_data[i].title
+						title: this.cal_data[i].title,
+						_id:this.cal_data[i].id,
+						request_id:this.cal_data[i].request_id,
+						color: {
+							primary: this.cal_data[i].id=="0" ? "#77a024" : "#1153e3",
+							secondary: this.cal_data[i].id =="0" ? "#11e3ad" : "#9c24a0",
+						  }
 					});
 				}
 			}		
 		})
 	  }
+		
 	
+	
+
+	
+
+	public viewEvent(e) {
+		console.log("view all data _id", e);
+		this.service
+			.interpreterViewEvents(this.interpreter_Id.id, e.event._id)
+			.subscribe(result => {
+				if(result['status']=='1'){
+					console.log("result", result);
+					this.viewObj = result;
+					console.log("response ", this.viewObj);
+
+					this.modalService.open(this.eventViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+						.result.then((result) => {
+					});
+				}else{
+					
+					this.router.navigate(['/user-request/request-view/'+e.event.request_id]);
+					// this.modalService.open(this.requestViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+					// 	.result.then((result) => {
+					// });
+				}
+				
+			});
+			
+
+	}
+
+
+
 	  public dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
 
 		if (isSameMonth(date, this.viewDate)) {
