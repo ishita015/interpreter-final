@@ -465,14 +465,14 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
         first_name: 'required',
         last_name: 'required',
         mobile: 'required',
-        languageid: 'required',
+        // languageid: 'required',
         // address: 'required',
         // latitude: 'required',
         // longitude: 'required',
         gender: 'required',
         primary_lang_id: 'required',
-        languageid: 'required',
-        languageid: 'required'
+        // languageid: 'required',
+        // languageid: 'required'
      });
  
      const matched = await v.check();
