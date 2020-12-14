@@ -1518,7 +1518,7 @@ module.exports.getRole = function(req, res, next) {
 
 // get interpreter
 module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id==2 ORDER BY u.id DESC";
     //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
     console.log(sql)
     con.query(sql, function(err, result, fields) {
