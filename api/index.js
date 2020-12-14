@@ -499,7 +499,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
     let gender = req.body.gender;
-    // let primary_language = req.body.primary_lang_id;
+    let primary_language = req.body.primary_lang_id;
     let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
     let apartment = req.body.apartment ? req.body.apartment : "";
     let street = req.body.street ? req.body.street : "";
@@ -520,9 +520,13 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
      }
 
 
-     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',primary_language ='"+req.body.primary_lang_id+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"'"; 
+     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"'"; 
     
-     if(profileImg!="" && profileImg != undefined){     
+    if(primary_language!="" && primary_language != 'undefined'){     
+        sql += ",primary_language ='"+primary_language+"'";
+    }
+
+    if(profileImg!="" && profileImg != 'undefined'){     
         sql += ",profile_img ='"+profileImg+"'";
     }
 
