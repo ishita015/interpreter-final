@@ -29,7 +29,7 @@ export class InterpreterViewComponent implements OnInit {
   public view = 'month';
 	public viewDate = new Date();
 	@ViewChild('eventDeleteConfirm', { static: true }) eventDeleteConfirm;
-	public activeDayIsOpen = true;
+	public activeDayIsOpen = false;
 	public refresh: Subject<any> = new Subject();
 	public events: CalendarAppEvent[];
 	private actions: CalendarEventAction[];
@@ -84,6 +84,20 @@ export class InterpreterViewComponent implements OnInit {
 		})
 	  }
 	
+	  public dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
+
+		if (isSameMonth(date, this.viewDate)) {
+			if (
+				(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+				events.length === 0
+			) {
+				this.activeDayIsOpen = false;
+			} else {
+				this.activeDayIsOpen = true;
+				this.viewDate = date;
+			}
+		}
+	}
 
 
 }

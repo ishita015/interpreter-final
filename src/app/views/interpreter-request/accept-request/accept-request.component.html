@@ -16,7 +16,7 @@
   </div>
 
 
-      <div class="col-md-12">
+      <div class="col-md-12 lang_block">
           <div class="card  o-hidden">
             <ngx-datatable *ngIf="filteredUser?.length"
               style="height: 500px; box-shadow: none"
@@ -92,9 +92,18 @@
                   Requested date
               </ng-template>
               <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.date | date:'MM/dd/yyyy' }}
+                  {{row.created_at | date:'MM/dd/yyyy' }}
               </ng-template>  
           </ngx-datatable-column>
+
+          <ngx-datatable-column>
+            <ng-template ngx-datatable-header-template>
+              Appointment date
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.date | date:'MM/dd/yyyy' }}
+            </ng-template>  
+        </ngx-datatable-column>
            
             <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
               <ng-template ngx-datatable-header-template>Status
@@ -112,7 +121,7 @@
             </ng-template>
             
             <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" >
-              <button class="btn btn-outline-secondary" 
+              <button class="btn btn-outline-secondary mr-1" 
               (click)="viewDetail(row.ris_id)">View</button>  
               
               <button *ngIf="roleId=='1'" class="btn btn-outline-secondary" 
