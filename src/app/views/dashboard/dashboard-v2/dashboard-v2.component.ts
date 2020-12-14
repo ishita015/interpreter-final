@@ -33,7 +33,7 @@ export class DashboardV2Component implements OnInit {
 	@ViewChild('eventDeleteConfirm', { static: true }) eventDeleteConfirm;
 	@ViewChild('eventViewConfirm', { static: true }) eventViewConfirm;
 	@ViewChild('requestViewConfirm', { static: true }) requestViewConfirm;
-	public activeDayIsOpen = true;
+	public activeDayIsOpen = false;
 	public refresh: Subject<any> = new Subject();
 	public events: CalendarAppEvent[];
 	// events: Array<any> = [];
@@ -333,12 +333,12 @@ export class DashboardV2Component implements OnInit {
 
 
 	public dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
-
 		if (isSameMonth(date, this.viewDate)) {
 			if (
 				(isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
 				events.length === 0
 			) {
+			
 				this.activeDayIsOpen = false;
 			} else {
 				this.activeDayIsOpen = true;

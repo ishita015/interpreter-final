@@ -109,6 +109,9 @@ export class DashboadDefaultComponent implements OnInit {
     users(){
         this.router.navigate(['/users/user-list']);
     }
+    interpreter(){
+        this.router.navigate(['/interpreter/interpreter-list']);
+    }
 
     language(){
         this.router.navigate(['/languages/list']);

@@ -22,6 +22,7 @@ export class SigninComponent implements OnInit {
     public log_Msg;
     public log_Obj;
     public role_obj;
+    public showHideNew = true;
     constructor(
         private fb: FormBuilder,
         private auth: AuthService,
@@ -113,6 +114,11 @@ export class SigninComponent implements OnInit {
         });
  }
 
+ /*==========Password Show/Hide Function Start Here========*/
+ showHidePassword(){
+    this.showHideNew = this.showHideNew === false;
+  }
+  /*==========Password Show/Hide Function End Here========*/
     // signin() {
     //     this.router.navigate(['/dashboard/v1']);
     //     this.submitted = true;

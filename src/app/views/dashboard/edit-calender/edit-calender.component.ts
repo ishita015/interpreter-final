@@ -57,22 +57,21 @@ export class EditCalenderComponent implements OnInit {
   }
 /*==========Edit Input Value End Here========*/
 
-       /*==========Start and end time valid function start here========*/
+/*==========Start and end time valid function start here========*/
 
        start_end_time(e){ 
         var beginningTime = this.editCalForm.value.start_time;
         var endTime = this.editCalForm.value.end_time;
-        
-        
         // var beginningTime = moment(this.editCalForm.value.start_time, 'h:mma');
         // var endTime = moment(this.editCalForm.value.end_time, 'h:mma');
         if (beginningTime > endTime) {
-          this.editCalForm.controls['start_time'].setValue('');
+          // this.editCalForm.controls['start_time'].setValue('');
           this.editCalForm.controls['end_time'].setValue('');
+         
           this.toastr.error("Invalid Time",'', { timeOut: 2000 });
         }
         if (beginningTime == endTime) {
-          this.editCalForm.controls['start_time'].setValue('');
+          // this.editCalForm.controls['start_time'].setValue('');
           this.editCalForm.controls['end_time'].setValue('');
           this.toastr.error("Invalid Time",'', { timeOut: 2000 });
         }

@@ -94,8 +94,6 @@ export class InterpreterListComponent implements OnInit {
           // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
           this.router.navigate(['/users/user-list'])
         }
-
-
       });
   }
 

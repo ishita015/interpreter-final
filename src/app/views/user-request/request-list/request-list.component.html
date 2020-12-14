@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
       <ul class="heading">
-          <li><a>User Request</a></li>
+          <li><a>New Request</a></li>
           <li>List</li>
       </ul>
   </div>
@@ -150,10 +150,18 @@
                       Requested date
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.date | date:'MM/dd/yyyy' }}
+                      {{row.created_at | date:'MM/dd/yyyy' }}
                   </ng-template>  
               </ngx-datatable-column>
 
+              <ngx-datatable-column>
+                <ng-template ngx-datatable-header-template>
+                  Appointment date
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.date | date:'MM/dd/yyyy' }}
+                </ng-template>  
+            </ngx-datatable-column>
 
               <ngx-datatable-column>
                 <ng-template ngx-datatable-header-template>

@@ -72,7 +72,7 @@
                         <div class="col-md-6 form-group mb-3">
                            
                                 <label>Description</label>
-                                <textarea class="form-control" formControlName="description" placeholder="Description">
+                                <textarea class="form-control" onkeypress="if(this.value.length==140) return false;" formControlName="description" placeholder="Description">
                               </textarea>
                               <div *ngIf="addCalForm.controls['description'].errors && ( !addCalForm.controls['description'].pristine || submitted ||addCalForm.controls['description'].touched )" class="error-msg">
                                 <div [hidden]="!addCalForm.controls['description'].errors.required">Description is required.</div>

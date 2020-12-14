@@ -78,7 +78,7 @@
                         <div class="col-md-6 form-group mb-3">
 
                             <label>Description</label>
-                            <textarea class="form-control" formControlName="description" placeholder="Description">
+                            <textarea class="form-control" formControlName="description"  onkeypress="if(this.value.length==140) return false;" placeholder="Description">
                               </textarea>
                             <div *ngIf="editCalForm.controls['description'].errors && ( !editCalForm.controls['description'].pristine || submitted ||editCalForm.controls['description'].touched )"
                                 class="error-msg">

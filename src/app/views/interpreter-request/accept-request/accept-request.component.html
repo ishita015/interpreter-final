@@ -1,7 +1,7 @@
 <div class="">
   <div class="breadcrumb">
     <ul class="heading">
-        <li><a>In Progress Request </a></li>
+        <li><a>In Progress</a></li>
         <li>List</li>
     </ul>
 </div>
@@ -16,7 +16,7 @@
   </div>
 
 
-      <div class="col-md-12">
+      <div class="col-md-12 lang_block">
           <div class="card  o-hidden">
             <ngx-datatable *ngIf="filteredUser?.length"
               style="height: 500px; box-shadow: none"
@@ -92,9 +92,18 @@
                   Requested date
               </ng-template>
               <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.date | date:'MM/dd/yyyy' }}
+                  {{row.created_at | date:'MM/dd/yyyy' }}
               </ng-template>  
           </ngx-datatable-column>
+
+          <ngx-datatable-column>
+            <ng-template ngx-datatable-header-template>
+              Appointment date
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.date | date:'MM/dd/yyyy' }}
+            </ng-template>  
+        </ngx-datatable-column>
            
             <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
               <ng-template ngx-datatable-header-template>Status
@@ -107,12 +116,16 @@
           </ngx-datatable-column>
           
           
-          <ngx-datatable-column [width]="130" [sortable]="false" >
+          <ngx-datatable-column [width]="120" [sortable]="false" >
             <ng-template ngx-datatable-header-template>Action
             </ng-template>
             
             <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" >
-              <button *ngIf="roleId=='1'" class="btn btn-outline-secondary" (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
+              <button class="btn btn-outline-secondary mr-1" 
+              (click)="viewDetail(row.ris_id)">View</button>  
+              
+              <button *ngIf="roleId=='1'" class="btn btn-outline-secondary" 
+              (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
               <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Completed
@@ -170,6 +183,25 @@
       <div class="form-group">
         <label>Note</label>
         <textarea class="form-control" formControlName="notes" rows="3" placeholder="Optional"></textarea>
+      </div>
+      <div class="form-group check_box">
+
+      <label class="container">Email
+        <input  [disabled]="ReadOnlyStyleGuideNotes" (click) ="email_check()" id="check1" type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Sms
+        <input  [disabled]="ReadOnlyStyleGuideNotes" (click) ="sms_check()" id="check2" type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Push
+        <input [disabled]="ReadOnlyStyleGuideNotes" (click) ="push_check()" id="check3" type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Call
+        <input [disabled]="call_check"  id="check4" (click)="call_Check()" type="checkbox">
+        <span class="checkmark"></span>
+      </label>
       </div>
     </form>
   
