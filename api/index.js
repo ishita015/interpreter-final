@@ -429,7 +429,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
                     con.query(sql1, function(err, insert) {});
                 }
             }
- */
+        */
             var name = first_name+" "+last_name;
             common.sendRegistrationEmail(name,email,first_password);
  
@@ -459,6 +459,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
 
 //update profile 
 app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next) {
+    console.log("all up body",req.body)
      //validation start
      const v = new Validator(req.body, {
         id: 'required',
@@ -498,7 +499,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
     let gender = req.body.gender;
-    let primary_language = req.body.primary_lang_id;
+    // let primary_language = req.body.primary_lang_id;
     let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
     let apartment = req.body.apartment ? req.body.apartment : "";
     let street = req.body.street ? req.body.street : "";
@@ -506,7 +507,8 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
     let address = req.body.address ? req.body.address : '';
     let latitude = req.body.latitude ? req.body.latitude : '';
     let longitude = req.body.longitude ? req.body.longitude : '';
-
+    
+    console.log("primary_lang_id ",req.body.primary_lang_id)
    
     
     var profileImg='';
@@ -518,16 +520,18 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
      }
 
 
-     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',,gender ='"+gender+"',primary_language ='"+primary_language+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"'"; 
+     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',primary_language ='"+req.body.primary_lang_id+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"'"; 
     
-     
-    if(profileImg!=""){
+     if(profileImg!="" && profileImg != undefined){     
         sql += ",profile_img ='"+profileImg+"'";
     }
 
-    if(address!=""){    
-        if(latitude!="" && longitude!=""){        
-         sql += ",address ='"+address+"', latitude ='"+latitude+"',longitude ='"+longitude+"'";
+    if(address!="" && address != 'undefined'){    
+        console.log("address",address);
+        if((latitude!="" && latitude != 'undefined')  && (longitude!="" && longitude != 'undefined') ){        
+            console.log("latitude",latitude);
+            console.log("longitude",longitude);
+          sql += ",address ='"+address+"', latitude ='"+latitude+"',longitude ='"+longitude+"'";
         }
     }
 

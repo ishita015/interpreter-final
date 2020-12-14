@@ -181,12 +181,12 @@ export class InterpreterEditComponent implements OnInit {
       this.submitted = false;
       const formData: any = new FormData();
 
-    this.userEditForm.value.latitude = this.latitude;
-    this.userEditForm.value.longitude = this.longitude
-    this.userEditForm.value.address =this.new_address;
-    this.userEditForm.value.language = this.newlanguageVal;
-    this.userEditForm.value.id = this.json_Obj.id;
-    this.userEditForm.value.image = this.selectedFile;
+    // this.userEditForm.value.latitude = this.latitude;
+    // this.userEditForm.value.longitude = this.longitude
+    // this.userEditForm.value.address =this.new_address;
+    // this.userEditForm.value.primary_lang_id = this.newlanguageVal;
+    // this.userEditForm.value.id = this.json_Obj.id;
+    // this.userEditForm.value.image = this.selectedFile;
 
 
 
@@ -196,7 +196,6 @@ export class InterpreterEditComponent implements OnInit {
     formData.append('email', this.userEditForm.value.email);
     formData.append('mobile', this.userEditForm.value.mobile);
     formData.append('address', this.new_address);
-    formData.append('password', this.userEditForm.value.password);
     formData.append('apartment', this.userEditForm.value.apartment);
     formData.append('street', this.userEditForm.value.street);
     formData.append('gender', this.userEditForm.value.gender);
@@ -204,7 +203,7 @@ export class InterpreterEditComponent implements OnInit {
     formData.append('longitude', this.longitude);
     formData.append('languageid', this.userEditForm.value.languageid);
     formData.append('id', this.json_Obj.id);
-    formData.append('primary_language', this.newlanguageVal);
+    formData.append('primary_lang_id', this.newlanguageVal);
     formData.append('rate', this.userEditForm.value.rate);
     // formData.append('latitude', this.userForm.value.address);
 
@@ -221,7 +220,7 @@ export class InterpreterEditComponent implements OnInit {
           this.router.navigate(['/interpreter/interpreter-list']);
         }else{
           this.toastr.error( this.useredit_Msg.message,'', { timeOut: 1000 });
-          this.router.navigate(['/users/user-list']);  
+          this.router.navigate(['/interpreter/interpreter-list']);  
         }                        
           });
         }
@@ -250,7 +249,7 @@ userRoleList(){
 
 onChange(id){
   this.newlanguageVal = id.target.value;
-  // console.log("iddddddddddd", this.newlanguageVal);
+  console.log("newlanguageVal", this.newlanguageVal);
 }
 
   // Get Current Location Coordinates
