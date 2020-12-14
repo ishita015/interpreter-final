@@ -265,7 +265,7 @@ export class HttpService {
 
 
   updateInterpreter(userupdateInfo: UserAddEdit): Observable<any> {
-    return this.http.post(this.url + '/cesco/updateInterpreter', userupdateInfo, this.httpOptions);
+    return this.http.post(this.url + '/cesco/updateInterpreter', userupdateInfo);
   }
 
 
