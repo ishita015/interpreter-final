@@ -27,6 +27,8 @@ export class CompleteRequestComponent implements OnInit {
   roleData;
   array_Obj;
   msg;
+  view_obj;
+  resp_msg;
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -91,19 +93,17 @@ export class CompleteRequestComponent implements OnInit {
 
 viewDetail(request_id){
   console.log("id--",  request_id);
-  this.router.navigate(['/user-request/request-view',request_id])
-  // this.service.getRequestDetail(request_id).subscribe(res => {
-  //   if(res['status'] == 1){
-  //     this.view_obj = res['data'][0];
-  //     console.log("view object",  this.view_obj);
-  //     localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-     
-  //   }else{
-  //     this.resp_msg = res;
-  //     this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
-  //   }
-      
-  // })
+  this.service.getRequestDetail(request_id).subscribe(res => {
+    if(res['status'] == 1){
+      this.view_obj = res['data'][0];
+      console.log("api response",  this.view_obj);
+      localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
+      this.router.navigate(['/user-request/request-view',request_id])
+    }else{
+      this.resp_msg = res;
+      this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+    }   
+  })
 }
 
 
