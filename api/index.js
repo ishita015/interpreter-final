@@ -757,7 +757,7 @@ app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
                 status: 1,
                 error_code: 0,
                 error_line: 6,
-                data: "http://192.168.0.69:3300/user/"+profileImg,
+                data: "http://192.168.0.4:3300/user/"+profileImg,
                 message: "Upload successfully",
             });
             return true;
@@ -895,19 +895,18 @@ io.sockets.on('connection', function(socket) {
 
 
 
-    socket.on('sendChat', function(message,sender_id,receiver_id,group_id) {
-        saveChatInDatabase(message,sender_id,receiver_id,group_id);
+    socket.on('sendChat', function(message,sender_id,receiver_id,group_id,msg_type) {
+        saveChatInDatabase(message,sender_id,receiver_id,group_id,msg_type);
     });
 
 
     
-    function saveChatInDatabase(message,sender_id,receiver_id,group_id) {
-        var testchatRoom = '1010';
+    function saveChatInDatabase(message,sender_id,receiver_id,group_id,msg_type) {
         var new_date = Date.now();
             new_date = moment(new_date).unix();
         // message = mysql_real_escape_string(message);     
         if(group_id!='0' && group_id!=undefined){
-            let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+group_id+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','text','0','0')";
+            let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp,senderName,msgType,lat,lang)VALUES('"+group_id+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','"+msg_type+"','0','0')";
 
             console.log(sql);
             con.query(sql, function(err, result) {
@@ -919,7 +918,8 @@ io.sockets.on('connection', function(socket) {
                         receiverId: receiver_id,
                         senderId: sender_id,
                         msg: message,
-                        sendTimestamp: new_date
+                        sendTimestamp: new_date,
+                        msgType: msg_type
                     });
                 }else{
                     throw err;
@@ -931,7 +931,7 @@ io.sockets.on('connection', function(socket) {
             con.query(sql1, function(err, result, fields) {
                 if (result && result.length > 0) {
                     var groupId=result[0].group_id;
-                    let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+groupId+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','text','0','0')";
+                    let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+groupId+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','"+msg_type+"','0','0')";
 
                     console.log(sql);
                     con.query(sql, function(err, result) {
@@ -943,7 +943,8 @@ io.sockets.on('connection', function(socket) {
                                 receiverId: receiver_id,
                                 senderId: sender_id,
                                 msg: message,
-                                sendTimestamp: new_date
+                                sendTimestamp: new_date,
+                                msgType: msg_type
                             });
                         }else{
                             throw err;

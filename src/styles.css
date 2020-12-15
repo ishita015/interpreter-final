@@ -68,7 +68,11 @@
 /*-----------------------------------ishita css start------------------------------------*/
 
 /* ---------------request detail view start------------------------- */
-.progress_btn{position: absolute;right: 7px;top: -27px;}
+.progress_btn{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
 /* ---------------request detail view end------------------------- */
 
 /*-----------------------------------ishita css end------------------------------------*/
