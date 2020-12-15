@@ -49,6 +49,7 @@ export class InterpreterViewComponent implements OnInit {
 	viewObj;
   interpreter_Id;
   data
+
 	//-- Calendar variable End --//
 	constructor(
 		private modalService: NgbModal,
@@ -60,7 +61,7 @@ export class InterpreterViewComponent implements OnInit {
 	}
 
 	ngOnInit() {
-    this.data = JSON.parse(localStorage.getItem('userViewData'));
+    	this.data = JSON.parse(localStorage.getItem('userViewData'));
 		this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.userId = JSON.parse(localStorage.getItem('userId'));
 		this.interpreter_Id = JSON.parse(localStorage.getItem('userViewData'));
@@ -216,20 +217,5 @@ export class InterpreterViewComponent implements OnInit {
 				console.log(e);
 			});
 	}
-
-
-	// public eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-	// 	event.start = newStart;
-	// 	event.end = newEnd;
-
-	// 	this.calendarService
-	// 		.updateEvent(event)
-	// 		.subscribe(events => {
-	// 			this.events = this.initEvents(events);
-	// 			this.refresh.next();
-	// 		});
-	// }
-
-
 
 }
