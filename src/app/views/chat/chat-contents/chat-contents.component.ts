@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { VariablesService } from 'src/app/shared/services/variables.service';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-chat-contents',
@@ -41,6 +42,8 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   chat_Obj;
   loggeduser;
   login_data
+  selectedFile:File = null;
+  url:any = '';
   constructor(public chatService: ChatService, private service: HttpService,
     public variable: VariablesService) { }
 
@@ -69,6 +72,22 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
     if (this.chatUpdateSub) { this.chatUpdateSub.unsubscribe(); }
   }
 
+  /*==========Single Image Function Start Here========*/
+  onSingleFileChange(event){ 
+    this.selectedFile = <File>event.target.files[0];
+    const formData: any = new FormData();
+    formData.append('file', this.selectedFile);
+    this.service.getSingleImage(formData).subscribe(res => {
+      console.log("imagesssssssssss",res);
+      if(res['status']==1){
+        this.service.sendMessage(res['data'],this.userId,this.message.id,this.message.group_id,'image');  
+      }
+
+    })
+  }
+  /*==========Single Image Function End Here========*/
+
+
   userChat(){
     this.service.getUserChat(this.userId,this.message.group_id)  
     .subscribe(res => {
@@ -81,14 +100,18 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
     });
   }
   
+  singleImageUpload(){
+    console.log("imagesss file",this.selectedFile);
+    
+    
+  }
 
 
   message_send(e) {
     console.log(e);
-    
     this.textForm = this.msgForm.form.value.message;
     if(this.textForm!='' && this.textForm!=undefined && this.textForm!=null){
-      this.service.sendMessage(this.textForm,this.userId,this.message.id,this.message.group_id);
+      this.service.sendMessage(this.textForm,this.userId,this.message.id,this.message.group_id,'text');
     }
     this.msgForm.form.reset();
   }

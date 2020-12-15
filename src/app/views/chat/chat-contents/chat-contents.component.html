@@ -15,13 +15,15 @@
       <div *ngIf="chat.senderId == userId">
         <div class="d-flex user">
 
-          <img src="http://192.168.0.4:3300/user/{{login_data.profile_img}}" class="avatar-sm rounded-circle mr-3">
+          <img  src="http://192.168.0.4:3300/user/{{login_data.profile_img}}" class="avatar-sm rounded-circle mr-3">
           <div class="message flex-grow-1">
             <div class="d-flex">
               <p class="mb-1 text-title text-16 flex-grow-1">{{loggeduser}}</p>
               <span class="text-small text-muted">{{chat.sendTimestamp * 1000 | date}}</span>
             </div>
-            <p class="m-0">{{chat.msg}}</p>
+             <p class="m-0" *ngIf="chat.msgType=='text'">{{chat.msg}}</p>
+             <p class="m-0" *ngIf="chat.msgType=='image'" ><img  src="{{chat.msg}}" class="mr-3" style="width:100px; height:100px;"></p>
+             
           </div>
         </div>
        </div> 
@@ -35,7 +37,11 @@
             <p class="mb-1 text-title text-16 flex-grow-1">{{message?.name}}</p>
             <span class="text-small text-muted">{{chat.sendTimestamp * 1000 | date}}</span>
           </div>
-          <p class="m-0">{{chat.msg}}</p>
+          <!-- <p class="m-0">{{chat.msg}}</p> -->
+
+          <p class="m-0" *ngIf="chat.msgType=='text'">{{chat.msg}}</p>
+          <p class="m-0" *ngIf="chat.msgType=='image'" ><img  src="{{chat.msg}}" class="mr-3" style="width:100px; height:100px;"></p>
+
         </div>
         <img src="http://192.168.0.4:3300/user/{{message.profile_img}}" class="avatar-sm rounded-circle ml-3">
       </div>
@@ -45,19 +51,31 @@
 
 
   <div class="pl-3 pr-3 pt-3 pb-3 box-shadow-1 chat-input-area" *ngIf="variable.loadingCollection">
-    <form #msgForm="ngForm" class="inputForm" (ngSubmit)="message_send($event)" (keyup.enter)="message_send($event)">
+    <form #msgForm="ngForm" class="inputForm">
       <div class="form-group">
         <textarea class="form-control form-control-rounded" #msgInput ngModel placeholder="Type your message"
           name="message" id="message" cols="30" rows="3"></textarea>
       </div>
       <div class="d-flex">
         <div class="flex-grow-1"></div>
-        <button class="btn btn-icon btn-rounded btn-primary mr-2">
+        <button type="button" (click)="message_send($event)" (keyup.enter)="message_send($event)" class="btn btn-icon btn-rounded btn-primary mr-2">
           <i class="i-Paper-Plane"></i>
         </button>
-        <button class="btn btn-icon btn-rounded btn-outline-primary" type="button">
+        <!-- <button class="btn btn-icon btn-rounded btn-outline-primary"> -->
+        <div class="image-upload">
+          <label for="file-input">
+            <div class="btn btn-icon btn-rounded btn-outline-primary">
+            <i class="i-Add-File"></i>
+          </div>
+          </label>
+      
+          <input id="file-input" type="file" (change)="onSingleFileChange($event)"/>
+      </div>
+      <!-- </button> -->
+        <!-- <button class="btn btn-icon btn-rounded btn-outline-primary"  >
+          <input type="file" (change)="onSingleFileChange($event)">
           <i class="i-Add-File"></i>
-        </button>
+        </button> -->
       </div>
     </form>
   </div>
