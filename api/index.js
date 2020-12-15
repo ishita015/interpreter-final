@@ -757,7 +757,7 @@ app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
                 status: 1,
                 error_code: 0,
                 error_line: 6,
-                data: "http://192.168.0.69:3300/user/"+profileImg,
+                data: "http://192.168.0.146:3300/user/"+profileImg,
                 message: "Upload successfully",
             });
             return true;

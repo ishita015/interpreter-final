@@ -56,8 +56,8 @@ export class HttpService {
 
 
 
-  public sendMessage(message, sender_id, receiver_id, group_id) {
-    this.socket.emit('sendChat', message, sender_id, receiver_id, group_id);
+  public sendMessage(message, sender_id, receiver_id, group_id,msg_type) {
+    this.socket.emit('sendChat', message, sender_id, receiver_id, group_id,msg_type);
   }
 
 
@@ -105,6 +105,10 @@ export class HttpService {
 
   getContactData(user_id): Observable<any> {
     return this.http.post(this.url + '/cesco/getContactList', { user_id: user_id }, this.httpOptions);
+  }
+
+  getSingleImage(importData): Observable<any> {
+    return this.http.post(this.url + '/cesco/uploadChatImage',importData);
   }
 
 
