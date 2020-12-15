@@ -304,9 +304,44 @@ app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 
 
 
+function updateInterpreterLatLong(unique_code,user_id,lat,long) {
+    
+    con.query(updatesql, function(err, result) {
+        var sql = "SELECT ilc.unique_code,u.id as interpreter_id,u.latitude,u.longitude,u.first_name,u.last_name FROM interpreter_live_code as ilc INNER JOIN user as u ON u.id=ilc.user_id WHERE ilc.unique_code='"+unique_code+"'";
+        // var sql1 = "SELECT u.id,u.first_name,u.last_name,u.latitude,u.longitude FROM user WHERE id='"+user_id+"' && role_id='2'";
+        con.query(sql, function(err, result, fields) {
+            if (result && result.length > 0) {
+                io.sockets.emit('responce_location', {
+                    interpreter_id: result[0].id,
+                    latitude: result[0].latitude,
+                    longitude: result[0].longitude,
+                    first_name: result[0].first_name,
+                    last_name: result[0].last_name,
+                    unique_code: result[0].unique_code
+                });
+            }
+        });
+    });
+}
 
 
 
+    
+app.post('/cesco/location_update', function(req, res) {
+    // let data =req.body;
+    let sql = "UPDATE user SET latitude = '"+req.body.lat+"', longitude = '"+req.body.long+"' WHERE id='"+req.body.user_id+"'";
+    con.query(sql, function(err, result) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            message: "location update successfully",
+        });
+        return true;
+    });
+    
+  });
+  
 
 
 
@@ -689,6 +724,68 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 
 
 /* image upload */
+const CHATDIR = './public/chat_images';
+let chatstorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, CHATDIR);
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+let chatupload = multer({
+    chatstorage: chatstorage
+});
+
+
+
+
+
+
+
+
+//upload chat images
+app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
+    console.log(req.files)
+    var profileImg='';
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            profileImg=req.files[0].filename;
+            console.log(profileImg)
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                data: "http://192.168.0.69:3300/user/"+profileImg,
+                message: "Upload successfully",
+            });
+            return true;
+        }
+    }else{
+        //error
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 7,
+            message: "Please try again"
+        });
+        return true;
+    }  
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/* image upload */
 const EXCLDIR = './public';
 let excelImp = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -863,8 +960,14 @@ io.sockets.on('connection', function(socket) {
     //live tracking start
 
         
-    socket.on('updateLatLong', function(unique_code,user_id,lat,long) {
-        updateInterpreterLatLong(unique_code,user_id,lat,long);
+    socket.on('updateLatLong', function(unique_code) {
+        console.log("unique_code",unique_code)
+        var sql = "SELECT ilc.unique_code,u.id as interpreter_id,u.latitude,u.longitude,u.first_name,u.last_name FROM interpreter_live_code as ilc INNER JOIN user as u ON u.id=ilc.user_id WHERE ilc.unique_code='"+unique_code+"'";
+        con.query(sql, function(err, result, fields) {
+            if (result && result.length > 0) {
+                updateInterpreterLatLong(unique_code,result[0].id,result[0].latitude,result[0].longitude);
+            }
+        });
     });
 
 

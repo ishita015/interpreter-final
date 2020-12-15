@@ -42,6 +42,7 @@ module.exports.getInterpreterCurrentLocation = async function(req, res) {
 
     let unique_code = req.body.unique_code;
     var getlocation = await usermodel.getIntgerpreterLocation(unique_code);
+    console.log("getlocation",getlocation);
     if (getlocation != "" && getlocation != undefined) {
         res.json({
             status: 1,
