@@ -45,8 +45,8 @@ export class InterpreterViewComponent implements OnInit {
 	public totalcomplete_obj;
 	cal_data;
 	new_date;
-  calendar_Id;
-  data
+	calendar_Id;
+	data
 	//-- Calendar variable End --//
 	constructor(
 		private modalService: NgbModal,
@@ -58,7 +58,7 @@ export class InterpreterViewComponent implements OnInit {
 	}
 
 	ngOnInit() {
-    this.data = JSON.parse(localStorage.getItem('userViewData'));
+    	this.data = JSON.parse(localStorage.getItem('userViewData'));
 		this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.userId = JSON.parse(localStorage.getItem('userId'));
 		this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));
@@ -149,20 +149,5 @@ export class InterpreterViewComponent implements OnInit {
 				console.log(e);
 			});
 	}
-
-
-	// public eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-	// 	event.start = newStart;
-	// 	event.end = newEnd;
-
-	// 	this.calendarService
-	// 		.updateEvent(event)
-	// 		.subscribe(events => {
-	// 			this.events = this.initEvents(events);
-	// 			this.refresh.next();
-	// 		});
-	// }
-
-
 
 }

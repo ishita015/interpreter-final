@@ -47,6 +47,7 @@ export class InterpreterListComponent implements OnInit {
   ratings_formdata;
   namemail_formdata;
   api_res;
+  mapInfo;
   searchControl: FormControl = new FormControl();
   distances: FormControl = new FormControl();
   rates: FormControl = new FormControl();
@@ -75,7 +76,11 @@ export class InterpreterListComponent implements OnInit {
 
   ngOnInit() {
     this.assignInfo = JSON.parse(localStorage.getItem('assignData'));
-
+    this.service.currentMessage.subscribe(message => {
+    this.mapInfo = message
+    console.log("mapView", this.mapInfo);
+     
+   })
     this.lat = this.assignInfo.latitude;
     this.lng = this.assignInfo.longitude;
   
@@ -95,11 +100,10 @@ export class InterpreterListComponent implements OnInit {
 
 
   clickedMarker(label: string,id ,info, index: number,modal) {
-    console.log("indexxxxx",index);
-    
     this.requestId = id;
     localStorage.setItem('Id', JSON.stringify(id));
     localStorage.setItem('Info', JSON.stringify(info));
+    this.service.changeMessage(info);
     this.nameShow = label;
     this.addressShow = info.address;
     this.mobileShow =  info.mobile;
@@ -257,7 +261,7 @@ export class InterpreterListComponent implements OnInit {
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
     this.service.sendInterpreterRequest(this.requestId,this.userId).subscribe(res => {
-      this.requestStatus = res;
+      this.requestStatus = res; 
       if(this.requestStatus.status == 1){
         this.nameShow = data.name;
         this.addressShow = data.address;
