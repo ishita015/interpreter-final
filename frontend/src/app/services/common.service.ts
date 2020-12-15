@@ -15,19 +15,45 @@ import { Step10Modals } from '../modals/step10-modals';
 import { Step9Modals } from '../modals/step9-modals';
 import { Step11Modals } from '../modals/step11-modals';
 import { Step12Modals } from '../modals/step12-modals';
+import { Socket } from 'ngx-socket-io';
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
   private url = environment.apiUrl;
   public httpOptions;
-  constructor(private http: HttpClient,private router:Router) { 
+  constructor(private http: HttpClient,
+    private router:Router,
+    private socket: Socket) { 
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
   }
+
+
+  //--------------------------------socket start------------------------------//
+
+  public sendMessage(message, sender_id, receiver_id, group_id) {
+    this.socket.emit('sendChat', message, sender_id, receiver_id, group_id);
+  }
+
+
+  public getMessages = () => {
+    return Observable.create((observer) => {
+      this.socket.on('responce_chat', (message) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  tracking(id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getPermission', { id: id }, this.httpOptions);
+  }
+  //--------------------------------socket end------------------------------//
+
+
 
   getLanguage(): Observable<any>{
     return this.http.get(this.url + '/cesco/getlanguages' );

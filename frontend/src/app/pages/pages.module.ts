@@ -16,6 +16,8 @@ import { Step12Component } from './registration/step12/step12.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { InterpreterTrackingComponent } from './interpreter-tracking/interpreter-tracking.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AgmCoreModule } from '@agm/core';
     Step9Component,
     Step10Component,
     Step11Component,
-    Step12Component
+    Step12Component,
+    InterpreterTrackingComponent
   ],
   imports: [
     CommonModule,
