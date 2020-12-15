@@ -64,6 +64,16 @@
 .datatable-row-center .datatable-header-cell .datatable-header-cell .datatable-header-cell-template-wrap{width: 200px !important;} */
 
 /* end */
+
+/*-----------------------------------ishita css start------------------------------------*/
+
+/* ---------------request detail view start------------------------- */
+.progress_btn{position: absolute;right: 7px;top: -27px;}
+/* ---------------request detail view end------------------------- */
+
+/*-----------------------------------ishita css end------------------------------------*/
+
+
 @media (max-width: 1024px){
 
     .lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell{width: 100% !important;  min-width: 100px !important;}

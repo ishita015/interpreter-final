@@ -164,7 +164,6 @@ export class InterpreterListComponent implements OnInit {
       this.viewUser_obj = res['data'][0];
       console.log("view object", this.viewUser_obj);
       localStorage.setItem('userViewData', JSON.stringify(this.viewUser_obj));
-
       this.router.navigate(['/interpreter/interpreter-view', id])
     })
   }
