@@ -126,6 +126,12 @@
               
               <button *ngIf="roleId=='1'" class="btn btn-outline-secondary" 
               (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
+
+              <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+              (click)="trackingLinkSend(row.user_id,row.ris_id, linkConfirmModal)">
+                Tracking link
+              </button>
+
               <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Completed
@@ -209,5 +215,23 @@
   <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
       <button type="button" ngbAutofocus class="btn btn-wide btn-success btn-rounded" (click)="modal.close('Ok')">Send</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #linkConfirmModal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Alert</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <p><strong>Are you sure? you want to send tracking link?</strong></p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+      <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
   </div>
 </ng-template>

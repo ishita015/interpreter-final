@@ -14,33 +14,58 @@ const usermodel = new userModel();
 
 
 
-/*
-
-
-id: 10,
-    role_id: 2,
-    name: 'N/A N/A',
-    mobile: '65456456456',
-    email: 'developer@gmail.com',
-    profile_img: 'default.png',
-    gender: 'Male',
-    address: 'Bhopal, Madhya Pradesh, India',
-    apartment: '0',
-    street: '0',
-    interpreter_rate: 30,
-    latitude: 23.2599333,
-    longitude: 77.412615,
-    primary_language: 52,
-    status: 0,
-    create_dt: '2020-11-23T06:20:26.000Z',
-    distance: 0,
-    is_reject: '0'
-*/
 
 
 
+// get interpreter current location
+module.exports.getInterpreterCurrentLocation = async function(req, res) {
+    //validation start
+   const v = new Validator(req.body, {
+       unique_code: 'required'
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
 
-//req.body.allInterpreter
+
+    let unique_code = req.body.unique_code;
+    var getlocation = await usermodel.getIntgerpreterLocation(unique_code);
+    if (getlocation != "" && getlocation != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 1,
+            data: getlocation
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Link is expire",
+        });
+        return true;
+    }    
+};
+
+
+
+
+
+
 
 // add interpreter
 module.exports.assignAllInterpreter = async function(req, res) {

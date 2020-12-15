@@ -85,6 +85,13 @@ export class HttpService {
 
 
 
+  interpreterTrackingLinkSend(user_id, request_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/sendTrackingLink', { user_id: user_id, request_id: request_id }, this.httpOptions);
+  }
+
+
+
+
   requestSend(user_id, request_user_id): Observable<any> {
     return this.http.post(this.url + '/cesco/sendRequest', { user_id: user_id, request_user_id: request_user_id }, this.httpOptions);
   }

@@ -103,7 +103,7 @@ export class AcceptRequestComponent implements OnInit {
 
 
 
-
+  //
   interpreterRequestData() {
     this.service.interpreterRequestList(this.roleId, this.userId, '2')
       .subscribe(res => {
@@ -118,7 +118,7 @@ export class AcceptRequestComponent implements OnInit {
       });
   }
 
-  // 
+  // request completed by interpreter
   requestComplete(id, modal) {
     console.log("idddddddddd", id);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
@@ -140,10 +140,10 @@ export class AcceptRequestComponent implements OnInit {
       }, (reason) => {
       });
   }
+  
+  //send reminder
   reminder_popup_open(id,risId,modal) {
     console.log("iddddddd",id,risId);
-   
-    
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
       this.service.getReminderRequest(id,risId,this.noteForm.value.notes)
@@ -160,6 +160,32 @@ export class AcceptRequestComponent implements OnInit {
     });
     
   }
+
+
+
+  // trackingLinkSend(row.ris_id, linkConfirmModal)
+
+  trackingLinkSend(id,risId,modal) {
+    console.log("iddddddd",id,risId);
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    .result.then((result) => {
+      this.service.interpreterTrackingLinkSend(id,risId).subscribe(res => {
+          this.resp_msg = res;
+          // this.msg.message = res;
+          console.log("reminder form", this.reminder);
+          if (res['status'] == 1) {
+            this.toastr.success(this.resp_msg.message, '', { timeOut: 2000 });
+            this.router.navigate(['/interpreter-request/accept-list']);
+          }else{
+            this.toastr.error(this.resp_msg.message, '', { timeOut: 2000 });
+            this.router.navigate(['/interpreter-request/accept-list']);
+          }
+        })
+    }, (reason) => {
+    });
+    
+  }
+
 
   call_Check(){
     if(this.ReadOnlyStyleGuideNotes){

@@ -7,11 +7,117 @@ var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 // var nodemailer = require('nodemailer')
 const Cryptr = require('cryptr');
-// const { empty } = require('rxjs');
+var randtoken = require('rand-token');
 
 const cryptr = new Cryptr('myTotalySecretKey');
-// var userModel = require('./Models/userModels');
-// const usermodel = new userModel();
+var userModel = require('./Models/userModels');
+const usermodel = new userModel();
+
+
+
+
+
+
+
+//send tracking link 
+module.exports.sendTrackingLinkTocustomer = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        request_id: 'required',
+        user_id: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let request_id = req.body.request_id;
+    let user_id = req.body.user_id;
+    var token = randtoken.generate(30);
+    //get customer or interpreter info
+    var detail = await usermodel.getInterpreterAndCustomerInfo(user_id,request_id);
+    if (detail != "" && detail != undefined) {
+        // console.log("detail", detail);
+        let customer_email = detail[0].email;
+        let appointment_type = detail[0].appointment_type;
+        let requester_name = detail[0].requester_name;
+        let interpreter = detail[0].first_name+" "+detail[0].last_name;
+        
+        //check link already sent or not
+        var checkLink = await usermodel.checkLinkAlreadySent(user_id,request_id);
+        if (checkLink != "" && checkLink != undefined) {
+            //update previous link
+            let sql = "UPDATE useinterpreter_live_coder SET unique_code ='"+token+"' WHERE user_id='"+user_id+"' && request_id='"+request_id+"'";
+            console.log("sql-update",sql)
+            var query = con.query(sql, function(err, result) {
+                if(!err){
+                    // common.sendTrackingLinkMail(customer_email,appointment_type,requester_name,interpreter,token); 
+                    res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "Tracking Link send successfully",
+                    });
+                    return true;
+                }else{
+                    res.json({
+                        status: 0,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "server error",
+                    });
+                    return true;
+                }
+            });
+            
+        }else{
+            //first time send tracking link
+            var sql = "INSERT INTO interpreter_live_code(user_id,request_id,unique_code)VALUES('"+user_id+"','"+request_id+"','"+token+"')";
+            console.log('sql-',sql)
+            con.query(sql, function(err, insert) {
+                // let last_id= insert.insertId;
+                // common.sendTrackingLinkMail(customer_email,appointment_type,requester_name,interpreter,token);
+                if(!err){
+                    res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "Tracking Link send successfully",
+                    });
+                    return true;
+                }else{
+                    res.json({
+                        status: 0,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "Server error",
+                    });
+                    return true;
+                }
+            });
+        }
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Invalid details",
+        });
+        return true;
+    }
+};
 
 
 
@@ -226,7 +332,7 @@ module.exports.getRequestDetails = async function(req, res) {
 
 // get form data
 module.exports.getRequestData = function(req, res) {
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1' ORDER BY ris.id DESC";
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1' ORDER BY ris.id DESC";
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {

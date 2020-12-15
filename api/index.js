@@ -131,6 +131,8 @@ app.post('/cesco/adminReminderForinterpreter', interpreterController.adminRemind
 app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */ 
+
+app.post('/cesco/interpreterCurrentLocation', interpreterController.getInterpreterCurrentLocation);
 app.post('/cesco/changePassword', interpreterController.changePassword);
 
 app.post('/cesco/interpreterRequestComplete', interpreterController.interpreterRequestComplete);
@@ -178,6 +180,10 @@ app.post('/cesco/getPermission', userroleController.getUserPermission);
 
 
 app.post('/cesco/getRequestDetails', serviceController.getRequestDetails);
+
+
+app.post('/cesco/sendTrackingLink', serviceController.sendTrackingLinkTocustomer);
+
 app.get('/cesco/getRequestData', serviceController.getRequestData);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);
@@ -850,6 +856,40 @@ io.sockets.on('connection', function(socket) {
             });
         }       
     }
+
+
+
+
+    //live tracking start
+
+        
+    socket.on('updateLatLong', function(unique_code,user_id,lat,long) {
+        updateInterpreterLatLong(unique_code,user_id,lat,long);
+    });
+
+
+    
+    function updateInterpreterLatLong(unique_code,user_id,lat,long) {
+        let updatesql = "UPDATE user SET latitude = '"+lat+"', longitude = '"+long+"' WHERE id='"+user_id+"' && role_id='2'";
+        con.query(updatesql, function(err, result) {
+            var sql = "SELECT ilc.unique_code,u.id as interpreter_id,u.latitude,u.longitude,u.first_name,u.last_name FROM interpreter_live_code as ilc INNER JOIN user as u ON u.id=ilc.user_id WHERE ilc.unique_code='"+unique_code+"'";
+            // var sql1 = "SELECT u.id,u.first_name,u.last_name,u.latitude,u.longitude FROM user WHERE id='"+user_id+"' && role_id='2'";
+            con.query(sql, function(err, result, fields) {
+                if (result && result.length > 0) {
+                    io.sockets.emit('responce_location', {
+                        interpreter_id: result[0].id,
+                        latitude: result[0].latitude,
+                        longitude: result[0].longitude,
+                        first_name: result[0].first_name,
+                        last_name: result[0].last_name,
+                        unique_code: result[0].unique_code
+                    });
+                }
+            });
+        });
+    }
+
+    //live tracking end
 
 });
 
