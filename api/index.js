@@ -806,6 +806,7 @@ let exclupload = multer({
 
 
 const XLSX = require('xlsx');
+const { Console } = require('console');
 
 
 
@@ -1047,6 +1048,9 @@ app.post('/cesco/sendQrcode', async function(req, res) {
 
             mailbody+="<img src='http://192.168.0.4:3300/"+final_qr+"'/> <br>";
             
+            console.log("qr code",mailbody)
+
+
             var transporter = nodemailer.createTransport({
                 host: 'mail.samosys.com',
                 port: 465,
