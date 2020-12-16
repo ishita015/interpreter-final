@@ -134,6 +134,8 @@ app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */ 
 
+
+app.post('/cesco/addRateReview', interpreterController.addRateReview);
 app.post('/cesco/interpreterCurrentLocation', interpreterController.getInterpreterCurrentLocation);
 app.post('/cesco/changePassword', interpreterController.changePassword);
 
@@ -1027,12 +1029,7 @@ app.post('/cesco/sendQrcode', async function(req, res) {
         return true;
     }
 
-
-
-
     let email = req.body.email;
-
-    
 
     var min = 1000;
     var max = 9999;

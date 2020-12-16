@@ -17,6 +17,83 @@ const usermodel = new userModel();
 
 
 
+
+// add rating & review
+module.exports.addRateReview = async function(req, res) {
+    //validation start
+   const v = new Validator(req.body, {
+       unique_code: 'required',
+       rating: 'required'
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+
+    let unique_code = req.body.unique_code;
+    let rating = req.body.rating;
+    let review = req.body.review ? req.body.review : ""; 
+    
+    var resultData = await usermodel.getDataForRequestInfo(unique_code);
+    console.log("resultData",resultData);
+    if (resultData != "" && resultData != undefined) {
+        let request_id=resultData[0].job_id;
+        let interpreter_id = resultData[0].Interpreter_id;
+        
+        var sql = "INSERT INTO user_rate_review(request_id,receiver_user_id,rate,review)VALUES('"+request_id+"','"+interpreter_id+"','"+rating+"','"+review+"')";
+            console.log('sql-',sql)
+            con.query(sql, function(err, insert) {
+                if(!err){
+                    let updatesql = "UPDATE interpreter_request SET unique_code = '' WHERE id='"+resultData[0].id+"'";
+                    con.query(updatesql, function(err, result) {});
+                    res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 1,
+                        message: "Thankyou for given rate & review",
+                    });
+                    return true;
+                }else{
+                    res.json({
+                        status: 0,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "Server error, please try again",
+                    });
+                    return true;
+                }
+            });
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Link is expire",
+        });
+        return true;
+    }    
+};
+
+
+
+
+
+
+
+
+
 // get interpreter current location
 module.exports.getInterpreterCurrentLocation = async function(req, res) {
     //validation start

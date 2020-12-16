@@ -9,6 +9,22 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    //get interpretr request info
+    getDataForRequestInfo(unique_code){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreter_request WHERE unique_code='"+unique_code+"'";
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });   
+    }
+
+
+
     //get interpreter current location
     getIntgerpreterLocation(unique_code){
         return new Promise(function(resolve, reject) {
