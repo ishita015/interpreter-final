@@ -10,9 +10,9 @@ import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://192.168.0.146:3300', options: {} };
 
-// const config: SocketIoConfig = { url: 'http://192.168.0.69:3300', options: {} }; //mt local server
-const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} }; //live server(4004)
+//interpreter  Run at http://192.168.0.4:3300
 
 
  
