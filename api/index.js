@@ -7,6 +7,7 @@ var mysql = require('mysql');
 var request = require('ajax-request'); // ubunto
 const requests = require('request'); // cento s
 var http = require('http');
+var url = require('url') ;
 var async = require("async");
 var cors = require('cors');
 var app = express(); 
@@ -24,7 +25,8 @@ var formidable = require('formidable');
 var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
-
+var QRCode = require('qrcode')
+var base64Img = require('base64-img');
 const { Validator } = require('node-input-validator');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
@@ -757,7 +759,7 @@ app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
                 status: 1,
                 error_code: 0,
                 error_line: 6,
-                data: "http://192.168.0.4:3300/user/"+profileImg,
+                data: "http://192.168.0.69:3300/user/"+profileImg,
                 message: "Upload successfully",
             });
             return true;
@@ -996,6 +998,129 @@ io.sockets.on('connection', function(socket) {
     //live tracking end
 
 });
+
+
+
+
+
+
+
+app.post('/cesco/sendQrcode', async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        email: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+
+
+
+    let email = req.body.email;
+
+    
+
+    var min = 1000;
+    var max = 9999;
+    var activation_code = Math.floor(Math.random() * (+max - +min)) + +min;
+    var qr_name = activation_code;
+    var last_id='interpreter request id : 12';
+    QRCode.toDataURL(last_id, function (err, url) {
+        base64Img.img(url, 'public',qr_name, function(err, file_path) {
+            var final_qr = file_path.replace('public/','');
+
+            
+            let mailbody = "Hi User please scan QRcode than start interpreter time,  <br><br>";
+
+            mailbody+="<img src='http://192.168.0.4:3300/"+final_qr+"'/> <br>";
+            
+            var transporter = nodemailer.createTransport({
+                host: 'mail.samosys.com',
+                port: 465,
+                secure: true,
+                auth: {
+                    user: 'test@samosys.com',
+                    pass: 'test@#321',
+                }
+            });
+            var mailOptions = {
+                from: 'test@samosys.com',
+                to: email,  //'ishita.pardeshi@samosys.com',
+                subject: 'QRcode',
+                html: mailbody
+            };
+            transporter.sendMail(mailOptions, function(error, info) {});
+            return true;
+            
+        });
+    })
+
+
+
+
+
+    res.json({
+        status: 1,
+        error_code: 0,
+        error_line: 6,
+        message: "QR code send successfully",
+    });
+    return true;
+  
+    
+  });
+  
+  
+
+
+
+
+
+
+
+
+
+// var hostname = req.headers.host; // hostname = 'localhost:8080'
+// var pathname = url.parse(url).pathname; // pathname = '/MyApp'
+// console.log('http://' + hostname + pathname);
+
+
+
+// var http = require('http');
+// var url = require('url') ;
+/*
+http.createServer(function (req, res) {
+  var hostname = req.headers.host; // hostname = 'localhost:8080'
+  var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
+  console.log('http://' + hostname + pathname);
+
+//   res.writeHead(200);
+//   res.end();
+});
+*/
+
+// createServer();
+
+
+// function createServer(req, res){
+//     var hostname = req.headers.host; // hostname = 'localhost:8080'
+//     var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
+//     console.log('http://' + hostname + pathname);
+// }
+
 
 
 
