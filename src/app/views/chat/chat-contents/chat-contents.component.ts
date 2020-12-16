@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { VariablesService } from 'src/app/shared/services/variables.service';
-import { IfStmt } from '@angular/compiler';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat-contents',
@@ -25,7 +26,7 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
 
   @Input('matSidenav') matSidenav;
   @ViewChild(PerfectScrollbarDirective) psContainer: PerfectScrollbarDirective;
-
+  @ViewChild('imageModal', { static: true }) imageModal;
   @ViewChildren('msgInput') msgInput;
   @ViewChild('msgForm') msgForm: NgForm;
   incomingmsg = [];
@@ -44,7 +45,13 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   login_data
   selectedFile:File = null;
   url:any = '';
-  constructor(public chatService: ChatService, private service: HttpService,
+  color:string = 'red';
+  img:any = '';
+  fileUrl;
+  constructor(public chatService: ChatService, 
+    private service: HttpService,
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal,
     public variable: VariablesService) { }
 
   ngOnInit() {
@@ -94,6 +101,7 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
       if(res['status'] == 1){
         this.chat_Obj = res['data'];
         this.messageList=this.chat_Obj;
+        
       } else{
          this.messageList=[];
       }
@@ -102,7 +110,6 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   
   singleImageUpload(){
     console.log("imagesss file",this.selectedFile);
-    
     
   }
 
@@ -130,5 +137,23 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
       this.psContainer.update();
       this.psContainer.scrollToBottom(0, 400);
     });
+  }
+
+  changeStyle(e){
+   console.log("ppppppp");
+  
+  }
+
+  download(e){
+   
+    const blob = new Blob([e.msg], { type: 'application/image' });
+
+    this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
+  }
+  imgview(e){ 
+    console.log("img",this.img)
+    let dialog = this.modalService.open(this.imageModal, { ariaLabelledBy: 'modal-basic-title', centered: true }) 
+    dialog;
+    this.img = e.msg;
   }
 }

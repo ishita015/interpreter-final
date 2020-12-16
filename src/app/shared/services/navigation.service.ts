@@ -117,14 +117,6 @@ export class NavigationService {
             icon: 'i-Add-User',
             state: '/chat/chat',
         },
-
-        // {   
-        //     name: 'test Chat',
-        //     type: 'link',
-        //     icon: 'i-Add-User',
-        //     state: '/chating/chat',
-        // },
-       
     ];
 
 
