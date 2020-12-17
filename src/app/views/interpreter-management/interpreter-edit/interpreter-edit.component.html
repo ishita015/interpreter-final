@@ -71,11 +71,10 @@
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Apartment">Apartment</label>
-                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
-                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
+                            <label for="Apartment">Apt/Ste</label>
+                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apt/Ste">
                             <div *ngIf="userEditForm.controls['apartment'].errors && (!userEditForm.controls['apartment'].pristine || submitted ||userEditForm.controls['apartment'].touched )" class="error-msg">
-                                <div [hidden]="!userEditForm.controls['apartment'].errors.required">Apartment is required.</div> 
+                                <div [hidden]="!userEditForm.controls['apartment'].errors.required">Apt/Ste is required.</div> 
                               </div>
                         </div>
                        
@@ -84,14 +83,13 @@
     
                     <div class="row">
 
-                        <div class="col-md-6 form-group mb-3">
+                        <!-- <div class="col-md-6 form-group mb-3">
                             <label for="Street">Street</label>
-                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
                            <input type="text" class="form-control" formControlName="street"  placeholder="Street">
                             <div *ngIf="userEditForm.controls['street'].errors && (!userEditForm.controls['street'].pristine || submitted ||userEditForm.controls['street'].touched )" class="error-msg">
                                 <div [hidden]="!userEditForm.controls['street'].errors.required">Street is required.</div> 
                               </div>
-                        </div>   
+                        </div>    -->
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Gender</label>
@@ -117,9 +115,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                       
+
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Primary Language</label>
                             <select class="form-control"  (change)="onChange($event)"  formControlName="primary_lang_id">
@@ -132,6 +128,10 @@
                                 <div [hidden]="!userEditForm.controls['primary_lang_id'].errors.required">Language is required.</div> 
                               </div>
                         </div>
+                    </div>
+                    <div class="row">
+                       
+                       
                         <div class="col-md-6 form-group mb-3">
                             <label for="language">Select Secondary Language</label>
                             <tag-input [formControl]="tagsCtrl2" formControlName="languageid" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
@@ -143,16 +143,16 @@
                                 <div [hidden]="!userEditForm.controls['languageid'].errors.required">Secondary Language is required.</div> 
                               </div>
                         </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="rate">Rate</label>
+                            <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
+                           
+                         </div>
                     </div>
    
                     <div class="row">
-                        <div class="col-md-6 form-group mb-3">
-                                <label for="rate">Rate</label>
-                                <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
-                                <!-- <div *ngIf="userEditForm.controls['rate'].errors && (!userEditForm.controls['rate'].pristine || submitted ||userEditForm.controls['rate'].touched )" class="error-msg">
-                                    <div [hidden]="!userEditForm.controls['rate'].errors.required">Rate is required.</div>
-                                </div> -->
-                        </div>
+                       
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="image">Image</label>

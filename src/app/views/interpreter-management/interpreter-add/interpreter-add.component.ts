@@ -117,7 +117,7 @@ export class InterpreterAddComponent implements OnInit {
             mobile: ['', this.validation.onlyRequired_validator],
             address: ['', this.validation.onlyRequired_validator],
             apartment:['', this.validation.onlyRequired_validator],
-            street:['', this.validation.onlyRequired_validator],
+            // street:['', this.validation.onlyRequired_validator],
             gender: ['', this.validation.onlyRequired_validator],
             languageid: [''],
             latitude: [''],
@@ -194,7 +194,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('address', this.new_address);
         formData.append('password', this.userForm.value.password);
         formData.append('apartment', this.userForm.value.apartment);
-        formData.append('street', this.userForm.value.street);
+        // formData.append('street', this.userForm.value.street);
         formData.append('gender', this.userForm.value.gender);
         formData.append('latitude', this.latitude);
         formData.append('longitude', this.longitude);

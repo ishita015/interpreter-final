@@ -413,7 +413,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
         mobile: 'required',
         address: 'required',
         apartment: 'required',
-        street: 'required',
+        // street: 'required',
         latitude: 'required',
         longitude: 'required',
         gender: 'required',
@@ -446,7 +446,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
    let mobile = req.body.mobile;
    let address = req.body.address;
    let apartment = req.body.apartment;
-   let street = req.body.street;
+   let street = req.body.street ? req.body.street : "";
    let latitude = req.body.latitude ? req.body.latitude : 0;
    let longitude = req.body.longitude ? req.body.longitude : 0;
    let gender = req.body.gender;

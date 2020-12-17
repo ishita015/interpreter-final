@@ -107,7 +107,7 @@ export class InterpreterEditComponent implements OnInit {
     mobile: ['', this.validation.onlyRequired_validator],
     address: ['', this.validation.onlyRequired_validator],
     apartment:['', this.validation.onlyRequired_validator],
-    street:['', this.validation.onlyRequired_validator],
+    // street:['', this.validation.onlyRequired_validator],
     gender: ['', this.validation.onlyRequired_validator],
     languageid:['', this.validation.onlyRequired_validator],
     latitude:[''],
@@ -128,7 +128,7 @@ export class InterpreterEditComponent implements OnInit {
     this.userEditForm.get('first_name').patchValue( this.json_Obj.first_name);
     this.userEditForm.get('last_name').patchValue( this.json_Obj.last_name);
     this.userEditForm.get('apartment').patchValue( this.json_Obj.apartment);
-    this.userEditForm.get('street').patchValue( this.json_Obj.street);
+    // this.userEditForm.get('street').patchValue( this.json_Obj.street);
     this.userEditForm.get('mobile').patchValue( this.json_Obj.mobile);
     this.userEditForm.get('address').patchValue( this.json_Obj.address);
     this.userEditForm.get('latitude').patchValue( this.json_Obj.latitude);
@@ -174,7 +174,7 @@ export class InterpreterEditComponent implements OnInit {
       formData.append('mobile', this.userEditForm.value.mobile);
       formData.append('address', this.new_address);
       formData.append('apartment', this.userEditForm.value.apartment);
-      formData.append('street', this.userEditForm.value.street);
+      // formData.append('street', this.userEditForm.value.street);
       formData.append('gender', this.userEditForm.value.gender);
       formData.append('latitude', this.latitude);
       formData.append('longitude', this.longitude);

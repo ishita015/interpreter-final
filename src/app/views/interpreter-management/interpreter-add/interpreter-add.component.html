@@ -98,27 +98,13 @@
                     <div class="row">
                         
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Apartment">Apartment</label>
-                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
-                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
+                            <label for="Apartment">Apt/Ste</label>
+                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apt/Ste">
                             <div *ngIf="userForm.controls['apartment'].errors && (!userForm.controls['apartment'].pristine || submitted ||userForm.controls['apartment'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['apartment'].errors.required">Apartment is required.</div> 
+                                <div [hidden]="!userForm.controls['apartment'].errors.required">Apt/Ste is required.</div> 
                               </div>
                         </div>
 
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="Street">Street</label>
-                           <!-- <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/> -->
-                           <input type="text" class="form-control" formControlName="street"  placeholder="Street">
-                            <div *ngIf="userForm.controls['street'].errors && (!userForm.controls['street'].pristine || submitted ||userForm.controls['street'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['street'].errors.required">Street is required.</div> 
-                              </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        
-                       
                         <div class="col-md-6 form-group mb-3">
                             <label for="Gender">Gender</label>
                             <div class="form-check">
@@ -146,6 +132,20 @@
                         </div>
 
 
+                        <!-- <div class="col-md-6 form-group mb-3">
+                            <label for="Street">Street</label>
+                           <input type="text" class="form-control" formControlName="street"  placeholder="Street">
+                            <div *ngIf="userForm.controls['street'].errors && (!userForm.controls['street'].pristine || submitted ||userForm.controls['street'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['street'].errors.required">Street is required.</div> 
+                              </div>
+                        </div> -->
+                    </div>
+
+                    <div class="row">
+                        
+                       
+
+
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Primary Language</label>
@@ -159,11 +159,7 @@
                                 <div [hidden]="!userForm.controls['primary_language'].errors.required">Language is required.</div> 
                               </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-
-                      
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Language">Select Secondary Language</label>
@@ -173,6 +169,16 @@
                               </tag-input-dropdown>
                             </tag-input>
                         </div>
+                    </div>
+
+                    <div class="row">
+
+                      
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="rate">Rate</label>
+                            <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
+                        </div>
+                        
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="image">Image</label>
@@ -181,16 +187,10 @@
 
                     </div>
 
-                    <div class="row">
-                     <div class="col-md-6 form-group mb-3">
-                        <label for="rate">Rate</label>
-                        <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
-                        <!-- <div *ngIf="userForm.controls['rate'].errors && (!userForm.controls['rate'].pristine || submitted ||userForm.controls['rate'].touched )" class="error-msg">
-                            <div [hidden]="!userForm.controls['rate'].errors.required">Rate is required.</div>
-                        </div> -->
-                    </div>
+                    <!-- <div class="row">
+                     
                   
-                </div>
+                     </div> -->
                     <input type="hidden" class="form-control" formControlName="latitude" >
                     <input type="hidden" class="form-control" formControlName="longitude"> 
 
