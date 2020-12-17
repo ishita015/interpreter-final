@@ -5,8 +5,11 @@ import { CompleteRequestComponent } from './complete-request/complete-request.co
 import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
 import { InterpreterRequestListComponent } from './interpreter-request-list/interpreter-request-list.component';
 import { RejectRequestComponent } from './reject-reques/reject-request.component';
+import { AllRequestComponent } from './all-request/all-request.component';
+
 
 const routes: Routes = [
+  { path: 'all-request-list', component:AllRequestComponent },
   { path: 'list', component: InterpreterRequestListComponent },
   { path: 'accept-list', component: AcceptRequestComponent },
   { path: 'completed-list', component: CompleteRequestComponent },

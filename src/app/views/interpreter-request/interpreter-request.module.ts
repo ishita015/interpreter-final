@@ -16,9 +16,16 @@ import { CancelledRequestComponent } from './cancelled-request/cancelled-request
 import { RejectRequestComponent } from './reject-reques/reject-request.component';
 import { NgxMaskModule } from 'ngx-mask';
 
+import { AllRequestComponent } from './all-request/all-request.component';
+
 
 @NgModule({
-  declarations: [InterpreterRequestListComponent, AcceptRequestComponent, CompleteRequestComponent, CancelledRequestComponent, RejectRequestComponent],
+  declarations: [InterpreterRequestListComponent, 
+    AcceptRequestComponent, 
+    CompleteRequestComponent, 
+    CancelledRequestComponent, 
+    RejectRequestComponent, 
+    AllRequestComponent],
   imports: [
     CommonModule,
     InterpreterRequestRoutingModule,
