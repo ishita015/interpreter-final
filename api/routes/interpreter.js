@@ -1297,9 +1297,8 @@ module.exports.getAllPendingRequest = async function(req, res) {
         for (var i = 0; i < resultdata.length; i++) {
             
 
-            // var totalInter = await usermodel.getInterpreterInLang(resultdata[i].id);
-            // var totalAssign = await usermodel.getAssignmentInLang(resultdata[i].id);
-            // console.log("total_interpreter", total_interpreter)
+            var totalInter = await usermodel.getSendInterpreterRequest(resultdata[i].ris_id);
+            
             mainObj = {
                 ris_id: resultdata[i].ris_id,
                 requester_name: resultdata[i].requester_name,
@@ -1313,7 +1312,7 @@ module.exports.getAllPendingRequest = async function(req, res) {
                 created_at: resultdata[i].created_at,
                 lang_name: resultdata[0].lang_name,
                 code: resultdata[0].code,
-                // created_at: resultdata[i].created_at,
+                created_at: totalInter[0].total_interpreter,
             }
             mainArr.push(mainObj); 
         } 

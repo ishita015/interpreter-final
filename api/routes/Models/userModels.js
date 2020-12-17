@@ -9,6 +9,21 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    getSendInterpreterRequest(ris_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT COUNT(id) as total_interpreter FROM interpreter_request WHERE job_id='"+ris_id+"' && is_reject='0'";
+            // console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+            });
+        });  
+    }
+
+
 
     getPendingRequestList(){
         return new Promise(function(resolve, reject) {
