@@ -450,10 +450,11 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
    let latitude = req.body.latitude ? req.body.latitude : 0;
    let longitude = req.body.longitude ? req.body.longitude : 0;
    let gender = req.body.gender;
+   let other_gender = req.body.other_gender ? req.body.other_gender : "";
    let primary_language = req.body.primary_language;
    let rate = req.body.rate ? req.body.rate : 0;
    password = cryptr.encrypt(password);
-
+   
    
     var profileImg='default.png';
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
@@ -464,7 +465,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street,profile_img)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"','"+profileImg+"')";
+    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street,profile_img,other_gender)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"','"+profileImg+"','"+other_gender+"')";
 
     console.log("image",sql)
 
@@ -557,7 +558,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
     let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
     let apartment = req.body.apartment ? req.body.apartment : "";
     let street = req.body.street ? req.body.street : "";
-
+    let other_gender = req.body.other_gender ? req.body.other_gender : "";
     let address = req.body.address ? req.body.address : '';
     let latitude = req.body.latitude ? req.body.latitude : '';
     let longitude = req.body.longitude ? req.body.longitude : '';
@@ -574,7 +575,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
      }
 
 
-     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"'"; 
+     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"',other_gender='"+other_gender+"'"; 
     
     if(primary_language!="" && primary_language != 'undefined'){     
         sql += ",primary_language ='"+primary_language+"'";
