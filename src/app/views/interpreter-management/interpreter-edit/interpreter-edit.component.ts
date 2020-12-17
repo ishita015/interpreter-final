@@ -66,16 +66,14 @@ export class InterpreterEditComponent implements OnInit {
 
   ngOnInit(){
     this.createForm();  
-     this.Id = JSON.parse(localStorage.getItem('rowId'));
-      this.data = JSON.parse(localStorage.getItem('editData'));
-      console.log("edit data",this.data);
+    this.Id = JSON.parse(localStorage.getItem('rowId'));
+    this.data = JSON.parse(localStorage.getItem('editData'));
     this.LanguageList();
     this.userRoleList();
     this.editUser();
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
-
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -86,14 +84,9 @@ export class InterpreterEditComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          // console.log("place-",place[0].formatted_address);
-          
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          
-          // console.log("latitude-",this.latitude);
-          // console.log("longitude-",this.longitude);
           this.zoom = 12;
         });
       });
@@ -108,10 +101,9 @@ export class InterpreterEditComponent implements OnInit {
   /*========== Form Value Start Here========*/
   createForm() {
     this.userEditForm = this.fb.group({ 
-      first_name: ['', this.validation.name_validation],
-      last_name: ['', this.validation.name_validation],
+    first_name: ['', this.validation.name_validation],
+    last_name: ['', this.validation.name_validation],
     email: [{value: '', disabled: true}],
-    // password: ['', this.validation.onlyRequired_validator],
     mobile: ['', this.validation.onlyRequired_validator],
     address: ['', this.validation.onlyRequired_validator],
     apartment:['', this.validation.onlyRequired_validator],
@@ -144,11 +136,10 @@ export class InterpreterEditComponent implements OnInit {
     //let itemsAsObjects = [{id: 0, display: 'Angular'}, {id: 1, display: 'React'}];
     this.userEditForm.get('languageid').patchValue( this.json_Obj.interLanguage);
     this.userEditForm.get('primary_lang_id').patchValue( this.json_Obj.primary_lang_id);
-    // this.userEditForm.patchValue({ primary_lang_id:   this.json_Obj.primary_lang_id});
     this.userEditForm.get('gender').patchValue( this.json_Obj.gender);
-    if( this.json_Obj.role_id == '2'){
+    // if( this.json_Obj.role_id == '2'){
       this.userEditForm.get('rate').patchValue( this.json_Obj.interpreter_rate);
-    }
+    // }
   }
 
   editUser() {
@@ -164,45 +155,36 @@ export class InterpreterEditComponent implements OnInit {
 
    /*==========Single Image Function Start Here========*/
    onSingleFileChange(event){
-    let file: File = event.target.files[0];
-    this.selectedFile= file;
-    console.log("imagesss", this.selectedFile);
-}
-/*==========Single Image Function End Here========*/
+      let file: File = event.target.files[0];
+      this.selectedFile= file;
+   }
+  /*==========Single Image Function End Here========*/
 
-/*==========Edit Input Value End Here========*/ 
+  /*==========Edit Input Value End Here========*/ 
   submitUser(){
-    console.log("formmmmmmmmmmmm",this.userEditForm.value);
-    // console.log("form value",this.userEditForm.value);
       this.submitted = true;
       if (this.userEditForm.invalid) {
         return;
       }
       this.submitted = false;
       const formData: any = new FormData();
-
-     
-    formData.append('first_name', this.userEditForm.value.first_name);
-    formData.append('last_name', this.userEditForm.value.last_name);
-    formData.append('email', this.userEditForm.value.email);
-    formData.append('mobile', this.userEditForm.value.mobile);
-    formData.append('address', this.new_address);
-    formData.append('apartment', this.userEditForm.value.apartment);
-    formData.append('street', this.userEditForm.value.street);
-    formData.append('gender', this.userEditForm.value.gender);
-    formData.append('latitude', this.latitude);
-    formData.append('longitude', this.longitude);
-    formData.append('languageid', this.userEditForm.value.languageid);
-    formData.append('id', this.json_Obj.id);
-    formData.append('primary_lang_id', this.newlanguageVal);
-    formData.append('rate', this.userEditForm.value.rate);
-    // formData.append('latitude', this.userForm.value.address);
-
-
-    formData.append('image', this.selectedFile);
-    console.log("user value-",this.userEditForm.value.id)
-      // console.log("api response",res);
-    this.service.updateInterpreter(formData).subscribe(res => {
+      formData.append('first_name', this.userEditForm.value.first_name);
+      formData.append('last_name', this.userEditForm.value.last_name);
+      formData.append('email', this.userEditForm.value.email);
+      formData.append('mobile', this.userEditForm.value.mobile);
+      formData.append('address', this.new_address);
+      formData.append('apartment', this.userEditForm.value.apartment);
+      formData.append('street', this.userEditForm.value.street);
+      formData.append('gender', this.userEditForm.value.gender);
+      formData.append('latitude', this.latitude);
+      formData.append('longitude', this.longitude);
+      formData.append('languageid', this.userEditForm.value.languageid);
+      formData.append('id', this.json_Obj.id);
+      formData.append('primary_lang_id', this.newlanguageVal);
+      formData.append('rate', this.userEditForm.value.rate);
+      formData.append('image', this.selectedFile);
+      console.log("user value-",this.userEditForm.value.id)
+      this.service.updateInterpreter(formData).subscribe(res => {
         this.useredit_Msg = res;
         if(res['status'] == 1){
           this.useredit_Obj = res
@@ -213,35 +195,32 @@ export class InterpreterEditComponent implements OnInit {
           this.toastr.error( this.useredit_Msg.message,'', { timeOut: 1000 });
           this.router.navigate(['/interpreter/interpreter-list']);  
         }                        
-          });
-        }
+    });
+}
   
+  LanguageList(){
+    this.service.getLanguageList()
+    .subscribe(res => {
+      if(res['status'] == 1){
+        this.language_Obj = res['data'];
+      }else{
+        this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+        this.router.navigate(['/interpreter/interpreter-list']); 
+      }
+    });
+  }
 
+  userRoleList(){
+    this.service.roleList()
+    .subscribe(res => {
+        this.role_Obj = res['data'];
+    });
+  }
 
-LanguageList(){
-  this.service.getLanguageList()
-  .subscribe(res => {
-    if(res['status'] == 1){
-      this.language_Obj = res['data'];
-    }else{
-      this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
-      this.router.navigate(['/interpreter/interpreter-list']); 
-    }
-  });
-}
-
-userRoleList(){
-  this.service.roleList()
-  .subscribe(res => {
-      // console.log("api response testing",res);
-      this.role_Obj = res['data'];
-  });
-}
-
-onChange(id){
-  this.newlanguageVal = id.target.value;
-  console.log("newlanguageVal", this.newlanguageVal);
-}
+  onChange(id){
+    this.newlanguageVal = id.target.value;
+    console.log("newlanguageVal", this.newlanguageVal);
+  }
 
   // Get Current Location Coordinates
   private setCurrentLocation() {
@@ -249,22 +228,16 @@ onChange(id){
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-
         this.zoom = 8;
         this.getAddress(this.latitude, this.longitude);
       });
     }
   }
 
-
-
   markerDragEnd($event: any) {
     console.log($event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
-    console.log("latitude-",this.latitude);
-    console.log("longitude-",this.longitude);
-
     this.getAddress(this.latitude, this.longitude);
   }
 
@@ -282,7 +255,6 @@ onChange(id){
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
-
     });
   }
 

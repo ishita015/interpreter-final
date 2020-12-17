@@ -153,9 +153,9 @@ export class InterpreterListComponent implements OnInit {
       })
   }
 
-
-
-
+  userView(id){
+    this.router.navigate(['/interpreter/interpreter-view', id])
+  }
 
   userInterpreter(id) {
     // localStorage.setItem('Id', JSON.stringify(id));
