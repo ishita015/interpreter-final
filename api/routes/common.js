@@ -14,6 +14,45 @@ var jade = require('jade');
 
 
 
+
+module.exports.sendRatingPageLinkEmail = function(requester_name,email,interpreter,token) {
+
+    
+    let mailbody = "Hi "+requester_name+", <br><br>";
+
+    mailbody+=interpreter+" has beeb completed the job please click the given link and share your feedback. <br>";
+    
+    mailbody+="Link : "+token;
+    
+    
+    
+    
+    // let mailbody = "hi "+name+" Welcome to Interpreter application";
+      var transporter = nodemailer.createTransport({
+            host: 'mail.samosys.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'test@samosys.com',
+                pass: 'test@#321',
+            }
+        });
+        var mailOptions = {
+            from: 'test@samosys.com',
+            to: email,
+            subject: 'Feedback',
+            html: mailbody
+        };
+        transporter.sendMail(mailOptions, function(error, info) {});
+        return true;
+        
+    };
+    
+    
+
+
+
+
 module.exports.sendReminderEmail = function(name,interpreter_email,date,start_time,end_time,notes) {
 
     

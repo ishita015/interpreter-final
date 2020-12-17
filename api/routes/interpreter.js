@@ -6,6 +6,7 @@ var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 var nodemailer = require('nodemailer')
 const Cryptr = require('cryptr');
+var randtoken = require('rand-token');
 const { Validator } = require('node-input-validator');
 const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
@@ -1187,24 +1188,44 @@ module.exports.interpreterRequestComplete = async function(req, res) {
     //validation end
     let user_id = req.body.userId;
     let ris_id = req.body.id;
-    
+    var token = randtoken.generate(30);
 
-    
-    //update status
-    let updatesql = "UPDATE interpreter_request SET status = '4' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
-    console.log("updatesql--",updatesql)
-    con.query(updatesql, function(err, result) {});
+    var requestData = await usermodel.getInterpreterAndCustomerInfo(user_id,ris_id);
+    console.log("urequestDatapdatesql--",requestData)
+    if (requestData != "" && requestData != undefined) {
+        
+        let requester_name = requestData[0].requester_name;
+        let email = requestData[0].email;
+        let interpreter = requestData[0].first_name+" "+requestData[0].last_name;
+        
+        common.sendRatingPageLinkEmail(requester_name,email,interpreter,token);
 
-    let sql = "UPDATE request_information_services SET status = '4' WHERE id = '"+ris_id+"'";
-    console.log("sql--",sql)
-    con.query(sql, function(err, result) {});
-    res.json({
-        status: 1,
-        error_code: 0,
-        error_line: 6,
-        message: "Request completed successfully",
-    });
-    return true;
+        //update status
+        let updatesql = "UPDATE interpreter_request SET status = '4' WHERE job_id = '"+token+"' && Interpreter_id = '"+user_id+"'";
+        // console.log("updatesql--",updatesql)
+        con.query(updatesql, function(err, result) {});
+
+        let sql = "UPDATE request_information_services SET unique_code='"+ris_id+"' status = '4' WHERE id = '"+ris_id+"'";
+        // console.log("sql--",sql)
+        con.query(sql, function(err, result) {});
+
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            message: "Request completed successfully",
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Invalid details",
+        });
+        return true;
+    }
+
 };
 
 
