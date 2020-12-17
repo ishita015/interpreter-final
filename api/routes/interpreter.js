@@ -1312,7 +1312,7 @@ module.exports.getAllPendingRequest = async function(req, res) {
                 created_at: resultdata[i].created_at,
                 lang_name: resultdata[0].lang_name,
                 code: resultdata[0].code,
-                created_at: totalInter[0].total_interpreter,
+                no_of_interpreter: totalInter[0].total_interpreter,
             }
             mainArr.push(mainObj); 
         } 
