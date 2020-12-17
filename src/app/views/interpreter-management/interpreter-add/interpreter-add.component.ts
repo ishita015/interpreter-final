@@ -42,6 +42,7 @@ export class InterpreterAddComponent implements OnInit {
     // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
     // name = 'Angular';
 
+    showOther:boolean = false;
 
     @ViewChild('search')
     public searchElementRef: ElementRef;
@@ -126,6 +127,7 @@ export class InterpreterAddComponent implements OnInit {
             // user_role: ['', this.validation.onlyRequired_validator],
             rate:[''],
             image:[''],
+            other_gender:[''],
         });
     }
     /*========== Form Value End Here========*/
@@ -194,7 +196,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('address', this.new_address);
         formData.append('password', this.userForm.value.password);
         formData.append('apartment', this.userForm.value.apartment);
-        // formData.append('street', this.userForm.value.street);
+        formData.append('other_gender', this.userForm.value.other_gender);
         formData.append('gender', this.userForm.value.gender);
         formData.append('latitude', this.latitude);
         formData.append('longitude', this.longitude);
@@ -202,8 +204,6 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('primary_language', this.newlanguageVal);
         formData.append('rate', this.userForm.value.rate);
         // formData.append('latitude', this.userForm.value.address);
-
-
         formData.append('image', this.selectedFile);
         
         
@@ -295,10 +295,14 @@ export class InterpreterAddComponent implements OnInit {
       });
   }
 
-    
-    
-
-
-  
-
+  // Radio button function
+        radioButton1(){
+            this.showOther = false;
+        }
+        radioButton2(){
+            this.showOther = false;
+        }
+        radioButton3(){
+            this.showOther = true;
+        }
     }
