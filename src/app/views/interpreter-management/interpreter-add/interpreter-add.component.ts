@@ -166,8 +166,6 @@ export class InterpreterAddComponent implements OnInit {
 
 
     saveUser(){
-
-       
         console.log("languageid 1",this.userForm.value.languageid);
         // console.log("form value",this.adminProfileForm.value);
         this.submitted = true;

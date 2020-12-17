@@ -51,7 +51,7 @@
                    Full Name
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    <span (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
+                    <span class="full_name" (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
