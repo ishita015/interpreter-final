@@ -46,6 +46,7 @@ export class InterpreterEditComponent implements OnInit {
   json_Obj;
   Id;
   editdata;
+  editShowOther:boolean = false;
   selectedFile:File = null;
   @ViewChild('search')
 
@@ -117,6 +118,7 @@ export class InterpreterEditComponent implements OnInit {
       id:[''],
       rate:[''],
       image:[''],
+      other_gender:[''],
     });
   }
   // /*========== Form Value End Here========*/
@@ -136,10 +138,12 @@ export class InterpreterEditComponent implements OnInit {
     //let itemsAsObjects = [{id: 0, display: 'Angular'}, {id: 1, display: 'React'}];
     this.userEditForm.get('languageid').patchValue( this.json_Obj.interLanguage);
     this.userEditForm.get('primary_lang_id').patchValue( this.json_Obj.primary_lang_id);
-    this.userEditForm.get('gender').patchValue( this.json_Obj.gender);
-    // if( this.json_Obj.role_id == '2'){
+    this.userEditForm.get('gender').patchValue(this.json_Obj.gender);
+    if(this.json_Obj.gender == 'Other'){
+      this.editShowOther = true;
+      this.userEditForm.get('other_gender').patchValue( this.json_Obj.other_gender);
+    }
       this.userEditForm.get('rate').patchValue( this.json_Obj.interpreter_rate);
-    // }
   }
 
   editUser() {
@@ -176,6 +180,7 @@ export class InterpreterEditComponent implements OnInit {
       formData.append('apartment', this.userEditForm.value.apartment);
       // formData.append('street', this.userEditForm.value.street);
       formData.append('gender', this.userEditForm.value.gender);
+      formData.append('other_gender', this.userEditForm.value.other_gender);
       formData.append('latitude', this.latitude);
       formData.append('longitude', this.longitude);
       formData.append('languageid', this.userEditForm.value.languageid);
@@ -256,6 +261,17 @@ export class InterpreterEditComponent implements OnInit {
         window.alert('Geocoder failed due to: ' + status);
       }
     });
+  }
+
+  // Radio button function
+  radioButton1(){
+    this.editShowOther = false;
+  }
+  radioButton2(){
+      this.editShowOther = false;
+  }
+  radioButton3(){
+      this.editShowOther = true;
   }
 
 }

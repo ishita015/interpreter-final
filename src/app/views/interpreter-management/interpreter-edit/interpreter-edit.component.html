@@ -95,23 +95,31 @@
                             <label for="Address">Gender</label>
                             <div class="form-check">
                                 <label class="form-check-label" for="gridRadios1">
-                                <input class="form-check-input radio-inline " formControlName="gender" type="radio" id="gridRadios1"
+                                <input class="form-check-input radio-inline " 
+                                (click)="radioButton1()" formControlName="gender" type="radio" id="gridRadios1"
                                     value="Male">
                               
                                     Male
                                 </label>
                           
                                 <label class="form-check-label pl-5" for="gridRadios2">
-                                <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios2"
+                                <input class="form-check-input radio-inline" 
+                                (click)="radioButton2()" formControlName="gender" type="radio" id="gridRadios2"
                                     value="Female">
                              
                                     Female
                                 </label>
 
                                 <label class="form-check-label pl-5" for="gridRadios3">
-                                    <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios3"
+                                    <input class="form-check-input radio-inline" 
+                                    (click)="radioButton3()"  formControlName="gender" type="radio" id="gridRadios3"
                                         value="Other">
                                         Other
+                                </label>
+
+                                <label *ngIf="editShowOther" class="form-check-label pl-5">
+                                    <input type="text" class="form-control" 
+                                    placeholder="Other" formControlName="other_gender">
                                 </label>
                             </div>
                         </div>
