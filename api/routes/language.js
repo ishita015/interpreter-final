@@ -11,6 +11,117 @@ const usermodel = new userModel();
 
 
 
+module.exports.getInterpreterInLang = async function(req, res, next) {
+    //validation start
+   const v = new Validator(req.body, {
+       language_id: 'required'
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+   //validation end
+   let user_id = req.body.userId;
+   var sql = "SELECT COUNT(id) as total_interpreter FROM user WHERE primary_language='"+language_id+"'";
+   console.log("sql 1-",sql)
+   con.query(sql, function(err, result, fields) {
+       // console.log("result-",result)
+       if (result && result.length > 0) {
+           res.json({
+               status: 1,
+               error_code: 0,
+               error_line: 1,
+               data: result
+           });
+           return true;
+       } else {
+           res.json({
+               status: 0,
+               error_code: 0,
+               error_line: 6,
+               message: "No record found"
+           });
+           return true;
+       }
+   });
+};
+
+
+
+
+
+
+
+
+
+
+module.exports.getAssignmentInLang = async function(req, res, next) {
+    //validation start
+   const v = new Validator(req.body, {
+       language_id: 'required'
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+   //validation end
+   let user_id = req.body.userId;
+   var sql = "SELECT COUNT(id) as total_assignment FROM appointment_information_services WHERE language='"+language_id+"'";
+   console.log("sql 1-",sql)
+   con.query(sql, function(err, result, fields) {
+       // console.log("result-",result)
+       if (result && result.length > 0) {
+           res.json({
+               status: 1,
+               error_code: 0,
+               error_line: 1,
+               data: result
+           });
+           return true;
+       } else {
+           res.json({
+               status: 0,
+               error_code: 0,
+               error_line: 6,
+               message: "No record found"
+           });
+           return true;
+       }
+   });
+};
+
+
+
+
+
+
+
+
+
 module.exports.getSelectLangInterpreter = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {

@@ -160,6 +160,8 @@ app.get('/cesco/getAllUser', interpreterController.getAllUser);
 
 //language route
 
+app.post('/cesco/getAssignmentInLang', languageController.getAssignmentInLang);
+app.post('/cesco/getInterpreterInLang', languageController.getInterpreterInLang);
 
 app.post('/cesco/getSelectLangInterpreter', languageController.getSelectLangInterpreter);
 app.post('/cesco/checkLanguage', languageController.checkLanguage);
