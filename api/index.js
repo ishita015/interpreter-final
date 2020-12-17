@@ -135,6 +135,9 @@ app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */ 
 
 
+app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
+
+
 app.post('/cesco/addRateReview', interpreterController.addRateReview);
 app.post('/cesco/interpreterCurrentLocation', interpreterController.getInterpreterCurrentLocation);
 app.post('/cesco/changePassword', interpreterController.changePassword);

@@ -1287,6 +1287,63 @@ module.exports.getRequestForInterpreter = async function(req, res) {
 
 
 
+// get all pending request
+module.exports.getAllPendingRequest = async function(req, res) {
+    var mainArr = [];
+    var resultdata = await usermodel.getPendingRequestList();
+    if (resultdata != "" && resultdata != undefined) {
+        console.log("resultdata", resultdata)
+        var mainObj = {};
+        for (var i = 0; i < resultdata.length; i++) {
+            
+
+            // var totalInter = await usermodel.getInterpreterInLang(resultdata[i].id);
+            // var totalAssign = await usermodel.getAssignmentInLang(resultdata[i].id);
+            // console.log("total_interpreter", total_interpreter)
+            mainObj = {
+                ris_id: resultdata[i].ris_id,
+                requester_name: resultdata[i].requester_name,
+                office_phone: resultdata[i].office_phone,
+                cell_phone: resultdata[i].cell_phone,
+                appointment_type: resultdata[i].appointment_type,
+                email: resultdata[i].email,
+                date: resultdata[i].date,
+                start_time: resultdata[0].start_time,
+                anticipated_end_time: resultdata[0].anticipated_end_time,
+                created_at: resultdata[i].created_at,
+                lang_name: resultdata[0].lang_name,
+                code: resultdata[0].code,
+                // created_at: resultdata[i].created_at,
+            }
+            mainArr.push(mainObj); 
+        } 
+
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            data: mainArr,
+            message: "Record Found",
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Record Not Found",
+        });
+        return true;
+    }
+};
+
+
+
+
+
+
+
+
 
 
 
@@ -1903,12 +1960,12 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
             mainObj = {
                 id: resultdata[i].id,
                 role_id: resultdata[i].role_id,
-                // name: resultdata[i].first_name+" "+resultdata[i].last_name,
                 first_name:resultdata[i].first_name,
                 last_name: resultdata[i].last_name,
                 mobile: resultdata[i].mobile,
                 email: resultdata[i].email,
                 gender: resultdata[i].gender,
+                other_gender: resultdata[i].other_gender,
                 address: resultdata[i].address,
                 apartment: resultdata[i].apartment,
                 street: resultdata[i].street,

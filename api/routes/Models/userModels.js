@@ -9,6 +9,27 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+
+    getPendingRequestList(){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='2'";
+            // if (role_id!=1) {
+            //     sql +=" && ir.Interpreter_id='"+user_id+"'";
+            // }
+
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
+
+
     //get interpretr request info
     getDataForRequestInfo(unique_code){
         return new Promise(function(resolve, reject) {
