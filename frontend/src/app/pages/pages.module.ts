@@ -17,7 +17,9 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { InterpreterTrackingComponent } from './interpreter-tracking/interpreter-tracking.component';
+import { RateReviewComponent } from './rate-review/rate-review.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,11 +35,13 @@ import { InterpreterTrackingComponent } from './interpreter-tracking/interpreter
     Step10Component,
     Step11Component,
     Step12Component,
-    InterpreterTrackingComponent
+    InterpreterTrackingComponent,
+    RateReviewComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       // please get your own API key here:

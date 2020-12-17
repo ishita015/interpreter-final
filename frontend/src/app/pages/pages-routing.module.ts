@@ -13,6 +13,7 @@ import { Step10Component } from './registration/step10/step10.component';
 import { Step11Component } from './registration/step11/step11.component';
 import { Step12Component } from './registration/step12/step12.component';
 import { InterpreterTrackingComponent } from './interpreter-tracking/interpreter-tracking.component';
+import { RateReviewComponent } from './rate-review/rate-review.component';
 const routes: Routes = [
   { path: '',component: Step1Component },
   { path: 'step2',component: Step2Component },
@@ -26,7 +27,10 @@ const routes: Routes = [
   { path: 'step10',component: Step10Component },
   { path: 'step11',component: Step11Component },
   { path: 'step12',component: Step12Component },
+
   { path: 'tracking/:trackingCode',component: InterpreterTrackingComponent },
+  // { path: 'tracking/1',component: InterpreterTrackingComponent },
+  { path: 'review/1',component: RateReviewComponent },
 ];
 
 @NgModule({
