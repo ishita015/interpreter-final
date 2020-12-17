@@ -1,0 +1,21 @@
+ngb-rating {
+    font-size: 29px;
+    color:brown;
+    /* background: rgba(23, 221, 16, 0.815); */
+  }
+  
+  .animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+
+.stars
+{
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
+.outer-box{
+  margin-left: 23%;
+}

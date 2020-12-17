@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} };
 
 @NgModule({
@@ -19,7 +21,7 @@ const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} };
     ToastrModule.forRoot(),
     SocketIoModule.forRoot(config),
     BrowserAnimationsModule, // required animations module
-    AppRoutingModule
+    AppRoutingModule, NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

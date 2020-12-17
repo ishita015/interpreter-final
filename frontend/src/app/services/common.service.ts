@@ -16,6 +16,7 @@ import { Step9Modals } from '../modals/step9-modals';
 import { Step11Modals } from '../modals/step11-modals';
 import { Step12Modals } from '../modals/step12-modals';
 import { Socket } from 'ngx-socket-io';
+import { Rating } from '../modals/rating';
 @Injectable({
   providedIn: 'root'
 })
@@ -105,5 +106,11 @@ export class CommonService {
   getStepTwelveForm(step12Info: Step12Modals): Observable<any> {
     return this.http.post(this.url + '/cesco/addServiceTwelve' , step12Info);
   }
+
+  //--------------------------------rating and review start------------------------------//
+  getRating(ratingInfo: Rating){
+    return this.http.post(this.url + '/cesco/addRateReview' , ratingInfo);
+  }
+   //--------------------------------rating and review end------------------------------//
 
 }
