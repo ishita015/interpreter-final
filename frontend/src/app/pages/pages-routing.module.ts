@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'step10',component: Step10Component },
   { path: 'step11',component: Step11Component },
   { path: 'step12',component: Step12Component },
-  { path: 'tracking/1',component: InterpreterTrackingComponent },
+  { path: 'tracking/:trackingCode',component: InterpreterTrackingComponent },
 ];
 
 @NgModule({

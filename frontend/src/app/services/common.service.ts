@@ -35,21 +35,21 @@ export class CommonService {
 
   //--------------------------------socket start------------------------------//
 
-  public sendMessage(message, sender_id, receiver_id, group_id) {
-    this.socket.emit('sendChat', message, sender_id, receiver_id, group_id);
+  public updatelocation(unique_code) {
+    this.socket.emit('updateLatLong', unique_code);
   }
 
 
-  public getMessages = () => {
+  public getNewLocation = () => {
     return Observable.create((observer) => {
-      this.socket.on('responce_chat', (message) => {
+      this.socket.on('responce_location', (message) => {
         observer.next(message);
       });
     });
   }
 
-  tracking(id): Observable<any> {
-    return this.http.post(this.url + '/cesco/getPermission', { id: id }, this.httpOptions);
+  interpreterTracking(unique_code): Observable<any> {
+    return this.http.post(this.url + '/cesco/interpreterCurrentLocation', { unique_code: unique_code }, this.httpOptions);
   }
   //--------------------------------socket end------------------------------//
 
