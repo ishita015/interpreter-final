@@ -29,7 +29,7 @@
                             <input type="text" class="form-control" formControlName="first_name"  placeholder="First Name">
                             <div *ngIf="userEditForm.controls['first_name'].errors && (!userEditForm.controls['first_name'].pristine || submitted ||userEditForm.controls['first_name'].touched )" class="error-msg">
                                 <div [hidden]="!userEditForm.controls['first_name'].errors.required">First Name is required.</div>
-                                <div [hidden]="!userEditForm.controls.name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
+                                <div [hidden]="!userEditForm.controls.first_name.hasError('minlength')">First Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
                         <div class="col-md-6 form-group mb-3">
@@ -37,7 +37,7 @@
                             <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
                             <div *ngIf="userEditForm.controls['last_name'].errors && (!userEditForm.controls['last_name'].pristine || submitted ||userEditForm.controls['last_name'].touched )" class="error-msg">
                                 <div [hidden]="!userEditForm.controls['last_name'].errors.required">Last Name is required.</div>
-                                <div [hidden]="!userEditForm.controls.name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>  
+                                <div [hidden]="!userEditForm.controls.last_name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>  
                             </div>
                         </div>
 
@@ -95,8 +95,6 @@
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Address">Gender</label>
-                           
-                              
                             <div class="form-check">
                                 <label class="form-check-label" for="gridRadios1">
                                 <input class="form-check-input radio-inline " formControlName="gender" type="radio" id="gridRadios1"
