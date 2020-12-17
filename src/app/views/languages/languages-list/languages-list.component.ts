@@ -116,9 +116,9 @@ export class LanguagesListComponent implements OnInit {
 
 
     statusLanguageChange(target,status,id) {
-      console.log("permission target",target);
-      console.log("permission status",status);
-      console.log("permission id",id);
+      // console.log("permission target",target);
+      // console.log("permission status",status);
+      // console.log("permission id",id);
       this.service.langStatusUpdate(status,id)
         .subscribe(res => {
           this.language_msg = res;
@@ -154,10 +154,18 @@ export class LanguagesListComponent implements OnInit {
         console.log("data",data);
         localStorage.setItem('languageData', JSON.stringify(data));
     }
-    interpreter(id){
+
+
+    // ViewInterpreter(row.id,row.Interpreter
+
+    viewInterpreter(id,totalInterpreter,modal){
       localStorage.setItem('lang_id', JSON.stringify(id));
-      // console.log("lang id", id)
-      this.router.navigate(['/languages/interpreter-detail']);
+      console.log("totalInterpreter",totalInterpreter)
+      if(totalInterpreter==0){
+        this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+      }else{
+        this.router.navigate(['/languages/interpreter-detail']);
+      }
     }
     
 }

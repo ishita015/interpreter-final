@@ -78,7 +78,7 @@
                     No.of Interpreter
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  <span (click)="interpreter(row.id)">{{row.Interpreter}}</span>
+                  <span (click)="viewInterpreter(row.id,row.Interpreter,interpreterConfirmModal)">{{row.Interpreter}}</span>
                 </ng-template>  
             </ngx-datatable-column>
               <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">
@@ -187,3 +187,18 @@
       <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
   </div>
 </ng-template>
+<ng-template #interpreterConfirmModal let-modal>
+  <div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Alert</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <p><strong>There is no interpreter available.</strong></p>
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+  <!-- <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button> -->
+  </div>
+  </ng-template>

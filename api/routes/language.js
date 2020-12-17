@@ -470,6 +470,9 @@ module.exports.getLanguages = async function(req, res, next) {
         var mainObj = {};
         for (var i = 0; i < resultdata.length; i++) {
             var langArr = [];
+            var totalInter = await usermodel.getInterpreterInLang(resultdata[i].id);
+            var totalAssign = await usermodel.getAssignmentInLang(resultdata[i].id);
+            // console.log("total_interpreter", total_interpreter)
             mainObj = {
                 id: resultdata[i].id,
                 name: resultdata[i].name,
@@ -478,8 +481,8 @@ module.exports.getLanguages = async function(req, res, next) {
                 description: resultdata[i].description ? resultdata[i].description : "N/A",
                 created_at: resultdata[i].created_at ? resultdata[i].created_at : '',
                 updated_at: resultdata[i].updated_at ? resultdata[i].updated_at : '',
-                Interpreter: resultdata[i].Interpreter ? resultdata[i].Interpreter : '0',
-                Assessments: resultdata[i].Assessments ? resultdata[i].Assessments : '0',
+                Interpreter: totalInter[0].total_interpreter,
+                Assessments: totalAssign[0].total_assignment,
                 status: resultdata[i].status ? resultdata[i].status : '0',
             }
             mainArr.push(mainObj); 

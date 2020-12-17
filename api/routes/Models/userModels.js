@@ -369,6 +369,39 @@ class userClass {
      }
 
 
+
+    
+    getInterpreterInLang(language_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT COUNT(id) as total_interpreter FROM user WHERE primary_language='"+language_id+"'";
+            console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+     }
+
+
+     
+     getAssignmentInLang(language_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT COUNT(id) as total_assignment FROM appointment_information_services WHERE language='"+language_id+"'";
+            console.log(sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+     }
+
+
      
     languageExist(code){
         return new Promise(function(resolve, reject) {
