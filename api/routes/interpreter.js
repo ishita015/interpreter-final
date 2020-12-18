@@ -1849,11 +1849,34 @@ module.exports.getRole = function(req, res, next) {
 
 
 
+
+
 // get interpreter
-module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id==2 ORDER BY u.id DESC";
-    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
-    console.log(sql)
+module.exports.getInterpreter = async function(req, res, next) {
+    let type = req.body.type ? req.body.type : '0'; //type ==1 for lang, 2=request 
+    let id = req.body.id ? req.body.id : '0';
+
+    // console.log("type", type)
+    interpreter_id='0';
+    if(type=='2'){
+        var resultdata = await usermodel.getInterpreterIds(id); 
+        console.log("resultdata", resultdata)
+        if (resultdata != "" && resultdata != undefined) {
+            interpreter_id = resultdata[0].id;    
+            // console.log("interpreter_id", interpreter_id)
+        }
+    }
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id ";
+
+    if((type != '0' && type == '1') && id != '0' ) {  
+        sql += " WHERE u.role_id=2 && u.primary_language='"+id+"' ORDER BY u.id DESC"; 
+    }else if((type != '0' && type == '2') && id != '0' ) { 
+        sql += " WHERE u.role_id=2 && FIND_IN_SET(u.id, '"+interpreter_id+"') ORDER BY u.id DESC"; 
+    }else{
+        sql += "WHERE u.role_id=2 ORDER BY u.id DESC"; 
+    }
+
+
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {
@@ -1880,127 +1903,32 @@ module.exports.getInterpreter = function(req, res, next) {
 
 
 
-
-
-// get interpreter
-module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
-    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
-    console.log(sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-
-
-
-// get interpreter
-module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
-    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
-    console.log(sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-
-
-
-// get interpreter
-module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
-    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
-    console.log(sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-
-
-
-// get interpreter
-module.exports.getInterpreter = function(req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
-    //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
-    console.log(sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
+// // get interpreter
+// module.exports.getInterpreter = function(req, res, next) {
+//     var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
+//     //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
+//     console.log(sql)
+//     con.query(sql, function(err, result, fields) {
+//         // console.log("result-",result)
+//         if (result && result.length > 0) {
+//             res.json({
+//                 status: 1,
+//                 error_code: 0,
+//                 error_line: 1,
+//                 data: result
+//             });
+//             return true;
+//         } else {
+//             res.json({
+//                 status: 0,
+//                 error_code: 0,
+//                 error_line: 6,
+//                 message: "No record found"
+//             });
+//             return true;
+//         }
+//     });
+// };
 
 
 

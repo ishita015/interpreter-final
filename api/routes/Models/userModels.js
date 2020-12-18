@@ -10,6 +10,23 @@ let dt = new Date().getTime() / 1000;
 class userClass {
 
 
+    getInterpreterIds(request_id){
+        return new Promise(function(resolve, reject) {
+            // SELECT group_concat(mts.target_title)
+            var sql = "SELECT group_concat(Interpreter_id) as id FROM interpreter_request WHERE job_id='"+request_id+"'";
+            
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                    if (result != "" && result != "undefined") {
+                        resolve(result);
+                    } else {
+                        resolve(false);
+                    }
+                });
+        }); 
+    }
+
+
     // newAssignmentList(status){
     //     return new Promise(function(resolve, reject) {
     //         var sql = "SELECT ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='"+status+"'";

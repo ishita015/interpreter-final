@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+
 @Component({
   selector: 'app-interpreter-list',
   templateUrl: './interpreter-list.component.html',
@@ -27,17 +28,21 @@ export class InterpreterListComponent implements OnInit {
   roleId;
   role_id; response_msg;
   json_Obj;
+  trackingCode;
   searchControl: FormControl = new FormControl();
   constructor( private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public service: HttpService,
-    private router: Router,) { 
+    private router: Router,private route: ActivatedRoute) { 
 
      
     }
 
   ngOnInit(){
+
+    this.trackingCode = this.route.snapshot.params.trackingCode;
+
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.interpreterList();
