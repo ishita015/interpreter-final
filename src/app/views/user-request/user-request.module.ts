@@ -11,8 +11,13 @@ import { InterpreterListComponent } from './interpreter-list/interpreter-list.co
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask';
+import { PendingRequestComponent } from './pending-request/pending-request.component';
 @NgModule({
-  declarations: [RequestListComponent, InterpreterListComponent, RequestDetailComponent],
+  declarations: [
+    RequestListComponent, 
+    InterpreterListComponent, 
+    RequestDetailComponent, 
+    PendingRequestComponent],
   imports: [
     CommonModule,
     FormsModule,

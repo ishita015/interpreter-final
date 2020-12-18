@@ -44,8 +44,8 @@ export class InterpreterRequestListComponent implements OnInit {
 
     // console.log("userId-",this.userId)
     // console.log("roleId-",this.roleId)
-
-    this.interpreterRequestData();
+    this.PendingRequestData();
+    // this.interpreterRequestData();
     this.searchControl.valueChanges
     .pipe(debounceTime(200))
     .subscribe(value => {
@@ -86,11 +86,8 @@ export class InterpreterRequestListComponent implements OnInit {
   }
 
 
-
-
-  
-  interpreterRequestData(){
-    this.service.interpreterRequestList(this.roleId,this.userId,'1')
+    PendingRequestData(){
+    this.service.AllPendingRequest()
     .subscribe(res => {
       if(res['status']=='1'){
         console.log("api response",res);
@@ -98,10 +95,26 @@ export class InterpreterRequestListComponent implements OnInit {
         this.userData = [...res['data']];
         // console.log("listttttttt", this.list_Obj);
         this.filteredUser = this.list_Obj;
-      }
-       
+      }  
     });
 }
+
+
+
+  
+//   interpreterRequestData(){
+//     this.service.interpreterRequestList(this.roleId,this.userId,'1')
+//     .subscribe(res => {
+//       if(res['status']=='1'){
+//         console.log("api response",res);
+//         this.list_Obj = res['data'];
+//         this.userData = [...res['data']];
+//         // console.log("listttttttt", this.list_Obj);
+//         this.filteredUser = this.list_Obj;
+//       }
+       
+//     });
+// }
 
 
 

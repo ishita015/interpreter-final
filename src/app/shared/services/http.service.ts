@@ -147,6 +147,9 @@ export class HttpService {
     return this.http.post(this.url + '/cesco/getRequestForInterpreter', { role_id: role_id, user_id: user_id, status: status }, this.httpOptions);
   }
 
+  AllPendingRequest(): Observable<any> {
+    return this.http.get(this.url + '/cesco/getAllPendingRequest', this.httpOptions);
+  }
   interpreterAllRequestList(): Observable<any> {
     return this.http.get(this.url + '/cesco/getAllAssignment', this.httpOptions);
   }
