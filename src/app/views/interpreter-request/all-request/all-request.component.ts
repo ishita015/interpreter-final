@@ -30,8 +30,8 @@ export class AllRequestComponent implements OnInit {
  
   view_obj;
   resp_msg;
-  
-  
+  status;
+  request_status: FormControl = new FormControl();
   searchControl: FormControl = new FormControl();
   constructor(  private productService: ProductService,
     private modalService: NgbModal,
@@ -80,17 +80,21 @@ export class AllRequestComponent implements OnInit {
 
        /*========== All Request List Start Here========*/
       interpreterAllRequest() {
-        this.service.interpreterAllRequestList()
+        this.status = this.request_status.value ;
+
+        console.log("status",this.status)
+
+        this.service.interpreterAllRequestList(this.status)
           .subscribe(res => {
             if (res['status'] == '1') {
               console.log("api response", res);
               this.list_Obj = res['data'];
               this.userData = [...res['data']];
               this.filteredUser = this.list_Obj;
-            }
-            else{
-              this.resp_msg = res;
-              this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+            }else{
+              this.list_Obj = [];
+              this.userData = [];
+              this.filteredUser = this.list_Obj;
             }
 
           });
