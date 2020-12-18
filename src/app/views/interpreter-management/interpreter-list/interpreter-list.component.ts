@@ -28,20 +28,25 @@ export class InterpreterListComponent implements OnInit {
   roleId;
   role_id; response_msg;
   json_Obj;
-  trackingCode;
+  id;
+  type;
+
   searchControl: FormControl = new FormControl();
   constructor( private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public service: HttpService,
-    private router: Router,private route: ActivatedRoute) { 
 
-     
+    private router: Router,
+    private route: ActivatedRoute) { 
+
     }
 
   ngOnInit(){
-
-    this.trackingCode = this.route.snapshot.params.trackingCode;
+    this.id = this.route.snapshot.params.id ? this.route.snapshot.params.id : '0';
+    console.log("iddddddd", this.id);
+    this.type = this.route.snapshot.params.type? this.route.snapshot.params.type : '0';
+    console.log("qqqqq", this.type );
 
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
@@ -87,7 +92,7 @@ export class InterpreterListComponent implements OnInit {
 
 
   interpreterList() {
-    this.service.getInterpreterList()
+    this.service.getInterpreterList(this.id, this.type)
       .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];

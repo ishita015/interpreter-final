@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
       <ul class="heading">
-          <li><a>All Requestaaaa</a></li>
+          <li><a>All Request</a></li>
           <li>List</li>
       </ul>
   </div>
@@ -22,9 +22,9 @@
 
       <select class="form-control" [formControl]="request_status">
         <option value="">Select Status</option>
-        <option class="text-primary" value="1">New Request</option>
-        <option class="assign-color" value="2">Assign</option>
-        <option class="text-info" value="3">In Progress</option>
+        <option class="text-warning" value="1">New Request</option>
+        <option class="assign-color" value="2">Broadcasting</option>
+        <option class="text-primary" value="3">In Progress</option>
         <option class="text-success" value="4">Completed</option>
         <option class="text-danger" value="5">Cancelled</option>
 
@@ -99,9 +99,9 @@
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                    <span class="text-primary" *ngIf="row.status==1" >New Request</span>
+                    <span class="text-warning" *ngIf="row.status==1" >New Request</span>
                     <span class="assign-color" *ngIf="row.status==2" >Assign</span>
-                    <span class="text-info" *ngIf="row.status==3" >In Progress</span>
+                    <span class="text-primary" *ngIf="row.status==3" >In Progress</span>
                     <span  class="text-success" *ngIf="row.status==4" >Completed</span>
                     <span  class="text-danger" *ngIf="row.status==5" >Canceled</span>
                     

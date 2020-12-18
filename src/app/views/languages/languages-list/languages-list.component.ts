@@ -165,8 +165,17 @@ export class LanguagesListComponent implements OnInit {
         this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       }else{
         // this.router.navigate(['/languages/interpreter-detail']);
-          this.router.navigate(['/interpreter/interpreter-list']);
-          
+          this.router.navigate(['/interpreter/interpreter-list/',id,1]);
+          // interpreter-list/:id/:type
+      }
+    }
+
+    viewAssignment(id,totalAssignment,modals){
+      if(totalAssignment==0){
+        this.modalService.open(modals, { ariaLabelledBy: 'modal-basic-title', centered: true })
+      }else{
+        // this.router.navigate(['/languages/interpreter-detail']);
+          this.router.navigate(['/interpreter-request/all-request-list',id]);
       }
     }
     

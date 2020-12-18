@@ -11,6 +11,7 @@ import { InterpreterHistoryListComponent } from './interpreter-history-list/inte
 
 const routes: Routes = [
   { path: 'all-request-list', component:AllRequestComponent },
+  { path: 'all-request-list/:id', component:AllRequestComponent },
   { path: 'list', component: InterpreterRequestListComponent },
   { path: 'accept-list', component: AcceptRequestComponent },
   { path: 'completed-list', component: CompleteRequestComponent },

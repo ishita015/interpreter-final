@@ -1,113 +1,108 @@
 <div class="">
   <div class="breadcrumb">
     <ul class="heading">
-        <li><a>Language </a></li>
-        <li>List</li>
+      <li><a>Language </a></li>
+      <li>List</li>
     </ul>
-</div>
-  
-    <div class="separator-breadcrumb border-top"></div>
+  </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
-        </div>
+  <div class="separator-breadcrumb border-top"></div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input id="search" placeholder="Search" [formControl]="searchControl" class="form-control form-control-rounded"
+          type="text">
       </div>
-      <div class="col-md-8">
-          <button class="btn btn-primary float-right"   [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''" 
-          (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
-      </div>
-      
-      <div class="col-md-12 language_table lang_block">
-          <div class="card  o-hidden">
-              <ngx-datatable *ngIf="filteredLanguage?.length"
-              style="height: 500px; box-shadow: none"
-              class="material fullscreen"
-              [columnMode]="'force'"
-              [headerHeight]="50"
-              [footerHeight]="50"
-              [rowHeight]="60"
-              [scrollbarV]="true"
-              [rows]="filteredLanguage">
-              <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
-                <ng-template ngx-datatable-header-template>
-                 S.No
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                    {{rowIndex +1}}
-                </ng-template>
-               </ngx-datatable-column>
-               <ngx-datatable-column [minWidth]="50" name="Language Title" prop="name">
-                <ng-template ngx-datatable-header-template>
-                  Language Title
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.name}}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column [minWidth]="50" name="Language Code" prop="code">
-                <ng-template ngx-datatable-header-template>
-                  Language Code
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.code}}
-                </ng-template>
-              </ngx-datatable-column>
+    </div>
+    <div class="col-md-8">
+      <button class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''"
+        (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
+    </div>
+
+    <div class="col-md-12 language_table lang_block">
+      <div class="card  o-hidden">
+        <ngx-datatable *ngIf="filteredLanguage?.length" style="height: 500px; box-shadow: none"
+          class="material fullscreen" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60"
+          [scrollbarV]="true" [rows]="filteredLanguage">
+          <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+            <ng-template ngx-datatable-header-template>
+              S.No
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+              {{rowIndex +1}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="50" name="Language Title" prop="name">
+            <ng-template ngx-datatable-header-template>
+              Language Title
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.name}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="50" name="Language Code" prop="code">
+            <ng-template ngx-datatable-header-template>
+              Language Code
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.code}}
+            </ng-template>
+          </ngx-datatable-column>
 
 
-              <ngx-datatable-column [minWidth]="50" name="Country" prop="country">
-                <ng-template ngx-datatable-header-template>
-                  Country
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.country}}
-                </ng-template>
-              </ngx-datatable-column>
-                
-              <ngx-datatable-column [minWidth]="50">
-                  <ng-template ngx-datatable-header-template>
-                      No of Assignments
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.Assessments}}
-                  </ng-template>  
-              </ngx-datatable-column>
-              <ngx-datatable-column [minWidth]="50">
-                <ng-template ngx-datatable-header-template>
-                    No.of Interpreter
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  <span  class="total-inter" (click)="viewInterpreter(row.id,row.Interpreter,interpreterConfirmModal)">{{row.Interpreter}}</span>
-                </ng-template>  
-            </ngx-datatable-column>
-              <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">
-                    <ng-template ngx-datatable-header-template>
-                      <span title="Created date">Created date </span>
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span> 
-                    </ng-template>
-              </ngx-datatable-column>
-               
-              <ngx-datatable-column [minWidth]="50" name="Status" prop="status">
-                <ng-template ngx-datatable-header-template>
-                  Status
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  <label class="switch switch-primary mt-2 mr-3"> 
-                    <input type="checkbox" [disabled] = "role_id!=1 ? array_Obj.status_permission !== 'true' : ''" 
-                    [checked]="row.status == '1'" 
-                    (click)="statusLanguageChange($event.target,row.status,row.id)">
-                    <span class="slider">
-                    </span>
-                  </label>
+          <ngx-datatable-column [minWidth]="50" name="Country" prop="country">
+            <ng-template ngx-datatable-header-template>
+              Country
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.country}}
+            </ng-template>
+          </ngx-datatable-column>
 
-                </ng-template>
-              </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="50">
+            <ng-template ngx-datatable-header-template>
+              No of Assignments
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+             <span (click)="viewAssignment(row.id,row.Assessments,assignmentConfirmModal)"> {{row.Assessments}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="50">
+            <ng-template ngx-datatable-header-template>
+              No.of Interpreter
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span class="total-inter"
+                (click)="viewInterpreter(row.id,row.Interpreter,interpreterConfirmModal)">{{row.Interpreter}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">
+            <ng-template ngx-datatable-header-template>
+              <span title="Created date">Created date </span>
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [minWidth]="50" name="Status" prop="status">
+            <ng-template ngx-datatable-header-template>
+              Status
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <label class="switch switch-primary mt-2 mr-3">
+                <input type="checkbox" [disabled]="role_id!=1 ? array_Obj.status_permission !== 'true' : ''"
+                  [checked]="row.status == '1'" (click)="statusLanguageChange($event.target,row.status,row.id)">
+                <span class="slider">
+                </span>
+              </label>
+
+            </ng-template>
+          </ngx-datatable-column>
 
 
-                <!-- <ngx-datatable-column name="Status" prop="status">
+          <!-- <ngx-datatable-column name="Status" prop="status">
                   <ng-template ngx-datatable-header-template>
                     Status
                   </ng-template>
@@ -122,83 +117,112 @@
 
                   </ng-template>
                 </ngx-datatable-column> -->
-                <ngx-datatable-column [minWidth]="120" [sortable]="false">
-                  <ng-template ngx-datatable-header-template>
-                      Actions
-                  </ng-template>
-                  <ng-template class="newbutton" ngx-datatable-cell-template let-value="value" let-row="row">
-                      <button class="btn btn-outline-success btnnew" (click)="Edit(row.id,row)" 
-                      [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''" [routerLink]="['/languages/edit', row.id]">Edit</button>
-                      <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
-                      <button class="btn btn-outline-danger ml-2 btnnew" [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
-                      (click)="deleteLanguage(row.id, deleteConfirmModal)">
-                          Delete
-                      </button>
-                  </ng-template>
-              </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="120" [sortable]="false">
+            <ng-template ngx-datatable-header-template>
+              Actions
+            </ng-template>
+            <ng-template class="newbutton" ngx-datatable-cell-template let-value="value" let-row="row">
+              <button class="btn btn-outline-success btnnew" (click)="Edit(row.id,row)"
+                [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''"
+                [routerLink]="['/languages/edit', row.id]">Edit</button>
+              <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
+              <button class="btn btn-outline-danger ml-2 btnnew"
+                [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
+                (click)="deleteLanguage(row.id, deleteConfirmModal)">
+                Delete
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
 
-            </ngx-datatable>
-          </div>
-        <ng-container *ngIf="list_Obj?.length <= 0">
-            No Data Found
-        </ng-container>
+        </ngx-datatable>
       </div>
-        
+      <ng-container *ngIf="list_Obj?.length <= 0">
+        No Data Found
+      </ng-container>
     </div>
-</div>  
+
+  </div>
+</div>
 
 <ng-template #deleteConfirmModal let-modal>
   <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Alert</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title" id="modal-title">Alert</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-      <p><strong>Are you sure? you want to delete language.</strong></p>
+    <p><strong>Are you sure? you want to delete language.</strong></p>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-      <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    <button type="button" class="btn btn-outline-secondary btn-rounded"
+      (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded"
+      (click)="modal.close('Ok')">Ok</button>
   </div>
 </ng-template>
 
 <ng-template #viewConfirmModal let-modal>
   <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">View Language</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title" id="modal-title">View Language</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-      <div class="float-left"> 
-          <p class="mb-0"><strong>Language Title</strong></p>
-          <p>English</p>
-      </div> 
-        
-        <div class="float-right"> 
-          <p class="mb-0"><strong>Language Code</strong></p>
-          <p>en-us</p>
-      </div> 
-      
+    <div class="float-left">
+      <p class="mb-0"><strong>Language Title</strong></p>
+      <p>English</p>
+    </div>
+
+    <div class="float-right">
+      <p class="mb-0"><strong>Language Code</strong></p>
+      <p>en-us</p>
+    </div>
+
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-      <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    <button type="button" class="btn btn-outline-secondary btn-rounded"
+      (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded"
+      (click)="modal.close('Ok')">Ok</button>
   </div>
 </ng-template>
 <ng-template #interpreterConfirmModal let-modal>
   <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">Alert</h4>
-  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-  <span aria-hidden="true">&times;</span>
-  </button>
+    <h4 class="modal-title" id="modal-title">Alert</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-  <p><strong>There is no interpreter available.</strong></p>
+    <p><strong>There is no interpreter available.</strong></p>
   </div>
   <div class="modal-footer">
-  <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-  <!-- <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button> -->
+    <button type="button" class="btn btn-outline-secondary btn-rounded"
+      (click)="modal.dismiss('cancel')">Cancel</button>
+    <!-- <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button> -->
   </div>
-  </ng-template>
+</ng-template>
+
+
+<ng-template #assignmentConfirmModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Alert</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>There is no assignments available.</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary btn-rounded"
+      (click)="modal.dismiss('cancel')">Cancel</button>
+    <!-- <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button> -->
+  </div>
+</ng-template>
