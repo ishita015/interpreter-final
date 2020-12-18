@@ -17,6 +17,7 @@ import { RejectRequestComponent } from './reject-reques/reject-request.component
 import { NgxMaskModule } from 'ngx-mask';
 
 import { AllRequestComponent } from './all-request/all-request.component';
+import { InterpreterHistoryListComponent } from './interpreter-history-list/interpreter-history-list.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { AllRequestComponent } from './all-request/all-request.component';
     CompleteRequestComponent, 
     CancelledRequestComponent, 
     RejectRequestComponent, 
-    AllRequestComponent],
+    AllRequestComponent, InterpreterHistoryListComponent],
   imports: [
     CommonModule,
     InterpreterRequestRoutingModule,
