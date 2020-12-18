@@ -69,7 +69,7 @@
                         {{row.requester_name}}
                       </ng-template>
                   </ngx-datatable-column> -->
-                  <ngx-datatable-column name="Interpreter" prop="requester_name">
+                  <ngx-datatable-column name="Interpreter" prop="requester_name" *ngIf="roleId!='1'">
                     <ng-template ngx-datatable-header-template>
                        No. Of Interpreter
                     </ng-template>
@@ -78,14 +78,14 @@
                     </ng-template>  
                 </ngx-datatable-column>
                 
-                <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
+                <!-- <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
                   <ng-template ngx-datatable-header-template>
                     Interpreter Mobile
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.mobile | mask: '(000) 000-0000'}}
                   </ng-template>  
-               </ngx-datatable-column>
+               </ngx-datatable-column> -->
 
                <ngx-datatable-column>
                 <ng-template ngx-datatable-header-template>
