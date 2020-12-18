@@ -91,10 +91,10 @@
 
               <ngx-datatable-column>
                 <ng-template ngx-datatable-header-template>
-                    Requested date
+                  <span title="Requested date">Requested date</span>
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.date | date:'MM/dd/yyyy' }}
+                  <span title="{{row.date}}"> {{row.date | date:'MM/dd/yyyy' }}</span>
                 </ng-template>  
             </ngx-datatable-column>
               <ng-template ngx-datatable-header-template>Status

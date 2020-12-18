@@ -84,7 +84,8 @@
                     <span title="Created date">Created date </span>
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                   {{row.create_dt | date:'MM/dd/yyyy' }}
+                    <span title="{{row.create_dt }}">  {{row.create_dt | date:'MM/dd/yyyy' }} </span> 
+                 
                   </ng-template>  
               </ngx-datatable-column>
                   <ngx-datatable-column name="Status" prop="status" [minWidth]="20">
