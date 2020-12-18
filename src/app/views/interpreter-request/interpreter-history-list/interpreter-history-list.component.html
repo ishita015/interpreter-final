@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
       <ul class="heading">
-          <li><a>Interpreter </a></li>
+          <li><a>Assign Interpreter</a></li>
           <li>List</li>
       </ul>
   </div>
@@ -39,7 +39,7 @@
                    Full Name
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    <span class="full_name" (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
+                    <span class="full_name">{{row.first_name}} {{row.last_name}}</span>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
@@ -55,14 +55,14 @@
                         Mobile
                       </ng-template>
                       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.mobile | mask: '(000) 000-0000'}}
+                        {{row.country_code}}{{row.mobile | mask: '(000) 000-0000'}}
                       </ng-template>
                   </ngx-datatable-column>
               
          
               </ngx-datatable>
             </div>
-          <ng-container *ngIf="list_Obj?.length <= 0">
+          <ng-container *ngIf="interpreter_obj?.length <= 0">
               No Data Found
           </ng-container>
         </div>

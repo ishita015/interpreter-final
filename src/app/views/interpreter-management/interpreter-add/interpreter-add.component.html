@@ -145,13 +145,14 @@
                                     Female
                                 </label>
 
+
                                 <label class="form-check-label pl-5" for="gridRadios3">
                                     <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios3"
                                     (click)="radioButton3()"  value="Other">
                                         Other
                                 </label>
 
-
+                                
                                 <label *ngIf="showOther" class="form-check-label pl-5">
                                     <input type="text" class="form-control" 
                                     placeholder="Other" formControlName="other_gender">
