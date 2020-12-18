@@ -164,7 +164,9 @@ export class LanguagesListComponent implements OnInit {
       if(totalInterpreter==0){
         this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       }else{
-        this.router.navigate(['/languages/interpreter-detail']);
+        // this.router.navigate(['/languages/interpreter-detail']);
+          this.router.navigate(['/interpreter/interpreter-list']);
+          
       }
     }
     
