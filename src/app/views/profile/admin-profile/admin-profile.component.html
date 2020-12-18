@@ -45,13 +45,33 @@
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Mobile">Mobile</label>
-                            <input type="text" class="form-control" formControlName="mobile" id="mobile"
-                            onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                            
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Code</label>
+                                    <select class="form-control" formControlName="country_code" placeholder="Code" >
+                                        <option value="" selected disabled>Code</option>
+                                        <option *ngFor="let isd of country_Obj"
+                                                [value]="isd.id">
+                                        +{{isd?.phonecode}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-10">
+                                    <label>Mobile</label>
+                                <input type="text" class="form-control" formControlName="mobile" id="mobile"
+                                onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                                </div>
+                            </div>
+                            <div *ngIf="adminProfileForm.controls['country_code'].errors && ( !adminProfileForm.controls['country_code'].pristine || submitted ||adminProfileForm.controls['country_code'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['country_code'].errors.required">Code is required.</div>
+                            </div>
+                           
                             <div *ngIf="adminProfileForm.controls['mobile'].errors && ( !adminProfileForm.controls['mobile'].pristine || submitted ||adminProfileForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!adminProfileForm.controls['mobile'].errors.required">Mobile No. is required.</div>
                                 <div [hidden]="!adminProfileForm.controls['mobile'].hasError('minlength')">Mobile No. length should be minimum 8 characters.</div>
                               </div>
+                            
                         </div>
                       
                     </div>
