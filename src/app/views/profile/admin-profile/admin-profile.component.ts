@@ -19,6 +19,7 @@ export class AdminProfileComponent implements OnInit {
   editdata;
   userId;
   public log_Obj;
+  public country_Obj;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -31,6 +32,7 @@ export class AdminProfileComponent implements OnInit {
     console.log("data", this.editdata);
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.patchValue();
+    this.CountryList();
   }
 
    /*========== Form Value Start Here========*/
@@ -44,6 +46,7 @@ export class AdminProfileComponent implements OnInit {
       user_id:[''],
       address:['',this.validation.onlyRequired_validator],
       image:[''],
+      country_code:['',this.validation.onlyRequired_validator]
     });
   }
   /*========== Form Value End Here========*/
@@ -56,8 +59,23 @@ export class AdminProfileComponent implements OnInit {
     this.adminProfileForm.get('mobile').patchValue(this.editdata.mobile);
     this.adminProfileForm.get('email').patchValue(this.editdata.email);
     this.adminProfileForm.get('address').patchValue(this.editdata.address);
+    this.adminProfileForm.get('country_code').patchValue(this.editdata.country_code);
   }
-/*==========Edit Input Value End Here========*/
+  /*==========Edit Input Value End Here========*/
+
+  /*========== Country Code for Mobile Start Here========*/
+
+    CountryList(){
+    this.service.getCountryMobileCode().subscribe(res => {
+      if(res['status']=='1'){
+        console.log("api response",res);
+        this.country_Obj = res['data'];
+        console.log("countryyyyyyyyyyyyy", this.country_Obj);
+      }
+    });
+  }
+
+    /*==========  Country Code for Mobile End Here========*/
 
    /*==========Single Image Function Start Here========*/
    onSingleFileChange(event){
@@ -96,6 +114,7 @@ export class AdminProfileComponent implements OnInit {
     formData.append('user_id', this.adminProfileForm.value.user_id);
     formData.append('mobile', this.adminProfileForm.value.mobile);
     formData.append('address', this.adminProfileForm.value.address);
+    formData.append('country_code', this.adminProfileForm.value.country_code);
     formData.append('image', this.selectedFile);
     console.log("oooooooooooooooo",formData);
     

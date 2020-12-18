@@ -76,7 +76,7 @@
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                        <span *ngIf="row.gender == 'Other'; else genderShow"> {{row.gender}}({{row.other_gender}}) </span>
-                       <span #genderShow>{{row.gender}}</span>
+                       <span *ngIf="row.gender != 'Other'" #genderShow>{{row.gender}}</span>
                     </ng-template>  
                 </ngx-datatable-column>
                 

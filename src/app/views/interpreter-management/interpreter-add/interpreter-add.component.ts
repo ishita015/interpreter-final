@@ -34,6 +34,7 @@ export class InterpreterAddComponent implements OnInit {
     private geoCoder;
     public newlanguageVal;
     public newrole;
+    public country_Obj;
     tagsCtrl1 = new FormControl(this.items);
     tagsCtrl2 = new FormControl([]);
     // languageid = [];
@@ -63,6 +64,7 @@ export class InterpreterAddComponent implements OnInit {
       this.createForm();
       this.LanguageList();
       this.userRoleList();
+      this.CountryList();
       //load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
           this.setCurrentLocation();
@@ -128,9 +130,24 @@ export class InterpreterAddComponent implements OnInit {
             rate:[''],
             image:[''],
             other_gender:[''],
+            country_code:['',this.validation.onlyRequired_validator]
         });
     }
     /*========== Form Value End Here========*/
+
+    /*========== Country Code for Mobile Start Here========*/
+
+    CountryList(){
+        this.service.getCountryMobileCode().subscribe(res => {
+          if(res['status']=='1'){
+            console.log("api response",res);
+            this.country_Obj = res['data'];
+            console.log("countryyyyyyyyyyyyy", this.country_Obj);
+          }
+        });
+      }
+    
+    /*==========  Country Code for Mobile End Here========*/
     
 
     /*==========Single Image Function Start Here========*/
@@ -203,6 +220,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('languageid', this.userForm.value.languageid);
         formData.append('primary_language', this.newlanguageVal);
         formData.append('rate', this.userForm.value.rate);
+        formData.append('country_code', this.userForm.value.country_code);
         // formData.append('latitude', this.userForm.value.address);
         formData.append('image', this.selectedFile);
         

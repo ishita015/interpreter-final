@@ -54,11 +54,31 @@
                               </div>
                         </div>
                         <div class="col-md-6 form-group mb-3">
-                            <label for="MobileNo.">Mobile No.</label>
-                            <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Code</label>
+                                    <select class="form-control" formControlName="country_code" placeholder="Code" >
+                                        <option value="" selected disabled>Code</option>
+                                        <option *ngFor="let isd of country_Obj"
+                                                [value]="isd.id">
+                                        +{{isd?.phonecode}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="MobileNo.">Mobile No.</label>
+                                    <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                                </div>
+                            </div>
+                            <!-- <label for="MobileNo.">Mobile No.</label>
+                            <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile"> -->
+                            <div *ngIf="userEditForm.controls['country_code'].errors && ( !userEditForm.controls['country_code'].pristine || submitted ||userEditForm.controls['country_code'].touched )" class="error-msg">
+                                <div [hidden]="!userEditForm.controls['country_code'].errors.required">Code is required.</div>
+                            </div>
+
                             <div *ngIf="userEditForm.controls['mobile'].errors && (!userEditForm.controls['mobile'].pristine || submitted ||userEditForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!userEditForm.controls['mobile'].errors.required">Mobile No. is required.</div>
-                              </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

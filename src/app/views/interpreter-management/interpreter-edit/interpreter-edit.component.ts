@@ -46,6 +46,7 @@ export class InterpreterEditComponent implements OnInit {
   json_Obj;
   Id;
   editdata;
+  country_Obj;
   editShowOther:boolean = false;
   selectedFile:File = null;
   @ViewChild('search')
@@ -67,6 +68,7 @@ export class InterpreterEditComponent implements OnInit {
 
   ngOnInit(){
     this.createForm();  
+    this.CountryList();
     this.Id = JSON.parse(localStorage.getItem('rowId'));
     this.data = JSON.parse(localStorage.getItem('editData'));
     this.LanguageList();
@@ -119,9 +121,24 @@ export class InterpreterEditComponent implements OnInit {
       rate:[''],
       image:[''],
       other_gender:[''],
+      country_code:['',this.validation.onlyRequired_validator]
     });
   }
   // /*========== Form Value End Here========*/
+
+   /*========== Country Code for Mobile Start Here========*/
+
+   CountryList(){
+    this.service.getCountryMobileCode().subscribe(res => {
+      if(res['status']=='1'){
+        console.log("api response",res);
+        this.country_Obj = res['data'];
+        console.log("countryyyyyyyyyyyyy", this.country_Obj);
+      }
+    });
+  }
+
+/*==========  Country Code for Mobile End Here========*/
   
   /*========== Edit Input Value Start Here========*/
   patchValue(){
@@ -132,6 +149,7 @@ export class InterpreterEditComponent implements OnInit {
     this.userEditForm.get('apartment').patchValue( this.json_Obj.apartment);
     // this.userEditForm.get('street').patchValue( this.json_Obj.street);
     this.userEditForm.get('mobile').patchValue( this.json_Obj.mobile);
+    this.userEditForm.get('country_code').patchValue( this.json_Obj.country_code);
     this.userEditForm.get('address').patchValue( this.json_Obj.address);
     this.userEditForm.get('latitude').patchValue( this.json_Obj.latitude);
     this.userEditForm.get('longitude').patchValue( this.json_Obj.longitude);
@@ -145,6 +163,7 @@ export class InterpreterEditComponent implements OnInit {
     }
       this.userEditForm.get('rate').patchValue( this.json_Obj.interpreter_rate);
   }
+
 
   editUser() {
     console.log("edit id",this.Id);
@@ -188,6 +207,7 @@ export class InterpreterEditComponent implements OnInit {
       formData.append('primary_lang_id', this.newlanguageVal);
       formData.append('rate', this.userEditForm.value.rate);
       formData.append('image', this.selectedFile);
+      formData.append('country_code', this.userEditForm.value.country_code);
       console.log("user value-",this.userEditForm.value.id)
       this.service.updateInterpreter(formData).subscribe(res => {
         this.useredit_Msg = res;

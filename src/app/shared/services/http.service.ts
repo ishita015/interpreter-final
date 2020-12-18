@@ -159,11 +159,6 @@ export class HttpService {
     return this.http.post(this.url + '/cesco/getRejectDataInterpreter', { role_id: role_id, user_id: user_id, status: status }, this.httpOptions);
   }
 
-
-
-
-
-
   myNearbyInterpreter(service_id, language, searchNameEmail, distance, rate, rating): Observable<any> {
     return this.http.post(this.url + '/cesco/getNearbyInterpreter', { service_id: service_id, language: language, searchNameEmail: searchNameEmail, distance: distance, rate: rate, rating: rating }, this.httpOptions);
   }
@@ -444,6 +439,10 @@ export class HttpService {
 
   getProfileUpadte(profileupdateInfo: AdminProfile): Observable<any> {
     return this.http.post(this.url + '/cesco/profileUpdate', profileupdateInfo);
+  }
+
+  getCountryMobileCode(): Observable<any> {
+    return this.http.get(this.url + '/cesco/getCountryCode',this.httpOptions);
   }
 
   changePassword(changepassInfo: ChangePassword): Observable<any> {
