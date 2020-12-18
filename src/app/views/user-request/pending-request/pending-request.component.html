@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
       <ul class="heading">
-          <li><a>Pending Request</a></li>
+          <li><a>New Request</a></li>
           <li>List</li>
       </ul>
   </div>
@@ -69,14 +69,14 @@
                         {{row.requester_name}}
                       </ng-template>
                   </ngx-datatable-column> -->
-                  <ngx-datatable-column name="Interpreter" prop="requester_name">
+                  <!-- <ngx-datatable-column name="Interpreter" prop="requester_name">
                     <ng-template ngx-datatable-header-template>
                        No. Of Interpreter
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.name}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
                 
                 <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
                   <ng-template ngx-datatable-header-template>
@@ -132,8 +132,6 @@
                   Reject
                   </button>
 
-                  <!-- <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>   -->
-                  <!-- <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>   -->
               </ng-template>
             </ngx-datatable-column>
             

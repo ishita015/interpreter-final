@@ -135,8 +135,8 @@ export class NavigationService {
             icon: 'i-Library',
             sub: [
                 
-                // { icon: 'i-Bell', name: 'New-Request', state: '/user-request/list', type: 'link' },
-                { icon: 'i-Bell', name: 'New Request', state: '/interpreter-request/list', type: 'link' },
+                { icon: 'i-Bell', name: 'New-Request', state: '/user-request/pending-request', type: 'link' },
+                // { icon: 'i-Bell', name: 'New Request', state: '/interpreter-request/list', type: 'link' },
                 // { icon: 'i-Split-Horizontal-2-Window', name: 'Assign', state: '/interpreter-request/accept-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'In Progress', state: '/interpreter-request/accept-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Rejected', state: '/interpreter-request/reject-list', type: 'link' },
@@ -144,12 +144,12 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
             ]
         },
-        {   
+       /* {   
             name: 'Pending-Request',
             type: 'link',
             icon: 'i-Add-User',
             state: '/user-request/pending-request',
-        },
+        },*/
         {   
             name: 'Chat',
             type: 'link',

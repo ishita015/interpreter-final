@@ -122,7 +122,7 @@
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   <button class="btn btn-outline-secondary" (click)="viewDetail(row.ris_id)">View</button>  
-                  <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+                  <!-- <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.user_id,row.ris_id,'2', acceptConfirmModal)">
                   Accept
                   </button>
@@ -130,10 +130,7 @@
                   <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.user_id,row.ris_id,'3', rejectConfirmModal)">
                   Reject
-                  </button>
-
-                  <!-- <button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>   -->
-                  <!-- <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>   -->
+                  </button> -->
               </ng-template>
             </ngx-datatable-column>
             

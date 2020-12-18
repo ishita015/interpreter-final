@@ -17,6 +17,9 @@ export class PendingRequestComponent implements OnInit {
   list_Obj: any[];
   userData;
   filteredUser;
+  status_msg;
+  view_obj;
+  resp_msg;
   searchControl: FormControl = new FormControl();
   constructor( 
     private modalService: NgbModal,
@@ -62,15 +65,66 @@ export class PendingRequestComponent implements OnInit {
   }
 
     interpreterRequestData(){
-    this.service.interpreterRequestList(this.roleId,this.userId,'1')
-    .subscribe(res => {
-      if(res['status']=='1'){
-        console.log("api response",res);
-        this.list_Obj = res['data'];
-        this.userData = [...res['data']];
-        this.filteredUser = this.list_Obj;
-      }
-       
+      this.service.interpreterRequestList(this.roleId,this.userId,'2')
+      .subscribe(res => {
+        if(res['status']=='1'){
+          console.log("api response",res);
+          this.list_Obj = res['data'];
+          this.userData = [...res['data']];
+          this.filteredUser = this.list_Obj;
+        }
+        
+      });
+    }
+
+
+  // requestComplete(id, modal) {
+  interpreterReply(user_id,ris_id,res_type,modal){
+    
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+        .result.then((result) => {
+          this.service.interpreterReqReply(user_id,ris_id,res_type)
+              .subscribe(res => {
+                console.log("res---", res)
+                this.status_msg = res;
+                if (res['status'] == '1') {
+                  this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+                  // location.reload();
+
+                  if(res_type=='2'){
+                    this.router.navigate(['/interpreter-request/accept-list']);
+                  }else{
+                    this.router.navigate(['/interpreter-request/reject-list']);
+                  }
+                  
+                  // this.interpreterRequestData();
+                }else{
+                  this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+                  this.router.navigate(['/interpreter-request/list']);
+                }
+              })
+        }, (reason) => {
     });
-}
+  }
+
+
+  viewDetail(request_id){
+    console.log("id--",  request_id);
+    this.service.getRequestDetail(request_id).subscribe(res => {
+      if(res['status'] == 1){
+        this.view_obj = res['data'][0];
+        console.log("view object",  this.view_obj);
+        localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
+        this.router.navigate(['/user-request/request-view',request_id])
+      }else{
+        this.resp_msg = res;
+        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+      }
+        
+    })
+  }
+
+
+
+
 }

@@ -1991,6 +1991,7 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
                 first_name:resultdata[i].first_name,
                 last_name: resultdata[i].last_name,
                 mobile: resultdata[i].mobile,
+                country_code: resultdata[i].country_code,
                 email: resultdata[i].email,
                 gender: resultdata[i].gender,
                 other_gender: resultdata[i].other_gender,
