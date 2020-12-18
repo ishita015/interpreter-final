@@ -74,7 +74,7 @@
                        No. Of Interpreter
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.no_of_interpreter}}
+                        <span class="Cursor_Point" (click)="numOfInterpreter(row.ris_id)">{{row.no_of_interpreter}}</span>
                     </ng-template>  
                 </ngx-datatable-column>
                 

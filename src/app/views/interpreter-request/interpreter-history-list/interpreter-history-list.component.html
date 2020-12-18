@@ -1,0 +1,71 @@
+<div class="">
+    <div class="breadcrumb">
+      <ul class="heading">
+          <li><a>Interpreter </a></li>
+          <li>List</li>
+      </ul>
+  </div>
+    
+      <div class="separator-breadcrumb border-top"></div>
+  
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
+          </div>
+    </div>
+  
+        <div class="col-md-12 lang_block">
+            <div class="card  o-hidden">
+                <ngx-datatable *ngIf="filteredUser?.length"
+                style="height: 500px; box-shadow: none"
+                class="material fullscreen"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="60"
+                [scrollbarV]="true"
+                [rows]="filteredUser">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+                  <ng-template ngx-datatable-header-template>
+                   S.No
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                      {{rowIndex +1}}
+                  </ng-template>
+                 </ngx-datatable-column>
+                 <ngx-datatable-column name="Full Name" prop="name" [minWidth]="20" >
+                  <ng-template ngx-datatable-header-template >
+                   Full Name
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    <span class="full_name" (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
+                  <ng-template ngx-datatable-header-template>
+                    Email
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.email}}
+                  </ng-template>
+                </ngx-datatable-column>
+                  <ngx-datatable-column name="Mobile" prop="mobile" [minWidth]="30">
+                      <ng-template ngx-datatable-header-template>
+                        Mobile
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.mobile | mask: '(000) 000-0000'}}
+                      </ng-template>
+                  </ngx-datatable-column>
+              
+         
+              </ngx-datatable>
+            </div>
+          <ng-container *ngIf="list_Obj?.length <= 0">
+              No Data Found
+          </ng-container>
+        </div>
+          
+      </div>
+  </div> 

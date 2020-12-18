@@ -6,6 +6,7 @@ import { CancelledRequestComponent } from './cancelled-request/cancelled-request
 import { InterpreterRequestListComponent } from './interpreter-request-list/interpreter-request-list.component';
 import { RejectRequestComponent } from './reject-reques/reject-request.component';
 import { AllRequestComponent } from './all-request/all-request.component';
+import { InterpreterHistoryListComponent } from './interpreter-history-list/interpreter-history-list.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'accept-list', component: AcceptRequestComponent },
   { path: 'completed-list', component: CompleteRequestComponent },
   { path: 'cancelled-list', component: CancelledRequestComponent },
-  { path: 'reject-list', component: RejectRequestComponent }
+  { path: 'reject-list', component: RejectRequestComponent },
+  { path: 'interpreter-history', component: InterpreterHistoryListComponent },
 ];
 
 @NgModule({

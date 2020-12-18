@@ -291,6 +291,10 @@ export class HttpService {
     return this.http.post(this.url + '/cesco/getRequestDetails', { request_id: request_id }, this.httpOptions);
   }
 
+  getNoOfInterpreter(request_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/interpreterForAssignrequest', { request_id: request_id }, this.httpOptions);
+  }
+
 
   getInterpreterDetail(id): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreterDetail', { id: id }, this.httpOptions);

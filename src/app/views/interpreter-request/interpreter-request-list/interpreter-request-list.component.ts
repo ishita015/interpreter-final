@@ -28,6 +28,7 @@ export class InterpreterRequestListComponent implements OnInit {
   roleData;
   array_Obj;
   resp_msg;
+ 
   searchControl: FormControl = new FormControl();
   constructor(
     private productService: ProductService,
@@ -60,6 +61,8 @@ export class InterpreterRequestListComponent implements OnInit {
     */
   }
 
+  
+/*========== Search Filter For Table Start Here========*/
   filerData(val) {
     if (val) {
       val = val.toLowerCase();
@@ -84,8 +87,9 @@ export class InterpreterRequestListComponent implements OnInit {
     });
     this.filteredUser = rows;
   }
+/*========== Search Filter For Table End Here========*/
 
-
+/*========== Pending Request Start Here========*/
     PendingRequestData(){
     this.service.AllPendingRequest()
     .subscribe(res => {
@@ -98,7 +102,7 @@ export class InterpreterRequestListComponent implements OnInit {
       }  
     });
 }
-
+/*========== Pending Request End Here========*/
 
 
   
@@ -117,7 +121,7 @@ export class InterpreterRequestListComponent implements OnInit {
 // }
 
 
-
+/*========== Accept/Denay Through Interpreter Start Here========*/
 
 // requestComplete(id, modal) {
 interpreterReply(user_id,ris_id,res_type,modal){
@@ -147,7 +151,9 @@ interpreterReply(user_id,ris_id,res_type,modal){
       }, (reason) => {
   });
 }
+/*========== Accept/Declined Through Interpreter End Here========*/
 
+/*========== Show Details Start Here========*/
 
 viewDetail(request_id){
   console.log("id--",  request_id);
@@ -164,7 +170,7 @@ viewDetail(request_id){
       
   })
 }
-
+/*========== Show Details End Here========*/
 
 
 /*
@@ -185,4 +191,14 @@ viewDetail(request_id){
     });
   }
 */
+  /*========== Number of Interpreter Popup Open Start Here========*/
+
+  numOfInterpreter(id){
+    this.router.navigate(['/interpreter-request/interpreter-history']);
+    console.log("iddddddddddd",id);
+    localStorage.setItem('interhistory', JSON.stringify(id));
+
+  }
+
+  /*========== Number of Interpreter Popup Open End Here========*/
 }
