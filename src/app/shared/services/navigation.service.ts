@@ -134,8 +134,8 @@ export class NavigationService {
             type: 'dropDown',
             icon: 'i-Library',
             sub: [
-                
-                { icon: 'i-Bell', name: 'New-Request', state: '/user-request/pending-request', type: 'link' },
+                { icon: 'i-Bell', name: 'Broadcasting', state: '/interpreter-request/list', type: 'link' },
+                // { icon: 'i-Bell', name: 'New-Request', state: '/user-request/pending-request', type: 'link' },
                 // { icon: 'i-Bell', name: 'New Request', state: '/interpreter-request/list', type: 'link' },
                 // { icon: 'i-Split-Horizontal-2-Window', name: 'Assign', state: '/interpreter-request/accept-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'In Progress', state: '/interpreter-request/accept-list', type: 'link' },

@@ -83,7 +83,7 @@ export class PendingRequestComponent implements OnInit {
     
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
         .result.then((result) => {
-          this.service.interpreterReqReply(user_id,ris_id,res_type)
+          this.service.interpreterReqReply(this.userId,ris_id,res_type)
               .subscribe(res => {
                 console.log("res---", res)
                 this.status_msg = res;

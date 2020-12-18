@@ -331,10 +331,14 @@ module.exports.getRequestDetails = async function(req, res) {
 
 
 // get all assignment/all request
-module.exports.getAllAssignment = function(req, res) {
+module.exports.getAllAssignment = async function(req, res) {
 
     let status = req.body.status ? req.body.status : '0';
     let lang_id = req.body.lang_id ? req.body.lang_id : '0';
+    // if(status=='6'){
+    //     var resultdata = await usermodel.getInterpreterIds(); 
+    // }
+
 
     var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language ";
 

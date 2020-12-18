@@ -43,7 +43,7 @@ export class InterpreterRequestListComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
 
-    // console.log("userId-",this.userId)
+    console.log("userId-",this.userId)
     // console.log("roleId-",this.roleId)
     this.PendingRequestData();
     // this.interpreterRequestData();
@@ -124,11 +124,11 @@ export class InterpreterRequestListComponent implements OnInit {
 /*========== Accept/Denay Through Interpreter Start Here========*/
 
 // requestComplete(id, modal) {
-interpreterReply(user_id,ris_id,res_type,modal){
+interpreterReply(ris_id,res_type,modal){
   
   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
-        this.service.interpreterReqReply(user_id,ris_id,res_type)
+        this.service.interpreterReqReply(this.userId,ris_id,res_type)
             .subscribe(res => {
               console.log("res---", res)
               this.status_msg = res;
