@@ -142,7 +142,7 @@ app.get('/cesco/getCountryCode', interpreterController.getCountryCode);
 app.get('/cesco/getNewAssignmentList', interpreterController.newAssignmentList);
 
 app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
-
+app.post('/cesco/interpreterForAssignrequest', interpreterController.getInterpreterForAssignrequest);
 
 app.post('/cesco/addRateReview', interpreterController.addRateReview);
 app.post('/cesco/interpreterCurrentLocation', interpreterController.getInterpreterCurrentLocation);

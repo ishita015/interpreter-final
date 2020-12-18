@@ -17,6 +17,59 @@ const usermodel = new userModel();
 
 
 
+module.exports.getInterpreterForAssignrequest = async function(req, res) {
+    //validation start
+   const v = new Validator(req.body, {
+        request_id: 'required',       
+   });
+   
+   const matched = await v.check();
+   
+   if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+   }
+
+    let request_id = req.body.request_id;
+    
+    var sql = "SELECT ir.job_id,ir.Interpreter_id,u.id,u.first_name,u.last_name,u.mobile,u.email,u.country_code FROM interpreter_request as ir INNER JOIN user AS u ON u.id=ir.Interpreter_id WHERE ir.job_id='"+request_id+"'";
+
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+   
+        
+       
+
+
+
+
 
 
 module.exports.newAssignmentList = async function(req, res, next) {
