@@ -332,7 +332,18 @@ module.exports.getRequestDetails = async function(req, res) {
 
 // get all assignment/all request
 module.exports.getAllAssignment = function(req, res) {
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language ORDER BY ris.id DESC";
+
+    let status = req.body.status ? req.body.status : '0';
+
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language ";
+
+     
+    if(status == '0' ) { 
+        sql += " ORDER BY ris.id DESC"; 
+    }else{
+        sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
+    }
+
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {

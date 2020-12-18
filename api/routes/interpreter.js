@@ -1247,28 +1247,36 @@ module.exports.interpreterRequestReply = async function(req, res) {
 
     
     //update status
-    let updatesql = "UPDATE interpreter_request SET status = '"+res_type+"', is_reject='"+rejectreq+"' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
+    let updatesql = "UPDATE interpreter_request SET status = '"+res_type+"',pending_status='1', is_reject='"+rejectreq+"' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"' && pending_status='0'";
     console.log("updatesql--",updatesql)
-    con.query(updatesql, function(err, result) {});
-
-    let sql = "UPDATE request_information_services SET status = '"+status+"',is_reject='"+isreject+"' WHERE id = '"+ris_id+"'";
-    console.log("sql--",sql)
-
-    if(res_type==3){
-        var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('"+user_id+"','"+ris_id+"')";
-        console.log('his_sql-',his_sql)
-        con.query(his_sql, function(err, insert) {});
-    }
-
-
-    con.query(sql, function(err, result) {});
-    res.json({
-        status: 1,
-        error_code: 0,
-        error_line: 6,
-        message: message,
+    con.query(updatesql, function(err, result) {
+        if(!err){
+            let sql = "UPDATE request_information_services SET status = '"+status+"',is_reject='"+isreject+"' WHERE id = '"+ris_id+"'";
+            console.log("sql--",sql)
+            con.query(sql, function(err, result) {});
+            if(res_type==3){
+                var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('"+user_id+"','"+ris_id+"')";
+                console.log('his_sql-',his_sql)
+                con.query(his_sql, function(err, insert) {});
+            }
+            
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: message,
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Please contact admin support",
+            });
+            return true;
+        }
     });
-    return true;
 };
 
 
