@@ -145,6 +145,12 @@ export class NavigationService {
             ]
         },
         {   
+            name: 'Pending-Request',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/user-request/pending-request',
+        },
+        {   
             name: 'Chat',
             type: 'link',
             icon: 'i-Add-User',
