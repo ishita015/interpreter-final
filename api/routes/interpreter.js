@@ -19,6 +19,35 @@ const usermodel = new userModel();
 
 
 
+module.exports.getCountryCode = async function(req, res, next) {
+    var sql = "SELECT * FROM countries";
+    
+    console.log("country code sql-",sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
 // add rating & review
 module.exports.addRateReview = async function(req, res) {
     //validation start

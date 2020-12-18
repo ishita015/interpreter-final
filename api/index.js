@@ -135,6 +135,7 @@ app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */ 
 
 
+app.get('/cesco/getCountryCode', interpreterController.getCountryCode);
 app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
 
 
@@ -416,7 +417,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
         mobile: 'required',
         address: 'required',
         apartment: 'required',
-        // street: 'required',
+        country_code: 'required',
         latitude: 'required',
         longitude: 'required',
         gender: 'required',
@@ -447,6 +448,8 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
    let password = req.body.password;
    let languageid = req.body.languageid;
    let mobile = req.body.mobile;
+   let country_code = req.body.country_code;
+   
    let address = req.body.address;
    let apartment = req.body.apartment;
    let street = req.body.street ? req.body.street : "";
@@ -468,7 +471,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street,profile_img,other_gender)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"','"+profileImg+"','"+other_gender+"')";
+    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street,profile_img,other_gender,country_code)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"','"+profileImg+"','"+other_gender+"','"+country_code+"')";
 
     console.log("image",sql)
 
@@ -530,7 +533,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
         // longitude: 'required',
         gender: 'required',
         primary_lang_id: 'required',
-        // languageid: 'required',
+        country_code: 'required',
         // languageid: 'required'
      });
  
@@ -556,6 +559,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
     let last_name = req.body.last_name;
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
+    let country_code = req.body.country_code;
     let gender = req.body.gender;
     let primary_language = req.body.primary_lang_id;
     let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
@@ -578,7 +582,7 @@ app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next)
      }
 
 
-     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"',other_gender='"+other_gender+"'"; 
+     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',gender ='"+gender+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"',other_gender='"+other_gender+"',country_code ='"+country_code+"'"; 
     
     if(primary_language!="" && primary_language != 'undefined'){     
         sql += ",primary_language ='"+primary_language+"'";
@@ -652,7 +656,8 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
         last_name: 'required',
         mobile: 'required',
         user_id: 'required',
-        address: 'required'
+        address: 'required',
+        country_code: 'required'
     });
     
     const matched = await v.check();
@@ -681,7 +686,8 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
     //let longitude = req.body.long ? req.body.long:0;
   
     let mobile = req.body.mobile;
-
+    let country_code = req.body.country_code;
+    
    
     var profileImg='';
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
@@ -692,9 +698,9 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
     
 
     if(profileImg==""){
-        var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"' WHERE id ='"+user_id+"'";
+        var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"',country_code='"+country_code+"' WHERE id ='"+user_id+"'";
     }else{
-        var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
+        var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"',country_code='"+country_code+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
     }
 
     console.log("user_update sql--",user_update)
