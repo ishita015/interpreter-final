@@ -103,7 +103,7 @@ export class NavigationService {
             sub: [
                 { icon: 'i-Bell', name: 'All Request', state: '/interpreter-request/all-request-list', type: 'link' },
                 { icon: 'i-Bell', name: 'New Request', state: '/user-request/list', type: 'link' },
-                { icon: 'i-Bell', name: 'Assigned', state: '/interpreter-request/list', type: 'link' },
+                { icon: 'i-Bell', name: 'Broadcasting', state: '/interpreter-request/list', type: 'link' },
                 // { icon: 'i-Split-Horizontal-2-Window', name: 'Assign', state: '/interpreter-request/accept-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'In Progress', state: '/interpreter-request/accept-list', type: 'link' },
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/interpreter-request/completed-list', type: 'link' },

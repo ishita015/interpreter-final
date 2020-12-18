@@ -193,10 +193,18 @@ viewDetail(request_id){
 */
   /*========== Number of Interpreter Popup Open Start Here========*/
 
-  numOfInterpreter(id){
-    this.router.navigate(['/interpreter-request/interpreter-history']);
-    console.log("iddddddddddd",id);
-    localStorage.setItem('interhistory', JSON.stringify(id));
+  numOfInterpreter(id,totalInterpreter,modal){
+    // this.router.navigate(['/interpreter-request/interpreter-history']);
+    // console.log("iddddddddddd",id);
+    // localStorage.setItem('interhistory', JSON.stringify(id));
+    console.log("totalInterpreter",totalInterpreter)
+    if(totalInterpreter==0){
+      this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    }else{
+      // this.router.navigate(['/languages/interpreter-detail']);
+        this.router.navigate(['/interpreter/interpreter-list/',id,2]);
+        // interpreter-list/:id/:type
+    }
 
   }
 

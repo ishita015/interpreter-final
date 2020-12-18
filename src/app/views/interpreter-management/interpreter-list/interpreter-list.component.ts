@@ -92,7 +92,7 @@ export class InterpreterListComponent implements OnInit {
 
 
   interpreterList() {
-    this.service.getInterpreterList()
+    this.service.getInterpreterList(this.id, this.type)
       .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];

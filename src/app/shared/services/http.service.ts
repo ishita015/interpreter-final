@@ -253,8 +253,8 @@ export class HttpService {
 
 
 
-  getInterpreterList(): Observable<any> {
-    return this.http.get(this.url + '/cesco/getInterpreter', this.httpOptions);
+  getInterpreterList(id,type): Observable<any> {
+    return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type} ,this.httpOptions);
   }
 
   // getLanguagAdd(addInfo: LanguageAddEditModels): Observable<any> {
