@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
@@ -27,17 +27,26 @@ export class InterpreterListComponent implements OnInit {
   roleId;
   role_id; response_msg;
   json_Obj;
+  id;
+  type;
   searchControl: FormControl = new FormControl();
   constructor( private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public service: HttpService,
-    private router: Router,) { 
+    private router: Router,
+    private route: ActivatedRoute) { 
 
      
     }
 
   ngOnInit(){
+    this.id = this.route.snapshot.params.id ? this.route.snapshot.params.id : '0';
+    console.log("iddddddd", this.id);
+    
+    this.type = this.route.snapshot.params.type? this.route.snapshot.params.type : '0';
+    console.log("qqqqq", this.type );
+    
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.interpreterList();
