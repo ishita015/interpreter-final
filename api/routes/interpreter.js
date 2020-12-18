@@ -19,6 +19,36 @@ const usermodel = new userModel();
 
 
 
+module.exports.newAssignmentList = async function(req, res, next) {
+    var sql = "SELECT ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='1'";
+    
+    console.log("country code sql-",sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
 module.exports.getCountryCode = async function(req, res, next) {
     var sql = "SELECT * FROM countries";
     

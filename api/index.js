@@ -135,7 +135,12 @@ app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */ 
 
 
+
+
 app.get('/cesco/getCountryCode', interpreterController.getCountryCode);
+
+app.get('/cesco/getNewAssignmentList', interpreterController.newAssignmentList);
+
 app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
 
 
