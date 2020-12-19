@@ -31,8 +31,11 @@ export class AllRequestComponent implements OnInit {
   view_obj;
   resp_msg;
   status;
+  email_formdata;
+  searchEmail = '';
   request_status: FormControl = new FormControl();
   searchControl: FormControl = new FormControl();
+  search_email: FormControl = new FormControl();
   constructor(  private productService: ProductService,
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -81,10 +84,11 @@ export class AllRequestComponent implements OnInit {
        /*========== All Request List Start Here========*/
       interpreterAllRequest() {
         this.status = this.request_status.value ;
+         this.email_formdata = this.search_email.value;
+         this.searchEmail = this.email_formdata ;
+         console.log("status",this.status);
 
-        console.log("status",this.status)
-
-        this.service.interpreterAllRequestList(this.status)
+         this.service.interpreterAllRequestList(this.status,this.searchEmail)
           .subscribe(res => {
             if (res['status'] == '1') {
               console.log("api response", res);

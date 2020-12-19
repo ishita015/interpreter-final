@@ -150,8 +150,8 @@ export class HttpService {
   AllPendingRequest(): Observable<any> {
     return this.http.get(this.url + '/cesco/getAllPendingRequest', this.httpOptions);
   }
-  interpreterAllRequestList(status): Observable<any> {
-    return this.http.post(this.url + '/cesco/getAllAssignment',{status:status}, this.httpOptions);
+  interpreterAllRequestList(status,search_email): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAllAssignment',{status:status,search_email:search_email}, this.httpOptions);
   }
 
 
