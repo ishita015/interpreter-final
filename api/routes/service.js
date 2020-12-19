@@ -335,14 +335,15 @@ module.exports.getAllAssignment = async function(req, res) {
 
     let status = req.body.status ? req.body.status : '0';
     let lang_id = req.body.lang_id ? req.body.lang_id : '0';
+    let search_email = req.body.search_email ? req.body.search_email : '0';
     // if(status=='6'){
     //     var resultdata = await usermodel.getInterpreterIds(); 
     // }
 
 
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language ";
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
 
-     
+     /*
     if(status == '0' ) { 
         sql += " ORDER BY ris.id DESC"; 
     }else if(lang_id != '0' ) { 
@@ -350,6 +351,23 @@ module.exports.getAllAssignment = async function(req, res) {
     }else{
         sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
     }
+*/
+    
+    if(lang_id != '0' ) { 
+        sql += " && ais.language='"+lang_id+"'";
+    }
+
+    if(status != '0' ) { 
+        sql += " && ris.status='"+status+"'";
+    }
+    
+    if(search_email != "" ) { 
+        sql += " && (ris.email LIKE  '%" + search_email + "%')";
+    }
+
+
+    sql += " ORDER BY ris.id DESC";  
+
 
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
