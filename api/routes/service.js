@@ -335,7 +335,7 @@ module.exports.getAllAssignment = async function(req, res) {
 
     let status = req.body.status ? req.body.status : '0';
     let lang_id = req.body.lang_id ? req.body.lang_id : '0';
-    let search_email = req.body.search_email ? req.body.search_email : '0';
+    let search_email = req.body.search_email ? req.body.search_email : "";
     // if(status=='6'){
     //     var resultdata = await usermodel.getInterpreterIds(); 
     // }
