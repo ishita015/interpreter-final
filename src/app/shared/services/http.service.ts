@@ -385,6 +385,12 @@ export class HttpService {
   }
 
 
+
+  allRequest(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + '/cesco/getAllRequest');
+  }
+
+
   totalAssign(): Observable<any[]> {
     return this.http.get<any[]>(this.url + '/cesco/getTotalAssign');
   }

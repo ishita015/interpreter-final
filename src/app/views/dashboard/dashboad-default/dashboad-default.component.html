@@ -24,6 +24,21 @@
             </div>
         </div>
 
+        <div (click) = "interpreter()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon">
+                    <i class="i-Add-User"></i>
+                    </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">Interpreter</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{totalinter_obj?.total_user}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div (click) = "language()" class="col-lg-3 col-md-6 col-sm-6">
             <div class="card cardsky card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body  text-center">
@@ -38,6 +53,21 @@
                 </div>
             </div>
         </div>
+
+        <div (click) = "all_requ()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon">
+                    <i class="i-Add-User"></i>
+                    </div>
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">All Request</p>
+                        <p class="totalnumber text-24 line-height-1 mb-2">{{allreq_obj?.allrequest}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         
         <div (click) = "new_request()" class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
@@ -122,20 +152,7 @@
             </div>
         </div>
 
-        <div (click) = "interpreter()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <div class="card-icon">
-                    <i class="i-Add-User"></i>
-                    </div>
-                    <div class="content">
-                        <p class="cardtext mt-2 mb-0">Interpreter</p>
-                        <p class="totalnumber text-24 line-height-1 mb-2">{{totalinter_obj?.total_user}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       
         
 
         <!-- <div class="col-lg-3 col-md-6 col-sm-6">

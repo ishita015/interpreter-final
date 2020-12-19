@@ -103,6 +103,7 @@ app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
 
 app.get('/cesco/getTotalInterpreter', interpreterController.getTotalInterpreter);
 app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
+app.get('/cesco/getAllRequest', serviceController.getAllRequest);
 app.get('/cesco/getTotalRequest', serviceController.getTotalNewRequest);
 app.get('/cesco/getTotalAssign', serviceController.getTotalAssign);
 app.get('/cesco/getTotalInprogress', serviceController.getTotalinprogress);
