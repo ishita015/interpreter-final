@@ -9,6 +9,77 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    getUnfilLangIds(langid){
+         // SELECT group_concat(mts.target_title) request_information_services,
+         var sql = "SELECT `primary_language` FROM user WHERE role_id=2 && FIND_IN_SET(primary_language, '"+langid+"') ORDER BY id DESC"; 
+            
+         console.log("check sql",sql);
+         con.query(sql, function(err, result) {
+            if (result != "" && result != "undefined") {
+                resolve(result);
+            } else {
+                resolve(false);
+            }
+        });
+    }
+
+
+
+    getLangIds(){
+        let newArray='';
+        return new Promise(function(resolve, reject) {
+            // SELECT group_concat(mts.target_title) request_information_services,
+            var sql = "SELECT  group_concat(appointment_information_services.language) as lang_id FROM request_information_services INNER JOIN appointment_information_services ON appointment_information_services.ris_id = request_information_services.id WHERE request_information_services.status='1'"; 
+            
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                    if (result != "" && result != "undefined") {
+                        // resolve(result);
+                        let langid = result[0].lang_id;
+                        var sql = "SELECT `primary_language` FROM user WHERE role_id=2 && FIND_IN_SET(primary_language, '"+langid+"') ORDER BY id DESC"; 
+                            
+                        console.log("check sql",sql);
+                        con.query(sql, function(err, result) {
+                            if (result != "" && result != "undefined") {
+                                // console.log(result)
+                                let array = langid.split(',');
+                                console.log("check array",array);
+                                // var array = string.split(',', langid);
+                                for (var i = 0; i < result.length; i++) {
+                                   // console.log("check array",result[i].primary_language);
+                                    // if(array.indexOf("Mango") !== -1){
+                                        array = array.filter((value)=>value!=result[i].primary_language);
+
+                                        /*if(array.indexOf(result[i].primary_language) !== -1){
+                                            // alert("Value exists!")
+                                            console.log("check exists");
+                                        } else{
+                                            unfil_ids+=result[i].primary_language+',';
+                                            // alert("Value does not exists!")
+                                        }*/                                    
+                                }
+                                if (array != "" && array != "undefined") {
+                                    resolve(array);
+                                }else{
+                                    resolve(false);
+                                }
+                                
+                                // return array;
+                            } else {
+                                resolve(false);
+                            }
+                        });
+                    } else {
+                        resolve(false);
+                    }
+                });
+        }); 
+    }
+
+
+
+
+
 
     getInterpreterIds(request_id){
         return new Promise(function(resolve, reject) {
