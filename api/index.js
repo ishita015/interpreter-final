@@ -114,7 +114,8 @@ app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 
     // for interpreter dashboard
 app.post('/cesco/getUsername', interpreterController.getUsername);
-    
+
+
 app.post('/cesco/getNewRequestCount', interpreterController.getNewRequestCount);
 app.post('/cesco/getAcceptRequest', interpreterController.getAcceptRequest);
 app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
@@ -126,6 +127,9 @@ app.post('/cesco/getInterpreterEvents', interpreterController.getInterpreterEven
 app.post('/cesco/deleteLocalEvent', interpreterController.deleteLocalEvent);
 
 
+
+app.post('/cesco/addInterpreterLanguage', interpreterController.addInterpreterLanguage);
+app.post('/cesco/addBankingInfo', interpreterController.saveBankingInfo);
 app.post('/cesco/assignAllInterpreter', interpreterController.assignAllInterpreter);
 app.post('/cesco/updateInterpreterEvents', interpreterController.updateInterpreterEvents);
 app.post('/cesco/getLocalEventsData', interpreterController.getLocalEventsData);
@@ -411,6 +415,89 @@ let upload = multer({
 
 
 
+//upload interpreter documents
+app.post('/cesco/uploadInterpreterDoc', upload.any(),async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required',
+        doc_type: 'required',
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    let interpreter_id = req.body.interpreter_id;
+    let doc_type  = req.body.doc_type;
+    let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
+    let other_doc_name  = req.body.other_doc_name ? req.body.other_doc_name : "";
+   
+    
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            let documents=req.files[0].filename;
+
+            var sql = "INSERT INTO interpreters_special_attributes(interpreter_id,documents,doc_type,other_doc_title,other_doc_name)VALUES('"+interpreter_id+"','"+documents+"','"+doc_type+"','"+other_doc_title+"','"+other_doc_name+"')";
+            con.query(sql, function(err, insert) {
+                if(!err){
+                    res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        data: documents,
+                        message: "Documents upload successfully",
+                    });
+                    return true;
+                }else{
+                    //error
+                    res.json({
+                        status: 0,
+                        error_code: 0,
+                        error_line: 7,
+                        message: "Please try again"
+                    });
+                    return true;
+                }
+            });
+
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // app.get('/cesco/downloadimg', function(req, res){
 //     const file = "./public/1919.png";
 //     // ./public/'+req.files[0].filename
@@ -503,7 +590,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,title,username,first_name,last_name,email,mobile,phone_no,international_phone_no,gender,date_of_birth,social_security_no,profile_img,other_gender,country_code,company_name,skype)VALUES('2','"+title+"','"+username+"',,'"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+phone_no+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+other_gender+"','"+country_code+"','"+company_name+"','"+skype+"')";
+    var sql = "INSERT INTO user(role_id,title,username,first_name,last_name,email,mobile,phone_no,international_phone_no,gender,date_of_birth,social_security_no,profile_img,other_gender,country_code,company_name,skype)VALUES('2','"+title+"','"+username+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+phone_no+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+other_gender+"','"+country_code+"','"+company_name+"','"+skype+"')";
 
     console.log("image",sql)
 

@@ -10,8 +10,163 @@ var randtoken = require('rand-token');
 const { Validator } = require('node-input-validator');
 const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
+const e = require('express');
 const usermodel = new userModel();
 
+
+
+
+
+
+
+
+
+module.exports.addInterpreterLanguage = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required',
+        primary_language: 'required',
+        secondary_language: 'required',
+    });
+   
+    const matched = await v.check();
+   
+    if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+    }
+
+    let interpreter_id = req.body.interpreter_id;
+    let primary_language  = req.body.primary_language;
+    let secondary_language  = req.body.secondary_language;
+
+    var add_update = "UPDATE user SET primary_language='"+primary_language+"' WHERE id ='"+interpreter_id+"'";
+
+    con.query(user_update, function(err, results) {
+        if(results.affectedRows ==1){
+            // secondary_language=JSON.parse(secondary_language) // for form data case
+            for (var i = 0; i < secondary_language.length; i++) {
+                console.log("secondary_language", secondary_language[i].id);    
+                var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+secondary_language[i].id+"')";
+                con.query(sql, function(err, insert) {});
+            }
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                message: "Skills addeD successfully"
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Server Error, please try again"
+            });
+            return true;
+        }
+    });
+
+
+        
+
+    
+};
+
+   
+        
+       
+
+
+
+
+
+
+
+
+
+module.exports.saveBankingInfo = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        user_id: 'required',       
+        account_no: 'required',      
+        country: 'required',       
+        financial_institution: 'required',      
+        payment_benificiary: 'required',       
+        payment_method: 'required',      
+        routing_number: 'required',       
+        SWIFT_code: 'required',      
+        fusion_id: 'required',       
+        site_code: 'required',      
+        site_id: 'required'
+    });
+   
+    const matched = await v.check();
+   
+    if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+    }
+
+    let user_id = req.body.user_id; // interpreter id
+    let account_no = req.body.account_no;
+    let country = req.body.country;
+    let financial_institution = req.body.financial_institution;
+    let payment_benificiary = req.body.payment_benificiary;
+    let payment_method = req.body.payment_method;
+    let routing_number = req.body.routing_number;
+    let SWIFT_code = req.body.SWIFT_code;
+    let fusion_id = req.body.fusion_id;
+    let site_code = req.body.site_code;
+    let site_id = req.body.site_id;
+    
+    var sql = "INSERT INTO banking_detail(user_id,account_no,country,financial_institution,payment_benificiary,payment_method,routing_number,SWIFT_code)VALUES('"+user_id+"','"+account_no+"',,'"+country+"','"+financial_institution+"','"+payment_benificiary+"','"+payment_method+"','"+routing_number+"','"+SWIFT_code+"')";
+
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        if(!err){
+            var sql = "INSERT INTO interpreters_oracle(user_id,fusion_id,site_code,site_id)VALUES('"+user_id+"','"+fusion_id+"',,'"+site_code+"','"+site_id+"')";
+            con.query(sql, function(err, insert) {});
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                message: "Added successfully"
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Server Error, please try again"
+            });
+            return true;
+        }
+    });
+};
+
+   
+        
+       
 
 
 
