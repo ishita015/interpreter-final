@@ -331,43 +331,32 @@ module.exports.getRequestDetails = async function(req, res) {
 
 
 // get all assignment/all request
-module.exports.getAllAssignment = async function(req, res) {
+module.exports.getAllAssignment = function(req, res) {
 
     let status = req.body.status ? req.body.status : '0';
     let lang_id = req.body.lang_id ? req.body.lang_id : '0';
-    let search_email = req.body.search_email ? req.body.search_email : "";
-    // if(status=='6'){
-    //     var resultdata = await usermodel.getInterpreterIds(); 
-    // }
+    
+    console.log("lang_id-",lang_id)
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language ";
 
-
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
-
-     /*
-    if(status == '0' ) { 
-        sql += " ORDER BY ris.id DESC"; 
-    }else if(lang_id != '0' ) { 
+    
+    if(status != '0') { 
+        sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
+    }else if(lang_id != '0') { 
         sql += " WHERE ais.language='"+lang_id+"' ORDER BY ris.id DESC";
     }else{
-        sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
-    }
-*/
-    
-    if(lang_id != '0' ) { 
-        sql += " && ais.language='"+lang_id+"'";
+        sql += " ORDER BY ris.id DESC"; 
+        
     }
 
-    if(status != '0' ) { 
-        sql += " && ris.status='"+status+"'";
-    }
-    
-    if(search_email != "" ) { 
-        sql += " && (ris.email LIKE  '%" + search_email + "%')";
-    }
-
-
-    sql += " ORDER BY ris.id DESC";  
-
+     
+    // if(status == '0' && lang_id == '0' ) { 
+    //     sql += " ORDER BY ris.id DESC"; 
+    // }else if(lang_id != '0' && status == '0') { 
+    //     sql += " WHERE ais.language='"+lang_id+"' ORDER BY ris.id DESC";
+    // }else{
+    //     sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
+    // }
 
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
