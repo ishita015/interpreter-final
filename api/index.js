@@ -441,14 +441,13 @@ app.post('/cesco/uploadInterpreterDoc', upload.any(),async function(req, res, ne
     let interpreter_id = req.body.interpreter_id;
     let doc_type  = req.body.doc_type;
     let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
-    let other_doc_name  = req.body.other_doc_name ? req.body.other_doc_name : "";
-   
+    
     
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             let documents=req.files[0].filename;
 
-            var sql = "INSERT INTO interpreters_special_attributes(interpreter_id,documents,doc_type,other_doc_title,other_doc_name)VALUES('"+interpreter_id+"','"+documents+"','"+doc_type+"','"+other_doc_title+"','"+other_doc_name+"')";
+            var sql = "INSERT INTO interpreters_special_attributes(interpreter_id,documents,doc_type,other_doc_title)VALUES('"+interpreter_id+"','"+documents+"','"+doc_type+"','"+other_doc_title+"')";
             con.query(sql, function(err, insert) {
                 if(!err){
                     res.json({
