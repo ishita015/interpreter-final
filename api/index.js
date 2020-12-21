@@ -113,7 +113,8 @@ app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 
 
     // for interpreter dashboard
-
+app.post('/cesco/getUsername', interpreterController.getUsername);
+    
 app.post('/cesco/getNewRequestCount', interpreterController.getNewRequestCount);
 app.post('/cesco/getAcceptRequest', interpreterController.getAcceptRequest);
 app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
@@ -410,9 +411,144 @@ let upload = multer({
 
 
 
+// app.get('/cesco/downloadimg', function(req, res){
+//     const file = "./public/1919.png";
+//     // ./public/'+req.files[0].filename
+//     res.download(file); // Set disposition and send it.
+//   });
 
-//update profile 
+
+
+
+
+//add interpreter
 app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        title: 'required',
+        first_name: 'required',
+        last_name: 'required',
+        username: 'required',
+        email: 'required',
+        mobile: 'required',
+        country_code: 'required',
+        gender: 'required',
+        company_name: 'required',
+        phone_no: 'required',
+        international_phone_no: 'required',
+        dob: 'required',
+        social_security_no: 'required',
+        skype: 'required',
+        // languageid: 'required',        
+        // address: 'required',
+        // apartment: 'required',
+        // latitude: 'required',
+        // longitude: 'required',
+        // primary_language: 'required'
+    });
+
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    
+    let title = req.body.title;
+    let username = req.body.username;
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let email = req.body.email;
+    let mobile = req.body.mobile;
+    let country_code = req.body.country_code;    
+    let phone_no = req.body.phone_no;
+    let international_phone_no = req.body.international_phone_no;
+    let skype = req.body.skype;
+    let dob = req.body.dob;
+    let company_name = req.body.company_name;
+    let gender = req.body.gender;
+    let other_gender = req.body.other_gender ? req.body.other_gender : "";
+    let social_security_no = req.body.social_security_no;
+//    let first_password = req.body.password;
+//    let password = req.body.password;
+//    let languageid = req.body.languageid;
+   
+   
+//    let address = req.body.address;
+//    let apartment = req.body.apartment;
+//    let street = req.body.street ? req.body.street : "";
+//    let latitude = req.body.latitude ? req.body.latitude : 0;
+//    let longitude = req.body.longitude ? req.body.longitude : 0;
+   
+//    let primary_language = req.body.primary_language;
+//    let rate = req.body.rate ? req.body.rate : 0;
+//    password = cryptr.encrypt(password);
+   
+   
+    var profileImg='default.png';
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            profileImg=req.files[0].filename;
+        }
+    }
+    
+
+    var sql = "INSERT INTO user(role_id,title,username,first_name,last_name,email,mobile,phone_no,international_phone_no,gender,date_of_birth,social_security_no,profile_img,other_gender,country_code,company_name,skype)VALUES('2','"+title+"','"+username+"',,'"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+phone_no+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+other_gender+"','"+country_code+"','"+company_name+"','"+skype+"')";
+
+    console.log("image",sql)
+
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        if(!err){
+            /*console.log("2 nd language-id", languageid);
+            if (languageid != "" && languageid != undefined) {
+                let sec_lang=JSON.parse(languageid)
+                // let sec_lang = JSON.stringify(languageid);
+
+                console.log("language id",sec_lang);
+                for (var i = 0; i < sec_lang.length; i++) {
+                    console.log("language id",sec_lang[i].id);
+                    var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+sec_lang[i].id+"')";
+                    con.query(sql1, function(err, insert) {});
+                }
+            }
+        */
+            // var name = first_name+" "+last_name;
+            // common.sendRegistrationEmail(name,email,first_password);
+ 
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Interpreter add successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+});
+
+
+
+
+app.post('/cesco/saveInterpreter_old', upload.any(),async function(req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         first_name: 'required',

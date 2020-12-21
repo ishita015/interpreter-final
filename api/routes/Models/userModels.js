@@ -9,6 +9,20 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    //check username exist or not 
+    checkUsernameExist(username){             
+        var sql = "SELECT * FROM user WHERE username='"+username+"'"; 
+        console.log("check sql",sql);
+        con.query(sql, function(err, result) {
+            if (result != "" && result != "undefined") {
+                resolve(result);
+            } else {
+                resolve(false);
+            }
+        });
+    }
+
+
     getUnfilLangIds(langid){
          // SELECT group_concat(mts.target_title) request_information_services,
          var sql = "SELECT `primary_language` FROM user WHERE role_id=2 && FIND_IN_SET(primary_language, '"+langid+"') ORDER BY id DESC"; 

@@ -17,6 +17,65 @@ const usermodel = new userModel();
 
 
 
+
+module.exports.getUsername = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        first_name: 'required',       
+        last_name: 'required',      
+    });
+   
+    const matched = await v.check();
+   
+    if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+    }
+
+    var token = randtoken.generate(5,"1234567890");
+
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+
+
+    let username = first_name+"."+last_name+""+token;
+
+
+    res.json({
+        status: 1,
+        error_code: 0,
+        error_line: 1,
+        data: username
+    });
+    return true;
+
+    // console.log("username", username);
+    // var checUsername = await usermodel.checkUsernameExist(username);
+    // console.log("resultData",checUsername);
+    // if (checUsername != "" && checUsername != undefined) {
+
+    // }else{
+
+    // }
+};
+
+   
+        
+       
+
+
+
+
+
+
 module.exports.getInterpreterForAssignrequest = async function(req, res) {
     //validation start
    const v = new Validator(req.body, {
