@@ -27,7 +27,7 @@
         <option class="text-primary" value="3">In Progress</option>
         <option class="text-success" value="4">Completed</option>
         <option class="text-danger" value="5">Cancelled</option>
-        <option class="text-danger" value="5">Unable To Fill</option>
+        <option class="text-danger" value="6">Unable To Fill</option>
 
     </select>
     </div>
@@ -67,6 +67,19 @@
                       {{row.email}}
                     </ng-template>
                   </ngx-datatable-column>
+
+
+                 <ngx-datatable-column name="Language" prop="lang_name">
+                  <ng-template ngx-datatable-header-template>
+                      Language
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.lang_name}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+
+                  
             
                  <ngx-datatable-column name="Cell Phone" prop="cell_phone">
                     <ng-template ngx-datatable-header-template>
@@ -100,12 +113,13 @@
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                    <span class="text-warning" *ngIf="row.status==1" >New Request</span>
-                    <span class="assign-color" *ngIf="row.status==2" >Assign</span>
+                  
+                    <span class="text-warning" *ngIf="row.status==1; else changeVal">New Request</span>
+                    <span class="assign-color" *ngIf="row.status==2" >Broadcasting</span>
                     <span class="text-primary" *ngIf="row.status==3" >In Progress</span>
                     <span  class="text-success" *ngIf="row.status==4" >Completed</span>
-                    <span  class="text-danger" *ngIf="row.status==5" >Canceled</span>
-                    
+                    <span  class="text-danger" *ngIf="row.status==5">Canceled</span>
+                    <span  class="text-danger" >Unable to fill</span>
                 </ng-template>
                
             </ngx-datatable-column>

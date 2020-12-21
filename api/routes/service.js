@@ -157,6 +157,604 @@ module.exports.getTotalNewRequest = function(req, res, next) {
 
 
 
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getTotalNewRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+module.exports.getAllRequest = function(req, res, next) {
+
+    var sql = "SELECT COUNT(id) as allrequest FROM request_information_services";
+    console.log("sql 1-",sql)
+    con.query(sql, function(err, result, fields) {
+        // console.log("result-",result)
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
 module.exports.getTotalAssign = function(req, res, next) {
 
     var sql = "SELECT COUNT(id) as total_assign FROM request_information_services WHERE status='2'";
@@ -330,33 +928,96 @@ module.exports.getRequestDetails = async function(req, res) {
 
 
 
+
+
+
+
+
+// random number
+module.exports.getRecordid = async function(req, res) {
+    let resultdata = await usermodel.getLangIds(); 
+
+    if (resultdata != "" && resultdata != undefined) {
+        var langid = resultdata[0].lang_id;
+        var tdata1 = await usermodel.getUnfilLangIds(langid); 
+        // if (resultdata1 != "" && resultdata1 != undefined) {
+        //     var array = string.split(',', langid);
+        //     for (var i = 0; i < resultdata1.length; i++) {
+                
+        //         var n = array.includes(resultdata1[i].primary_language);
+        //         if(n==false){
+        //             unfil_ids+=resultdata1[i].primary_language+',';
+        //         }
+        //     }
+        // }   
+    }
+    // return resultdata;
+};
+
+
+
+
+
+
 // get all assignment/all request
-module.exports.getAllAssignment = function(req, res) {
+module.exports.getAllAssignment = async function(req, res) {
 
     let status = req.body.status ? req.body.status : '0';
     let lang_id = req.body.lang_id ? req.body.lang_id : '0';
-    
-    console.log("lang_id-",lang_id)
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language ";
+    let search_email = req.body.search_email ? req.body.search_email : "";
+    var unfil_ids='';
+    if(status=='6'){
+        // let getId = module.exports.getRecordid();
+        var resultdata = await usermodel.getLangIds(); 
+        if (resultdata != "" && resultdata != undefined) {
+            unfil_ids =resultdata.toString();
+            console.log("resultdata", resultdata.toString());
 
-    
-    if(status != '0') { 
-        sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
-    }else if(lang_id != '0') { 
-        sql += " WHERE ais.language='"+lang_id+"' ORDER BY ris.id DESC";
-    }else{
-        sql += " ORDER BY ris.id DESC"; 
-        
+            
+            // var langid = resultdata[0].lang_id;
+            // var tdata1 = await usermodel.getUnfilLangIds(langid); 
+            // if (resultdata1 != "" && resultdata1 != undefined) {
+                // var array = langid.split(',');
+            //     for (var i = 0; i < resultdata1.length; i++) {
+                    
+            //         var n = array.includes(resultdata1[i].primary_language);
+            //         if(n==false){
+            //             unfil_ids+=resultdata1[i].primary_language+',';
+            //         }
+            //     }
+            // }   
+        }
     }
 
-     
-    // if(status == '0' && lang_id == '0' ) { 
-    //     sql += " ORDER BY ris.id DESC"; 
-    // }else if(lang_id != '0' && status == '0') { 
-    //     sql += " WHERE ais.language='"+lang_id+"' ORDER BY ris.id DESC";
-    // }else{
-    //     sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
-    // }
+
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
+
+    
+
+    
+    if(lang_id != '0' ) { 
+        sql += " && ais.language='"+lang_id+"'";
+    }
+
+    if(status != '0' && status != '6' ) { 
+        sql += " && ris.status='"+status+"'";
+    }
+    
+    if(search_email != "" ) { 
+        sql += " && (ris.email LIKE  '%" + search_email + "%')";
+    }
+
+    
+    if(unfil_ids != "" && status=='6') { 
+        //sql += " && (ris.email LIKE  '%" + unfil_ids + "%')";
+        sql += " && FIND_IN_SET(ais.language, '"+unfil_ids+"')";
+    }
+
+    
+
+
+    sql += " ORDER BY ris.id DESC";  
+
 
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
@@ -380,7 +1041,6 @@ module.exports.getAllAssignment = function(req, res) {
         }
     });
 };
-
 
 
 

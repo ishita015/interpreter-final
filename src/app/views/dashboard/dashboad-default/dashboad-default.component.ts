@@ -25,7 +25,7 @@ export class DashboadDefaultComponent implements OnInit {
     public totalinprogress_obj;
     public totalcancel_obj;
     public totalcomplete_obj;
-    
+    public allreq_obj;
 	constructor(public service:HttpService,  private router: Router,) { }
 
 	ngOnInit() {
@@ -38,6 +38,7 @@ export class DashboadDefaultComponent implements OnInit {
         this.total_complete();
         this.total_cancelled();
         this.total_interpreter();
+        this.getallRequest();
         this.roleName = JSON.parse(localStorage.getItem('roleName'));
 	}
 
@@ -70,7 +71,21 @@ export class DashboadDefaultComponent implements OnInit {
         })
     }
 
+
+
+    
    
+    getallRequest(){
+        this.service.allRequest()
+        .subscribe(res => {
+        //   console.log("apiiiiiiiiii response service", res);
+            this.allreq_obj = res['data'][0];
+        })
+    }
+
+
+
+
     totalNewRequest(){
         this.service.totalRequest()
         .subscribe(res => {
@@ -133,6 +148,9 @@ export class DashboadDefaultComponent implements OnInit {
         this.router.navigate(['/languages/list']);
     }
 
+    all_requ(){
+        this.router.navigate(['/interpreter-request/all-request-list']);
+    }
     
 
     new_request(){
