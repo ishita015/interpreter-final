@@ -28,10 +28,13 @@
              <p class="m-0" *ngIf="chat.msgType=='image'">
                <img src="{{chat.msg}}" class="zoom mr-3" id="show" style="width:100px; height:100px;"></p>
                <div class="overlay">
-                <a *ngIf="chat.msgType !='text'" class="icon" title="User Profile">
-                  <a [href]="chat.msg" target="_self" download="image"><i class="i-Download" (click)="download(chat)">
-                   </i> </a>
-                  <span class="ml-2"><i class="i-Information" (click)="imgview(chat,imageModal)"></i>
+                <a *ngIf="chat.msgType !='text'" class="icon">
+                    <i class="i-Download" title="Download Image" (click)="downloadUrl(chat.msg)">
+                   </i>  
+                   <span class="ml-2">
+                    <a  href="#" target="_blank">
+                    <i class="i-Information" title="View Image" (click)="imgview(chat.msg)"></i>
+                    </a>
                   </span>
                 </a>
                 </div>
