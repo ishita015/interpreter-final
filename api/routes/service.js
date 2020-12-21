@@ -993,13 +993,6 @@ module.exports.getAllAssignment = async function(req, res) {
     var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
 
     
-    // if(status == '0' ) { 
-    //     sql += " ORDER BY ris.id DESC"; 
-    // }else if(lang_id != '0' ) { 
-    //     sql += " WHERE ais.language='"+lang_id+"' ORDER BY ris.id DESC";
-    // }else{
-    //     sql += " WHERE ris.status='"+status+"' ORDER BY ris.id DESC";
-    // }
 
     
     if(lang_id != '0' ) { 
@@ -1048,7 +1041,6 @@ module.exports.getAllAssignment = async function(req, res) {
         }
     });
 };
-
 
 
 

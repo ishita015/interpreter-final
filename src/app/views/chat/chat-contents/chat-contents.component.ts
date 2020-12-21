@@ -144,16 +144,20 @@ export class ChatContentsComponent implements OnInit, OnDestroy {
   
   }
 
-  download(e){
-   
-    const blob = new Blob([e.msg], { type: 'application/image' });
-
-    this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
+  downloadUrl(url: string, fileName: string) {
+    const a: any = document.createElement('a');
+    console.log(a);
+    a.href = url;
+    console.log(url);
+    a.click();
+    a.download = url;
+    //a.target="_self"
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    
   }
-  imgview(e){ 
-    console.log("img",this.img)
-    let dialog = this.modalService.open(this.imageModal, { ariaLabelledBy: 'modal-basic-title', centered: true }) 
-    dialog;
-    this.img = e.msg;
+  imgview(e:string){ 
+    console.log("images",e);
+    window.open(e); 
   }
 }
