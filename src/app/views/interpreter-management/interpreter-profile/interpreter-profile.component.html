@@ -141,8 +141,208 @@
                     </ul> -->
                 </ng-template>
             </ngb-tab>
+            <!-- gokul code start  -->
             <ngb-tab title="Skills">
                 <ng-template ngbTabContent>
+
+
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form [formGroup]="langForm"> 
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="picker1">Primary Language</label>
+                                            <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
+                                                <option value="">Select Language</option>
+                                                <option *ngFor="let lan of language_Obj" [value]="lan.id">
+                                                    {{lan.name}}
+                                                 </option>
+                                            </select>
+                                            
+                                        </div>
+                
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="Language">Secondary Language</label>
+                                            <tag-input [formControl]="tagsCtrl2" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
+                                              theme="primary" placeholder="Secondary Language">
+                                              <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
+                                              </tag-input-dropdown>
+                                            </tag-input>
+                                        </div>                                                      
+                                    </div>
+                 
+                                    <!-- <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <button type="button" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div> -->
+                                </form>
+                                
+                                <div class="row">
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')" class="mr-2" id="community-interpreting" name="vehicle1"
+                                            value=" On Site">
+                                        <label for="vehicle1"> Community Interpreting </label><br>
+                                    </div>
+        
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')" class="mr-2" id="conference-interpreter" name="vehicle1"
+                                            value="OPI">
+                                        <label for="vehicle1"> Conference Interpreter</label><br>
+                                    </div>
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')" class="mr-2" id="court-certified" name="vehicle1"
+                                            value="VRI">
+                                        <label for="vehicle1">Court Certified </label><br>
+                                    </div>
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed" (change)="setCheck($event,'4')" name="vehicle1"
+                                            value="VCI">
+                                        <label for="vehicle1"> Court Credentialed</label><br>
+                                    </div>
+                                    
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified" (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified" (change)="setCheck($event,'5')" value="1">
+                                        <label for="vehicle1"> Equipment Qualified </label><br>
+                                    </div>
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" (click)="legalShow()" class="mr-2" (change)="setCheck($event,'6')" id="legal" name="vehicle1"
+                                            value="ASL">
+                                        <label for="vehicle1"> Legal </label><br>
+                                    </div>
+        
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous" (change)="setCheck($event,'7')" name="vehicle1"
+                                            value="ASL">
+                                        <label for="vehicle1"> Simultaneous </label><br>
+                                    </div>
+        
+                                    <div class="col-md-3 form-group mb-3">
+                                        <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2" id="other" name="vehicle1"
+                                            value="ASL">
+                                        <label for="vehicle1"> Other </label><br>
+                                    </div>
+                                </div>
+
+
+                                <form [formGroup]="communityForm" *ngIf="communityinter"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Community Interpreting</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>
+                    
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="conferenceForm" *ngIf="conferenceinter">
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Conference Interpreter</label>
+                                            <input type="file" class="form-control" formControlName="documents" >
+                                        </div>
+                    
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="courtForm" *ngIf="court_open"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Court Certified</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>                    
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="credentialedForm" *ngIf="credent_open"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Court Credentialed</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>
+                    
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="equipmentForm" *ngIf="equipment_open"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Equipment Qualified</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>
+                    
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="legalForm" *ngIf="legal_open"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Legal</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>
+                    
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="simultaneousForm" *ngIf="simult_open"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Simultaneous</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                                <form [formGroup]="otherForm" *ngIf="other_open"> 
+                        
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Other</label>
+                                            <input type="text" class="form-control" formControlName="other">
+                                        </div>                    
+
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="image">Other</label>
+                                            <input type="file" class="form-control" formControlName="documents">
+                                        </div>                    
+
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- gokul code start  -->
+                  
+                    
+
+
+
                     <!-- <h4>Personal Information</h4>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, commodi quam! Provident quis
                         voluptate asperiores ullam, quidem odio pariatur. Lorem ipsum, dolor sit amet consectetur
