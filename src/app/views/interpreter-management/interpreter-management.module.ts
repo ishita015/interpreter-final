@@ -25,20 +25,10 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskModule } from 'ngx-mask';
 import { InterpreterProfileComponent } from './interpreter-profile/interpreter-profile.component';
 
-
-TagInputModule.withDefaults({
-  tagInput: {
-      placeholder: 'Secondary language',
-      // add here other default values for tag-input
-  },
-  dropdown: {
-      displayBy: 'my-display-value',
-      // add here other default values for tag-input-dropdown
-  }
-});
+import { InterpreterProfileInformationComponent } from './interpreter-profile-information/interpreter-profile-information.component';
 
 @NgModule({
-  declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent],
+  declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent, InterpreterProfileInformationComponent],
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,
