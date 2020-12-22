@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'interpreter-list', component: InterpreterListComponent },
   { path: 'interpreter-list/:id/:type', component: InterpreterListComponent },
   { path: 'interpreter-add', component: InterpreterAddComponent }, 
-  { path: 'interpreter-profile', component: InterpreterProfileComponent }, 
+  { path: 'interpreter-profile/:id', component: InterpreterProfileComponent }, 
   { path: 'interpreter-edit/:id', component: InterpreterEditComponent }, 
   { path: 'interpreter-view/:id', component: InterpreterViewComponent },  
 ];

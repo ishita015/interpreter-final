@@ -15,6 +15,7 @@ import { Socket } from 'ngx-socket-io';
 import { Chat } from '../models/chat';
 import { AddCalender } from '../models/add-calender';
 import { AddBanking } from '../models/add-banking';
+import { AddInterpreterProfile } from '../models/add-interpreter-profile';
 @Injectable({
   providedIn: 'root'
 })
@@ -490,4 +491,14 @@ getUpdateCalender(addInfo: AddCalender): Observable<any> {
       return this.http.post(this.url + '/cesco/addBankingInfo',  addBankInfo);
   }
 /*=====Banking Apis End======*/
+
+/*=====Interpreter Profile Apis Start======*/
+getInterpreterProfileAdd(addProfileInfo: AddInterpreterProfile): Observable<any> {
+  return this.http.post(this.url + '/cesco/addInterpreterAssignment',  addProfileInfo);
+}
+
+getProfileDetail(interpreter_id): Observable<any> {
+  return this.http.post(this.url + '/cesco/getInterpreterProfile', {interpreter_id:interpreter_id});
+}
+/*=====Interpreter Profile Apis End======*/
 }

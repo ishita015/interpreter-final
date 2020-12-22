@@ -29,6 +29,9 @@ export class InterpreterProfileComponent implements OnInit {
   banking_Msg;
   ass_Obj;
   ass_Msg;
+  interId;
+  detail_Obj;
+  detail_Msg;
   Profile: FormGroup;
   check_form1 = false;
   check_form2 = false;
@@ -75,6 +78,9 @@ export class InterpreterProfileComponent implements OnInit {
     this.othForm();
     
     this.LanguageList();
+    this.interId = JSON.parse(localStorage.getItem('interpreterId'));
+    console.log("iddd", this.interId);
+    this.detailProfile();
   }
 
    /*========== Form Value Start Here========*/
@@ -98,9 +104,6 @@ export class InterpreterProfileComponent implements OnInit {
   /*========== Form2 Value Start Here========*/
   createForm2() {
     this.Profile = this.fb.group({
-      interpreter_id: ['1'],
-      assignment_setting: this.fb.array([
-        {
       payment_mode: ['', this.validation.onlyRequired_validator],
       service_type: ['', this.validation.onlyRequired_validator],
       duration:['', this.validation.onlyRequired_validator],
@@ -108,7 +111,6 @@ export class InterpreterProfileComponent implements OnInit {
       subcases:['', this.validation.onlyRequired_validator],
       minimum_paid:['', this.validation.onlyRequired_validator],
       pay_increment:['', this.validation.onlyRequired_validator],
-        }])
     });
   }
   /*========== Form2 Value End Here========*/
@@ -170,6 +172,30 @@ export class InterpreterProfileComponent implements OnInit {
       }
 
     });
+  }
+
+  detailProfile(){
+ 
+    this.service.getProfileDetail(this.interId)
+    .subscribe(res => {
+      if(res['status']== 1){
+       
+        this.detail_Obj = res['data'][0];
+        this.detail_Msg = res
+        console.log("api response",  this.detail_Obj);
+        this.toastr.success(this.detail_Msg.message,'', { timeOut: 1000 });
+        // this.router.navigate(['/languages/list']);  
+      }else{
+        console.log("api response",res);
+        this.detail_Obj = res
+        this.detail_Msg = res
+        this.toastr.success(this.detail_Msg.message,'', { timeOut: 1000 });
+        // this.router.navigate(['/login'])
+        // this.router.navigate(['/languages/list']);  
+      }
+
+    });
+
   }
 
   check1(){
