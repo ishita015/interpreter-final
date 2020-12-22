@@ -100,7 +100,12 @@
 .lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:not(:last-child) .datatable-body-cell-label {word-break: break-all; text-overflow: initial; white-space: inherit; overflow: visible; }
     ngx-datatable-column{width:100% !important; }
 }
-
+.pri_lan .form-control {
+  appearance: auto !important;
+}
+.pri_lan .ng2-tag-input__text-input{
+  height: auto !important;
+}
 @media (min-width: 1024px){
     .auth-layout-wrap .auth-content {min-width: 393px !important; }
 }

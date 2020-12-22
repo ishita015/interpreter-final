@@ -38,7 +38,7 @@ export class InterpreterProfileComponent implements OnInit {
   check_form3 = false;
   check_form4 = false;
   check_form5 = false;
-
+  selectedFile:File = null;
   communityinter:boolean = false;
   conferenceinter:boolean = false;
   courtcertified:boolean = false;
@@ -290,7 +290,7 @@ export class InterpreterProfileComponent implements OnInit {
 
 
   setCheck(event,eve_key){
-    // console.log("yes", eve_key);
+    //Community Interpreting
     if(eve_key=='1'){
       if ( event.target.checked ) {
         this.communityinter=true;
@@ -368,7 +368,82 @@ export class InterpreterProfileComponent implements OnInit {
       primary_language: [''],
       secondary_language: [''],      
     });
+  } 
+
+
+  add_language(){
+    console.log("form value",this.langForm.value);
+    this.submitted = true;
+    if (this.langForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    this.langForm.value.interpreter_id = this.interId;
+    this.service.interpreterLanguage(this.langForm.value)
+    .subscribe(res => {
+      if(res['status']=='1'){
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        // this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+        // this.adminProfileForm.reset();
+      }
+      // else{
+      //   console.log("api response",res);
+      //   this.admin_Obj = res;
+      //   this.admin_Msg = res;
+      //   this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+      //   // this.router.navigate(['/languages/list']);  
+      // }
+
+    });
   }
+
+
+
+
+
+   /*==========Single Image Function Start Here========*/
+  onSingleFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_community();
+  }
+  /*==========Single Image Function End Here========*/
+
+
+
+  upload_community(){
+    console.log("form value",this.communityForm.value);
+    this.submitted = true;
+    if (this.communityForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.communityForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '1');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
+
 
 
 
@@ -378,6 +453,52 @@ export class InterpreterProfileComponent implements OnInit {
       documents: [''],
     });
   }
+
+
+
+
+   /*==========Single Image Function Start Here========*/
+  selectFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_conference();
+  }
+  /*==========Single Image Function End Here========*/
+
+
+  
+  upload_conference(){
+    console.log("form value",this.conferenceForm.value);
+    this.submitted = true;
+    if (this.conferenceForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.conferenceForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '2');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
+
 
 
   
@@ -390,12 +511,100 @@ export class InterpreterProfileComponent implements OnInit {
 
 
 
+
+
+   /*==========Single Image Function Start Here========*/
+   selectcourtFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_court();
+  }
+  /*==========Single Image Function End Here========*/
+
+
+  upload_court(){
+    console.log("form value",this.courtForm.value);
+    this.submitted = true;
+    if (this.courtForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.courtForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '3');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
+
+
+
   couForm() {
     this.courtForm = this.fb.group({
       interpreter_id: [''],
       documents: [''],
     });
   }
+
+
+
+   /*==========Single Image Function Start Here========*/
+   selectcredentialedFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_credentialed();
+  }
+  /*==========Single Image Function End Here========*/
+
+  
+  upload_credentialed(){
+    console.log("form value",this.credentialedForm.value);
+    this.submitted = true;
+    if (this.credentialedForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.credentialedForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '4');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
 
 
 
@@ -408,12 +617,99 @@ export class InterpreterProfileComponent implements OnInit {
 
 
 
+
+   /*==========Single Image Function Start Here========*/
+   qualifiedFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_qualified();
+  }
+  /*==========Single Image Function End Here========*/
+
+  
+  upload_qualified(){
+    console.log("form value",this.equipmentForm.value);
+    this.submitted = true;
+    if (this.equipmentForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.equipmentForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '5');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
+
+
+
   eqpForm() {
     this.equipmentForm = this.fb.group({
       interpreter_id: [''],
       documents: [''],
     });
   }
+
+
+
+   /*==========Single Image Function Start Here========*/
+   legalFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_legal();
+  }
+  /*==========Single Image Function End Here========*/
+
+  
+  upload_legal(){
+    console.log("form value",this.legalForm.value);
+    this.submitted = true;
+    if (this.legalForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.legalForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '6');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
 
 
 
@@ -426,12 +722,98 @@ export class InterpreterProfileComponent implements OnInit {
 
 
 
+
+
+   /*==========Single Image Function Start Here========*/
+   simultFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_simultaneous();
+  }
+  /*==========Single Image Function End Here========*/
+
+  
+  upload_simultaneous(){
+    console.log("form value",this.simultaneousForm.value);
+    this.submitted = true;
+    if (this.simultaneousForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.simultaneousForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '7');
+    formData.append('documents', this.selectedFile);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
   simForm() {
     this.simultaneousForm = this.fb.group({
       interpreter_id: [''],
       documents: [''],
     });
   }
+
+
+
+
+   /*==========Single Image Function Start Here========*/
+   otherFileChange(event){
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.upload_other();
+  }
+  /*==========Single Image Function End Here========*/
+
+  
+  upload_other(){
+    console.log("form value",this.otherForm.value);
+    this.submitted = true;
+    if (this.otherForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    const formData: any = new FormData();
+    this.otherForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+
+    formData.append('interpreter_id', this.interId);
+    formData.append('doc_type', '8');
+    formData.append('documents', this.selectedFile);
+    formData.append('other_doc_title', this.otherForm.value.other);
+    
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        // this.log_Obj = res['data'][0];
+        // localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+        // this.admin_Obj = res;
+        // this.admin_Msg = res;
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        // this.admin_Msg = res;
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
 
 
   othForm() {

@@ -112,7 +112,7 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <form [formGroup]="langForm"> 
-                                    <div class="row">
+                                    <div class="row pri_lan">
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="picker1">Primary Language</label>
@@ -128,19 +128,19 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Language">Secondary Language</label>
-                                            <tag-input [formControl]="tagsCtrl2" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
+                                            <tag-input [formControl]="tagsCtrl2" class="new_sec" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
                                               theme="primary" placeholder="Secondary Language">
                                               <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
                                               </tag-input-dropdown>
                                             </tag-input>
                                         </div>                                                      
                                     </div>
-                 
-                                    <!-- <div class="form-group row">
+                                    
+                                   <div class="form-group row">
                                         <div class="col-sm-12">
-                                            <button type="button" class="btn btn-primary">Save</button>
+                                            <button type="button" (click)="add_language()" class="btn btn-primary">Save</button>
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </form>
                                 
                                 <div class="row">
@@ -200,7 +200,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Community Interpreting</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="onSingleFileChange($event)">
                                         </div>
                     
                                     </div>
@@ -208,13 +208,11 @@
 
 
                                 <form [formGroup]="conferenceForm" *ngIf="conferenceinter">
-                        
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Conference Interpreter</label>
-                                            <input type="file" class="form-control" formControlName="documents" >
+                                            <input type="file" class="form-control" formControlName="documents" (change)="selectFileChange($event)">
                                         </div>
-                    
                                     </div>
                                 </form>
 
@@ -224,7 +222,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Court Certified</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="selectcourtFileChange($event)">
                                         </div>                    
                                     </div>
                                 </form>
@@ -235,19 +233,19 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Court Credentialed</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="selectcredentialedFileChange($event)">
                                         </div>
-                    
+                                        
                                     </div>
                                 </form>
 
-
+                                
                                 <form [formGroup]="equipmentForm" *ngIf="equipment_open"> 
                         
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Equipment Qualified</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="qualifiedFileChange($event)">
                                         </div>
                     
                                     </div>
@@ -259,7 +257,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Legal</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="legalFileChange($event)">
                                         </div>
                     
                                     </div>
@@ -271,7 +269,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Simultaneous</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="simultFileChange($event)">
                                         </div>
                                     </div>
                                 </form>
@@ -288,7 +286,7 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="image">Other</label>
-                                            <input type="file" class="form-control" formControlName="documents">
+                                            <input type="file" class="form-control" formControlName="documents" (change)="otherFileChange($event)">
                                         </div>                    
 
                                     </div>

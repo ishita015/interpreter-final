@@ -24,6 +24,19 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskModule } from 'ngx-mask';
 import { InterpreterProfileComponent } from './interpreter-profile/interpreter-profile.component';
+
+
+TagInputModule.withDefaults({
+  tagInput: {
+      placeholder: 'Secondary language',
+      // add here other default values for tag-input
+  },
+  dropdown: {
+      displayBy: 'my-display-value',
+      // add here other default values for tag-input-dropdown
+  }
+});
+
 @NgModule({
   declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent],
   imports: [
