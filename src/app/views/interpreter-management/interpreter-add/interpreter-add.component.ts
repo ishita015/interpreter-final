@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 // import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { HttpService } from "../../../shared/services/http.service";
 import { ValidationsService } from 'src/app/shared/services/validations.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder,FormArray, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import {} from 'googlemaps';
@@ -25,18 +25,25 @@ export class InterpreterAddComponent implements OnInit {
     // autocompletes;
     language_Obj;
     role_Obj;
-    title: string = 'AGM project';
+    title1: string = 'AGM project';
     latitude: number;
     longitude: number;
     zoom: number;
     address: string;
+    sec_address:string;
     new_address: string;
     private geoCoder;
     public newlanguageVal;
     public newrole;
     public country_Obj;
+    public firstnameVal;
+    public lastnameVal;
+    public username_Obj;
+    public username_msg;
+    fullnameVal
     tagsCtrl1 = new FormControl(this.items);
     tagsCtrl2 = new FormControl([]);
+    list1:[] = [];
     // languageid = [];
     
     selectedFile:File = null;
@@ -75,7 +82,13 @@ export class InterpreterAddComponent implements OnInit {
               this.ngZone.run(() => {
                   //get the place result
                   let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                  console.log("ppppppppppppp",place);
+                 
                   this.new_address = place['formatted_address'];
+                  console.log("qqqqqqqqqq", this.new_address);
+                
+                  this.sec_address = place['formatted_address'];
+                  
                   //verify result
                   if (place.geometry === undefined || place.geometry === null) {
                       return;
@@ -113,28 +126,64 @@ export class InterpreterAddComponent implements OnInit {
     /*========== Form Value Start Here========*/
     createForm() {
         this.userForm = this.fb.group({
+            title:['', this.validation.onlyRequired_validator],
             first_name: ['', this.validation.name_validation],
             last_name: ['', this.validation.name_validation],
             email: ['', this.validation.onlyRequired_validator],
-            password: ['', this.validation.onlyRequired_validator],
+            // password: ['', this.validation.onlyRequired_validator],
             mobile: ['', this.validation.onlyRequired_validator],
-            address: ['', this.validation.onlyRequired_validator],
-            apartment:['', this.validation.onlyRequired_validator],
+            phone_no: ['', this.validation.onlyRequired_validator],
+            international_phone_no: ['', this.validation.onlyRequired_validator],
+            username: [''],
+            skype:['',this.validation.onlyRequired_validator],
+            dob:['',this.validation.onlyRequired_validator],
+            country_code:['',this.validation.onlyRequired_validator],
+            address: this.fb.group(
+                {
+                    address: ['', this.validation.onlyRequired_validator],
+                    // s_address: ['', this.validation.onlyRequired_validator],
+                    type: ['1'],
+                    location: [''],
+                    country: [''],
+                    state: [''],
+                    city: [''],
+                    lat: [''],
+                    long: [''],
+                    apartment: [''],
+                    zipcode: [''],
+                },
+                {
+                    address: ['', this.validation.onlyRequired_validator],
+                    type: ['2'],
+                    location: [''],
+                    country: [''],
+                    state: [''],
+                    city: [''],
+                    lat: [''],
+                    long: [''],
+                    apartment: [''],
+                    zipcode: [''],
+                }
+            ),
+            // address: ['', this.validation.onlyRequired_validator], //array
+            company_name:['', this.validation.onlyRequired_validator],
+            social_security_no:['', this.validation.onlyRequired_validator],
+            // apartment:['', this.validation.onlyRequired_validator],
             // street:['', this.validation.onlyRequired_validator],
             gender: ['', this.validation.onlyRequired_validator],
-            languageid: [''],
-            latitude: [''],
-            longitude: [''],
-            primary_language: ['', this.validation.onlyRequired_validator],
+            // languageid: [''],
+            // latitude: [''],
+            // longitude: [''],
+            // primary_language: ['', this.validation.onlyRequired_validator],
             // user_role: ['', this.validation.onlyRequired_validator],
-            rate:[''],
-            image:[''],
-            other_gender:[''],
-            country_code:['',this.validation.onlyRequired_validator]
+            // rate:[''],
+            image:['', this.validation.onlyRequired_validator],
+           
         });
     }
     /*========== Form Value End Here========*/
 
+    
     /*========== Country Code for Mobile Start Here========*/
 
     CountryList(){
@@ -148,6 +197,27 @@ export class InterpreterAddComponent implements OnInit {
       }
     
     /*==========  Country Code for Mobile End Here========*/
+
+    username(){
+        this.fullnameVal = this.userForm.value.first_name + this.userForm.value.last_name;
+        console.log("fullnameVal", this.fullnameVal);
+        // this.userForm.get('user_name').patchValue(this.fullnameVal);
+
+        this.firstnameVal = this.userForm.value.first_name;
+        this.lastnameVal = this.userForm.value.last_name;
+        this.service.userName(this.firstnameVal,this.lastnameVal).subscribe(res => {
+            if(res['status']=='1'){
+              console.log("api response",res);
+              this.username_Obj = res['data'];
+              this.username_msg = res;
+              console.log("user name", this.username_Obj);
+              this.userForm.get('username').patchValue(this.username_Obj);
+            }
+            else{
+                this.toastr.success(res['message'], '', { timeOut: 2000 });
+            }
+        });
+    }
     
 
     /*==========Single Image Function Start Here========*/
@@ -183,10 +253,22 @@ export class InterpreterAddComponent implements OnInit {
     //         });
     // }
 
+    check_dob(e){
+        console.log("eeeeeeeeeeeeeee",e);
+        var before = this.userForm.value.dob;
+        var now = new Date();
+    if (before >= now) {
+        this.userForm.controls['dob'].setValue('');
+        this.toastr.success("selected date is in the past", '', { timeOut: 1000 });
+    }
+    }
 
     saveUser(){
-        console.log("languageid 1",this.userForm.value.languageid);
-        // console.log("form value",this.adminProfileForm.value);
+      if( this.userForm.value.address['address'] == '' ||  this.userForm.value.address['address'] == undefined){
+        this.toastr.error("address is required", '', { timeOut: 3000 });
+      }
+        // console.log("languageid 1",this.userForm.value.languageid);
+        console.log("form value",this.userForm.value);
         this.submitted = true;
         if (this.userForm.invalid) {
           return;
@@ -205,21 +287,29 @@ export class InterpreterAddComponent implements OnInit {
         this.userForm.value.image = this.selectedFile;
         
         // this.userForm.value.user_id = this.userId; 
-        
+        formData.append('title', this.userForm.value.title);
         formData.append('first_name', this.userForm.value.first_name);
         formData.append('last_name', this.userForm.value.last_name);
         formData.append('email', this.userForm.value.email);
         formData.append('mobile', this.userForm.value.mobile);
+        formData.append('phone_no', this.userForm.value.phone_no);
+        formData.append('international_phone_no', this.userForm.value.international_phone_no);
+        formData.append('username', this.userForm.value.username);
+        formData.append('company_name', this.userForm.value.company_name);
+        formData.append('skype', this.userForm.value.skype);    
+        formData.append('social_security_no', this.userForm.value.social_security_no);
+        formData.append('dob', this.userForm.value.dob);
         formData.append('address', this.new_address);
-        formData.append('password', this.userForm.value.password);
+        formData.append('s_address', this.sec_address);
+        // formData.append('password', this.userForm.value.password);
         formData.append('apartment', this.userForm.value.apartment);
-        formData.append('other_gender', this.userForm.value.other_gender);
+        // formData.append('other_gender', this.userForm.value.other_gender);
         formData.append('gender', this.userForm.value.gender);
-        formData.append('latitude', this.latitude);
-        formData.append('longitude', this.longitude);
-        formData.append('languageid', this.userForm.value.languageid);
-        formData.append('primary_language', this.newlanguageVal);
-        formData.append('rate', this.userForm.value.rate);
+        formData.append('lat', this.latitude);
+        formData.append('long', this.longitude);
+        // formData.append('languageid', this.userForm.value.languageid);
+        // formData.append('primary_language', this.newlanguageVal);
+        // formData.append('rate', this.userForm.value.rate);
         formData.append('country_code', this.userForm.value.country_code);
         // formData.append('latitude', this.userForm.value.address);
         formData.append('image', this.selectedFile);
@@ -229,7 +319,7 @@ export class InterpreterAddComponent implements OnInit {
             this.user_Obj = res
             this.user_Msg = res
             this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
-            this.router.navigate(['/interpreter/interpreter-list']);
+            // this.router.navigate(['/interpreter/interpreter-list']);
         });
       }
 
@@ -296,6 +386,7 @@ export class InterpreterAddComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
+      alert(1)
       this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
           console.log(results);
           console.log(status);
@@ -303,6 +394,7 @@ export class InterpreterAddComponent implements OnInit {
               if (results[0]) {
                   this.zoom = 12;
                   this.address = results[0].formatted_address;
+                  this.sec_address = results[0].formatted_address;
               } else {
                   window.alert('No results found');
               }
