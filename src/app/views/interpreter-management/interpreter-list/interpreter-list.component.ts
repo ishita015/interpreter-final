@@ -129,10 +129,14 @@ export class InterpreterListComponent implements OnInit {
     this.router.navigate(['/interpreter/interpreter-add']);
   }
 
+  profileInterpreter(){
+    this.router.navigate(['/interpreter/interpreter-profile']);
+  }
 
   
 
   editInterpreter(id, data) {
+ 
     this.router.navigate(['/interpreter/interpreter-edit', id]);
     console.log("permission idddddddddd", id);
     console.log("data", data);

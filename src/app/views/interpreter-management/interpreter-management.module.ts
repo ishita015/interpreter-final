@@ -23,8 +23,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskModule } from 'ngx-mask';
+import { InterpreterProfileComponent } from './interpreter-profile/interpreter-profile.component';
 @NgModule({
-  declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent],
+  declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent],
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,

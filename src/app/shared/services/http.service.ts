@@ -14,6 +14,7 @@ import { ChangePassword } from '../models/change-password';
 import { Socket } from 'ngx-socket-io';
 import { Chat } from '../models/chat';
 import { AddCalender } from '../models/add-calender';
+import { AddBanking } from '../models/add-banking';
 @Injectable({
   providedIn: 'root'
 })
@@ -265,6 +266,10 @@ export class HttpService {
   //   return this.http.post(this.url + '/cesco/saveInterpreter', interaddInfo, this.httpOptions);
   // }
 
+   userName(first_name,last_name): Observable<any> {
+    return this.http.post(this.url + '/cesco/getUsername', {first_name:first_name,last_name:last_name} , this.httpOptions);
+  }
+
   interpreterAdd(interaddInfo: UserAddEdit): Observable<any> {
     return this.http.post(this.url + '/cesco/saveInterpreter', interaddInfo);
   }
@@ -480,5 +485,9 @@ getUpdateCalender(addInfo: AddCalender): Observable<any> {
 }
 /*=====Add Calender Apis End======*/
 
-
+/*=====Banking Apis Start======*/
+  getBankingAdd(addBankInfo: AddBanking): Observable<any> {
+      return this.http.post(this.url + '/cesco/addBankingInfo',  addBankInfo);
+  }
+/*=====Banking Apis End======*/
 }

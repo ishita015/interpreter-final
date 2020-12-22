@@ -109,7 +109,9 @@
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         <button style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userInterpreter(row.id)">View</button>  
-                        <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editInterpreter(row.id,row)">Edit</button>
+                        <!-- <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editInterpreter(row.id,row)">Edit</button> -->
+                        <button style="overflow: visible !important;" class="btn btn-outline-secondary  ml-2 databuttonnone buttondisplay buttonlabel" (click)="profileInterpreter()">Profile</button>  
+                       
                         <!-- <button style="overflow: visible !important;" class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel"  (click)="viewCalendar(row.id)">View Calendar</button> -->
                         <!-- <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button> -->
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
