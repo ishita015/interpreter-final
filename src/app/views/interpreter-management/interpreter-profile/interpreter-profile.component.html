@@ -12,15 +12,15 @@
 <div class="card user-profile o-hidden mb-4">
     <div class="header-cover" style="background-image: url('assets/images/photo-wide-4.jpg')"></div>
     <div class="user-info">
-        <img class="profile-picture avatar-lg mb-2" src="assets/images/faces/1.jpg" alt="">
-        <p class="m-0 text-24">Timothy Carlson</p>
-        <p class="text-muted m-0">Digital Marketer</p>
+        <img class="profile-picture avatar-lg mb-2" src="{{detail_Obj?.profile_img}}" alt="">
+        <p class="m-0 text-24">{{detail_Obj?.title}} {{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</p>
+       
     </div>
     <div class="card-body">
         <ngb-tabset class="nav-center">
-            <ngb-tab title="General">
+            <ngb-tab title="General" class="animate__animated animate__bounce animate__delay-2">
                 <ng-template ngbTabContent>
-                    <div class="col-md-12">
+                    <div class="col-md-12 tab-nav-1">
                         <div class="card">
                             <div class="card-body">
                                 <div id="print-area">
@@ -60,40 +60,27 @@
                                                         <td>{{detail_Obj?.gender }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Other Gender</td>
+                                                        <td>{{detail_Obj?.other_gender}}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>International Phone No.</td>
-                                                        <td>{{detail_Obj?.international_phone_no}}</td>
+                                                        <td>{{detail_Obj?.international_phone_no | mask: '(000) 000-0000'}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Date Of Birth</td>
-                                                        <td>{{detail_Obj?.date_of_birth}}</td>
+                                                        <td>{{detail_Obj?.date_of_birth | date:'MM/dd/yyyy'}}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Date Of Birth</td>
-                                                        <td>{{detail_Obj?.date_of_birth}}</td>
-                                                    </tr>
+                                                   
+                                                    <!-- <tr>
+                                                        <td>Payment Benificiary</td>
+                                                        <td>{{detail_Obj?.primay_lang_name}}</td>
+                                                    </tr> -->
                                                     
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="col-md-12 lan_block mt-1 mb-1">
-                                           <h5 class="font-weight-bold">Language Details</h5>
-                                         <div class="mb-2 border-top"></div>
                                        
-                                            <div class="pri_lan">
-                                              <h6 class="font-weight-bold">Primary Language</h6>
-                                              <ul class="list-inline">
-                                                <li class="list-inline-item"></li>
-                                                </ul>   
-                                            </div>
-                                        
-                                            <div class="sec_lan">
-                                                <h6 class="font-weight-bold">Secondary Language</h6>
-                                              <ul class="list-inline">
-                                                <li  class="list-inline-item"></li>
-                                                </ul>   
-                                            </div>
-                                        
-                                        </div>
                                     </div>
                                   
                                 </div>
@@ -106,7 +93,6 @@
             <!-- gokul code start  -->
             <ngb-tab title="Skills">
                 <ng-template ngbTabContent>
-
 
                     <div class="col-md-12">
                         <div class="card mb-4">
@@ -299,102 +285,180 @@
                         </div>
                     </div>
 
-                    <!-- gokul code start  -->
+                    <!-- gokul code end  -->
                   
                     
 
 
 
-                    <!-- <h4>Personal Information</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, commodi quam! Provident quis
-                        voluptate asperiores ullam, quidem odio pariatur. Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit. Voluptatem, nulla eos?
-                        Cum non ex voluptate corporis id asperiores doloribus dignissimos blanditiis iusto qui
-                        repellendus
-                        deleniti aliquam, vel quae eligendi explicabo.
-                    </p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-4 col-6">
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Birth Date</p>
-                                <span>1 Jan, 1994</span>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Birth Place</p>
-                                <span>Dhaka, DB</span>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Lives In</p>
-                                <span>Dhaka, DB</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-6">
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Gender</p>
-                                <span>1 Jan, 1994</span>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Email</p>
-                                <span>example@ui-lib.com</span>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Website</p>
-                                <span>www.ui-lib.com</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-6">
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Face-Style-4 text-16 mr-1"></i> Profession</p>
-                                <span>Digital Marketer</span>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Experience</p>
-                                <span>8 Years</span>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-primary mb-1"><i class="i-Home1 text-16 mr-1"></i> School</p>
-                                <span>School of Digital Marketing</span>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <h4>Other Info</h4>
-                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum dolore labore
-                        reiciendis
-                        ab quo ducimus reprehenderit natus debitis, provident ad iure sed aut animi dolor incidunt
-                        voluptatem. Blanditiis, nobis aut.</p>
-                    <div class="row">
-                        <div class="col-md-2 col-sm-4 col-6 text-center">
-                            <i class="i-Plane text-32 text-primary"></i>
-                            <p class="text-16 mt-1">Travelling</p>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-6 text-center">
-                            <i class="i-Camera text-32 text-primary"></i>
-                            <p class="text-16 mt-1">Photography</p>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-6 text-center">
-                            <i class="i-Car-3 text-32 text-primary"></i>
-                            <p class="text-16 mt-1">Driving</p>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-6 text-center">
-                            <i class="i-Gamepad-2 text-32 text-primary"></i>
-                            <p class="text-16 mt-1">Gaming</p>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-6 text-center">
-                            <i class="i-Music-Note-2 text-32 text-primary"></i>
-                            <p class="text-16 mt-1">Music</p>
-                        </div>
-                        <div class="col-md-2 col-sm-4 col-6 text-center">
-                            <i class="i-Shopping-Bag text-32 text-primary"></i>
-                            <p class="text-16 mt-1">Shopping</p>
-                        </div>
-                    </div> -->
+                   
+              
                 </ng-template>
             </ngb-tab>
             <ngb-tab title="Assignment Settings">
                 <ng-template ngbTabContent>
-                    <div class="container box-outer">
+                    <!-- <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="print-area">
+                                    <div class="row">
+                                         <div class="col-md-4 lan_block mt-1 mb-1">
+                                            <h5 class="font-weight-bold">On Site</h5>
+                                          <div class="mb-2 border-top"></div>
+                                          <div class="row mb-2">
+                                            <div class="col-md-12 userstable mb-3">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                         
+                                             </div>
+                                             </div>
+                                         </div>
+
+                                         <div class="col-md-4 lan_block mt-1 mb-1">
+                                            <h5 class="font-weight-bold">OPI</h5>
+                                          <div class="mb-2 border-top"></div>
+                                          <div class="row mb-2">
+                                            <div class="col-md-12 userstable mb-3">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                         
+                                             </div>
+                                             </div>
+                                         </div>
+
+                                         <div class="col-md-4 lan_block mt-1 mb-1">
+                                            <h5 class="font-weight-bold">VRI</h5>
+                                          <div class="mb-2 border-top"></div>
+                                          <div class="row mb-2">
+                                            <div class="col-md-12 userstable mb-3">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                         
+                                             </div>
+                                             </div>
+                                         </div>
+
+                                         <div class="col-md-4 lan_block mt-1 mb-1">
+                                            <h5 class="font-weight-bold">VCI</h5>
+                                          <div class="mb-2 border-top"></div>
+                                          <div class="row mb-2">
+                                            <div class="col-md-12 userstable mb-3">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                         
+                                             </div>
+                                             </div>
+                                         </div>
+                                         <div class="col-md-4 lan_block mt-1 mb-1">
+                                            <h5 class="font-weight-bold">ASL</h5>
+                                          <div class="mb-2 border-top"></div>
+                                          <div class="row mb-2">
+                                            <div class="col-md-12 userstable mb-3">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                         
+                                             </div>
+                                             </div>
+                                         </div>
+                                         </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div><br> -->
+
+
+                    <div class="container box-outer tab-nav-3 ">
                   <div  class="row">
                     <div class="col-md-2 form-group mb-3">
                         <input type="checkbox" class="mr-2" (click)="check1()" id="vehicle1" name="vehicle1" value=" On Site">
@@ -1066,6 +1130,51 @@
             <ngb-tab title="Banking Details">
                 <ng-template ngbTabContent>
                   
+                    <div class="col-md-12 tab-nav-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="print-area">
+                                        <div class="col-md-12 lan_block mt-1 mb-1">
+                                            <h5 class="font-weight-bold">Banking Details</h5>
+                                          <div class="mb-2 border-top"></div>
+                                          <div class="row mb-2">
+                                            <div class="col-md-12 userstable mb-3">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Swift Code</td>
+                                                            <td>{{detail_Obj?.SWIFT_code}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Account No</td>
+                                                            <td>{{detail_Obj?.account_no}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Country</td>
+                                                            <td>{{detail_Obj?.country}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Payment Benificiary</td>
+                                                            <td>{{detail_Obj?.payment_benificiary}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                         
+                                             </div>
+                                             </div>
+                                         </div>
+                                        
+                                        
+                                  
+                                  
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                   
+                   
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card mb-4">
