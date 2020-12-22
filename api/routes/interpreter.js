@@ -18,7 +18,153 @@ const usermodel = new userModel();
 
 
 
+/*
 
+
+module.exports.getInterpreterProfile = async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let interpreter_id = req.body.interpreter_id;
+    
+    var mainArr1 = [];
+    var resultData  = await usermodel.getInterpreterProfileData(interpreter_id);
+    if (resultData != "" && resultData != undefined) {
+        var mainObj1 = {};
+        for (var i = 0; i < resultData.length; i++) {
+            mainObj1 = {
+                id: '0',
+                request_id: resultData[i].request_id,
+                title: resultData[i].appointment_type,
+                date: resultData[i].date,
+                start_time: resultData[i].start_time,
+                end_time: resultData[i].anticipated_end_time
+            }   
+            mainArr1.push(mainObj1);
+        }
+    }
+
+
+    var localResult  = await usermodel.getInterpreterLocalEvents(user_id);
+    if (localResult != "" && localResult != undefined) {
+        var mainObj2 = {};
+        for (var j = 0; j < localResult.length; j++) {
+            mainObj2 = {
+                id: localResult[j].id,
+                request_id: '0',
+                title: localResult[j].title,
+                date: localResult[j].date,
+                start_time: localResult[j].start_time,
+                end_time: localResult[j].end_time
+            }   
+            mainArr1.push(mainObj2);
+        }
+    }
+
+    console.log("mainArr1",mainArr1)
+
+    if (mainArr1 != "" && mainArr1 != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 1,
+            data: mainArr1
+        });
+        return true;
+    }else{
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "No record found"
+        });
+        return true;
+    }
+};
+
+
+*/
+
+
+
+
+
+
+
+
+
+module.exports.addInterpreterAssignment = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required',
+        assignment_setting: 'required', //array
+        // payment_mode: 'required',
+        // service_type: 'required',
+        // duration: 'required',
+        // cases: 'required',
+        // subcases: 'required',
+        // minimum_paid: 'required',
+        // pay_increment: 'required'        
+    });
+   
+    const matched = await v.check();
+   
+    if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+    }
+
+
+    let interpreter_id = req.body.interpreter_id;
+    let assignment_setting  = req.body.assignment_setting; //array
+    console.log("assignment_setting", assignment_setting);    
+    // secondary_language=JSON.parse(secondary_language) // for form data case
+    for (var i = 0; i < assignment_setting.length; i++) {
+        
+        var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,assignment_type,payment_mode,service_type,duration,cases,subcases,minimum_paid,pay_increment)VALUES('"+interpreter_id+"','"+assignment_setting[i].assignment_type+"','"+assignment_setting[i].payment_mode+"','"+assignment_setting[i].service_type+"','"+assignment_setting[i].duration+"','"+assignment_setting[i].cases+"','"+assignment_setting[i].subcases+"','"+assignment_setting[i].minimum_paid+"','"+assignment_setting[i].pay_increment+"')";
+
+        console.log("sql", sql);    
+        con.query(sql, function(err, insert) {});
+    }
+
+    res.json({
+        status: 1,
+        error_code: 0,
+        error_line: 1,
+        message: "Skills adde successfully"
+    });
+    return true;
+};
+
+   
+        
+       
 
 
 module.exports.addInterpreterLanguage = async function(req, res) {
@@ -63,7 +209,7 @@ module.exports.addInterpreterLanguage = async function(req, res) {
                 status: 1,
                 error_code: 0,
                 error_line: 1,
-                message: "Skills addeD successfully"
+                message: "Skills adde successfully"
             });
             return true;
         }else{
@@ -76,11 +222,6 @@ module.exports.addInterpreterLanguage = async function(req, res) {
             return true;
         }
     });
-
-
-        
-
-    
 };
 
    
@@ -138,12 +279,12 @@ module.exports.saveBankingInfo = async function(req, res) {
     let site_code = req.body.site_code;
     let site_id = req.body.site_id;
     
-    var sql = "INSERT INTO banking_detail(user_id,account_no,country,financial_institution,payment_benificiary,payment_method,routing_number,SWIFT_code)VALUES('"+user_id+"','"+account_no+"',,'"+country+"','"+financial_institution+"','"+payment_benificiary+"','"+payment_method+"','"+routing_number+"','"+SWIFT_code+"')";
+    var sql = "INSERT INTO banking_detail(user_id,account_no,country,financial_institution,payment_benificiary,payment_method,routing_number,SWIFT_code)VALUES('"+user_id+"','"+account_no+"','"+country+"','"+financial_institution+"','"+payment_benificiary+"','"+payment_method+"','"+routing_number+"','"+SWIFT_code+"')";
 
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-            var sql = "INSERT INTO interpreters_oracle(user_id,fusion_id,site_code,site_id)VALUES('"+user_id+"','"+fusion_id+"',,'"+site_code+"','"+site_id+"')";
+            var sql = "INSERT INTO interpreters_oracle(user_id,fusion_id,site_code,site_id)VALUES('"+user_id+"','"+fusion_id+"','"+site_code+"','"+site_id+"')";
             con.query(sql, function(err, insert) {});
             res.json({
                 status: 1,
