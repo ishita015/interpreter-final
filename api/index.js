@@ -993,6 +993,13 @@ let chatupload = multer({
 
 
 
+
+
+
+
+
+
+
 //upload chat images
 app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
     console.log(req.files)

@@ -234,7 +234,7 @@ module.exports.addInterpreterLanguage = async function(req, res) {
 
     var add_update = "UPDATE user SET primary_language='"+primary_language+"' WHERE id ='"+interpreter_id+"'";
 
-    con.query(user_update, function(err, results) {
+    con.query(add_update, function(err, results) {
         if(results.affectedRows ==1){
             // secondary_language=JSON.parse(secondary_language) // for form data case
             for (var i = 0; i < secondary_language.length; i++) {
@@ -247,7 +247,7 @@ module.exports.addInterpreterLanguage = async function(req, res) {
                 status: 1,
                 error_code: 0,
                 error_line: 1,
-                message: "Skills adde successfully"
+                message: "Skills added successfully"
             });
             return true;
         }else{

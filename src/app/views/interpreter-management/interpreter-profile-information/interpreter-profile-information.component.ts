@@ -53,7 +53,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   language_Obj;
 
   // show/hide form
-  general_form = false;
+  general_form = true;  //bydefault set
   skills_form = false;
   assignment_form = false;
   banking_form = false;
@@ -250,7 +250,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
 
-  //gokul code start  -------interpreter skills---------
+  //gokul code start  ------interpreter skills-------
   //get language list
   LanguageList() {
     this.service.getLanguageList().subscribe(res => {
@@ -300,7 +300,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
   setCheck(event,eve_key){
-    // console.log("yes", eve_key);
     if(eve_key=='1'){
       if ( event.target.checked ) {
         this.communityinter=true;

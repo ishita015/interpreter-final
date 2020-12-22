@@ -16,6 +16,7 @@ import { Chat } from '../models/chat';
 import { AddCalender } from '../models/add-calender';
 import { AddBanking } from '../models/add-banking';
 import { AddInterpreterProfile } from '../models/add-interpreter-profile';
+import { InterpreterSkills } from '../models/interpreter-skills';
 @Injectable({
   providedIn: 'root'
 })
@@ -452,6 +453,20 @@ export class HttpService {
 
 
   /*=====Profile Section Apis Start======*/
+
+  
+
+  interpreterLanguage(addlangInfo: InterpreterSkills): Observable<any> {
+    return this.http.post(this.url + '/cesco/addInterpreterLanguage', addlangInfo, this.httpOptions);
+  }
+
+
+  interpreterDocupload(doc_data: InterpreterSkills): Observable<any> {
+    return this.http.post(this.url + '/cesco/uploadInterpreterDoc', doc_data);
+  }
+
+
+
 
   getProfileUpadte(profileupdateInfo: AdminProfile): Observable<any> {
     return this.http.post(this.url + '/cesco/profileUpdate', profileupdateInfo);
