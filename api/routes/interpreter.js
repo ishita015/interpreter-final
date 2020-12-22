@@ -52,12 +52,12 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         // var recipeid =  urlRecipeResult[0].id;
         
         //get interpreter address
-        // var address = await usermodel.getInterpreterAddress(interpreter_id);
+        var address = await usermodel.getInterpreterAddress(interpreter_id);
         var addressArr = [];
         
-        // if (address != "" && address != undefined) {
-        //     addressArr = address;
-        // }    
+        if (address != "" && address != undefined) {
+            addressArr = address;
+        }    
 
 
          //get interpreter language

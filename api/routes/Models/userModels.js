@@ -26,17 +26,19 @@ class userClass {
     }
 
 
-    // getInterpreterAddress(interpreter_id){
-    //     var sql = "SELECT * FROM user WHERE username='"+username+"'"; 
-    //     console.log("check sql",sql);
-    //     con.query(sql, function(err, result) {
-    //         if (result != "" && result != "undefined") {
-    //             resolve(result);
-    //         } else {
-    //             resolve(false);
-    //         }
-    //     });
-    // }
+    getInterpreterAddress(interpreter_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreter_address WHERE interpreter_id='"+interpreter_id+"'"; 
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
 
     // interpreter_language/languages
     getInterpreterSecLanguage(interpreter_id){
@@ -126,7 +128,7 @@ class userClass {
 
 
     getLangIds(){
-        
+
         let newArray='';
         return new Promise(function(resolve, reject) {
             // SELECT group_concat(mts.target_title) request_information_services,
