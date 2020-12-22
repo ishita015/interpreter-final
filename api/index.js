@@ -112,10 +112,12 @@ app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 // app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 
 
-    // for interpreter dashboard
+// for interpreter dashboard
 app.post('/cesco/getUsername', interpreterController.getUsername);
 
 
+app.post('/cesco/getInterpreterProfile', interpreterController.getInterpreterProfile);
+app.post('/cesco/addInterpreterAssignment', interpreterController.addInterpreterAssignment);
 app.post('/cesco/getNewRequestCount', interpreterController.getNewRequestCount);
 app.post('/cesco/getAcceptRequest', interpreterController.getAcceptRequest);
 app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
@@ -139,7 +141,6 @@ app.post('/cesco/adminReminderForinterpreter', interpreterController.adminRemind
 app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */ 
-
 
 
 

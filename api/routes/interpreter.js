@@ -18,7 +18,7 @@ const usermodel = new userModel();
 
 
 
-/*
+
 
 
 module.exports.getInterpreterProfile = async function(req, res, next) {
@@ -45,66 +45,104 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
     //validation end
     let interpreter_id = req.body.interpreter_id;
     
-    var mainArr1 = [];
+    var mainArr = [];
     var resultData  = await usermodel.getInterpreterProfileData(interpreter_id);
     if (resultData != "" && resultData != undefined) {
-        var mainObj1 = {};
-        for (var i = 0; i < resultData.length; i++) {
-            mainObj1 = {
-                id: '0',
-                request_id: resultData[i].request_id,
-                title: resultData[i].appointment_type,
-                date: resultData[i].date,
-                start_time: resultData[i].start_time,
-                end_time: resultData[i].anticipated_end_time
-            }   
-            mainArr1.push(mainObj1);
+        var mainObj = {};
+        // var recipeid =  urlRecipeResult[0].id;
+        
+        //get interpreter address
+        // var address = await usermodel.getInterpreterAddress(interpreter_id);
+        var addressArr = [];
+        
+        // if (address != "" && address != undefined) {
+        //     addressArr = address;
+        // }    
+
+
+         //get interpreter language
+        var sec_lang = await usermodel.getInterpreterSecLanguage(interpreter_id);
+        var langArr = [];
+        
+        if (sec_lang != "" && sec_lang != undefined) {
+            langArr = sec_lang;
         }
-    }
 
 
-    var localResult  = await usermodel.getInterpreterLocalEvents(user_id);
-    if (localResult != "" && localResult != undefined) {
-        var mainObj2 = {};
-        for (var j = 0; j < localResult.length; j++) {
-            mainObj2 = {
-                id: localResult[j].id,
-                request_id: '0',
-                title: localResult[j].title,
-                date: localResult[j].date,
-                start_time: localResult[j].start_time,
-                end_time: localResult[j].end_time
-            }   
-            mainArr1.push(mainObj2);
+        //get interpreter special_attributes
+        var attributes = await usermodel.getInterpreterSpecialAttributes(interpreter_id);
+        var attributesArr = [];
+        
+        if (attributes != "" && attributes != undefined) {
+            attributesArr = attributes;
         }
-    }
 
-    console.log("mainArr1",mainArr1)
 
-    if (mainArr1 != "" && mainArr1 != undefined) {
+        // interpreter_assignment_settings
+        //get interpreter special_attributes
+        var assignment = await usermodel.getInterpreterAssignment(interpreter_id);
+        var assignmentArr = [];
+        
+        if (assignment != "" && assignment != undefined) {
+            assignmentArr = assignment;
+        }
+
+
+
+        mainObj = {
+            interpreter_id: resultData[0].id,
+            username: resultData[0].username,
+            role_id: resultData[0].role_id,
+            company_name: resultData[0].company_name,
+            title: resultData[0].title,
+            first_name: resultData[0].first_name,
+            last_name: resultData[0].last_name,
+            country_code: resultData[0].country_code,
+            mobile: resultData[0].mobile,
+            international_phone_no: resultData[0].international_phone_no,
+            email: resultData[0].email,
+            profile_img	: resultData[0].profile_img ? resultData[0].profile_img : "", // add full path
+            date_of_birth: resultData[0].date_of_birth,
+            gender: resultData[0].gender,
+            other_gender: resultData[0].other_gender,
+            skype: resultData[0].skype,
+            language_name: resultData[0].language_name,
+            primay_lang_id: resultData[0].primay_lang_id,
+            primay_lang_name: resultData[0].primay_lang_name,
+            banlking_id: resultData[0].banlking_id,
+            account_no: resultData[0].account_no,
+            country: resultData[0].country,
+            financial_institution: resultData[0].financial_institution,
+            payment_benificiary: resultData[0].payment_benificiary,
+            payment_method: resultData[0].payment_method,
+            routing_number: resultData[0].routing_number,
+            SWIFT_code: resultData[0].SWIFT_code,
+            
+            interpreter_address: addressArr,
+            secondary_language: langArr,
+            special_attributes: attributesArr,
+            
+            interpreter_assignment: assignmentArr,
+        }   
+        mainArr.push(mainObj);
+        
         res.json({
             status: 1,
             error_code: 0,
-            error_line: 1,
-            data: mainArr1
+            error_line: 2,
+            data :mainArr
         });
         return true;
     }else{
         res.json({
             status: 0,
             error_code: 0,
-            error_line: 6,
-            message: "No record found"
+            error_line: 5,
+            message: "No reord found"
         });
         return true;
     }
 };
-
-
-*/
-
-
-
 
 
 

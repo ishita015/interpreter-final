@@ -9,37 +9,124 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    //languages//banking_detail
+    getInterpreterProfileData(interpreter_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT u.*,l.id as primay_lang_id,l.name as primay_lang_name,bd.id as banlking_id,bd.account_no,bd.country,bd.financial_institution,bd.payment_benificiary,bd.payment_method,bd.routing_number,bd.SWIFT_code FROM user AS u LEFT JOIN banking_detail AS bd ON bd.user_id=u.id LEFT JOIN languages as l ON l.id=u.primary_language WHERE u.id='"+interpreter_id+"' && u.role_id='2'";
+            
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
+
+    // getInterpreterAddress(interpreter_id){
+    //     var sql = "SELECT * FROM user WHERE username='"+username+"'"; 
+    //     console.log("check sql",sql);
+    //     con.query(sql, function(err, result) {
+    //         if (result != "" && result != "undefined") {
+    //             resolve(result);
+    //         } else {
+    //             resolve(false);
+    //         }
+    //     });
+    // }
+
+    // interpreter_language/languages
+    getInterpreterSecLanguage(interpreter_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT il.user_id,il.language_id,l.name,l.code FROM interpreter_language as il INNER JOIN languages as l ON l.id=il.language_id WHERE il.user_id='"+interpreter_id+"'"; 
+        //     console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        }); 
+    }
+
+
+
+    getInterpreterSpecialAttributes(interpreter_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreters_special_attributes WHERE interpreter_id='"+interpreter_id+"'"; 
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+
+
+    
+    
+
+    getInterpreterAssignment(interpreter_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreter_assignment_settings WHERE Interpreter_id='"+interpreter_id+"'"; 
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+
+
+
+
+
     //check username exist or not 
     checkUsernameExist(username){             
-        var sql = "SELECT * FROM user WHERE username='"+username+"'"; 
-        console.log("check sql",sql);
-        con.query(sql, function(err, result) {
-            if (result != "" && result != "undefined") {
-                resolve(result);
-            } else {
-                resolve(false);
-            }
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM user WHERE username='"+username+"'"; 
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
         });
     }
 
 
     getUnfilLangIds(langid){
-         // SELECT group_concat(mts.target_title) request_information_services,
-         var sql = "SELECT `primary_language` FROM user WHERE role_id=2 && FIND_IN_SET(primary_language, '"+langid+"') ORDER BY id DESC"; 
-            
-         console.log("check sql",sql);
-         con.query(sql, function(err, result) {
-            if (result != "" && result != "undefined") {
-                resolve(result);
-            } else {
-                resolve(false);
-            }
+        return new Promise(function(resolve, reject) {
+            // SELECT group_concat(mts.target_title) request_information_services,
+            var sql = "SELECT `primary_language` FROM user WHERE role_id=2 && FIND_IN_SET(primary_language, '"+langid+"') ORDER BY id DESC"; 
+                
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
         });
     }
 
 
 
     getLangIds(){
+        
         let newArray='';
         return new Promise(function(resolve, reject) {
             // SELECT group_concat(mts.target_title) request_information_services,
