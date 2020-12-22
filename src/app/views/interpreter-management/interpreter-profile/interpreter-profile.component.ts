@@ -15,10 +15,8 @@ export class InterpreterProfileComponent implements OnInit {
   banking_Obj;
   banking_Msg;
   ass_Obj;
-  ass_Msg;
   interId;
   detail_Obj;
-  detail_Msg;
   Profile: FormGroup;
   check_form1 = false;
   check_form2 = false;
@@ -54,7 +52,7 @@ export class InterpreterProfileComponent implements OnInit {
       fusion_id:['', this.validation.onlyRequired_validator],
       site_code:['', this.validation.onlyRequired_validator],
       site_id:['', this.validation.onlyRequired_validator],
-      user_id:['1']
+      user_id:[]
     });
   }
   /*========== Form Value End Here========*/
@@ -86,16 +84,12 @@ export class InterpreterProfileComponent implements OnInit {
       if(res['status']== 1){
         console.log("api response",res);
         this.ass_Obj = res
-        this.ass_Msg = res
-        this.toastr.success(this.ass_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/languages/list']);  
+      
+        
       }else{
         console.log("api response",res);
         this.ass_Obj = res
-        this.ass_Msg = res
-        this.toastr.success(this.ass_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/login'])
-        // this.router.navigate(['/languages/list']);  
+      
       }
 
     });
@@ -112,6 +106,7 @@ export class InterpreterProfileComponent implements OnInit {
       return;
     }
     this.submitted = false;
+    this.bankingForm.value.user_id = this.interId;
     this.service.getBankingAdd(this.bankingForm.value)
     .subscribe(res => {
       if(res['status']== 1){
@@ -133,25 +128,14 @@ export class InterpreterProfileComponent implements OnInit {
   }
 
   detailProfile(){
- 
     this.service.getProfileDetail(this.interId)
     .subscribe(res => {
       if(res['status']== 1){
-       
         this.detail_Obj = res['data'][0];
-        this.detail_Msg = res
-        console.log("api response",  this.detail_Obj);
-        this.toastr.success(this.detail_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/languages/list']);  
       }else{
         console.log("api response",res);
         this.detail_Obj = res
-        this.detail_Msg = res
-        this.toastr.success(this.detail_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/login'])
-        // this.router.navigate(['/languages/list']);  
       }
-
     });
 
   }

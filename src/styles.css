@@ -59,7 +59,15 @@
     width: 100% !important;
 }
 .eye-icon{float: right; margin-right: 6px;margin-top: -23px;position: relative;}
-
+/* 22dec animation */
+.user-profile .card-body .tab-content .tab-pane {
+  animation-name: blinkblink;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation: backOutDown 2s linear ;
+}
+/* end */
 /* 
 .datatable-row-center .datatable-header-cell .datatable-header-cell .datatable-header-cell-template-wrap{width: 200px !important;} */
 
