@@ -60,7 +60,7 @@
 }
 .eye-icon{float: right; margin-right: 6px;margin-top: -23px;position: relative;}
 /* 22dec animation */
-.user-profile .card-body .tab-content .tab-pane {
+.animate {
   animation-name: blinkblink;
   animation-duration: 5000ms;
   animation-iteration-count: infinite;
