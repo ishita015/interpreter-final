@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 // const config: SocketIoConfig = { url: 'http://192.168.0.69:3300', options: {} }; //mt local server
-const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} }; //live server(4004)
- 
+// const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} }; //live server(4004)
+const config: SocketIoConfig = { url: 'http://103.15.67.78:3300', options: {} }; //live server(4004) final url
+
+
 @NgModule({
   declarations: [
     AppComponent,

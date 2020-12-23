@@ -44,34 +44,37 @@
                                     <input type="text" class="form-control" formControlName="first_name"  placeholder="First Name">
                                     <div *ngIf="userForm.controls['first_name'].errors && (!userForm.controls['first_name'].pristine || submitted ||userForm.controls['first_name'].touched )" class="error-msg">
                                         <div [hidden]="!userForm.controls['first_name'].errors.required">First Name is required.</div>
-                                        <!-- <div [hidden]="!userForm.controls.first_name.hasError('minlength')">First Name length should be minimum 2 characters.</div>   -->
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Last">Last Name</label>
-                            <input type="text" class="form-control" (change)="username()" formControlName="last_name"  placeholder="Last Name">
-                            <div *ngIf="userForm.controls['last_name'].errors && (!userForm.controls['last_name'].pristine || submitted ||userForm.controls['last_name'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['last_name'].errors.required">Last Name is required.</div>
-                                <!-- <div [hidden]="!userForm.controls.last_name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>   -->
-                            </div>
+                            <label for="Last">Middle Name</label>
+                            <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
                         </div>
 
                     </div>
 
                     <div class="row">
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Last">Last Name</label>
+                            <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
+                            <div *ngIf="userForm.controls['last_name'].errors && (!userForm.controls['last_name'].pristine || submitted ||userForm.controls['last_name'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['last_name'].errors.required">Last Name is required.</div>
+                            </div>
+                        </div>
+
+
                        
-                         <div class="col-md-6 form-group mb-3">
+                         <!-- <div class="col-md-6 form-group mb-3">
                             <label for="email">UserName</label>
                             <input type="text" class="form-control"  formControlName="username" placeholder="UserName" readonly>
                           <i class="i-Repeat-3 user_name" (click)="username()"></i>
-                            <!-- <div *ngIf="userForm.controls['user_name'].errors && (!userForm.controls['user_name'].pristine || submitted ||userForm.controls['user_name'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['user_name'].errors.required">User Name is required.</div>
-                              </div> -->
+                           
                         </div>
-                       
+                        -->
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Email</label>
@@ -84,13 +87,16 @@
                       
                     </div>
                     <div class="row">
+
+
                         <div class="col-md-6 form-group mb-3">
-                            <label>Skype</label>
-                            <input type="text" class="form-control" formControlName="skype"  placeholder="skype">
-                            <div *ngIf="userForm.controls['skype'].errors && (!userForm.controls['skype'].pristine || submitted ||userForm.controls['skype'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['skype'].errors.required">Skype is required.</div>
-                            </div>
+                            <label for="email">Password</label>
+                            <input type="password" class="form-control"  formControlName="password"  placeholder="password">
+                            <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
+                              </div>
                         </div>
+                        
 
                         <div class="col-md-6 form-group mb-3">
 
@@ -124,17 +130,7 @@
                     
                      <div class="row">
                         <div class="col-md-6 form-group mb-3">
-                            <label for="PhoneNo.">Phone No.</label>
-                            <input type="text" mask="(000) 000-0000" class="form-control" formControlName="phone_no" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  
-                            placeholder="Phone No.">
-                            <div *ngIf="userForm.controls['phone_no'].errors && (!userForm.controls['phone_no'].pristine || submitted ||userForm.controls['phone_no'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['phone_no'].errors.required">Phone No. is required.</div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6 form-group mb-3">
-                             <label>International Phone</label>
+                            <label>International Phone</label>
                             <input type="text" mask="(000) 000-0000" class="form-control" formControlName="international_phone_no" 
                                 onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  
                                 placeholder="International Phone">
@@ -143,230 +139,84 @@
                             </div>
                         </div>
 
-                    
-
-                            <!-- <div class="col-md-6 form-group mb-3">
+                        <div class="col-md-6 form-group mb-3">
                             <label for="Address">Address</label>
-                            <input type="text" class="form-control"  formControlName="dob" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Address is required.</div> 
-                              </div>
-                            </div> -->
+                            <input type="text" class="form-control"  formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search> 
+                        </div> 
                      </div>
-                    
-                    <!-- <div class="row"> -->
+
+
+
+                     
+                    <div class="row">
                         
-                        <!-- <div class="col-md-6 form-group mb-3">
-                            <label for="Apartment">Apt/Ste</label>
-                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apt/Ste">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Apartment">Apartment</label>
+                           <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
                             <div *ngIf="userForm.controls['apartment'].errors && (!userForm.controls['apartment'].pristine || submitted ||userForm.controls['apartment'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['apartment'].errors.required">Apt/Ste is required.</div> 
+                                <div [hidden]="!userForm.controls['apartment'].errors.required">Apartment is required.</div> 
                               </div>
-                        </div> -->
-
-                        <!-- <div class="col-md-6 form-group mb-3">
-                            <label for="Gender">Gender</label>
-                            <div class="form-check">
-                                <label class="form-check-label" for="gridRadios1">
-                                <input class="form-check-input radio-inline " 
-                                (click)="radioButton1()" formControlName="gender" type="radio" id="gridRadios1"
-                                    value="Male" checked>
-                              
-                                    Male
-                                </label>
-                          
-                                <label class="form-check-label pl-5" for="gridRadios2">
-                                <input class="form-check-input radio-inline" 
-                                (click)="radioButton2()"  formControlName="gender" type="radio" id="gridRadios2"
-                                    value="Female">
-                             
-                                    Female
-                                </label>
+                        </div>
 
 
-                                <label class="form-check-label pl-5" for="gridRadios3">
-                                    <input class="form-check-input radio-inline" formControlName="gender" type="radio" id="gridRadios3"
-                                    (click)="radioButton3()"  value="Other">
-                                        Other
-                                </label>
-
-                                
-                                <label *ngIf="showOther" class="form-check-label pl-5">
-                                    <input type="text" class="form-control" 
-                                    placeholder="Other" formControlName="other_gender">
-                                </label>
-                            
-                            </div>
-                        </div> -->
-
-
-                        <!-- <div class="col-md-6 form-group mb-3">
-                            <label for="Street">Street</label>
-                           <input type="text" class="form-control" formControlName="street"  placeholder="Street">
-                            <div *ngIf="userForm.controls['street'].errors && (!userForm.controls['street'].pristine || submitted ||userForm.controls['street'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['street'].errors.required">Street is required.</div> 
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="Country">Country</label>
+                           <input type="text" class="form-control" formControlName="country" placeholder="Country">
+                            <div *ngIf="userForm.controls['country'].errors && (!userForm.controls['country'].pristine || submitted ||userForm.controls['country'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['country'].errors.required">Country is required.</div> 
                               </div>
-                        </div> -->
-                    <!-- </div> -->
+                        </div>
+                    </div>
 
-                    <!-- <div class="row">
+
+
+                     
+                    <div class="row">
                         
-                       
-
-
-
                         <div class="col-md-6 form-group mb-3">
-                            <label for="picker1">Select Primary Language</label>
-                            <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
-                                <option value="">Select Language</option>
-                                <option *ngFor="let lan of language_Obj" [value]="lan.id">
-                                    {{lan?.name}}
-                                 </option>
-                            </select>
-                            <div *ngIf="userForm.controls['primary_language'].errors && (!userForm.controls['primary_language'].pristine || submitted ||userForm.controls['primary_language'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['primary_language'].errors.required">Language is required.</div> 
+                            <label for="State">State</label>
+                           <input type="text" class="form-control" formControlName="state"  placeholder="State">
+                            <div *ngIf="userForm.controls['state'].errors && (!userForm.controls['state'].pristine || submitted ||userForm.controls['state'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['state'].errors.required">State is required.</div> 
                               </div>
                         </div>
 
 
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="Language">Select Secondary Language</label>
-                            <tag-input [formControl]="tagsCtrl2" formControlName="languageid" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
-                              theme="primary" placeholder="Type language name">
-                              <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
-                              </tag-input-dropdown>
-                            </tag-input>
-                        </div>
-                    </div> -->
-                <div formArrayName="address" >
-                    <!-- <div *ngFor="let items of  userForm.get('address').controls; let i = index"> -->
-                        <!-- <div [formGroupName]="i"> -->
-                        <div class="row">
-                      <div class="col-md-6 form-group mb-3">
-                            <label for="Address">Primary Address</label>
-                            <input type="text" class="form-control"  formControlName="address" 
-                            (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" 
-                            autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-
-                           
-                            <!-- <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div> -->
-                        </div>
-
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="Apt">Apt/Ste</label>
-                            <input type="text" class="form-control" formControlName="apartment"  placeholder="Apt/Ste">
-                            <!-- <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div> -->
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 form-group mb-3">
-                            <label>Country</label>
-                           <input type="text" class="form-control" formControlName="country"  placeholder="Country">
-                            <!-- <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div> -->
-                        </div>
-
-                        <div class="col-md-6 form-group mb-3">
-                            <label>State</label>
-                           <input type="text" class="form-control" formControlName="state"  placeholder="State">
-                            <!-- <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div> -->
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="City">City</label>
-                            <input type="text" class="form-control" formControlName="city"  placeholder="City" >
-                            <!-- <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div> -->
-                        </div>
-
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="ZipCode">ZipCode</label>
-                            <input type="text" class="form-control" formControlName="zipcode"  placeholder="ZipCode">
-                            <!-- <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div> -->
-                        </div>
-
-                    <input type="hidden" class="form-control" formControlName="lat" >
-                    <input type="hidden" class="form-control" formControlName="long"> 
-                    <!-- </div> -->
-                    <!-- </div> -->
-                    </div>
-                </div>
-
-                <!-- <div formArrayName="address">
-                    <div class="row">
-                      <div class="col-md-6 form-group mb-3">
-                            <label for="Address">Secondary Address</label>
-                            <input type="text" class="form-control"  formControlName="s_address" 
-                            (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location"
-                             autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                            <div *ngIf="userForm.controls['s_address'].errors && (!userForm.controls['s_address'].pristine || submitted ||userForm.controls['s_address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['s_address'].errors.required">Secondary address is required.</div> 
-                              </div>
-                        </div>
-
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="Apt">Apt/Ste</label>
-                            <input type="text" class="form-control" formControlName="apartment"  placeholder="Apt/Ste">
-                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
+                           <input type="text" class="form-control" formControlName="city" placeholder="City">
+                            <div *ngIf="userForm.controls['city'].errors && (!userForm.controls['city'].pristine || submitted ||userForm.controls['city'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['city'].errors.required">City is required.</div> 
                               </div>
                         </div>
                     </div>
 
+
                     <div class="row">
+                        
                         <div class="col-md-6 form-group mb-3">
-                            <label>Country</label>
-                           <input type="text" class="form-control" formControlName="country"  placeholder="Country">
-                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
+                            <label for="State">ZipCode</label>
+                            <input type="text" class="form-control" formControlName="zipCode"  placeholder="State">
+                            <div *ngIf="userForm.controls['zipCode'].errors && (!userForm.controls['zipCode'].pristine || submitted ||userForm.controls['zipCode'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['zipCode'].errors.required">ZipCode is required.</div> 
                               </div>
                         </div>
 
+
                         <div class="col-md-6 form-group mb-3">
-                            <label>State</label>
-                           <input type="text" class="form-control" formControlName="state"  placeholder="State">
-                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
+                            <label for="City">Timezone</label>
+                           <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
+                            <div *ngIf="userForm.controls['timezone'].errors && (!userForm.controls['timezone'].pristine || submitted ||userForm.controls['timezone'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['timezone'].errors.required">Timezone is required.</div> 
                               </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="City">City</label>
-                            <input type="text" class="form-control" formControlName="city"  placeholder="City" >
-                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div>
-                        </div>
-
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="ZipCode">ZipCode</label>
-                            <input type="text" class="form-control" formControlName="zipcode"  placeholder="ZipCode">
-                            <div *ngIf="userForm.controls['address'].errors && (!userForm.controls['address'].pristine || submitted ||userForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['address'].errors.required">Primary Address is required.</div> 
-                              </div>
-                        </div>
-
-                    <input type="hidden" class="form-control" formControlName="lat" >
-                    <input type="hidden" class="form-control" formControlName="long"> 
-                    </div> -->
 
 
 
+
+                    
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label>Company Name</label>
@@ -379,7 +229,7 @@
                       
                         <div class="col-md-6 form-group mb-3">
                             <label>SSN/EIN</label>
-                           <input type="text" class="form-control" formControlName="social_security_no"  placeholder="Company Name">
+                           <input type="text" class="form-control" formControlName="social_security_no"  placeholder="SSN/EIN">
                             <div *ngIf="userForm.controls['social_security_no'].errors && (!userForm.controls['social_security_no'].pristine || submitted ||userForm.controls['social_security_no'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['social_security_no'].errors.required">SSN/EIN is required.</div> 
                               </div>
@@ -400,11 +250,6 @@
                         </div>
 
                       
-                        <!-- <div class="col-md-6 form-group mb-3">
-                            <label for="rate">Rate</label>
-                            <input type="text" class="form-control" onkeypress="if(this.value.length==5) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="rate"  placeholder="Rate/hour">
-                        </div> -->
-                        
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="image">Image</label>
@@ -441,13 +286,6 @@
                               </div>
                         </div>
                     </div>
-
-                    <!-- <div class="row">
-                     
-                  
-                     </div> -->
-                    <!-- <input type="hidden" class="form-control" formControlName="latitude" >
-                    <input type="hidden" class="form-control" formControlName="longitude">  -->
 
                     <div class="form-group row">
                         <div class="col-sm-12">

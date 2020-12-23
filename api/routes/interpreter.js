@@ -51,13 +51,13 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         var mainObj = {};
         // var recipeid =  urlRecipeResult[0].id;
         
-        //get interpreter address
-        var address = await usermodel.getInterpreterAddress(interpreter_id);
-        var addressArr = [];
+        // //get interpreter address
+        // var address = await usermodel.getInterpreterAddress(interpreter_id);
+        // var addressArr = [];
         
-        if (address != "" && address != undefined) {
-            addressArr = address;
-        }    
+        // if (address != "" && address != undefined) {
+        //     addressArr = address;
+        // }    
 
 
          //get interpreter language
@@ -91,7 +91,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
 
         mainObj = {
             interpreter_id: resultData[0].id,
-            username: resultData[0].username,
+            middle_name: resultData[0].middle_name,
             role_id: resultData[0].role_id,
             company_name: resultData[0].company_name,
             title: resultData[0].title,
@@ -104,21 +104,38 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             profile_img	: resultData[0].profile_img ? resultData[0].profile_img : "", // add full path
             date_of_birth: resultData[0].date_of_birth,
             gender: resultData[0].gender,
-            other_gender: resultData[0].other_gender,
-            skype: resultData[0].skype,
+            timezone: resultData[0].timezone,
+            state: resultData[0].state,
+            zipCode: resultData[0].zipCode,
+            address: resultData[0].address,
+            apartment: resultData[0].apartment,
+
+            social_security_no: resultData[0].social_security_no,
+            country: resultData[0].country,
+            city: resultData[0].city,
+            company_name: resultData[0].company_name,
+            international_phone_no: resultData[0].international_phone_no,
+            social_security_no: resultData[0].social_security_no,
+
             language_name: resultData[0].language_name,
             primay_lang_id: resultData[0].primay_lang_id,
             primay_lang_name: resultData[0].primay_lang_name,
             banlking_id: resultData[0].banlking_id,
+            bank_name: resultData[0].bank_name,
+            account_type: resultData[0].account_type,
+            bank_country: resultData[0].bank_country,
             account_no: resultData[0].account_no,
-            country: resultData[0].country,
-            financial_institution: resultData[0].financial_institution,
-            payment_benificiary: resultData[0].payment_benificiary,
+            bank_routing_no: resultData[0].bank_routing_no,
             payment_method: resultData[0].payment_method,
-            routing_number: resultData[0].routing_number,
+            electronic: resultData[0].electronic,
+
             SWIFT_code: resultData[0].SWIFT_code,
+            bank_address: resultData[0].bank_address,
+            paypal_id: resultData[0].paypal_id,
+            bank_profile_status: resultData[0].is_complete,
+            user_profile_status: resultData[0].profile_status,
             
-            interpreter_address: addressArr,
+            // interpreter_address: addressArr,
             secondary_language: langArr,
             special_attributes: attributesArr,
             
@@ -264,30 +281,25 @@ module.exports.addInterpreterLanguage = async function(req, res) {
 
    
         
-       
+ 
 
 
 
-
-
-
-
-
-
+// add bank info
 module.exports.saveBankingInfo = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {
         user_id: 'required',       
-        account_no: 'required',      
-        country: 'required',       
-        financial_institution: 'required',      
-        payment_benificiary: 'required',       
-        payment_method: 'required',      
-        routing_number: 'required',       
-        SWIFT_code: 'required',      
-        fusion_id: 'required',       
-        site_code: 'required',      
-        site_id: 'required'
+        account_type: 'required',      
+        bank_name: 'required',       
+        bank_country: 'required',      
+        account_no: 'required',       
+        bank_routing_no: 'required',      
+        payment_method: 'required',       
+        electronic: 'required',      
+        SWIFT_code: 'required',       
+        bank_address: 'required',      
+        paypal_id: 'required'
     });
    
     const matched = await v.check();
@@ -305,25 +317,29 @@ module.exports.saveBankingInfo = async function(req, res) {
        return true;
     }
 
-    let user_id = req.body.user_id; // interpreter id
-    let account_no = req.body.account_no;
-    let country = req.body.country;
-    let financial_institution = req.body.financial_institution;
-    let payment_benificiary = req.body.payment_benificiary;
-    let payment_method = req.body.payment_method;
-    let routing_number = req.body.routing_number;
-    let SWIFT_code = req.body.SWIFT_code;
-    let fusion_id = req.body.fusion_id;
-    let site_code = req.body.site_code;
-    let site_id = req.body.site_id;
-    
-    var sql = "INSERT INTO banking_detail(user_id,account_no,country,financial_institution,payment_benificiary,payment_method,routing_number,SWIFT_code)VALUES('"+user_id+"','"+account_no+"','"+country+"','"+financial_institution+"','"+payment_benificiary+"','"+payment_method+"','"+routing_number+"','"+SWIFT_code+"')";
 
+    
+    
+
+
+
+    let user_id = req.body.user_id; // interpreter id
+    let bank_name = req.body.bank_name;
+    let account_type = req.body.account_type;
+    let bank_country = req.body.bank_country;
+    let account_no = req.body.account_no;
+    let bank_routing_no = req.body.bank_routing_no;
+    let payment_method = req.body.payment_method;
+    let electronic = req.body.electronic;
+    let SWIFT_code = req.body.SWIFT_code;
+    let bank_address = req.body.bank_address;
+    let paypal_id = req.body.paypal_id;
+    
+    var sql = "INSERT INTO banking_detail(user_id,bank_name,account_type,bank_country,account_no,bank_routing_no,payment_method,electronic,SWIFT_code,bank_address,paypal_id,is_complete)VALUES('"+user_id+"','"+bank_name+"','"+account_type+"','"+bank_country+"','"+account_no+"','"+bank_routing_no+"','"+payment_method+"','"+electronic+"','"+SWIFT_code+"','"+bank_address+"','"+paypal_id+"','1')";
+    console.log("bank", sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-            var sql = "INSERT INTO interpreters_oracle(user_id,fusion_id,site_code,site_id)VALUES('"+user_id+"','"+fusion_id+"','"+site_code+"','"+site_id+"')";
-            con.query(sql, function(err, insert) {});
             res.json({
                 status: 1,
                 error_code: 0,
@@ -344,7 +360,86 @@ module.exports.saveBankingInfo = async function(req, res) {
 };
 
    
-        
+       
+
+
+
+
+
+
+
+// update bank info
+module.exports.updateBankingInfo = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        user_id: 'required',       
+        account_type: 'required',      
+        bank_name: 'required',       
+        bank_country: 'required',      
+        account_no: 'required',       
+        bank_routing_no: 'required',      
+        payment_method: 'required',       
+        electronic: 'required',      
+        SWIFT_code: 'required',       
+        bank_address: 'required',      
+        paypal_id: 'required'
+    });
+   
+    const matched = await v.check();
+   
+    if (!matched) {
+       var error;
+       for (var i = 0; i <= Object.values(v.errors).length; i++) {
+           error = Object.values(v.errors)[0].message;
+           break;
+       }
+       res.json({
+           status: 0,
+           message: error
+       });
+       return true;
+    }
+
+
+    let user_id = req.body.user_id; // interpreter id
+    let bank_name = req.body.bank_name;
+    let account_type = req.body.account_type;
+    let bank_country = req.body.bank_country;
+    let account_no = req.body.account_no;
+    let bank_routing_no = req.body.bank_routing_no;
+    let payment_method = req.body.payment_method;
+    let electronic = req.body.electronic;
+    let SWIFT_code = req.body.SWIFT_code;
+    let bank_address = req.body.bank_address;
+    let paypal_id = req.body.paypal_id;
+    
+    
+    var sql = "UPDATE banking_detail SET bank_name='"+bank_name+"',account_type='"+account_type+"',bank_country='"+bank_country+"',account_no='"+account_no+"',bank_routing_no='"+bank_routing_no+"',payment_method='"+payment_method+"',electronic='"+electronic+"',SWIFT_code='"+SWIFT_code+"',bank_address='"+bank_address+"',paypal_id='"+paypal_id+"' WHERE user_id='"+user_id+"'";
+    console.log("bank", sql);
+
+    con.query(sql, function(err, result) {
+        if(!err){
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                message: "Update successfully"
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Server Error, please try again"
+            });
+            return true;
+        }
+    });
+};
+
+   
+       
        
 
 
@@ -2754,19 +2849,28 @@ module.exports.addInterpreter = async function(req, res) {
 module.exports.updateInterpreter = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {
-        id: 'required',
+        interpreter_id: 'required',
+        title: 'required',
         first_name: 'required',
         last_name: 'required',
+        middle_name: 'required',
         mobile: 'required',
-        languageid: 'required',
+        country_code: 'required',
+        gender: 'required',
+        company_name: 'required',
+        zipCode: 'required',
+        international_phone_no: 'required',
+        dob: 'required',
+        social_security_no: 'required',
+        state: 'required',
+        city: 'required',        
         // address: 'required',
+        apartment: 'required',
         // latitude: 'required',
         // longitude: 'required',
-        gender: 'required',
-        primary_lang_id: 'required',
-        languageid: 'required',
-        id: 'required',
-        languageid: 'required'
+        country: 'required',
+        // timezone: 'required',
+        // password: 'required',
     });
     
     const matched = await v.check();
@@ -2785,52 +2889,60 @@ module.exports.updateInterpreter = async function(req, res) {
     }
 
 
-
-    let id = req.body.id;
+    let id = req.body.interpreter_id;
+    let title = req.body.title;
+    let middle_name = req.body.middle_name;
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
-    let languageid = req.body.languageid;
     let mobile = req.body.mobile;
+    let country_code = req.body.country_code;    
+    
+    let international_phone_no = req.body.international_phone_no;
+    let country = req.body.country;
+    let dob = req.body.dob;
+    let company_name = req.body.company_name;
     let gender = req.body.gender;
-    let primary_language = req.body.primary_lang_id;
-    let interpreter_rate = req.body.rate ? req.body.rate : '0'; 
-    let apartment = req.body.apartment ? req.body.apartment : "";
-    let street = req.body.street ? req.body.street : "";
+    let state = req.body.state ? req.body.state : "";
+    let social_security_no = req.body.social_security_no;
+    let city = req.body.city;
+    let apartment = req.body.apartment;
+    let timezone = req.body.timezone ? req.body.timezone : "";
+    let zipCode = req.body.zipCode;
 
-    let old_address='';
-    let old_latitude='';
-    let old_longitude = '';
-    var resultdata = await usermodel.getInterpreterInfo(id); 
 
-    if (resultdata != "" && resultdata != undefined) {
-        old_address =resultdata[0].address;
-        old_latitude = resultdata[0].latitude;
-        old_longitude = resultdata[0].longitude;
-    }
 
-    let address = req.body.address ? req.body.address : old_address;
-    let latitude = req.body.latitude ? req.body.latitude : old_latitude;
-    let longitude = req.body.longitude ? req.body.longitude : old_longitude;
+    // let old_address='';
+    // let old_latitude='';
+    // let old_longitude = '';
+    // var resultdata = await usermodel.getInterpreterInfo(id); 
 
-    let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',address ='"+address+"',latitude ='"+latitude+"',longitude ='"+longitude+"',gender ='"+gender+"',primary_language ='"+primary_language+"',interpreter_rate ='"+interpreter_rate+"',apartment ='"+apartment+"',street ='"+street+"' WHERE id = '"+id+"'";
+    // if (resultdata != "" && resultdata != undefined) {
+    //     old_address =resultdata[0].address;
+    //     old_latitude = resultdata[0].latitude;
+    //     old_longitude = resultdata[0].longitude;
+    // }
+
+    // let address = req.body.address ? req.body.address : old_address;
+    // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
+    // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
+
+    let sql = "UPDATE user SET first_name ='"+first_name+"',middle_name ='"+middle_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"' WHERE id = '"+id+"'";
 
     console.log("sql-update",sql)
     var query = con.query(sql, function(err, result) {
         if(!err){
-            if (languageid != "" && languageid != undefined) {
-                let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
-                con.query(sqlDelete, function(err, res_delete) {});
+            // if (languageid != "" && languageid != undefined) {
+            //     let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
+            //     con.query(sqlDelete, function(err, res_delete) {});
     
 
 
-                for (var i = 0; i < languageid.length; i++) {
-                    console.log("language id",languageid[i].id);
-                    var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
-                    con.query(sql1, function(err, insert) {});
-                }
-            }
-            
-
+            //     for (var i = 0; i < languageid.length; i++) {
+            //         console.log("language id",languageid[i].id);
+            //         var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
+            //         con.query(sql1, function(err, insert) {});
+            //     }
+            // }
             res.json({
                 status: 1,
                 error_code: 0,
@@ -2847,10 +2959,7 @@ module.exports.updateInterpreter = async function(req, res) {
             });
             return true;
         }
-    });
-    
-
-    
+    }); 
 };
 
 

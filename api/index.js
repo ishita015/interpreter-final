@@ -143,6 +143,7 @@ app.get('/cesco/getRole', interpreterController.getRole);
 /* interpreter api start */ 
 
 
+app.post('/cesco/updateBankingInfo', interpreterController.updateBankingInfo);
 
 app.get('/cesco/getCountryCode', interpreterController.getCountryCode);
 
@@ -171,7 +172,7 @@ app.post('/cesco/getInterpreter', interpreterController.getInterpreter);
 app.get('/cesco/getAllUser', interpreterController.getAllUser);
 
 // app.post('/cesco/saveInterpreter', interpreterController.addInterpreter);
-// app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
+app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
@@ -515,23 +516,26 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
         title: 'required',
         first_name: 'required',
         last_name: 'required',
-        username: 'required',
+        middle_name: 'required',
         email: 'required',
         mobile: 'required',
         country_code: 'required',
         gender: 'required',
         company_name: 'required',
-        phone_no: 'required',
+        zipCode: 'required',
         international_phone_no: 'required',
         dob: 'required',
         social_security_no: 'required',
-        skype: 'required',
-        // languageid: 'required',        
-        // address: 'required',
-        // apartment: 'required',
-        // latitude: 'required',
-        // longitude: 'required',
-        // primary_language: 'required'
+        state: 'required',
+        city: 'required',        
+        address: 'required',
+        apartment: 'required',
+        latitude: 'required',
+        longitude: 'required',
+        country: 'required',
+        // timezone: 'required',
+        password: 'required',
+        // country: 'required'
     });
 
     const matched = await v.check();
@@ -551,34 +555,33 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
 
     
     let title = req.body.title;
-    let username = req.body.username;
+    let middle_name = req.body.middle_name;
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
     let email = req.body.email;
     let mobile = req.body.mobile;
     let country_code = req.body.country_code;    
-    let phone_no = req.body.phone_no;
+    
     let international_phone_no = req.body.international_phone_no;
-    let skype = req.body.skype;
+    let country = req.body.country;
     let dob = req.body.dob;
     let company_name = req.body.company_name;
     let gender = req.body.gender;
-    let other_gender = req.body.other_gender ? req.body.other_gender : "";
+    let state = req.body.state ? req.body.state : "";
     let social_security_no = req.body.social_security_no;
-//    let first_password = req.body.password;
-//    let password = req.body.password;
-//    let languageid = req.body.languageid;
-   
-   
-//    let address = req.body.address;
-//    let apartment = req.body.apartment;
-//    let street = req.body.street ? req.body.street : "";
-//    let latitude = req.body.latitude ? req.body.latitude : 0;
-//    let longitude = req.body.longitude ? req.body.longitude : 0;
-   
-//    let primary_language = req.body.primary_language;
+    let city = req.body.city;
+    let password = req.body.password;
+    let address = req.body.address;
+    let apartment = req.body.apartment;
+    let timezone = req.body.timezone ? req.body.timezone : "";
+   let latitude = req.body.latitude ? req.body.latitude : 0;
+   let longitude = req.body.longitude ? req.body.longitude : 0;
+   let zipCode = req.body.zipCode;
 //    let rate = req.body.rate ? req.body.rate : 0;
-//    password = cryptr.encrypt(password);
+
+    let first_password = password;
+
+   password = cryptr.encrypt(password);
    
    
     var profileImg='default.png';
@@ -590,7 +593,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,title,username,first_name,last_name,email,mobile,phone_no,international_phone_no,gender,date_of_birth,social_security_no,profile_img,other_gender,country_code,company_name,skype)VALUES('2','"+title+"','"+username+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+phone_no+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+other_gender+"','"+country_code+"','"+company_name+"','"+skype+"')";
+    var sql = "INSERT INTO user(role_id,title,middle_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status)VALUES('2','"+title+"','"+middle_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1')";
 
     console.log("image",sql)
 
@@ -610,8 +613,8 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
                 }
             }
         */
-            // var name = first_name+" "+last_name;
-            // common.sendRegistrationEmail(name,email,first_password);
+            var name = first_name+" "+last_name;
+            common.sendRegistrationEmail(name,email,first_password);
  
             res.json({
                 status: 1,
@@ -748,7 +751,7 @@ app.post('/cesco/saveInterpreter_old', upload.any(),async function(req, res, nex
 
 
 //update profile 
-app.post('/cesco/updateInterpreter', upload.any(),async function(req, res, next) {
+app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, next) {
     console.log("all up body",req.body)
      //validation start
      const v = new Validator(req.body, {
@@ -1169,7 +1172,6 @@ io.sockets.on('connection', function(socket) {
             con.query(sql, function(err, result) {
                 if(result.affectedRows == 1){
                     // io.sockets.in(group_id).emit('responce_chat', {
-                    // io.sockets.in(testchatRoom).emit('responce_chat', {
                     io.sockets.emit('responce_chat', {
                         chatRoomId: group_id,
                         receiverId: receiver_id,
@@ -1194,7 +1196,6 @@ io.sockets.on('connection', function(socket) {
                     con.query(sql, function(err, result) {
                         if(result.affectedRows == 1){
                             // io.sockets.in(groupId).emit('responce_chat', {
-                            // io.sockets.in(testchatRoom).emit('responce_chat', {
                             io.sockets.emit('responce_chat', {
                                 chatRoomId: groupId,
                                 receiverId: receiver_id,

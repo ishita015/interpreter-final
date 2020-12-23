@@ -13,6 +13,19 @@ export interface UserAddEdit {
     primary_lang_id:any;
     first_name:any;
     last_name:any;
+    middle_name:any;
     apartment:any;
     street:any;
+    title:any;
+    country_code:any;
+    international_phone_no:any;
+    country:any;
+    state:any;
+    city:any;
+    zipCode:any;
+    timezone:any;
+    company_name:any;
+    dob:any;
+    social_security_no:any;
+    image:any;
 }

@@ -505,6 +505,11 @@ getUpdateCalender(addInfo: AddCalender): Observable<any> {
   getBankingAdd(addBankInfo: AddBanking): Observable<any> {
       return this.http.post(this.url + '/cesco/addBankingInfo',  addBankInfo);
   }
+
+
+  bankingUpdate(updateBankInfo: AddBanking): Observable<any> {
+    return this.http.post(this.url + '/cesco/updateBankingInfo',  updateBankInfo);
+  }
 /*=====Banking Apis End======*/
 
 /*=====Interpreter Profile Apis Start======*/

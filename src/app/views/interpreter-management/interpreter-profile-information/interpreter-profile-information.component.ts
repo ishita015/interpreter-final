@@ -4,7 +4,7 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import {NgForm} from '@angular/forms';
 @Component({
   selector: 'app-interpreter-profile-information',
   templateUrl: './interpreter-profile-information.component.html',
@@ -14,15 +14,16 @@ export class InterpreterProfileInformationComponent implements OnInit {
   items = ['Javascript', 'Typescript']
   bankingForm: FormGroup;
   userForm: FormGroup;
-  langForm: FormGroup;
-  communityForm: FormGroup;
-  conferenceForm: FormGroup;
-  courtForm: FormGroup;
-  credentialedForm: FormGroup;
-  equipmentForm: FormGroup;
-  legalForm: FormGroup;
-  simultaneousForm: FormGroup;
-  otherForm: FormGroup;
+  generalForm: FormGroup;
+  interpreterSkillForm: FormGroup;  // interpreter skills && documents
+  // communityForm: FormGroup;
+  // conferenceForm: FormGroup;
+  // courtForm: FormGroup;
+  // credentialedForm: FormGroup;
+  // equipmentForm: FormGroup;
+  // legalForm: FormGroup;
+  // simultaneousForm: FormGroup;
+  // otherForm: FormGroup;
   tagsCtrl1 = new FormControl(this.items);
   tagsCtrl2 = new FormControl([]);
   submitted: boolean;
@@ -48,6 +49,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   simult_open:boolean = false;
   other_open:boolean = false;
 
+  country_Obj;
 
   public priLanguageId;
   language_Obj;
@@ -66,46 +68,30 @@ export class InterpreterProfileInformationComponent implements OnInit {
     public service:HttpService) { }
 
   ngOnInit(){
-    this.createForm();
+    this.addBankInfo(); // add bank details
     this.createForm2();
-
-    this.commForm();
-    this.languageForm();
-
-
-    this.conForm();
-    this.couForm();
-    this.creForm();
-    this.eqpForm();
-    this.legForm();
-    this.simForm();
+    this.updateGeneralInfo();
+    this.countryList();
+    // this.commForm();
+    // // this.languageForm(); interpreterSkillForm
 
 
-    this.othForm();
+    // this.conForm();
+    // this.couForm();
+    // this.creForm();
+    // this.eqpForm();
+    // this.legForm();
+    // this.simForm();
+
+
+    // this.othForm();
     
     this.LanguageList();
-    this.interId = JSON.parse(localStorage.getItem('interpreterId'));
+    this.interId = JSON.parse(localStorage.getItem('interpreterId')); //interpreter id
     console.log("iddd", this.interId);
     this.detailProfile();
   }
 
-   /*========== Form Value Start Here========*/
-   createForm() {
-    this.bankingForm = this.fb.group({
-      account_no: ['', this.validation.onlyRequired_validator],
-      country: ['', this.validation.onlyRequired_validator],
-      financial_institution:['', this.validation.onlyRequired_validator],
-      payment_benificiary:['', this.validation.onlyRequired_validator],
-      payment_method:['', this.validation.onlyRequired_validator],
-      routing_number:['', this.validation.onlyRequired_validator],
-      SWIFT_code:['', this.validation.onlyRequired_validator],
-      fusion_id:['', this.validation.onlyRequired_validator],
-      site_code:['', this.validation.onlyRequired_validator],
-      site_id:['', this.validation.onlyRequired_validator],
-      user_id:[]
-    });
-  }
-  /*========== Form Value End Here========*/
 
   /*========== Form2 Value Start Here========*/
   createForm2() {
@@ -166,47 +152,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
   /*==========assignment setting Form2 end Here========*/
 
    /*========== Add Api Start Here========*/
-   addProfile(){
-    
-    console.log("form value",this.bankingForm.value);
-    this.submitted = true;
-    if (this.bankingForm.invalid) {
-      return;
-    }
-    this.submitted = false;
-    this.bankingForm.value.user_id = this.interId;
-    this.service.getBankingAdd(this.bankingForm.value)
-    .subscribe(res => {
-      if(res['status']== 1){
-        console.log("api response",res);
-        this.banking_Obj = res
-        this.banking_Msg = res
-        this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/languages/list']);  
-      }else{
-        console.log("api response",res);
-        this.banking_Obj = res
-        this.banking_Msg = res
-        this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
-        // this.router.navigate(['/login'])
-        // this.router.navigate(['/languages/list']);  
-      }
-
-    });
-  }
-
-  detailProfile(){
-    this.service.getProfileDetail(this.interId)
-    .subscribe(res => {
-      if(res['status']== 1){
-        this.detail_Obj = res['data'][0];
-      }else{
-        console.log("api response",res);
-        this.detail_Obj = res
-      }
-    });
-
-  }
+   
+  
 
   check1(){
     this.check_form1 = true;
@@ -371,8 +318,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
   
   
   
-  languageForm() {
-    this.langForm = this.fb.group({
+  skillsForm() {
+    this.interpreterSkillForm = this.fb.group({
       interpreter_id: [''],
       primary_language: [''],
       secondary_language: [''],      
@@ -381,75 +328,75 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
 
-  commForm() {
-    this.communityForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // commForm() {
+  //   this.communityForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
   
-  conForm() {
-    this.conferenceForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // conForm() {
+  //   this.conferenceForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
 
-  couForm() {
-    this.courtForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // couForm() {
+  //   this.courtForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
 
-  creForm() {
-    this.credentialedForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // creForm() {
+  //   this.credentialedForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
 
-  eqpForm() {
-    this.equipmentForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // eqpForm() {
+  //   this.equipmentForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
 
-  legForm() {
-    this.legalForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // legForm() {
+  //   this.legalForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
 
-  simForm() {
-    this.simultaneousForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-    });
-  }
+  // simForm() {
+  //   this.simultaneousForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //   });
+  // }
 
 
-  othForm() {
-    this.otherForm = this.fb.group({
-      interpreter_id: [''],
-      documents: [''],
-      other: [''],      
-    });
-  }
+  // othForm() {
+  //   this.otherForm = this.fb.group({
+  //     interpreter_id: [''],
+  //     documents: [''],
+  //     other: [''],      
+  //   });
+  // }
 
 
 
@@ -483,5 +430,235 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.assignment_form = false;
     this.banking_form = false;
   }
+
+
+
+
+
+
+
+
+//interpreter general information view and edit  bankingForm
+
+  patchValue(){
+    this.generalForm.get('title').patchValue( this.detail_Obj.title);
+    this.generalForm.get('email').patchValue( this.detail_Obj.email);
+    this.generalForm.get('first_name').patchValue( this.detail_Obj.first_name);
+    this.generalForm.get('last_name').patchValue( this.detail_Obj.last_name);
+    this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
+    this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
+    this.generalForm.get('mobile').patchValue( this.detail_Obj.mobile);
+    this.generalForm.get('country_code').patchValue( this.detail_Obj.country_code);
+    this.generalForm.get('address').patchValue( this.detail_Obj.address);
+    this.generalForm.get('dob').patchValue( this.detail_Obj.date_of_birth);
+    this.generalForm.get('international_phone_no').patchValue( this.detail_Obj.international_phone_no);
+    this.generalForm.get('country').patchValue( this.detail_Obj.country);
+    this.generalForm.get('state').patchValue( this.detail_Obj.state);
+    this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
+    this.generalForm.get('city').patchValue( this.detail_Obj.city);
+    this.generalForm.get('zipCode').patchValue( this.detail_Obj.zipCode);
+    this.generalForm.get('timezone').patchValue( this.detail_Obj.timezone);
+    this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name);
+    this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no);
+
+    this.bankingForm.get('bank_name').patchValue( this.detail_Obj.bank_name);
+    this.bankingForm.get('account_type').patchValue( this.detail_Obj.account_type);
+    this.bankingForm.get('bank_country').patchValue(this.detail_Obj.bank_country);
+    this.bankingForm.get('account_no').patchValue( this.detail_Obj.account_no);
+    this.bankingForm.get('bank_routing_no').patchValue( this.detail_Obj.bank_routing_no);
+    this.bankingForm.get('payment_method').patchValue( this.detail_Obj.payment_method);
+    this.bankingForm.get('electronic').patchValue(this.detail_Obj.electronic);
+    this.bankingForm.get('SWIFT_code').patchValue(this.detail_Obj.SWIFT_code);
+    this.bankingForm.get('bank_address').patchValue( this.detail_Obj.bank_address);
+    this.bankingForm.get('paypal_id').patchValue( this.detail_Obj.paypal_id);
+  }
+
+
+
+  updateGeneralInfo() {
+    this.generalForm = this.fb.group({
+        title:['', this.validation.onlyRequired_validator],
+        first_name: ['', this.validation.name_validation],
+        last_name: ['', this.validation.name_validation],
+        email: ['', this.validation.onlyRequired_validator],
+        password: ['', this.validation.onlyRequired_validator],
+        mobile: ['', this.validation.onlyRequired_validator],
+        phone_no: ['', this.validation.onlyRequired_validator],
+        international_phone_no: ['', this.validation.onlyRequired_validator],
+        // username: [''],
+        dob:['',this.validation.onlyRequired_validator],
+        country_code:['',this.validation.onlyRequired_validator],
+        // address: ['', this.validation.onlyRequired_validator],
+        address: [''],
+        company_name:['', this.validation.onlyRequired_validator],
+        social_security_no:['', this.validation.onlyRequired_validator],
+        apartment:['', this.validation.onlyRequired_validator],
+        gender: ['', this.validation.onlyRequired_validator],
+        latitude: [''],
+        longitude: [''],
+        middle_name: ['', this.validation.onlyRequired_validator],
+        country: ['', this.validation.onlyRequired_validator],
+        city: ['', this.validation.onlyRequired_validator],
+        state: ['', this.validation.onlyRequired_validator],
+        zipCode: ['', this.validation.onlyRequired_validator],
+        timezone:[''],
+        image:['', this.validation.onlyRequired_validator]
+    });
+}
+
+
+detailProfile(){
+  this.service.getProfileDetail(this.interId).subscribe(res => {
+    if(res['status']== 1){
+      this.detail_Obj = res['data'][0];
+      console.log("detail_Obj",this.detail_Obj)
+
+      this.patchValue();
+
+      
+
+    }else{
+      console.log("api response",res);
+      this.detail_Obj = res
+    }
+  });
+
+}
+
+
+
+countryList(){
+  this.service.getCountryMobileCode().subscribe(res => {
+    if(res['status']=='1'){
+      console.log("api response",res);
+      this.country_Obj = res['data'];
+      console.log("countryyyyyyyyyyyyy", this.country_Obj);
+    }
+  });
+}
+
+
+//update interpreter value
+updateInterpreter(){
+    // console.log("form value",this.generalForm.value);
+    this.submitted = true;
+    // if (this.generalForm.invalid) {
+    //   return;
+    // }
+    // this.submitted = false;
+
+ 
+  this.generalForm.value.interpreter_id = this.interId;
+
+
+  console.log("user value-",this.generalForm.value);
+    // console.log("api response",res);
+  this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
+      if(res['status'] == 1){
+        // this.useredit_Obj = res
+        // this.useredit_Msg = res;
+        // console.log("api response", this.useredit_Obj);
+        this.toastr.success( res['status'].message,'', { timeOut: 1000 });
+        this.detailProfile();
+        // this.router.navigate(['/users/user-list']);  
+      }
+                  // else{
+                  //   this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+                  //   this.router.navigate(['/users/user-list']);  
+                  // }                        
+        });
+  }
+
+
+  // interpreter general details end
+  
+      //banking code start
+
+      addBankInfo() {
+        this.bankingForm = this.fb.group({
+          bank_name: ['', this.validation.onlyRequired_validator],
+          account_type: ['', this.validation.onlyRequired_validator],
+          bank_country:['', this.validation.onlyRequired_validator],
+          account_no:['', this.validation.onlyRequired_validator],
+          bank_routing_no:['', this.validation.onlyRequired_validator],
+          payment_method:['', this.validation.onlyRequired_validator],
+          electronic:['', this.validation.onlyRequired_validator],
+          SWIFT_code:['', this.validation.onlyRequired_validator],
+          bank_address:['', this.validation.onlyRequired_validator],
+          paypal_id:['', this.validation.onlyRequired_validator]
+        });
+      }
+
+
+      //add bank details
+      addBankDetails(){
+        this.submitted = true;
+        // if (this.bankingForm.invalid) {
+        //   return;
+        // }
+        // this.submitted = false;
+        this.bankingForm.value.user_id = this.interId;
+
+        console.log("form value",this.bankingForm.value);
+
+        this.service.getBankingAdd(this.bankingForm.value)
+        .subscribe(res => {
+          if(res['status']== 1){
+            console.log("api response",res);
+            this.banking_Obj = res
+            this.banking_Msg = res
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            this.detailProfile();
+            // this.router.navigate(['/languages/list']);  
+          }else{
+            console.log("api response",res);
+            this.banking_Obj = res
+            this.banking_Msg = res
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            // this.router.navigate(['/languages/list']);  
+          }
+    
+        });
+      }
+    
+
+
+      //update bank details
+      updateBankDetails(){
+        this.submitted = true;
+        // if (this.bankingForm.invalid) {
+        //   return;
+        // }
+        // this.submitted = false;
+        this.bankingForm.value.user_id = this.interId;
+
+        console.log("form value",this.bankingForm.value);
+
+        this.service.bankingUpdate(this.bankingForm.value)
+        .subscribe(res => {
+          if(res['status']== 1){
+            console.log("api response",res);
+            this.banking_Obj = res
+            this.banking_Msg = res
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            // this.router.navigate(['/languages/list']);  
+          }else{
+            console.log("api response",res);
+            this.banking_Obj = res
+            this.banking_Msg = res
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            // this.router.navigate(['/languages/list']);  
+          }
+    
+        });
+      }
+
+
+
+      //banking code end
+
+
+
+
 
 }

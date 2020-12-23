@@ -2,20 +2,24 @@
     <div class="breadcrumb">
         <ul>
             <li><a class="heading"><b>{{roleName}}</b> Interpreter Profile</a></li>
-            <!-- <li>Version 1</li> -->
+            <!-- <li>Version 1</li> --> 
         </ul>
     </div>
 
     <div class="separator-breadcrumb border-top"></div>
 
-    <div class="row dashboard_block">
+    <div class="row dashboard_block pro_info">
         <!-- ICON BG -->
         <div (click) = "general()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="general_form ? 'active' : ''">
                 <div class="card-body text-center">
-                    <div class="card-icon">
-                    <i class="i-Add-User"></i>
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div> 
+                    <div class="card-icon cardred" *ngIf="detail_Obj.user_profile_status!='1'">
+                        <ion-icon name="close-outline"></ion-icon>
                     </div>
+
                     <div class="content">
                         <p class="cardtext mt-2 mb-0">General</p>
                         
@@ -24,11 +28,11 @@
             </div>
         </div>
 
-        <div (click) = "skills()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+        <div (click) = "skills()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="skills_form ? 'active' : ''">
+            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center">
-                    <div class="card-icon">
-                    <i class="i-Add-User"></i>
+                    <div class="card-icon cardred">
+                        <ion-icon name="close-outline"></ion-icon>
                     </div>
                     <div class="content">
                         <p class="cardtext mt-2 mb-0">Skills</p>
@@ -39,34 +43,38 @@
         </div>
 
 
-        <div (click) = "assignment()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card cardsky card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body  text-center">
-                    <div class="card-icon cardskyblue">
-                    <i class="i-Financial"></i>
+        <div (click) = "assignment()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="assignment_form ? 'active' : ''">
+            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <div class="card-icon cardred">
+                        <ion-icon name="close-outline"></ion-icon>
                     </div>
                     <div class="content">
                         <p class="cardtext mt-2 mb-0">Assignment Settings</p>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div (click) = "banking()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="banking_form ? 'active' : ''">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj.bank_profile_status=='1'">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div> 
+                    <div class="card-icon cardred" *ngIf="detail_Obj.bank_profile_status!='1'">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+
+                    <div class="content">
+                        <p class="cardtext mt-2 mb-0">Banking Details</p>
                         
                     </div>
                 </div>
             </div>
         </div>
-
-        <div (click) = "banking()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <div class="card-icon">
-                    <i class="i-Add-User"></i>
-                    </div>
-                    <div class="content">
-                        <p class="cardtext mt-2 mb-0">Banking Details</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
 
         <!-- general  -->
 
@@ -79,63 +87,246 @@
                             <div class=" mb-2 border-top"></div>
                             <div class="row mb-2">
                                 <div class="col-md-12 userstable mb-3">
-                                     
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Full Name</td>
-                                                <td>{{detail_Obj?.title}} {{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Username</td>
-                                                <td>{{detail_Obj?.username}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Skype</td>
-                                                <td>{{detail_Obj?.skype}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Company Name</td>
-                                                <td>{{detail_Obj?.company_name}}</td>
-                                            </tr>
-                                            <tr >
-                                                <td>Email</td>
-                                                <td>{{detail_Obj?.email}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile</td>
-                                                <td>{{detail_Obj?.mobile | mask: '(000) 000-0000'}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gender</td>
-                                                <td>{{detail_Obj?.gender }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other Gender</td>
-                                                <td>{{detail_Obj?.other_gender}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>International Phone No.</td>
-                                                <td>{{detail_Obj?.international_phone_no | mask: '(000) 000-0000'}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Date Of Birth</td>
-                                                <td>{{detail_Obj?.date_of_birth | date:'MM/dd/yyyy'}}</td>
-                                            </tr>
-                                           
-                                            <!-- <tr>
-                                                <td>Payment Benificiary</td>
-                                                <td>{{detail_Obj?.primay_lang_name}}</td>
-                                            </tr> -->
+                                    
+                                    <form [formGroup]="generalForm">
+                   
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Salutation</label>
+                                                        <select class="form-control" formControlName="title">
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Ms">Ms</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label for="firstName">First Name</label>
+                                                        <input type="text" class="form-control" formControlName="first_name"  placeholder="First Name">
+                                                        <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )" class="error-msg">
+                                                            <div [hidden]="!generalForm.controls['first_name'].errors.required">First Name is required.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Last">Middle Name</label>
+                                                <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
+                                            </div>
+                    
+                                        </div>
+                    
+                                        <div class="row">
+                    
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Last">Last Name</label>
+                                                <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
+                                                <div *ngIf="generalForm.controls['last_name'].errors && (!generalForm.controls['last_name'].pristine || submitted ||generalForm.controls['last_name'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['last_name'].errors.required">Last Name is required.</div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="email">Email</label>
+                                                <input type="text" class="form-control"  formControlName="email" placeholder="Email">
+                                            </div>
+                    
+                                          
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                    
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Code</label>
+                                                        <select class="form-control"  formControlName="country_code">
+                                                            <option value="" selected disabled>Code</option>
+                                                            <option *ngFor="let isd of country_Obj"
+                                                                    [value]="isd.id">
+                                                            +{{isd?.phonecode}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label for="MobileNo.">Mobile No.</label>
+                                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['country_code'].errors.required">Code is required.</div>
+                                                </div>
+                                               
+                                                <div *ngIf="generalForm.controls['mobile'].errors && (!generalForm.controls['mobile'].pristine || submitted ||generalForm.controls['mobile'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label>International Phone</label>
+                                                <input type="text" mask="(000) 000-0000" class="form-control" formControlName="international_phone_no" 
+                                                    onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  
+                                                    placeholder="International Phone">
+                                                <div *ngIf="generalForm.controls['international_phone_no'].errors && (!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['international_phone_no'].errors.required">International Phone No. is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="row">
                                             
-                                        </tbody>
-                                    </table>
+                    
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Address">Address</label>
+                                                <input type="text" class="form-control"  formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search> 
+                                            </div> 
+
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Apartment">Apartment</label>
+                                               <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
+                                                <div *ngIf="generalForm.controls['apartment'].errors && (!generalForm.controls['apartment'].pristine || submitted ||generalForm.controls['apartment'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['apartment'].errors.required">Apartment is required.</div> 
+                                                  </div>
+                                            </div>
+                                         </div>
+                    
+                    
+                    
+                                         
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Country">Country</label>
+                                               <input type="text" class="form-control" formControlName="country" placeholder="Country">
+                                                <div *ngIf="generalForm.controls['country'].errors && (!generalForm.controls['country'].pristine || submitted ||generalForm.controls['country'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['country'].errors.required">Country is required.</div> 
+                                                  </div>
+                                            </div>
+
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="State">State</label>
+                                               <input type="text" class="form-control" formControlName="state"  placeholder="State">
+                                                <div *ngIf="generalForm.controls['state'].errors && (!generalForm.controls['state'].pristine || submitted ||generalForm.controls['state'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['state'].errors.required">State is required.</div> 
+                                                  </div>
+                                            </div>
+                                        </div>
+                    
+                    
+                    
+                                         
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="City">City</label>
+                                               <input type="text" class="form-control" formControlName="city" placeholder="City">
+                                                <div *ngIf="generalForm.controls['city'].errors && (!generalForm.controls['city'].pristine || submitted ||generalForm.controls['city'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['city'].errors.required">City is required.</div> 
+                                                  </div>
+                                            </div>
+
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="State">ZipCode</label>
+                                                <input type="text" class="form-control" formControlName="zipCode"  placeholder="State">
+                                                <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['zipCode'].errors.required">ZipCode is required.</div> 
+                                                  </div>
+                                            </div>
+                                        </div>
+                    
+                    
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="City">Timezone</label>
+                                               <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
+                                                <div *ngIf="generalForm.controls['timezone'].errors && (!generalForm.controls['timezone'].pristine || submitted ||generalForm.controls['timezone'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['timezone'].errors.required">Timezone is required.</div> 
+                                                  </div>
+                                            </div>
+
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label>Company Name</label>
+                                               <input type="text" class="form-control" formControlName="company_name"  placeholder="Company Name">
+                                                <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['company_name'].errors.required">Company Name is required.</div> 
+                                                  </div>
+                                            </div>
+                    
+                                        </div>
+                    
+                    
+                    
+                    
+                    
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label>SSN/EIN</label>
+                                               <input type="text" class="form-control" formControlName="social_security_no"  placeholder="SSN/EIN">
+                                                <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['social_security_no'].errors.required">SSN/EIN is required.</div> 
+                                                  </div>
+                                            </div>
+
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="dob">Date Of Birth</label>
+                                               <input type="date" class="form-control" formControlName="dob" 
+                                               (change)="check_dob($event.target.value)" placeholder="Date Of Birth">
+                                                <div *ngIf="generalForm.controls['dob'].errors && (!generalForm.controls['dob'].pristine || submitted ||generalForm.controls['dob'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['dob'].errors.required">Date Of Birth is required.</div> 
+                                                  </div>
+                                            </div>
+                    
+                                        </div>
+                    
+                    
+                    
+                                        <div class="row">
+                                           
+                                            <!-- <div class="col-md-6 form-group mb-3">
+                                                <label for="image">Image</label>
+                                                <input type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
+                                                <div *ngIf="generalForm.controls['image'].errors && (!generalForm.controls['image'].pristine || submitted ||generalForm.controls['image'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['image'].errors.required">Image is required.</div> 
+                                                  </div>
+                                            </div> -->
+                    
+                                        </div>
+                    
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Gender">Gender</label>
+                                                <div class="form-check">
+                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <input class="form-check-input radio-inline " 
+                                                   formControlName="gender" type="radio" id="gridRadios1"
+                                                        value="Male" checked>
+                                                  
+                                                        Male
+                                                    </label>
+                                              
+                                                    <label class="form-check-label pl-5" for="gridRadios2">
+                                                    <input class="form-check-input radio-inline" 
+                                                     formControlName="gender" type="radio" id="gridRadios2"
+                                                        value="Female">
+                                                        Female
+                                                    </label>
+                                                </div>
+                                                <div *ngIf="generalForm.controls['gender'].errors && (!generalForm.controls['gender'].pristine || submitted ||generalForm.controls['gender'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['gender'].errors.required">Gender is required.</div> 
+                                                  </div>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <button type="button" (click)="updateInterpreter()" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </div> 
+                                    </form>
+
                                 </div>
-                               
-                            </div>
-                          
-                        </div>
-                        
+                            </div>                          
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -149,8 +340,62 @@
             <div *ngIf="skills_form" class="col-md-12">
                 <div class="card animate mb-4">
                     <div class="card-body">
-                        <form [formGroup]="langForm"> 
+                        <form [formGroup]="skillsForm"> 
+
                             <div class="row">
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')" class="mr-2" id="community-interpreting" name="vehicle1"
+                                        value=" On Site">
+                                    <label for="vehicle1"> Community Interpreting </label><br>
+                                </div>
+    
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')" class="mr-2" id="conference-interpreter" name="vehicle1"
+                                        value="OPI">
+                                    <label for="vehicle1"> Conference Interpreter</label><br>
+                                </div>
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')" class="mr-2" id="court-certified" name="vehicle1"
+                                        value="VRI">
+                                    <label for="vehicle1">Court Certified </label><br>
+                                </div>
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed" (change)="setCheck($event,'4')" name="vehicle1"
+                                        value="VCI">
+                                    <label for="vehicle1"> Court Credentialed</label><br>
+                                </div>
+                                
+                            </div>
+    
+    
+    
+                            <div class="row">
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified" (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified" (change)="setCheck($event,'5')" value="1">
+                                    <label for="vehicle1"> Equipment Qualified </label><br>
+                                </div>
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="legalShow()" class="mr-2" (change)="setCheck($event,'6')" id="legal" name="vehicle1"
+                                        value="ASL">
+                                    <label for="vehicle1"> Legal </label><br>
+                                </div>
+    
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous" (change)="setCheck($event,'7')" name="vehicle1"
+                                        value="ASL">
+                                    <label for="vehicle1"> Simultaneous </label><br>
+                                </div>
+    
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2" id="other" name="vehicle1"
+                                        value="ASL">
+                                    <label for="vehicle1"> Other </label><br>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
 
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="picker1">Primary Language</label>
@@ -166,185 +411,258 @@
 
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="Language">Secondary Language</label>
-                                    <tag-input [formControl]="tagsCtrl2" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
+                                    <tag-input [formControl]="tagsCtrl2" class="new_sec" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
                                       theme="primary" placeholder="Secondary Language">
                                       <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
                                       </tag-input-dropdown>
                                     </tag-input>
                                 </div>                                                      
                             </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
+                                    <label for="image">Community Interpreting</label>
+                                    <input type="file" class="form-control" formControlName="community_doc">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
+                                    <label for="image">Conference Interpreter</label>
+                                    <input type="file" class="form-control" formControlName="conference_doc" >
+                                </div>
+            
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="court_open">
+                                    <label for="image">Court Certified</label>
+                                    <input type="file" class="form-control" formControlName="court_doc">
+                                </div>                    
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
+                                    <label for="image">Court Credentialed</label>
+                                    <input type="file" class="form-control" formControlName="credential_doc">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
+                                    <label for="image">Equipment Qualified</label>
+                                    <input type="file" class="form-control" formControlName="equipment_doc">
+                                </div>
+                                <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
+                                    <label for="image">Legal</label>
+                                    <input type="file" class="form-control" formControlName="legal_doc">
+                                </div>
+            
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
+                                    <label for="image">Simultaneous</label>
+                                    <input type="file" class="form-control" formControlName="simultaneous_doc">
+                                </div>
+                            </div>
+
+
+                            <div class="row" *ngIf="other_open">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="image">Other</label>
+                                    <input type="text" class="form-control" formControlName="other_title">
+                                </div>                    
+
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="image">Other</label>
+                                    <input type="file" class="form-control" formControlName="other_doc">
+                                </div>                    
+
+                            </div>
+
          
-                            <!-- <div class="form-group row">
+                            <div class="form-group row">
                                 <div class="col-sm-12">
                                     <button type="button" class="btn btn-primary">Save</button>
                                 </div>
-                            </div> -->
+                            </div>
                         </form>
                         
-                        <div class="row">
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')" class="mr-2" id="community-interpreting" name="vehicle1"
-                                    value=" On Site">
-                                <label for="vehicle1"> Community Interpreting </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')" class="mr-2" id="conference-interpreter" name="vehicle1"
-                                    value="OPI">
-                                <label for="vehicle1"> Conference Interpreter</label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')" class="mr-2" id="court-certified" name="vehicle1"
-                                    value="VRI">
-                                <label for="vehicle1">Court Certified </label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed" (change)="setCheck($event,'4')" name="vehicle1"
-                                    value="VCI">
-                                <label for="vehicle1"> Court Credentialed</label><br>
-                            </div>
-                            
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified" (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified" (change)="setCheck($event,'5')" value="1">
-                                <label for="vehicle1"> Equipment Qualified </label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="legalShow()" class="mr-2" (change)="setCheck($event,'6')" id="legal" name="vehicle1"
-                                    value="ASL">
-                                <label for="vehicle1"> Legal </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous" (change)="setCheck($event,'7')" name="vehicle1"
-                                    value="ASL">
-                                <label for="vehicle1"> Simultaneous </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2" id="other" name="vehicle1"
-                                    value="ASL">
-                                <label for="vehicle1"> Other </label><br>
-                            </div>
-                        </div>
-
-
-                        <form [formGroup]="communityForm" *ngIf="communityinter"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Community Interpreting</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>
-            
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="conferenceForm" *ngIf="conferenceinter">
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Conference Interpreter</label>
-                                    <input type="file" class="form-control" formControlName="documents" >
-                                </div>
-            
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="courtForm" *ngIf="court_open"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Court Certified</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>                    
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="credentialedForm" *ngIf="credent_open"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Court Credentialed</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>
-            
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="equipmentForm" *ngIf="equipment_open"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Equipment Qualified</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>
-            
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="legalForm" *ngIf="legal_open"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Legal</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>
-            
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="simultaneousForm" *ngIf="simult_open"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Simultaneous</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>
-                            </div>
-                        </form>
-
-
-                        <form [formGroup]="otherForm" *ngIf="other_open"> 
-                
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Other</label>
-                                    <input type="text" class="form-control" formControlName="other">
-                                </div>                    
-
-
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Other</label>
-                                    <input type="file" class="form-control" formControlName="documents">
-                                </div>                    
-
-                            </div>
-                        </form>
-
-
                     </div>
                 </div>
             </div>
 
             <!-- gokul code end  -->
 
-            <!-- assignment -->
+            <!-- assignment  start-->
 
+
+
+            <div *ngIf="assignment_form" class="col-md-12">
+                <div class="card animate mb-4">
+                    <div class="card-body">
+                        <form [formGroup]="skillsForm"> 
+
+                            <div class="row">
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')" class="mr-2" id="community-interpreting" name="vehicle1"
+                                        value=" On Site">
+                                    <label for="vehicle1"> Community Interpreting </label><br>
+                                </div>
+    
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')" class="mr-2" id="conference-interpreter" name="vehicle1"
+                                        value="OPI">
+                                    <label for="vehicle1"> Conference Interpreter</label><br>
+                                </div>
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')" class="mr-2" id="court-certified" name="vehicle1"
+                                        value="VRI">
+                                    <label for="vehicle1">Court Certified </label><br>
+                                </div>
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed" (change)="setCheck($event,'4')" name="vehicle1"
+                                        value="VCI">
+                                    <label for="vehicle1"> Court Credentialed</label><br>
+                                </div>
+                                
+                            </div>
+    
+    
+    
+                            <div class="row">
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified" (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified" (change)="setCheck($event,'5')" value="1">
+                                    <label for="vehicle1"> Equipment Qualified </label><br>
+                                </div>
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="legalShow()" class="mr-2" (change)="setCheck($event,'6')" id="legal" name="vehicle1"
+                                        value="ASL">
+                                    <label for="vehicle1"> Legal </label><br>
+                                </div>
+    
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous" (change)="setCheck($event,'7')" name="vehicle1"
+                                        value="ASL">
+                                    <label for="vehicle1"> Simultaneous </label><br>
+                                </div>
+    
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2" id="other" name="vehicle1"
+                                        value="ASL">
+                                    <label for="vehicle1"> Other </label><br>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="picker1">Primary Language</label>
+                                    <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
+                                        <option value="">Select Language</option>
+                                        <option *ngFor="let lan of language_Obj" [value]="lan.id">
+                                            {{lan.name}}
+                                         </option>
+                                    </select>
+                                    
+                                </div>
+        
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="Language">Secondary Language</label>
+                                    <tag-input [formControl]="tagsCtrl2" class="new_sec" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
+                                      theme="primary" placeholder="Secondary Language">
+                                      <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
+                                      </tag-input-dropdown>
+                                    </tag-input>
+                                </div>                                                      
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
+                                    <label for="image">Community Interpreting</label>
+                                    <input type="file" class="form-control" formControlName="community_doc">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
+                                    <label for="image">Conference Interpreter</label>
+                                    <input type="file" class="form-control" formControlName="conference_doc" >
+                                </div>
+            
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="court_open">
+                                    <label for="image">Court Certified</label>
+                                    <input type="file" class="form-control" formControlName="court_doc">
+                                </div>                    
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
+                                    <label for="image">Court Credentialed</label>
+                                    <input type="file" class="form-control" formControlName="credential_doc">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
+                                    <label for="image">Equipment Qualified</label>
+                                    <input type="file" class="form-control" formControlName="equipment_doc">
+                                </div>
+                                <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
+                                    <label for="image">Legal</label>
+                                    <input type="file" class="form-control" formControlName="legal_doc">
+                                </div>
+            
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
+                                    <label for="image">Simultaneous</label>
+                                    <input type="file" class="form-control" formControlName="simultaneous_doc">
+                                </div>
+                            </div>
+
+
+                            <div class="row" *ngIf="other_open">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="image">Other</label>
+                                    <input type="text" class="form-control" formControlName="other_title">
+                                </div>                    
+
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="image">Other</label>
+                                    <input type="file" class="form-control" formControlName="other_doc">
+                                </div>                    
+
+                            </div>
+
+         
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <!--assignment end---->
             
     
-                <div *ngIf="assignment_form" class="col-md-12 animate">
-                <div class="container box-outer tab-nav-3 ">
+            <!--<div *ngIf="assignment_form" class="col-md-12 animate">
+            <div class="container box-outer tab-nav-3 ">
               <div  class="row">
                 <div class="col-md-2 form-group mb-3">
                     <input type="checkbox" class="mr-2" (click)="check1()" id="vehicle1" name="vehicle1" value=" On Site">
@@ -385,10 +703,6 @@
                                                 <option value="Online">Online</option>
                                                
                                             </select>
-                                            <!-- <input type="text" class="form-control" formControlName="payment_mode"  id="name" placeholder="Mode"> -->
-                                            <!-- <div *ngIf="langaugeForm.controls['name'].errors && (!langaugeForm.controls['name'].pristine || submitted ||langaugeForm.controls['name'].touched )" class="error-msg">
-                                                <div [hidden]="!langaugeForm.controls['name'].errors.required">Language Title is required.</div>
-                                              </div> -->
                                         </div>
                                 
                                 
@@ -428,9 +742,6 @@
                                                  
                                               </select>
                                              
-                                            <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                                <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                              </div> -->
                                         </div>
                                 
                                 
@@ -463,9 +774,6 @@
                                            
                                           </select>
                                             
-                                            <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                                <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                              </div> -->
                                         </div>
                                 
                                 
@@ -474,7 +782,7 @@
                                         
                                             <select class="form-control" formControlName="minimum_paid"
                                              placeholder="Minimum Paid">
-                                              <!-- <option value="">Select Minimum Paid</option> -->
+                                             
                                               <option value="15min">15 Min</option>
                                               <option value="45min">45 Min</option>
                                               <option value="60min">60 Min</option>
@@ -489,15 +797,12 @@
                                         <div class="col-md-6 form-group mb-3">
                                             <label >Pay Increment</label>
                                             <input type="text" class="form-control" formControlName="pay_increment"  placeholder="Pay Increment">
-                                            <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                                <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                              </div> -->
+                                            
                                             </div>
                                     </div>
                                 
                                     <div class="form-group row">
                                         <div class="col-sm-12">
-                                            <!-- <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button> -->
                                             <button type="button" (click)="submit_form1()" class="btn btn-primary">Save</button>
                                         </div>
                                     </div>
@@ -521,9 +826,7 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="Mode">Mode</label>
                                         <input type="text" class="form-control"  id="name" placeholder="Mode">
-                                        <!-- <div *ngIf="langaugeForm.controls['name'].errors && (!langaugeForm.controls['name'].pristine || submitted ||langaugeForm.controls['name'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['name'].errors.required">Language Title is required.</div>
-                                          </div> -->
+                                        
                                     </div>
                             
                             
@@ -564,9 +867,6 @@
                                              
                                           </select>
                                          
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -598,9 +898,6 @@
                                        
                                       </select>
                                         
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -608,7 +905,6 @@
                                         <label >Minimum Paid</label>
                                     
                                         <select class="form-control" placeholder="Minimum Paid">
-                                          <!-- <option value="">Select Minimum Paid</option> -->
                                           <option value="15min">15 Min</option>
                                           <option value="45min">45 Min</option>
                                           <option value="60min">60 Min</option>
@@ -623,9 +919,6 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label >Pay Increment</label>
                                         <input type="text" class="form-control"   placeholder="Pay Increment">
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                         </div>
                                 </div>
                             
@@ -646,9 +939,6 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="Mode">Mode</label>
                                         <input type="text" class="form-control"  id="name" placeholder="Mode">
-                                        <!-- <div *ngIf="langaugeForm.controls['name'].errors && (!langaugeForm.controls['name'].pristine || submitted ||langaugeForm.controls['name'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['name'].errors.required">Language Title is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -688,10 +978,6 @@
                                               <option value="Full Day">Full Day </option>
                                              
                                           </select>
-                                         
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -723,9 +1009,6 @@
                                        
                                       </select>
                                         
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -733,7 +1016,6 @@
                                         <label >Minimum Paid</label>
                                     
                                         <select class="form-control" placeholder="Minimum Paid">
-                                          <!-- <option value="">Select Minimum Paid</option> -->
                                           <option value="15min">15 Min</option>
                                           <option value="45min">45 Min</option>
                                           <option value="60min">60 Min</option>
@@ -748,9 +1030,6 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label >Pay Increment</label>
                                         <input type="text" class="form-control"   placeholder="Pay Increment">
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                         </div>
                                 </div>
                             
@@ -771,9 +1050,6 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="Mode">Mode</label>
                                         <input type="text" class="form-control"  id="name" placeholder="Mode">
-                                        <!-- <div *ngIf="langaugeForm.controls['name'].errors && (!langaugeForm.controls['name'].pristine || submitted ||langaugeForm.controls['name'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['name'].errors.required">Language Title is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -813,10 +1089,6 @@
                                               <option value="Full Day">Full Day </option>
                                              
                                           </select>
-                                         
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -847,10 +1119,6 @@
                                           <option value="After hours">After hours</option>
                                        
                                       </select>
-                                        
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -858,7 +1126,6 @@
                                         <label >Minimum Paid</label>
                                     
                                         <select class="form-control" placeholder="Minimum Paid">
-                                          <!-- <option value="">Select Minimum Paid</option> -->
                                           <option value="15min">15 Min</option>
                                           <option value="45min">45 Min</option>
                                           <option value="60min">60 Min</option>
@@ -873,9 +1140,6 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label >Pay Increment</label>
                                         <input type="text" class="form-control"   placeholder="Pay Increment">
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                         </div>
                                 </div>
                             
@@ -897,9 +1161,7 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="Mode">Mode</label>
                                         <input type="text" class="form-control"  id="name" placeholder="Mode">
-                                        <!-- <div *ngIf="langaugeForm.controls['name'].errors && (!langaugeForm.controls['name'].pristine || submitted ||langaugeForm.controls['name'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['name'].errors.required">Language Title is required.</div>
-                                          </div> -->
+                                        
                                     </div>
                             
                             
@@ -940,9 +1202,6 @@
                                              
                                           </select>
                                          
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -974,9 +1233,6 @@
                                        
                                       </select>
                                         
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                     </div>
                             
                             
@@ -984,7 +1240,6 @@
                                         <label >Minimum Paid</label>
                                     
                                         <select class="form-control" placeholder="Minimum Paid">
-                                          <!-- <option value="">Select Minimum Paid</option> -->
                                           <option value="15min">15 Min</option>
                                           <option value="45min">45 Min</option>
                                           <option value="60min">60 Min</option>
@@ -999,9 +1254,6 @@
                                     <div class="col-md-6 form-group mb-3">
                                         <label >Pay Increment</label>
                                         <input type="text" class="form-control"   placeholder="Pay Increment">
-                                        <!-- <div *ngIf="langaugeForm.controls['country'].errors && (!langaugeForm.controls['country'].pristine || submitted ||langaugeForm.controls['country'].touched )" class="error-msg">
-                                            <div [hidden]="!langaugeForm.controls['country'].errors.required">Country is required.</div>
-                                          </div> -->
                                         </div>
                                 </div>
                             
@@ -1012,119 +1264,90 @@
                   
              </div>
           
-            </div>
+            </div>  -->
 
     <!-- Banking -->
 
     
     <div *ngIf="banking_form" class="col-md-12" >              
-        <div class="col-md-12 tab-nav-4">
-            <div class="card animate">
-                <div class="card-body">
-                    <div id="print-area">
-                            <div class="col-md-12 lan_block mt-1 mb-1">
-                                <h5 class="font-weight-bold">Banking Details</h5>
-                              <div class="mb-2 border-top"></div>
-                              <div class="row mb-2">
-                                <div class="col-md-12 userstable mb-3">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Swift Code</td>
-                                                <td>{{detail_Obj?.SWIFT_code}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Account No</td>
-                                                <td>{{detail_Obj?.account_no}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country</td>
-                                                <td>{{detail_Obj?.country}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Payment Benificiary</td>
-                                                <td>{{detail_Obj?.payment_benificiary}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                             
-                                 </div>
-                                 </div>
-                             </div>
-                            
-                            
-                      
-                      
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <br>
-       
-       
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-4">
+                <div class="card animate mb-4">
                     <div class="card-body">
                         <form [formGroup]="bankingForm">
         
                             <div class="row">
                                 
                                 <div class="col-md-6 form-group mb-3">
-                                    <label for="Account">Account no</label>
-                                    <input type="text" class="form-control" formControlName="account_no"  placeholder="Account No">
-                                    <div *ngIf="bankingForm.controls['account_no'].errors && (!bankingForm.controls['account_no'].pristine || submitted ||bankingForm.controls['account_no'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['account_no'].errors.required">Account No. is required.</div>
+                                    <label for="Account">Bank Name</label>
+                                    <input type="text" class="form-control" formControlName="bank_name"  placeholder="Bank Name">
+                                    <div *ngIf="bankingForm.controls['bank_name'].errors && (!bankingForm.controls['bank_name'].pristine || submitted ||bankingForm.controls['bank_name'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['bank_name'].errors.required">Bank Name is required.</div>
                                       </div>
                                 </div>
-        
-        
+
+
                                 <div class="col-md-6 form-group mb-3">
-                                    <label for="Country">Country</label>
-                                    <input type="text" class="form-control" formControlName="country" id="country" placeholder="Country">
-                                    <div *ngIf="bankingForm.controls['country'].errors && (!bankingForm.controls['country'].pristine || submitted ||bankingForm.controls['country'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['country'].errors.required">Country is required.</div>
+                                    <label for="Account">Account Type</label>
+                                    <input type="text" class="form-control" formControlName="account_type"  placeholder="Account Type(Savings/Checking)">
+                                    <div *ngIf="bankingForm.controls['account_type'].errors && (!bankingForm.controls['account_type'].pristine || submitted ||bankingForm.controls['account_type'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['account_type'].errors.required">Account Type. is required.</div>
                                       </div>
                                 </div>
+
+                                
+        
+                               
                             </div>
         
                             <div class="row">
                                 
                                 <div class="col-md-6 form-group mb-3">
-                                    <label for="country">Financial Institution</label>
-                                    <input type="text" class="form-control"  formControlName="financial_institution"  placeholder="Financial Institution">
-                                    <div *ngIf="bankingForm.controls['financial_institution'].errors && (!bankingForm.controls['financial_institution'].pristine || submitted ||bankingForm.controls['financial_institution'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['financial_institution'].errors.required">Financial Institution is required.</div>
+                                    <label for="Country">Country</label>
+                                    <input type="text" class="form-control" formControlName="bank_country" id="bank_country" placeholder="Country">
+                                    <div *ngIf="bankingForm.controls['bank_country'].errors && (!bankingForm.controls['bank_country'].pristine || submitted ||bankingForm.controls['bank_country'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['bank_country'].errors.required">Country is required.</div>
+                                      </div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="country">Bank Account No</label>
+                                    <input type="text" class="form-control"  formControlName="account_no" placeholder="Bank Account No">
+                                    <div *ngIf="bankingForm.controls['account_no'].errors && (!bankingForm.controls['account_no'].pristine || submitted ||bankingForm.controls['account_no'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['account_no'].errors.required">Bank Account No is required.</div>
                                       </div>
                                 </div>
         
-        
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="payment">Payment Benificiary</label>
-                                    <input type="text" class="form-control"  formControlName="payment_benificiary"  placeholder="payment Benificiary">
-                                </div>
                             </div>
 
                             <div class="row">
                                 
                                 <div class="col-md-6 form-group mb-3">
+                                    <label for="payment">Bank Routing Number</label>
+                                    <input type="text" class="form-control"  formControlName="bank_routing_no"  placeholder="Bank Routing Number">
+                                </div> 
+
+
+                                <div class="col-md-6 form-group mb-3">
                                     <label >Payment Method</label>
-                                    <input type="text" class="form-control"  formControlName="payment_method"  placeholder="Payment Method">
+                                    <input type="text" class="form-control"  formControlName="payment_method"  placeholder="Account is personal or business">
                                     <div *ngIf="bankingForm.controls['payment_method'].errors && (!bankingForm.controls['payment_method'].pristine || submitted ||bankingForm.controls['payment_method'].touched )" class="error-msg">
                                         <div [hidden]="!bankingForm.controls['payment_method'].errors.required">Payment Method is required.</div>
                                       </div>
                                 </div>
         
         
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="payment">Routing Number</label>
-                                    <input type="text" class="form-control"  formControlName="routing_number"  placeholder="Routing Number">
-                                </div>
+                                 
                             </div>
 
                             <div class="row">
-                                
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="payment">Electronic/Paper/Wire</label>
+                                    <input type="text" class="form-control"  formControlName="electronic"  placeholder="Electronic/Paper/Wire">
+                                </div> 
+
+
                                 <div class="col-md-6 form-group mb-3">
                                     <label>Swift Code</label>
                                     <input type="text" class="form-control" formControlName="SWIFT_code"  placeholder="Swift Code">
@@ -1132,44 +1355,39 @@
                                         <div [hidden]="!bankingForm.controls['SWIFT_code'].errors.required">Swift Code is required.</div>
                                       </div>
                                 </div>
-        
-        
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="Site">Site Code</label>
-                                    <input type="text" class="form-control"  formControlName="site_code"  placeholder="Site Code">
-                                    <div *ngIf="bankingForm.controls['site_code'].errors && (!bankingForm.controls['site_code'].pristine || submitted ||bankingForm.controls['site_code'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['site_code'].errors.required">Site Code is required.</div>
-                                      </div>
-                                </div>
-                            </div>
+                            </div>  
 
 
                             <div class="row">
-                                
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>Fusion Id</label>
-                                    <input type="text" class="form-control" formControlName="fusion_id"  placeholder="Fusion Id">
-                                    <div *ngIf="bankingForm.controls['fusion_id'].errors && (!bankingForm.controls['fusion_id'].pristine || submitted ||bankingForm.controls['fusion_id'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['fusion_id'].errors.required">Fusion Id is required.</div>
-                                      </div>
-                                </div>
-        
-        
+                                    <label for="payment">Bank Address</label>
+                                    <input type="text" class="form-control" formControlName="bank_address"  placeholder="Bank Address">
+                                </div> 
+
+
                                 <div class="col-md-6 form-group mb-3">
-                                    <label for="Site">Site Id</label>
-                                    <input type="text" class="form-control"  formControlName="site_id"  placeholder="Site Id">
-                                    <div *ngIf="bankingForm.controls['site_id'].errors && (!bankingForm.controls['site_id'].pristine || submitted ||bankingForm.controls['site_id'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['site_id'].errors.required">Site Id is required.</div>
-                                      </div>
+                                    <label>Paypal Id/Paypal Account</label>
+                                    <input type="text" class="form-control" formControlName="paypal_id"  placeholder="Paypal Id/Paypal Account">
+                                    <!-- <div *ngIf="bankingForm.controls['SWIFT_code'].errors && (!bankingForm.controls['SWIFT_code'].pristine || submitted ||bankingForm.controls['SWIFT_code'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['SWIFT_code'].errors.required">Swift Code is required.</div>
+                                      </div> -->
                                 </div>
                             </div>
-        
-                            <div class="form-group row">
+
+                            
+                              <!-- {{detail_Obj.banlking_id}}   -->
+                            <div class="form-group row" *ngIf="detail_Obj.banlking_id==null">
                                 <div class="col-sm-12">
-                                    <!-- <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button> -->
-                                    <button type="button" (click)="addProfile()" class="btn btn-primary">Save</button>
+                                    <button type="button" (click)="addBankDetails()" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
+
+                            <div class="form-group row" *ngIf="detail_Obj.banlking_id!=null">
+                                <div class="col-sm-12">
+                                    <button type="button" (click)="updateBankDetails()" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>

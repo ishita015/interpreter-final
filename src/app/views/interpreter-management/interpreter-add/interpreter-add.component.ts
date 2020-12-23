@@ -85,7 +85,7 @@ export class InterpreterAddComponent implements OnInit {
                   console.log("ppppppppppppp",place);
                  
                   this.new_address = place['formatted_address'];
-                  console.log("qqqqqqqqqq", this.new_address);
+                  console.log("address", this.new_address);
                 
                   this.sec_address = place['formatted_address'];
                   
@@ -99,8 +99,8 @@ export class InterpreterAddComponent implements OnInit {
                   this.latitude = place.geometry.location.lat();
                   this.longitude = place.geometry.location.lng();
 
-                  // console.log("latitude-",this.latitude);
-                  // console.log("longitude-",this.longitude);
+                  console.log("latitude-",this.latitude);
+                  console.log("longitude-",this.longitude);
 
                   this.zoom = 12;
               });
@@ -130,57 +130,31 @@ export class InterpreterAddComponent implements OnInit {
             first_name: ['', this.validation.name_validation],
             last_name: ['', this.validation.name_validation],
             email: ['', this.validation.onlyRequired_validator],
-            // password: ['', this.validation.onlyRequired_validator],
+            password: ['', this.validation.onlyRequired_validator],
             mobile: ['', this.validation.onlyRequired_validator],
             phone_no: ['', this.validation.onlyRequired_validator],
             international_phone_no: ['', this.validation.onlyRequired_validator],
-            username: [''],
-            skype:['',this.validation.onlyRequired_validator],
+            // username: [''],
             dob:['',this.validation.onlyRequired_validator],
             country_code:['',this.validation.onlyRequired_validator],
-            address: this.fb.group(
-                {
-                    address: ['', this.validation.onlyRequired_validator],
-                    // s_address: ['', this.validation.onlyRequired_validator],
-                    type: ['1'],
-                    location: [''],
-                    country: [''],
-                    state: [''],
-                    city: [''],
-                    lat: [''],
-                    long: [''],
-                    apartment: [''],
-                    zipcode: [''],
-                },
-                {
-                    address: ['', this.validation.onlyRequired_validator],
-                    type: ['2'],
-                    location: [''],
-                    country: [''],
-                    state: [''],
-                    city: [''],
-                    lat: [''],
-                    long: [''],
-                    apartment: [''],
-                    zipcode: [''],
-                }
-            ),
-            // address: ['', this.validation.onlyRequired_validator], //array
+            // address: ['', this.validation.onlyRequired_validator],
+            address: [''],
             company_name:['', this.validation.onlyRequired_validator],
             social_security_no:['', this.validation.onlyRequired_validator],
-            // apartment:['', this.validation.onlyRequired_validator],
-            // street:['', this.validation.onlyRequired_validator],
+            apartment:['', this.validation.onlyRequired_validator],
             gender: ['', this.validation.onlyRequired_validator],
-            // languageid: [''],
-            // latitude: [''],
-            // longitude: [''],
-            // primary_language: ['', this.validation.onlyRequired_validator],
-            // user_role: ['', this.validation.onlyRequired_validator],
-            // rate:[''],
-            image:['', this.validation.onlyRequired_validator],
-           
+            latitude: [''],
+            longitude: [''],
+            middle_name: ['', this.validation.onlyRequired_validator],
+            country: ['', this.validation.onlyRequired_validator],
+            city: ['', this.validation.onlyRequired_validator],
+            state: ['', this.validation.onlyRequired_validator],
+            zipCode: ['', this.validation.onlyRequired_validator],
+            timezone:[''],
+            image:['', this.validation.onlyRequired_validator]
         });
     }
+
     /*========== Form Value End Here========*/
 
     
@@ -264,62 +238,54 @@ export class InterpreterAddComponent implements OnInit {
     }
 
     saveUser(){
-      if( this.userForm.value.address['address'] == '' ||  this.userForm.value.address['address'] == undefined){
-        this.toastr.error("address is required", '', { timeOut: 3000 });
-      }
-        // console.log("languageid 1",this.userForm.value.languageid);
-        console.log("form value",this.userForm.value);
+        console.log("latitude --",this.latitude);
+        console.log("longitude 22",this.longitude);
+        console.log("new_address 44",this.new_address);
         this.submitted = true;
-        if (this.userForm.invalid) {
-          return;
-        }
-        this.submitted = false;
+        // if (this.userForm.invalid) {
+        //   return;
+        // }
+        // this.submitted = false;
+
+        this.userForm.value.address = this.new_address;
+        this.userForm.value.latitude = this.latitude
+        this.userForm.value.longitude = this.longitude
+        this.userForm.value.title
+
 
         const formData: any = new FormData();
-
-        // for(let id of this.userForm.value.languageid){
-        //     console.log("language--id",id);
-        //     formData.append('languageid',id);
-        // }
-
-        // console.log("languageid",this.userForm.value.languageid);
-
-        this.userForm.value.image = this.selectedFile;
-        
-        // this.userForm.value.user_id = this.userId; 
+        this.userForm.value.image = this.selectedFile;      
         formData.append('title', this.userForm.value.title);
         formData.append('first_name', this.userForm.value.first_name);
+        formData.append('middle_name', this.userForm.value.middle_name);
         formData.append('last_name', this.userForm.value.last_name);
         formData.append('email', this.userForm.value.email);
         formData.append('mobile', this.userForm.value.mobile);
-        formData.append('phone_no', this.userForm.value.phone_no);
         formData.append('international_phone_no', this.userForm.value.international_phone_no);
-        formData.append('username', this.userForm.value.username);
         formData.append('company_name', this.userForm.value.company_name);
-        formData.append('skype', this.userForm.value.skype);    
         formData.append('social_security_no', this.userForm.value.social_security_no);
         formData.append('dob', this.userForm.value.dob);
-        formData.append('address', this.new_address);
-        formData.append('s_address', this.sec_address);
-        // formData.append('password', this.userForm.value.password);
+        formData.append('address', this.userForm.value.address);
+        formData.append('country', this.userForm.value.country);
+        formData.append('password', this.userForm.value.password);
         formData.append('apartment', this.userForm.value.apartment);
-        // formData.append('other_gender', this.userForm.value.other_gender);
+        formData.append('city', this.userForm.value.city);
         formData.append('gender', this.userForm.value.gender);
-        formData.append('lat', this.latitude);
-        formData.append('long', this.longitude);
-        // formData.append('languageid', this.userForm.value.languageid);
-        // formData.append('primary_language', this.newlanguageVal);
-        // formData.append('rate', this.userForm.value.rate);
+        formData.append('latitude', this.userForm.value.latitude);
+        formData.append('longitude', this.userForm.value.longitude);
+        formData.append('state', this.userForm.value.state);
+        formData.append('timezone', this.userForm.value.timezone);
+        formData.append('zipCode', this.userForm.value.zipCode);
         formData.append('country_code', this.userForm.value.country_code);
-        // formData.append('latitude', this.userForm.value.address);
         formData.append('image', this.selectedFile);
         
-        
+        console.log("final form value",this.userForm.value);
+
         this.service.interpreterAdd(formData).subscribe(res => {
             this.user_Obj = res
             this.user_Msg = res
             this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
-            // this.router.navigate(['/interpreter/interpreter-list']);
+            this.router.navigate(['/interpreter/interpreter-list']);
         });
       }
 

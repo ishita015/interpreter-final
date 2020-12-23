@@ -9,10 +9,12 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+    
+
     //languages//banking_detail
     getInterpreterProfileData(interpreter_id){
         return new Promise(function(resolve, reject) {
-            var sql = "SELECT u.*,l.id as primay_lang_id,l.name as primay_lang_name,bd.id as banlking_id,bd.account_no,bd.country,bd.financial_institution,bd.payment_benificiary,bd.payment_method,bd.routing_number,bd.SWIFT_code FROM user AS u LEFT JOIN banking_detail AS bd ON bd.user_id=u.id LEFT JOIN languages as l ON l.id=u.primary_language WHERE u.id='"+interpreter_id+"' && u.role_id='2'";
+            var sql = "SELECT u.*,l.id as primay_lang_id,l.name as primay_lang_name,bd.id as banlking_id,bd.bank_name,bd.account_type,bd.bank_country,bd.account_no,bd.bank_routing_no,bd.payment_method,bd.electronic,bd.SWIFT_code,bd.bank_address,bd.paypal_id,bd.is_complete FROM user AS u LEFT JOIN banking_detail AS bd ON bd.user_id=u.id LEFT JOIN languages as l ON l.id=u.primary_language WHERE u.id='"+interpreter_id+"' && u.role_id='2'";
             
             console.log("check sql",sql);
             con.query(sql, function(err, result) {

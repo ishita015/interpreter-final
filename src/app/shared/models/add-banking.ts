@@ -1,12 +1,13 @@
 export interface AddBanking {
-    account_no: any,
-    country:any, 
-    financial_institution:any,
-    payment_benificiary:any,
+    bank_name: any,
+    account_type:any, 
+    bank_country:any,
+    account_no:any,
+    bank_routing_no:any,
     payment_method:any,
-    routing_number:any,
+    electronic:any,
     SWIFT_code:any,
-    fusion_id:any,
-    site_code:any,
-    site_id:any,
+    bank_address:any,
+    paypal_id:any,
+    user_id:any
 }
