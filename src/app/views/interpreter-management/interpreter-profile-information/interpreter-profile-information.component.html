@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
         <ul>
-            <li><a class="heading"><b>{{roleName}}</b> Interpreter Profile</a></li>
+            <li><a class="heading"><b>{{detail_Obj.first_name}} {{detail_Obj.last_name}}</b> Profile</a></li>
             <!-- <li>Version 1</li> --> 
         </ul>
     </div>
@@ -503,155 +503,48 @@
             <div *ngIf="assignment_form" class="col-md-12">
                 <div class="card animate mb-4">
                     <div class="card-body">
-                        <form [formGroup]="skillsForm"> 
+                        <!-- <form [formGroup]="assignmentForm">  -->
 
                             <div class="row">
                                 <div class="col-md-3 form-group mb-3">
                                     <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')" class="mr-2" id="community-interpreting" name="vehicle1"
                                         value=" On Site">
-                                    <label for="vehicle1"> Community Interpreting </label><br>
+                                    <label for="vehicle1"> OPI </label><br>
                                 </div>
     
                                 <div class="col-md-3 form-group mb-3">
                                     <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')" class="mr-2" id="conference-interpreter" name="vehicle1"
                                         value="OPI">
-                                    <label for="vehicle1"> Conference Interpreter</label><br>
+                                    <label for="vehicle1"> VRI</label><br>
                                 </div>
                                 <div class="col-md-3 form-group mb-3">
                                     <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')" class="mr-2" id="court-certified" name="vehicle1"
                                         value="VRI">
-                                    <label for="vehicle1">Court Certified </label><br>
+                                    <label for="vehicle1">VCL </label><br>
                                 </div>
                                 <div class="col-md-3 form-group mb-3">
                                     <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed" (change)="setCheck($event,'4')" name="vehicle1"
                                         value="VCI">
-                                    <label for="vehicle1"> Court Credentialed</label><br>
+                                    <label for="vehicle1"> ASL</label><br>
                                 </div>
                                 
                             </div>
     
     
     
-                            <div class="row">
-                                <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified" (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified" (change)="setCheck($event,'5')" value="1">
-                                    <label for="vehicle1"> Equipment Qualified </label><br>
-                                </div>
-                                <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" (click)="legalShow()" class="mr-2" (change)="setCheck($event,'6')" id="legal" name="vehicle1"
-                                        value="ASL">
-                                    <label for="vehicle1"> Legal </label><br>
-                                </div>
-    
-                                <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous" (change)="setCheck($event,'7')" name="vehicle1"
-                                        value="ASL">
-                                    <label for="vehicle1"> Simultaneous </label><br>
-                                </div>
-    
-                                <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2" id="other" name="vehicle1"
-                                        value="ASL">
-                                    <label for="vehicle1"> Other </label><br>
-                                </div>
-                            </div>
-
 
                             <div class="row">
 
 
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="picker1">Primary Language</label>
-                                    <select class="form-control"  (change)="onChange($event)"  formControlName="primary_language">
-                                        <option value="">Select Language</option>
-                                        <option *ngFor="let lan of language_Obj" [value]="lan.id">
-                                            {{lan.name}}
-                                         </option>
-                                    </select>
-                                    
-                                </div>
+                               
         
 
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="Language">Secondary Language</label>
-                                    <tag-input [formControl]="tagsCtrl2" class="new_sec" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)"
-                                      theme="primary" placeholder="Secondary Language">
-                                      <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
-                                      </tag-input-dropdown>
-                                    </tag-input>
-                                </div>                                                      
-                            </div>
-
-
-
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
-                                    <label for="image">Community Interpreting</label>
-                                    <input type="file" class="form-control" formControlName="community_doc">
-                                </div>
-
-                                <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
-                                    <label for="image">Conference Interpreter</label>
-                                    <input type="file" class="form-control" formControlName="conference_doc" >
-                                </div>
-            
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3" *ngIf="court_open">
-                                    <label for="image">Court Certified</label>
-                                    <input type="file" class="form-control" formControlName="court_doc">
-                                </div>                    
-
-                                <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
-                                    <label for="image">Court Credentialed</label>
-                                    <input type="file" class="form-control" formControlName="credential_doc">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
-                                    <label for="image">Equipment Qualified</label>
-                                    <input type="file" class="form-control" formControlName="equipment_doc">
-                                </div>
-                                <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
-                                    <label for="image">Legal</label>
-                                    <input type="file" class="form-control" formControlName="legal_doc">
-                                </div>
-            
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
-                                    <label for="image">Simultaneous</label>
-                                    <input type="file" class="form-control" formControlName="simultaneous_doc">
-                                </div>
-                            </div>
-
-
-                            <div class="row" *ngIf="other_open">
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Other</label>
-                                    <input type="text" class="form-control" formControlName="other_title">
-                                </div>                    
-
-
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="image">Other</label>
-                                    <input type="file" class="form-control" formControlName="other_doc">
-                                </div>                    
-
+                                                                               
                             </div>
 
          
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        </form>
+                          
+                        <!-- </form> -->
                         
                     </div>
                 </div>
