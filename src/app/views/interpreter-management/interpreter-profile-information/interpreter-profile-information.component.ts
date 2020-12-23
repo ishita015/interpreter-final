@@ -540,33 +540,21 @@ countryList(){
 
 //update interpreter value
 updateInterpreter(){
-    // console.log("form value",this.generalForm.value);
     this.submitted = true;
     // if (this.generalForm.invalid) {
     //   return;
     // }
     // this.submitted = false;
-
- 
   this.generalForm.value.interpreter_id = this.interId;
 
-
-  console.log("user value-",this.generalForm.value);
-    // console.log("api response",res);
   this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       if(res['status'] == 1){
-        // this.useredit_Obj = res
-        // this.useredit_Msg = res;
-        // console.log("api response", this.useredit_Obj);
-        this.toastr.success( res['status'].message,'', { timeOut: 1000 });
+        this.toastr.success( res['message'].message,'', { timeOut: 1000 });
         this.detailProfile();
-        // this.router.navigate(['/users/user-list']);  
+      }else{
+        this.toastr.error( res['message'].message,'', { timeOut: 1000 });
       }
-                  // else{
-                  //   this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
-                  //   this.router.navigate(['/users/user-list']);  
-                  // }                        
-        });
+    });
   }
 
 

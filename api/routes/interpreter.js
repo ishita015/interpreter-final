@@ -2926,7 +2926,7 @@ module.exports.updateInterpreter = async function(req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='"+first_name+"',middle_name ='"+middle_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"' WHERE id = '"+id+"'";
+    let sql = "UPDATE user SET first_name ='"+first_name+"',middle_name ='"+middle_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"',profile_status='1' WHERE id = '"+id+"'";
 
     console.log("sql-update",sql)
     var query = con.query(sql, function(err, result) {
