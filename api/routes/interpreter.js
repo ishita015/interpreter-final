@@ -2929,25 +2929,13 @@ module.exports.updateInterpreter = async function(req, res) {
     let sql = "UPDATE user SET first_name ='"+first_name+"',middle_name ='"+middle_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"',profile_status='1' WHERE id = '"+id+"'";
 
     console.log("sql-update",sql)
-    var query = con.query(sql, function(err, result) {
+    con.query(sql, function(err, result) {
         if(!err){
-            // if (languageid != "" && languageid != undefined) {
-            //     let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+id+"'";
-            //     con.query(sqlDelete, function(err, res_delete) {});
-    
-
-
-            //     for (var i = 0; i < languageid.length; i++) {
-            //         console.log("language id",languageid[i].id);
-            //         var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
-            //         con.query(sql1, function(err, insert) {});
-            //     }
-            // }
             res.json({
                 status: 1,
                 error_code: 0,
                 error_line: 6,
-                message: "Update successfully",
+                message: "Profile update successfully",
             });
             return true;
         }else{
