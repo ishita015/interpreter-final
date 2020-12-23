@@ -32,6 +32,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   ass_Obj;
   interId;
   detail_Obj;
+  gen_Msg;
   Profile: FormGroup;
   check_form1 = false;
   check_form2 = false;
@@ -548,11 +549,12 @@ updateInterpreter(){
   this.generalForm.value.interpreter_id = this.interId;
 
   this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
+      this.gen_Msg=res;
       if(res['status'] == 1){
-        this.toastr.success( res['message'].message,'', { timeOut: 1000 });
+        this.toastr.success( this.gen_Msg.message,'', { timeOut: 1000 });
         this.detailProfile();
       }else{
-        this.toastr.error( res['message'].message,'', { timeOut: 1000 });
+        this.toastr.error( this.gen_Msg.message,'', { timeOut: 1000 });
       }
     });
   }
