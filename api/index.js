@@ -421,8 +421,7 @@ let upload = multer({
 app.post('/cesco/uploadInterpreterDoc', upload.any(),async function(req, res, next) {
     //validation start
     const v = new Validator(req.body, {
-        interpreter_id: 'required',
-        doc_type: 'required',
+        interpreter_id: 'required'
     });
     
     const matched = await v.check();
@@ -441,37 +440,33 @@ app.post('/cesco/uploadInterpreterDoc', upload.any(),async function(req, res, ne
     }
 
     let interpreter_id = req.body.interpreter_id;
-    let doc_type  = req.body.doc_type;
+    // let doc_type  = req.body.doc_type;
     let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
     
-    
+
+    console.log("body",req.body);
+    console.log("check all img",req.files);
+
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
-            let documents=req.files[0].filename;
+            // let documents=req.files[0].filename;
 
-            var sql = "INSERT INTO interpreters_special_attributes(interpreter_id,documents,doc_type,other_doc_title)VALUES('"+interpreter_id+"','"+documents+"','"+doc_type+"','"+other_doc_title+"')";
-            con.query(sql, function(err, insert) {
-                if(!err){
-                    res.json({
-                        status: 1,
-                        error_code: 0,
-                        error_line: 6,
-                        data: documents,
-                        message: "Documents upload successfully",
-                    });
-                    return true;
-                }else{
-                    //error
-                    res.json({
-                        status: 0,
-                        error_code: 0,
-                        error_line: 7,
-                        message: "Please try again"
-                    });
-                    return true;
-                }
+            console.log("yes is working",req.files);
+            for (var i = 0; i < req.files.length; i++) {
+                console.log("fieldname id",req.files[i].fieldname);
+                console.log("filename id",req.files[i].filename);
+                var sql = "INSERT INTO interpreter_skills_doc(interpreter_id,doc_type,doc_name,other_doc_title)VALUES('"+interpreter_id+"','"+req.files[i].fieldname+"','"+req.files[i].filename+"','"+other_doc_title+"')";
+                con.query(sql, function(err, insert) {});
+            }
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                // data: documents,
+                message: "Documents upload successfully",
             });
-
+            return true;
         }
     }
 });
@@ -529,7 +524,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
         state: 'required',
         city: 'required',        
         address: 'required',
-        apartment: 'required',
+        // apartment: 'required',
         latitude: 'required',
         longitude: 'required',
         country: 'required',
@@ -648,7 +643,7 @@ app.post('/cesco/saveInterpreter_old', upload.any(),async function(req, res, nex
         languageid: 'required',
         mobile: 'required',
         address: 'required',
-        apartment: 'required',
+        // apartment: 'required',
         country_code: 'required',
         latitude: 'required',
         longitude: 'required',
@@ -683,7 +678,7 @@ app.post('/cesco/saveInterpreter_old', upload.any(),async function(req, res, nex
    let country_code = req.body.country_code;
    
    let address = req.body.address;
-   let apartment = req.body.apartment;
+   let apartment = "";
    let street = req.body.street ? req.body.street : "";
    let latitude = req.body.latitude ? req.body.latitude : 0;
    let longitude = req.body.longitude ? req.body.longitude : 0;

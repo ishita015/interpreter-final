@@ -4,13 +4,20 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {NgForm} from '@angular/forms';
+// import {NgForm} from '@angular/forms';
+
 @Component({
   selector: 'app-interpreter-profile-information',
   templateUrl: './interpreter-profile-information.component.html',
   styleUrls: ['./interpreter-profile-information.component.scss']
 })
 export class InterpreterProfileInformationComponent implements OnInit {
+
+  files:string  []  =  [];
+
+  doc: Array<any> = [];
+
+  selectedFile:File = null;
   //general form declare
   generalForm: FormGroup;
   userForm: FormGroup;
@@ -77,6 +84,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   banking_form = false;
 
   showOther:boolean = false;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -88,6 +96,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
+
+
+
     // this.commForm();
     // // this.languageForm(); interpreterSkillForm
 
@@ -107,6 +118,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     console.log("iddd", this.interId);
     this.detailProfile();
   }
+
 
 
   /*========== Form2 Value Start Here========*/
@@ -337,10 +349,22 @@ export class InterpreterProfileInformationComponent implements OnInit {
   skillsForm() {
     this.interpreterSkillForm = this.fb.group({
       interpreter_id: [''],
-      primary_language: [''],
-      secondary_language: [''],      
+      // primary_language: [''],
+      // secondary_language: [''],      
+      
+      other_title: [''],  
+      community_doc: [''],  
+      conference_doc: [''],  
+      court_doc: [''],  
+      credential_doc: [''],  
+      equipment_doc: [''],  
+      legal_doc: [''],  
+      simult_open: [''],  
+      other_doc: [''],  
     });
   }
+
+
 
 
 
@@ -731,5 +755,66 @@ updateInterpreter(){
   radioButton3(){
       this.showOther = true;
   }
+
+
+
+
+  onSingleFileChange(event,key){
+    // for  (var i =  0; i <  event.target.files.length; i++)  {  
+    //     this.files.push(event.target.files[i]);
+    // }
+    let file: File = event.target.files[0];
+    this.selectedFile= file;
+    this.addDocInArray(this.selectedFile,key);
+  }
+  
+
+  addDocInArray(event,key){
+    this.doc.push({
+      all_img:event,
+      doc_type:key,
+    })
+  }
+
+  uploadDocuments(){
+    // this.submitted = true;
+    // if (this.communityForm.invalid) {
+    //   return;
+    // }
+    // this.submitted = false;
+    const formData: any = new FormData();
+
+    console.log("all img",this.doc)
+    for(let img of this.doc){
+      console.log("img",img.all_img)
+      console.log("doc_type",img.doc_type)
+      formData.append('doc_name',img.doc_type);
+      formData.append(img.doc_type,img.all_img);
+    }
+
+
+    formData.append('interpreter_id', this.interId);
+
+    // this.communityForm.value.documents = this.selectedFile;
+    
+    // this.communityForm.value.interpreter_id = this.interId; 
+    // this.communityForm.value.interpreter_id = f.value; 
+    // formData.append('interpreter_id', this.interId);
+    // formData.append('doc_type', '1');
+    // formData.append('documents', this.selectedFile);
+   
+    this.service.interpreterDocupload(formData).subscribe(res => {
+      if(res['status']=='1'){
+        
+        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+      }else{
+        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+      }
+    });
+  }
+
+
+
+
 
 }
