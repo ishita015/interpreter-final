@@ -75,7 +75,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   assignment_form = false;
   banking_form = false;
 
-
+  showOther:boolean = false;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -473,6 +473,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('city').patchValue( this.detail_Obj.city);
     this.generalForm.get('zipCode').patchValue( this.detail_Obj.zipCode);
     this.generalForm.get('timezone').patchValue( this.detail_Obj.timezone);
+    this.generalForm.get('other_gender').patchValue( this.detail_Obj.other_gender);
     this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name);
     this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no);
 
@@ -486,6 +487,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.bankingForm.get('SWIFT_code').patchValue(this.detail_Obj.SWIFT_code);
     this.bankingForm.get('bank_address').patchValue( this.detail_Obj.bank_address);
     this.bankingForm.get('paypal_id').patchValue( this.detail_Obj.paypal_id);
+
   }
 
 
@@ -517,7 +519,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
         state: ['', this.validation.onlyRequired_validator],
         zipCode: ['', this.validation.onlyRequired_validator],
         timezone:[''],
-        image:['', this.validation.onlyRequired_validator]
+        image:['', this.validation.onlyRequired_validator],
+        other_gender:[''],
     });
 }
 
@@ -716,9 +719,15 @@ updateInterpreter(){
     }
   }
 
-  
-
-
-
+   // Radio button function
+   radioButton1(){
+    this.showOther = false;
+  }
+  radioButton2(){
+      this.showOther = false;
+  }
+  radioButton3(){
+      this.showOther = true;
+  }
 
 }
