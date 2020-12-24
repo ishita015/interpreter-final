@@ -182,13 +182,30 @@
                                                 <input type="text" class="form-control"  formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search> 
                                             </div> 
 
+
                                             <div class="col-md-6 form-group mb-3">
-                                                <label for="Apartment">Apartment</label>
-                                               <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
-                                                <div *ngIf="generalForm.controls['apartment'].errors && (!generalForm.controls['apartment'].pristine || submitted ||generalForm.controls['apartment'].touched )" class="error-msg">
-                                                    <div [hidden]="!generalForm.controls['apartment'].errors.required">Apartment is required.</div> 
+                                                <label for="SSN/EIN">SSN/EIN</label>
+                                                <div class="form-check">
+                                                    <label class="form-check-label" for="gridRadios1">
+                                                    <input class="form-check-input radio-inline " 
+                                                   formControlName="social_security_no" type="radio" id="social-security"
+                                                        value="SSN" checked>
+                                                  
+                                                        SSN
+                                                    </label>
+                                              
+                                                    <label class="form-check-label pl-5" for="gridRadios2">
+                                                    <input class="form-check-input radio-inline" 
+                                                     formControlName="social_security_no" type="radio" id="social-security1"
+                                                        value="EIN">
+                                                        EIN
+                                                    </label>
+                                                </div>
+                                                <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['social_security_no'].errors.required">SSN/EIN is required.</div> 
                                                   </div>
                                             </div>
+
                                          </div>
                     
                     
@@ -259,13 +276,6 @@
                     
                                         
                                         <div class="row">
-                                            <div class="col-md-6 form-group mb-3">
-                                                <label>SSN/EIN</label>
-                                               <input type="text" class="form-control" formControlName="social_security_no"  placeholder="SSN/EIN">
-                                                <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )" class="error-msg">
-                                                    <div [hidden]="!generalForm.controls['social_security_no'].errors.required">SSN/EIN is required.</div> 
-                                                  </div>
-                                            </div>
 
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="dob">Date Of Birth</label>
@@ -275,24 +285,7 @@
                                                     <div [hidden]="!generalForm.controls['dob'].errors.required">Date Of Birth is required.</div> 
                                                   </div>
                                             </div>
-                    
-                                        </div>
-                    
-                    
-                    
-                                        <div class="row">
-                                           
-                                            <!-- <div class="col-md-6 form-group mb-3">
-                                                <label for="image">Image</label>
-                                                <input type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
-                                                <div *ngIf="generalForm.controls['image'].errors && (!generalForm.controls['image'].pristine || submitted ||generalForm.controls['image'].touched )" class="error-msg">
-                                                    <div [hidden]="!generalForm.controls['image'].errors.required">Image is required.</div> 
-                                                  </div>
-                                            </div> -->
-                    
-                                        </div>
-                    
-                                        <div class="row">
+
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="Gender">Gender</label>
                                                 <div class="form-check">
@@ -315,8 +308,13 @@
                                                     <div [hidden]="!generalForm.controls['gender'].errors.required">Gender is required.</div> 
                                                   </div>
                                             </div>
+
+                                           
+                    
                                         </div>
                     
+                    
+                                      
                                         <div class="form-group row">
                                             <div class="col-sm-12">
                                                 <button type="button" (click)="updateInterpreter()" class="btn btn-primary">Update</button>
@@ -500,41 +498,69 @@
 
                             <div class="row">
                                 <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" (click)="opiShow()" (change)="assignmentFormCheck($event,'1')" class="mr-2" id="opi" name="opi"
+                                    <input type="checkbox" class="mr-2" (click)="onsiteShow()" id="on-site" (change)="assignmentFormCheck($event,'1')" name="on-site"
+                                        value="On-Site">
+                                    <label for="vehicle1"> On-Site</label><br>
+                                </div>
+
+                                <div class="col-md-3 form-group mb-3">
+                                    <input type="checkbox" (click)="opiShow()" (change)="assignmentFormCheck($event,'2')" class="mr-2" id="opi" name="opi"
                                         value="opi">
                                     <label for="vehicle1"> OPI </label><br>
                                 </div>
     
                                 <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" (click)="vriShow()" (change)="assignmentFormCheck($event,'2')" class="mr-2" id="vri" name="vri"
+                                    <input type="checkbox" (click)="vriShow()" (change)="assignmentFormCheck($event,'3')" class="mr-2" id="vri" name="vri"
                                         value="VRI">
                                     <label for="vehicle1"> VRI</label><br>
                                 </div>
                                 <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" (click)="vclShow()" (change)="assignmentFormCheck($event,'3')" class="mr-2" id="vcl" name="vcl"
+                                    <input type="checkbox" (click)="vclShow()" (change)="assignmentFormCheck($event,'4')" class="mr-2" id="vcl" name="vcl"
                                         value="VCL">
                                     <label for="vehicle1">VCL </label><br>
                                 </div>
-                                <div class="col-md-3 form-group mb-3">
-                                    <input type="checkbox" class="mr-2" (click)="aslShow()" id="asl" (change)="assignmentFormCheck($event,'4')" name="asl"
-                                        value="ASL">
-                                    <label for="vehicle1"> ASL</label><br>
-                                </div>
+                                
                                 
                             </div>
 
+
+                            <div class="row" *ngIf="onsiteInfo">
+                                <div class="col-md-12">
+                                    <h5>On-Site </h5>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label>Work Hours</label>
+                                    <select class="form-control" formControlName="work_hour">
+                                        <option value="Hourly">Hourly</option>
+                                        <option value="Half Day">Half Day</option>
+                                        <option value="Full Day">Full Day </option>
+                                        <option value="Weekdays">Weekdays </option>
+                                        <option value="Weekend">Weekend </option>
+                                        <option value="Holidays">Holidays</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Minimum Paid</label>
+                                    <select class="form-control" formControlName="min_paid">
+                                        <option value="15 Min">15 Min</option>
+                                        <option value="30 Min">30 Min</option>
+                                        <option value="1 Hours">1 Hours</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="firstName">Pay Increment </label>
+                                    <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
+                                </div>
+                            </div>
+                        
 
                             
                             <div class="row" *ngIf="opiInfo">
                                 <div class="col-md-12">
                                     <h5>OPI </h5>
                                 </div>
-
-                                <!-- <div class="col-md-3">
-                                    <label for="OPI">OPI </label>
-                                    
-                                </div> -->
-
 
                                 <div class="col-md-4 mb-2">
                                     <label>Work Hours</label>
@@ -560,9 +586,7 @@
                                 <div class="col-md-4">
                                     <label for="firstName">Pay Increment </label>
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
-                                    <!-- <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )" class="error-msg">
-                                        <div [hidden]="!generalForm.controls['first_name'].errors.required">First Name is required.</div>
-                                    </div> -->
+                                  
                                 </div>
                             </div>  
 
@@ -595,9 +619,7 @@
                                 <div class="col-md-4">
                                     <label for="firstName">Pay Increment </label>
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
-                                    <!-- <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )" class="error-msg">
-                                        <div [hidden]="!generalForm.controls['first_name'].errors.required">First Name is required.</div>
-                                    </div> -->
+                                   
                                 </div>
                             </div>
 
@@ -630,47 +652,10 @@
                                 <div class="col-md-4">
                                     <label for="firstName">Pay Increment </label>
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
-                                    <!-- <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )" class="error-msg">
-                                        <div [hidden]="!generalForm.controls['first_name'].errors.required">First Name is required.</div>
-                                    </div> -->
+                                    
                                 </div>
                             </div>
 
-
-                            <div class="row" *ngIf="aslInfo">
-                                <div class="col-md-12">
-                                    <h5>ASL </h5>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label>Work Hours</label>
-                                    <select class="form-control" formControlName="work_hour">
-                                        <option value="Hourly">Hourly</option>
-                                        <option value="Half Day">Half Day</option>
-                                        <option value="Full Day">Full Day </option>
-                                        <option value="Weekdays">Weekdays </option>
-                                        <option value="Weekend">Weekend </option>
-                                        <option value="Holidays">Holidays</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Minimum Paid</label>
-                                    <select class="form-control" formControlName="min_paid">
-                                        <option value="15 Min">15 Min</option>
-                                        <option value="30 Min">30 Min</option>
-                                        <option value="1 Hours">1 Hours</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="firstName">Pay Increment </label>
-                                    <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
-                                    <!-- <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )" class="error-msg">
-                                        <div [hidden]="!generalForm.controls['first_name'].errors.required">First Name is required.</div>
-                                    </div> -->
-                                </div>
-                            </div>
-                        
                             
                             <div class="form-group row" *ngIf="opiInfo || vriInfo || vclInfo || aslInfo">
                                 <div class="col-sm-12">
@@ -1313,10 +1298,25 @@
 
 
                                 <div class="col-md-6 form-group mb-3">
-                                    <label for="Account">Account Type</label>
-                                    <input type="text" class="form-control" formControlName="account_type"  placeholder="Account Type(Savings/Checking)">
-                                    <div *ngIf="bankingForm.controls['account_type'].errors && (!bankingForm.controls['account_type'].pristine || submitted ||bankingForm.controls['account_type'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['account_type'].errors.required">Account Type. is required.</div>
+                                    <label for="Account Type">Account Type</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="gridRadios1">
+                                        <input class="form-check-input radio-inline " 
+                                       formControlName="account_type" type="radio" id="gridRadios1"
+                                            value="Savings" checked>
+                                      
+                                            Savings
+                                        </label>
+                                  
+                                        <label class="form-check-label pl-5" for="gridRadios2">
+                                        <input class="form-check-input radio-inline" 
+                                         formControlName="account_type" type="radio" id="gridRadios2"
+                                            value="Checking">
+                                            Checking
+                                        </label>
+                                    </div>
+                                    <div *ngIf="generalForm.controls['account_type'].errors && (!generalForm.controls['account_type'].pristine || submitted ||generalForm.controls['account_type'].touched )" class="error-msg">
+                                        <div [hidden]="!generalForm.controls['account_type'].errors.required">Account type required.</div> 
                                       </div>
                                 </div>
 
