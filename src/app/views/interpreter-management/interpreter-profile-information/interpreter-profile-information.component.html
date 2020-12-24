@@ -11,32 +11,41 @@
     <div class="row dashboard_block pro_info">
         <!-- ICON BG -->
         <div (click) = "general()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="general_form ? 'active' : ''">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4 activegreen" [ngClass]="general_form ? 'active' : ''">
                 <div class="card-body text-center">
+                    <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>  -->
+                    <!-- <div class="card-icon cardred" *ngIf="detail_Obj.user_profile_status!='1'">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div> -->
+
+                    <div class="content">
+                        <p class="cardtext mb-0">General</p>
+
+                    </div>
+
                     <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div> 
-                    <div class="card-icon cardred" *ngIf="detail_Obj.user_profile_status!='1'">
-                        <ion-icon name="close-outline"></ion-icon>
-                    </div>
 
-                    <div class="content">
-                        <p class="cardtext mt-2 mb-0">General</p>
-                        
+                    <div class="card-icon cardredd" *ngIf="detail_Obj.user_profile_status!='1'">
+                        <ion-icon name="close-outline"></ion-icon>
                     </div>
                 </div>
             </div>
         </div>
 
         <div (click) = "skills()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="skills_form ? 'active' : ''">
-            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 active activered">
                 <div class="card-body text-center">
-                    <div class="card-icon cardred">
-                        <ion-icon name="close-outline"></ion-icon>
-                    </div>
+                   
                     <div class="content">
-                        <p class="cardtext mt-2 mb-0">Skills</p>
+                        <p class="cardtext mb-0">Skills</p>
                       
+                    </div>
+                    <div class="card-icon cardredd">
+                        <ion-icon name="close-outline"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -46,12 +55,19 @@
         <div (click) = "assignment()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="assignment_form ? 'active' : ''">
             <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center">
-                    <div class="card-icon cardred">
+                    <!-- <div class="card-icon cardred">
                         <ion-icon name="close-outline"></ion-icon>
-                    </div>
+                    </div> -->
                     <div class="content">
-                        <p class="cardtext mt-2 mb-0">Assignment Settings</p>
-                      
+                        <p class="cardtext mb-0">Assignment Settings</p>
+                    </div>
+
+                    <!-- <div class="card-icon cardgreenn">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>  -->
+
+                    <div class="card-icon cardredd">
+                        <ion-icon name="close-outline"></ion-icon>
                     </div>
                 </div>
             </div>
@@ -61,17 +77,24 @@
             <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center">
                     
+                    <div class="content">
+                        <p class="cardtext mb-0">Banking Details</p>
+                    </div>
+
                     <div class="card-icon cardgreenn" *ngIf="detail_Obj.bank_profile_status=='1'">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div> 
+
+                    <div class="card-icon cardredd" *ngIf="detail_Obj.bank_profile_status!='1'">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+
+                    <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.bank_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div> 
                     <div class="card-icon cardred" *ngIf="detail_Obj.bank_profile_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
-                    </div>
-
-                    <div class="content">
-                        <p class="cardtext mt-2 mb-0">Banking Details</p>
-                        
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
