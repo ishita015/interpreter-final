@@ -121,6 +121,7 @@ export class AllRequestComponent implements OnInit {
             
         })
       }
+
        /*========== Detail End Here========*/
 
 }
