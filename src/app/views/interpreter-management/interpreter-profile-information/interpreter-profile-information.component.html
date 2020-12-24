@@ -134,22 +134,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-                    
-                                            <div class="col-md-6 form-group mb-3">
-                                                <label for="Last">Middle Name</label>
-                                                <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
-                                            </div>
-                    
-                                        </div>
-                    
-                                        <div class="row">
-                    
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="Last">Last Name</label>
                                                 <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
                                                 <div *ngIf="generalForm.controls['last_name'].errors && (!generalForm.controls['last_name'].pristine || submitted ||generalForm.controls['last_name'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['last_name'].errors.required">Last Name is required.</div>
                                                 </div>
+                                            </div>
+                    
+                                            <!-- <div class="col-md-6 form-group mb-3">
+                                                <label for="Last">Middle Name</label>
+                                                <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
+                                            </div> -->
+                    
+                                        </div>
+                    
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Last">Nick Name</label>
+                                                <input type="text" class="form-control" formControlName="nick_name"  placeholder="Nick Name">
                                             </div>
                     
                                             <div class="col-md-6 form-group mb-3">
@@ -208,7 +211,7 @@
 
 
                                             <div class="col-md-6 form-group mb-3">
-                                                <label for="SSN/EIN">SSN/EIN</label>
+                                                <label for="SSN/EIN">Identify No.</label>
                                                 <div class="form-check">
                                                     <label class="form-check-label" for="gridRadios1">
                                                     <input class="form-check-input radio-inline " 

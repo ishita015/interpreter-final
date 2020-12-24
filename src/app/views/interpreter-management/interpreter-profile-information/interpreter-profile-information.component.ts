@@ -447,13 +447,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.banking_form = false;
   }
 
-
-
-
-
-
-
-
 //interpreter general information view and edit  bankingForm
 
   patchValue(){
@@ -462,7 +455,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('first_name').patchValue( this.detail_Obj.first_name);
     this.generalForm.get('last_name').patchValue( this.detail_Obj.last_name);
     this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
-    this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
+    // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
+     this.generalForm.get('nick_name').patchValue( this.detail_Obj.nick_name);
     this.generalForm.get('mobile').patchValue( this.detail_Obj.mobile);
     this.generalForm.get('country_code').patchValue( this.detail_Obj.country_code);
     this.generalForm.get('address').patchValue( this.detail_Obj.address);
@@ -514,7 +508,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
         gender: ['', this.validation.onlyRequired_validator],
         latitude: [''],
         longitude: [''],
-        middle_name: ['', this.validation.onlyRequired_validator],
+        nick_name:['', this.validation.onlyRequired_validator],
+        // middle_name: ['', this.validation.onlyRequired_validator],
         country: ['', this.validation.onlyRequired_validator],
         city: ['', this.validation.onlyRequired_validator],
         state: ['', this.validation.onlyRequired_validator],
