@@ -504,7 +504,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('email').patchValue( this.detail_Obj.email);
     this.generalForm.get('first_name').patchValue( this.detail_Obj.first_name);
     this.generalForm.get('last_name').patchValue( this.detail_Obj.last_name);
-    this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
+    // this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
     // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
      this.generalForm.get('nick_name').patchValue( this.detail_Obj.nick_name);
     this.generalForm.get('mobile').patchValue( this.detail_Obj.mobile);
@@ -554,7 +554,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
         address: [''],
         company_name:['', this.validation.onlyRequired_validator],
         social_security_no:['', this.validation.onlyRequired_validator],
-        apartment:['', this.validation.onlyRequired_validator],
+        // apartment:['', this.validation.onlyRequired_validator],
         gender: ['', this.validation.onlyRequired_validator],
         latitude: [''],
         longitude: [''],
