@@ -24,10 +24,11 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
   //assignment form variable declare
+  onsiteInfo:boolean = false;
   opiInfo:boolean = false;
   vriInfo:boolean = false;
   vclInfo:boolean = false;
-  aslInfo:boolean = false;
+  
 
   //banking form declare
   bankingForm: FormGroup;
@@ -665,7 +666,9 @@ updateInterpreter(){
 
   // assignment form start
 
-
+  onsiteShow(){
+    this.onsiteInfo=true;  
+  }
   opiShow(){
     this.opiInfo=true;  
   }
@@ -675,13 +678,19 @@ updateInterpreter(){
   vclShow(){
     this.vclInfo=true;  
   }
-  aslShow(){
-    this.aslInfo=true;  
-  }
-  
+ 
 
   assignmentFormCheck(event,eveKey){
+
     if(eveKey=='1'){
+      if ( event.target.checked ) {
+        this.onsiteInfo=true;
+      }else{
+        this.onsiteInfo=false;
+      }
+    }
+
+    if(eveKey=='2'){
       if ( event.target.checked ) {
         this.opiInfo=true;
       }else{
@@ -689,7 +698,7 @@ updateInterpreter(){
       }
     }
 
-    if(eveKey=='2'){
+    if(eveKey=='3'){
       if ( event.target.checked ) {
         this.vriInfo=true;
       }else{
@@ -698,7 +707,7 @@ updateInterpreter(){
     }
 
 
-    if(eveKey=='3'){
+    if(eveKey=='4'){
       if ( event.target.checked ) {
         this.vclInfo=true;
       }else{
@@ -707,13 +716,6 @@ updateInterpreter(){
     }
 
 
-    if(eveKey=='4'){
-      if ( event.target.checked ) {
-        this.aslInfo=true;
-      }else{
-        this.aslInfo=false;
-      }
-    }
   }
 
   

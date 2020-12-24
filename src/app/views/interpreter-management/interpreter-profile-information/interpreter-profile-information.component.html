@@ -11,7 +11,7 @@
     <div class="row dashboard_block pro_info">
         <!-- ICON BG -->
         <div (click) = "general()" class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4 activegreen" [ngClass]="general_form ? 'active' : ''">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="general_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
                     <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
@@ -36,8 +36,8 @@
             </div>
         </div>
 
-        <div (click) = "skills()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="skills_form ? 'active' : ''">
-            <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 active activered">
+        <div (click) = "skills()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 " [ngClass]="skills_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
                    
                     <div class="content">
@@ -52,8 +52,8 @@
         </div>
 
 
-        <div (click) = "assignment()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="assignment_form ? 'active' : ''">
-            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
+        <div (click) = "assignment()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="assignment_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
                     <!-- <div class="card-icon cardred">
                         <ion-icon name="close-outline"></ion-icon>
@@ -73,8 +73,9 @@
             </div>
         </div>
 
-        <div (click) = "banking()" class="col-lg-3 col-md-6 col-sm-6" [ngClass]="banking_form ? 'active' : ''">
-            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4">
+        <div (click) = "banking()" class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="banking_form ? 'activegreen' : ''">
+            <!-- <div *ngIf="detail_Obj.bank_profile_status!='1'" class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="banking_form ? 'activered' : ''">                 -->
                 <div class="card-body text-center">
                     
                     <div class="content">
