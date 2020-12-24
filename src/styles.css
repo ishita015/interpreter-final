@@ -4,20 +4,55 @@
 
 .dashboard_block .card_red:hover {box-shadow: 0 4px 20px 1px rgb(225 43 107 / 37%), 0 1px 4px rgb(226 45 108 / 17%) !important; }
 .dashboard_block .card_gr:hover {box-shadow: 0 4px 20px 1px rgb(83 172 87 / 50%), 0 1px 4px rgb(45 148 50 / 31%) !important; }
-.pro_info .card{box-shadow: none !important;}
+
 .pro_info .card_red:hover {box-shadow: none !important;}
-.dashboard_block .card:hover {box-shadow: 0 4px 20px 1px rgb(254 156 22 / 50%), 0 1px 4px rgb(253 156 23 / 39%); }
+.pro_info .cardtext{     color: #2f2e2e !important;
+  font-size: 23px !important;
+  font-weight: bold;}
+.dashboard_block .yellowcard:hover {box-shadow: 0 4px 20px 1px rgb(254 156 22 / 50%), 0 1px 4px rgb(253 156 23 / 39%); }
 .dashboard_block .cardsky:hover{box-shadow: 0 4px 20px 1px rgb(31 193 213 / 35%), 0 1px 4px rgb(20 186 206 / 14%);}
 .dashboard_block  .card {border-radius: 8px; box-shadow: none; border: 1px solid #dedede;     background: #fff;}
 .dashboard_block .card-icon{  border-radius: 10px; background-color: #999; padding: 15px; margin-top: 0; margin-right: 0; box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(255,152,0,.4); background: linear-gradient(60deg,#ffa726,#fb8c00);} 
 .dashboard_block .card-icon i{    color: #fff;}
-.dashboard_block .card-icon ion-icon{    font-size: 4rem;color: #fff;}
+.dashboard_block .card-icon ion-icon{    font-size: 27px;color: #fff;}
 .dashboard_block .cardtext{    color: #999; font-size: 18px; padding-top: 0;}
 .dashboard_block .totalnumber{color: #3c4858; font-size: 30px; font-weight: bold;text-align: center;}
 .dashboard_block .card-body{    padding: 12px 13px; cursor: pointer;}
 .dashboard_block .cardskyblue{background: linear-gradient(60deg,#26c6da,#00acc1) !important;}
 .dashboard_block .cardred{    background: linear-gradient(60deg,#ec407a,#d81b60) !important;}
-.dashboard_block .cardredd{    background: linear-gradient(60deg,#ec407a,#d81b60) !important;}
+.pro_info .card{    min-height: 120px !important;
+  padding-top: 13px !important;}
+.dashboard_block .form-control{appearance: auto !important;}
+.dashboard_block .cardredd{    background: linear-gradient(60deg,#e32b26,#ac2925) !important;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+  bottom: 21px;}
+  .dashboard_block .cardgreenn{     background: linear-gradient(60deg,#4cae4c,#4cae4c) !important;
+    height: 40px;
+  width: 40px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+  bottom: 21px;}
+     .pro_info .activered {
+      box-shadow: 0 4px 12px 1px rgb(203 47 42 / 52%), 0 4px 8px rgb(163 10 5 / 32%);
+      
+    }
+    .pro_info .activegreen {
+      box-shadow: 0 4px 20px 1px rgb(76 174 76 / 52%), 0 1px 4px rgb(76 174 76 / 22%);
+      border-radius: 0px;
+    }
+    .black-text{color: #000;}
+    .bg-black{background-color: #000;}
+    .lang_block .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+      background-color: rgba(0,0,0,.05);
+  }
+    .new_sec{height:auto !important;}
 .dashboard_block .cardgreen{    background: linear-gradient(60deg,#66bb6a,#43a047) !important;}
 .dashboard_block .cardgreenn{    background: linear-gradient(60deg,#66bb6a,#43a047) !important;}
 .checkboxedit input:checked + .slider {background-color: #663399 !important; }
@@ -58,10 +93,8 @@
   box-shadow: 6px 4px 5px rgb(125 125 125 / 67%) !important;
   border-radius: 0px;
 }
-.pro_info .active {
-  box-shadow: 6px 4px 5px rgb(125 125 125 / 67%) !important;
-  border-radius: 0px;
-}
+
+.pro_info 
 /* end */
 .lang_block .btn{    padding: 4px 5px;}
 .role_block .datatable-row-wrapper .datatable-body-row .datatable-row-center {
