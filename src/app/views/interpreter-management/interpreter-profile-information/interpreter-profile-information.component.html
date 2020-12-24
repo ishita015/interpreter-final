@@ -25,11 +25,11 @@
 
                     </div>
 
-                    <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj?.user_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div> 
 
-                    <div class="card-icon cardredd" *ngIf="detail_Obj.user_profile_status!='1'">
+                    <div class="card-icon cardredd" *ngIf="detail_Obj?.user_profile_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
                     </div>
                 </div>
@@ -82,11 +82,11 @@
                         <p class="cardtext mb-0">Banking Details</p>
                     </div>
 
-                    <div class="card-icon cardgreenn" *ngIf="detail_Obj.bank_profile_status=='1'">
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj?.bank_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div> 
 
-                    <div class="card-icon cardredd" *ngIf="detail_Obj.bank_profile_status!='1'">
+                    <div class="card-icon cardredd" *ngIf="detail_Obj?.bank_profile_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
                     </div>
 
@@ -1356,8 +1356,8 @@
                                             Checking
                                         </label>
                                     </div>
-                                    <div *ngIf="generalForm.controls['account_type'].errors && (!generalForm.controls['account_type'].pristine || submitted ||generalForm.controls['account_type'].touched )" class="error-msg">
-                                        <div [hidden]="!generalForm.controls['account_type'].errors.required">Account type required.</div> 
+                                    <div *ngIf="bankingForm.controls['account_type'].errors && (!bankingForm.controls['account_type'].pristine || submitted ||bankingForm.controls['account_type'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['account_type'].errors.required">Account type required.</div> 
                                       </div>
                                 </div>
 

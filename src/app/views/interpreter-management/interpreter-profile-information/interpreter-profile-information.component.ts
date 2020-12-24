@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from "../../../shared/services/http.service";
 import { ValidationsService } from 'src/app/shared/services/validations.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {NgForm} from '@angular/forms';
+import { MapsAPILoader } from '@agm/core';
 @Component({
   selector: 'app-interpreter-profile-information',
   templateUrl: './interpreter-profile-information.component.html',
@@ -77,10 +78,23 @@ export class InterpreterProfileInformationComponent implements OnInit {
   banking_form = false;
 
   showOther:boolean = false;
+
+  // google map 
+  latitude: number;
+  longitude: number;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  zoom: number;
+  address: string;
+  sec_address:string;
+  new_address: string;
+  private geoCoder;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
+    private ngZone: NgZone,
+    private mapsAPILoader: MapsAPILoader,
     public service:HttpService) { }
 
   ngOnInit(){
@@ -88,6 +102,42 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
+  
+      //load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+        this.setCurrentLocation();
+        this.geoCoder = new google.maps.Geocoder;
+
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+        autocomplete.addListener("place_changed", () => {
+            this.ngZone.run(() => {
+                //get the place result
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                console.log("ppppppppppppp",place);
+               
+                this.new_address = place['formatted_address'];
+                console.log("address", this.new_address);
+              
+                this.sec_address = place['formatted_address'];
+                
+                //verify result
+                if (place.geometry === undefined || place.geometry === null) {
+                    return;
+                }
+                // console.log("place-",place[0].formatted_address);
+
+                //set latitude, longitude and zoom
+                this.latitude = place.geometry.location.lat();
+                this.longitude = place.geometry.location.lng();
+
+                console.log("latitude-",this.latitude);
+                console.log("longitude-",this.longitude);
+
+                this.zoom = 12;
+            });
+        });
+    });
+
     // this.commForm();
     // // this.languageForm(); interpreterSkillForm
 
@@ -560,6 +610,9 @@ updateInterpreter(){
     // }
     // this.submitted = false;
   this.generalForm.value.interpreter_id = this.interId;
+  this.generalForm.value.address = this.new_address;
+  this.generalForm.value.latitude = this.latitude
+  this.generalForm.value.longitude = this.longitude
 
   this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       this.gen_Msg=res;
@@ -715,6 +768,52 @@ updateInterpreter(){
 
 
   }
+
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+
+            this.zoom = 8;
+            this.getAddress(this.latitude, this.longitude);
+        });
+    }
+}
+
+
+
+markerDragEnd($event: any) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    console.log("latitude-", this.latitude);
+    console.log("longitude-", this.longitude);
+
+    this.getAddress(this.latitude, this.longitude);
+}
+
+getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+        console.log(results);
+        console.log(status);
+        if (status === 'OK') {
+            if (results[0]) {
+                this.zoom = 12;
+                this.address = results[0].formatted_address;
+                this.sec_address = results[0].formatted_address;
+            } else {
+                window.alert('No results found');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+
+    });
+}
+
 
    // Radio button function
    radioButton1(){
