@@ -28,7 +28,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   items = ['Javascript', 'Typescript']
   tagsCtrl1 = new FormControl(this.items);
   tagsCtrl2 = new FormControl([]);
-
+  skill_msg;
 
   //assignment form variable declare
   onsiteInfo:boolean = false;
@@ -804,11 +804,12 @@ updateInterpreter(){
     // formData.append('documents', this.selectedFile);
    
     this.service.interpreterDocupload(formData).subscribe(res => {
+      this.skill_msg=res;
       if(res['status']=='1'){
-        
-        this.toastr.success(res['message'].message,'', { timeOut: 1000 });
+        this.toastr.success(this.skill_msg.message,'', { timeOut: 1000 });
+        this.detailProfile();
       }else{
-        this.toastr.error(res['message'].message,'', { timeOut: 1000 });
+        this.toastr.error(this.skill_msg.message,'', { timeOut: 1000 });
       }
     });
   }
