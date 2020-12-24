@@ -266,7 +266,7 @@
                             <label for="Gender">Gender</label>
                             <div class="form-check">
                                 <label class="form-check-label" for="gridRadios1">
-                                <input class="form-check-input radio-inline " 
+                                <input class="form-check-input radio-inline " (click)="radioButton1()"
                                formControlName="gender" type="radio" id="gridRadios1"
                                     value="Male" checked>
                               
@@ -275,10 +275,22 @@
                           
                                 <label class="form-check-label pl-5" for="gridRadios2">
                                 <input class="form-check-input radio-inline" 
-                                 formControlName="gender" type="radio" id="gridRadios2"
-                                    value="Female">
-                             
+                                 formControlName="gender" type="radio" id="gridRadios2"  
+                                 (click)="radioButton2()" value="Female">
                                     Female
+                                </label>
+
+                                <label class="form-check-label pl-5" for="gridRadios3">
+                                    <input class="form-check-input radio-inline" formControlName="gender" 
+                                    type="radio" id="gridRadios3"
+                                    (click)="radioButton3()"  value="Other">
+                                        Other
+                                </label>
+
+                                
+                                <label *ngIf="showOther" class="form-check-label pl-5">
+                                    <input type="text" class="form-control" 
+                                    placeholder="Other" formControlName="other_gender">
                                 </label>
                             </div>
                             <div *ngIf="userForm.controls['gender'].errors && (!userForm.controls['gender'].pristine || submitted ||userForm.controls['gender'].touched )" class="error-msg">

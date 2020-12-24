@@ -151,6 +151,7 @@ export class InterpreterAddComponent implements OnInit {
             state: ['', this.validation.onlyRequired_validator],
             zipCode: ['', this.validation.onlyRequired_validator],
             timezone:[''],
+            other_gender:[''],
             image:['', this.validation.onlyRequired_validator]
         });
     }
@@ -271,6 +272,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('apartment', this.userForm.value.apartment);
         formData.append('city', this.userForm.value.city);
         formData.append('gender', this.userForm.value.gender);
+        formData.append('other_gender', this.userForm.value.other_gender);
         formData.append('latitude', this.userForm.value.latitude);
         formData.append('longitude', this.userForm.value.longitude);
         formData.append('state', this.userForm.value.state);

@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
         <ul>
-            <li><a class="heading"><b>{{detail_Obj.first_name}} {{detail_Obj.last_name}}</b> Profile</a></li>
+            <li><a class="heading"><b>{{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</b> Profile</a></li>
             <!-- <li>Version 1</li> --> 
         </ul>
     </div>
@@ -314,7 +314,8 @@
                                                 <label for="Gender">Gender</label>
                                                 <div class="form-check">
                                                     <label class="form-check-label" for="gridRadios1">
-                                                    <input class="form-check-input radio-inline " 
+                                                    <input class="form-check-input radio-inline "
+                                                    (click)="radioButton1()" 
                                                    formControlName="gender" type="radio" id="gridRadios1"
                                                         value="Male" checked>
                                                   
@@ -324,8 +325,21 @@
                                                     <label class="form-check-label pl-5" for="gridRadios2">
                                                     <input class="form-check-input radio-inline" 
                                                      formControlName="gender" type="radio" id="gridRadios2"
-                                                        value="Female">
+                                                     (click)="radioButton2()"   
+                                                     value="Female">
                                                         Female
+                                                    </label>
+
+                                                    <label class="form-check-label pl-5" for="gridRadios3">
+                                                        <input class="form-check-input radio-inline" formControlName="gender" 
+                                                        type="radio" id="gridRadios3"
+                                                        (click)="radioButton3()"  value="Other">
+                                                            Other
+                                                    </label>
+                    
+                                                    <label *ngIf="showOther" class="form-check-label pl-5">
+                                                        <input type="text" class="form-control" 
+                                                        placeholder="Other" formControlName="other_gender">
                                                     </label>
                                                 </div>
                                                 <div *ngIf="generalForm.controls['gender'].errors && (!generalForm.controls['gender'].pristine || submitted ||generalForm.controls['gender'].touched )" class="error-msg">
