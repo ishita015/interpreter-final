@@ -11,11 +11,28 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./interpreter-profile-information.component.scss']
 })
 export class InterpreterProfileInformationComponent implements OnInit {
-  items = ['Javascript', 'Typescript']
-  bankingForm: FormGroup;
-  userForm: FormGroup;
+  //general form declare
   generalForm: FormGroup;
-  interpreterSkillForm: FormGroup;  // interpreter skills && documents
+  userForm: FormGroup;
+  submitted: boolean;
+
+  //skills form variavle declare
+  interpreterSkillForm: FormGroup; 
+  items = ['Javascript', 'Typescript']
+  tagsCtrl1 = new FormControl(this.items);
+  tagsCtrl2 = new FormControl([]);
+
+
+  //assignment form variable declare
+  opiInfo:boolean = false;
+  vriInfo:boolean = false;
+  vclInfo:boolean = false;
+  aslInfo:boolean = false;
+
+  //banking form declare
+  bankingForm: FormGroup;
+  banking_Obj;
+  banking_Msg;
   // communityForm: FormGroup;
   // conferenceForm: FormGroup;
   // courtForm: FormGroup;
@@ -24,11 +41,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
   // legalForm: FormGroup;
   // simultaneousForm: FormGroup;
   // otherForm: FormGroup;
-  tagsCtrl1 = new FormControl(this.items);
-  tagsCtrl2 = new FormControl([]);
-  submitted: boolean;
-  banking_Obj;
-  banking_Msg;
+  
+  
   ass_Obj;
   interId;
   detail_Obj;
@@ -647,6 +661,62 @@ updateInterpreter(){
 
       //banking code end
 
+
+
+  // assignment form start
+
+
+  opiShow(){
+    this.opiInfo=true;  
+  }
+  vriShow(){
+    this.vriInfo=true;  
+  }
+  vclShow(){
+    this.vclInfo=true;  
+  }
+  aslShow(){
+    this.aslInfo=true;  
+  }
+  
+
+  assignmentFormCheck(event,eveKey){
+    if(eveKey=='1'){
+      if ( event.target.checked ) {
+        this.opiInfo=true;
+      }else{
+        this.opiInfo=false;
+      }
+    }
+
+    if(eveKey=='2'){
+      if ( event.target.checked ) {
+        this.vriInfo=true;
+      }else{
+        this.vriInfo=false;
+      }
+    }
+
+
+    if(eveKey=='3'){
+      if ( event.target.checked ) {
+        this.vclInfo=true;
+      }else{
+        this.vclInfo=false;
+      }
+    }
+
+
+    if(eveKey=='4'){
+      if ( event.target.checked ) {
+        this.aslInfo=true;
+      }else{
+        this.aslInfo=false;
+      }
+    }
+  }
+
+  
 
 
 
