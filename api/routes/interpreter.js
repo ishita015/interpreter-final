@@ -91,7 +91,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
 
         mainObj = {
             interpreter_id: resultData[0].id,
-            middle_name: resultData[0].middle_name,
+            nick_name: resultData[0].nick_name,
             role_id: resultData[0].role_id,
             company_name: resultData[0].company_name,
             title: resultData[0].title,
@@ -108,7 +108,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             state: resultData[0].state,
             zipCode: resultData[0].zipCode,
             address: resultData[0].address,
-            apartment: resultData[0].apartment,
+            // apartment: resultData[0].apartment,
 
             social_security_no: resultData[0].social_security_no,
             country: resultData[0].country,
@@ -2891,7 +2891,7 @@ module.exports.updateInterpreter = async function(req, res) {
 
     let id = req.body.interpreter_id;
     let title = req.body.title;
-    let middle_name = req.body.middle_name;
+    let nick_name = req.body.nick_name;
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
     let mobile = req.body.mobile;
@@ -2905,7 +2905,7 @@ module.exports.updateInterpreter = async function(req, res) {
     let state = req.body.state ? req.body.state : "";
     let social_security_no = req.body.social_security_no;
     let city = req.body.city;
-    let apartment = req.body.apartment;
+    let apartment = "";
     let timezone = req.body.timezone ? req.body.timezone : "";
     let zipCode = req.body.zipCode;
 
@@ -2926,7 +2926,7 @@ module.exports.updateInterpreter = async function(req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='"+first_name+"',middle_name ='"+middle_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"',profile_status='1' WHERE id = '"+id+"'";
+    let sql = "UPDATE user SET first_name ='"+first_name+"',nick_name ='"+nick_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"',profile_status='1' WHERE id = '"+id+"'";
 
     console.log("sql-update",sql)
     con.query(sql, function(err, result) {

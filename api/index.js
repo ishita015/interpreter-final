@@ -555,7 +555,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
 
     
     let title = req.body.title;
-    let middle_name = req.body.middle_name;
+    let nick_name = req.body.nick_name;
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
     let email = req.body.email;
@@ -572,11 +572,11 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     let city = req.body.city;
     let password = req.body.password;
     let address = req.body.address;
-    let apartment = req.body.apartment;
+    let apartment = "";
     let timezone = req.body.timezone ? req.body.timezone : "";
-   let latitude = req.body.latitude ? req.body.latitude : 0;
-   let longitude = req.body.longitude ? req.body.longitude : 0;
-   let zipCode = req.body.zipCode;
+    let latitude = req.body.latitude ? req.body.latitude : 0;
+    let longitude = req.body.longitude ? req.body.longitude : 0;
+    let zipCode = req.body.zipCode;
 //    let rate = req.body.rate ? req.body.rate : 0;
 
     let first_password = password;
@@ -593,7 +593,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,title,middle_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status)VALUES('2','"+title+"','"+middle_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1')";
+    var sql = "INSERT INTO user(role_id,title,nick_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status)VALUES('2','"+title+"','"+nick_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1')";
 
     console.log("image",sql)
 
