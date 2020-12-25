@@ -416,94 +416,6 @@ let upload = multer({
 
 
 
-
-//upload interpreter documents
-app.post('/cesco/uploadInterpreterDoc', upload.any(),async function(req, res, next) {
-    //validation start
-    const v = new Validator(req.body, {
-        interpreter_id: 'required'
-    });
-    
-    const matched = await v.check();
-    
-    if (!matched) {
-        var error;
-        for (var i = 0; i <= Object.values(v.errors).length; i++) {
-            error = Object.values(v.errors)[0].message;
-            break;
-        }
-        res.json({
-            status: 0,
-            message: error
-        });
-        return true;
-    }
-
-    let interpreter_id = req.body.interpreter_id;
-    // let doc_type  = req.body.doc_type;
-    let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
-    
-
-    console.log("body",req.body);
-    console.log("check all img",req.files);
-
-    if (typeof req.files !== 'undefined' && req.files.length > 0) {
-        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
-            // let documents=req.files[0].filename;
-
-            console.log("yes is working",req.files);
-            for (var i = 0; i < req.files.length; i++) {
-                console.log("fieldname id",req.files[i].fieldname);
-                console.log("filename id",req.files[i].filename);
-                var sql = "INSERT INTO interpreter_skills_doc(interpreter_id,doc_type,doc_name,other_doc_title)VALUES('"+interpreter_id+"','"+req.files[i].fieldname+"','"+req.files[i].filename+"','"+other_doc_title+"')";
-                con.query(sql, function(err, insert) {});
-            }
-
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 6,
-                // data: documents,
-                message: "Documents upload successfully",
-            });
-            return true;
-        }
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app.get('/cesco/downloadimg', function(req, res){
-//     const file = "./public/1919.png";
-//     // ./public/'+req.files[0].filename
-//     res.download(file); // Set disposition and send it.
-//   });
-
-
-
-
-
 //add interpreter
 app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     //validation start
@@ -972,23 +884,17 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 /* image upload */
 const CHATDIR = './public/chat_images';
 let chatstorage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, CHATDIR);
+    destination: function(req, chatstorage, callback) {
+        callback(null, DOCDIR);
     },
-    filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    filename: function(req, chatstorage, cb) {
+        cb(null, chatstorage.fieldname + '-' + Date.now() + path.extname(chatstorage.originalname));
     }
 });
 
 let chatupload = multer({
-    chatstorage: chatstorage
+    storage: chatstorage
 });
-
-
-
-
-
-
 
 
 
@@ -999,7 +905,7 @@ let chatupload = multer({
 
 
 //upload chat images
-app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
+app.post('/cesco/uploadChatImage', chatupload.any(),async function(req, res, next) {
     console.log(req.files)
     var profileImg='';
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
@@ -1032,9 +938,83 @@ app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
 
 
 
+/* image upload */
+const DOCDIR = './public/documents';
+let inter_doc = multer.diskStorage({
+    destination: function(req, inter_doc, callback) {
+        callback(null, DOCDIR);
+    },
+    filename: function(req, inter_doc, cb) {
+        cb(null, inter_doc.fieldname + '-' + Date.now() + path.extname(inter_doc.originalname));
+    }
+});
+
+let docUpload = multer({
+    storage: inter_doc
+});
 
 
 
+
+//upload interpreter documents
+app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res, next) {
+    //validation start
+    const v = new Validator(req.body, {
+        interpreter_id: 'required'
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    let interpreter_id = req.body.interpreter_id;
+    let type  = req.body.type;
+    let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
+    
+
+    console.log("body",req.body);
+    console.log("check all img",req.files);
+
+    if (typeof req.files !== 'undefined' && req.files.length > 0) {
+        if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+            // let documents=req.files[0].filename;
+
+            console.log("yes is working",req.files);
+            for (var i = 0; i < req.files.length; i++) {
+                type[i]
+                var docfield = req.files[i].fieldname;
+                var filename=req.files[i].filename;
+                // var type=req.files[i].type;
+                console.log(type[i]);
+                let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
+                con.query(sqlDelete, function(err, res_delete) {});
+
+                var saveData = "INSERT INTO interpreter_skills_doc(interpreter_id,doc_name,doc_type,other_doc_title,type)VALUES('"+interpreter_id+"','"+filename+"','"+docfield+"','"+other_doc_title+"','"+type[i]+"')";
+                con.query(saveData, function(err, insert) {});        
+            
+            }
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Documents upload successfully",
+            });
+            return true;
+        }
+    }
+});
 
 
 
@@ -1042,17 +1022,20 @@ app.post('/cesco/uploadChatImage', upload.any(),async function(req, res, next) {
 /* image upload */
 const EXCLDIR = './public';
 let excelImp = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, EXCLDIR);
+    destination: function(req, excelImp, callback) {
+        callback(null, DOCDIR);
     },
-    filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    filename: function(req, excelImp, cb) {
+        cb(null, excelImp.fieldname + '-' + Date.now() + path.extname(excelImp.originalname));
     }
 });
 
 let exclupload = multer({
-    excelImp: excelImp
+    storage: excelImp
 });
+
+
+
 
 
 

@@ -25,11 +25,11 @@
 
                     </div>
 
-                    <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj?.user_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div> 
 
-                    <div class="card-icon cardredd" *ngIf="detail_Obj.user_profile_status!='1'">
+                    <div class="card-icon cardredd" *ngIf="detail_Obj?.user_profile_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
                     </div>
                 </div>
@@ -82,11 +82,11 @@
                         <p class="cardtext mb-0">Banking Details</p>
                     </div>
 
-                    <div class="card-icon cardgreenn" *ngIf="detail_Obj.bank_profile_status=='1'">
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj?.bank_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div> 
 
-                    <div class="card-icon cardredd" *ngIf="detail_Obj.bank_profile_status!='1'">
+                    <div class="card-icon cardredd" *ngIf="detail_Obj?.bank_profile_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
                     </div>
 
@@ -134,22 +134,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-                    
-                                            <div class="col-md-6 form-group mb-3">
-                                                <label for="Last">Middle Name</label>
-                                                <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
-                                            </div>
-                    
-                                        </div>
-                    
-                                        <div class="row">
-                    
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="Last">Last Name</label>
                                                 <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
                                                 <div *ngIf="generalForm.controls['last_name'].errors && (!generalForm.controls['last_name'].pristine || submitted ||generalForm.controls['last_name'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['last_name'].errors.required">Last Name is required.</div>
                                                 </div>
+                                            </div>
+                    
+                                            <!-- <div class="col-md-6 form-group mb-3">
+                                                <label for="Last">Middle Name</label>
+                                                <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
+                                            </div> -->
+                    
+                                        </div>
+                    
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="Last">Nick Name</label>
+                                                <input type="text" class="form-control" formControlName="nick_name"  placeholder="Nick Name">
                                             </div>
                     
                                             <div class="col-md-6 form-group mb-3">
@@ -208,7 +211,7 @@
 
 
                                             <div class="col-md-6 form-group mb-3">
-                                                <label for="SSN/EIN">SSN/EIN</label>
+                                                <label for="SSN/EIN">Identify No.</label>
                                                 <div class="form-check">
                                                     <label class="form-check-label" for="gridRadios1">
                                                     <input class="form-check-input radio-inline " 
@@ -463,52 +466,115 @@
 
 
 
+
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
                                     <label for="image">Community Interpreting</label>
-                                    <input type="file" class="form-control" formControlName="community_doc" (change)="onSingleFileChange($event,'community_doc')">
+                                    <input type="file" class="form-control" formControlName="community_doc" (change)="onSingleFileChange($event,'community_doc','1')">
                                 </div>
 
-                                <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
-                                    <label for="image">Conference Interpreter</label>
-                                    <input type="file" class="form-control" formControlName="conference_doc" (change)="onSingleFileChange($event,'conference_doc')">
+                                
+                                <div class="col-md-3 form-group mb-3" *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCommunityDoc}}" class="mr-3" style="width:100px; height:100px;">
                                 </div>
+                                
+
+                                <!-- <div class="col-md-3 form-group mb-3"> -->
+                                    <!-- <button type="button" click)="imgview('http://192.168.0.69:3300/documents/community_doc-1608888323695.png',imageModal)" class="btn btn-icon btn-rounded btn-primary mr-2">
+                                        View Image
+                                      </button> -->
+                                <!-- </div> -->
             
                             </div>
 
+
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
+                                    <label for="image">Conference Interpreter</label>
+                                    <input type="file" class="form-control" formControlName="conference_doc" (change)="onSingleFileChange($event,'conference_doc','2')">
+                                </div>
+
+                                <div class="col-md-3 form-group mb-3" *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsConferenceDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                </div>
+                                
+                            </div>
+
+                         
 
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3" *ngIf="court_open">
                                     <label for="image">Court Certified</label>
-                                    <input type="file" class="form-control" formControlName="court_doc" (change)="onSingleFileChange($event,'court_doc')">
+                                    <input type="file" class="form-control" formControlName="court_doc" (change)="onSingleFileChange($event,'court_doc','3')">
                                 </div>                    
 
+                                <div class="col-md-6 form-group mb-3" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCourtDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                </div>                    
+
+                            </div>
+
+                            
+                           
+
+                            <div class="row">
+                                
                                 <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
                                     <label for="image">Court Credentialed</label>
-                                    <input type="file" class="form-control" formControlName="credential_doc" (change)="onSingleFileChange($event,'credential_doc')">
+                                    <input type="file" class="form-control" formControlName="credential_doc" (change)="onSingleFileChange($event,'credential_doc','4')">
                                 </div>
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCredentialDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                </div>
+                                
+
                             </div>
+
 
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
                                     <label for="image">Equipment Qualified</label>
-                                    <input type="file" class="form-control" formControlName="equipment_doc" (change)="onSingleFileChange($event,'equipment_doc')">
+                                    <input type="file" class="form-control" formControlName="equipment_doc" (change)="onSingleFileChange($event,'equipment_doc','5')">
                                 </div>
+                                
+                                <div class="col-md-6 form-group mb-3" *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsEquipmentDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                </div>
+                                
+                                
+                            </div>
+                             
+                            
+                          
+
+                            <div class="row">
+                                
                                 <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
                                     <label for="image">Legal</label>
-                                    <input type="file" class="form-control" formControlName="legal_doc" (change)="onSingleFileChange($event,'legal_doc')">
+                                    <input type="file" class="form-control" formControlName="legal_doc" (change)="onSingleFileChange($event,'legal_doc','6')">
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsLegalDoc}}" class="mr-3" style="width:100px; height:100px;">
                                 </div>
             
                             </div>
 
+                          
 
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
                                     <label for="image">Simultaneous</label>
-                                    <input type="file" class="form-control" formControlName="simultaneous_doc" (change)="onSingleFileChange($event,'simultaneous_doc')">
+                                    <input type="file" class="form-control" formControlName="simultaneous_doc" (change)="onSingleFileChange($event,'simultaneous_doc','7')">
+                                </div>
+
+
+                                <div class="col-md-6 form-group mb-3" *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillSimultOpen}}" class="mr-3" style="width:100px; height:100px;">
                                 </div>
                             </div>
-
+                            <!-- detail_Obj?.skillsOtherDoc -->
 
                             <div class="row" *ngIf="other_open">
                                 <div class="col-md-6 form-group mb-3">
@@ -519,10 +585,24 @@
 
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="image">Other</label>
-                                    <input type="file" class="form-control" formControlName="other_doc" (change)="onSingleFileChange($event,'other_doc')">
+                                    <input type="file" class="form-control" formControlName="other_doc" (change)="onSingleFileChange($event,'other_doc','8')">
                                 </div>                    
 
                             </div> 
+
+
+                            <div class="row" *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''">
+                                <div class="col-md-6 form-group mb-3">
+                                    <h5>{{detail_Obj?.skillsOtherDocTitle}}</h5>
+                                </div>                    
+
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                </div>                    
+
+                            </div> 
+
 
          
                             <div class="form-group row">
@@ -1363,8 +1443,8 @@
                                             Checking
                                         </label>
                                     </div>
-                                    <div *ngIf="generalForm.controls['account_type'].errors && (!generalForm.controls['account_type'].pristine || submitted ||generalForm.controls['account_type'].touched )" class="error-msg">
-                                        <div [hidden]="!generalForm.controls['account_type'].errors.required">Account type required.</div> 
+                                    <div *ngIf="bankingForm.controls['account_type'].errors && (!bankingForm.controls['account_type'].pristine || submitted ||bankingForm.controls['account_type'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingForm.controls['account_type'].errors.required">Account type required.</div> 
                                       </div>
                                 </div>
 
@@ -1471,5 +1551,19 @@
 
            
            
-           
+<ng-template #imageModal let-modal>
+    <div class="modal-header">
+        <!-- <h4 class="modal-title" id="modal-title">Alert</h4> -->
+  
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <img src="{{img}}" class="zoom mr-3" style="width:473px; height:300px;">
+    <!-- </p> -->
+        <!-- <p><strong>Are you sure? you want to delete language.</strong></p> -->
+    </div>
+    
+  </ng-template>     
    

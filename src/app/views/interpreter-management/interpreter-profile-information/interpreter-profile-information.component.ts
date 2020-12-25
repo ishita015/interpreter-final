@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from "../../../shared/services/http.service";
 import { ValidationsService } from 'src/app/shared/services/validations.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-// import {NgForm} from '@angular/forms';
+
+import { MapsAPILoader } from '@agm/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-interpreter-profile-information',
@@ -12,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./interpreter-profile-information.component.scss']
 })
 export class InterpreterProfileInformationComponent implements OnInit {
-
+  @ViewChild('imageModal', { static: true }) imageModal;
   files:string  []  =  [];
 
   doc: Array<any> = [];
@@ -85,10 +87,24 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   showOther:boolean = false;
 
+  // google map 
+  latitude: number;
+  longitude: number;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  zoom: number;
+  address: string;
+  sec_address:string;
+  new_address: string;
+  private geoCoder;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
+    private modalService: NgbModal,
+    private ngZone: NgZone,
+    private mapsAPILoader: MapsAPILoader,
     public service:HttpService) { }
 
   ngOnInit(){
@@ -96,8 +112,41 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
+  
+      //load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+        this.setCurrentLocation();
+        this.geoCoder = new google.maps.Geocoder;
 
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+        autocomplete.addListener("place_changed", () => {
+            this.ngZone.run(() => {
+                //get the place result
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                console.log("ppppppppppppp",place);
+               
+                this.new_address = place['formatted_address'];
+                console.log("address", this.new_address);
+              
+                this.sec_address = place['formatted_address'];
+                
+                //verify result
+                if (place.geometry === undefined || place.geometry === null) {
+                    return;
+                }
+                // console.log("place-",place[0].formatted_address);
 
+                //set latitude, longitude and zoom
+                this.latitude = place.geometry.location.lat();
+                this.longitude = place.geometry.location.lng();
+
+                console.log("latitude-",this.latitude);
+                console.log("longitude-",this.longitude);
+
+                this.zoom = 12;
+            });
+        });
+    });
 
     // this.commForm();
     // // this.languageForm(); interpreterSkillForm
@@ -346,100 +395,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
   
   
   
-  skillsForm() {
-    this.interpreterSkillForm = this.fb.group({
-      interpreter_id: [''],
-      // primary_language: [''],
-      // secondary_language: [''],      
-      
-      other_title: [''],  
-      community_doc: [''],  
-      conference_doc: [''],  
-      court_doc: [''],  
-      credential_doc: [''],  
-      equipment_doc: [''],  
-      legal_doc: [''],  
-      simult_open: [''],  
-      other_doc: [''],  
-    });
-  }
-
-
-
-
-
-  // commForm() {
-  //   this.communityForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-  
-  // conForm() {
-  //   this.conferenceForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-
-  // couForm() {
-  //   this.courtForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-
-  // creForm() {
-  //   this.credentialedForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-
-  // eqpForm() {
-  //   this.equipmentForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-
-  // legForm() {
-  //   this.legalForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-
-  // simForm() {
-  //   this.simultaneousForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //   });
-  // }
-
-
-  // othForm() {
-  //   this.otherForm = this.fb.group({
-  //     interpreter_id: [''],
-  //     documents: [''],
-  //     other: [''],      
-  //   });
-  // }
-
-
-
 
   //gokul code end
 
@@ -471,13 +426,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.banking_form = false;
   }
 
-
-
-
-
-
-
-
 //interpreter general information view and edit  bankingForm
 
   patchValue(){
@@ -485,8 +433,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('email').patchValue( this.detail_Obj.email);
     this.generalForm.get('first_name').patchValue( this.detail_Obj.first_name);
     this.generalForm.get('last_name').patchValue( this.detail_Obj.last_name);
-    this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
-    this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
+    // this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
+    // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
+     this.generalForm.get('nick_name').patchValue( this.detail_Obj.nick_name);
     this.generalForm.get('mobile').patchValue( this.detail_Obj.mobile);
     this.generalForm.get('country_code').patchValue( this.detail_Obj.country_code);
     this.generalForm.get('address').patchValue( this.detail_Obj.address);
@@ -534,11 +483,12 @@ export class InterpreterProfileInformationComponent implements OnInit {
         address: [''],
         company_name:['', this.validation.onlyRequired_validator],
         social_security_no:['', this.validation.onlyRequired_validator],
-        apartment:['', this.validation.onlyRequired_validator],
+        // apartment:['', this.validation.onlyRequired_validator],
         gender: ['', this.validation.onlyRequired_validator],
         latitude: [''],
         longitude: [''],
-        middle_name: ['', this.validation.onlyRequired_validator],
+        nick_name:['', this.validation.onlyRequired_validator],
+        // middle_name: ['', this.validation.onlyRequired_validator],
         country: ['', this.validation.onlyRequired_validator],
         city: ['', this.validation.onlyRequired_validator],
         state: ['', this.validation.onlyRequired_validator],
@@ -589,6 +539,9 @@ updateInterpreter(){
     // }
     // this.submitted = false;
   this.generalForm.value.interpreter_id = this.interId;
+  this.generalForm.value.address = this.new_address;
+  this.generalForm.value.latitude = this.latitude
+  this.generalForm.value.longitude = this.longitude
 
   this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       this.gen_Msg=res;
@@ -745,6 +698,52 @@ updateInterpreter(){
 
   }
 
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+
+            this.zoom = 8;
+            this.getAddress(this.latitude, this.longitude);
+        });
+    }
+}
+
+
+
+markerDragEnd($event: any) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    console.log("latitude-", this.latitude);
+    console.log("longitude-", this.longitude);
+
+    this.getAddress(this.latitude, this.longitude);
+}
+
+getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+        console.log(results);
+        console.log(status);
+        if (status === 'OK') {
+            if (results[0]) {
+                this.zoom = 12;
+                this.address = results[0].formatted_address;
+                this.sec_address = results[0].formatted_address;
+            } else {
+                window.alert('No results found');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+
+    });
+}
+
+
    // Radio button function
    radioButton1(){
     this.showOther = false;
@@ -759,24 +758,49 @@ updateInterpreter(){
 
 
 
-  onSingleFileChange(event,key){
+  skillsForm() {
+    this.interpreterSkillForm = this.fb.group({
+      interpreter_id: [''],
+      // primary_language: [''],
+      // secondary_language: [''],      
+      
+      other_title: [''],  
+      community_doc: [''],  
+      conference_doc: [''],  
+      court_doc: [''],  
+      credential_doc: [''],  
+      equipment_doc: [''],  
+      legal_doc: [''],  
+      simult_open: [''],  
+      other_doc: [''],  
+    });
+  }
+
+
+
+
+
+
+  onSingleFileChange(event,key,type){
     // for  (var i =  0; i <  event.target.files.length; i++)  {  
     //     this.files.push(event.target.files[i]);
     // }
     let file: File = event.target.files[0];
     this.selectedFile= file;
-    this.addDocInArray(this.selectedFile,key);
+    this.addDocInArray(this.selectedFile,key,type);
   }
   
 
-  addDocInArray(event,key){
+  addDocInArray(event,key,type){
     this.doc.push({
       all_img:event,
       doc_type:key,
+      types:type,
     })
   }
 
   uploadDocuments(){
+    // console.log("m-",this.interpreterSkillForm.value)
     // this.submitted = true;
     // if (this.communityForm.invalid) {
     //   return;
@@ -790,11 +814,12 @@ updateInterpreter(){
       console.log("doc_type",img.doc_type)
       formData.append('doc_name',img.doc_type);
       formData.append(img.doc_type,img.all_img);
+      formData.append('type',img.types);
+      
     }
 
-
     formData.append('interpreter_id', this.interId);
-
+    // formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
     // this.communityForm.value.documents = this.selectedFile;
     
     // this.communityForm.value.interpreter_id = this.interId; 
@@ -813,9 +838,7 @@ updateInterpreter(){
       }
     });
   }
-
-
-
-
-
+  // imgview(e,modal){
+  //   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+  // }
 }

@@ -51,13 +51,37 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         var mainObj = {};
         // var recipeid =  urlRecipeResult[0].id;
         
-        // //get interpreter address
-        // var address = await usermodel.getInterpreterAddress(interpreter_id);
-        // var addressArr = [];
+        var communityDoc='';var conferenceDoc='';var courtDoc='';var credentialDoc='';
+        var equipmentDoc='';var legalDoc='';var simultOpen='';var otherDoc='';var otherDocTitle='';
         
-        // if (address != "" && address != undefined) {
-        //     addressArr = address;
-        // }    
+
+        //get interpreter upload documents
+        var document = await usermodel.getInterpreterDoc(interpreter_id);
+        // var docArr = [];
+        
+        if (document != "" && document != undefined) {
+            // docArr = document;
+            for (var i = 0; i < document.length; i++) {
+                if(document[i].type=='1'){
+                    communityDoc=document[i].doc_name; 
+                }else if(document[i].type=='2'){
+                    conferenceDoc=document[i].doc_name; 
+                }else if(document[i].type=='3'){
+                    courtDoc=document[i].doc_name; 
+                }else if(document[i].type=='4'){
+                    credentialDoc=document[i].doc_name; 
+                }else if(document[i].type=='5'){
+                    equipmentDoc=document[i].doc_name; 
+                }else if(document[i].type=='6'){
+                    legalDoc=document[i].doc_name; 
+                }else if(document[i].type=='7'){
+                    simultOpen=document[i].doc_name; 
+                }else if(document[i].type=='8'){
+                    otherDoc=document[i].doc_name; 
+                    otherDocTitle=document[i].other_doc_title; 
+                }
+            }
+        }    
 
 
          //get interpreter language
@@ -82,6 +106,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         //get interpreter special_attributes
         var assignment = await usermodel.getInterpreterAssignment(interpreter_id);
         var assignmentArr = [];
+        
         
         if (assignment != "" && assignment != undefined) {
             assignmentArr = assignment;
@@ -135,10 +160,20 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             bank_profile_status: resultData[0].is_complete,
             user_profile_status: resultData[0].profile_status,
             
-            // interpreter_address: addressArr,
+            // interpreter_skill_doc: docArr,
+
+            skillsCommunityDoc:communityDoc,
+            skillsConferenceDoc:conferenceDoc,
+            skillsCourtDoc:courtDoc,
+            skillsCredentialDoc:credentialDoc,
+            skillsEquipmentDoc:equipmentDoc,
+            skillsLegalDoc:legalDoc,
+            skillSimultOpen:simultOpen,
+            skillsOtherDoc:otherDoc,
+            skillsOtherDocTitle:otherDocTitle,
+
             secondary_language: langArr,
             special_attributes: attributesArr,
-            
             interpreter_assignment: assignmentArr,
         }   
         mainArr.push(mainObj);
@@ -2767,7 +2802,7 @@ module.exports.addInterpreter = async function(req, res) {
         languageid: 'required',
         mobile: 'required',
         address: 'required',
-        apartment: 'required',
+        // apartment: 'required',
         street: 'required',
         latitude: 'required',
         longitude: 'required',
@@ -2800,7 +2835,7 @@ module.exports.addInterpreter = async function(req, res) {
     let languageid = req.body.languageid;
     let mobile = req.body.mobile;
     let address = req.body.address;
-    let apartment = req.body.apartment;
+    let apartment = "";
     let street = req.body.street;
     let latitude = req.body.latitude ? req.body.latitude : 0;
     let longitude = req.body.longitude ? req.body.longitude : 0;
@@ -2865,7 +2900,7 @@ module.exports.updateInterpreter = async function(req, res) {
         state: 'required',
         city: 'required',        
         // address: 'required',
-        apartment: 'required',
+        // apartment: 'required',
         // latitude: 'required',
         // longitude: 'required',
         country: 'required',

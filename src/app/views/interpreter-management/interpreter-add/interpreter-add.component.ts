@@ -141,11 +141,12 @@ export class InterpreterAddComponent implements OnInit {
             address: [''],
             company_name:['', this.validation.onlyRequired_validator],
             social_security_no:['', this.validation.onlyRequired_validator],
-            apartment:['', this.validation.onlyRequired_validator],
+            // apartment:['', this.validation.onlyRequired_validator],
             gender: ['', this.validation.onlyRequired_validator],
             latitude: [''],
             longitude: [''],
-            middle_name: ['', this.validation.onlyRequired_validator],
+            nick_name:['', this.validation.onlyRequired_validator],
+            // middle_name: ['', this.validation.onlyRequired_validator],
             country: ['', this.validation.onlyRequired_validator],
             city: ['', this.validation.onlyRequired_validator],
             state: ['', this.validation.onlyRequired_validator],
@@ -261,6 +262,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('middle_name', this.userForm.value.middle_name);
         formData.append('last_name', this.userForm.value.last_name);
         formData.append('email', this.userForm.value.email);
+        formData.append('nick_name', this.userForm.value.nick_name);
         formData.append('mobile', this.userForm.value.mobile);
         formData.append('international_phone_no', this.userForm.value.international_phone_no);
         formData.append('company_name', this.userForm.value.company_name);
@@ -269,7 +271,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('address', this.userForm.value.address);
         formData.append('country', this.userForm.value.country);
         formData.append('password', this.userForm.value.password);
-        formData.append('apartment', this.userForm.value.apartment);
+        // formData.append('apartment', this.userForm.value.apartment);
         formData.append('city', this.userForm.value.city);
         formData.append('gender', this.userForm.value.gender);
         formData.append('other_gender', this.userForm.value.other_gender);
@@ -354,7 +356,6 @@ export class InterpreterAddComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
-      alert(1)
       this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
           console.log(results);
           console.log(status);

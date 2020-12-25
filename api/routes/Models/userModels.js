@@ -28,9 +28,12 @@ class userClass {
     }
 
 
-    getInterpreterAddress(interpreter_id){
+    
+
+
+    getInterpreterDoc(interpreter_id){
         return new Promise(function(resolve, reject) {
-            var sql = "SELECT * FROM interpreter_address WHERE interpreter_id='"+interpreter_id+"'"; 
+            var sql = "SELECT * FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"'"; 
             console.log("check sql",sql);
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {

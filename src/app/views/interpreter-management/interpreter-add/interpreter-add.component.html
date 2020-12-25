@@ -50,20 +50,24 @@
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Last">Middle Name</label>
-                            <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-6 form-group mb-3">
                             <label for="Last">Last Name</label>
                             <input type="text" class="form-control" formControlName="last_name"  placeholder="Last Name">
                             <div *ngIf="userForm.controls['last_name'].errors && (!userForm.controls['last_name'].pristine || submitted ||userForm.controls['last_name'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['last_name'].errors.required">Last Name is required.</div>
                             </div>
+                        </div>
+                        <!-- <div class="col-md-6 form-group mb-3">
+                            <label for="Last">Middle Name</label>
+                            <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
+                        </div> -->
+
+                    </div>
+
+                    <div class="row">
+
+                       <div class="col-md-6 form-group mb-3">
+                            <label for="Last">Nick Name</label>
+                            <input type="text" class="form-control" formControlName="nick_name"  placeholder="Nick Name">
                         </div>
 
 
@@ -144,19 +148,37 @@
                             <input type="text" class="form-control"  formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search> 
                         </div> 
                      </div>
-
-
-
                      
                     <div class="row">
-                        
                         <div class="col-md-6 form-group mb-3">
+                            <label for="SSN/EIN">Identify No.</label>
+                            <div class="form-check">
+                                <label class="form-check-label" for="gridRadios1">
+                                <input class="form-check-input radio-inline " 
+                               formControlName="social_security_no" type="radio" id="social-security"
+                                    value="SSN" checked>
+                                    SSN
+                                </label>
+                          
+                                <label class="form-check-label pl-5" for="gridRadios2">
+                                <input class="form-check-input radio-inline" 
+                                 formControlName="social_security_no" type="radio" id="social-security1"
+                                    value="EIN">
+                                    EIN
+                                </label>
+                            </div>
+                            <div *ngIf="userForm.controls['social_security_no'].errors && (!userForm.controls['social_security_no'].pristine || submitted ||userForm.controls['social_security_no'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['social_security_no'].errors.required">SSN/EIN is required.</div> 
+                              </div>
+                        </div>
+                        
+                        <!-- <div class="col-md-6 form-group mb-3">
                             <label for="Apartment">Apartment</label>
                            <input type="text" class="form-control" formControlName="apartment"  placeholder="Apartment">
                             <div *ngIf="userForm.controls['apartment'].errors && (!userForm.controls['apartment'].pristine || submitted ||userForm.controls['apartment'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['apartment'].errors.required">Apartment is required.</div> 
                               </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="col-md-6 form-group mb-3">
@@ -225,21 +247,6 @@
                                 <div [hidden]="!userForm.controls['company_name'].errors.required">Company Name is required.</div> 
                               </div>
                         </div>
-
-                      
-                        <div class="col-md-6 form-group mb-3">
-                            <label>SSN/EIN</label>
-                           <input type="text" class="form-control" formControlName="social_security_no"  placeholder="SSN/EIN">
-                            <div *ngIf="userForm.controls['social_security_no'].errors && (!userForm.controls['social_security_no'].pristine || submitted ||userForm.controls['social_security_no'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['social_security_no'].errors.required">SSN/EIN is required.</div> 
-                              </div>
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="dob">Date Of Birth</label>
                            <input type="date" class="form-control" formControlName="dob" 
@@ -248,25 +255,22 @@
                                 <div [hidden]="!userForm.controls['dob'].errors.required">Date Of Birth is required.</div> 
                               </div>
                         </div>
+                    </div>
 
-                      
-
-                        <div class="col-md-6 form-group mb-3">
+                    <div class="row">
+                     <div class="col-md-6 form-group mb-3">
                             <label for="image">Image</label>
                             <input type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
                             <div *ngIf="userForm.controls['image'].errors && (!userForm.controls['image'].pristine || submitted ||userForm.controls['image'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['image'].errors.required">Image is required.</div> 
                               </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="Gender">Gender</label>
                             <div class="form-check">
                                 <label class="form-check-label" for="gridRadios1">
-                                <input class="form-check-input radio-inline " (click)="radioButton1()"
+                                <input class="form-check-input radio-inline " 
+                                (click)="radioButton1()"
                                formControlName="gender" type="radio" id="gridRadios1"
                                     value="Male" checked>
                               
@@ -298,7 +302,6 @@
                               </div>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button>
