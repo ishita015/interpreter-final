@@ -97,72 +97,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
   sec_address:string;
   new_address: string;
   private geoCoder;
-<<<<<<< HEAD
+
   public assignForm: FormGroup;
-=======
 
-
-  fields=[
-    { 
-      id:'1',
-      lang_id:'1',
-      label:'Hourly Rate',
-     
-    },
-    {
-        id:'2',
-        lang_id:'1',
-        label:'Mininum Paid',
-        
-    },
-    {
-        id:'3',
-        lang_id:'1',
-        label:'Pay Increment',
-        
-    },
-
-    { 
-        id:'4',
-        label:'Half Day',
-        
-    },
-    {
-        id:'5',
-        lang_id:'1',
-        label:'Mininum Paid',
-        
-    },
-    {
-        id:'6',
-        lang_id:'1',
-        label:'Pay Increment',
-        
-    },
-
-    { 
-        id:'7',
-        lang_id:'1',
-        label:'Full Day',
-        
-    },
-    {
-        id:'8',
-        lang_id:'1',
-        label:'Mininum Paid',
-        
-    },
-    {
-        id:'9',
-        lang_id:'1',
-        label:'Pay Increment',
-        
-    }
-  ]
-
-  form = new FormGroup({});
-
->>>>>>> 449830bd206bf28efb481fd40ee66b5c689444a9
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -181,7 +118,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
-    this.onSiteBtn();
+   
 
  
       //load Places Autocomplete
@@ -916,7 +853,6 @@ getAddress(latitude, longitude) {
     console.log("images",e);
     window.open('http://192.168.0.4:3300/documents/'+e); 
   }
-<<<<<<< HEAD
   // imgview(e,modal){
   //   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
   // }
@@ -957,19 +893,4 @@ getAddress(latitude, longitude) {
   }
 
   //assignment settings end 
-=======
- 
-
-  onSiteBtn(){
-    console.log("iiii", this.form.value);
-    this.fields.forEach(x => {
-      console.log("xxxxxxxxxxxxxxxx",x);
-      // if(this.form.value.lang_id == '1'){
-        this.form.addControl(x.id, new FormControl('',Validators.required));
-          console.log("oooooooooooooooooooooo", this.form.value);
-        // }
-    });
-  
-  }
->>>>>>> 449830bd206bf28efb481fd40ee66b5c689444a9
 }
