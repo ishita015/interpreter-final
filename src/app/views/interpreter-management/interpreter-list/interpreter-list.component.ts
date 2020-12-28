@@ -33,15 +33,17 @@ export class InterpreterListComponent implements OnInit {
 
   searchControl: FormControl = new FormControl();
 
-  start_date;
-  end_date;
-  searchName = '';
-  searchData
-  searchInfo: FormControl = new FormControl();
+  Start_Date;
+  End_Date;
+  search_name: FormControl = new FormControl();
+
   range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
+    start_date: new FormControl(),
+    end_date: new FormControl()
   });
+  allData;
+  startDate;
+  endDate;
   constructor( private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
@@ -57,10 +59,10 @@ export class InterpreterListComponent implements OnInit {
     console.log("iddddddd", this.id);
     this.type = this.route.snapshot.params.type? this.route.snapshot.params.type : '0';
     console.log("qqqqq", this.type );
-
+ 
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
-    this.interpreterList();
+    this.interpreterList('1');
     this.searchControl.valueChanges
       .pipe(debounceTime(200))
       .subscribe(value => {
@@ -98,17 +100,17 @@ export class InterpreterListComponent implements OnInit {
     });
     this.filteredUser = rows;
   }
+  interpreterList(e) {
+    e = this.search_name.value;
+    this.allData = this.search_name.value;
+    this.startDate = this.range.value.start_date;
+    this.endDate = this.range.value.end_date;
+    console.log("zzzzzzzzzz", this.allData, this.startDate,this.endDate);
+    
+    this.service.getInterpreterList(this.id,this.type,this.allData,this.startDate,this.endDate)
+    // this.service.getInterpreterList(this.id,this.type)
+      .subscribe(res => {
 
-  interpreterList() {
-    // this.start_date = this.range.value.start;
-    // this.end_date = this.range.value.end;
-    // this.searchData = this.searchInfo.value;
-    console.log("start_date",  this.start_date);
-    console.log("end_date",  this.end_date);
-    console.log("searchData",  this.searchData);
-    // this.service.getInterpreterList(this.id,this.type,this.searchData,this.start_date,this.end_date)
-    this.service.getInterpreterList(this.id,this.type)
-    .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];
           this.userData = [...res['data']];
@@ -179,7 +181,7 @@ export class InterpreterListComponent implements OnInit {
       .subscribe(res => {
         this.status_msg = res;
         this.toastr.success(this.status_msg.message, '', { timeOut: 1000 });
-        this.interpreterList();
+        this.interpreterList('1');
       })
   }
 

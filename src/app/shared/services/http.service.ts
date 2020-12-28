@@ -246,27 +246,18 @@ export class HttpService {
     return this.http.get<any[]>(this.url + '/cesco/getRole');
   }
 
-
-
-
-
   getAllUserList(): Observable<any> {
     return this.http.get(this.url + '/cesco/getAllUser', this.httpOptions);
   }
 
 
-  // this.start_date,this.end_date
-
-  getInterpreterList(id,type): Observable<any> {
-    return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type} ,this.httpOptions);
+  getInterpreterList(id,type,search_info,start_date,end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type,search_info:search_info,start_date:start_date,end_date:end_date} ,this.httpOptions);
   }
 
-
-
-  // getInterpreterList(id,type,serach,start_date,end_date): Observable<any> {
-  //   return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type,serach:serach,start_date:start_date,end_date:end_date} ,this.httpOptions);
+  // getInterpreterList(id,type,name,start_date,end_date): Observable<any> {
+  //   return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type,name:name,start_date:start_date,end_date:end_date} ,this.httpOptions);
   // }
-
 
   // getLanguagAdd(addInfo: LanguageAddEditModels): Observable<any> {
   //   return this.http.post(this.url + '/cesco/savelanguage',addInfo,this.httpOptions);
