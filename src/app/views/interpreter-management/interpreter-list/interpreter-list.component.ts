@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -32,6 +32,15 @@ export class InterpreterListComponent implements OnInit {
   type;
 
   searchControl: FormControl = new FormControl();
+
+  Start_Date;
+  End_Date;
+  searchName = '';
+  search_name: FormControl = new FormControl();
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
   constructor( private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
@@ -89,10 +98,13 @@ export class InterpreterListComponent implements OnInit {
     this.filteredUser = rows;
   }
 
-
-
   interpreterList() {
-    this.service.getInterpreterList(this.id, this.type)
+    this.Start_Date = this.range.value.start;
+    console.log("zzzzzzzzzz",  this.Start_Date);
+    this.End_Date = this.range.value.end;
+    console.log("xxxxxxxxx",  this.End_Date);
+    // this.service.getInterpreterList(this.id,this.type,this.Start_Date,this.End_Date)
+    this.service.getInterpreterList(this.id,this.type)
       .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];

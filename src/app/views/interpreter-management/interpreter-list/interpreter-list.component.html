@@ -12,9 +12,23 @@
         <div class="col-md-4">
           <div class="form-group">
             <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
+            <!-- <input id="search" placeholder="Search" [formControl]="search_name"  class="form-control form-control-rounded" type="text">   -->
           </div>
     </div>
-    <div class="col-md-8">
+
+    <div class="col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="range" 
+        [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date">
+          <input matEndDate formControlName="end" placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
         <button class="btn btn-primary float-right" (click)="addInterpreter()">Create</button>
     </div>
         <div class="col-md-12 lang_block">

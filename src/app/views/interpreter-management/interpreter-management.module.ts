@@ -27,6 +27,10 @@ import { InterpreterProfileComponent } from './interpreter-profile/interpreter-p
 
 import { InterpreterProfileInformationComponent } from './interpreter-profile-information/interpreter-profile-information.component';
 
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent, InterpreterProfileInformationComponent],
   imports: [
@@ -38,6 +42,9 @@ import { InterpreterProfileInformationComponent } from './interpreter-profile-in
     NgxMaskModule.forRoot(),
     TagInputModule,
     ColorPickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
