@@ -476,6 +476,10 @@
                                 
                                 <div class="col-md-3 form-group mb-3" *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCommunityDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    
+                                   <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)" class="btn btn-primary mr-2">
+                                    View Image
+                                  </button>
                                 </div>
                                 
 
@@ -496,6 +500,9 @@
 
                                 <div class="col-md-3 form-group mb-3" *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsConferenceDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>
                                 
                             </div>
@@ -510,6 +517,9 @@
 
                                 <div class="col-md-6 form-group mb-3" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCourtDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>                    
 
                             </div>
@@ -526,6 +536,9 @@
 
                                 <div class="col-md-6 form-group mb-3" *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCredentialDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>
                                 
 
@@ -536,10 +549,16 @@
                                 <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
                                     <label for="image">Equipment Qualified</label>
                                     <input type="file" class="form-control" formControlName="equipment_doc" (change)="onSingleFileChange($event,'equipment_doc','5')">
+                                    <!-- <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button> -->
                                 </div>
                                 
                                 <div class="col-md-6 form-group mb-3" *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsEquipmentDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>
                                 
                                 
@@ -557,6 +576,9 @@
 
                                 <div class="col-md-6 form-group mb-3" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsLegalDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>
             
                             </div>
@@ -572,6 +594,9 @@
 
                                 <div class="col-md-6 form-group mb-3" *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillSimultOpen}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>
                             </div>
                             <!-- detail_Obj?.skillsOtherDoc -->
@@ -599,6 +624,9 @@
 
                                 <div class="col-md-6 form-group mb-3">
                                     <img  src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}" class="mr-3" style="width:100px; height:100px;">
+                                    <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)" class="btn btn-primary mr-2">
+                                        View Image
+                                      </button>
                                 </div>                    
 
                             </div> 

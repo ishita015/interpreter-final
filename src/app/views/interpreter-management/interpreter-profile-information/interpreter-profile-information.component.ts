@@ -838,6 +838,10 @@ getAddress(latitude, longitude) {
       }
     });
   }
+  imgview(e:string){ 
+    console.log("images",e);
+    window.open(e); 
+  }
   // imgview(e,modal){
   //   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
   // }
