@@ -24,8 +24,8 @@ export class RateReviewComponent implements OnInit {
     public validation: ValidationsService) { }
 
   ngOnInit(){
-    this.ratingkey = this.route.snapshot.params.verifykey;
-    console.log("verifykey", this.ratingkey);
+    this.ratingkey = this.route.snapshot.params.uniqueCode;
+    console.log("verifykey", this.ratingkey); 
     this.createForm1(); 
   }
 
@@ -33,7 +33,7 @@ export class RateReviewComponent implements OnInit {
    createForm1() {
     this.ratingForm = this.fb.group({
       rating: ['',this.validation.onlyRequired_validator],
-      unique_code:['1'],
+      unique_code:[''],
       review:[''],
     })
   }
@@ -46,6 +46,11 @@ export class RateReviewComponent implements OnInit {
       return;
     }
     this.submitted = false;
+
+    this.ratingForm.value.unique_code=this.ratingkey;
+
+    console.log(this.ratingForm.value);
+
     this.service.getRating(this.ratingForm.value)
     .subscribe(res => {
         console.log("api response",res);

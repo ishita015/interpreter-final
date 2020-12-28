@@ -43,7 +43,6 @@ export class InterpreterTrackingComponent implements OnInit {
     //get tracking code in url
     this.trackingCode = this.route.snapshot.params.trackingCode; 
     this.service.updatelocation(this.trackingCode);
-    // console.log("trackingCode", this.trackingCode);
     this.getInterpreterLocation();
   }
 

@@ -30,7 +30,7 @@ const routes: Routes = [
 
   { path: 'tracking/:trackingCode',component: InterpreterTrackingComponent },
   // { path: 'tracking/1',component: InterpreterTrackingComponent },
-  { path: 'review/1',component: RateReviewComponent },
+  { path: 'review/:uniqueCode',component: RateReviewComponent },
 ];
 
 @NgModule({

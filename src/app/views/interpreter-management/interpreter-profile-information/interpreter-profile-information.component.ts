@@ -840,7 +840,7 @@ getAddress(latitude, longitude) {
   }
   imgview(e:string){ 
     console.log("images",e);
-    window.open(e); 
+    window.open('http://192.168.0.4:3300/documents/'+e); 
   }
   // imgview(e,modal){
   //   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })

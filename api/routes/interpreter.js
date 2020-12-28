@@ -1844,12 +1844,12 @@ module.exports.interpreterRequestComplete = async function(req, res) {
         common.sendRatingPageLinkEmail(requester_name,email,interpreter,token);
 
         //update status
-        let updatesql = "UPDATE interpreter_request SET status = '4' WHERE job_id = '"+token+"' && Interpreter_id = '"+user_id+"'";
-        // console.log("updatesql--",updatesql)
+        let updatesql = "UPDATE interpreter_request SET status = '4', unique_code='"+token+"' WHERE job_id = '"+ris_id+"' && Interpreter_id = '"+user_id+"'";
+        console.log("updatesql--",updatesql)
         con.query(updatesql, function(err, result) {});
 
-        let sql = "UPDATE request_information_services SET unique_code='"+ris_id+"' status = '4' WHERE id = '"+ris_id+"'";
-        // console.log("sql--",sql)
+        let sql = "UPDATE request_information_services SET status = '4' WHERE id = '"+ris_id+"'";
+        console.log("sql--",sql)
         con.query(sql, function(err, result) {});
 
         res.json({

@@ -1,3 +1,4 @@
+const { CompileShallowModuleMetadata } = require('@angular/compiler');
 var http     = require('https');
 var con      = require('../../config');
 // var constant = require('../constant');
@@ -262,6 +263,7 @@ class userClass {
     getDataForRequestInfo(unique_code){
         return new Promise(function(resolve, reject) {
             var sql = "SELECT * FROM interpreter_request WHERE unique_code='"+unique_code+"'";
+            console.log(sql);
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
