@@ -679,12 +679,26 @@
                                 
                             </div>
 
-
+                            <form [formGroup]="form">
                             <div class="row" *ngIf="onsiteInfo">
                                 <div class="col-md-12">
                                     <h5>On-Site </h5>
+                                    <label>English</label>
                                 </div>
-                                <div class="col-md-4 mb-2">
+                              
+                                <div class="col-md-4 mb-2" *ngFor="let field of fields">
+                                    <label>{{field.label}}</label>
+                                    <input  class="form-control" [formControlName]="field.id">
+                                    <!-- <div class="error" *ngIf="form.get(field.id).touched && form.get(field.id).invalid">Required</div> -->
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <button type="button" (click)="onSiteBtn()" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div> 
+                        
+                                <!-- <div class="col-md-4 mb-2">
                                     <label>Work Hours</label>
                                     <select class="form-control" formControlName="work_hour">
                                         <option value="Hourly">Hourly</option>
@@ -694,23 +708,23 @@
                                         <option value="Weekend">Weekend </option>
                                         <option value="Holidays">Holidays</option>
                                     </select>
-                                </div>
+                                </div> -->
 
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <label>Minimum Paid</label>
                                     <select class="form-control" formControlName="min_paid">
                                         <option value="15 Min">15 Min</option>
                                         <option value="30 Min">30 Min</option>
                                         <option value="1 Hours">1 Hours</option>
                                     </select>
-                                </div>
+                                </div> -->
 
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <label for="firstName">Pay Increment </label>
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
-                                </div>
+                                </div> -->
                             </div>
-                        
+                        </form>
 
                             
                             <div class="row" *ngIf="opiInfo">
