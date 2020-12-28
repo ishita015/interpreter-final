@@ -62,11 +62,11 @@ export class InterpreterListComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.interpreterList('1');
-    this.searchControl.valueChanges
-      .pipe(debounceTime(200))
-      .subscribe(value => {
-        this.filerData(value);
-      });
+    // this.searchControl.valueChanges
+    //   .pipe(debounceTime(200))
+    //   .subscribe(value => {
+    //     this.filerData(value);
+    //   });
     this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
     // this.array_Obj = this.roleData['data'][3]; 
     // if(this.array_Obj.id){
@@ -75,37 +75,40 @@ export class InterpreterListComponent implements OnInit {
   }
 
 
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      console.log("xxxxxxx", this.filteredUser);
-      return this.filteredUser = [... this.userData];
-    }
+  // filerData(val) {
+  //   if (val) {
+  //     val = val.toLowerCase();
+  //   } else {
+  //     console.log("xxxxxxx", this.filteredUser);
+  //     return this.filteredUser = [... this.userData];
+  //   }
 
-    const columns = Object.keys(this.userData[0]);
-    if (!columns.length) {
-      return;
-    }
+  //   const columns = Object.keys(this.userData[0]);
+  //   if (!columns.length) {
+  //     return;
+  //   }
 
-    const rows = this.userData.filter(function (d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
-        }
-      }
-    });
-    this.filteredUser = rows;
-  }
+  //   const rows = this.userData.filter(function (d) {
+  //     for (let i = 0; i <= columns.length; i++) {
+  //       const column = columns[i];
+  //       // console.log(d[column]);
+  //       if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+  //         return true;
+  //       }
+  //     }
+  //   });
+  //   this.filteredUser = rows;
+  // }
   
   interpreterList(e) {
-    e = this.search_name.value;
+  
+    // this.range.value.start_date = e;
+    console.log("startDateaaaaaaaaaa", this.range.value.start_date );
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;
+    console.log("startDate",  this.startDate);
     this.endDate = this.range.value.end_date;
-    console.log("zzzzzzzzzz", this.allData, this.startDate,this.endDate);
+    console.log("all", this.allData, this.startDate,this.endDate);
     
     this.service.getInterpreterList(this.id,this.type,this.allData,this.startDate,this.endDate)
     // this.service.getInterpreterList(this.id,this.type)
