@@ -651,7 +651,7 @@
             <div *ngIf="assignment_form" class="col-md-12">
                 <div class="card animate mb-4">
                     <div class="card-body">
-                        <!-- <form [formGroup]="assignmentForm">  -->
+                        <form [formGroup]="assignmentForm"> 
 
                             <div class="row">
                                 <div class="col-md-3 form-group mb-3">
@@ -679,42 +679,75 @@
                                 
                                 
                             </div>
-
-
-                            <div class="row" *ngIf="onsiteInfo">
-                                <div class="col-md-12">
-                                    <h5>On-Site </h5>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label>Work Hours</label>
-                                    <select class="form-control" formControlName="work_hour">
-                                        <option value="Hourly">Hourly</option>
-                                        <option value="Half Day">Half Day</option>
-                                        <option value="Full Day">Full Day </option>
-                                        <option value="Weekdays">Weekdays </option>
-                                        <option value="Weekend">Weekend </option>
-                                        <option value="Holidays">Holidays</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label>Minimum Paid</label>
-                                    <select class="form-control" formControlName="min_paid">
-                                        <option value="15 Min">15 Min</option>
-                                        <option value="30 Min">30 Min</option>
-                                        <option value="1 Hours">1 Hours</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="firstName">Pay Increment </label>
-                                    <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
-                                </div>
+                            <!-- *ngIf="onsiteInfo"  -->
+                            <div class="col-md-12">
+                                <h5>On Site </h5>
                             </div>
+                            <div *ngFor="let group of assignmentArray.controls; let i = index;" formArrayName="assignment">
+                              
+                            <div [formGroupName]='i'>
+                                <div class="row"> 
+                                    
+                                    <div class="col-md-4 mb-2">
+                                        <label for="hourly_rate">Hourly Rate </label>
+                                        <input type="text" class="form-control" formControlName="hourly_rate"  placeholder="Hourly Rate">
+                                    </div>
+    
+                                    <div class="col-md-4 mb-2">
+                                        <label for="min_paid">Minimum Paid </label>
+                                        <input type="text" class="form-control" formControlName="hourly_rate_min_paid"  placeholder="Minimum Paid">
+                                    </div>
+    
+                                    <div class="col-md-4">
+                                        <label for="firstName">Pay Increment </label>
+                                        <input type="text" class="form-control" formControlName="hourly_rate_pay_increment "  placeholder="Pay Increment">
+                                    </div>
+                                 </div>
+
+                                <div class="row"> 
+                                    
+                                    <div class="col-md-4 mb-2">
+                                        <label for="hourly_rate">Half Day </label>
+                                        <input type="text" class="form-control" formControlName="half_day"  placeholder="Half Day">
+                                    </div>
+    
+                                    <div class="col-md-4 mb-2">
+                                        <label for="min_paid">Minimum Paid </label>
+                                        <input type="text" class="form-control" formControlName="half_day_min_paid"  placeholder="Minimum Paid">
+                                    </div>
+    
+                                    <div class="col-md-4">
+                                        <label for="firstName">Pay Increment </label>
+                                        <input type="text" class="form-control" formControlName="half_day_pay_increment "  placeholder="Pay Increment">
+                                    </div>
+                                </div>
+
+
+                                <div class="row"> 
+                                    
+                                    <div class="col-md-4 mb-2">
+                                        <label for="hourly_rate">Full Day </label>
+                                        <input type="text" class="form-control" formControlName="full_day"  placeholder="Full Day">
+                                    </div>
+    
+                                    <div class="col-md-4 mb-2">
+                                        <label for="min_paid">Minimum Paid </label>
+                                        <input type="text" class="form-control" formControlName="full_day_min_paid" placeholder="Minimum Paid">
+                                    </div>
+    
+                                    <div class="col-md-4">
+                                        <label for="firstName">Pay Increment </label>
+                                        <input type="text" class="form-control" formControlName="full_day_pay_increment" placeholder="Pay Increment">
+                                    </div>
+                                 </div>  
+                            </div>
+                        </div>
+
+                            
                         
 
                             
-                            <div class="row" *ngIf="opiInfo">
+                            <!-- <div class="row" *ngIf="opiInfo">
                                 <div class="col-md-12">
                                     <h5>OPI </h5>
                                 </div>
@@ -745,10 +778,10 @@
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
                                   
                                 </div>
-                            </div>  
+                            </div>   -->
 
 
-                            <div class="row" *ngIf="vriInfo">
+                            <!-- <div class="row" *ngIf="vriInfo">
                                 <div class="col-md-12">
                                     <h5>VRI </h5>
                                 </div>
@@ -778,10 +811,10 @@
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
                                    
                                 </div>
-                            </div>
+                            </div> -->
 
 
-                            <div class="row" *ngIf="vclInfo">
+                            <!-- <div class="row" *ngIf="vclInfo">
                                 <div class="col-md-12">
                                     <h5>VCL </h5>
                                 </div>
@@ -811,7 +844,7 @@
                                     <input type="text" class="form-control" formControlName="pay_increment "  placeholder="Pay Increment">
                                     
                                 </div>
-                            </div>
+                            </div> -->
 
                             
                             <div class="form-group row" *ngIf="opiInfo || vriInfo || vclInfo || aslInfo">
@@ -819,6 +852,7 @@
                                     <button type="button" class="btn btn-primary">Save</button>
                                 </div>
                             </div> 
+                        </form>
 
                     </div>
                 </div>

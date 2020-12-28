@@ -1,7 +1,7 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from "../../../shared/services/http.service";
 import { ValidationsService } from 'src/app/shared/services/validations.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -86,7 +86,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   banking_form = false;
 
   showOther:boolean = false;
-
+  
   // google map 
   latitude: number;
   longitude: number;
@@ -97,7 +97,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   sec_address:string;
   new_address: string;
   private geoCoder;
-
+  public assignForm: FormGroup;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -105,7 +105,11 @@ export class InterpreterProfileInformationComponent implements OnInit {
     private modalService: NgbModal,
     private ngZone: NgZone,
     private mapsAPILoader: MapsAPILoader,
-    public service:HttpService) { }
+    public service:HttpService) {
+      this.assignForm = this.fb.group({
+        assignment: this.fb.array([this.assignmentGroup()])
+      });
+    }
 
   ngOnInit(){
     this.addBankInfo(); // add bank details
@@ -504,11 +508,14 @@ detailProfile(){
   this.service.getProfileDetail(this.interId).subscribe(res => {
     if(res['status']== 1){
       this.detail_Obj = res['data'][0];
-      console.log("detail_Obj",this.detail_Obj)
-
+      console.log("detail_Obj",this.detail_Obj);
       this.patchValue();
 
-      
+      for(let i=0; i < this.detail_Obj.secondary_language.length; i++){ 
+        this.assignmentArray.push(this.assignmentGroup());
+      } 
+      // addAssignment
+      console.log(" assignment form yes",this.assignmentArray)
 
     }else{
       console.log("api response",res);
@@ -845,4 +852,41 @@ getAddress(latitude, longitude) {
   // imgview(e,modal){
   //   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
   // }
+
+
+
+  //assignment settings start 
+  //assignment_form
+  // constructor(private _fb: FormBuilder) {
+    // this.assignment_form = this._fb.group({
+    //   assignment: this._fb.array([this.assignmentGroup()])
+    // });
+  // }
+
+  private assignmentGroup(): FormGroup {
+    return this.fb.group({
+      language_id: [],
+      hourly_rate: [],
+      hourly_rate_min_paid: [],
+      hourly_rate_pay_increment: [],
+      // half_day: [],
+      // half_day_min_paid: [],
+      // half_day_pay_increment: [],
+      // full_day: [],
+      // full_day_min_paid: [],
+      // full_day_pay_increment: [],
+    });
+  }
+
+  // addAssignment() {
+  //   this.assignmentArray.push(this.assignmentGroup());
+  //   console.log(this.assignmentArray);
+  // }
+
+
+  get assignmentArray(): FormArray {
+    return <FormArray>this.assignForm.get('assignment');
+  }
+
+  //assignment settings end 
 }

@@ -33,10 +33,11 @@ export class InterpreterListComponent implements OnInit {
 
   searchControl: FormControl = new FormControl();
 
-  Start_Date;
-  End_Date;
+  start_date;
+  end_date;
   searchName = '';
-  search_name: FormControl = new FormControl();
+  searchData
+  searchInfo: FormControl = new FormControl();
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -99,13 +100,15 @@ export class InterpreterListComponent implements OnInit {
   }
 
   interpreterList() {
-    this.Start_Date = this.range.value.start;
-    console.log("zzzzzzzzzz",  this.Start_Date);
-    this.End_Date = this.range.value.end;
-    console.log("xxxxxxxxx",  this.End_Date);
-    // this.service.getInterpreterList(this.id,this.type,this.Start_Date,this.End_Date)
+    // this.start_date = this.range.value.start;
+    // this.end_date = this.range.value.end;
+    // this.searchData = this.searchInfo.value;
+    console.log("start_date",  this.start_date);
+    console.log("end_date",  this.end_date);
+    console.log("searchData",  this.searchData);
+    // this.service.getInterpreterList(this.id,this.type,this.searchData,this.start_date,this.end_date)
     this.service.getInterpreterList(this.id,this.type)
-      .subscribe(res => {
+    .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];
           this.userData = [...res['data']];

@@ -255,10 +255,18 @@ export class HttpService {
   }
 
 
+  // this.start_date,this.end_date
 
   getInterpreterList(id,type): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type} ,this.httpOptions);
   }
+
+
+
+  // getInterpreterList(id,type,serach,start_date,end_date): Observable<any> {
+  //   return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type,serach:serach,start_date:start_date,end_date:end_date} ,this.httpOptions);
+  // }
+
 
   // getLanguagAdd(addInfo: LanguageAddEditModels): Observable<any> {
   //   return this.http.post(this.url + '/cesco/savelanguage',addInfo,this.httpOptions);
