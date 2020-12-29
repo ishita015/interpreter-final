@@ -2,7 +2,7 @@
     <div class="breadcrumb">
         <ul>
             <li><a class="heading"><b>{{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</b> Profile</a></li>
-            <!-- <li>Version 1</li> --> 
+            <!-- <li>Version 1</li> -->
         </ul>
     </div>
 
@@ -211,7 +211,7 @@
 
 
                                             <div class="col-md-6 form-group mb-3">
-                                                <label for="SSN/EIN">Identify No.</label>
+                                                <label for="SSN/EIN">Identities</label>
                                                 <div class="form-check">
                                                     <label class="form-check-label" for="gridRadios1">
                                                     <input class="form-check-input radio-inline " 
@@ -269,7 +269,7 @@
                                             </div>
 
                                             <div class="col-md-6 form-group mb-3">
-                                                <label for="State">ZipCode</label>
+                                                <label for="State">Zip Code</label>
                                                 <input type="text" class="form-control" formControlName="zipCode"  placeholder="State">
                                                 <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['zipCode'].errors.required">ZipCode is required.</div> 
@@ -289,7 +289,7 @@
 
                                             <div class="col-md-6 form-group mb-3">
                                                 <label>Company Name</label>
-                                               <input type="text" class="form-control" formControlName="company_name"  placeholder="Company Name">
+                                               <input type="text" class="form-control" formControlName="company_name" placeholder="Company Name">
                                                 <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['company_name'].errors.required">Company Name is required.</div> 
                                                   </div>
@@ -683,14 +683,47 @@
                                     <div [formGroupName]='i'>
                                         <div class="row"> 
                                             <div class="col-md-12">
-                                                <h5>On Site </h5>
+                                                <h5>On Site : {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} </h5>
                                             </div>
+                                            
+
                                             <div class="col-md-4 mb-2">
                                                 <label for="hourly_rate"> Hourly Rate </label>
                                                 <input type="text" class="form-control" formControlName="hourly_rate" placeholder="On-Site Hourly Rate">
                                             </div>
-            
+                                            
                                             <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+
+                                                <select class="form-control" formControlName="hourly_rate_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+
+                                                <select class="form-control" formControlName="hourly_rate_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
+
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="hourly_rate_min_paid" placeholder="On-Site -Hourly Rate- Minimum Paid">
                                             </div>
@@ -698,7 +731,7 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="hourly_rate_pay_increment" placeholder="On-Site -Hourly Rate- Pay Increment">
-                                            </div>
+                                            </div> -->
                                         </div>
 
 
@@ -708,8 +741,38 @@
                                                 <label for="hourly_rate">Half Day </label>
                                                 <input type="text" class="form-control" formControlName="half_day"  placeholder="On-Site Half Day">
                                             </div>
-            
+
                                             <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+
+                                                <select class="form-control" formControlName="half_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                               </select>
+                                            </div>
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+
+                                                <select class="form-control" formControlName="half_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="half_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
                                             </div>
@@ -717,7 +780,7 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="half_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                            </div>
+                                            </div> -->
                                         </div>
 
 
@@ -726,9 +789,39 @@
                                             <div class="col-md-4 mb-2">
                                                 <label for="hourly_rate">Full Day </label>
                                                 <input type="text" class="form-control" formControlName="full_day"  placeholder="On-Site Full Day">
-                                            </div>
-            
-                                            <div class="col-md-4 mb-2">
+                                         </div>
+                                         
+                                         <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+
+                                            <select class="form-control" formControlName="full_day_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                               <option value="7 Hours">7 Hours</option>
+                                               <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="full_day_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid"> Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="full_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
                                             </div>
@@ -736,7 +829,7 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="full_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                            </div>
+                                            </div> -->
                                         </div>  
                                     </div>
                                 </div>
@@ -751,14 +844,47 @@
                                     <div [formGroupName]='j'>
                                         <div class="row"> 
                                             <div class="col-md-12">
-                                                <h5>OPI </h5>
+                                                <h5>OPI : {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}}</h5>
                                             </div>
+
+                                           
                                             <div class="col-md-4 mb-2">
                                                 <label for="hourly_rate">Hourly Rate </label>
                                                 <input type="text" class="form-control" formControlName="opi_hourly_rate"  placeholder="Opi Hourly Rate">
                                             </div>
 
+
                                             <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="opi_hourly_rate_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
+                                            </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="opi_hourly_rate_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid"> Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="opi_hourly_rate_min_paid" placeholder="Opi -Hourly Rate- Minimum Paid">
                                             </div>
@@ -766,7 +892,7 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="opi_hourly_rate_pay_increment "  placeholder="Opi -Hourly Rate- Pay Increment">
-                                            </div>
+                                            </div> -->
                                         </div>
 
 
@@ -777,7 +903,7 @@
                                                 <input type="text" class="form-control" formControlName="opi_half_day" placeholder="Opi Half Day">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="opi_half_day_min_paid"  placeholder="Opi -Half Day- Minimum Paid">
                                             </div>
@@ -785,7 +911,39 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="opi_half_day_pay_increment" placeholder="Opi -Half Day- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="opi_half_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="opi_half_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
                                         </div>
 
 
@@ -796,7 +954,7 @@
                                                 <input type="text" class="form-control" formControlName="opi_full_day" placeholder="Opi Full Day">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="opi_full_day_min_paid" placeholder="Opi -Full Day- Minimum Paid">
                                             </div>
@@ -804,7 +962,40 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="opi_full_day_pay_increment" placeholder="Opi -Full Day- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="opi_full_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="opi_full_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
+
                                         </div>  
                                     </div>  
                                 </div>
@@ -820,14 +1011,16 @@
                                     <div [formGroupName]='k'>
                                         <div class="row"> 
                                             <div class="col-md-12">
-                                                <h5>VRI </h5>
+                                                <h5>VRI : {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}}</h5>
                                             </div>
+
+
                                             <div class="col-md-4 mb-2">
                                                 <label for="hourly_rate">Hourly Rate </label>
                                                 <input type="text" class="form-control" formControlName="vri_hourly_rate"  placeholder="Vri Hourly Rate">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid"> Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="vri_hourly_rate_min_paid" placeholder="Vri -Hourly Rate- Minimum Paid">
                                             </div>
@@ -835,7 +1028,40 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="vri_hourly_rate_pay_increment "  placeholder="Vri -Hourly Rate- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="vri_hourly_rate_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="vri_hourly_rate_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
+
                                         </div>
 
 
@@ -846,7 +1072,7 @@
                                                 <input type="text" class="form-control" formControlName="vri_half_day" placeholder="Vri Half Day">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="vri_half_day_min_paid"  placeholder="Vri -Half Day- Minimum Paid">
                                             </div>
@@ -854,7 +1080,41 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="vri_half_day_pay_increment" placeholder="Vri -Half Day- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="vri_half_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="vri_half_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
+
+
                                         </div>
 
 
@@ -865,7 +1125,7 @@
                                                 <input type="text" class="form-control" formControlName="vri_full_day" placeholder="Vri Full Day">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="vri_full_day_min_paid" placeholder="Vri -Full Day- Minimum Paid">
                                             </div>
@@ -873,7 +1133,39 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="vri_full_day_pay_increment" placeholder="Vri -Full Day- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="vri_full_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="vri_full_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
                                         </div>  
                                     </div>  
                                 </div>
@@ -889,14 +1181,15 @@
                                     <div [formGroupName]='l'>
                                         <div class="row"> 
                                             <div class="col-md-12">
-                                                <h5>VCL </h5>
+                                                <h5>VCL : {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}}</h5>
                                             </div>
+
                                             <div class="col-md-4 mb-2">
                                                 <label for="hourly_rate">Hourly Rate </label>
                                                 <input type="text" class="form-control" formControlName="vcl_hourly_rate"  placeholder="Vcl Hourly Rate">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid"> Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="vcl_hourly_rate_min_paid" placeholder="Vcl -Hourly Rate- Minimum Paid">
                                             </div>
@@ -904,7 +1197,38 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="vcl_hourly_rate_pay_increment "  placeholder="Vcl -Hourly Rate- Pay Increment">
+                                            </div> -->
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="vcl_hourly_rate_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="vcl_hourly_rate_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
                                         </div>
 
 
@@ -915,7 +1239,7 @@
                                                 <input type="text" class="form-control" formControlName="vcl_half_day" placeholder="Vcl Half Day">
                                             </div>
 
-                                            <div class="col-md-4 mb-2">
+                                            <!-- <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="vcl_half_day_min_paid"  placeholder="Vcl -Half Day- Minimum Paid">
                                             </div>
@@ -923,7 +1247,39 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="vcl_half_day_pay_increment" placeholder="Vcl -Half Day- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="vcl_half_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="vcl_half_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
                                         </div>
 
 
@@ -933,7 +1289,7 @@
                                                 <label for="hourly_rate">Full Day </label>
                                                 <input type="text" class="form-control" formControlName="vcl_full_day" placeholder="Vcl Full Day">
                                             </div>
-
+<!-- 
                                             <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
                                                 <input type="text" class="form-control" formControlName="vcl_full_day_min_paid" placeholder="Vcl -Full Day- Minimum Paid">
@@ -942,7 +1298,39 @@
                                             <div class="col-md-4">
                                                 <label for="firstName">Pay Increment </label>
                                                 <input type="text" class="form-control" formControlName="vcl_full_day_pay_increment" placeholder="Vcl -Full Day- Pay Increment">
+                                            </div> -->
+
+
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+    
+                                                <select class="form-control" formControlName="vcl_full_day_min_paid">
+                                                    <option value="1 Min">1 Min</option>
+                                                    <option value="5 Min">5 Min</option>
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                    <option value="2 Hours">2 Hours</option>
+                                                    <option value="3 Hours">3 Hours</option>
+                                                    <option value="4 Hours">4 Hours</option>
+                                                    <option value="5 Hours">5 Hours</option>
+                                                    <option value="6 Hours">6 Hours</option>
+                                                   <option value="7 Hours">7 Hours</option>
+                                                   <option value="8 Hours">8 Hours</option>
+                                                </select>
                                             </div>
+    
+    
+                                            <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Pay Increment </label>
+    
+                                                <select class="form-control" formControlName="vcl_full_day_pay_increment">
+                                                    <option value="15 Min">15 Min</option>
+                                                    <option value="30 Min">30 Min</option>
+                                                    <option value="1 Hours">1 Hours</option>
+                                                </select>
+                                            </div>
+
                                         </div>  
                                     </div>  
                                 </div>
