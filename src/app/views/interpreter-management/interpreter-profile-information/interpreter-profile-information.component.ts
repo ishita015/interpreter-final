@@ -43,16 +43,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   bankingForm: FormGroup;
   banking_Obj;
   banking_Msg;
-  // communityForm: FormGroup;
-  // conferenceForm: FormGroup;
-  // courtForm: FormGroup;
-  // credentialedForm: FormGroup;
-  // equipmentForm: FormGroup;
-  // legalForm: FormGroup;
-  // simultaneousForm: FormGroup;
-  // otherForm: FormGroup;
-  
-  
+
   ass_Obj;
   interId;
   detail_Obj;
@@ -97,72 +88,11 @@ export class InterpreterProfileInformationComponent implements OnInit {
   sec_address:string;
   new_address: string;
   private geoCoder;
-<<<<<<< HEAD
-  public assignForm: FormGroup;
-=======
+
+  public assignmentForm: FormGroup;
 
 
-  fields=[
-    { 
-      id:'1',
-      lang_id:'1',
-      label:'Hourly Rate',
-     
-    },
-    {
-        id:'2',
-        lang_id:'1',
-        label:'Mininum Paid',
-        
-    },
-    {
-        id:'3',
-        lang_id:'1',
-        label:'Pay Increment',
-        
-    },
 
-    { 
-        id:'4',
-        label:'Half Day',
-        
-    },
-    {
-        id:'5',
-        lang_id:'1',
-        label:'Mininum Paid',
-        
-    },
-    {
-        id:'6',
-        lang_id:'1',
-        label:'Pay Increment',
-        
-    },
-
-    { 
-        id:'7',
-        lang_id:'1',
-        label:'Full Day',
-        
-    },
-    {
-        id:'8',
-        lang_id:'1',
-        label:'Mininum Paid',
-        
-    },
-    {
-        id:'9',
-        lang_id:'1',
-        label:'Pay Increment',
-        
-    }
-  ]
-
-  form = new FormGroup({});
-
->>>>>>> 449830bd206bf28efb481fd40ee66b5c689444a9
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -171,9 +101,13 @@ export class InterpreterProfileInformationComponent implements OnInit {
     private ngZone: NgZone,
     private mapsAPILoader: MapsAPILoader,
     public service:HttpService) {
-      this.assignForm = this.fb.group({
-        assignment: this.fb.array([this.assignmentGroup()])
+      this.assignmentForm = this.fb.group({
+        assignment: this.fb.array([this.assignmentGroup()]),
+        assignment_opi: this.fb.array([this.opiAssignmentGroup()]),
+        assignment_vri: this.fb.array([this.vriAssignmentGroup()]),
+        assignment_vcl: this.fb.array([this.vclAssignmentGroup()])
       });
+
     }
 
   ngOnInit(){
@@ -181,9 +115,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
-    this.onSiteBtn();
-
- 
+    
       //load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
         this.setCurrentLocation();
@@ -219,19 +151,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
         });
     });
 
-    // this.commForm();
-    // // this.languageForm(); interpreterSkillForm
-
-
-    // this.conForm();
-    // this.couForm();
-    // this.creForm();
-    // this.eqpForm();
-    // this.legForm();
-    // this.simForm();
-
-
-    // this.othForm();
     
     this.LanguageList();
     this.interId = JSON.parse(localStorage.getItem('interpreterId')); //interpreter id
@@ -580,11 +499,13 @@ detailProfile(){
 
       for(let i=0; i < this.detail_Obj.secondary_language.length; i++){ 
         this.assignmentArray.push(this.assignmentGroup());
+        this.assignmentOpiArray.push(this.opiAssignmentGroup());
+        this.assignmentVriArray.push(this.vriAssignmentGroup());
+        this.assignmentVclArray.push(this.vclAssignmentGroup());
       } 
-      // addAssignment
-      console.log(" assignment form yes",this.assignmentArray)
 
-    }else{
+      // addAssignment
+     }else{
       console.log("api response",res);
       this.detail_Obj = res
     }
@@ -718,59 +639,57 @@ updateInterpreter(){
 
 
 
-  // assignment form start
+      // assignment form start
 
-  onsiteShow(){
-    this.onsiteInfo=true;  
-  }
-  opiShow(){
-    this.opiInfo=true;  
-  }
-  vriShow(){
-    this.vriInfo=true;  
-  }
-  vclShow(){
-    this.vclInfo=true;  
-  }
+      onsiteShow(){
+        this.onsiteInfo=true;  
+      }
+      opiShow(){
+        this.opiInfo=true;  
+      }
+      vriShow(){
+        this.vriInfo=true;  
+      }
+      vclShow(){
+        this.vclInfo=true;  
+      }
  
 
-  assignmentFormCheck(event,eveKey){
+    assignmentFormCheck(event,eveKey){
 
-    if(eveKey=='1'){
-      if ( event.target.checked ) {
-        this.onsiteInfo=true;
-      }else{
-        this.onsiteInfo=false;
+      if(eveKey=='1'){
+        if ( event.target.checked ) {
+          this.onsiteInfo=true;
+        }else{
+          this.onsiteInfo=false;
+        }
+      }
+
+      if(eveKey=='2'){
+        if ( event.target.checked ) {
+          this.opiInfo=true;
+        }else{
+          this.opiInfo=false;
+        }
+      }
+
+      if(eveKey=='3'){
+        if ( event.target.checked ) {
+          this.vriInfo=true;
+        }else{
+          this.vriInfo=false;
+        }
+      }
+
+
+      if(eveKey=='4'){
+        if ( event.target.checked ) {
+          this.vclInfo=true;
+        }else{
+          this.vclInfo=false;
+        }
       }
     }
-
-    if(eveKey=='2'){
-      if ( event.target.checked ) {
-        this.opiInfo=true;
-      }else{
-        this.opiInfo=false;
-      }
-    }
-
-    if(eveKey=='3'){
-      if ( event.target.checked ) {
-        this.vriInfo=true;
-      }else{
-        this.vriInfo=false;
-      }
-    }
-
-
-    if(eveKey=='4'){
-      if ( event.target.checked ) {
-        this.vclInfo=true;
-      }else{
-        this.vclInfo=false;
-      }
-    }
-
-
-  }
 
 
   // Get Current Location Coordinates
@@ -819,7 +738,7 @@ getAddress(latitude, longitude) {
 
 
    // Radio button function
-   radioButton1(){
+  radioButton1(){
     this.showOther = false;
   }
   radioButton2(){
@@ -916,20 +835,9 @@ getAddress(latitude, longitude) {
     console.log("images",e);
     window.open('http://192.168.0.4:3300/documents/'+e); 
   }
-<<<<<<< HEAD
-  // imgview(e,modal){
-  //   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-  // }
 
+  
 
-
-  //assignment settings start 
-  //assignment_form
-  // constructor(private _fb: FormBuilder) {
-    // this.assignment_form = this._fb.group({
-    //   assignment: this._fb.array([this.assignmentGroup()])
-    // });
-  // }
 
   private assignmentGroup(): FormGroup {
     return this.fb.group({
@@ -937,39 +845,99 @@ getAddress(latitude, longitude) {
       hourly_rate: [],
       hourly_rate_min_paid: [],
       hourly_rate_pay_increment: [],
-      // half_day: [],
-      // half_day_min_paid: [],
-      // half_day_pay_increment: [],
-      // full_day: [],
-      // full_day_min_paid: [],
-      // full_day_pay_increment: [],
+      half_day: [],
+      half_day_min_paid: [],
+      half_day_pay_increment: [],
+      full_day: [],
+      full_day_min_paid: [],
+      full_day_pay_increment: []
     });
   }
 
-  // addAssignment() {
-  //   this.assignmentArray.push(this.assignmentGroup());
-  //   console.log(this.assignmentArray);
-  // }
 
 
+  private opiAssignmentGroup(): FormGroup {
+    return this.fb.group({
+      opi_language_id: [],
+      opi_hourly_rate: [],
+      opi_hourly_rate_min_paid: [],
+      opi_hourly_rate_pay_increment: [],
+      opi_half_day: [],
+      opi_half_day_min_paid: [],
+      opi_half_day_pay_increment: [],
+      opi_full_day: [],
+      opi_full_day_min_paid: [],
+      opi_full_day_pay_increment: []
+     });
+  }
+
+
+
+  private vriAssignmentGroup(): FormGroup {
+    return this.fb.group({
+     
+      vri_language_id: [],
+      vri_hourly_rate: [],
+      vri_hourly_rate_min_paid: [],
+      vri_hourly_rate_pay_increment: [],
+      vri_half_day: [],
+      vri_half_day_min_paid: [],
+      vri_half_day_pay_increment: [],
+      vri_full_day: [],
+      vri_full_day_min_paid: [],
+      vri_full_day_pay_increment: []
+    });
+  }
+
+
+
+  private vclAssignmentGroup(): FormGroup {
+    return this.fb.group({
+      vcl_language_id: [],
+      vcl_hourly_rate: [],
+      vcl_hourly_rate_min_paid: [],
+      vcl_hourly_rate_pay_increment: [],
+      vcl_half_day: [],
+      vcl_half_day_min_paid: [],
+      vcl_half_day_pay_increment: [],
+      vcl_full_day: [],
+      vcl_full_day_min_paid: [],
+      vcl_full_day_pay_increment: []
+    });
+  }
+
+
+
+  
   get assignmentArray(): FormArray {
-    return <FormArray>this.assignForm.get('assignment');
+    return <FormArray>this.assignmentForm.get('assignment');
+  }
+
+
+  get assignmentOpiArray(): FormArray {
+    return <FormArray>this.assignmentForm.get('assignment_opi');
+  }
+
+
+  get assignmentVriArray(): FormArray {
+    return <FormArray>this.assignmentForm.get('assignment_vri');
+  }
+
+
+  get assignmentVclArray(): FormArray {
+    return <FormArray>this.assignmentForm.get('assignment_vcl');
+  }
+
+
+
+  addInterpreterAssignment(){
+    console.log("form assignment",this.assignmentForm.value.assignment);
+    console.log("form assignment_opi",this.assignmentForm.value.assignment_opi);
+    console.log("form assignment_vri",this.assignmentForm.value.assignment_vri);
+    console.log("form assignment_vcl",this.assignmentForm.value.assignment_vcl);
+    
+
   }
 
   //assignment settings end 
-=======
- 
-
-  onSiteBtn(){
-    console.log("iiii", this.form.value);
-    this.fields.forEach(x => {
-      console.log("xxxxxxxxxxxxxxxx",x);
-      // if(this.form.value.lang_id == '1'){
-        this.form.addControl(x.id, new FormControl('',Validators.required));
-          console.log("oooooooooooooooooooooo", this.form.value);
-        // }
-    });
-  
-  }
->>>>>>> 449830bd206bf28efb481fd40ee66b5c689444a9
 }
