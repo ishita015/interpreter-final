@@ -112,7 +112,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   ngOnInit(){
     this.addBankInfo(); // add bank details
-    this.createForm2();
+    // this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
 
@@ -161,62 +161,18 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
   /*========== Form2 Value Start Here========*/
-  createForm2() {
-    this.Profile = this.fb.group({
-      payment_mode: ['', this.validation.onlyRequired_validator],
-      service_type: ['', this.validation.onlyRequired_validator],
-      duration:['', this.validation.onlyRequired_validator],
-      cases:['', this.validation.onlyRequired_validator],
-      subcases:['', this.validation.onlyRequired_validator],
-      minimum_paid:['', this.validation.onlyRequired_validator],
-      pay_increment:['', this.validation.onlyRequired_validator],
-    });
-  }
+  // createForm2() {
+  //   this.Profile = this.fb.group({
+  //     payment_mode: ['', this.validation.onlyRequired_validator],
+  //     service_type: ['', this.validation.onlyRequired_validator],
+  //     duration:['', this.validation.onlyRequired_validator],
+  //     cases:['', this.validation.onlyRequired_validator],
+  //     subcases:['', this.validation.onlyRequired_validator],
+  //     minimum_paid:['', this.validation.onlyRequired_validator],
+  //     pay_increment:['', this.validation.onlyRequired_validator],
+  //   });
+  // }
   /*========== Form2 Value End Here========*/
-
-  /*==========assignment setting Form2 start Here========*/
-  submit_form1(){
-    console.log("form value",this.Profile.value);
-    this.submitted = true;
-    if (this.Profile.invalid) {
-      return;
-    }
-    this.submitted = false;
-    // this.service.getInterpreterProfileAdd(this.Profile.value)
-    // .subscribe(res => {
-    //   if(res['status']== 1){
-    //     console.log("api response",res);
-    //     this.ass_Obj = res
-    //     this.ass_Msg = res
-    //     this.toastr.success(this.ass_Msg.message,'', { timeOut: 1000 });
-    //     // this.router.navigate(['/languages/list']);  
-    //   }else{
-    //     console.log("api response",res);
-    //     this.ass_Obj = res
-    //     this.ass_Msg = res
-    //     this.toastr.success(this.ass_Msg.message,'', { timeOut: 1000 });
-    //     // this.router.navigate(['/login'])
-    //     // this.router.navigate(['/languages/list']);  
-    //   }
-
-    this.service.getInterpreterProfileAdd(this.Profile.value)
-    .subscribe(res => {
-      if(res['status']== 1){
-        console.log("api response",res);
-        this.ass_Obj = res
-      
-        
-      }else{
-        console.log("api response",res);
-        this.ass_Obj = res
-      
-      }
-
-
-     });
-  }
-
-  /*==========assignment setting Form2 end Here========*/
 
    /*========== Add Api Start Here========*/
    
@@ -498,11 +454,21 @@ detailProfile(){
       this.patchValue();
 
       for(let i=0; i < this.detail_Obj.secondary_language.length; i++){ 
+
+
         this.assignmentArray.push(this.assignmentGroup());
+
+        // console.log("assignmentGroup--",this.assignmentGroup)
+
+
         this.assignmentOpiArray.push(this.opiAssignmentGroup());
         this.assignmentVriArray.push(this.vriAssignmentGroup());
         this.assignmentVclArray.push(this.vclAssignmentGroup());
+
+        
+
       } 
+
 
       // addAssignment
      }else{
@@ -927,11 +893,23 @@ getAddress(latitude, longitude) {
 
 
   addInterpreterAssignment(){
-    console.log("form assignment",this.assignmentForm.value.assignment);
-    console.log("form assignment_opi",this.assignmentForm.value.assignment_opi);
-    console.log("form assignment_vri",this.assignmentForm.value.assignment_vri);
-    console.log("form assignment_vcl",this.assignmentForm.value.assignment_vcl);
-    
+    // console.log("form assignment",this.assignmentForm.value.assignment);
+    // console.log("form assignment_opi",this.assignmentForm.value.assignment_opi);
+    // console.log("form assignment_vri",this.assignmentForm.value.assignment_vri);
+    // console.log("form assignment_vcl",this.assignmentForm.value.assignment_vcl);
+    this.assignmentForm.value.interpreter_id = this.interId;
+    this.service.addInterpreterAssignmentSetting(this.assignmentForm.value)
+    .subscribe(res => {
+      if(res['status']== 1){
+        console.log("api response",res);
+        this.ass_Obj = res
+        this.toastr.success(this.ass_Obj.message,'', { timeOut: 1000 });
+      }else{
+        console.log("api response",res);
+        this.ass_Obj = res
+        this.toastr.error(this.ass_Obj.message,'', { timeOut: 1000 });
+      }
+    });
 
   }
 

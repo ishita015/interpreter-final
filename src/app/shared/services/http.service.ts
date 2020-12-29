@@ -512,8 +512,8 @@ getUpdateCalender(addInfo: AddCalender): Observable<any> {
 /*=====Banking Apis End======*/
 
 /*=====Interpreter Profile Apis Start======*/
-getInterpreterProfileAdd(addProfileInfo: AddInterpreterProfile): Observable<any> {
-  return this.http.post(this.url + '/cesco/addInterpreterAssignment',  addProfileInfo);
+addInterpreterAssignmentSetting(addProfileInfo: AddInterpreterProfile): Observable<any> {
+  return this.http.post(this.url + '/cesco/addAssignmentSetting',  addProfileInfo);
 }
 
 getProfileDetail(interpreter_id): Observable<any> {

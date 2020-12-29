@@ -201,14 +201,14 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
 
 
 
-module.exports.addInterpreterAssignment = async function(req, res) {
+module.exports.addAssignmentSetting = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {
         interpreter_id: 'required',
-        assignment_setting: 'required', //array
-        // payment_mode: 'required',
-        // service_type: 'required',
-        // duration: 'required',
+        assignment: 'required', //array
+        assignment_vri: 'required',
+        assignment_vcl: 'required',
+        assignment_opi: 'required',
         // cases: 'required',
         // subcases: 'required',
         // minimum_paid: 'required',
@@ -230,24 +230,113 @@ module.exports.addInterpreterAssignment = async function(req, res) {
        return true;
     }
 
-
     let interpreter_id = req.body.interpreter_id;
-    let assignment_setting  = req.body.assignment_setting; //array
-    console.log("assignment_setting", assignment_setting);    
-    // secondary_language=JSON.parse(secondary_language) // for form data case
-    for (var i = 0; i < assignment_setting.length; i++) {
-        
-        var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,assignment_type,payment_mode,service_type,duration,cases,subcases,minimum_paid,pay_increment)VALUES('"+interpreter_id+"','"+assignment_setting[i].assignment_type+"','"+assignment_setting[i].payment_mode+"','"+assignment_setting[i].service_type+"','"+assignment_setting[i].duration+"','"+assignment_setting[i].cases+"','"+assignment_setting[i].subcases+"','"+assignment_setting[i].minimum_paid+"','"+assignment_setting[i].pay_increment+"')";
+    let assignment  = req.body.assignment; //array
+    let assignment_vri  = req.body.assignment_vri; //array
+    let assignment_vcl  = req.body.assignment_vcl; //array
+    let assignment_opi  = req.body.assignment_opi; //array
+    // console.log("assignment_setting", assignment_setting);    
 
-        console.log("sql", sql);    
-        con.query(sql, function(err, insert) {});
+    if (assignment != "" && assignment != undefined) {
+        for (var i = 0; i < assignment.length; i++) {     
+            let language_id = assignment[i].language_id ? assignment[i].language_id : '0';
+
+            let rate_hourly = assignment[i].hourly_rate ? assignment[i].hourly_rate : '0';
+            let min_paid_hourly = assignment[i].hourly_rate_min_paid ? assignment[i].hourly_rate_min_paid : '0';
+            let pay_inc_hourly = assignment[i].hourly_rate_pay_increment ? assignment[i].hourly_rate_pay_increment : '0';
+
+            let rate_half_day = assignment[i].half_day ? assignment[i].half_day : '0';
+            let min_paid_half_day = assignment[i].half_day_min_paid ? assignment[i].half_day_min_paid : '0';
+            let pay_inc_half_day = assignment[i].half_day_pay_increment ? assignment[i].half_day_pay_increment : '0';
+ 
+            let rate_full_day = assignment[i].full_day ? assignment[i].full_day : '0';
+            let min_paid_full_day = assignment[i].full_day_min_paid ? assignment[i].full_day_min_paid : '0';
+            let pay_inc_full_day = assignment[i].full_day_pay_increment ? assignment[i].full_day_pay_increment : '0';
+            
+            var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('"+interpreter_id+"','"+language_id+"','1','"+rate_hourly+"','"+min_paid_hourly+"','"+pay_inc_hourly+"','"+rate_half_day+"','"+min_paid_half_day+"','"+pay_inc_half_day+"','"+rate_full_day+"','"+min_paid_full_day+"','"+pay_inc_full_day+"')";
+            console.log("sql", sql);    
+            con.query(sql, function(err, insert) {});
+        }
+    
     }
+
+    
+
+    if (assignment_vri != "" && assignment_vri != undefined) {
+        for (var j = 0; j < assignment_vri.length; j++) {     
+            let language_id = assignment_vri[j].vri_language_id ? assignment_vri[j].vri_language_id : '0';
+
+            let rate_hourly = assignment_vri[j].vri_hourly_rate ? assignment_vri[j].vri_hourly_rate : '0';
+            let min_paid_hourly = assignment_vri[j].vri_hourly_rate_min_paid ? assignment_vri[j].vri_hourly_rate_min_paid : '0';
+            let pay_inc_hourly = assignment_vri[j].vri_hourly_rate_pay_increment ? assignment_vri[j].vri_hourly_rate_pay_increment : '0';
+
+            let rate_half_day = assignment_vri[j].vri_half_day ? assignment_vri[j].vri_half_day : '0';
+            let min_paid_half_day = assignment_vri[j].vri_half_day_min_paid ? assignment_vri[j].vri_half_day_min_paid :'0';
+            let pay_inc_half_day = assignment_vri[j].vri_half_day_pay_increment ? assignment_vri[j].vri_half_day_pay_increment : '0';
+ 
+            let rate_full_day = assignment_vri[j].vri_full_day ? assignment_vri[j].vri_full_day : '0';
+            let min_paid_full_day = assignment_vri[j].vri_full_day_min_paid ? assignment_vri[j].vri_full_day_min_paid : '0';
+            let pay_inc_full_day = assignment_vri[j].vri_full_day_pay_increment ? assignment_vri[j].vri_full_day_pay_increment : '0';
+            
+            var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('"+interpreter_id+"','"+language_id+"','2','"+rate_hourly+"','"+min_paid_hourly+"','"+pay_inc_hourly+"','"+rate_half_day+"','"+min_paid_half_day+"','"+pay_inc_half_day+"','"+rate_full_day+"','"+min_paid_full_day+"','"+pay_inc_full_day+"')";
+            console.log("sql", sql);    
+            con.query(sql, function(err, insert) {});
+        }
+    }
+
+
+    if (assignment_vcl != "" && assignment_vcl != undefined) {
+        for (var k = 0; k < assignment_vcl.length; k++) {     
+            let language_id = assignment_vcl[k].vcl_language_id ? assignment_vcl[k].vcl_language_id : '0';
+
+            let rate_hourly = assignment_vcl[k].vcl_hourly_rate ? assignment_vcl[k].vcl_hourly_rate : '0';
+            let min_paid_hourly = assignment_vcl[k].vcl_hourly_rate_min_paid ? assignment_vcl[k].vcl_hourly_rate_min_paid : '0';
+            let pay_inc_hourly = assignment_vcl[k].vcl_hourly_rate_pay_increment ? assignment_vcl[k].vcl_hourly_rate_pay_increment : '0';
+
+            let rate_half_day = assignment_vcl[k].vcl_half_day ? assignment_vcl[k].vcl_half_day : '0';
+            let min_paid_half_day = assignment_vcl[k].vcl_half_day_min_paid ? assignment_vcl[k].vcl_half_day_min_paid : '0';
+            let pay_inc_half_day = assignment_vcl[k].vcl_half_day_pay_increment ? assignment_vcl[k].vcl_half_day_pay_increment : '0';
+    
+            let rate_full_day = assignment_vcl[k].vcl_full_day ? assignment_vcl[k].vcl_full_day : '0';
+            let min_paid_full_day = assignment_vcl[k].vcl_full_day_min_paid ? assignment_vcl[k].vcl_full_day_min_paid : '0';
+            let pay_inc_full_day = assignment_vcl[k].vcl_full_day_pay_increment ? assignment_vcl[k].vcl_full_day_pay_increment : '0';
+            
+            var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('"+interpreter_id+"','"+language_id+"','3','"+rate_hourly+"','"+min_paid_hourly+"','"+pay_inc_hourly+"','"+rate_half_day+"','"+min_paid_half_day+"','"+pay_inc_half_day+"','"+rate_full_day+"','"+min_paid_full_day+"','"+pay_inc_full_day+"')";
+            console.log("sql", sql);    
+            con.query(sql, function(err, insert) {});
+        }
+    }
+
+    if (assignment_opi != "" && assignment_opi != undefined) {
+        for (var g = 0; g < assignment_opi.length; g++) {     
+            let language_id = assignment_opi[g].opi_language_id;
+
+            let rate_hourly = assignment_opi[g].opi_hourly_rate;
+            let min_paid_hourly = assignment_opi[g].opi_hourly_rate_min_paid;
+            let pay_inc_hourly = assignment_opi[g].opi_hourly_rate_pay_increment;
+
+            let rate_half_day = assignment_opi[g].opi_half_day;
+            let min_paid_half_day = assignment_opi[g].opi_half_day_min_paid;
+            let pay_inc_half_day = assignment_opi[g].opi_half_day_pay_increment;
+    
+            let rate_full_day = assignment_opi[g].opi_full_day;
+            let min_paid_full_day = assignment_opi[g].opi_full_day_min_paid;
+            let pay_inc_full_day = assignment_opi[g].opi_full_day_pay_increment;
+            
+            var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('"+interpreter_id+"','"+language_id+"','4','"+rate_hourly+"','"+min_paid_hourly+"','"+pay_inc_hourly+"','"+rate_half_day+"','"+min_paid_half_day+"','"+pay_inc_half_day+"','"+rate_full_day+"','"+min_paid_full_day+"','"+pay_inc_full_day+"')";
+            console.log("sql", sql);    
+            con.query(sql, function(err, insert) {});
+        }
+    }
+
+  
+
 
     res.json({
         status: 1,
         error_code: 0,
         error_line: 1,
-        message: "Skills adde successfully"
+        message: "Assignment successfully"
     });
     return true;
 };
