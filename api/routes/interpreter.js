@@ -2468,9 +2468,6 @@ module.exports.getInterpreter = async function(req, res, next) {
     let type = req.body.type ? req.body.type : '0'; //type ==1 for lang, 2=request 
     let id = req.body.id ? req.body.id : '0';
 
-
-    // search_info,start_date,end_date
-
     let serach = req.body.search_info ? req.body.search_info : '0'; //type ==1 for lang, 2=request 
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
