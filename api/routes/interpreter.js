@@ -2984,7 +2984,7 @@ module.exports.updateInterpreter = async function(req, res) {
         title: 'required',
         first_name: 'required',
         last_name: 'required',
-        middle_name: 'required',
+        // middle_name: 'required',
         mobile: 'required',
         country_code: 'required',
         gender: 'required',
@@ -3022,7 +3022,7 @@ module.exports.updateInterpreter = async function(req, res) {
 
     let id = req.body.interpreter_id;
     let title = req.body.title;
-    let nick_name = req.body.nick_name;
+    let nick_name = req.body.nick_name ? req.body.nick_name : "";
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
     let mobile = req.body.mobile;
@@ -3038,8 +3038,9 @@ module.exports.updateInterpreter = async function(req, res) {
     let city = req.body.city;
     let apartment = "";
     let timezone = req.body.timezone ? req.body.timezone : "";
+    let other_gender = req.body.other_gender ? req.body.other_gender : "";
     let zipCode = req.body.zipCode;
-
+    
 
 
     // let old_address='';
@@ -3057,7 +3058,7 @@ module.exports.updateInterpreter = async function(req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='"+first_name+"',nick_name ='"+nick_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"',profile_status='1' WHERE id = '"+id+"'";
+    let sql = "UPDATE user SET first_name ='"+first_name+"',nick_name ='"+nick_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',zipCode ='"+zipCode+"',timezone ='"+timezone+"',social_security_no ='"+social_security_no+"',gender ='"+gender+"',country ='"+country+"',state ='"+state+"',apartment ='"+apartment+"',city ='"+city+"',international_phone_no ='"+international_phone_no+"',company_name ='"+company_name+"',date_of_birth ='"+dob+"',country_code ='"+country_code+"',title ='"+title+"',profile_status='1',other_gender='"+other_gender+"' WHERE id = '"+id+"'";
 
     console.log("sql-update",sql)
     con.query(sql, function(err, result) {

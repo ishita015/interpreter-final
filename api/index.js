@@ -117,7 +117,7 @@ app.post('/cesco/getUsername', interpreterController.getUsername);
 
 
 app.post('/cesco/getInterpreterProfile', interpreterController.getInterpreterProfile);
-app.post('/cesco/addInterpreterAssignment', interpreterController.addInterpreterAssignment);
+app.post('/cesco/addAssignmentSetting', interpreterController.addAssignmentSetting);
 app.post('/cesco/getNewRequestCount', interpreterController.getNewRequestCount);
 app.post('/cesco/getAcceptRequest', interpreterController.getAcceptRequest);
 app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);
@@ -423,7 +423,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
         title: 'required',
         first_name: 'required',
         last_name: 'required',
-        middle_name: 'required',
+        // middle_name: 'required',
         email: 'required',
         mobile: 'required',
         country_code: 'required',
@@ -484,7 +484,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     let latitude = req.body.latitude ? req.body.latitude : 0;
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let zipCode = req.body.zipCode;
-//    let rate = req.body.rate ? req.body.rate : 0;
+    let other_gender = req.body.other_gender ? req.body.other_gender : "";
 
     let first_password = password;
 
@@ -500,7 +500,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,title,nick_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status)VALUES('2','"+title+"','"+nick_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1')";
+    var sql = "INSERT INTO user(role_id,title,nick_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status,other_gender)VALUES('2','"+title+"','"+nick_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1','"+other_gender+"')";
 
     console.log("image",sql)
 
