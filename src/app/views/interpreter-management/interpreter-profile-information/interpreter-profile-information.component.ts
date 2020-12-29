@@ -115,7 +115,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.updateGeneralInfo();
     this.countryList();
-    
+
       //load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
         this.setCurrentLocation();
@@ -836,8 +836,6 @@ getAddress(latitude, longitude) {
     window.open('http://192.168.0.4:3300/documents/'+e); 
   }
 
-  
-
 
   private assignmentGroup(): FormGroup {
     return this.fb.group({
@@ -870,8 +868,6 @@ getAddress(latitude, longitude) {
       opi_full_day_pay_increment: []
      });
   }
-
-
 
   private vriAssignmentGroup(): FormGroup {
     return this.fb.group({
