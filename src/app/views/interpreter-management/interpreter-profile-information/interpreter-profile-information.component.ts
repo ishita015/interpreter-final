@@ -451,25 +451,33 @@ detailProfile(){
     if(res['status']== 1){
       this.detail_Obj = res['data'][0];
       console.log("detail_Obj",this.detail_Obj);
-      this.patchValue();
+      
+      console.log("interpreter_assignment--",this.detail_Obj.interpreter_assignment);
 
+      this.detail_Obj.interpreter_assignment.forEach(s => {
+          //  this.setData('0','hourly_rate',s.rates_on_duration_hourly);
+          //  this.setData('1','hourly_rate',s.rates_on_duration_hourly);
+          //  this.setData('2','hourly_rate',s.rates_on_duration_hourly);
+      //   console.log("rates_on_duration_hourly",s.rates_on_duration_hourly);
+      //   this.assignmentForm.get('hourly_rate').patchValue( s.rates_on_duration_hourly);
+      //   this.assignmentForm.get('hourly_rate_min_paid').patchValue( s.min_paid_hourly);
+      //   this.assignmentForm.get('hourly_rate_pay_increment').patchValue( s.pay_increment_hourly);
+      });
+
+      // for(let p=0; p < this.detail_Obj.secondary_language.length; p++){ 
+      //   console.log("rates_on_duration_hourly",this.detail_Obj.secondary_language.rates_on_duration_hourly);
+      //   this.setData(p,'hourly_rate',this.detail_Obj.secondary_language.rates_on_duration_hourly)
+      // }
+
+      this.patchValue();
       for(let i=0; i < this.detail_Obj.secondary_language.length; i++){ 
 
-
-        this.assignmentArray.push(this.assignmentGroup());
-
-        // console.log("assignmentGroup--",this.assignmentGroup)
-
-
-        this.assignmentOpiArray.push(this.opiAssignmentGroup());
-        this.assignmentVriArray.push(this.vriAssignmentGroup());
-        this.assignmentVclArray.push(this.vclAssignmentGroup());
-
         
-
+        // this.assignmentArray.push(this.assignmentGroup());
+        // this.assignmentOpiArray.push(this.opiAssignmentGroup());
+        // this.assignmentVriArray.push(this.vriAssignmentGroup());
+        // this.assignmentVclArray.push(this.vclAssignmentGroup());
       } 
-
-
       // addAssignment
      }else{
       console.log("api response",res);
@@ -480,13 +488,17 @@ detailProfile(){
 }
 
 
+// setData(index,controlName,day) {
+//   this.assignmentArray.at(index).get(controlName).setValue(day);
+// }
+
 
 countryList(){
   this.service.getCountryMobileCode().subscribe(res => {
     if(res['status']=='1'){
-      console.log("api response",res);
+      // console.log("api response",res);
       this.country_Obj = res['data'];
-      console.log("countryyyyyyyyyyyyy", this.country_Obj);
+      // console.log("countryyyyyyyyyyyyy", this.country_Obj);
     }
   });
 }
@@ -720,8 +732,8 @@ getAddress(latitude, longitude) {
   skillsForm() {
     this.interpreterSkillForm = this.fb.group({
       interpreter_id: [''],
-      // primary_language: [''],
-      // secondary_language: [''],      
+      primary_language: [''],
+      secondary_language: [''],      
       
       other_title: [''],  
       community_doc: [''],  
@@ -767,7 +779,8 @@ getAddress(latitude, longitude) {
     // this.submitted = false;
     const formData: any = new FormData();
 
-    console.log("all img",this.doc)
+    console.log("all img",this.interpreterSkillForm)
+    
     for(let img of this.doc){
       console.log("img",img.all_img)
       console.log("doc_type",img.doc_type)
@@ -776,8 +789,10 @@ getAddress(latitude, longitude) {
       formData.append('type',img.types);
       
     }
-
+    
     formData.append('interpreter_id', this.interId);
+    formData.append('primary_language', this.priLanguageId);
+    // formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
     // formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
     // this.communityForm.value.documents = this.selectedFile;
     
@@ -912,6 +927,18 @@ getAddress(latitude, longitude) {
     });
 
   }
+
+
+
+  // segments.forEach(s => {
+  //   formArray.push(this.fb.group({
+  //     id: s.id,
+  //     name: s.name
+  //   }));
+  // });
+  
+  
+  // this.myForm.setControl('segments',formArray);
 
   //assignment settings end 
 }

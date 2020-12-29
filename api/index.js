@@ -958,9 +958,12 @@ let docUpload = multer({
 
 //upload interpreter documents
 app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res, next) {
+    console.log("body",req.body);
     //validation start
     const v = new Validator(req.body, {
-        interpreter_id: 'required'
+        interpreter_id: 'required',
+        // primary_language: 'required',
+        // secondary_language: 'required'
     });
     
     const matched = await v.check();
@@ -981,9 +984,11 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     let interpreter_id = req.body.interpreter_id;
     let type  = req.body.type;
     let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
+    let primary_language  = req.body.primary_language ? req.body.primary_language : "";
+    let secondary_language  = req.body.secondary_language ? req.body.secondary_language : "";
     
 
-    console.log("body",req.body);
+    
     console.log("check all img",req.files);
 
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
