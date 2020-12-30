@@ -50,12 +50,21 @@ export class InterpreterAddComponent implements OnInit {
     // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
     // name = 'Angular';
 
+    // gender variable 
     showOther:boolean = false;
 
+    // ein/ssn radio button variable
+    einshowInput:boolean = false;
+    ssnshowInput:boolean = false;
     @ViewChild('search')
     public searchElementRef: ElementRef;
-
-
+    // country, state, city variable
+    country_id;
+    state_id;
+    state_Obj;
+    city_Obj;
+    city_id;
+    timezone_Obj;
     constructor(
       public validation: ValidationsService,
       private fb: FormBuilder,
@@ -72,6 +81,8 @@ export class InterpreterAddComponent implements OnInit {
       this.LanguageList();
       this.userRoleList();
       this.CountryList();
+    //   this.StateList();
+    //   this.CityList();
       //load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
           this.setCurrentLocation();
@@ -153,13 +164,32 @@ export class InterpreterAddComponent implements OnInit {
             zipCode: ['', this.validation.onlyRequired_validator],
             timezone:[''],
             other_gender:[''],
-            image:['', this.validation.onlyRequired_validator]
+            image:['', this.validation.onlyRequired_validator],
+            ssn:[''],
+            ein:[''],
         });
     }
 
     /*========== Form Value End Here========*/
 
     
+  onCountryChange(id) {
+    this.country_id = id.target.value;
+    console.log("country", this.country_id);
+    this.StateList();
+  }
+
+  onStateChange(id){
+    this.state_id = id.target.value;
+    console.log("state", this.state_id);
+    this.CityList();
+  }
+
+  onCityChange(id){
+    this.city_id = id.target.value;
+    console.log("city", this.city_id);
+  }
+
     /*========== Country Code for Mobile Start Here========*/
 
     CountryList(){
@@ -173,6 +203,38 @@ export class InterpreterAddComponent implements OnInit {
       }
     
     /*==========  Country Code for Mobile End Here========*/
+
+    /*========== State Code for Mobile Start Here========*/
+
+    StateList(){ 
+        this.service.getStateCode(this.country_id).subscribe(res => {
+            console.log("state api res",res);
+          if(res['status']=='1'){
+            console.log("api response",res);
+            this.state_Obj = res['data'];
+            this.timezone_Obj = res['timeZoneData']['timezones'];
+            console.log("state_Obj", this.state_Obj);
+            console.log("time zone",this.timezone_Obj);
+            
+          }
+        });
+      }
+    
+    /*==========  State Code for Mobile End Here========*/
+
+    /*========== City Code for Mobile Start Here========*/
+
+    CityList(){
+        this.service.getCityCode(this.state_id).subscribe(res => {
+          if(res['status']=='1'){
+            console.log("api response",res);
+            this.city_Obj = res['data'];
+            console.log("city_Obj", this.city_Obj);
+          }
+        });
+      }
+    
+    /*==========  City Code for Mobile End Here========*/
 
     username(){
         this.fullnameVal = this.userForm.value.first_name + this.userForm.value.last_name;
@@ -277,7 +339,7 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('other_gender', this.userForm.value.other_gender);
         formData.append('latitude', this.userForm.value.latitude);
         formData.append('longitude', this.userForm.value.longitude);
-        formData.append('state', this.userForm.value.state);
+        formData.append('state',  this.country_id);
         formData.append('timezone', this.userForm.value.timezone);
         formData.append('zipCode', this.userForm.value.zipCode);
         formData.append('country_code', this.userForm.value.country_code);
@@ -374,7 +436,7 @@ export class InterpreterAddComponent implements OnInit {
       });
   }
 
-  // Radio button function
+  // Radio button gender function
         radioButton1(){
             this.showOther = false;
         }
@@ -384,4 +446,17 @@ export class InterpreterAddComponent implements OnInit {
         radioButton3(){
             this.showOther = true;
         }
+
+   // Radio button ssn and ein function
+
+        ssnRadioBtn(){
+            this.einshowInput = false;
+            this.ssnshowInput = true;
+        }
+        einRadioBtn(){
+            this.einshowInput = true;
+            this.ssnshowInput = false;
+        }
     }
+
+

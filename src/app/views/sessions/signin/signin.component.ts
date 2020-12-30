@@ -83,15 +83,11 @@ export class SigninComponent implements OnInit {
 
                         localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
                         this.name=this.log_Obj.first_name+" "+this.log_Obj.last_name;
-                        
-
-                        
-
                         localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
                         localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
                         localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
                         localStorage.setItem('loggeduser', JSON.stringify(this.name));
-                        this.toastr.success(this.log_Msg.message,'', { timeOut: 2000 });
+                        this.toastr.success(this.log_Msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
 
                         if(this.log_Obj.role_id==1){
                             this.router.navigate(['/dashboard/v1']);

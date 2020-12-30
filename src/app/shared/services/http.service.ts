@@ -475,6 +475,14 @@ export class HttpService {
     return this.http.get(this.url + '/cesco/getCountryCode',this.httpOptions);
   }
 
+  getStateCode(country_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getstate',{country_id:country_id},this.httpOptions);
+  }
+
+  getCityCode(state_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getCity',{state_id:state_id},this.httpOptions);
+  }
+
   changePassword(changepassInfo: ChangePassword): Observable<any> {
     return this.http.post(this.url + '/cesco/changePassword', changepassInfo, this.httpOptions);
   }

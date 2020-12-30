@@ -91,6 +91,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   public assignmentForm: FormGroup;
 
+  // ein radio button variable
+  einshowInput:boolean = false;
+  ssnshowInput:boolean = false;
 
 
   constructor(public validation: ValidationsService,
@@ -396,6 +399,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('other_gender').patchValue( this.detail_Obj.other_gender);
     this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name);
     this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no);
+    this.generalForm.get('ssn').patchValue(this.detail_Obj.ssn);
+    this.generalForm.get('ein').patchValue(this.detail_Obj.ein);
 
     this.bankingForm.get('bank_name').patchValue( this.detail_Obj.bank_name);
     this.bankingForm.get('account_type').patchValue( this.detail_Obj.account_type);
@@ -442,6 +447,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
         timezone:[''],
         image:['', this.validation.onlyRequired_validator],
         other_gender:[''],
+        notes:['']
     });
 }
 
@@ -928,6 +934,17 @@ getAddress(latitude, longitude) {
 
   }
 
+   // Radio button ssn and ein function
+
+   ssnRadioBtn(){
+    this.einshowInput = false;
+    this.ssnshowInput = true;
+   }
+
+   einRadioBtn(){
+        this.einshowInput = true;
+        this.ssnshowInput = false;
+   }
 
 
   // segments.forEach(s => {

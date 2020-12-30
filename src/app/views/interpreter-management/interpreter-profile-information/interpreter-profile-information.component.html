@@ -216,16 +216,24 @@
                                                     <label class="form-check-label" for="gridRadios1">
                                                     <input class="form-check-input radio-inline " 
                                                    formControlName="social_security_no" type="radio" id="social-security"
-                                                        value="SSN" checked>
-                                                  
+                                                   (click)="ssnRadioBtn()" value="SSN" checked>
                                                         SSN
                                                     </label>
                                               
                                                     <label class="form-check-label pl-5" for="gridRadios2">
                                                     <input class="form-check-input radio-inline" 
                                                      formControlName="social_security_no" type="radio" id="social-security1"
-                                                        value="EIN">
+                                                     (click)="einRadioBtn()"     
+                                                     value="EIN">
                                                         EIN
+                                                    </label>
+                                                    <label *ngIf="einshowInput" class="form-check-label pl-5">
+                                                        <input type="text" class="form-control" 
+                                                        placeholder="EIN" formControlName="ein">
+                                                    </label>
+                                                    <label *ngIf="ssnshowInput" class="form-check-label pl-5">
+                                                        <input type="text" class="form-control" 
+                                                        placeholder="SSN" formControlName="ssn">
                                                     </label>
                                                 </div>
                                                 <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )" class="error-msg">
@@ -349,11 +357,15 @@
                                                     <div [hidden]="!generalForm.controls['gender'].errors.required">Gender is required.</div> 
                                                   </div>
                                             </div>
-
-                                           
-                    
                                         </div>
                     
+                                        <div class="row">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label>Notes</label>
+                                                <textarea type="text" class="form-control" formControlName="notes" placeholder="Notes">
+                                                </textarea>
+                                            </div>
+                                        </div>
                     
                                       
                                         <div class="form-group row">
@@ -1363,6 +1375,10 @@
                         <form [formGroup]="bankingForm">
         
                             <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="payment">Bank Routing Number</label>
+                                    <input type="text" class="form-control"  formControlName="bank_routing_no"  placeholder="Bank Routing Number">
+                                </div> 
                                 
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="Account">Bank Name</label>
@@ -1373,6 +1389,13 @@
                                 </div>
 
 
+                             
+                                
+        
+                               
+                            </div>
+        
+                            <div class="row">
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="Account Type">Account Type</label>
                                     <div class="form-check">
@@ -1397,12 +1420,6 @@
                                 </div>
 
                                 
-        
-                               
-                            </div>
-        
-                            <div class="row">
-                                
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="Country">Country</label>
                                     <input type="text" class="form-control" formControlName="bank_country" id="bank_country" placeholder="Country">
@@ -1412,6 +1429,12 @@
                                 </div>
 
 
+        
+                            </div>
+
+                            <div class="row">
+                                
+                             
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="country">Bank Account No</label>
                                     <input type="text" class="form-control"  formControlName="account_no" placeholder="Bank Account No">
@@ -1419,15 +1442,6 @@
                                         <div [hidden]="!bankingForm.controls['account_no'].errors.required">Bank Account No is required.</div>
                                       </div>
                                 </div>
-        
-                            </div>
-
-                            <div class="row">
-                                
-                                <div class="col-md-6 form-group mb-3">
-                                    <label for="payment">Bank Routing Number</label>
-                                    <input type="text" class="form-control"  formControlName="bank_routing_no"  placeholder="Bank Routing Number">
-                                </div> 
 
 
                                 <div class="col-md-6 form-group mb-3">
