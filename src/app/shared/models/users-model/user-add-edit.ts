@@ -27,5 +27,7 @@ export interface UserAddEdit {
     company_name:any;
     dob:any;
     social_security_no:any;
+    ein:any;
+    ssn:any;
     image:any;
 }

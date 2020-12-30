@@ -258,10 +258,9 @@
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="Timezone">Timezone</label>
-                            <select class="form-control" (change)="onCityChange($event)" formControlName="timezone">
+                            <select class="form-control" formControlName="timezone">
                                 <option value="" selected disabled>Timezone</option>
-                                <option *ngFor="let isd of timezone_Obj"
-                                        [value]="isd.id">
+                                <option *ngFor="let isd of timezone_Obj">
                                 {{isd}}
                                 </option>
                             </select>

@@ -2608,7 +2608,10 @@ module.exports.getInterpreter = async function(req, res, next) {
     if((type != '0' && type == '1') && id != '0' ) {  
         sql += " WHERE u.role_id=2 && u.primary_language='"+id+"' ORDER BY u.id DESC"; 
     }else if((type != '0' && type == '2') && id != '0' ) { 
-        sql += " WHERE u.role_id=2 && FIND_IN_SET(u.id, '"+interpreter_id+"') ORDER BY u.id DESC"; 
+        sql += " WHERE u.role_id=2 && FIND_IN_SET(u.id, '"+interpreter_id+"') ORDER BY u.id DESC";  
+    }else if(serach != '' && serach != undefined) { 
+        // sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + 
+        sql += " WHERE u.role_id=2 && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ORDER BY u.id DESC";          
     }else{
         sql += "WHERE u.role_id=2 ORDER BY u.id DESC"; 
     }

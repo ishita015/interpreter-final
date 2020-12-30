@@ -321,7 +321,7 @@ export class InterpreterAddComponent implements OnInit {
         this.userForm.value.image = this.selectedFile;      
         formData.append('title', this.userForm.value.title);
         formData.append('first_name', this.userForm.value.first_name);
-        formData.append('middle_name', this.userForm.value.middle_name);
+        // formData.append('middle_name', this.userForm.value.middle_name);
         formData.append('last_name', this.userForm.value.last_name);
         formData.append('email', this.userForm.value.email);
         formData.append('nick_name', this.userForm.value.nick_name);
@@ -334,15 +334,19 @@ export class InterpreterAddComponent implements OnInit {
         formData.append('country', this.userForm.value.country);
         formData.append('password', this.userForm.value.password);
         // formData.append('apartment', this.userForm.value.apartment);
-        formData.append('city', this.userForm.value.city);
+        formData.append('state',  this.state_id);
+        formData.append('city', this.userForm.value.city); //this.city_id
         formData.append('gender', this.userForm.value.gender);
         formData.append('other_gender', this.userForm.value.other_gender);
         formData.append('latitude', this.userForm.value.latitude);
         formData.append('longitude', this.userForm.value.longitude);
-        formData.append('state',  this.country_id);
         formData.append('timezone', this.userForm.value.timezone);
         formData.append('zipCode', this.userForm.value.zipCode);
         formData.append('country_code', this.userForm.value.country_code);
+
+        formData.append('ein', this.userForm.value.ein);
+        formData.append('ssn', this.userForm.value.ssn);
+
         formData.append('image', this.selectedFile);
         
         console.log("final form value",this.userForm.value);

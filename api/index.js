@@ -493,6 +493,8 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     let longitude = req.body.longitude ? req.body.longitude : 0;
     let zipCode = req.body.zipCode;
     let other_gender = req.body.other_gender ? req.body.other_gender : "";
+    let ein = req.body.ein ? req.body.ein : "";
+    let ssn = req.body.ssn ? req.body.ssn : "";
 
     let first_password = password;
 
@@ -508,7 +510,7 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
     }
     
 
-    var sql = "INSERT INTO user(role_id,title,nick_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status,other_gender)VALUES('2','"+title+"','"+nick_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1','"+other_gender+"')";
+    var sql = "INSERT INTO user(role_id,title,nick_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status,other_gender,ssn_no,ein_no)VALUES('2','"+title+"','"+nick_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1','"+other_gender+"','"+ssn+"','"+ein+"')";
 
     console.log("image",sql)
 
