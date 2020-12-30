@@ -111,7 +111,7 @@
                                         <option value="" selected disabled>Code</option>
                                         <option *ngFor="let isd of country_Obj"
                                                 [value]="isd.id">
-                                        +{{isd?.phonecode}}
+                                        {{isd?.sortname}}
                                         </option>
                                     </select>
                                 </div>
@@ -134,12 +134,12 @@
                     
                      <div class="row">
                         <div class="col-md-6 form-group mb-3">
-                            <label>International Phone</label>
+                            <label>Home Phone</label>
                             <input type="text" mask="(000) 000-0000" class="form-control" formControlName="international_phone_no" 
                                 onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  
-                                placeholder="International Phone">
+                                placeholder="Home Phone">
                             <div *ngIf="userForm.controls['international_phone_no'].errors && (!userForm.controls['international_phone_no'].pristine || submitted ||userForm.controls['international_phone_no'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['international_phone_no'].errors.required">International Phone No. is required.</div>
+                                <div [hidden]="!userForm.controls['international_phone_no'].errors.required">Home Phone No. is required.</div>
                             </div>
                         </div>
 
@@ -151,7 +151,7 @@
                      
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
-                            <label for="SSN/EIN">Identify No.</label>
+                            <label for="SSN/EIN"></label>
                             <div class="form-check">
                                 <label class="form-check-label" for="gridRadios1">
                                 <input class="form-check-input radio-inline " 
