@@ -941,4 +941,14 @@ getAddress(latitude, longitude) {
   // this.myForm.setControl('segments',formArray);
 
   //assignment settings end 
+  plus(){
+    var num1 = ((document.getElementById("plus") as HTMLInputElement).value);
+
+    alert(num1);
+  }
+  // minus(){
+  //   var num1 = ((document.getElementById("plus") as HTMLInputElement).value);
+
+  //     console.log(num1)
+  // }
 }
