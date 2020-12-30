@@ -2609,10 +2609,11 @@ module.exports.getInterpreter = async function(req, res, next) {
         sql += " WHERE u.role_id=2 && u.primary_language='"+id+"' ORDER BY u.id DESC"; 
     }else if((type != '0' && type == '2') && id != '0' ) { 
         sql += " WHERE u.role_id=2 && FIND_IN_SET(u.id, '"+interpreter_id+"') ORDER BY u.id DESC";  
-    }else if(serach != '' && serach != undefined) { 
-        // sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + 
-        sql += " WHERE u.role_id=2 && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ORDER BY u.id DESC";          
-    }else{
+    // }else if(serach != '' && serach != undefined) { 
+    //     // sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + 
+    //     sql += " WHERE u.role_id=2 && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ORDER BY u.id DESC";          
+    }
+    else{
         sql += "WHERE u.role_id=2 ORDER BY u.id DESC"; 
     }
 
@@ -2761,6 +2762,12 @@ module.exports.getInterpreterDetail = async function(req, res, next) {
                 role_name: resultdata[i].role_name,
                 interpreter_rate: resultdata[i].interpreter_rate,
                 primary_lang_id: resultdata[i].primary_lang_id,
+                rating: '0',
+                ssn_no: resultdata[i].ssn_no,
+                ein_no: resultdata[i].ein_no,
+                timezone: resultdata[i].timezone,
+                nick_name: resultdata[i].nick_name,
+
                 interLanguage: langArr,
             }
             mainArr.push(mainObj); 

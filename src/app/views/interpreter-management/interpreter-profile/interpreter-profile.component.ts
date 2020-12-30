@@ -121,38 +121,23 @@ export class InterpreterProfileComponent implements OnInit {
       return;
     }
     this.submitted = false;
+    
+
     // this.service.getInterpreterProfileAdd(this.Profile.value)
     // .subscribe(res => {
     //   if(res['status']== 1){
     //     console.log("api response",res);
     //     this.ass_Obj = res
-    //     this.ass_Msg = res
-    //     this.toastr.success(this.ass_Msg.message,'', { timeOut: 1000 });
-    //     // this.router.navigate(['/languages/list']);  
+      
+        
     //   }else{
     //     console.log("api response",res);
     //     this.ass_Obj = res
-    //     this.ass_Msg = res
-    //     this.toastr.success(this.ass_Msg.message,'', { timeOut: 1000 });
-    //     // this.router.navigate(['/login'])
-    //     // this.router.navigate(['/languages/list']);  
+      
     //   }
 
-    this.service.getInterpreterProfileAdd(this.Profile.value)
-    .subscribe(res => {
-      if(res['status']== 1){
-        console.log("api response",res);
-        this.ass_Obj = res
-      
-        
-      }else{
-        console.log("api response",res);
-        this.ass_Obj = res
-      
-      }
 
-
-     });
+    //  });
   }
 
   /*==========assignment setting Form2 end Here========*/
