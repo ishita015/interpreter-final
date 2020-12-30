@@ -670,7 +670,7 @@
                                 <div class="col-md-3 form-group mb-3">
                                     <input type="checkbox" (click)="vclShow()" (change)="assignmentFormCheck($event,'4')" class="mr-2" id="vcl" name="vcl"
                                         value="VCL">
-                                    <label for="vehicle1">VCL </label><br>
+                                    <label for="vehicle1">VCI </label><br>
                                 </div>
                             </div>
                           
@@ -694,8 +694,8 @@
                                             
                                             <div class="col-md-4 mb-2">
                                                 <label for="min_paid">Minimum Paid </label>
-
-                                                <select class="form-control" formControlName="hourly_rate_min_paid">
+                                                <!-- <input value="15 min" id="plus" class="form-control" formControlName="hourly_rate_min_paid"/> -->
+                                               <select class="form-control" formControlName="hourly_rate_min_paid">
                                                     <option value="1 Min">1 Min</option>
                                                     <option value="5 Min">5 Min</option>
                                                     <option value="15 Min">15 Min</option>
@@ -738,7 +738,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Half Day </label>
+                                                <label for="hourly_rate">Half Day Rates </label>
                                                 <input type="text" class="form-control" formControlName="half_day"  placeholder="On-Site Half Day">
                                             </div>
 
@@ -787,7 +787,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Full Day </label>
+                                                <label for="hourly_rate">Full Day Rates </label>
                                                 <input type="text" class="form-control" formControlName="full_day"  placeholder="On-Site Full Day">
                                          </div>
                                          
@@ -899,7 +899,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Half Day </label>
+                                                <label for="hourly_rate">Half Day Rates </label>
                                                 <input type="text" class="form-control" formControlName="opi_half_day" placeholder="Opi Half Day">
                                             </div>
 
@@ -950,7 +950,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Full Day </label>
+                                                <label for="hourly_rate">Full Day Rates</label>
                                                 <input type="text" class="form-control" formControlName="opi_full_day" placeholder="Opi Full Day">
                                             </div>
 
@@ -1068,7 +1068,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Half Day </label>
+                                                <label for="hourly_rate">Half Day Rates </label>
                                                 <input type="text" class="form-control" formControlName="vri_half_day" placeholder="Vri Half Day">
                                             </div>
 
@@ -1121,7 +1121,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Full Day </label>
+                                                <label for="hourly_rate">Full Day Rates</label>
                                                 <input type="text" class="form-control" formControlName="vri_full_day" placeholder="Vri Full Day">
                                             </div>
 
@@ -1181,7 +1181,7 @@
                                     <div [formGroupName]='l'>
                                         <div class="row"> 
                                             <div class="col-md-12">
-                                                <h5>VCL : {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}}</h5>
+                                                <h5>VCI : {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}}</h5>
                                             </div>
 
                                             <div class="col-md-4 mb-2">
@@ -1235,7 +1235,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Half Day </label>
+                                                <label for="hourly_rate">Half Day Rates </label>
                                                 <input type="text" class="form-control" formControlName="vcl_half_day" placeholder="Vcl Half Day">
                                             </div>
 
@@ -1286,7 +1286,7 @@
                                         <div class="row"> 
                                             
                                             <div class="col-md-4 mb-2">
-                                                <label for="hourly_rate">Full Day </label>
+                                                <label for="hourly_rate">Full Day Rates</label>
                                                 <input type="text" class="form-control" formControlName="vcl_full_day" placeholder="Vcl Full Day">
                                             </div>
 <!-- 
