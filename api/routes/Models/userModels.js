@@ -11,6 +11,20 @@ let dt = new Date().getTime() / 1000;
 class userClass {
 
     
+    getCountrycode(country_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM countries WHERE id='"+country_id+"'";
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
 
     //languages//banking_detail
     getInterpreterProfileData(interpreter_id){

@@ -31,6 +31,10 @@ const { Validator } = require('node-input-validator');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 var nodemailer = require('nodemailer')
+
+// const ct = require('countries-and-timezones');
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
@@ -146,6 +150,8 @@ app.get('/cesco/getRole', interpreterController.getRole);
 app.post('/cesco/updateBankingInfo', interpreterController.updateBankingInfo);
 
 app.get('/cesco/getCountryCode', interpreterController.getCountryCode);
+app.post('/cesco/getstate', interpreterController.getstate);
+app.post('/cesco/getCity', interpreterController.getCity);
 
 app.get('/cesco/getNewAssignmentList', interpreterController.newAssignmentList);
 
@@ -237,6 +243,8 @@ app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 
 // api end
+
+
 
 
 

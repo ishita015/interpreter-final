@@ -12,7 +12,7 @@ const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
 const e = require('express');
 const usermodel = new userModel();
-
+const ct = require('countries-and-timezones');
 
 
 
@@ -716,6 +716,124 @@ module.exports.newAssignmentList = async function(req, res, next) {
 
 module.exports.getCountryCode = async function(req, res, next) {
     var sql = "SELECT * FROM countries";
+    
+    console.log("country code sql-",sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+module.exports.getstate = async function(req, res, next) {
+     //validation start
+    const v = new Validator(req.body, {
+        country_id: 'required',       
+    });
+
+    const matched = await v.check();
+
+    if (!matched) {
+    var error;
+    for (var i = 0; i <= Object.values(v.errors).length; i++) {
+        error = Object.values(v.errors)[0].message;
+        break;
+    }
+    res.json({
+        status: 0,
+        message: error
+    });
+    return true;
+    }
+
+    let country_id = req.body.country_id;
+    let codename='';
+    var countrycode = await usermodel.getCountrycode(country_id);
+    console.log(countrycode)
+    if (countrycode != "" && countrycode != undefined) {
+        codename = countrycode[0].sortname;
+    }
+
+
+
+
+    var sql = "SELECT * FROM states WHERE country_id='"+country_id+"'";
+    
+    console.log("state sql-",sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+
+            var timeZone = ct.getCountry(codename);
+            // console.log("timeZone-",timeZone);
+
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result,
+                timeZoneData: timeZone,
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
+
+module.exports.getCity = async function(req, res, next) {
+     //validation start
+    const v = new Validator(req.body, {
+        state_id: 'required',       
+    });
+
+    const matched = await v.check();
+
+    if (!matched) {
+    var error;
+    for (var i = 0; i <= Object.values(v.errors).length; i++) {
+        error = Object.values(v.errors)[0].message;
+        break;
+    }
+    res.json({
+        status: 0,
+        message: error
+    });
+    return true;
+    }
+
+    let state_id = req.body.state_id;
+    var sql = "SELECT * FROM cities WHERE state_id='"+state_id+"'";
     
     console.log("country code sql-",sql)
     con.query(sql, function(err, result, fields) {
