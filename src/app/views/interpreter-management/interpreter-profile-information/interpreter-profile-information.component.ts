@@ -517,7 +517,10 @@ export class InterpreterProfileInformationComponent implements OnInit {
         timezone:[''],
         image:['', this.validation.onlyRequired_validator],
         other_gender:[''],
-        notes:['']
+        notes:[''],
+        ssn:[''],
+        ein:[''],
+
     });
 }
 
