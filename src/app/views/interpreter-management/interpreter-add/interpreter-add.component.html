@@ -217,10 +217,10 @@
                     <div class="row">
                         
                         <div class="col-md-6 form-group mb-3">
-                            <label for="State">ZipCode</label>
-                            <input type="text" class="form-control" formControlName="zipCode"  placeholder="State">
+                            <label for="State">Zip Code</label>
+                            <input type="text" class="form-control" formControlName="zipCode"  placeholder="Zip Code">
                             <div *ngIf="userForm.controls['zipCode'].errors && (!userForm.controls['zipCode'].pristine || submitted ||userForm.controls['zipCode'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['zipCode'].errors.required">ZipCode is required.</div> 
+                                <div [hidden]="!userForm.controls['zipCode'].errors.required">Zip Code is required.</div> 
                               </div>
                         </div>
 
