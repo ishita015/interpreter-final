@@ -95,6 +95,13 @@ export class InterpreterProfileInformationComponent implements OnInit {
   einshowInput:boolean = false;
   ssnshowInput:boolean = false;
 
+   // country, state, city variable
+   country_id;
+   state_id;
+   state_Obj;
+   city_Obj;
+   city_id;
+   timezone_Obj;
 
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
@@ -179,6 +186,69 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
    /*========== Add Api Start Here========*/
    
+
+   onCountryChange(id) {
+    this.country_id = id.target.value;
+    console.log("country", this.country_id);
+    this.StateList();
+  }
+
+  onStateChange(id){
+    this.state_id = id.target.value;
+    console.log("state", this.state_id);
+    this.CityList();
+  }
+
+  onCityChange(id){
+    this.city_id = id.target.value;
+    console.log("city", this.city_id);
+  }
+
+      /*========== Country Code for Mobile Start Here========*/
+  countryList(){
+    this.service.getCountryMobileCode().subscribe(res => {
+      if(res['status']=='1'){
+        // console.log("api response",res);
+        this.country_Obj = res['data'];
+        // console.log("countryyyyyyyyyyyyy", this.country_Obj);
+      }
+    });
+  }
+   /*==========  Country Code for Mobile End Here========*/
+
+
+    /*========== State Code for Mobile Start Here========*/
+
+    StateList(){ 
+        this.service.getStateCode(this.country_id).subscribe(res => {
+            console.log("state api res",res);
+          if(res['status']=='1'){
+            console.log("api response",res);
+            this.state_Obj = res['data'];
+            this.timezone_Obj = res['timeZoneData']['timezones'];
+            console.log("state_Obj", this.state_Obj);
+            console.log("time zone",this.timezone_Obj);
+            
+          }
+        });
+    }
+    
+    /*==========  State Code for Mobile End Here========*/
+
+    /*========== City Code for Mobile Start Here========*/
+
+    CityList(){
+        this.service.getCityCode(this.state_id).subscribe(res => {
+          if(res['status']=='1'){
+            console.log("api response",res);
+            this.city_Obj = res['data'];
+            console.log("city_Obj", this.city_Obj);
+          }
+        });
+      }
+    
+    /*==========  City Code for Mobile End Here========*/
+
   
 
   check1(){
@@ -447,7 +517,10 @@ export class InterpreterProfileInformationComponent implements OnInit {
         timezone:[''],
         image:['', this.validation.onlyRequired_validator],
         other_gender:[''],
-        notes:['']
+        notes:[''],
+        ssn:[''],
+        ein:[''],
+
     });
 }
 
@@ -499,15 +572,7 @@ detailProfile(){
 // }
 
 
-countryList(){
-  this.service.getCountryMobileCode().subscribe(res => {
-    if(res['status']=='1'){
-      // console.log("api response",res);
-      this.country_Obj = res['data'];
-      // console.log("countryyyyyyyyyyyyy", this.country_Obj);
-    }
-  });
-}
+
 
 
 //update interpreter value
@@ -939,11 +1004,13 @@ getAddress(latitude, longitude) {
    ssnRadioBtn(){
     this.einshowInput = false;
     this.ssnshowInput = true;
+    
    }
 
    einRadioBtn(){
         this.einshowInput = true;
         this.ssnshowInput = false;
+       
    }
 
 

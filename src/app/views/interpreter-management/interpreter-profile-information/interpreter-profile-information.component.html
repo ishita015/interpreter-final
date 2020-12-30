@@ -249,18 +249,32 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="Country">Country</label>
-                                               <input type="text" class="form-control" formControlName="country" placeholder="Country">
+                                                <select class="form-control" (change)="onCountryChange($event)" formControlName="country">
+                                                    <option value="" selected disabled>Country</option>
+                                                    <option *ngFor="let isd of country_Obj"
+                                                            [value]="isd.id">
+                                                    {{isd?.name}}
+                                                    </option>
+                                                </select>
+                                               <!-- <input type="text" class="form-control" formControlName="country" placeholder="Country">
                                                 <div *ngIf="generalForm.controls['country'].errors && (!generalForm.controls['country'].pristine || submitted ||generalForm.controls['country'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['country'].errors.required">Country is required.</div> 
-                                                  </div>
+                                                  </div> -->
                                             </div>
 
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="State">State</label>
-                                               <input type="text" class="form-control" formControlName="state"  placeholder="State">
+                                                <select class="form-control" (change)="onStateChange($event)" formControlName="state">
+                                                    <option value="" selected disabled>State</option>
+                                                    <option *ngFor="let isd of state_Obj"
+                                                            [value]="isd.id">
+                                                    {{isd?.name}}
+                                                    </option>
+                                                </select>
+                                               <!-- <input type="text" class="form-control" formControlName="state"  placeholder="State">
                                                 <div *ngIf="generalForm.controls['state'].errors && (!generalForm.controls['state'].pristine || submitted ||generalForm.controls['state'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['state'].errors.required">State is required.</div> 
-                                                  </div>
+                                                  </div> -->
                                             </div>
                                         </div>
                     
@@ -270,10 +284,17 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="City">City</label>
-                                               <input type="text" class="form-control" formControlName="city" placeholder="City">
+                                                    <select class="form-control" (change)="onCityChange($event)" formControlName="city">
+                                                        <option value="" selected disabled>City</option>
+                                                        <option *ngFor="let isd of city_Obj"
+                                                                [value]="isd.id">
+                                                        {{isd?.name}}
+                                                        </option>
+                                                    </select>
+                                               <!-- <input type="text" class="form-control" formControlName="city" placeholder="City">
                                                 <div *ngIf="generalForm.controls['city'].errors && (!generalForm.controls['city'].pristine || submitted ||generalForm.controls['city'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['city'].errors.required">City is required.</div> 
-                                                  </div>
+                                                  </div> -->
                                             </div>
 
                                             <div class="col-md-6 form-group mb-3">
@@ -289,10 +310,17 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="City">Timezone</label>
-                                               <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
+                                                <select class="form-control" formControlName="timezone">
+                                                    <option value="" selected disabled>Timezone</option>
+                                                    <option *ngFor="let isd of timezone_Obj"
+                                                            [value]="isd">
+                                                    {{isd}}
+                                                    </option>
+                                                </select>
+                                               <!-- <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
                                                 <div *ngIf="generalForm.controls['timezone'].errors && (!generalForm.controls['timezone'].pristine || submitted ||generalForm.controls['timezone'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['timezone'].errors.required">Timezone is required.</div> 
-                                                  </div>
+                                                  </div> -->
                                             </div>
 
                                             <div class="col-md-6 form-group mb-3">

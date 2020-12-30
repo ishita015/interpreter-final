@@ -456,10 +456,12 @@ export class InterpreterAddComponent implements OnInit {
         ssnRadioBtn(){
             this.einshowInput = false;
             this.ssnshowInput = true;
+            this.userForm.controls['ein'].setValue('');
         }
         einRadioBtn(){
             this.einshowInput = true;
             this.ssnshowInput = false;
+            this.userForm.controls['ssn'].setValue('');
         }
     }
 
