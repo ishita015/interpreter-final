@@ -123,6 +123,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   ngOnInit(){
     this.addBankInfo(); // add bank details
     // this.createForm2();
+    this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
 

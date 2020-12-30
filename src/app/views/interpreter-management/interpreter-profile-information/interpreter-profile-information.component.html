@@ -166,17 +166,17 @@
                                             <div class="col-md-6 form-group mb-3">
                     
                                                 <div class="row">
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                         <label>Code</label>
                                                         <select class="form-control"  formControlName="country_code">
                                                             <option value="" selected disabled>Code</option>
                                                             <option *ngFor="let isd of country_Obj"
                                                                     [value]="isd.id">
-                                                            {{isd?.sortname}}
+                                                            {{isd?.name}}
                                                             </option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-10">
+                                                    <div class="col-md-8">
                                                         <label for="MobileNo.">Mobile No.</label>
                                                         <input type="text" mask="(000) 000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
                                                     </div>
@@ -299,7 +299,9 @@
 
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="State">Zip Code</label>
-                                                <input type="text" class="form-control" formControlName="zipCode"  placeholder="State">
+                                                <input type="text" class="form-control" 
+                                                onkeypress="if(this.value.length==25) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                                formControlName="zipCode"  placeholder="State">
                                                 <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['zipCode'].errors.required">ZipCode is required.</div> 
                                                   </div>
