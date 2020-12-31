@@ -154,7 +154,7 @@ export class InterpreterListComponent implements OnInit {
 
   profileInterpreter(id){
     console.log("iddddd",id);
-    localStorage.setItem('interpreterId', JSON.stringify(id));
+    localStorage.setItem('userId', JSON.stringify(id));
     this.router.navigate(['/interpreter/interpreter-profile',id]);
   }
 

@@ -103,6 +103,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
    city_id;
    timezone_Obj;
 
+   role_id;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -117,7 +119,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
         assignment_vri: this.fb.array([this.vriAssignmentGroup()]),
         assignment_vcl: this.fb.array([this.vclAssignmentGroup()])
       });
-
+      this.role_id = JSON.parse(localStorage.getItem('roleId'));
     }
 
   ngOnInit(){
@@ -164,7 +166,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
     
     this.LanguageList();
-    this.interId = JSON.parse(localStorage.getItem('interpreterId')); //interpreter id
+    this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
     console.log("iddd", this.interId);
     this.detailProfile();
   }

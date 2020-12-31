@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
+import { ActivatedRoute } from '@angular/router';
 export interface IMenuItem {
     id?: string;
     title?: string;
@@ -47,14 +47,13 @@ export class NavigationService {
     selectedItem: IMenuItem;
     roleData;
     roleId;
-  
-    constructor() {
-       
-        
+    id=JSON.parse(localStorage.getItem('userId'));
+    constructor( private route: ActivatedRoute,) {
         this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-        this.roleId = JSON.parse(localStorage.getItem('roleId'));
-       
+        this.roleId = JSON.parse(localStorage.getItem('roleId'));  
     }
+
+  
 
     //admin
     defaultMenu: IMenuItem[] = [
@@ -117,6 +116,7 @@ export class NavigationService {
             icon: 'i-Add-User',
             state: '/chat/chat',
         },
+       
     ];
 
 
@@ -144,21 +144,20 @@ export class NavigationService {
                 { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
             ]
         },
-       /* {   
-            name: 'Pending-Request',
-            type: 'link',
-            icon: 'i-Add-User',
-            state: '/user-request/pending-request',
-        },*/
         {   
             name: 'Chat',
             type: 'link',
             icon: 'i-Add-User',
             state: '/chat/chat',
         },
+        {   
+            name: 'Profile',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/interpreter/interpreter-profile/'+ this.id,
+        },
+         
     ];
-
-
     menuItems = new BehaviorSubject({v1:this.defaultMenu,v2:this.userMenu});
 
     menuItems$ = this.menuItems.asObservable();
@@ -167,9 +166,10 @@ export class NavigationService {
      
     // menuItems = new BehaviorSubject<IMenuItem[]>(this.defaultMenu); //SUPER ADMIN
     // menuItems$ = this.menuItems.asObservable();        
-
-
-
     ngOnInit(){
-    }
+        
+     }
+
+
+   
 }
