@@ -625,10 +625,10 @@ updateInterpreter(){
       //add bank details
       addBankDetails(){
         this.submitted = true;
-        // if (this.bankingForm.invalid) {
-        //   return;
-        // }
-        // this.submitted = false;
+        if (this.bankingForm.invalid) {
+          return;
+        }
+        this.submitted = false;
         this.bankingForm.value.user_id = this.interId;
 
         console.log("form value",this.bankingForm.value);
