@@ -65,6 +65,19 @@ export class InterpreterProfileInformationComponent implements OnInit {
   simult_open:boolean = false;
   other_open:boolean = false;
 
+
+  ci:boolean = false;
+  cfi:boolean = false;
+  cc:boolean = false;
+  co:boolean = false;
+  cto:boolean = false;
+  eo:boolean = false;
+  lo:boolean = false;
+  so:boolean = false;
+  oo:boolean = false;
+
+
+
   country_Obj;
 
   public priLanguageId;
@@ -528,45 +541,89 @@ export class InterpreterProfileInformationComponent implements OnInit {
 }
 
 
+// skillSimultOpen: "simultaneous_doc-1608906410104.png"
+// skillsCommunityDoc: "community_doc-1608906281522.png"
+// skillsConferenceDoc: "conference_doc-1608908561236.png"
+// skillsCourtDoc: "court_doc-1608906281514.png"
+// skillsCredentialDoc: "credential_doc-1608906281518.png"
+// skillsEquipmentDoc: "equipment_doc-1608906646085.png"
+// skillsLegalDoc: "legal_doc-1608906646088.png"
+// skillsOtherDoc: "other_doc-1608907163377.png"
+
 detailProfile(){
   this.service.getProfileDetail(this.interId).subscribe(res => {
     if(res['status']== 1){
       this.detail_Obj = res['data'][0];
-      console.log("detail_Obj",this.detail_Obj);
+      // console.log("detail_Obj",this.detail_Obj);
       
-      console.log("interpreter_assignment--",this.detail_Obj.interpreter_assignment);
+    if(this.detail_Obj.skillsCommunityDoc!='' && this.detail_Obj.skillsCommunityDoc!=undefined){
+      this.communityinter=true;  
+      this.ci = true;
+      // checked="{{ci =='true' ? 'checked' : ''}}"
+    }
 
-      this.detail_Obj.interpreter_assignment.forEach(s => {
-          //  this.setData('0','hourly_rate',s.rates_on_duration_hourly);
-          //  this.setData('1','hourly_rate',s.rates_on_duration_hourly);
-          //  this.setData('2','hourly_rate',s.rates_on_duration_hourly);
-      //   console.log("rates_on_duration_hourly",s.rates_on_duration_hourly);
-      //   this.assignmentForm.get('hourly_rate').patchValue( s.rates_on_duration_hourly);
-      //   this.assignmentForm.get('hourly_rate_min_paid').patchValue( s.min_paid_hourly);
-      //   this.assignmentForm.get('hourly_rate_pay_increment').patchValue( s.pay_increment_hourly);
-      });
 
-      // for(let p=0; p < this.detail_Obj.secondary_language.length; p++){ 
-      //   console.log("rates_on_duration_hourly",this.detail_Obj.secondary_language.rates_on_duration_hourly);
-      //   this.setData(p,'hourly_rate',this.detail_Obj.secondary_language.rates_on_duration_hourly)
-      // }
+    if(this.detail_Obj.skillsConferenceDoc!='' && this.detail_Obj.skillsConferenceDoc!=undefined){
+      this.conferenceinter=true;  
+      this.cfi = true;
+      // checked="{{cfi =='true' ? 'checked' : ''}}"
+    } 
+
+
+      if(this.detail_Obj.skillsCourtDoc!='' && this.detail_Obj.skillsCourtDoc!=undefined){
+        this.court_open=true;  
+        this.co = true;
+        // checked="{{co =='true' ? 'checked' : ''}}"
+      }
+
+
+
+      if(this.detail_Obj.skillsCredentialDoc!='' && this.detail_Obj.skillsCredentialDoc!=undefined){
+        this.credent_open=true;  
+        this.cto = true;
+        // checked="{{cto =='true' ? 'checked' : ''}}"
+      }
+
+
+
+      if(this.detail_Obj.skillsEquipmentDoc!='' && this.detail_Obj.skillsEquipmentDoc!=undefined){
+        this.equipment_open=true;  
+        this.eo = true;
+        // checked="{{eo =='true' ? 'checked' : ''}}"
+      } 
+
+
+
+      if(this.detail_Obj.skillsLegalDoc!='' && this.detail_Obj.skillsLegalDoc!=undefined){
+        this.legal_open=true;  
+        this.lo = true;
+        // checked="{{lo =='true' ? 'checked' : ''}}"
+      }
+
+
+
+      if(this.detail_Obj.skillSimultOpen!='' && this.detail_Obj.skillSimultOpen!=undefined){
+        this.simult_open=true;  
+        this.so = true;
+        // checked="{{so =='true' ? 'checked' : ''}}"
+      }
+
+
+
+      if(this.detail_Obj.skillsOtherDoc!='' && this.detail_Obj.skillsOtherDoc!=undefined){
+        this.other_open=true;  
+        this.oo = true;
+        // checked="{{oo =='true' ? 'checked' : ''}}"
+      }
+
 
       this.patchValue();
-      for(let i=0; i < this.detail_Obj.secondary_language.length; i++){ 
-
-        
-        // this.assignmentArray.push(this.assignmentGroup());
-        // this.assignmentOpiArray.push(this.opiAssignmentGroup());
-        // this.assignmentVriArray.push(this.vriAssignmentGroup());
-        // this.assignmentVclArray.push(this.vclAssignmentGroup());
-      } 
       // addAssignment
-     }else{
+    }else{
       console.log("api response",res);
       this.detail_Obj = res
     }
   });
-
 }
 
 

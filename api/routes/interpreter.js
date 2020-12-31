@@ -129,10 +129,16 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             profile_img	: resultData[0].profile_img ? resultData[0].profile_img : "", // add full path
             date_of_birth: resultData[0].date_of_birth,
             gender: resultData[0].gender,
-            timezone: resultData[0].timezone,
             state: resultData[0].state,
             zipCode: resultData[0].zipCode,
             address: resultData[0].address,
+
+            countryName: resultData[0].countryName ? resultData[0].countryName : '',
+            sortname: resultData[0].sortname ? resultData[0].sortname : '',
+            cityName: resultData[0].cityName ? resultData[0].cityName : '',
+            stateName: resultData[0].stateName ? resultData[0].stateName : '',
+            timezone: resultData[0].timezone,
+            // apartment: resultData[0].apartment,
             // apartment: resultData[0].apartment,
 
             social_security_no: resultData[0].social_security_no,
