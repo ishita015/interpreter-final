@@ -138,12 +138,12 @@ export class InterpreterAddComponent implements OnInit {
   createForm() {
     this.userForm = this.fb.group({
       title: ['', this.validation.onlyRequired_validator],
-      first_name: ['', this.validation.name_validation],
-      last_name: ['', this.validation.name_validation],
+      first_name: ['', this.validation.onlyRequired_validator],
+      last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
       password: ['', this.validation.onlyRequired_validator],
       mobile: ['', this.validation.onlyRequired_validator],
-      phone_no: ['', this.validation.onlyRequired_validator],
+      // phone_no: [''],
       international_phone_no: ['', this.validation.onlyRequired_validator],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
@@ -156,15 +156,15 @@ export class InterpreterAddComponent implements OnInit {
       gender: ['', this.validation.onlyRequired_validator],
       latitude: [''],
       longitude: [''],
-      nick_name: ['', this.validation.onlyRequired_validator],
+      nick_name: ['', ],
       // middle_name: ['', this.validation.onlyRequired_validator],
-      country: ['', this.validation.onlyRequired_validator],
+      country: ['',this.validation.onlyRequired_validator ],
       city: ['', this.validation.onlyRequired_validator],
-      state: ['', this.validation.onlyRequired_validator],
+      state: ['',  this.validation.onlyRequired_validator],
       zipCode: ['', this.validation.onlyRequired_validator],
-      timezone: [''],
+      timezone: ['',this.validation.onlyRequired_validator ],
       other_gender: [''],
-      image: ['', this.validation.onlyRequired_validator],
+      image: ['',  this.validation.onlyRequired_validator],
       ssn: [''],
       ein: [''],
     });
@@ -197,7 +197,6 @@ export class InterpreterAddComponent implements OnInit {
       if (res['status'] == '1') {
         console.log("api response", res);
         this.country_Obj = res['data'];
-        console.log("countryyyyyyyyyyyyy", this.country_Obj);
       }
     });
   }
@@ -213,9 +212,6 @@ export class InterpreterAddComponent implements OnInit {
         console.log("api response", res);
         this.state_Obj = res['data'];
         this.timezone_Obj = res['timeZoneData']['timezones'];
-        console.log("state_Obj", this.state_Obj);
-        console.log("time zone", this.timezone_Obj);
-
       }
     });
   }
@@ -229,7 +225,6 @@ export class InterpreterAddComponent implements OnInit {
       if (res['status'] == '1') {
         console.log("api response", res);
         this.city_Obj = res['data'];
-        console.log("city_Obj", this.city_Obj);
       }
     });
   }
@@ -238,17 +233,12 @@ export class InterpreterAddComponent implements OnInit {
 
   username() {
     this.fullnameVal = this.userForm.value.first_name + this.userForm.value.last_name;
-    console.log("fullnameVal", this.fullnameVal);
-    // this.userForm.get('user_name').patchValue(this.fullnameVal);
-
     this.firstnameVal = this.userForm.value.first_name;
     this.lastnameVal = this.userForm.value.last_name;
     this.service.userName(this.firstnameVal, this.lastnameVal).subscribe(res => {
       if (res['status'] == '1') {
-        console.log("api response", res);
         this.username_Obj = res['data'];
         this.username_msg = res;
-        console.log("user name", this.username_Obj);
         this.userForm.get('username').patchValue(this.username_Obj);
       }
       else {
@@ -262,7 +252,6 @@ export class InterpreterAddComponent implements OnInit {
   onSingleFileChange(event) {
     let file: File = event.target.files[0];
     this.selectedFile = file;
-    console.log("imagesss", this.selectedFile);
   }
   /*==========Single Image Function End Here========*/
 
@@ -292,12 +281,8 @@ export class InterpreterAddComponent implements OnInit {
   // }
 
   check_dob(e) {
-   
     const d = new Date(e);
-    console.log("d", d);
     const check = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
-    console.log("check", check);
-    console.log("comparee", d <= check);
     if (d <= check) {
     }
     else {
@@ -307,22 +292,16 @@ export class InterpreterAddComponent implements OnInit {
   }
 
   saveUser() {
-    console.log("latitude --", this.latitude);
-    console.log("longitude 22", this.longitude);
-    console.log("new_address 44", this.new_address);
     this.submitted = true;
-    // if (this.userForm.invalid) {
-    //   return;
-    // }
-    // this.submitted = false;
+    if (this.userForm.invalid) {
+      return;
+    }
+    this.submitted = false;
 
     this.userForm.value.address = this.new_address;
     this.userForm.value.latitude = this.latitude
     this.userForm.value.longitude = this.longitude
-    this.userForm.value.title
-
- 
-
+    // this.userForm.value.title
     const formData: any = new FormData();
     this.userForm.value.image = this.selectedFile;
     formData.append('title', this.userForm.value.title);
@@ -358,10 +337,12 @@ export class InterpreterAddComponent implements OnInit {
     console.log("final form value", this.userForm.value);
 
     this.service.interpreterAdd(formData).subscribe(res => {
+      if (res['status'] == '1') {
       this.user_Obj = res
       this.user_Msg = res
       this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
       this.router.navigate(['/interpreter/interpreter-list']);
+      }
     });
   }
 
@@ -373,7 +354,6 @@ export class InterpreterAddComponent implements OnInit {
       .subscribe(res => {
         // console.log("api response",res);
         this.language_Obj = res['data'];
-        console.log("my testing", this.language_Obj);
       });
   }
 
@@ -382,7 +362,6 @@ export class InterpreterAddComponent implements OnInit {
       .subscribe(res => {
         // console.log("api response",res);
         this.role_Obj = res['data'];
-        console.log("my testing", this.role_Obj);
       });
   }
 
@@ -408,7 +387,6 @@ export class InterpreterAddComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-
         this.zoom = 8;
         this.getAddress(this.latitude, this.longitude);
       });
@@ -421,9 +399,6 @@ export class InterpreterAddComponent implements OnInit {
     console.log($event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
-    console.log("latitude-", this.latitude);
-    console.log("longitude-", this.longitude);
-
     this.getAddress(this.latitude, this.longitude);
   }
 

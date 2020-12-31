@@ -68,6 +68,10 @@
                        <div class="col-md-6 form-group mb-3">
                             <label for="Last">Nick Name</label>
                             <input type="text" class="form-control" formControlName="nick_name"  placeholder="Nick Name">
+                            <div *ngIf="userForm.controls['nick_name'].errors && (!userForm.controls['nick_name'].pristine || submitted ||userForm.controls['nick_name'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['nick_name'].errors.required">Nick Name is required.</div>
+                            </div>
+                        
                         </div>
 
 
@@ -201,9 +205,9 @@
                                 </option>
                             </select>
                            <!-- <input type="text" class="form-control" formControlName="country" placeholder="Country"> -->
-                            <!-- <div *ngIf="userForm.controls['country'].errors && (!userForm.controls['country'].pristine || submitted ||userForm.controls['country'].touched )" class="error-msg">
+                            <div *ngIf="userForm.controls['country'].errors && (!userForm.controls['country'].pristine || submitted ||userForm.controls['country'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['country'].errors.required">Country is required.</div> 
-                              </div> -->
+                              </div>
                         </div>
                     </div>
 
@@ -221,14 +225,14 @@
                                 {{isd?.name}}
                                 </option>
                             </select>
-                           <!-- <input type="text" class="form-control" formControlName="state"  placeholder="State">
+                           <!-- <input type="text" class="form-control" formControlName="state"  placeholder="State"> -->
                             <div *ngIf="userForm.controls['state'].errors && (!userForm.controls['state'].pristine || submitted ||userForm.controls['state'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['state'].errors.required">State is required.</div> 
-                              </div> -->
+                              </div>
                         </div>
 
 
-                        <div class="col-md-6 form-group mb-3">
+                        <!-- <div class="col-md-6 form-group mb-3">
                             <label for="City">City</label>
                             <select class="form-control" (change)="onCityChange($event)" formControlName="city">
                                 <option value="" selected disabled>City</option>
@@ -237,11 +241,10 @@
                                 {{isd?.name}}
                                 </option>
                             </select>
-                           <!-- <input type="text" class="form-control" formControlName="city" placeholder="City">
                             <div *ngIf="userForm.controls['city'].errors && (!userForm.controls['city'].pristine || submitted ||userForm.controls['city'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['city'].errors.required">City is required.</div> 
-                              </div> -->
-                        </div>
+                              </div>
+                        </div> -->
                     </div>
 
 
@@ -264,10 +267,10 @@
                                 {{isd}}
                                 </option>
                             </select>
-                           <!-- <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
+                           <!-- <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone"> -->
                             <div *ngIf="userForm.controls['timezone'].errors && (!userForm.controls['timezone'].pristine || submitted ||userForm.controls['timezone'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['timezone'].errors.required">Timezone is required.</div> 
-                              </div> -->
+                              </div>
                         </div>
                     </div>
 
