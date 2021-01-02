@@ -2592,14 +2592,15 @@ module.exports.getInterpreter = async function(req, res, next) {
     let type = req.body.type ? req.body.type : '0'; //type ==1 for lang, 2=request 
     let id = req.body.id ? req.body.id : '0';
 
-    let serach = req.body.search_info ? req.body.search_info : '0'; //type ==1 for lang, 2=request 
+    let serach = req.body.search_info ? req.body.search_info : ""; //type ==1 for lang, 2=request 
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
     console.log("serach", serach)
     console.log("start_date", start_date)
     console.log("end_date", end_date)
-    
+    console.log("id", id)
+
     interpreter_id='0';
     if(type=='2'){
         var resultdata = await usermodel.getInterpreterIds(id); 
@@ -2609,21 +2610,29 @@ module.exports.getInterpreter = async function(req, res, next) {
             // console.log("interpreter_id", interpreter_id)
         }
     }
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id ";
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id=2 ";
 
-    if((type != '0' && type == '1') && id != '0' ) {  
-        sql += " WHERE u.role_id=2 && u.primary_language='"+id+"' ORDER BY u.id DESC"; 
-    }else if((type != '0' && type == '2') && id != '0' ) { 
-        sql += " WHERE u.role_id=2 && FIND_IN_SET(u.id, '"+interpreter_id+"') ORDER BY u.id DESC";  
+    // if((type != '0' && type == '1') && id != '0' ) {  
+    //     sql += "  && u.primary_language='"+id+"'"; 
+    // } 
+    if((type != '0' && type == '2') && id != '0' ) { 
+        sql += " && FIND_IN_SET(u.id, '"+interpreter_id+"') ";  
     // }else if(serach != '' && serach != undefined) { 
     //     // sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + 
     //     sql += " WHERE u.role_id=2 && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ORDER BY u.id DESC";          
     }
-    else{
-        sql += "WHERE u.role_id=2 ORDER BY u.id DESC"; 
+    if( serach != "") {
+        // sql += " && t.trip_budget BETWEEN "+min_price+" AND "+max_price;
+            sql += " && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ";          
     }
-
-
+    if((start_date != '0' && end_date != '0') ) {
+        let sd = start_date.replace(/T/, ' ').replace(/\..+/, '');  
+        let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');      
+        sql += " && u.create_dt BETWEEN '"+sd+"' AND '"+ed+"'";
+            //sql += " && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ";          
+    }
+    sql += " ORDER BY u.id DESC"; 
+console.log("date",sql);
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {

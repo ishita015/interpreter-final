@@ -902,12 +902,12 @@ getAddress(latitude, longitude) {
   }
 
   uploadDocuments(){
-    // console.log("m-",this.interpreterSkillForm.value)
-    // this.submitted = true;
-    // if (this.communityForm.invalid) {
-    //   return;
-    // }
-    // this.submitted = false;
+    console.log("m-",this.interpreterSkillForm.value)
+    this.submitted = true;
+    if (this.interpreterSkillForm.invalid) {
+      return;
+    }
+    this.submitted = false;
     const formData: any = new FormData();
 
     console.log("all img",this.interpreterSkillForm)
@@ -923,8 +923,8 @@ getAddress(latitude, longitude) {
     
     formData.append('interpreter_id', this.interId);
     formData.append('primary_language', this.priLanguageId);
-    // formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
-    // formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
+    formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
+    formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
     // this.communityForm.value.documents = this.selectedFile;
     
     // this.communityForm.value.interpreter_id = this.interId; 

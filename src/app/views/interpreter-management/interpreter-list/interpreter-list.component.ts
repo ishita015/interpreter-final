@@ -123,9 +123,12 @@ export class InterpreterListComponent implements OnInit {
           this.filteredUser = this.list_Obj;
           this.role_id = this.roleId;
         } else {
+          this.list_Obj = [];
+          this.userData = [];
+          this.filteredUser = [];
           // this.response_msg=res;
           // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
-          this.router.navigate(['/users/user-list'])
+          this.router.navigate(['/interpreter/interpreter-list'])
         }
       });
   }

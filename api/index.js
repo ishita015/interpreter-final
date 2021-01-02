@@ -972,8 +972,8 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     //validation start
     const v = new Validator(req.body, {
         interpreter_id: 'required',
-        // primary_language: 'required',
-        // secondary_language: 'required'
+        primary_language: 'required',
+        secondary_language: 'required'
     });
     
     const matched = await v.check();
@@ -1020,16 +1020,73 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
             
             }
 
-            res.json({
+            
+
+            // res.json({
+            //     status: 1,
+            //     error_code: 0,
+            //     error_line: 6,
+            //     message: "Documents upload successfully",
+            // });
+            // return true;
+        }
+    }
+
+
+    
+
+        var user_update = "UPDATE user SET primary_language='"+primary_language+"' WHERE id ='"+interpreter_id+"'";
+    
+    con.query(user_update, function(err, results) {
+    });   
+
+    /* secondary_language=JSON.parse(secondary_language) // for form data case
+
+     console.log(secondary_language)
+
+    for (var i = 0; i < secondary_language.length; i++) {
+        console.log("secondary_language", secondary_language[i].id);    
+        var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+secondary_language[i].id+"')";
+        con.query(sql, function(err, insert) {});
+    }*/
+
+    res.json({
                 status: 1,
                 error_code: 0,
                 error_line: 6,
                 message: "Documents upload successfully",
             });
             return true;
-        }
-    }
+
 });
+
+
+
+
+
+/*
+let download = require('image-downloader');
+
+
+//app.post('/imgDownload', async function(req, res, next) {
+function imgDownload(){
+const options = {
+  url: 'http://192.168.0.4:3300/user/image-1607957883766.jpg',
+  dest: '/home/download/'                // will be saved to /path/to/dest/image.jpg
+}
+
+download.image(options)
+  .then(({ filename }) => {
+    console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+  })
+  .catch((err) => console.error(err))
+
+
+}
+
+imgDownload();
+*/
+
 
 
 
