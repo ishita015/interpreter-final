@@ -18,7 +18,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   files:string  []  =  [];
 
   doc: Array<any> = [];
-
+  lang:Array<any> = [];
   selectedFile:File = null;
   //general form declare
   generalForm: FormGroup;
@@ -329,6 +329,11 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   onSelect(item) {
       console.log('tag selected: value is' + item);
+        for (let i = 0; i < item; i++) {
+        
+        this.lang.push(item[i]);
+        }
+     
   }
 
   communityShow(){
@@ -506,12 +511,12 @@ export class InterpreterProfileInformationComponent implements OnInit {
   updateGeneralInfo() {
     this.generalForm = this.fb.group({
         title:['', this.validation.onlyRequired_validator],
-        first_name: ['', this.validation.name_validation],
-        last_name: ['', this.validation.name_validation],
+        first_name: ['', this.validation.onlyRequired_validator],
+        last_name: ['', this.validation.onlyRequired_validator],
         email: ['', this.validation.onlyRequired_validator],
         password: ['', this.validation.onlyRequired_validator],
         mobile: ['', this.validation.onlyRequired_validator],
-        phone_no: ['', this.validation.onlyRequired_validator],
+        // phone_no: ['', this.validation.onlyRequired_validator],
         international_phone_no: ['', this.validation.onlyRequired_validator],
         // username: [''],
         dob:['',this.validation.onlyRequired_validator],
@@ -553,8 +558,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
 detailProfile(){
   this.service.getProfileDetail(this.interId).subscribe(res => {
     if(res['status']== 1){
+   
       this.detail_Obj = res['data'][0];
-      // console.log("detail_Obj",this.detail_Obj);
+      console.log("detail_Obj",this.detail_Obj);
       
     if(this.detail_Obj.skillsCommunityDoc!='' && this.detail_Obj.skillsCommunityDoc!=undefined){
       this.communityinter=true;  
@@ -620,6 +626,7 @@ detailProfile(){
       this.patchValue();
       // addAssignment
     }else{
+     
       console.log("api response",res);
       this.detail_Obj = res
     }
@@ -631,6 +638,16 @@ detailProfile(){
 //   this.assignmentArray.at(index).get(controlName).setValue(day);
 // }
 
+check_dob(e) {
+  const d = new Date(e);
+  const check = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
+  if (d <= check) {
+  }
+  else {
+    this.toastr.error("Date should be valid and atleast 18 year old.", '', { timeOut: 1000 });
+    this.generalForm.controls['dob'].setValue('');
+  }
+}
 
 
 
@@ -638,14 +655,14 @@ detailProfile(){
 //update interpreter value
 updateInterpreter(){
     this.submitted = true;
-    // if (this.generalForm.invalid) {
-    //   return;
-    // }
-    // this.submitted = false;
-  this.generalForm.value.interpreter_id = this.interId;
-  this.generalForm.value.address = this.new_address;
-  this.generalForm.value.latitude = this.latitude
-  this.generalForm.value.longitude = this.longitude
+    if (this.generalForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    this.generalForm.value.interpreter_id = this.interId;
+    this.generalForm.value.address = this.new_address;
+    this.generalForm.value.latitude = this.latitude
+    this.generalForm.value.longitude = this.longitude
 
   this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       this.gen_Msg=res;
@@ -888,8 +905,9 @@ getAddress(latitude, longitude) {
     //     this.files.push(event.target.files[i]);
     // }
     let file: File = event.target.files[0];
-    this.selectedFile= file;
-    this.addDocInArray(this.selectedFile,key,type);
+      this.selectedFile= file;
+      this.addDocInArray(this.selectedFile,key,type);
+    
   }
   
 
@@ -902,7 +920,7 @@ getAddress(latitude, longitude) {
   }
 
   uploadDocuments(){
-    // console.log("m-",this.interpreterSkillForm.value)
+    console.log("m-",this.interpreterSkillForm.value)
     // this.submitted = true;
     // if (this.communityForm.invalid) {
     //   return;
@@ -910,20 +928,26 @@ getAddress(latitude, longitude) {
     // this.submitted = false;
     const formData: any = new FormData();
 
-    console.log("all img",this.interpreterSkillForm)
+    console.log("all img",this.interpreterSkillForm.value.primary_language)
+    console.log("all img",this.interpreterSkillForm.value.secondary_language)
+    this.lang =   this.interpreterSkillForm.value.secondary_language         
+    // console.log("lang", this.lang);
+    
+    for(let a of this.lang){
+      // console.log("aaaaaa",a);
+      formData.append('secondary_language', JSON.stringify(a));
+    }
     
     for(let img of this.doc){
       console.log("img",img.all_img)
       console.log("doc_type",img.doc_type)
       formData.append('doc_name',img.doc_type);
       formData.append(img.doc_type,img.all_img);
-      formData.append('type',img.types);
-      
+      formData.append('type',img.types); 
     }
     
     formData.append('interpreter_id', this.interId);
     formData.append('primary_language', this.priLanguageId);
-    // formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
     // formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
     // this.communityForm.value.documents = this.selectedFile;
     
