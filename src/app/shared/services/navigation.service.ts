@@ -111,6 +111,13 @@ export class NavigationService {
         },
 
         {   
+            name: 'Set Calculation',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/set-calculation/set-calculation-add',
+        },
+
+        {   
             name: 'Chat',
             type: 'link',
             icon: 'i-Add-User',

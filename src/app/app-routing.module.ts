@@ -20,6 +20,10 @@ const adminRoutes: Routes = [
       loadChildren: () => import('./views/profile/profile.module').then(m => m.ProfileModule)
     },
     {
+      path: 'set-calculation',
+      loadChildren: () => import('./views/set-calculation/set-calculation.module').then(m => m.SetCalculationModule)
+    },
+    {
       path: 'users',
       loadChildren: () => import('./views/users/users.module').then(m => m.UsersModule)
     },

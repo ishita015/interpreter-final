@@ -1,0 +1,105 @@
+<div class="breadcrumb">
+    <!-- <h1>Language</h1> -->
+    <ul class="heading">
+        <li><a>Admin Profile</a></li>
+        <!-- <li>Add</li>  -->
+    </ul>
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form [formGroup]="calcutionForm">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="name">After Hours</label>
+                            <input type="text" class="form-control" formControlName="after_hours"  placeholder="After Hours">
+                            <!-- <div *ngIf="adminProfileForm.controls['first_name'].errors && ( !adminProfileForm.controls['first_name'].pristine || submitted ||adminProfileForm.controls['first_name'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['first_name'].errors.required">First Name is required.</div>
+                                <div [hidden]="!adminProfileForm.controls.first_name.hasError('minlength')">First Name length should be minimum 2 characters.</div>
+                              </div> -->
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="name">Weekend</label>
+                            <input type="text" class="form-control" formControlName="weekend"  placeholder="Weekend">
+                            <!-- <div *ngIf="adminProfileForm.controls['last_name'].errors && ( !adminProfileForm.controls['last_name'].pristine || submitted ||adminProfileForm.controls['last_name'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['last_name'].errors.required">Last Name is required.</div>
+                                <div [hidden]="!adminProfileForm.controls.last_name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>
+                              </div> -->
+                        </div>
+
+
+                      
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Holidays</label>
+                            <input type="text" class="form-control" formControlName="holidays" placeholder="Holidays">
+                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Last Minute</label>
+                            <input type="text" class="form-control" formControlName="last_minute" placeholder="Last Minute">
+                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
+                              </div> -->
+                        </div>
+                      
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Rush Fee</label>
+                            <input type="text" class="form-control" formControlName="rush_fee" placeholder="Rush Fee">
+                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
+                              </div> -->
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Weekend After Hours</label>
+                            <input type="text" class="form-control" formControlName="weekend_after_hours" placeholder="Weekend After Hours">
+                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
+                              </div> -->
+                        </div>
+                      
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Holiday After Hours</label>
+                            <input type="text" class="form-control" formControlName="holiday_after_hours" placeholder="Holiday After Hours">
+                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
+                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
+                              </div> -->
+                        </div>
+                    </div>
+                    <div class="form-group row" *ngIf="detail_Obj == null">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="addCal()"
+                                class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="detail_Obj != null">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="updateCal()"
+                                class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="admin_profile()" class="btn btn-primary">Update</button>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

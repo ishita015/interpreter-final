@@ -17,6 +17,7 @@ import { AddCalender } from '../models/add-calender';
 import { AddBanking } from '../models/add-banking';
 import { AddInterpreterProfile } from '../models/add-interpreter-profile';
 import { InterpreterSkills } from '../models/interpreter-skills';
+import { SetCalculationModel } from '../models/set-calculation-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,8 +60,8 @@ export class HttpService {
 
 
 
-  public sendMessage(message, sender_id, receiver_id, group_id,msg_type) {
-    this.socket.emit('sendChat', message, sender_id, receiver_id, group_id,msg_type);
+  public sendMessage(message, sender_id, receiver_id, group_id, msg_type) {
+    this.socket.emit('sendChat', message, sender_id, receiver_id, group_id, msg_type);
   }
 
 
@@ -72,8 +73,8 @@ export class HttpService {
     });
   }
 
-  public typingMessageEmit(group_id,sender_id) {
-    this.socket.emit('typing', group_id,sender_id);
+  public typingMessageEmit(group_id, sender_id) {
+    this.socket.emit('typing', group_id, sender_id);
   }
 
 
@@ -111,21 +112,21 @@ export class HttpService {
   }
 
   getSingleImage(importData): Observable<any> {
-    return this.http.post(this.url + '/cesco/uploadChatImage',importData);
+    return this.http.post(this.url + '/cesco/uploadChatImage', importData);
   }
 
 
   //------------socket end
 
 
-  requestAssignAllInterpreter(request_id,allInterpreter): Observable<any> {
-    return this.http.post(this.url + '/cesco/assignAllInterpreter', {request_id:request_id,allInterpreter:allInterpreter}, this.httpOptions);
+  requestAssignAllInterpreter(request_id, allInterpreter): Observable<any> {
+    return this.http.post(this.url + '/cesco/assignAllInterpreter', { request_id: request_id, allInterpreter: allInterpreter }, this.httpOptions);
   }
 
 
 
-  removeLocalEvents(user_id,event_id): Observable<any> {
-    return this.http.post(this.url + '/cesco/deleteLocalEvent', { user_id: user_id,event_id:event_id }, this.httpOptions);
+  removeLocalEvents(user_id, event_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/deleteLocalEvent', { user_id: user_id, event_id: event_id }, this.httpOptions);
   }
 
 
@@ -146,18 +147,22 @@ export class HttpService {
   }
 
 
-  interpreterRequestList(role_id, user_id, status,search_info,start_date,end_date): Observable<any> {
-    return this.http.post(this.url + '/cesco/getRequestForInterpreter', { role_id: role_id, user_id: user_id, 
-      status: status,search_info:search_info,start_date:start_date,end_date:end_date }, this.httpOptions);
+  interpreterRequestList(role_id, user_id, status, search_info, start_date, end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRequestForInterpreter', {
+      role_id: role_id, user_id: user_id,
+      status: status, search_info: search_info, start_date: start_date, end_date: end_date
+    }, this.httpOptions);
   }
 
-  AllPendingRequest(search_info,start_date,end_date): Observable<any> {
-    return this.http.post(this.url + '/cesco/getAllPendingRequest',{search_info:search_info,start_date:start_date,end_date:end_date},this.httpOptions);
+  AllPendingRequest(search_info, start_date, end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAllPendingRequest', { search_info: search_info, start_date: start_date, end_date: end_date }, this.httpOptions);
   }
-  
-  interpreterAllRequestList(status,search_email,start_date,end_date): Observable<any> {
-    return this.http.post(this.url + '/cesco/getAllAssignment',{status:status,
-      search_email:search_email,start_date:start_date,end_date:end_date}, this.httpOptions);
+
+  interpreterAllRequestList(status, search_email, start_date, end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAllAssignment', {
+      status: status,
+      search_email: search_email, start_date: start_date, end_date: end_date
+    }, this.httpOptions);
   }
 
   interpreterRejectList(role_id, user_id, status): Observable<any> {
@@ -170,8 +175,8 @@ export class HttpService {
 
 
 
-  getUserRequest(search_info,start_date,end_date): Observable<any> {
-    return this.http.post(this.url + '/cesco/getRequestData',{search_info:search_info,start_date:start_date,end_date:end_date} , this.httpOptions);
+  getUserRequest(search_info, start_date, end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRequestData', { search_info: search_info, start_date: start_date, end_date: end_date }, this.httpOptions);
   }
 
 
@@ -253,8 +258,8 @@ export class HttpService {
   }
 
 
-  getInterpreterList(id,type,search_info,start_date,end_date): Observable<any> {
-    return this.http.post(this.url + '/cesco/getInterpreter',{id:id,type:type,search_info:search_info,start_date:start_date,end_date:end_date} ,this.httpOptions);
+  getInterpreterList(id, type, search_info, start_date, end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getInterpreter', { id: id, type: type, search_info: search_info, start_date: start_date, end_date: end_date }, this.httpOptions);
   }
 
   // getInterpreterList(id,type,name,start_date,end_date): Observable<any> {
@@ -269,8 +274,8 @@ export class HttpService {
   //   return this.http.post(this.url + '/cesco/saveInterpreter', interaddInfo, this.httpOptions);
   // }
 
-   userName(first_name,last_name): Observable<any> {
-    return this.http.post(this.url + '/cesco/getUsername', {first_name:first_name,last_name:last_name} , this.httpOptions);
+  userName(first_name, last_name): Observable<any> {
+    return this.http.post(this.url + '/cesco/getUsername', { first_name: first_name, last_name: last_name }, this.httpOptions);
   }
 
   interpreterAdd(interaddInfo: UserAddEdit): Observable<any> {
@@ -455,7 +460,7 @@ export class HttpService {
 
   /*=====Profile Section Apis Start======*/
 
-  
+
 
   interpreterLanguage(addlangInfo: InterpreterSkills): Observable<any> {
     return this.http.post(this.url + '/cesco/addInterpreterLanguage', addlangInfo, this.httpOptions);
@@ -474,15 +479,15 @@ export class HttpService {
   }
 
   getCountryMobileCode(): Observable<any> {
-    return this.http.get(this.url + '/cesco/getCountryCode',this.httpOptions);
+    return this.http.get(this.url + '/cesco/getCountryCode', this.httpOptions);
   }
 
   getStateCode(country_id): Observable<any> {
-    return this.http.post(this.url + '/cesco/getstate',{country_id:country_id},this.httpOptions);
+    return this.http.post(this.url + '/cesco/getstate', { country_id: country_id }, this.httpOptions);
   }
 
   getCityCode(state_id): Observable<any> {
-    return this.http.post(this.url + '/cesco/getCity',{state_id:state_id},this.httpOptions);
+    return this.http.post(this.url + '/cesco/getCity', { state_id: state_id }, this.httpOptions);
   }
 
   changePassword(changepassInfo: ChangePassword): Observable<any> {
@@ -497,37 +502,50 @@ export class HttpService {
 
   /*=====Request Section Apis End======*/
 
-/*=====Add Calender Section Apis Start======*/
-getAddCalender(addInfo: AddCalender): Observable<any> {
-  return this.http.post(this.url + '/cesco/addInterpreterEvents', addInfo);
-}
+  /*=====Add Calender Section Apis Start======*/
+  getAddCalender(addInfo: AddCalender): Observable<any> {
+    return this.http.post(this.url + '/cesco/addInterpreterEvents', addInfo);
+  }
 
-interpreterViewEvents(user_id,event_id): Observable<any> {
-  return this.http.post(this.url + '/cesco/getLocalEventsData', { user_id: user_id, event_id: event_id }, this.httpOptions);
-}
-getUpdateCalender(addInfo: AddCalender): Observable<any> {
-  return this.http.post(this.url + '/cesco/updateInterpreterEvents',  addInfo);
-}
-/*=====Add Calender Apis End======*/
+  interpreterViewEvents(user_id, event_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getLocalEventsData', { user_id: user_id, event_id: event_id }, this.httpOptions);
+  }
+  getUpdateCalender(addInfo: AddCalender): Observable<any> {
+    return this.http.post(this.url + '/cesco/updateInterpreterEvents', addInfo);
+  }
+  /*=====Add Calender Apis End======*/
 
-/*=====Banking Apis Start======*/
+  /*=====Banking Apis Start======*/
   getBankingAdd(addBankInfo: AddBanking): Observable<any> {
-      return this.http.post(this.url + '/cesco/addBankingInfo',  addBankInfo);
+    return this.http.post(this.url + '/cesco/addBankingInfo', addBankInfo);
   }
 
 
   bankingUpdate(updateBankInfo: AddBanking): Observable<any> {
-    return this.http.post(this.url + '/cesco/updateBankingInfo',  updateBankInfo);
+    return this.http.post(this.url + '/cesco/updateBankingInfo', updateBankInfo);
   }
-/*=====Banking Apis End======*/
+  /*=====Banking Apis End======*/
 
-/*=====Interpreter Profile Apis Start======*/
-addInterpreterAssignmentSetting(addProfileInfo: AddInterpreterProfile): Observable<any> {
-  return this.http.post(this.url + '/cesco/addAssignmentSetting',  addProfileInfo);
-}
+  /*=====Interpreter Profile Apis Start======*/
+  addInterpreterAssignmentSetting(addProfileInfo: AddInterpreterProfile): Observable<any> {
+    return this.http.post(this.url + '/cesco/addAssignmentSetting', addProfileInfo);
+  }
 
-getProfileDetail(interpreter_id): Observable<any> {
-  return this.http.post(this.url + '/cesco/getInterpreterProfile', {interpreter_id:interpreter_id});
-}
-/*=====Interpreter Profile Apis End======*/
+  getProfileDetail(interpreter_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getInterpreterProfile', { interpreter_id: interpreter_id });
+  }
+  /*=====Interpreter Profile Apis End======*/
+
+  /*=====set calculation Apis Start======*/
+
+  getCalAdd(calInfo: SetCalculationModel): Observable<any> {
+    return this.http.post(this.url + '/cesco/saveCalculation', calInfo);
+  }
+  getCalDeatil(): Observable<any> {
+    return this.http.get(this.url + '/cesco/getPriceCalculation', this.httpOptions);
+  }
+  calUpadte(calInfo: SetCalculationModel): Observable<any> {
+    return this.http.post(this.url + '/cesco/updateCalculation', calInfo);
+  }
+  /*=====set calculation Apis End======*/
 }
