@@ -19,7 +19,7 @@
                     </div>  -->
                     <!-- <div class="card-icon cardred" *ngIf="detail_Obj.user_profile_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
-                    </div> -->
+                    </div> -->  
 
                     <div class="content">
                         <p class="cardtext mb-0">General</p>
@@ -153,11 +153,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- <div class="col-md-6 form-group mb-3">
-                                                <label for="Last">Middle Name</label>
-                                                <input type="text" class="form-control" formControlName="middle_name"  placeholder="Middle Name">
-                                            </div> -->
-
                                     </div>
 
                                     <div class="row">
@@ -215,12 +210,12 @@
                                                 formControlName="international_phone_no"
                                                 onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                 placeholder="Home Phone">
-                                            <div *ngIf="generalForm.controls['international_phone_no'].errors && (!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )"
+                                            <!-- <div *ngIf="generalForm.controls['international_phone_no'].errors && (!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )"
                                                 class="error-msg">
                                                 <div
                                                     [hidden]="!generalForm.controls['international_phone_no'].errors.required">
                                                     Home Phone No. is required.</div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -262,12 +257,12 @@
                                                         formControlName="ssn">
                                                 </label>
                                             </div>
-                                            <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )"
+                                            <!-- <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )"
                                                 class="error-msg">
                                                 <div
                                                     [hidden]="!generalForm.controls['social_security_no'].errors.required">
                                                     SSN/EIN is required.</div>
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                     </div>
@@ -331,11 +326,11 @@
                                             <input type="text" class="form-control"
                                                 onkeypress="if(this.value.length==25) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                 formControlName="zipCode" placeholder="State">
-                                            <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )"
+                                            <!-- <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['zipCode'].errors.required">ZipCode
                                                     is required.</div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -359,11 +354,11 @@
                                             <label>Company Name</label>
                                             <input type="text" class="form-control" formControlName="company_name"
                                                 placeholder="Company Name">
-                                            <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )"
+                                            <!-- <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['company_name'].errors.required">
                                                     Company Name is required.</div>
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                     </div>
@@ -410,11 +405,11 @@
                                                         formControlName="other_gender">
                                                 </label>
                                             </div>
-                                            <div *ngIf="generalForm.controls['gender'].errors && (!generalForm.controls['gender'].pristine || submitted ||generalForm.controls['gender'].touched )"
+                                            <!-- <div *ngIf="generalForm.controls['gender'].errors && (!generalForm.controls['gender'].pristine || submitted ||generalForm.controls['gender'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['gender'].errors.required">Gender
                                                     is required.</div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 

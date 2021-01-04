@@ -511,27 +511,27 @@ export class InterpreterProfileInformationComponent implements OnInit {
         email: ['', this.validation.onlyRequired_validator],
         password: ['', this.validation.onlyRequired_validator],
         mobile: ['', this.validation.onlyRequired_validator],
-        phone_no: ['', this.validation.onlyRequired_validator],
-        international_phone_no: ['', this.validation.onlyRequired_validator],
+        phone_no: [''],
+        international_phone_no: [''],
         // username: [''],
         dob:['',this.validation.onlyRequired_validator],
         country_code:['',this.validation.onlyRequired_validator],
-        // address: ['', this.validation.onlyRequired_validator],
-        address: [''],
-        company_name:['', this.validation.onlyRequired_validator],
-        social_security_no:['', this.validation.onlyRequired_validator],
+        address: ['', this.validation.onlyRequired_validator],
+        // address: [''],
+        company_name:[''],
+        social_security_no:[''],
         // apartment:['', this.validation.onlyRequired_validator],
-        gender: ['', this.validation.onlyRequired_validator],
+        gender: [''],
         latitude: [''],
         longitude: [''],
-        nick_name:['', this.validation.onlyRequired_validator],
+        nick_name:[''],
         // middle_name: ['', this.validation.onlyRequired_validator],
-        country: ['', this.validation.onlyRequired_validator],
-        city: ['', this.validation.onlyRequired_validator],
-        state: ['', this.validation.onlyRequired_validator],
-        zipCode: ['', this.validation.onlyRequired_validator],
+        country: [''],
+        city: [''],
+        state: [''],
+        zipCode: [''],
         timezone:[''],
-        image:['', this.validation.onlyRequired_validator],
+        image:[''],
         other_gender:[''],
         notes:[''],
         ssn:[''],
@@ -637,11 +637,11 @@ detailProfile(){
 
 //update interpreter value
 updateInterpreter(){
-    this.submitted = true;
-    // if (this.generalForm.invalid) {
-    //   return;
-    // }
-    // this.submitted = false;
+  this.submitted = true;
+  // if (this.generalForm.invalid) {
+  //   return;
+  // }
+  // this.submitted = false;
   this.generalForm.value.interpreter_id = this.interId;
   this.generalForm.value.address = this.new_address;
   this.generalForm.value.latitude = this.latitude
