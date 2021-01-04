@@ -100,7 +100,7 @@ export class AllRequestComponent implements OnInit {
         this.status = this.request_status.value ;
          this.email_formdata = this.search_email.value;
          this.searchEmail = this.email_formdata ;
-         console.log("status",this.status);
+        //  alert(this.status);
 
          this.service.interpreterAllRequestList(this.status,this.searchEmail,this.startDate,this.endDate)
           .subscribe(res => {
@@ -112,7 +112,7 @@ export class AllRequestComponent implements OnInit {
             }else{
               this.list_Obj = [];
               this.userData = [];
-              this.filteredUser = this.list_Obj;
+              this.filteredUser = [];
             }
 
           });

@@ -6,6 +6,7 @@
     </ul>
   </div>
 
+
   <div class="separator-breadcrumb border-top"></div>
 
   <div class="row">
@@ -14,11 +15,12 @@
         <input id="search" placeholder="Email" (keyup)="interpreterAllRequest($event.target.value)"
           [formControl]="search_email" class="form-control form-control-rounded" type="text">
       </div>
+
     </div>
+
 
     <div class="col-md-2">
       <div class="form-group">
-
         <select class="form-control form-control-rounded" (keyup)="interpreterAllRequest($event.target.value)"
           [formControl]="request_status">
           <option value="">Select Status</option>
