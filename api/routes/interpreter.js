@@ -466,7 +466,7 @@ module.exports.updateCalculation = async function(req, res) {
     let holiday_after_hours = req.body.holiday_after_hours ? req.body.holiday_after_hours : '0';
     
     
-    var sql = "UPDATE price_calculation SET after_hours='"+after_hours+"',weekend='"+weekend+"',holidays='"+holidays+"',last_minute='"+last_minute+"',rush_fee='"+rush_fee+"',weekend_after_hours='"+weekend_after_hours+"',holiday_after_hours='"+holiday_after_hours+"' WHERE id='1";
+    var sql = "UPDATE price_calculation SET after_hours='"+after_hours+"',weekend='"+weekend+"',holidays='"+holidays+"',last_minute='"+last_minute+"',rush_fee='"+rush_fee+"',weekend_after_hours='"+weekend_after_hours+"',holiday_after_hours='"+holiday_after_hours+"' WHERE id='1'";
     console.log("bank", sql);
 
     con.query(sql, function(err, result) {
