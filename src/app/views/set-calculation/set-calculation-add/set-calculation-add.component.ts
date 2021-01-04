@@ -48,8 +48,9 @@ export class SetCalculationAddComponent implements OnInit {
     this.service.getCalAdd(this.calcutionForm.value)
       .subscribe(res => {
         if (res['status'] == 1) {
-          this.cal_Obj = res
+          this.cal_Obj = res;
           this.cal_Msg = res;
+          this.detailProfile();
           this.toastr.success(this.cal_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
 
         } else {
