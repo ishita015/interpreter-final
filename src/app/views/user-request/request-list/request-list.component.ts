@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -27,7 +27,15 @@ export class RequestListComponent implements OnInit {
   distance = '';
   rate = '';
   rating = '';resp_msg;
-  searchControl: FormControl = new FormControl();
+  
+  search_name: FormControl = new FormControl();
+  range = new FormGroup({
+    start_date: new FormControl(),
+    end_date: new FormControl()
+  });
+  allData;
+  startDate;
+  endDate;
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
@@ -43,45 +51,51 @@ export class RequestListComponent implements OnInit {
     console.log("userId-",this.userId)
     console.log("roleId-",this.roleId)
 
-    this.userRequestList();
-    this.searchControl.valueChanges
-    .pipe(debounceTime(200))
-    .subscribe(value => {
-      this.filerData(value);
-    });
+    this.userRequestList('1');
+    // this.searchControl.valueChanges
+    // .pipe(debounceTime(200))
+    // .subscribe(value => {
+    //   this.filerData(value);
+    // });
     // this.products$ = this.productService.getProducts();
   }
 
 
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      console.log("xxxxxxx",this.filteredUser);
-      return this.filteredUser = [... this.userData];
-    }
+  // filerData(val) {
+  //   if (val) {
+  //     val = val.toLowerCase();
+  //   } else {
+  //     console.log("xxxxxxx",this.filteredUser);
+  //     return this.filteredUser = [... this.userData];
+  //   }
 
-    const columns = Object.keys( this.userData[0]);
-    if (!columns.length) {
-      return;
-    }
+  //   const columns = Object.keys( this.userData[0]);
+  //   if (!columns.length) {
+  //     return;
+  //   }
 
-    const rows =  this.userData.filter(function(d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
-        }
-      }
-    });
-    this.filteredUser = rows;
-  }
+  //   const rows =  this.userData.filter(function(d) {
+  //     for (let i = 0; i <= columns.length; i++) {
+  //       const column = columns[i];
+  //       // console.log(d[column]);
+  //       if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+  //         return true;
+  //       }
+  //     }
+  //   });
+  //   this.filteredUser = rows;
+  // }
 
 
 
-  userRequestList(){
-    this.service.getUserRequest()
+  userRequestList(e){
+    console.log("startDateaaaaaaaaaa", this.range.value.start_date );
+    this.allData = this.search_name.value;
+    this.startDate = this.range.value.start_date;
+    console.log("startDate",  this.startDate);
+    this.endDate = this.range.value.end_date;
+    console.log("all", this.allData, this.startDate,this.endDate);
+    this.service.getUserRequest(this.allData,this.startDate,this.endDate)
     .subscribe(res => {
       if(res['status'] == 1){
         this.list_Obj = res['data'];

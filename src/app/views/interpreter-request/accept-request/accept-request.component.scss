@@ -1,3 +1,34 @@
 .check_box{
     display: flex;
 }
+// -------------- search calendar Start --------------------//
+.dummy_text ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0px 8px !important;
+    border-radius: 15px !important;
+    outline: initial !important;
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #47404f;
+   
+   }
+   .dummy_text ::ng-deep .mat-form-field-underline{
+   background: #fff;
+   }
+   .dummy_text ::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 3px 0;
+   }
+   .dummy_text ::ng-deep .mat-form-field-underline {
+    display: none !important;
+   }
+   .dummy_text ::ng-deep  .mat-date-range-input {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+    bottom: 7px;
+   }
+   
+   .dummy_text ::ng-deep .mat-input-element::placeholder{
+   color: #9b9b9b;
+   }
+   // -------------- search calendar End --------------------//

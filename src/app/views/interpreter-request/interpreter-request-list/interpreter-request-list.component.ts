@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -29,7 +29,16 @@ export class InterpreterRequestListComponent implements OnInit {
   array_Obj;
   resp_msg;
  
-  searchControl: FormControl = new FormControl();
+  
+  //search calendar
+  search_name: FormControl = new FormControl();
+  range = new FormGroup({
+    start_date: new FormControl(),
+    end_date: new FormControl()
+  });
+  allData;
+  startDate;
+  endDate;
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
@@ -45,13 +54,13 @@ export class InterpreterRequestListComponent implements OnInit {
 
     console.log("userId-",this.userId)
     // console.log("roleId-",this.roleId)
-    this.PendingRequestData();
+    this.PendingRequestData('1');
     // this.interpreterRequestData();
-    this.searchControl.valueChanges
-    .pipe(debounceTime(200))
-    .subscribe(value => {
-      this.filerData(value);
-    });
+    // this.searchControl.valueChanges
+    // .pipe(debounceTime(200))
+    // .subscribe(value => {
+    //   this.filerData(value);
+    // });
     /*this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
     this.array_Obj = this.roleData['data'][0];
     if(this.array_Obj.id){
@@ -90,9 +99,12 @@ export class InterpreterRequestListComponent implements OnInit {
 /*========== Search Filter For Table End Here========*/
 
 /*========== Pending Request Start Here========*/
-    PendingRequestData(){
-    this.service.AllPendingRequest()
-    .subscribe(res => {
+    PendingRequestData(e){
+      this.allData = this.search_name.value;
+      this.startDate = this.range.value.start_date;
+      this.endDate = this.range.value.end_date;
+      this.service.AllPendingRequest(this.allData,this.startDate,this.endDate)
+      .subscribe(res => {
       if(res['status']=='1'){
         console.log("api response",res);
         this.list_Obj = res['data'];
