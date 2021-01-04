@@ -146,17 +146,19 @@ export class HttpService {
   }
 
 
-  interpreterRequestList(role_id, user_id, status): Observable<any> {
-    return this.http.post(this.url + '/cesco/getRequestForInterpreter', { role_id: role_id, user_id: user_id, status: status }, this.httpOptions);
+  interpreterRequestList(role_id, user_id, status,search_info,start_date,end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRequestForInterpreter', { role_id: role_id, user_id: user_id, 
+      status: status,search_info:search_info,start_date:start_date,end_date:end_date }, this.httpOptions);
   }
 
-  AllPendingRequest(): Observable<any> {
-    return this.http.get(this.url + '/cesco/getAllPendingRequest', this.httpOptions);
+  AllPendingRequest(search_info,start_date,end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAllPendingRequest',{search_info:search_info,start_date:start_date,end_date:end_date},this.httpOptions);
   }
-  interpreterAllRequestList(status,search_email): Observable<any> {
-    return this.http.post(this.url + '/cesco/getAllAssignment',{status:status,search_email:search_email}, this.httpOptions);
+  
+  interpreterAllRequestList(status,search_email,start_date,end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAllAssignment',{status:status,
+      search_email:search_email,start_date:start_date,end_date:end_date}, this.httpOptions);
   }
-
 
   interpreterRejectList(role_id, user_id, status): Observable<any> {
     return this.http.post(this.url + '/cesco/getRejectDataInterpreter', { role_id: role_id, user_id: user_id, status: status }, this.httpOptions);
@@ -168,8 +170,8 @@ export class HttpService {
 
 
 
-  getUserRequest(): Observable<any> {
-    return this.http.get(this.url + '/cesco/getRequestData', this.httpOptions);
+  getUserRequest(search_info,start_date,end_date): Observable<any> {
+    return this.http.post(this.url + '/cesco/getRequestData',{search_info:search_info,start_date:start_date,end_date:end_date} , this.httpOptions);
   }
 
 

@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-pending-request',
@@ -21,6 +21,16 @@ export class PendingRequestComponent implements OnInit {
   view_obj;
   resp_msg;
   searchControl: FormControl = new FormControl();
+
+   //search calendar
+   search_name: FormControl = new FormControl();
+   range = new FormGroup({
+     start_date: new FormControl(),
+     end_date: new FormControl()
+   });
+   allData;
+   startDate;
+   endDate;
   constructor( 
     private modalService: NgbModal,
     private toastr: ToastrService,
@@ -65,7 +75,11 @@ export class PendingRequestComponent implements OnInit {
   }
 
     interpreterRequestData(){
-      this.service.interpreterRequestList(this.roleId,this.userId,'2')
+      this.allData = this.search_name.value;
+    this.startDate = this.range.value.start_date;
+    this.endDate = this.range.value.end_date;
+      this.service.interpreterRequestList(this.roleId,this.userId,'2',this.allData,
+      this.startDate,this.endDate)
       .subscribe(res => {
         if(res['status']=='1'){
           console.log("api response",res);
