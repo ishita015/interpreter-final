@@ -1,174 +1,162 @@
 <div class="">
-    <div class="breadcrumb">
-      <ul class="heading">
-          <li><a>All Request</a></li>
-          <li>List</li>
-      </ul>
+  <div class="breadcrumb">
+    <ul class="heading">
+      <li><a>All Request</a></li>
+      <li>List</li>
+    </ul>
   </div>
-    
-    <div class="separator-breadcrumb border-top"></div>
-  
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <input id="search" placeholder="Email" [formControl]="search_email"  class="form-control form-control-rounded" type="text">
-          </div>
+
+  <div class="separator-breadcrumb border-top"></div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input id="search" placeholder="Email" (keyup)="interpreterAllRequest($event.target.value)"
+          [formControl]="search_email" class="form-control form-control-rounded" type="text">
+      </div>
     </div>
-    
-  <div class="col-md-2">
-    <div class="form-group">
 
-      <select class="form-control form-control-rounded" [formControl]="request_status">
-        <option value="">Select Status</option>
+    <div class="col-md-2">
+      <div class="form-group">
 
-        <option class="black-text bg-warning" value="1">New Request</option>
-        <option class="bg-black text-white" value="2">Broadcasting</option>
-        <option class="bg-primary text-white" value="3">In Progress</option>
-        <option class="bg-success black-text" value="4">Completed</option>
-        <option class="bg-danger text-white" value="5">Cancelled</option>
-        <option class="bg-default black-text" value="6">Unable To Fill</option>
+        <select class="form-control form-control-rounded" (keyup)="interpreterAllRequest($event.target.value)"
+          [formControl]="request_status">
+          <option value="">Select Status</option>
 
-        <!-- <option class="text-warning"  value="1">New Request</option>
-        <option class="assign-color" value="2">Broadcasting</option>
-        <option class="text-primary" value="3">In Progress</option>
-        <option class="text-success" value="4">Completed</option>
-        <option class="text-danger" value="5">Cancelled</option> -->
+          <option class="black-text bg-warning" value="1">New Request</option>
+          <option class="bg-black text-white" value="2">Broadcasting</option>
+          <option class="bg-primary text-white" value="3">In Progress</option>
+          <option class="bg-success black-text" value="4">Completed</option>
+          <option class="bg-danger text-white" value="5">Cancelled</option>
+          <option class="bg-default black-text" value="6">Unable To Fill</option>
+
+          <!-- <option class="text-warning" value="1">New Request</option>
+  <option class="assign-color" value="2">Broadcasting</option>
+  <option class="text-primary" value="3">In Progress</option>
+  <option class="text-success" value="4">Completed</option>
+  <option class="text-danger" value="5">Cancelled</option> -->
 
 
 
-    </select>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-4 dummy_text">
-    <mat-form-field appearance="fill">
-      <!-- <mat-label>Enter a date range</mat-label> -->
-      <mat-date-range-input [formGroup]="range" 
-      [rangePicker]="picker">
-        <input matStartDate formControlName="start_date" (dateChange)="interpreterAllRequest($event.target.value)" placeholder="Start date">
-        <input matEndDate formControlName="end_date" (dateChange)="interpreterAllRequest($event.target.value)" placeholder="End date">
+    <div class="col-md-4 dummy_text">
+      <mat-form-field appearance="fill">
+        <!-- <mat-label>Enter a date range</mat-label> -->
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start_date" (dateChange)="interpreterAllRequest($event.target.value)"
+            placeholder="Start date">
+          <input matEndDate formControlName="end_date" (dateChange)="interpreterAllRequest($event.target.value)"
+            placeholder="End date">
 
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
-  </div>
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
 
 
-  <!-- <div class="col-md-2">
-    <button class="btn btn-outline-secondary"  (click)="interpreterAllRequest()">Apply</button>  
+    <!-- <div class="col-md-2">
+  <button class="btn btn-outline-secondary" (click)="interpreterAllRequest()">Apply</button>
   </div> -->
 
-  
-        <div class="col-md-12 lang_block">
-            <div class="card  o-hidden">
-              <ngx-datatable *ngIf="filteredUser?.length"
-                style="height: 500px; box-shadow: none"
-                class="material fullscreen"
-                [columnMode]="'force'"
-                [headerHeight]="50"
-                [footerHeight]="50"
-                [rowHeight]="60"
-                [scrollbarV]="true"
-                [rows]="filteredUser">
-                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
-                  <ng-template ngx-datatable-header-template>
-                   S.No
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                      {{rowIndex +1}}
-                  </ng-template>
-                 </ngx-datatable-column>
-  
-                 <ngx-datatable-column name="Email" prop="email">
-                    <ng-template ngx-datatable-header-template>
-                        Email
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.email}}
-                    </ng-template>
-                  </ngx-datatable-column>
+
+    <div class="col-md-12 lang_block">
+      <div class="card o-hidden">
+        <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
+          [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+          [rows]="filteredUser">
+          <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+            <ng-template ngx-datatable-header-template>
+              S.No
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+              {{rowIndex +1}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Email" prop="email">
+            <ng-template ngx-datatable-header-template>
+              Email
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.email}}
+            </ng-template>
+          </ngx-datatable-column>
 
 
-                 <ngx-datatable-column name="Language" prop="lang_name">
-                  <ng-template ngx-datatable-header-template>
-                      Language
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.lang_name}}
-                  </ng-template>
-                </ngx-datatable-column>
+          <ngx-datatable-column name="Language" prop="lang_name">
+            <ng-template ngx-datatable-header-template>
+              Language
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.lang_name}}
+            </ng-template>
+          </ngx-datatable-column>
 
 
-                  
-            
-                 <ngx-datatable-column name="Cell Phone" prop="cell_phone">
-                    <ng-template ngx-datatable-header-template>
-                      Cell Phone
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.cell_phone | mask: '(000) 000-0000'}}
-                    </ng-template>
-                  </ngx-datatable-column>
-               
-                  <ngx-datatable-column>
-                    <ng-template ngx-datatable-header-template>
-                      <span title="Appointment date"> Appointment date</span>
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      <span title="{{row.date}}"> {{row.date | date:'MM/dd/yyyy' }}</span>
-                    </ng-template>  
-                </ngx-datatable-column>
 
-                <ngx-datatable-column name="Site Contact" prop="site_contact">
-                    <ng-template ngx-datatable-header-template>
-                        Site Contact
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.site_contact | mask: '(000) 000-0000'}}
-                    </ng-template>
-                  </ngx-datatable-column>
-                 
-              <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
-                <ng-template ngx-datatable-header-template>Status
-                </ng-template>
-                
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                  
-                    <span class="text-warning" *ngIf="row.status==1">New Request</span>
-                    <span class="assign-color" *ngIf="row.status==2" >Broadcasting</span>
-                    <span class="text-primary" *ngIf="row.status==3" >In Progress</span>
-                    <span  class="text-success" *ngIf="row.status==4" >Completed</span>
-                    <span  class="text-danger" *ngIf="row.status==5">Canceled</span>
-                    <!-- <span  class="text-danger" >Unable to fill</span> -->
-                </ng-template>
-               
-            </ngx-datatable-column>
-            
-            
-            <ngx-datatable-column [width]="120" [sortable]="false" >
-              <ng-template ngx-datatable-header-template>Action
-              </ng-template>
-              
-              <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" >
-                <button class="btn btn-outline-secondary mr-1" 
-                (click)="viewDetail(row.id)">View</button>  
-              </ng-template>
-            </ngx-datatable-column>
-            </ngx-datatable>
-          </div>
-          <ng-container *ngIf="list_Obj?.length <= 0">
-              No Data Found
-          </ng-container>
-        </div>
-          
+
+          <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+            <ng-template ngx-datatable-header-template>
+              Cell Phone
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.cell_phone | mask: '(000) 000-0000'}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column>
+            <ng-template ngx-datatable-header-template>
+              <span title="Appointment date"> Appointment date</span>
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.date}}"> {{row.date | date:'MM/dd/yyyy' }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Site Contact" prop="site_contact">
+            <ng-template ngx-datatable-header-template>
+              Site Contact
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.site_contact | mask: '(000) 000-0000'}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+            <ng-template ngx-datatable-header-template>Status
+            </ng-template>
+
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+
+              <span class="text-warning" *ngIf="row.status==1">New Request</span>
+              <span class="assign-color" *ngIf="row.status==2">Broadcasting</span>
+              <span class="text-primary" *ngIf="row.status==3">In Progress</span>
+              <span class="text-success" *ngIf="row.status==4">Completed</span>
+              <span class="text-danger" *ngIf="row.status==5">Canceled</span>
+              <!-- <span class="text-danger" >Unable to fill</span> -->
+            </ng-template>
+
+          </ngx-datatable-column>
+
+
+          <ngx-datatable-column [width]="120" [sortable]="false">
+            <ng-template ngx-datatable-header-template>Action
+            </ng-template>
+
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <button class="btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
       </div>
-  </div>  
- 
-  
- 
-  
-  
-  
-  
-  
+      <ng-container *ngIf="list_Obj?.length <= 0">
+        No Data Found
+      </ng-container>
+    </div>
+
+  </div>
+</div>
