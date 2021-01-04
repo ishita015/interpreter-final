@@ -49,13 +49,13 @@ export class LanguagesAddComponent implements OnInit {
         console.log("api response",res);
         this.language_Obj = res
         this.language_Msg = res
-        this.toastr.success(this.language_Msg.message,'', { timeOut: 1000 });
+        this.toastr.success(this.language_Msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
         this.router.navigate(['/languages/list']);  
       }else{
         console.log("api response",res);
         this.language_Obj = res
         this.language_Msg = res
-        this.toastr.success(this.language_Msg.message,'', { timeOut: 1000 });
+        this.toastr.success(this.language_Msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
         // this.router.navigate(['/login'])
         this.router.navigate(['/languages/list']);  
       }

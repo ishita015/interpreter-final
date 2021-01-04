@@ -137,7 +137,7 @@ export class AcceptRequestComponent implements OnInit {
           .subscribe(res => {
             this.msg = res;
             if (res['status'] == '1') {
-              this.toastr.success(this.msg.message, '', { timeOut: 1000 });
+              this.toastr.success(this.msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
 
               this.router.navigate(['/interpreter-request/completed-list']);
             }
@@ -162,7 +162,7 @@ export class AcceptRequestComponent implements OnInit {
           // this.msg.message = res;
           console.log("reminder form", this.reminder);
           if (res['status'] == 1) {
-            this.toastr.success(this.reminder.message, '', { timeOut: 2000 });
+            this.toastr.success(this.reminder.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
             this.router.navigate(['/interpreter-request/accept-list']);
           }
         })
@@ -184,10 +184,10 @@ export class AcceptRequestComponent implements OnInit {
           // this.msg.message = res;
           console.log("reminder form", this.reminder);
           if (res['status'] == 1) {
-            this.toastr.success(this.resp_msg.message, '', { timeOut: 2000 });
+            this.toastr.success(this.resp_msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
             this.router.navigate(['/interpreter-request/accept-list']);
           }else{
-            this.toastr.error(this.resp_msg.message, '', { timeOut: 2000 });
+            this.toastr.error(this.resp_msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
             this.router.navigate(['/interpreter-request/accept-list']);
           }
         })
@@ -243,7 +243,7 @@ export class AcceptRequestComponent implements OnInit {
         this.router.navigate(['/user-request/request-view',request_id]);
       }else{
         this.resp_msg = res;
-        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
       }
         
     })

@@ -106,7 +106,7 @@ export class LanguagesListComponent implements OnInit {
                     .subscribe(res => {
                         this.language_msg = res;
                         console.log("api",res );
-                        this.toastr.success(this.language_msg.message,'', { timeOut: 1000 });
+                        this.toastr.success(this.language_msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
                         this.languageList();
                     })
             }, (reason) => {

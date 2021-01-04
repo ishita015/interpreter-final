@@ -125,10 +125,10 @@ export class AdminProfileComponent implements OnInit {
         localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
         this.admin_Obj = res;
         this.admin_Msg = res;
-        this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+        this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
       }else{
         this.admin_Msg = res;
-        this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+        this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
     });
   }

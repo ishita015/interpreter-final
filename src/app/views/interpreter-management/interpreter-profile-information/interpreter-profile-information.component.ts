@@ -643,7 +643,7 @@ check_dob(e) {
   if (d <= check) {
   }
   else {
-    this.toastr.error("Date should be valid and atleast 18 year old.", '', { timeOut: 1000 });
+    this.toastr.error("Date should be valid and atleast 18 year old.", '', { timeOut: 1000, positionClass: 'toast-top-center' });
     this.generalForm.controls['dob'].setValue('');
   }
 }
@@ -667,10 +667,10 @@ updateInterpreter(){
   this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       this.gen_Msg=res;
       if(res['status'] == 1){
-        this.toastr.success( this.gen_Msg.message,'', { timeOut: 1000 });
+        this.toastr.success( this.gen_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
         this.detailProfile();
       }else{
-        this.toastr.error( this.gen_Msg.message,'', { timeOut: 1000 });
+        this.toastr.error( this.gen_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
       }
     });
   }
@@ -713,14 +713,14 @@ updateInterpreter(){
             console.log("api response",res);
             this.banking_Obj = res
             this.banking_Msg = res
-            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
             this.detailProfile();
             // this.router.navigate(['/languages/list']);  
           }else{
             console.log("api response",res);
             this.banking_Obj = res
             this.banking_Msg = res
-            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
             // this.router.navigate(['/languages/list']);  
           }
     
@@ -746,13 +746,13 @@ updateInterpreter(){
             console.log("api response",res);
             this.banking_Obj = res
             this.banking_Msg = res
-            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
             // this.router.navigate(['/languages/list']);  
           }else{
             console.log("api response",res);
             this.banking_Obj = res
             this.banking_Msg = res
-            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000 });
+            this.toastr.success(this.banking_Msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
             // this.router.navigate(['/languages/list']);  
           }
     
@@ -966,10 +966,10 @@ getAddress(latitude, longitude) {
     this.service.interpreterDocupload(formData).subscribe(res => {
       this.skill_msg=res;
       if(res['status']=='1'){
-        this.toastr.success(this.skill_msg.message,'', { timeOut: 1000 });
+        this.toastr.success(this.skill_msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
         this.detailProfile();
       }else{
-        this.toastr.error(this.skill_msg.message,'', { timeOut: 1000 });
+        this.toastr.error(this.skill_msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
     });
   }
@@ -1079,11 +1079,11 @@ getAddress(latitude, longitude) {
       if(res['status']== 1){
         console.log("api response",res);
         this.ass_Obj = res
-        this.toastr.success(this.ass_Obj.message,'', { timeOut: 1000 });
+        this.toastr.success(this.ass_Obj.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
       }else{
         console.log("api response",res);
         this.ass_Obj = res
-        this.toastr.error(this.ass_Obj.message,'', { timeOut: 1000 });
+        this.toastr.error(this.ass_Obj.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
     });
 

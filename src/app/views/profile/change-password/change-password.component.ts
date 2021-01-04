@@ -77,7 +77,7 @@ export class ChangePasswordComponent implements OnInit {
           console.log("api response",res);
           this.admin_Obj = res;
           this.admin_Msg = res;
-          this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000 });
+          this.toastr.success(this.admin_Msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
           this.adminProfileForm.reset();
           // this.router.navigate(['/languages/list']);  
         // }

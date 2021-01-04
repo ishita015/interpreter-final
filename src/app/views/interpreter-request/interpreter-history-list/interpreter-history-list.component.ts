@@ -70,7 +70,7 @@ export class InterpreterHistoryListComponent implements OnInit {
         this.filteredUser = this.interpreter_obj;
       }else{
         this.resp_msg = res;
-        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
       }
     })
   }

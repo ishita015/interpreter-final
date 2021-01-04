@@ -71,7 +71,7 @@ submitEdit(){
                     this.language_Obj = res
                     this.language_Msg = res;
                     console.log("api response", this.language_Obj);
-                    this.toastr.success( this.language_Msg.message,'', { timeOut: 1000 });
+                    this.toastr.success( this.language_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
                     this.router.navigate(['/languages/list']);  
         });
       }

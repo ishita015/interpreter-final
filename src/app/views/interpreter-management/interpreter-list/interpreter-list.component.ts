@@ -137,7 +137,7 @@ export class InterpreterListComponent implements OnInit {
           .subscribe(res => {
             this.userdelete_msg = res;
             console.log("api", res);
-            this.toastr.success(this.userdelete_msg.message, '', { timeOut: 1000 });
+            this.toastr.success(this.userdelete_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
             // this.languageList();
           })
       }, (reason) => {
@@ -184,7 +184,7 @@ export class InterpreterListComponent implements OnInit {
     this.service.statusUpdate(status, id)
       .subscribe(res => {
         this.status_msg = res;
-        this.toastr.success(this.status_msg.message, '', { timeOut: 1000 });
+        this.toastr.success(this.status_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
         this.interpreterList('1');
       })
   }
