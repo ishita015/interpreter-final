@@ -242,7 +242,7 @@ export class InterpreterAddComponent implements OnInit {
         this.userForm.get('username').patchValue(this.username_Obj);
       }
       else {
-        this.toastr.success(res['message'], '', { timeOut: 2000 });
+        this.toastr.success(res['message'], '', { timeOut: 2000, positionClass: 'toast-top-center' });
       }
     });
   }
@@ -286,7 +286,7 @@ export class InterpreterAddComponent implements OnInit {
     if (d <= check) {
     }
     else {
-      this.toastr.error("Date should be valid and atleast 18 year old.", '', { timeOut: 1000 });
+      this.toastr.error("Date should be valid and atleast 18 year old.", '', { timeOut: 1000, positionClass: 'toast-top-center' });
       this.userForm.controls['dob'].setValue('');
     }
   }
@@ -340,7 +340,7 @@ export class InterpreterAddComponent implements OnInit {
       if (res['status'] == '1') {
       this.user_Obj = res
       this.user_Msg = res
-      this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
+      this.toastr.success(this.user_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
       this.router.navigate(['/interpreter/interpreter-list']);
       }
     });

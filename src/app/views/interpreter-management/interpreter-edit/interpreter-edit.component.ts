@@ -214,10 +214,10 @@ export class InterpreterEditComponent implements OnInit {
         if(res['status'] == 1){
           this.useredit_Obj = res
           console.log("api response", this.useredit_Obj);
-          this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+          this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
           this.router.navigate(['/interpreter/interpreter-list']);
         }else{
-          this.toastr.error( this.useredit_Msg.message,'', { timeOut: 1000 });
+          this.toastr.error( this.useredit_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
           this.router.navigate(['/interpreter/interpreter-list']);  
         }                        
     });
@@ -229,7 +229,7 @@ export class InterpreterEditComponent implements OnInit {
       if(res['status'] == 1){
         this.language_Obj = res['data'];
       }else{
-        this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 });
+        this.toastr.success( this.useredit_Msg.message,'', { timeOut: 1000 , positionClass: 'toast-top-center'});
         this.router.navigate(['/interpreter/interpreter-list']); 
       }
     });

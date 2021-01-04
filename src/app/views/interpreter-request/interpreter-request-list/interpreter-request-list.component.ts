@@ -145,7 +145,7 @@ interpreterReply(ris_id,res_type,modal){
               console.log("res---", res)
               this.status_msg = res;
               if (res['status'] == '1') {
-                this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
+                this.toastr.success(this.status_msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
                 // location.reload();
 
                 if(res_type=='2'){
@@ -177,7 +177,7 @@ viewDetail(request_id){
       this.router.navigate(['/user-request/request-view',request_id])
     }else{
       this.resp_msg = res;
-      this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+      this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
     }
       
   })

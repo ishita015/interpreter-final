@@ -115,7 +115,7 @@ viewDetail(request_id){
       this.router.navigate(['/user-request/request-view',request_id])
     }else{
       this.resp_msg = res;
-      this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+      this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
     }   
   })
 }
