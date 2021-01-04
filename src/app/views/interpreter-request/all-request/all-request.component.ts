@@ -32,7 +32,9 @@ export class AllRequestComponent implements OnInit {
   resp_msg;
   status;
   email_formdata;
+  status_formdata;
   searchEmail = '';
+  searchStatus = '';
   request_status: FormControl = new FormControl();
   searchControl: FormControl = new FormControl();
   search_email: FormControl = new FormControl();
@@ -98,11 +100,14 @@ export class AllRequestComponent implements OnInit {
         this.endDate = this.range.value.end_date;
 
         this.status = this.request_status.value ;
+      
+        this.searchStatus = this.status ;
+        console.log("statusssss",this.searchStatus );
          this.email_formdata = this.search_email.value;
          this.searchEmail = this.email_formdata ;
         //  alert(this.status);
 
-         this.service.interpreterAllRequestList(this.status,this.searchEmail,this.startDate,this.endDate)
+         this.service.interpreterAllRequestList(this.searchStatus,this.searchEmail,this.startDate,this.endDate)
           .subscribe(res => {
             if (res['status'] == '1') {
               console.log("api response", res);
