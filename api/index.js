@@ -146,6 +146,12 @@ app.get('/cesco/getRole', interpreterController.getRole);
 
 /* interpreter api start */ 
 
+app.post('/cesco/saveCalculation', interpreterController.saveCalculation);
+app.post('/cesco/updateCalculation', interpreterController.updateCalculation);
+app.get('/cesco/getPriceCalculation', interpreterController.getPriceCalculation);
+
+
+
 
 app.post('/cesco/updateBankingInfo', interpreterController.updateBankingInfo);
 
@@ -262,7 +268,7 @@ function percentage(percent, total) {
     return ((percent/ 100) * total).toFixed(2)
 }
 
-let percentResult = percentage(10, 450);
+let percentResult = percentage(20, 450);
 console.log("percentResult", percentResult)
 
 //calculation part end

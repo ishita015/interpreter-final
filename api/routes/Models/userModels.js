@@ -253,12 +253,21 @@ class userClass {
 
 
 
-    getPendingRequestList(){
+    getPendingRequestList(serach,start_date,end_date){
         return new Promise(function(resolve, reject) {
             var sql = "SELECT ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='2'";
-            // if (role_id!=1) {
-            //     sql +=" && ir.Interpreter_id='"+user_id+"'";
-            // }
+            
+
+            if( serach != "") {
+                sql += " && (ris.email LIKE  '%" + serach + "%')";
+            }
+            if((start_date != '0' && end_date != '0') ) {
+                let sd = start_date.replace(/T/, ' ').replace(/\..+/, '');  
+                let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');      
+                sql += " && ris.updated_at BETWEEN '"+sd+"' AND '"+ed+"'";
+            }
+            sql += " ORDER BY ris.id DESC"; 
+
 
             console.log("check sql",sql);
             con.query(sql, function(err, result) {

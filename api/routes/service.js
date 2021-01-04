@@ -1060,7 +1060,23 @@ module.exports.getAllAssignment = async function(req, res) {
 
 // get form data
 module.exports.getRequestData = function(req, res) {
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1' ORDER BY ris.id DESC";
+    let serach = req.body.search_info ? req.body.search_info : ""; 
+    let start_date = req.body.start_date ? req.body.start_date : '0';
+    let end_date = req.body.end_date ? req.body.end_date : '0';
+
+    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1'";
+
+    if( serach != "") {
+        sql += " && (ris.email LIKE  '%" + serach + "%')";
+        // sql += " && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ";          
+    }
+    if((start_date != '0' && end_date != '0') ) {
+        let sd = start_date.replace(/T/, ' ').replace(/\..+/, '');  
+        let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');      
+        sql += " && ris.updated_at BETWEEN '"+sd+"' AND '"+ed+"'";
+    }
+    sql += " ORDER BY ris.id DESC"; 
+
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {

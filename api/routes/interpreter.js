@@ -410,7 +410,118 @@ module.exports.addInterpreterLanguage = async function(req, res) {
 };
 
    
-        
+    
+
+
+
+
+// add bank info
+module.exports.saveCalculation = async function(req, res) {
+    // let user_id = req.body.user_id; // interpreter id
+    let after_hours = req.body.after_hours ? req.body.after_hours : '0';
+    let weekend = req.body.weekend ? req.body.weekend : '0';
+    let holidays = req.body.holidays ? req.body.holidays : '0';
+    let last_minute = req.body.last_minute ? req.body.last_minute : '0';
+    let rush_fee = req.body.rush_fee ? req.body.rush_fee : '0';
+    let weekend_after_hours = req.body.weekend_after_hours ? req.body.weekend_after_hours : '0';
+    let holiday_after_hours = req.body.holiday_after_hours ? req.body.holiday_after_hours : '0';
+    
+    
+    var sql = "INSERT INTO price_calculation(after_hours,weekend,holidays,last_minute,rush_fee,weekend_after_hours,holiday_after_hours)VALUES('"+after_hours+"','"+weekend+"','"+holidays+"','"+last_minute+"','"+rush_fee+"','"+weekend_after_hours+"','"+holiday_after_hours+"')";
+    console.log("bank", sql)
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        if(!err){
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                message: "Added successfully"
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Server Error, please try again"
+            });
+            return true;
+        }
+    });
+};
+
+   
+
+
+// update bank info
+module.exports.updateCalculation = async function(req, res) {
+    
+    let after_hours = req.body.after_hours ? req.body.after_hours : '0';
+    let weekend = req.body.weekend ? req.body.weekend : '0';
+    let holidays = req.body.holidays ? req.body.holidays : '0';
+    let last_minute = req.body.last_minute ? req.body.last_minute : '0';
+    let rush_fee = req.body.rush_fee ? req.body.rush_fee : '0';
+    let weekend_after_hours = req.body.weekend_after_hours ? req.body.weekend_after_hours : '0';
+    let holiday_after_hours = req.body.holiday_after_hours ? req.body.holiday_after_hours : '0';
+    
+    
+    var sql = "UPDATE price_calculation SET after_hours='"+after_hours+"',weekend='"+weekend+"',holidays='"+holidays+"',last_minute='"+last_minute+"',rush_fee='"+rush_fee+"',weekend_after_hours='"+weekend_after_hours+"',holiday_after_hours='"+holiday_after_hours+"' WHERE id='1";
+    console.log("bank", sql);
+
+    con.query(sql, function(err, result) {
+        if(!err){
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                message: "Update successfully"
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "Server Error, please try again"
+            });
+            return true;
+        }
+    });
+};
+
+   
+       
+       
+
+
+module.exports.getPriceCalculation = async function(req, res) {
+    
+    var sql = "SELECT * FROM price_calculation WHERE id='1'";
+
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+   
+
  
 
 
@@ -2155,8 +2266,12 @@ module.exports.getRequestForInterpreter = async function(req, res) {
 
 // get all pending request
 module.exports.getAllPendingRequest = async function(req, res) {
+    let serach = req.body.search_info ? req.body.search_info : ""; 
+    let start_date = req.body.start_date ? req.body.start_date : '0';
+    let end_date = req.body.end_date ? req.body.end_date : '0';
+
     var mainArr = [];
-    var resultdata = await usermodel.getPendingRequestList();
+    var resultdata = await usermodel.getPendingRequestList(serach,start_date,end_date);
     if (resultdata != "" && resultdata != undefined) {
         console.log("resultdata", resultdata)
         var mainObj = {};
