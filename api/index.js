@@ -245,6 +245,33 @@ app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 // api end
 
 
+// 10% in After hours (5 pm to 8 am)
+// 15% in Weekend
+// 20% on Holidays
+// 15% Last minute(Request for LOTS(Languages other than Spanish) and ASL 3 days before date of appointment, for Spanish 2 days before)
+// 20% Rush Fee ( 2 days before LOTS and ASL for Spanish 1 day before)
+// 30% Weekend+ After Hours
+// 30% Holiday + After Hours
+
+
+
+//calculation part start
+
+
+function percentage(percent, total) {
+    return ((percent/ 100) * total).toFixed(2)
+}
+
+let percentResult = percentage(10, 450);
+console.log("percentResult", percentResult)
+
+//calculation part end
+
+
+
+
+
+
 
 
 
@@ -1092,18 +1119,18 @@ imgDownload();
 // var fs = require('fs'),
     // request = require('request');
 
-var download = function(uri, filename, callback){
-    requests.head(uri, function(err, res, body){
-    console.log('content-type:', res.headers['content-type']);
-    console.log('content-length:', res.headers['content-length']);
+// var download = function(uri, filename, callback){
+//     requests.head(uri, function(err, res, body){
+//     console.log('content-type:', res.headers['content-type']);
+//     console.log('content-length:', res.headers['content-length']);
 
-    requests(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-  });
-};
+//     requests(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+//   });
+// };
 
-download('http://192.168.0.4:3300/user/image-1608011520859.jpg', 'google.png', function(){
-  console.log('done');
-});
+// download('http://192.168.0.4:3300/user/image-1608011520859.jpg', 'google.png', function(){
+//   console.log('done');
+// });
 
 
 

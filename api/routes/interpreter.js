@@ -2054,6 +2054,16 @@ module.exports.interpreterRequestComplete = async function(req, res) {
         let email = requestData[0].email;
         let interpreter = requestData[0].first_name+" "+requestData[0].last_name;
         
+
+
+        //calculation part start
+
+            
+
+        //calculation part end
+
+
+
         common.sendRatingPageLinkEmail(requester_name,email,interpreter,token);
 
         //update status

@@ -11,14 +11,14 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <input id="search" placeholder="Email" [formControl]="search_email"  class="form-control form-control-rounded" type="text">
+            <input id="search" placeholder="Email" (keyup)="interpreterAllRequest($event.target.value)" [formControl]="search_email"  class="form-control form-control-rounded" type="text">
           </div>
     </div>
     
   <div class="col-md-2">
     <div class="form-group">
 
-      <select class="form-control form-control-rounded" [formControl]="request_status">
+      <select class="form-control form-control-rounded" (keyup)="interpreterAllRequest($event.target.value)" [formControl]="request_status">
         <option value="">Select Status</option>
 
         <option class="black-text bg-warning" value="1">New Request</option>
