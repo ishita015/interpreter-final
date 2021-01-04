@@ -103,8 +103,11 @@ export class RequestListComponent implements OnInit {
         console.log("listttttttt", this.list_Obj);
         this.filteredUser = this.list_Obj;
       }else{
-        this.resp_msg = res;
-        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
+        this.list_Obj = [];
+        this.userData = [];
+        this.filteredUser = [];
+        // this.resp_msg = res;
+        // this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
       }
         
     });
