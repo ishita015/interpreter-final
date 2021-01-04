@@ -1089,6 +1089,25 @@ imgDownload();
 
 
 
+// var fs = require('fs'),
+    // request = require('request');
+
+var download = function(uri, filename, callback){
+    requests.head(uri, function(err, res, body){
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+
+    requests(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  });
+};
+
+download('http://192.168.0.4:3300/user/image-1608011520859.jpg', 'google.png', function(){
+  console.log('done');
+});
+
+
+
+
 
 
 /* image upload */

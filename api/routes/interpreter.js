@@ -3131,18 +3131,18 @@ module.exports.updateInterpreter = async function(req, res) {
         mobile: 'required',
         country_code: 'required',
         gender: 'required',
-        company_name: 'required',
-        zipCode: 'required',
-        international_phone_no: 'required',
+        // company_name: 'required',
+        // zipCode: 'required',
+        // international_phone_no: 'required',
         dob: 'required',
-        social_security_no: 'required',
-        state: 'required',
-        city: 'required',        
+        // social_security_no: 'required',
+        // state: 'required',
+        // city: 'required',        
         // address: 'required',
         // apartment: 'required',
         // latitude: 'required',
         // longitude: 'required',
-        country: 'required',
+        // country: 'required',
         // timezone: 'required',
         // password: 'required',
     });
@@ -3171,18 +3171,18 @@ module.exports.updateInterpreter = async function(req, res) {
     let mobile = req.body.mobile;
     let country_code = req.body.country_code;    
     
-    let international_phone_no = req.body.international_phone_no;
-    let country = req.body.country;
+    let international_phone_no = req.body.international_phone_no ? req.body.international_phone_no : '0';
+    let country = req.body.country ? req.body.country : '';
     let dob = req.body.dob;
-    let company_name = req.body.company_name;
-    let gender = req.body.gender;
+    let company_name = req.body.company_name ? req.body.company_name : '';
+    let gender = req.body.gender ? req.body.gender : '';
     let state = req.body.state ? req.body.state : "";
-    let social_security_no = req.body.social_security_no;
-    let city = req.body.city;
+    let social_security_no = req.body.social_security_no ? req.body.social_security_no : '';
+    let city = req.body.city ? req.body.city : '';
     let apartment = "";
     let timezone = req.body.timezone ? req.body.timezone : "";
     let other_gender = req.body.other_gender ? req.body.other_gender : "";
-    let zipCode = req.body.zipCode;
+    let zipCode = req.body.zipCode ? req.body.zipCode : '';
     
 
 
