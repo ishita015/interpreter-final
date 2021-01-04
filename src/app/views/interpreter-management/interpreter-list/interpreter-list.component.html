@@ -21,7 +21,6 @@
         <!-- <mat-label>Enter a date range</mat-label> -->
         <mat-date-range-input [formGroup]="range" 
         [rangePicker]="picker">
-
           <input matStartDate formControlName="start_date" (dateChange)="interpreterList($event.target.value)" placeholder="Start date">
           <input matEndDate formControlName="end_date" (dateChange)="interpreterList($event.target.value)" placeholder="End date">
 

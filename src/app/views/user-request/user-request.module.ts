@@ -12,6 +12,10 @@ import { RequestDetailComponent } from './request-detail/request-detail.componen
 import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { PendingRequestComponent } from './pending-request/pending-request.component';
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     RequestListComponent, 
@@ -23,6 +27,9 @@ import { PendingRequestComponent } from './pending-request/pending-request.compo
     FormsModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     NgxMaskModule.forRoot(),
     AgmCoreModule.forRoot({
       // please get your own API key here:

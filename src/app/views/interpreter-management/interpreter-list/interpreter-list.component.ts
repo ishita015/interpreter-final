@@ -35,8 +35,9 @@ export class InterpreterListComponent implements OnInit {
 
   Start_Date;
   End_Date;
-  search_name: FormControl = new FormControl();
 
+  //search calendar
+  search_name: FormControl = new FormControl();
   range = new FormGroup({
     start_date: new FormControl(),
     end_date: new FormControl()
@@ -104,15 +105,9 @@ export class InterpreterListComponent implements OnInit {
   
 
   interpreterList(e) {
-  
-    // this.range.value.start_date = e;
-    console.log("startDateaaaaaaaaaa", this.range.value.start_date );
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;
-    console.log("startDate",  this.startDate);
     this.endDate = this.range.value.end_date;
-    console.log("all", this.allData, this.startDate,this.endDate);
-    
     this.service.getInterpreterList(this.id,this.type,this.allData,this.startDate,this.endDate)
     // this.service.getInterpreterList(this.id,this.type)
       .subscribe(res => {

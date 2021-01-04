@@ -19,7 +19,9 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AllRequestComponent } from './all-request/all-request.component';
 import { InterpreterHistoryListComponent } from './interpreter-history-list/interpreter-history-list.component';
 
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [InterpreterRequestListComponent, 
     AcceptRequestComponent, 
@@ -32,6 +34,9 @@ import { InterpreterHistoryListComponent } from './interpreter-history-list/inte
     InterpreterRequestRoutingModule,
     FormsModule,
     NgxDatatableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     NgxMaskModule.forRoot(),
     ReactiveFormsModule,
     SharedComponentsModule,

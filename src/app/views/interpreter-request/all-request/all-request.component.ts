@@ -36,6 +36,16 @@ export class AllRequestComponent implements OnInit {
   request_status: FormControl = new FormControl();
   searchControl: FormControl = new FormControl();
   search_email: FormControl = new FormControl();
+
+  //search calendar
+  search_name: FormControl = new FormControl();
+  range = new FormGroup({
+    start_date: new FormControl(),
+    end_date: new FormControl()
+  });
+  allData;
+  startDate;
+  endDate;
   constructor(  private productService: ProductService,
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -46,7 +56,7 @@ export class AllRequestComponent implements OnInit {
   ngOnInit(){
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
-    this.interpreterAllRequest();
+    this.interpreterAllRequest('1');
     this.searchControl.valueChanges
       .pipe(debounceTime(200))
       .subscribe(value => {
@@ -82,13 +92,17 @@ export class AllRequestComponent implements OnInit {
        /*========== Filter End Here========*/
 
        /*========== All Request List Start Here========*/
-      interpreterAllRequest() {
+      interpreterAllRequest(e) {
+        // this.allData = this.search_name.value;
+        this.startDate = this.range.value.start_date;
+        this.endDate = this.range.value.end_date;
+
         this.status = this.request_status.value ;
          this.email_formdata = this.search_email.value;
          this.searchEmail = this.email_formdata ;
          console.log("status",this.status);
 
-         this.service.interpreterAllRequestList(this.status,this.searchEmail)
+         this.service.interpreterAllRequestList(this.status,this.searchEmail,this.startDate,this.endDate)
           .subscribe(res => {
             if (res['status'] == '1') {
               console.log("api response", res);
