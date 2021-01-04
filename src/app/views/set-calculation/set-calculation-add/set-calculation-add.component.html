@@ -13,19 +13,13 @@
                         <div class="col-md-6 form-group mb-3">
                             <label for="name">After Hours %</label>
                             <input type="text"  onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="after_hours"  placeholder="After Hours %">
-                            <!-- <div *ngIf="adminProfileForm.controls['first_name'].errors && ( !adminProfileForm.controls['first_name'].pristine || submitted ||adminProfileForm.controls['first_name'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['first_name'].errors.required">First Name is required.</div>
-                                <div [hidden]="!adminProfileForm.controls.first_name.hasError('minlength')">First Name length should be minimum 2 characters.</div>
-                              </div> -->
+                            
                         </div>
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="name">Weekend %</label>
                             <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="weekend"  placeholder="Weekend">
-                            <!-- <div *ngIf="adminProfileForm.controls['last_name'].errors && ( !adminProfileForm.controls['last_name'].pristine || submitted ||adminProfileForm.controls['last_name'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['last_name'].errors.required">Last Name is required.</div>
-                                <div [hidden]="!adminProfileForm.controls.last_name.hasError('minlength')">Last Name length should be minimum 2 characters.</div>
-                              </div> -->
+                          
                         </div>
 
 
@@ -36,16 +30,12 @@
                         <div class="col-md-6 form-group mb-3">
                             <label for="address">Holidays %</label>
                             <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="holidays" placeholder="Holidays %">
-                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
-                              </div> -->
+                          
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="address">Last Minute %</label>
                             <input type="text" class="form-control" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="last_minute" placeholder="Last Minute %">
-                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
-                              </div> -->
+                           
                         </div>
                       
                     </div>
@@ -54,16 +44,12 @@
                         <div class="col-md-6 form-group mb-3">
                             <label for="address">Rush Fee %</label>
                             <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="rush_fee" placeholder="Rush Fee %">
-                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
-                              </div> -->
+                            
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="address">Weekend After Hours %</label>
                             <input type="text" class="form-control" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="weekend_after_hours" placeholder="Weekend After Hours %">
-                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
-                              </div> -->
+                            
                         </div>
                       
                     </div>
@@ -72,9 +58,7 @@
                         <div class="col-md-6 form-group mb-3">
                             <label for="address">Holiday After Hours %</label>
                             <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="holiday_after_hours" placeholder="Holiday After Hours %">
-                            <!-- <div *ngIf="adminProfileForm.controls['address'].errors && (!adminProfileForm.controls['address'].pristine || submitted ||adminProfileForm.controls['address'].touched )" class="error-msg">
-                                <div [hidden]="!adminProfileForm.controls['address'].errors.required">Address is required.</div>
-                              </div> -->
+                          
                         </div>
                     </div>
                     <div class="form-group row" *ngIf="detail_Obj == null">
@@ -91,11 +75,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="form-group row">
-                        <div class="col-sm-12">
-                            <button type="button" (click)="admin_profile()" class="btn btn-primary">Update</button>
-                        </div>
-                    </div> -->
                 </form>
             </div>
         </div>
