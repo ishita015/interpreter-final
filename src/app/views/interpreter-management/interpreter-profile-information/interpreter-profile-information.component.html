@@ -169,7 +169,7 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" disabled formControlName="email"
+                                            <input type="text" class="form-control"  formControlName="email"
                                                 placeholder="Email">
                                         </div>
 
@@ -476,29 +476,27 @@
                             </div>
                         </div>
 
-                        <!-- this.detail_Obj.skillSimultOpen!='' && this.detail_Obj.skillSimultOpen!=undefined
-                        {{result.view_permission =='true' ? 'checked' : ''}} -->
 
-                        <!-- checked="(detail_Obj.skillsCommunityDoc !='' && this.detail_Obj.skillsCommunityDoc!=undefined) ? 'checked' : ''" -->
+
                         <div class="row">
                             <div class="col-md-3 form-group mb-3">
                                 <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')"
-                                    class="mr-2" id="community-interpreting"  checked="{{ci == true ? 'checked' : ''}}" name="vehicle1" value=" On Site">
+                                    class="mr-2" id="community-interpreting" name="vehicle1" value=" On Site">
                                 <label for="vehicle1"> Community Interpreting </label><br>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" checked="{{cfi == true ? 'checked' : ''}}" (click)="conferenceShow()" (change)="setCheck($event,'2')"
+                                <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')"
                                     class="mr-2" id="conference-interpreter" name="vehicle1" value="OPI">
                                 <label for="vehicle1"> Conference Interpreter</label><br>
                             </div>
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="certifiedShow()" checked="{{co == true ? 'checked' : ''}}" (change)="setCheck($event,'3')"
+                                <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')"
                                     class="mr-2" id="court-certified" name="vehicle1" value="VRI">
                                 <label for="vehicle1">Court Certified </label><br>
                             </div>
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" checked="{{cto == true ? 'checked' : ''}}" class="mr-2" (click)="courtShow()" id="court-credentialed"
+                                <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed"
                                     (change)="setCheck($event,'4')" name="vehicle1" value="VCI">
                                 <label for="vehicle1"> Court Credentialed</label><br>
                             </div>
@@ -510,24 +508,24 @@
                         <div class="row">
                             <div class="col-md-3 form-group mb-3">
                                 <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified"
-                                    (change)="setCheck($event,'equipment_qualified')" checked="{{eo == true ? 'checked' : ''}}" name="equipment_qualified"
+                                    (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified"
                                     (change)="setCheck($event,'5')" value="1">
                                 <label for="vehicle1"> Equipment Qualified </label><br>
                             </div>
                             <div class="col-md-3 form-group mb-3">
                                 <input type="checkbox" (click)="legalShow()" class="mr-2"
-                                    (change)="setCheck($event,'6')" checked="{{lo == true ? 'checked' : ''}}" id="legal" name="vehicle1" value="ASL">
+                                    (change)="setCheck($event,'6')" id="legal" name="vehicle1" value="ASL">
                                 <label for="vehicle1"> Legal </label><br>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
                                 <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous"
-                                    (change)="setCheck($event,'7')" checked="{{so == true ? 'checked' : ''}}" name="vehicle1" value="ASL">
+                                    (change)="setCheck($event,'7')" name="vehicle1" value="ASL">
                                 <label for="vehicle1"> Simultaneous </label><br>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" checked="{{oo == true ? 'checked' : ''}}" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2"
+                                <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2"
                                     id="other" name="vehicle1" value="ASL">
                                 <label for="vehicle1"> Other </label><br>
                             </div>
@@ -553,7 +551,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
                                 <label for="image">Community Interpreting</label>
-                                <input type="file" class="form-control" formControlName="community_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="community_doc"
                                     (change)="onSingleFileChange($event,'community_doc','1')">
                             </div>
 
@@ -575,7 +573,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
                                 <label for="image">Conference Interpreter</label>
-                                <input type="file" class="form-control" formControlName="conference_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="conference_doc"
                                     (change)="onSingleFileChange($event,'conference_doc','2')">
                             </div>
 
@@ -596,7 +594,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group mb-3" *ngIf="court_open">
                                 <label for="image">Court Certified</label>
-                                <input type="file" class="form-control" formControlName="court_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="court_doc"
                                     (change)="onSingleFileChange($event,'court_doc','3')">
                             </div>
 
@@ -618,7 +616,7 @@
 
                             <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
                                 <label for="image">Court Credentialed</label>
-                                <input type="file" class="form-control" formControlName="credential_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="credential_doc"
                                     (change)="onSingleFileChange($event,'credential_doc','4')">
                             </div>
 
@@ -639,7 +637,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
                                 <label for="image">Equipment Qualified</label>
-                                <input type="file" class="form-control" formControlName="equipment_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="equipment_doc"
                                     (change)="onSingleFileChange($event,'equipment_doc','5')">
                                 <!-- <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)" class="btn btn-primary mr-2">
                                         View Image
@@ -666,7 +664,7 @@
 
                             <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
                                 <label for="image">Legal</label>
-                                <input type="file" class="form-control" formControlName="legal_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="legal_doc"
                                     (change)="onSingleFileChange($event,'legal_doc','6')">
                             </div>
 
@@ -686,7 +684,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
                                 <label for="image">Simultaneous</label>
-                                <input type="file" class="form-control" formControlName="simultaneous_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
                                     (change)="onSingleFileChange($event,'simultaneous_doc','7')">
                             </div>
 
@@ -706,13 +704,13 @@
                         <div class="row" *ngIf="other_open">
                             <div class="col-md-6 form-group mb-3">
                                 <label for="image">Other</label>
-                                <input type="text" class="form-control" formControlName="other_title">
+                                <input type="text" class="form-control" accept=".png, .jpg, .pdf" formControlName="other_title">
                             </div>
 
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="image">Other</label>
-                                <input type="file" class="form-control" formControlName="other_doc"
+                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="other_doc"
                                     (change)="onSingleFileChange($event,'other_doc','8')">
                             </div>
 
