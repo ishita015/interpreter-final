@@ -97,9 +97,9 @@ export class AllRequestComponent implements OnInit {
         this.startDate = this.range.value.start_date;
         this.endDate = this.range.value.end_date;
 
-        this.status = this.request_status.value ;
-         this.email_formdata = this.search_email.value;
-         this.searchEmail = this.email_formdata ;
+        this.status = this.request_status.value;
+        this.email_formdata = this.search_email.value;
+        this.searchEmail = this.email_formdata;
         //  alert(this.status);
 
          this.service.interpreterAllRequestList(this.status,this.searchEmail,this.startDate,this.endDate)
