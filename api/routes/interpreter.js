@@ -417,7 +417,6 @@ module.exports.addInterpreterLanguage = async function(req, res) {
 
 // add bank info
 module.exports.saveCalculation = async function(req, res) {
-    // let user_id = req.body.user_id; // interpreter id
     let after_hours = req.body.after_hours ? req.body.after_hours : '0';
     let weekend = req.body.weekend ? req.body.weekend : '0';
     let holidays = req.body.holidays ? req.body.holidays : '0';
@@ -426,8 +425,12 @@ module.exports.saveCalculation = async function(req, res) {
     let weekend_after_hours = req.body.weekend_after_hours ? req.body.weekend_after_hours : '0';
     let holiday_after_hours = req.body.holiday_after_hours ? req.body.holiday_after_hours : '0';
     
+    let start_date = req.body.start_date ? req.body.start_date : '0';
+    let end_date = req.body.end_date ? req.body.end_date : '0';
+    let type = req.body.type ? req.body.type : '0';
+
     
-    var sql = "INSERT INTO price_calculation(after_hours,weekend,holidays,last_minute,rush_fee,weekend_after_hours,holiday_after_hours)VALUES('"+after_hours+"','"+weekend+"','"+holidays+"','"+last_minute+"','"+rush_fee+"','"+weekend_after_hours+"','"+holiday_after_hours+"')";
+    var sql = "INSERT INTO price_calculation(after_hours,weekend,holidays,last_minute,rush_fee,weekend_after_hours,holiday_after_hours,start_date,end_date,type)VALUES('"+after_hours+"','"+weekend+"','"+holidays+"','"+last_minute+"','"+rush_fee+"','"+weekend_after_hours+"','"+holiday_after_hours+"','"+start_date+"','"+end_date+"','"+type+"')";
     console.log("bank", sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
@@ -496,8 +499,29 @@ module.exports.updateCalculation = async function(req, res) {
 
 
 module.exports.getPriceCalculation = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        type: 'required',       
+    });
     
-    var sql = "SELECT * FROM price_calculation WHERE id='1'";
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    let type = req.body.type;
+
+    var sql = "SELECT * FROM price_calculation WHERE type='"+type+"' ORDER BY DESC LIMIT 1";
 
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
