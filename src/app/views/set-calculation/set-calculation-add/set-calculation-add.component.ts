@@ -26,6 +26,9 @@ export class SetCalculationAddComponent implements OnInit {
     excel_obj;
   excel=[];
   specialOffer = [];
+
+  excel_obj1;
+  excel1=[];
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -234,42 +237,48 @@ export class SetCalculationAddComponent implements OnInit {
   
 
   exportAsXLSX(){
-    this.service.defaultCalExcel('1').subscribe(res => {
-      console.log("excel",res);
+     this.service.defaultCalExcel('1').subscribe(res => {
       if (res['status'] == 1) {
       this.excel_obj = res['data'];
-      console.log("excelssssssssss", this.excel);
-
-      for(let i=0; i < this.excel_obj.length; i++){ 
-        // this.excel.push(row);
-        this.excel.push({
-          After_hours:this.excel_obj[i].after_hours,
-          weekend:this.excel_obj[i].weekend,
-          holidays: this.excel_obj[i].holidays,
-          last_minute:this.excel_obj[i].last_minute,
-          rush_fee:this.excel_obj[i].rush_fee,
-          weekend_after_hours:this.excel_obj[i].weekend_after_hours,
-          holiday_after_hours:this.excel_obj[i].holiday_after_hours,
-          created_at:this.excel_obj[i].created_at
-       })
-      } 
-      console.log("clicked the excel:", this.excel);
-    }
-     });
+      this.excel_obj.forEach(row => {
+      this.excel.push(row);
+    });
     this.excelService.exportAsExcelFile(this.excel, 'sample');
+      }
+   });
   }
+
+    // this.service.defaultCalExcel('1').subscribe(res => {
+    //   console.log("excel",res);
+    //   if (res['status'] == 1) {
+    //   this.excel_obj = res['data'];
+    //   console.log("excelssssssssss", this.excel);
+
+    //   for(let i=0; i < this.excel_obj.length; i++){ 
+    //     // this.excel.push(row);
+    //     this.excel.push({
+    //       After_hours:this.excel_obj[i].after_hours,
+    //       weekend:this.excel_obj[i].weekend,
+    //       holidays: this.excel_obj[i].holidays,
+    //       last_minute:this.excel_obj[i].last_minute,
+    //       rush_fee:this.excel_obj[i].rush_fee,
+    //       weekend_after_hours:this.excel_obj[i].weekend_after_hours,
+    //       holiday_after_hours:this.excel_obj[i].holiday_after_hours,
+    //       created_at:this.excel_obj[i].created_at
+    //    })
+    //   } 
+    //   console.log("clicked the excel:", this.excel);
+    // }
+    //  });
+   
   exportAsXLSX1(){
     this.service.defaultCalExcel('2').subscribe(res => {
-      console.log("specialOffer",res);
-      if (res['status'] == 1) {
-      this.specialOffer = res['data']['0'];
-      console.log("specialOffer", this.specialOffer);
-      // this.data.forEach(row => { 
-      //   this.excel.push(row);
-      // });
-      }
-     });
-    this.excelService.exportAsExcelFile(  this.specialOffer , 'sample');
+      this.excel_obj1 = res['data'];
+      this.excel_obj1.forEach(row => {
+      this.excel1.push(row);
+    });
+    this.excelService.exportAsExcelFile(this.excel1, 'sample');
+   });
   }
  
    
