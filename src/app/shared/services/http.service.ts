@@ -18,6 +18,7 @@ import { AddBanking } from '../models/add-banking';
 import { AddInterpreterProfile } from '../models/add-interpreter-profile';
 import { InterpreterSkills } from '../models/interpreter-skills';
 import { SetCalculationModel } from '../models/set-calculation-model';
+import { SpecialOfferModel } from '../models/special-offer-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -541,11 +542,25 @@ export class HttpService {
   getCalAdd(calInfo: SetCalculationModel): Observable<any> {
     return this.http.post(this.url + '/cesco/saveCalculation', calInfo);
   }
-  getCalDeatil(): Observable<any> {
-    return this.http.get(this.url + '/cesco/getPriceCalculation', this.httpOptions);
+  getCalDeatil(type): Observable<any> {
+    return this.http.post(this.url + '/cesco/getPriceCalculation',{type:type}, this.httpOptions);
   }
   calUpadte(calInfo: SetCalculationModel): Observable<any> {
     return this.http.post(this.url + '/cesco/updateCalculation', calInfo);
   }
   /*=====set calculation Apis End======*/
+
+  /*=====Special Offers Apis Start======*/
+
+  specialAdd(specialInfo: SpecialOfferModel): Observable<any> {
+      return this.http.post(this.url + '/cesco/saveCalculation', specialInfo);
+  }
+  getSpecialDetail(type): Observable<any> {
+    return this.http.post(this.url + '/cesco/getPriceCalculation',{type:type}, this.httpOptions);
+  }
+ 
+
+  /*=====Special Offers Apis End======*/
+  
+
 }

@@ -521,8 +521,8 @@ module.exports.getPriceCalculation = async function(req, res) {
 
     let type = req.body.type;
 
-    var sql = "SELECT * FROM price_calculation WHERE type='"+type+"' ORDER BY DESC LIMIT 1";
-
+    var sql = "SELECT * FROM price_calculation WHERE type='"+type+"' ORDER BY id DESC LIMIT 1";
+    console.log("bank", sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
             res.json({

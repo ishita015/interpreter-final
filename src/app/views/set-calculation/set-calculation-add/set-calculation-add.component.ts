@@ -10,10 +10,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./set-calculation-add.component.scss']
 })
 export class SetCalculationAddComponent implements OnInit {
+  //----------Default Calcution variable ---------------//
   calcutionForm: FormGroup;
   cal_Obj;
   cal_Msg;
   detail_Obj;
+  setcal_form = true;
+
+   //---------- Special Offer variable ---------------//
+   SpecialForm:FormGroup;
+   specialoff_form = false;
+   special_Obj;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -22,13 +30,14 @@ export class SetCalculationAddComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.detailProfile();
-
-    // this.patchValue();
-
+    this.createForm1();
+    this.detailCal();
+    this.detailSpecial();
   }
 
-  /*========== Form Value Start Here========*/
+   /*===================================== Default Calcution Start Here =============================*/
+
+  /*========== set calcution Form Value Start Here========*/
   createForm() {
     this.calcutionForm = this.fb.group({
       after_hours: [''],
@@ -38,19 +47,19 @@ export class SetCalculationAddComponent implements OnInit {
       rush_fee: [''],
       weekend_after_hours: [''],
       holiday_after_hours: [''],
+      type:['1']
     });
   }
-  /*========== Form Value End Here========*/
+  /*==========set calcution Form Value End Here========*/
 
-  /*==========add calcution start Here========*/
-
+  /*==========add set calcution start Here========*/
   addCal() {
     this.service.getCalAdd(this.calcutionForm.value)
       .subscribe(res => {
         if (res['status'] == 1) {
           this.cal_Obj = res;
           this.cal_Msg = res;
-          this.detailProfile();
+          this.detailCal();
           this.toastr.success(this.cal_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
 
         } else {
@@ -60,9 +69,9 @@ export class SetCalculationAddComponent implements OnInit {
         }
       });
   }
-  /*==========add calcution end Here========*/
+  /*==========add set calcution end Here========*/
 
-
+  /*==========edit set calcution start Here========*/
   patchValue() {
     this.calcutionForm.get('after_hours').patchValue(this.detail_Obj.after_hours);
     this.calcutionForm.get('weekend').patchValue(this.detail_Obj.weekend);
@@ -73,17 +82,21 @@ export class SetCalculationAddComponent implements OnInit {
     this.calcutionForm.get('holiday_after_hours').patchValue(this.detail_Obj.holiday_after_hours);
   }
 
-  detailProfile() {
-    this.service.getCalDeatil().subscribe(res => {
+    /*==========edit set calcution start End========*/
+
+    /*==========detail set calcution start Here========*/
+  detailCal() {
+    this.service.getCalDeatil('1').subscribe(res => {
       if (res['status'] == 1) {
         this.detail_Obj = res['data'][0];
         this.patchValue();
       }
     })
   }
+   /*==========detail set calcution End Here========*/
 
+  /*==========Update set calcution Start Here========*/
   updateCal(){
-  
     this.service.calUpadte(this.calcutionForm.value)
     .subscribe(res => {
       if(res['status']== 1){
@@ -95,9 +108,119 @@ export class SetCalculationAddComponent implements OnInit {
         this.cal_Obj = res
         this.cal_Msg  = res
         this.toastr.success(this.cal_Msg .message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
-       
       }
-
     });
   }
-}
+
+   /*==========Update set calcution End Here========*/
+
+   /*========== tabs function Start Here========*/
+  setCal(){
+    this.setcal_form = true;
+    this.specialoff_form = false;
+  }
+
+  defaultCal(){
+    this.specialoff_form = true;
+    this.setcal_form = false;
+  }
+
+   /*========== tabs function End Here========*/
+
+   /*======================================= Default Calcution End Here ================================*/
+
+   /*===================================== Special Offer Start Here =============================*/
+      /*==========Start and end time valid function start here========*/
+
+   start_end_time(e){ 
+    var beginningTime = this.SpecialForm.value.start_date;
+    var endTime = this.SpecialForm.value.end_date;
+   
+    if (beginningTime > endTime) {
+ 
+      this.SpecialForm.controls['start_date'].setValue('');
+      this.SpecialForm.controls['end_date'].setValue('');
+      this.toastr.error("Invalid Date",'', { timeOut: 2000 });
+    }
+    if (beginningTime == endTime) {
+      
+      this.SpecialForm.controls['start_date'].setValue('');
+      this.SpecialForm.controls['end_date'].setValue('');
+      this.toastr.error("Invalid Date",'', { timeOut: 2000 });
+    }
+    if (beginningTime < endTime) {
+     
+      // this.toastr.success("Valid Time ",'', { timeOut: 2000 });
+    }
+   }
+    /*==========Start and end time valid function end here========*/
+
+   /*========== Special Offer Form Value Start Here========*/
+  createForm1() {
+    this.SpecialForm = this.fb.group({
+      after_hours: [''],
+      weekend: [''],
+      holidays: [''],
+      last_minute: [''],
+      rush_fee: [''],
+      weekend_after_hours: [''],
+      holiday_after_hours: [''],
+      start_date:[''],
+      end_date:[''],
+      type:['2']
+    });
+  }
+  /*==========Special Offer Form Value End Here========*/
+
+   /*==========add Special Offer start Here========*/
+   addSpecialOffer() {
+    this.service.specialAdd(this.SpecialForm.value)
+      .subscribe(res => {
+        if (res['status'] == 1) {
+          this.cal_Obj = res;
+          console.log("ddddddddddd",  this.cal_Obj);
+          this.cal_Msg = res;
+          this.detailSpecial();
+          this.toastr.success(this.cal_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+
+        } else {
+          this.cal_Obj = res
+          this.cal_Msg = res
+          this.toastr.success(this.cal_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        }
+      });
+  }
+  /*==========add Special Offer end Here========*/
+
+  /*==========edit Special Offer start Here========*/
+    specialPatchValue() {
+      this.SpecialForm.get('after_hours').patchValue(this.special_Obj.after_hours);
+      this.SpecialForm.get('weekend').patchValue(this.special_Obj.weekend);
+      this.SpecialForm.get('holidays').patchValue(this.special_Obj.holidays);
+      this.SpecialForm.get('last_minute').patchValue(this.special_Obj.last_minute);
+      this.SpecialForm.get('rush_fee').patchValue(this.special_Obj.rush_fee);
+      this.SpecialForm.get('weekend_after_hours').patchValue(this.special_Obj.weekend_after_hours);
+      this.SpecialForm.get('holiday_after_hours').patchValue(this.special_Obj.holiday_after_hours);
+      this.SpecialForm.get('start_date').patchValue(this.special_Obj.start_date);
+      this.SpecialForm.get('end_date').patchValue(this.special_Obj.end_date);
+    }
+  
+  /*==========edit Special Offer start End========*/
+  
+  /*==========detail Special Offer start Here========*/
+    detailSpecial() {
+      this.service.getSpecialDetail('2').subscribe(res => {
+        if (res['status'] == 1) {
+          this.special_Obj = res['data'][0];
+          console.log("oooooooooo",  this.special_Obj);
+          
+          this.specialPatchValue();
+        }
+      })
+    }
+  /*==========detail Special Offer End Here========*/
+  
+   
+   /*===================================== Special Offer End Here =============================*/
+
+  }

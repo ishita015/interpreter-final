@@ -4,7 +4,69 @@
     </ul>
 </div>
 <div class="separator-breadcrumb border-top"></div>
-<div class="row">
+
+<div class="row dashboard_block pro_info">
+    <!-- ICON BG -->
+    <div (click)="setCal()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4"
+            [ngClass]="setcal_form ? 'activegreen' : ''">
+            <div class="card-body text-center">
+                <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </div>  -->
+                <!-- <div class="card-icon cardred" *ngIf="detail_Obj.user_profile_status!='1'">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div> -->  
+
+                <div class="content">
+                    <p class="cardtext mb-0">Default Calculation</p>
+
+                </div>
+
+                <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj?.user_profile_status=='1'">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </div>
+
+                <div class="card-icon cardredd" *ngIf="detail_Obj?.user_profile_status!='1'">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div (click)="defaultCal()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4"
+            [ngClass]="defaultcal_form ? 'activegreen' : ''">
+            <div class="card-body text-center">
+                <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </div>  -->
+                <!-- <div class="card-icon cardred" *ngIf="detail_Obj.user_profile_status!='1'">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div> -->  
+
+                <div class="content">
+                    <p class="cardtext mb-0">Special Offers</p>
+
+                </div>
+
+                <!-- <div class="card-icon cardgreenn">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </div> -->
+
+                <!-- <div class="card-icon cardredd">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div *ngIf="setcal_form" class="row">
     <div class="col-md-12">
         <div class="card mb-4">
             <div class="card-body">
@@ -60,21 +122,102 @@
                             <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="holiday_after_hours" placeholder="Holiday After Hours %">
                           
                         </div>
+                        <!-- <div class="col-md-3 form-group mb-3">
+                            <label for="Start">Start Date</label>
+                            <input type="date"  class="form-control" formControlName="start_date" placeholder="Start Date">
+                          
+                        </div>
+                        <div class="col-md-3 form-group mb-3">
+                            <label for="End">End Date</label>
+                            <input type="date"  class="form-control" formControlName="end_date" placeholder="End Date">
+                          
+                        </div> -->
                     </div>
-                    <div class="form-group row" *ngIf="detail_Obj == null">
+                    <div class="form-group row">
                         <div class="col-sm-12">
                             <button type="button" (click)="addCal()"
                                 class="btn btn-primary">Save</button>
                         </div>
                     </div>
 
-                    <div class="form-group row" *ngIf="detail_Obj != null">
+                    <!-- <div class="form-group row" *ngIf="detail_Obj != null">
                         <div class="col-sm-12">
                             <button type="button" (click)="updateCal()"
                                 class="btn btn-primary">Update</button>
                         </div>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="specialoff_form" class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form [formGroup]="SpecialForm">
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="name">After Hours %</label>
+                            <input type="text"  onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="after_hours"  placeholder="After Hours %">  
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="name">Weekend %</label>
+                            <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="weekend"  placeholder="Weekend"> 
+                        </div>  
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Holidays %</label>
+                            <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="holidays" placeholder="Holidays %">
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Last Minute %</label>
+                            <input type="text" class="form-control" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="last_minute" placeholder="Last Minute %">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Rush Fee %</label>
+                            <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="rush_fee" placeholder="Rush Fee %">
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Weekend After Hours %</label>
+                            <input type="text" class="form-control" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="weekend_after_hours" placeholder="Weekend After Hours %"> 
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="address">Holiday After Hours %</label>
+                            <input type="text" onkeypress="if(this.value.length==4) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " class="form-control" formControlName="holiday_after_hours" placeholder="Holiday After Hours %">
+                        </div>
+                        <div class="col-md-3 form-group mb-3">
+                            <label for="Start">Start Date</label>
+                            <input type="date" class="form-control" formControlName="start_date" placeholder="Start Date">
+                          
+                        </div>
+                        <div class="col-md-3 form-group mb-3">
+                            <label for="End">End Date</label>
+                            <input type="date" (change)="start_end_time($event)" class="form-control" formControlName="end_date" placeholder="End Date">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="addSpecialOffer()"
+                                class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group row" *ngIf="detail_Obj != null">
+                        <div class="col-sm-12">
+                            <button type="button" (click)="updateSpecialOffer()"
+                                class="btn btn-primary">Update</button>
+                        </div>
+                    </div> -->
                 </form>
             </div>
         </div>
