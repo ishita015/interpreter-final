@@ -9,6 +9,23 @@ let dt = new Date().getTime() / 1000;
 
 class userClass {
 
+
+     
+    getPriceOldlog(log_type){
+        return new Promise(function(resolve, reject) {
+            // var sql = "SELECT * FROM countries WHERE id='"+country_id+"'";
+            var sql = "SELECT * FROM price_calculation WHERE type='"+log_type+"' ORDER BY id DESC";
+            console.log("check sql",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
     
     getCountrycode(country_id){
         return new Promise(function(resolve, reject) {

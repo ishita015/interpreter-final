@@ -19,6 +19,59 @@ const ct = require('countries-and-timezones');
 
 
 
+module.exports.getLogPrice = async function(req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        log_type: 'required',       
+    });
+    
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    
+    let log_type = req.body.log_type;
+
+    var sql = "SELECT * FROM price_calculation WHERE type='"+log_type+"' ORDER BY id DESC";
+    
+    console.log("bank", sql)
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
+
+
+
+
 
 
 module.exports.getInterpreterProfile = async function(req, res, next) {
@@ -568,57 +621,6 @@ module.exports.getPriceCalculation = async function(req, res) {
  
 
   
-
-
-module.exports.getLogPrice = async function(req, res) {
-    //validation start
-    const v = new Validator(req.body, {
-        log_type: 'required',       
-    });
-    
-    const matched = await v.check();
-    
-    if (!matched) {
-        var error;
-        for (var i = 0; i <= Object.values(v.errors).length; i++) {
-            error = Object.values(v.errors)[0].message;
-            break;
-        }
-        res.json({
-            status: 0,
-            message: error
-        });
-        return true;
-    }
-
-    
-    let log_type = req.body.log_type;
-
-    var sql = "SELECT * FROM price_calculation WHERE type='"+log_type+"' ORDER BY id DESC";
-    
-    console.log("bank", sql)
-    con.query(sql, function(err, result, fields) {
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
 
 
 
