@@ -427,10 +427,15 @@ module.exports.saveCalculation = async function(req, res) {
     
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
-    let type = req.body.type ? req.body.type : '0';
+    let type = req.body.type ? req.body.type : '1';
 
+    if(type=='1'){
+        var sql = "INSERT INTO price_calculation(after_hours,weekend,holidays,last_minute,rush_fee,weekend_after_hours,holiday_after_hours,type)VALUES('"+after_hours+"','"+weekend+"','"+holidays+"','"+last_minute+"','"+rush_fee+"','"+weekend_after_hours+"','"+holiday_after_hours+"','"+type+"')";
+    }else{
+        var sql = "INSERT INTO price_calculation(after_hours,weekend,holidays,last_minute,rush_fee,weekend_after_hours,holiday_after_hours,start_date,end_date,type)VALUES('"+after_hours+"','"+weekend+"','"+holidays+"','"+last_minute+"','"+rush_fee+"','"+weekend_after_hours+"','"+holiday_after_hours+"','"+start_date+"','"+end_date+"','"+type+"')";
+    }
     
-    var sql = "INSERT INTO price_calculation(after_hours,weekend,holidays,last_minute,rush_fee,weekend_after_hours,holiday_after_hours,start_date,end_date,type)VALUES('"+after_hours+"','"+weekend+"','"+holidays+"','"+last_minute+"','"+rush_fee+"','"+weekend_after_hours+"','"+holiday_after_hours+"','"+start_date+"','"+end_date+"','"+type+"')";
+    
     console.log("bank", sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
