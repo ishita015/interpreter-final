@@ -240,20 +240,22 @@ export class SetCalculationAddComponent implements OnInit {
       this.excel_obj = res['data'];
       console.log("excelssssssssss", this.excel);
 
-      for(let i=0; i < this.excel_obj.length; i++){ 
-        // this.excel.push(row);
-        this.excel.push({
-          After_hours:this.excel_obj[i].after_hours,
-          weekend:this.excel_obj[i].weekend,
-          holidays: this.excel_obj[i].holidays,
-          last_minute:this.excel_obj[i].last_minute,
-          rush_fee:this.excel_obj[i].rush_fee,
-          weekend_after_hours:this.excel_obj[i].weekend_after_hours,
-          holiday_after_hours:this.excel_obj[i].holiday_after_hours,
-          created_at:this.excel_obj[i].created_at
-       })
-      } 
-      console.log("clicked the excel:", this.excel);
+        this.excel_obj.forEach(row => { 
+          this.excel.push(row);
+        });
+      // for(let i=0; i < this.excel_obj.length; i++){ 
+      //   this.excel.push({
+      //     After_hours:this.excel_obj[i].after_hours,
+      //     weekend:this.excel_obj[i].weekend,
+      //     holidays: this.excel_obj[i].holidays,
+      //     last_minute:this.excel_obj[i].last_minute,
+      //     rush_fee:this.excel_obj[i].rush_fee,
+      //     weekend_after_hours:this.excel_obj[i].weekend_after_hours,
+      //     holiday_after_hours:this.excel_obj[i].holiday_after_hours,
+      //     created_at:this.excel_obj[i].created_at
+      //  })
+      // } 
+      // console.log("clicked the excel:", this.excel);
     }
      });
     this.excelService.exportAsExcelFile(this.excel, 'sample');
