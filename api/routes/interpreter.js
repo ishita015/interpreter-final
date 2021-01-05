@@ -187,6 +187,9 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             profile_img	: resultData[0].profile_img ? resultData[0].profile_img : "", // add full path
             date_of_birth: resultData[0].date_of_birth,
             gender: resultData[0].gender,
+            other_gender: resultData[0].other_gender,
+            ssn_no: resultdata[0].ssn_no,
+            ein_no: resultdata[0].ein_no,
             state: resultData[0].state,
             zipCode: resultData[0].zipCode,
             address: resultData[0].address,

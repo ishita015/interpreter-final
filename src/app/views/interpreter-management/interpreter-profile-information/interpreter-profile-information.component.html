@@ -256,11 +256,11 @@
                                                     EIN
                                                 </label>
                                                 <label *ngIf="einshowInput" class="form-check-label pl-5">
-                                                    <input type="text" class="form-control" placeholder="EIN"
+                                                    <input type="text" mask="00-0000000" class="form-control" placeholder="EIN"
                                                         formControlName="ein">
                                                 </label>
                                                 <label *ngIf="ssnshowInput" class="form-check-label pl-5">
-                                                    <input type="text" class="form-control" placeholder="SSN"
+                                                    <input type="text" mask="000-00-0000" class="form-control" placeholder="SSN"
                                                         formControlName="ssn">
                                                 </label>
                                             </div>
