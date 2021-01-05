@@ -1,4 +1,3 @@
-const { CompileShallowModuleMetadata } = require('@angular/compiler');
 var http     = require('https');
 var con      = require('../../config');
 // var constant = require('../constant');

@@ -504,6 +504,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.bankingForm.get('bank_address').patchValue( this.detail_Obj.bank_address);
     this.bankingForm.get('paypal_id').patchValue( this.detail_Obj.paypal_id);
 
+    this.interpreterSkillForm.get('primary_language').patchValue( this.detail_Obj.primay_lang_id);
+    this.interpreterSkillForm.get('secondary_language').patchValue( this.detail_Obj.secondary_language);
+
   }
 
 
@@ -545,14 +548,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
 }
 
 
-// skillSimultOpen: "simultaneous_doc-1608906410104.png"
-// skillsCommunityDoc: "community_doc-1608906281522.png"
-// skillsConferenceDoc: "conference_doc-1608908561236.png"
-// skillsCourtDoc: "court_doc-1608906281514.png"
-// skillsCredentialDoc: "credential_doc-1608906281518.png"
-// skillsEquipmentDoc: "equipment_doc-1608906646085.png"
-// skillsLegalDoc: "legal_doc-1608906646088.png"
-// skillsOtherDoc: "other_doc-1608907163377.png"
 
 detailProfile(){
   this.service.getProfileDetail(this.interId).subscribe(res => {
@@ -950,18 +945,10 @@ getAddress(latitude, longitude) {
     formData.append('interpreter_id', this.interId);
     formData.append('primary_language', this.priLanguageId);
 
-    formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
+    // formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
     formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
 
-    // formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
-
-    // this.communityForm.value.documents = this.selectedFile;
-    
-    // this.communityForm.value.interpreter_id = this.interId; 
-    // this.communityForm.value.interpreter_id = f.value; 
-    // formData.append('interpreter_id', this.interId);
-    // formData.append('doc_type', '1');
-    // formData.append('documents', this.selectedFile);
+   
    
     this.service.interpreterDocupload(formData).subscribe(res => {
       this.skill_msg=res;

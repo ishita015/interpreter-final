@@ -67,6 +67,12 @@ app.all('/*', function(req, res, next) {
 });
 
 var common = require('./routes/common');
+
+var commonModel = require('./routes/Models/commonModel');
+const commonmodel = new commonModel();
+
+
+
 // file controller
 var languageController = require('./routes/language');
 var userroleController = require('./routes/userrole');
@@ -1032,8 +1038,8 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     let secondary_language  = req.body.secondary_language ? req.body.secondary_language : "";
     
 
-    
-    console.log("check all img",req.files);
+    console.log("primary_language--",primary_language);
+    console.log("secondary_language--",secondary_language);
 
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
@@ -1065,32 +1071,38 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
             // return true;
         }
     }
-
-
     
-
+    if (primary_language != "" && primary_language != undefined) {
         var user_update = "UPDATE user SET primary_language='"+primary_language+"' WHERE id ='"+interpreter_id+"'";
+    }
     
-    con.query(user_update, function(err, results) {
-    });   
+    con.query(user_update,  function(err, results) {});   
 
-    /* secondary_language=JSON.parse(secondary_language) // for form data case
+    let secLang='0';
+    if (secondary_language != "" && secondary_language != undefined) {
+        let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+interpreter_id+"'";
+        con.query(sqlDelete, function(err, res_delete) {});
+        for (var i = 0; i < secondary_language.length; i++) {
+            // console.log("secondary language id", JSON.parse(secondary_language[i]));    
+            secLang = JSON.parse(secondary_language[i]);
+            // console.log("finsaly",secLang.id)
 
-     console.log(secondary_language)
-
-    for (var i = 0; i < secondary_language.length; i++) {
-        console.log("secondary_language", secondary_language[i].id);    
-        var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+secondary_language[i].id+"')";
-        con.query(sql, function(err, insert) {});
-    }*/
-
+            var resultData  = await commonmodel.checkPrimarylang(interpreter_id,secLang.id);
+            if (resultData != "" && resultData != undefined) {
+            }else{
+                var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+secLang.id+"')";
+                con.query(sql, function(err, insert) {});
+            }
+        }
+    }
+    
     res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 6,
-                message: "Documents upload successfully",
-            });
-            return true;
+        status: 1,
+        error_code: 0,
+        error_line: 6,
+        message: "Documents upload successfully",
+    });
+    return true;
 
 });
 
