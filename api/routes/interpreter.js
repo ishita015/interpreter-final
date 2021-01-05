@@ -44,7 +44,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
 
     //validation end
     let interpreter_id = req.body.interpreter_id;
-    
+    let skill_complete = '0';
     var mainArr = [];
     var resultData  = await usermodel.getInterpreterProfileData(interpreter_id);
     if (resultData != "" && resultData != undefined) {
@@ -64,6 +64,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             for (var i = 0; i < document.length; i++) {
                 if(document[i].type=='1'){
                     communityDoc=document[i].doc_name; 
+                    // skill_complete
                 }else if(document[i].type=='2'){
                     conferenceDoc=document[i].doc_name; 
                 }else if(document[i].type=='3'){
@@ -82,6 +83,10 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
                 }
             }
         }    
+
+        if ((communityDoc != "" && communityDoc != undefined) && (conferenceDoc != "" && conferenceDoc != undefined) && (courtDoc != "" && courtDoc != undefined) && (credentialDoc != "" && credentialDoc != undefined) && (equipmentDoc != "" && equipmentDoc != undefined) && (legalDoc != "" && legalDoc != undefined) && (simultOpen != "" && simultOpen != undefined) )  {
+            skill_complete='1';
+        }
 
 
          //get interpreter language
@@ -138,7 +143,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             cityName: resultData[0].cityName ? resultData[0].cityName : '',
             stateName: resultData[0].stateName ? resultData[0].stateName : '',
             timezone: resultData[0].timezone,
-            // apartment: resultData[0].apartment,
+            skill_complete: skill_complete,
             // apartment: resultData[0].apartment,
 
             social_security_no: resultData[0].social_security_no,
@@ -177,6 +182,8 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
             skillSimultOpen:simultOpen,
             skillsOtherDoc:otherDoc,
             skillsOtherDocTitle:otherDocTitle,
+
+            
 
             secondary_language: langArr,
             special_attributes: attributesArr,

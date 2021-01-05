@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div (click)="skills()" class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 "
                 [ngClass]="skills_form ? 'activegreen' : ''">
@@ -46,9 +46,16 @@
                         <p class="cardtext mb-0">Skills</p>
 
                     </div>
-                    <div class="card-icon cardredd">
+                    <div class="card-icon cardgreenn" *ngIf="detail_Obj?.skill_complete=='1'">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </div>
+
+                    <div class="card-icon cardredd" *ngIf="detail_Obj?.skill_complete!='1'">
                         <ion-icon name="close-outline"></ion-icon>
                     </div>
+                    <!-- <div class="card-icon cardredd">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div> -->
                 </div>
             </div>
         </div>
