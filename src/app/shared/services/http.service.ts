@@ -558,6 +558,10 @@ export class HttpService {
   getSpecialDetail(type): Observable<any> {
     return this.http.post(this.url + '/cesco/getPriceCalculation',{type:type}, this.httpOptions);
   }
+
+  defaultCalExcel(log_type): Observable<any> {
+    return this.http.post(this.url + '/cesco/getLogPrice',{log_type:log_type}, this.httpOptions);
+  }
  
 
   /*=====Special Offers Apis End======*/
