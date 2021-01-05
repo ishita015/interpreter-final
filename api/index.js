@@ -149,6 +149,7 @@ app.get('/cesco/getRole', interpreterController.getRole);
 app.post('/cesco/saveCalculation', interpreterController.saveCalculation);
 app.post('/cesco/updateCalculation', interpreterController.updateCalculation);
 app.post('/cesco/getPriceCalculation', interpreterController.getPriceCalculation);
+app.post('/cesco/getLogPrice', interpreterController.getLogPrice);
 
 
 
