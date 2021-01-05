@@ -1008,7 +1008,6 @@ let docUpload = multer({
 
 //upload interpreter documents
 app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res, next) {
-    console.log("body",req.body);
     //validation start
     const v = new Validator(req.body, {
         interpreter_id: 'required',
@@ -1038,7 +1037,7 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     let secondary_language  = req.body.secondary_language ? req.body.secondary_language : "";
     
 
-    console.log("primary_language--",primary_language);
+    // console.log("primary_language--",primary_language);
     console.log("secondary_language--",secondary_language);
 
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
@@ -1059,16 +1058,6 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
                 con.query(saveData, function(err, insert) {});        
             
             }
-
-            
-
-            // res.json({
-            //     status: 1,
-            //     error_code: 0,
-            //     error_line: 6,
-            //     message: "Documents upload successfully",
-            // });
-            // return true;
         }
     }
     
@@ -1079,18 +1068,28 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     con.query(user_update,  function(err, results) {});   
 
     let secLang='0';
+    let seclangid='0';
     if (secondary_language != "" && secondary_language != undefined) {
         let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+interpreter_id+"'";
         con.query(sqlDelete, function(err, res_delete) {});
         for (var i = 0; i < secondary_language.length; i++) {
-            // console.log("secondary language id", JSON.parse(secondary_language[i]));    
+            // console.log("secondary-language-id",secondary_language[i].language_id);    
             secLang = JSON.parse(secondary_language[i]);
-            // console.log("finsaly",secLang.id)
+            
 
-            var resultData  = await commonmodel.checkPrimarylang(interpreter_id,secLang.id);
+            if (secLang.id != undefined) {
+                console.log("finsaly 1",secLang.id)
+                seclangid=secLang.id;    
+            }else{
+                console.log("finsaly 2",secLang.language_id)
+                seclangid=secLang.language_id;
+            }
+
+
+            var resultData  = await commonmodel.checkPrimarylang(interpreter_id,seclangid);
             if (resultData != "" && resultData != undefined) {
             }else{
-                var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+secLang.id+"')";
+                var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+seclangid+"')";
                 con.query(sql, function(err, insert) {});
             }
         }
