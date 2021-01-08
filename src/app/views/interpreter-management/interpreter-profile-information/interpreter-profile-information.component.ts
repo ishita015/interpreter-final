@@ -180,7 +180,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.LanguageList();
     this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
     this.detailProfile();
-    
   }
 
   /*========== Form2 Value Start Here========*/
@@ -228,25 +227,12 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   StateList(country_id) {
       console.log('zzzzzzz',country_id)
-      if(country_id)
-      {
-        this.service.getStateCode(country_id).subscribe(res => {
-            if (res['status'] == '1') {
-              this.state_Obj = res['data'];
-              this.timezone_Obj = res['timeZoneData']['timezones'];
-            }
-          });
+    this.service.getStateCode(this.country_id).subscribe(res => {
+      if (res['status'] == '1') {
+        this.state_Obj = res['data'];
+        this.timezone_Obj = res['timeZoneData']['timezones'];
       }
-      else
-      {
-        this.service.getStateCode(this.country_id).subscribe(res => {
-            if (res['status'] == '1') {
-              this.state_Obj = res['data'];
-              this.timezone_Obj = res['timeZoneData']['timezones'];
-            }
-          });
-      }
-    
+    });
   }
 
   /*==========  State Code for Mobile End Here========*/
@@ -537,7 +523,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
       if (res['status'] == 1) {
         this.detail_Obj = res['data'][0];
         console.log("detail_Obj", this.detail_Obj);
-        this.StateList(this.detail_Obj.country);
+
         if (this.detail_Obj.skillsCommunityDoc != '' && this.detail_Obj.skillsCommunityDoc != undefined) {
           this.communityinter = true;
           this.ci = true;
