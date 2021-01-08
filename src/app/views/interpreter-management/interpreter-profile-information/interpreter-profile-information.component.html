@@ -122,9 +122,7 @@
                         <div class=" mb-2 border-top"></div>
                         <div class="row mb-2">
                             <div class="col-md-12 userstable mb-3">
-
                                 <form [formGroup]="generalForm">
-
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <div class="row">
@@ -142,8 +140,7 @@
                                                         placeholder="First Name">
                                                     <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )"
                                                         class="error-msg">
-                                                        <div
-                                                            [hidden]="!generalForm.controls['first_name'].errors.required">
+                                                        <div [hidden]="!generalForm.controls['first_name'].errors.required">
                                                             First Name is required.</div>
                                                     </div>
                                                 </div>
@@ -171,7 +168,7 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="email">Email <span class="error-msg"> * </span></label>
-                                            <input type="text" class="form-control"  formControlName="email"
+                                            <input type="text" class="form-control" formControlName="email"
                                                 placeholder="Email">
                                         </div>
 
@@ -280,7 +277,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Country">Country</label>
-                                            <select class="form-control" (change)="onCountryChange($event)"
+                                            <select class="form-control" (click)="onCountryChange($event)"
                                                 formControlName="country">
                                                 <option value="" selected disabled>Country</option>
                                                 <option *ngFor="let isd of country_Obj" [value]="isd.id">
@@ -308,9 +305,6 @@
                                                   </div> -->
                                         </div>
                                     </div>
-
-
-
 
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
@@ -483,22 +477,22 @@
                         <div class="row">
                             <div class="col-md-3 form-group mb-3">
                                 <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')"
-                                    class="mr-2" id="community-interpreting" name="vehicle1" value=" On Site">
+                                    class="mr-2" id="community-interpreting" checked="{{ci == true ? 'checked' : ''}}" name="vehicle1" value=" On Site">
                                 <label for="vehicle1"> Community Interpreting </label><br>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="conferenceShow()" (change)="setCheck($event,'2')"
+                                <input type="checkbox" checked="{{cfi == true ? 'checked' : ''}}" (click)="conferenceShow()" (change)="setCheck($event,'2')"
                                     class="mr-2" id="conference-interpreter" name="vehicle1" value="OPI">
                                 <label for="vehicle1"> Conference Interpreter</label><br>
                             </div>
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="certifiedShow()" (change)="setCheck($event,'3')"
+                                <input type="checkbox" (click)="certifiedShow()" checked="{{co == true ? 'checked' : ''}}" (change)="setCheck($event,'3')"
                                     class="mr-2" id="court-certified" name="vehicle1" value="VRI">
                                 <label for="vehicle1">Court Certified </label><br>
                             </div>
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" (click)="courtShow()" id="court-credentialed"
+                                <input type="checkbox" class="mr-2" checked="{{cto == true ? 'checked' : ''}}" (click)="courtShow()" id="court-credentialed"
                                     (change)="setCheck($event,'4')" name="vehicle1" value="VCI">
                                 <label for="vehicle1"> Court Credentialed</label><br>
                             </div>
@@ -509,25 +503,26 @@
 
                         <div class="row">
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" (click)="qualifiedShow()" id="equipment-qualified"
+                                <input type="checkbox" class="mr-2" checked="{{eo == true ? 'checked' : ''}}"  (click)="qualifiedShow()" id="equipment-qualified"
                                     (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified"
                                     (change)="setCheck($event,'5')" value="1">
                                 <label for="vehicle1"> Equipment Qualified </label><br>
                             </div>
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="legalShow()" class="mr-2"
+                                <input type="checkbox" (click)="legalShow()" checked="{{lo == true ? 'checked' : ''}}" class="mr-2"
                                     (change)="setCheck($event,'6')" id="legal" name="vehicle1" value="ASL">
                                 <label for="vehicle1"> Legal </label><br>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="simultShow()" class="mr-2" id="simultaneous"
+                                <input type="checkbox" (click)="simultShow()" checked="{{so == true ? 'checked' : ''}}" class="mr-2" id="simultaneous"
                                     (change)="setCheck($event,'7')" name="vehicle1" value="ASL">
                                 <label for="vehicle1"> Simultaneous </label><br>
                             </div>
 
                             <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="othShow()" (change)="setCheck($event,'8')" class="mr-2"
+                                <input type="checkbox" checked="{{oo == true ? 'checked' : ''}}" (click)="othShow()" 
+                                (change)="setCheck($event,'8')" class="mr-2"
                                     id="other" name="vehicle1" value="ASL">
                                 <label for="vehicle1"> Other </label><br>
                             </div>
@@ -716,6 +711,16 @@
                                     (change)="onSingleFileChange($event,'other_doc','8')">
                             </div>
 
+                            <div class="col-md-6 form-group mb-3"
+                            *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
+                            <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}"
+                                class="mr-3" style="width:100px; height:100px;">
+                            <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
+                                class="btn btn-primary mr-2">
+                                View Image
+                            </button>
+                        </div>
+
                         </div>
 
 
@@ -734,11 +739,7 @@
                                     View Image
                                 </button>
                             </div>
-
                         </div>
-
-
-
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <button type="button" (click)="uploadDocuments()" class="btn btn-primary">Save</button>
