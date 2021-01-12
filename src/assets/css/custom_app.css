@@ -13,3 +13,20 @@
 .card_customized .card-body{min-height: 180px;}
 .ul-widget2__item{    margin-bottom: 0.6rem;}
 body .card_customized .image-thumb-card{min-height: unset !important;}
+
+
+
+.card_customized .card-body.scrollable{
+	max-height: 330px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.u-fancy-scrollbar {-webkit-overflow-scrolling: touch;-webkit-transform: translateZ(0)}
+.u-fancy-scrollbar::-webkit-scrollbar {height: 8px;width: 8px}
+.u-fancy-scrollbar::-webkit-scrollbar-button:end:increment, .u-fancy-scrollbar::-webkit-scrollbar-button:start:decrement {background: transparent;display: none}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece {background: rgba(9, 30, 66, .05);}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:vertical:start {border-radius: 4px 4px 0 0}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:vertical:end {border-radius: 0 0 4px 4px}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:horizontal:start {border-radius: 4px 0 0 4px}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:horizontal:end {border-radius: 0 4px 4px 0}
+.u-fancy-scrollbar::-webkit-scrollbar-thumb:horizontal, .u-fancy-scrollbar::-webkit-scrollbar-thumb:vertical {background: rgba(9, 30, 66, .13);border-radius: 4px;display: block;height: 48px}

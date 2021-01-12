@@ -454,12 +454,12 @@
 
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="card pt-0">
+                        <div class="card pt-0 h-100">
                             <div class="card-header">
                                 <b>Languages</b>
                             </div>
 
-                            <div class="card-body">
+                            <div class="card-body h-100 u-fancy-scrollbar scrollable">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
@@ -494,11 +494,11 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="card pt-0">
+                        <div class="card pt-0 h-100">
                             <div class="card-header">
                                 <b>Attributes</b>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body h-100 u-fancy-scrollbar scrollable">
                                 <div class="ul-widget1">
                                     <div class="ul-widget2__item">
                                         <label class="checkbox checkbox-outline-primary">
@@ -587,217 +587,207 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="card pt-0">
+                        <div class="card pt-0 h-100">
                             <div class="card-header">
                                 <b>Education</b>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body h-100 u-fancy-scrollbar scrollable">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-12">
 
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                             <div class="row">
-                                                    <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
+                                        <div class="card image-thumb-card p-2 form-group">
+
+                                                    <div class="form-group" *ngIf="communityinter">
                                                         <label for="image">Community Interpreting</label>
-                                                        <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="community_doc"
-                                                            (change)="onSingleFileChange($event,'community_doc','1')">
+                                                        <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="community_doc"
+                                                            (change)="onSingleFileChange($event,'community_doc','1')" style="font-size: 10px;">
+                                                            <div class="form-group mb-0"
+                                                                *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
+                                                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCommunityDoc}}"
+                                                                    style="width:100%; height:90px;">
+                                                                <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)"
+                                                                    class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                                    <i class="i-Eye" style="display: block;"></i>
+                                                                </button>
+                                                            </div>
                                                     </div>
 
-
-                                                    <div class="col-md-3 form-group mb-3"
-                                                        *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCommunityDoc}}"
-                                                            class="mr-3" style="width:100px; height:100px;">
-
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)"
-                                                            class="btn btn-primary mr-2">
-                                                            View Image
-                                                        </button>
-                                                    </div>
-
-                                                </div>
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+
+                                                <div class="form-group mb-3" *ngIf="conferenceinter">
                                                     <label for="image">Conference Interpreter</label>
-                                                    <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="conference_doc"
-                                                        (change)="onSingleFileChange($event,'conference_doc','2')">
-                                                </div>
-
-                                                <div class="col-md-3 form-group mb-3"
-                                                    *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
-                                                    <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsConferenceDoc}}"
-                                                        class="mr-3" style="width:100px; height:100px;">
-                                                    <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)"
-                                                        class="btn btn-primary mr-2">
-                                                        View Image
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                            <div class="row">
-                                                <div class="col-md-6 form-group mb-3" *ngIf="court_open">
-                                                    <label for="image">Court Certified</label>
-                                                    <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="court_doc"
-                                                        (change)="onSingleFileChange($event,'court_doc','3')">
-                                                </div>
-
-                                                <div class="col-md-6 form-group mb-3" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
-                                                    <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCourtDoc}}" class="mr-3"
-                                                        style="width:100px; height:100px;">
-                                                    <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)"
-                                                        class="btn btn-primary mr-2">
-                                                        View Image
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                             <div class="row">
-
-                                                    <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
-                                                        <label for="image">Court Credentialed</label>
-                                                        <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="credential_doc"
-                                                            (change)="onSingleFileChange($event,'credential_doc','4')">
-                                                    </div>
-
-                                                    <div class="col-md-6 form-group mb-3"
-                                                        *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCredentialDoc}}"
-                                                            class="mr-3" style="width:100px; height:100px;">
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)"
-                                                            class="btn btn-primary mr-2">
-                                                            View Image
+                                                    <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="conference_doc"
+                                                        (change)="onSingleFileChange($event,'conference_doc','2')" style="font-size: 10px;">
+                                                        <div class="form-group mb-0"
+                                                        *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
+                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsConferenceDoc}}"
+                                                             style="width:100%; height:90px;">
+                                                        <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)"
+                                                            class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                            <i class="i-Eye" style="display: block;"></i>
                                                         </button>
                                                     </div>
-
-
                                                 </div>
+
+                                                
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+
+                                                <div class="form-group" *ngIf="court_open">
+                                                    <label for="image">Court Certified</label>
+                                                    <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="court_doc"
+                                                        (change)="onSingleFileChange($event,'court_doc','3')" style="font-size: 10px;">
+                                                        <div class="form-group mb-0" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''" >
+                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCourtDoc}}"  
+                                                            style="width:100%; height:90px;">
+                                                        <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)"
+                                                            class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                            <i class="i-Eye" style="display: block;"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+
+                                                    <div class="form-group" *ngIf="credent_open">
+                                                        <label for="image">Court Credentialed</label>
+                                                        <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="credential_doc"
+                                                            (change)="onSingleFileChange($event,'credential_doc','4')" style="font-size: 10px;">
+                                                            <div class="form-group mb-0"
+                                                                *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
+                                                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCredentialDoc}}"
+                                                                     style="width:100%; height:90px;">
+                                                                <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)"
+                                                                    class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                                    <i class="i-Eye" style="display: block;"></i>
+                                                                </button>
+                                                            </div>
+                                                    </div>
+
+                                                    
 
                                         </div>
                                     </div> 
-                                    <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                             <div class="row">
-                                                    <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+
+                                                    <div class="form-group" *ngIf="equipment_open">
                                                         <label for="image">Equipment Qualified</label>
-                                                        <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="equipment_doc"
-                                                            (change)="onSingleFileChange($event,'equipment_doc','5')">
+                                                        <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="equipment_doc"
+                                                            (change)="onSingleFileChange($event,'equipment_doc','5')" style="font-size: 10px;">
                                                         <!-- <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)" class="btn btn-primary mr-2">
                                                                 View Image
                                                               </button> -->
-                                                    </div>
-
-                                                    <div class="col-md-6 form-group mb-3"
+                                                        <div class="form-group mb-0"
                                                         *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsEquipmentDoc}}"
-                                                            class="mr-3" style="width:100px; height:100px;">
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
-                                                            class="btn btn-primary mr-2">
-                                                            View Image
-                                                        </button>
+                                                            <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsEquipmentDoc}}"
+                                                                 style="width:100%; height:90px;">
+                                                            <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
+                                                                class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                                <i class="i-Eye" style="display: block;"></i>
+                                                            </button>
+                                                        </div>
+
                                                     </div>
 
+                                                    
 
-                                                </div>
                                         </div>
-                                    </div> <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                            <div class="row">
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
 
-                                                <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
+
+                                                <div class="form-group" *ngIf="legal_open">
                                                     <label for="image">Legal</label>
-                                                    <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="legal_doc"
-                                                        (change)="onSingleFileChange($event,'legal_doc','6')">
-                                                </div>
-
-                                                <div class="col-md-6 form-group mb-3" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
-                                                    <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsLegalDoc}}" class="mr-3"
-                                                        style="width:100px; height:100px;">
-                                                    <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)"
-                                                        class="btn btn-primary mr-2">
-                                                        View Image
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div> <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                              <div class="row">
-                                                    <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
-                                                        <label for="image">Simultaneous</label>
-                                                        <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
-                                                            (change)="onSingleFileChange($event,'simultaneous_doc','7')">
-                                                    </div>
-
-
-                                                    <div class="col-md-6 form-group mb-3"
-                                                        *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillSimultOpen}}"
-                                                            class="mr-3" style="width:100px; height:100px;">
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)"
-                                                            class="btn btn-primary mr-2">
-                                                            View Image
+                                                    <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="legal_doc"
+                                                        (change)="onSingleFileChange($event,'legal_doc','6')" style="font-size: 10px;">
+                                                        <div class="form-group mb-0" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
+                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsLegalDoc}}" 
+                                                            style="width:100%; height:90px;">
+                                                        <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)"
+                                                            class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                            <i class="i-Eye" style="display: block;"></i>
                                                         </button>
                                                     </div>
                                                 </div>
+
+                                                
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+                                                    <div class="form-group" *ngIf="simult_open">
+                                                        <label for="image">Simultaneous</label>
+                                                        <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
+                                                            (change)="onSingleFileChange($event,'simultaneous_doc','7')" style="font-size: 10px;">
+
+                                                            <div class="form-group mb-0"
+                                                                *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
+                                                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillSimultOpen}}"
+                                                                    style="width:100%; height:90px;">
+                                                                <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)"
+                                                                    class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                                    <i class="i-Eye" style="display: block;"></i>
+                                                                </button>
+                                                            </div>
+                                                    </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                            <div class="row" *ngIf="other_open">
-                                                    <div class="col-md-6 form-group mb-3">
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+                                            <div *ngIf="other_open">
+                                                    <div class="form-group">
                                                         <label for="image">Other</label>
-                                                        <input type="text" class="form-control" accept=".png, .jpg, .pdf" formControlName="other_title">
+                                                        <input type="text" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="other_title" style="font-size: 10px;">
                                                     </div>
 
 
-                                                    <div class="col-md-6 form-group mb-3">
+                                                    <div class="form-group">
                                                         <label for="image">Other</label>
-                                                        <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="other_doc"
-                                                            (change)="onSingleFileChange($event,'other_doc','8')">
+                                                        <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="other_doc"
+                                                            (change)="onSingleFileChange($event,'other_doc','8')" style="font-size: 10px;">
                                                     </div>
 
-                                                    <div class="col-md-6 form-group mb-3"
+                                                    <div class="form-group mb-0"
                                                     *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
-                                                    <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}"
-                                                        class="mr-3" style="width:100px; height:100px;">
-                                                    <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
-                                                        class="btn btn-primary mr-2">
-                                                        View Image
-                                                    </button>
-                                                </div>
+                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}"
+                                                            style="width:100%; height:90px;">
+                                                        <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
+                                                            class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                            <i class="i-Eye" style="display: block;"></i>
+                                                        </button>
+                                                    </div>
 
                                                 </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-4">
-                                        <div class="card image-thumb-card pt-0 form-group">
-                                             <div class="row"
+                                    <div class="col-lg-12">
+                                        <div class="card image-thumb-card p-2 form-group">
+                                             <div
                                                     *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''">
-                                                    <div class="col-md-6 form-group mb-3">
+                                                    <div class="form-group mb-3">
                                                         <h5>{{detail_Obj?.skillsOtherDocTitle}}</h5>
                                                     </div>
 
 
-                                                    <div class="col-md-6 form-group mb-3">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}" class="mr-3"
-                                                            style="width:100px; height:100px;">
+                                                    <div class="form-group mb-0">
+                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
-                                                            class="btn btn-primary mr-2">
-                                                            View Image
+                                                            class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                            <i class="i-Eye" style="display: block;"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -808,11 +798,11 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="card pt-0">
+                        <div class="card pt-0 h-100">
                             <div class="card-header">
                                 <b>Platform</b>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body h-100 u-fancy-scrollbar scrollable">
                                 <div class="card-body">
                                 <div class="ul-widget1">
                                     <div class="ul-widget2__item">
@@ -858,12 +848,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 mt-3 text-right">
+                        <button type="button" (click)="uploadDocuments();addInterpreterAssignment()" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
             </form>
             </div>
 
 
-
+            <!--
             <div class="card animate mb-4">
                 <div class="card-body">
                     <form [formGroup]="interpreterSkillForm">
@@ -977,23 +970,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="row">
-                                <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-
-                                    <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
-                                        <label for="image">Equipment Qualified</label>
-                                        <input type="file" class="form-control" name="documents" ngModel="documents[1]equipment" required>
-                                    </div>
-                                    <button>Submit</button>
-                                </form>
-                            </div> -->
-
-
-
-                        <!-- http://192.168.0.69:3300 -->
-
-                        <!-- http://192.168.0.4:3300 -->
-
                         <div class="row">
                             <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
                                 <label for="image">Community Interpreting</label>
@@ -1085,9 +1061,6 @@
                                 <label for="image">Equipment Qualified</label>
                                 <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="equipment_doc"
                                     (change)="onSingleFileChange($event,'equipment_doc','5')">
-                                <!-- <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)" class="btn btn-primary mr-2">
-                                        View Image
-                                      </button> -->
                             </div>
 
                             <div class="col-md-6 form-group mb-3"
@@ -1145,7 +1118,6 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- detail_Obj?.skillsOtherDoc -->
 
                         <div class="row" *ngIf="other_open">
                             <div class="col-md-6 form-group mb-3">
@@ -1198,6 +1170,8 @@
 
                 </div>
             </div>
+        -->
+
         </div>
         <!-- skills form end -->
 
