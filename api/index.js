@@ -128,6 +128,8 @@ app.post('/cesco/getUsername', interpreterController.getUsername);
 
 app.post('/cesco/getInterpreterProfile', interpreterController.getInterpreterProfile);
 app.post('/cesco/addAssignmentSetting', interpreterController.addAssignmentSetting);
+app.post('/cesco/getAssignmentSettingByInterpreterId', interpreterController.getAssignmentSettingByInterpreterId);
+app.get('/cesco/getUserLanguage/:id', interpreterController.getUserLanguage);
 app.post('/cesco/getNewRequestCount', interpreterController.getNewRequestCount);
 app.post('/cesco/getAcceptRequest', interpreterController.getAcceptRequest);
 app.post('/cesco/getRejectRequest', interpreterController.getRejectRequest);

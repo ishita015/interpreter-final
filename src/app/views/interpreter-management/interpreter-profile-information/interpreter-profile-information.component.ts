@@ -180,6 +180,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.LanguageList();
     this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
     this.detailProfile();
+    this.getUserLanguage();
   }
 
   /*========== Form2 Value Start Here========*/
@@ -233,7 +234,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
         this.timezone_Obj = res['timeZoneData']['timezones'];
       }
     });
-  }
+  } 
+
 
   /*==========  State Code for Mobile End Here========*/
 
@@ -246,6 +248,13 @@ export class InterpreterProfileInformationComponent implements OnInit {
     });
   }
   /*==========  City Code for Mobile End Here========*/
+UserLangData=[]
+   getUserLanguage() {
+    this.service.getUserLanguage(this.interId).subscribe(res => {
+     this.UserLangData=res['data'];
+    });
+  }
+
   check1() {
     this.check_form1 = true;
     this.check_form2 = false;
@@ -920,7 +929,7 @@ skillsForm() {
     credential_doc: [''],
     equipment_doc: [''],
     legal_doc: [''],
-    simultaneous_doc: [],
+    simultaneous_doc:[0],
     simult_open: [''],
     other_doc: [''],
   });
@@ -982,61 +991,66 @@ imgview(e: string) {
 
   private assignmentGroup(): FormGroup {
   return this.fb.group({
-    language_id: [],
-    hourly_rate: [],
-    hourly_rate_min_paid: [],
-    hourly_rate_pay_increment: [],
-    half_day: [],
-    half_day_min_paid: [],
-    half_day_pay_increment: [],
-    full_day: [],
-    full_day_min_paid: [],
-    full_day_pay_increment: []
+id:[''],
+    language_id:[0],
+    hourly_rate:[0],
+    hourly_rate_min_paid:[0],
+    hourly_rate_pay_increment:[0],
+    half_day:[0],
+    half_day_min_paid:[0],
+    half_day_pay_increment:[0],
+    full_day:[0],
+    full_day_min_paid:[0],
+    full_day_pay_increment: [0]
   });
 }
 
   private opiAssignmentGroup(): FormGroup {
   return this.fb.group({
-    opi_language_id: [],
-    opi_hourly_rate: [],
-    opi_hourly_rate_min_paid: [],
-    opi_hourly_rate_pay_increment: [],
-    opi_half_day: [],
-    opi_half_day_min_paid: [],
-    opi_half_day_pay_increment: [],
-    opi_full_day: [],
-    opi_full_day_min_paid: [],
-    opi_full_day_pay_increment: []
+    id:[''],
+    opi_language_id:[0],
+    opi_hourly_rate:[0],
+    opi_hourly_rate_min_paid:[0],
+    opi_hourly_rate_pay_increment:[0],
+    opi_half_day:[0],
+    opi_half_day_min_paid:[0],
+    opi_half_day_pay_increment:[0],
+    opi_full_day:[0],
+    opi_full_day_min_paid:[0],
+    opi_full_day_pay_increment: [0]
   });
 }
 
   private vriAssignmentGroup(): FormGroup {
   return this.fb.group({
-    vri_language_id: [],
-    vri_hourly_rate: [],
-    vri_hourly_rate_min_paid: [],
-    vri_hourly_rate_pay_increment: [],
-    vri_half_day: [],
-    vri_half_day_min_paid: [],
-    vri_half_day_pay_increment: [],
-    vri_full_day: [],
-    vri_full_day_min_paid: [],
-    vri_full_day_pay_increment: []
+    id:[''],
+    vri_language_id:[0],
+    vri_hourly_rate:[0],
+    vri_hourly_rate_min_paid:[0],
+    vri_hourly_rate_pay_increment:[0],
+    vri_half_day:[0],
+    vri_half_day_min_paid:[0],
+    vri_half_day_pay_increment:[0],
+    vri_full_day:[0],
+    vri_full_day_min_paid:[0],
+    vri_full_day_pay_increment: [0]
   });
 }
 
-  private vclAssignmentGroup(): FormGroup {
+  private
+   vclAssignmentGroup(): FormGroup {
   return this.fb.group({
-    vcl_language_id: [],
-    vcl_hourly_rate: [],
-    vcl_hourly_rate_min_paid: [],
-    vcl_hourly_rate_pay_increment: [],
-    vcl_half_day: [],
-    vcl_half_day_min_paid: [],
-    vcl_half_day_pay_increment: [],
-    vcl_full_day: [],
-    vcl_full_day_min_paid: [],
-    vcl_full_day_pay_increment: []
+    id:[''],
+    vcl_language_id:[0],
+    vcl_hourly_rate:[0],
+    vcl_hourly_rate_min_paid:[0],
+    vcl_hourly_rate_pay_increment:[0],
+    vcl_half_day:[0],
+    vcl_half_day_min_paid:[0],
+    vcl_half_day_pay_increment:[0],
+    vcl_full_day:[0],
+    vcl_full_day_min_paid:[0],
+    vcl_full_day_pay_increment: [0]
   });
 }
 
@@ -1056,8 +1070,47 @@ get assignmentVclArray(): FormArray {
   return <FormArray>this.assignmentForm.get('assignment_vcl');
 }
 
+getAssignmentSettingByInterpreterId() {
+    this.service.getAssignmentSettingByInterpreterId(this.interId).subscribe(res => {
+      console.log('dev------------------------------',res)
+      for (var i = 0; i < res.length; ++i) {
+        if(res[i].assignment_type == 1 && res[i].status == 1 ){
+          this.onsiteInfo=true;
+          if(document.getElementById('on-site') != null){
+            document.getElementById('on-site')['checked'] =true;
+          }
+        }
+
+        if(res[i].assignment_type == 2 && res[i].status == 1){
+          this.opiInfo=true;
+          if(document.getElementById('opi') != null){
+            document.getElementById('opi')['checked'] =true;
+          }
+        }
+
+        if(res[i].assignment_type == 3 && res[i].status == 1){
+          this.vriInfo=true;
+          if(document.getElementById('vri') != null){
+            document.getElementById('vri')['checked'] =true;
+          }
+        }
+
+        if(res[i].assignment_type == 4 && res[i].status == 1){
+          this.vclInfo=true;
+          if(document.getElementById('vcl') != null){
+          document.getElementById('vcl')['checked'] =true;
+          }
+        }
+      }
+    })
+
+}
 addInterpreterAssignment() {
   this.assignmentForm.value.interpreter_id = this.interId;
+  this.assignmentForm.value.onsiteInfo = this.onsiteInfo;
+  this.assignmentForm.value.opiInfo = this.opiInfo;
+  this.assignmentForm.value.vriInfo = this.vriInfo;
+  this.assignmentForm.value.vclInfo = this.vclInfo;
   this.service.addInterpreterAssignmentSetting(this.assignmentForm.value)
     .subscribe(res => {
       if (res['status'] == 1) {

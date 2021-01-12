@@ -535,6 +535,14 @@ export class HttpService {
   getProfileDetail(interpreter_id): Observable<any> {
     return this.http.post(this.url + '/cesco/getInterpreterProfile', { interpreter_id: interpreter_id });
   }
+
+  getAssignmentSettingByInterpreterId(interpreter_id): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAssignmentSettingByInterpreterId', { interpreter_id: interpreter_id });
+  }
+
+  getUserLanguage(interpreter_id): Observable<any> {
+    return this.http.get(this.url + '/cesco/getUserLanguage/'+interpreter_id);
+  }
   /*=====Interpreter Profile Apis End======*/
 
   /*=====set calculation Apis Start======*/

@@ -28,7 +28,7 @@ export class RolesetComponent implements OnInit {
 
   ngOnInit() {
     this.dataResult = JSON.parse(localStorage.getItem('permissionInfo'));
-    console.log("yes is working",this.dataResult[0]);
+    console.log("yes is working",this.dataResult);
     // this.createForm();
   }
 
