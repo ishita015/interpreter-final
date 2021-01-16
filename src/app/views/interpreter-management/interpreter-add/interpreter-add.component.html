@@ -232,7 +232,7 @@
                         </div>
 
 
-                        <!-- <div class="col-md-6 form-group mb-3">
+                        <div class="col-md-6 form-group mb-3">
                             <label for="City">City</label>
                             <select class="form-control" (change)="onCityChange($event)" formControlName="city">
                                 <option value="" selected disabled>City</option>
@@ -241,10 +241,10 @@
                                 {{isd?.name}}
                                 </option>
                             </select>
-                            <div *ngIf="userForm.controls['city'].errors && (!userForm.controls['city'].pristine || submitted ||userForm.controls['city'].touched )" class="error-msg">
+                            <!-- <div *ngIf="userForm.controls['city'].errors && (!userForm.controls['city'].pristine || submitted ||userForm.controls['city'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['city'].errors.required">City is required.</div> 
-                              </div>
-                        </div> -->
+                              </div> -->
+                        </div>
                     </div>
 
 

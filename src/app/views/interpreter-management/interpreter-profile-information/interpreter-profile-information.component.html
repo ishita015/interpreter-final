@@ -287,7 +287,7 @@
                                             <select class="form-control" (click)="onCountryChange($event)"
                                                 formControlName="country">
                                                 <option value="" selected disabled>Country</option>
-                                                <option *ngFor="let isd of country_Obj" [value]="isd.id">
+                                                <option *ngFor="let isd of country_Obj; let i = index" [value]="isd.id">
                                                     {{isd?.name}}
                                                 </option>
                                             </select>
@@ -302,7 +302,7 @@
                                             <select class="form-control" (change)="onStateChange($event)"
                                                 formControlName="state">
                                                 <option value="" selected disabled>State</option>
-                                                <option *ngFor="let isd of state_Obj" [value]="isd.id">
+                                                <option *ngFor="let isd of state_Obj; let j = index" [value]="isd.id">
                                                     {{isd?.name}}
                                                 </option>
                                             </select>
@@ -319,7 +319,7 @@
                                             <select class="form-control" (change)="onCityChange($event)"
                                                 formControlName="city">
                                                 <option value="" selected disabled>City</option>
-                                                <option *ngFor="let isd of city_Obj" [value]="isd.id">
+                                                <option *ngFor="let isd of city_Obj; let k = index" [value]="isd.id">
                                                     {{isd?.name}}
                                                 </option>
                                             </select>

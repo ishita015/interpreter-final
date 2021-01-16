@@ -65,6 +65,10 @@ export class InterpreterAddComponent implements OnInit {
   city_Obj;
   city_id;
   timezone_Obj;
+
+
+  country_Json;
+  map_address;
   constructor(
     public validation: ValidationsService,
     private fb: FormBuilder,
@@ -93,8 +97,6 @@ export class InterpreterAddComponent implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log("ppppppppppppp", place);
-
           this.new_address = place['formatted_address'];
           console.log("address", this.new_address);
 
@@ -114,6 +116,7 @@ export class InterpreterAddComponent implements OnInit {
           console.log("longitude-", this.longitude);
 
           this.zoom = 12;
+          this.geocodeLatLng(this.latitude, this.longitude);
         });
       });
     });
@@ -175,19 +178,16 @@ export class InterpreterAddComponent implements OnInit {
 
   onCountryChange(id) {
     this.country_id = id.target.value;
-    console.log("country", this.country_id);
     this.StateList();
   }
 
   onStateChange(id) {
     this.state_id = id.target.value;
-    console.log("state", this.state_id);
     this.CityList();
   }
 
   onCityChange(id) {
     this.city_id = id.target.value;
-    console.log("city", this.city_id);
   }
 
   /*========== Country Code for Mobile Start Here========*/
@@ -389,6 +389,7 @@ export class InterpreterAddComponent implements OnInit {
         this.longitude = position.coords.longitude;
         this.zoom = 8;
         this.getAddress(this.latitude, this.longitude);
+        this.geocodeLatLng(this.latitude, this.longitude);
       });
     }
   }
@@ -400,6 +401,7 @@ export class InterpreterAddComponent implements OnInit {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     this.getAddress(this.latitude, this.longitude);
+    this.geocodeLatLng(this.latitude, this.longitude);
   }
 
   getAddress(latitude, longitude) {
@@ -420,6 +422,125 @@ export class InterpreterAddComponent implements OnInit {
 
     });
   }
+
+   //------------ get country, city, state  ----------------------------//
+   geocodeLatLng(latitude, longitude) {
+    var geocoder = new google.maps.Geocoder;
+    var latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+    geocoder.geocode({ 'location': latlng }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          var street = "";
+          var city = "";
+          var state = "";
+          var country = "";
+          var zipcode = "";
+          for (var i = 0; i < results.length; i++) {
+            if (results[i].types[0] === "locality") {
+              city = results[i].address_components[0].long_name;
+              state = results[i].address_components[2].long_name;
+
+            }
+            if (results[i].types[0] === "postal_code" && zipcode == "") {
+              zipcode = results[i].address_components[0].long_name;
+
+            }
+            if (results[i].types[0] === "country") {
+              country = results[i].address_components[0].long_name;
+
+            }
+            if (results[i].types[0] === "route" && street == "") {
+
+              for (var j = 0; j < 4; j++) {
+                if (j == 0) {
+                  street = results[i].address_components[j].long_name;
+                } else {
+                  street += ", " + results[i].address_components[j].long_name;
+                }
+              }
+
+            }
+            if (results[i].types[0] === "street_address") {
+              for (var j = 0; j < 4; j++) {
+                if (j == 0) {
+                  street = results[i].address_components[j].long_name;
+                } else {
+                  street += ", " + results[i].address_components[j].long_name;
+                }
+              }
+
+            }
+          }
+          if (zipcode == "") {
+            if (typeof results[0].address_components[8] !== 'undefined') {
+              zipcode = results[0].address_components[8].long_name;
+            }
+          }
+          if (country == "") {
+            if (typeof results[0].address_components[7] !== 'undefined') {
+              country = results[0].address_components[7].long_name;
+            }
+          }
+          if (state == "") {
+            if (typeof results[0].address_components[6] !== 'undefined') {
+              state = results[0].address_components[6].long_name;
+            }
+          }
+          if (city == "") {
+            if (typeof results[0].address_components[5] !== 'undefined') {
+              city = results[0].address_components[5].long_name;
+            }
+          }
+          this.map_address = {
+            "street": street,
+            "city": city,
+            "state": state,
+            "country": country,
+            "zipcode": zipcode,
+          };
+          this.userForm.get('zipCode').patchValue(zipcode);
+
+           //------------ Country api call ----------------------------//
+          this.service.getCountryMobileCode().subscribe(res => {
+            if (res['status'] == '1') 
+            {
+              this.country_Json = res['data'];
+              let contHash = this.country_Json.find(cont => cont.name == country)
+              this.userForm.get('country').patchValue(contHash.id);
+              //------------ State api call ----------------------------//
+              this.service.getStateCode(contHash.id).subscribe(contryRes => {
+                if (contryRes['status'] == '1') {
+                  this.state_Obj = contryRes["data"];
+                  this.timezone_Obj = contryRes['timeZoneData']['timezones'];
+                  let stateHash =  this.state_Obj.find(st => st.name == state)
+                  if(stateHash)
+                  {
+                  this.userForm.get('state').patchValue(stateHash.id);
+                    //------------ City api call ----------------------------//
+                  this.service.getCityCode(stateHash.id).subscribe(cityRes => {
+                    if (cityRes['status'] == '1') {
+                      this.city_Obj = cityRes["data"];
+                      let cityHash = this.city_Obj.find(ct => ct.name == city)
+                      this.userForm.get('city').patchValue(cityHash.id); 
+                    }
+                  });
+                }
+                }
+              })
+            }
+          });
+         
+          // this.generalForm.get('country').patchValue(country); 
+          //this.patchValue()
+        } else {
+          alert('No results found');
+        }
+      } else {
+        alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+
 
   // Radio button gender function
   radioButton1() {

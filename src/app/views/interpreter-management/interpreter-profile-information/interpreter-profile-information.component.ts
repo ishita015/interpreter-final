@@ -117,12 +117,14 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   role_id;
 
-
-
+  //map location variable
   country_name;
   city_name;
   state_name;
   map_address;
+  country_Json;
+  state_Json;
+  city_Json;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -200,18 +202,16 @@ export class InterpreterProfileInformationComponent implements OnInit {
   /*========== Add Api Start Here========*/
   onCountryChange(id) {
     this.country_id = id.target.value;
-    console.log("country", this.country_id);
-    this.StateList(id);
+    this.StateList(this.country_id);
   }
   onStateChange(id) {
     this.state_id = id.target.value;
-    console.log("state", this.state_id);
-    this.CityList();
+    this.CityList(this.state_id);
   }
 
   onCityChange(id) {
     this.city_id = id.target.value;
-    console.log("city", this.city_id);
+    this.CityList(id.target.value);
   }
 
   /*========== Country Code for Mobile Start Here========*/
@@ -227,25 +227,47 @@ export class InterpreterProfileInformationComponent implements OnInit {
   /*========== State Code for Mobile Start Here========*/
 
   StateList(country_id) {
-      console.log('zzzzzzz',country_id)
-    this.service.getStateCode(this.country_id).subscribe(res => {
-      if (res['status'] == '1') {
-        this.state_Obj = res['data'];
-        this.timezone_Obj = res['timeZoneData']['timezones'];
-      }
-    });
-  } 
+    if (this.country_id) {
+      this.service.getStateCode(this.country_id).subscribe(res => {
+       
+        
+        if (res['status'] == '1') {
+          this.state_Obj = res['data'];
+          this.timezone_Obj = res['timeZoneData']['timezones'];
+        }
+      });
+    }
+    else {
+      this.service.getStateCode(country_id).subscribe(res => {
+        if (res['status'] == '1') {
+        
+          this.state_Obj = res['data'];
+          this.timezone_Obj = res['timeZoneData']['timezones'];
+        }
+      });
+    }
+
+  }
 
 
   /*==========  State Code for Mobile End Here========*/
 
   /*========== City Code for Mobile Start Here========*/
-  CityList() {
+  CityList(state_id) {
+    if (this.state_id) {
     this.service.getCityCode(this.state_id).subscribe(res => {
       if (res['status'] == '1') {
         this.city_Obj = res['data'];
       }
     });
+  }
+  else{
+    this.service.getCityCode(state_id).subscribe(res => {
+      if (res['status'] == '1') {
+        this.city_Obj = res['data'];
+      }
+    });
+  }
   }
   /*==========  City Code for Mobile End Here========*/
 UserLangData=[]
@@ -454,11 +476,13 @@ UserLangData=[]
     this.generalForm.get('address').patchValue(this.detail_Obj.address);
     this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth);
     this.generalForm.get('international_phone_no').patchValue(this.detail_Obj.international_phone_no);
-    console.log("pppppppppppppp",this.detail_Obj.country);
-    
+  
     this.generalForm.get('country').patchValue(this.detail_Obj.country);
     this.generalForm.get('state').patchValue(this.detail_Obj.state);
-    this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
+    if(this.detail_Obj.gender == "Other"){
+      this.showOther = true;
+      this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
+    }
     this.generalForm.get('city').patchValue(this.detail_Obj.city);
     this.generalForm.get('zipCode').patchValue(this.detail_Obj.zipCode);
     this.generalForm.get('timezone').patchValue(this.detail_Obj.timezone);
@@ -581,6 +605,8 @@ UserLangData=[]
           // checked="{{oo =='true' ? 'checked' : ''}}"
         }
         this.patchValue();
+        this.StateList(this.detail_Obj.country);
+        this.CityList(this.detail_Obj.state);
         // addAssignment
       } else {
         this.detail_Obj = res
@@ -864,34 +890,43 @@ UserLangData=[]
                     "country": country,
                     "zipcode": zipcode,
                 };
+
+                this.generalForm.get('zipCode').patchValue(zipcode);
+
+                //------------ Country api call ----------------------------//
+               this.service.getCountryMobileCode().subscribe(res => {
+                 if (res['status'] == '1') 
+                 {
+                   this.country_Json = res['data'];
+                   let contHash = this.country_Json.find(cont => cont.name == country)
+                   this.generalForm.get('country').patchValue(contHash.id);
+                   //------------ State api call ----------------------------//
+                   this.service.getStateCode(contHash.id).subscribe(contryRes => {
+     
+                     if (contryRes['status'] == '1') {
+                       this.state_Obj = contryRes["data"];
+                       this.timezone_Obj = contryRes['timeZoneData']['timezones'];
+                       let stateHash =  this.state_Obj.find(st => st.name == state);
+                       if(stateHash)
+                       {
+                       this.generalForm.get('state').patchValue(stateHash.id);
+                         //------------ City api call ----------------------------//
+                       this.service.getCityCode(stateHash.id).subscribe(cityRes => {
+                         if (cityRes['status'] == '1') {
+                           this.city_Obj = cityRes["data"];
+                           let cityHash = this.city_Obj.find(ct => ct.name == city)
+                           this.generalForm.get('city').patchValue(cityHash.id); 
+                         }
+                       });
+                     }
+                     }
+                   })
+                  }
+           
+                });
             
          
-         this.service.getCountryMobileCode().subscribe(res => {
-            if (res['status'] == '1') 
-            {
-                this.country_Obj = res['data'];
-                for(let i=0;i<this.country_Obj.length; i++)
-                {
-                    if(this.country_Obj[i].name == country)
-                    { 
-                        this.generalForm.get('country').patchValue(this.country_Obj[i].id); 
-                        this.service.getStateCode(this.country_Obj[i].id).subscribe(res => {
-                            if (res['status'] == '1') {
-                                this.state_Obj = res['data'];
-                                
-                                this.generalForm.get('state').patchValue(this.state_Obj.id); 
-                            }
-                          });
-                        break;
-                    }
-                }
-            }
-          });
-                // console.log("qqqqqqqwqwqqqqqqqqq", this.map_address );
-                // this.generalForm.get('country').patchValue(country); 
-                // console.log("generalForm", this.generalForm.value );
-                //this.patchValue()
-            } else {
+                   } else {
                 alert('No results found');
             }
         } else {
