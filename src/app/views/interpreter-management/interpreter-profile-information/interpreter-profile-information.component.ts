@@ -8,12 +8,21 @@ import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader } from '@agm/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { Observable, of, Subscription } from 'rxjs';
+import { tap, startWith, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { th } from 'date-fns/locale';
+
+
 @Component({
   selector: 'app-interpreter-profile-information',
   templateUrl: './interpreter-profile-information.component.html',
   styleUrls: ['./interpreter-profile-information.component.scss']
 })
 export class InterpreterProfileInformationComponent implements OnInit {
+
+
+
   @ViewChild('imageModal', { static: true }) imageModal;
   files: string[] = [];
 
@@ -125,6 +134,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   country_Json;
   state_Json;
   city_Json;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -132,7 +142,10 @@ export class InterpreterProfileInformationComponent implements OnInit {
     private modalService: NgbModal,
     private ngZone: NgZone,
     private mapsAPILoader: MapsAPILoader,
-    public service: HttpService) {
+    public service: HttpService,
+    
+    private http: HttpClient,
+    ) {
     this.assignmentForm = this.fb.group({
       assignment: this.fb.array([this.assignmentGroup()]),
       assignment_opi: this.fb.array([this.opiAssignmentGroup()]),
@@ -148,7 +161,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
-    
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
@@ -185,7 +197,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.getUserLanguage();
   }
 
-  /*========== Form2 Value Start Here========*/
+ /*========== Form2 Value Start Here========*/
   // createForm2() {
   //   this.Profile = this.fb.group({
   //     payment_mode: ['', this.validation.onlyRequired_validator],
@@ -919,14 +931,11 @@ UserLangData=[]
                          }
                        });
                      }
-                     }
+                    }
                    })
                   }
-           
                 });
-            
-         
-                   } else {
+            } else {
                 alert('No results found');
             }
         } else {
@@ -1140,7 +1149,8 @@ getAssignmentSettingByInterpreterId() {
     })
 
 }
-addInterpreterAssignment() {
+addInterpreterAssignment(type) {
+  
   this.assignmentForm.value.interpreter_id = this.interId;
   this.assignmentForm.value.onsiteInfo = this.onsiteInfo;
   this.assignmentForm.value.opiInfo = this.opiInfo;
@@ -1151,6 +1161,21 @@ addInterpreterAssignment() {
       if (res['status'] == 1) {
         this.ass_Obj = res
         this.toastr.success(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        if(type == 'skills'){
+          this.assignment_form = true;
+          this.general_form = false;  
+          this.skills_form = false;
+          this.banking_form = false;
+        }
+        else{
+          this.banking_form = true;
+          this.assignment_form = false;
+          this.general_form = false; 
+          this.skills_form = false;
+          
+        }
+       
+        
       } else {
         this.ass_Obj = res
         this.toastr.error(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });

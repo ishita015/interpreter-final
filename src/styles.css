@@ -95,7 +95,10 @@
   border-radius: 0px;
 }
 
-.pro_info 
+.layout-sidebar-large .sidebar-left .navigation-left .nav-item.active .nav-item-hold {
+  color: #fff !important;  
+}
+.layout-sidebar-large .sidebar-left-secondary > .childNav {display: block !important;}
 /* end */
 .lang_block .btn{    padding: 4px 5px;}
 .role_block .datatable-row-wrapper .datatable-body-row .datatable-row-center {

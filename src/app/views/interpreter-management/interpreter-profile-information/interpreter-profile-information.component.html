@@ -189,14 +189,14 @@
                                                     <label>Code</label>
                                                     <select class="form-control" formControlName="country_code">
                                                         <option value="" selected disabled>Code</option>
-                                                        <option *ngFor="let isd of country_Obj" [value]="isd.id">
-                                                            {{isd?.name}}
+                                                        <option *ngFor="let isd of country_Obj"  [value]="isd.id">
+                                                            {{isd?.name}} (+{{isd?.phonecode}})
                                                         </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <label for="MobileNo.">Mobile No. <span class="error-msg"> * </span></label>
-                                                    <input type="text" mask="(000) 000-0000" class="form-control"
+                                                    <input type="text" mask="(000) 0000-0000" class="form-control"
                                                         formControlName="mobile"
                                                         onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                         placeholder="Mobile">
@@ -217,7 +217,7 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Home Phone</label>
-                                            <input type="text" mask="(000) 000-0000" class="form-control"
+                                            <input type="text" mask="(000) 0000-0000" class="form-control"
                                                 formControlName="international_phone_no"
                                                 onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                 placeholder="Home Phone">
@@ -849,7 +849,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 mt-3 text-right">
-                        <button type="button" (click)="uploadDocuments();addInterpreterAssignment()" class="btn btn-primary">Save</button>
+                        <button type="button" (click)="uploadDocuments();addInterpreterAssignment('skills')" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </form>
@@ -1916,7 +1916,7 @@
 
                         <div class="form-group row" *ngIf="opiInfo || vriInfo || vclInfo || onsiteInfo">
                             <div class="col-sm-12">
-                                <button type="button" (click)="addInterpreterAssignment()"
+                                <button type="button" (click)="addInterpreterAssignment('assignment')"
                                     class="btn btn-primary">Save</button>
                             </div>
                         </div>
@@ -2110,11 +2110,18 @@
                                         <tbody>
                                             <tr>
                                                 <td>Bank Routing Number</td>
-                                                <td>{{detail_Obj?.bank_routing_no}}</td>
+                                                <td>
+                                                    <!-- {{detail_Obj?.bank_routing_no}} -->
+                                                    <input type="text" class="form-control" 
+                                                    placeholder="Bank Routing Number">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Bank Name</td>
-                                                <td>{{detail_Obj?.bank_name}}</td>
+                                                <td>{{detail_Obj?.bank_name}}
+                                                    <input type="text" class="form-control" 
+                                                    placeholder="Bank Name">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Account Type</td>
@@ -2155,7 +2162,10 @@
 
                                             <tr>
                                                 <td>Bank Address</td>
-                                                <td>{{detail_Obj?.bank_address}}</td>
+                                                <td>{{detail_Obj?.bank_address}}
+                                                    <input type="text" class="form-control" 
+                                                    placeholder="Bank Address">
+                                                </td>
                                             </tr>
 
                                             <!-- <tr>

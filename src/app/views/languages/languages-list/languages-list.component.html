@@ -77,14 +77,42 @@
                 (click)="viewInterpreter(row.id,row.Interpreter,interpreterConfirmModal)">{{row.Interpreter}}</span>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">
+
+            <ngx-datatable-column [minWidth]="50" name="Basis" prop="basis">
+            <ng-template ngx-datatable-header-template>
+              <span title="Basis Interpreter">Basis Rate</span>
+            </ng-template>
+            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [minWidth]="50" name="vendor" prop="vendor">
+            <ng-template ngx-datatable-header-template>
+              <span title="vendor Interpreter">Vendor Rate</span>
+            </ng-template>
+            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [minWidth]="50" name="client" prop="client">
+            <ng-template ngx-datatable-header-template>
+              <span title="client Interpreter">Client Rate</span>
+            </ng-template>
+            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <!-- <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">
             <ng-template ngx-datatable-header-template>
               <span title="Created date">Created date </span>
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
           <ngx-datatable-column [minWidth]="50" name="Status" prop="status">
             <ng-template ngx-datatable-header-template>
