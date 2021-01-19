@@ -42,6 +42,7 @@ export class LanguagesEditComponent implements OnInit {
       country: [''],
       // country: [{value: '', disabled: this.data.country != 'N/A' ? true : false }],   
       description: [''],
+      base_rate: [''],
       id:['']
     });
   }
@@ -53,6 +54,7 @@ export class LanguagesEditComponent implements OnInit {
     this.langaugeEditForm.get('code').patchValue(this.data.code);
     this.langaugeEditForm.get('country').patchValue(this.data.country);
     this.langaugeEditForm.get('description').patchValue(this.data.description);
+    this.langaugeEditForm.get('base_rate').patchValue(this.data.base_rate);
   }
 /*==========Edit Input Value End Here========*/
 

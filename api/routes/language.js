@@ -213,12 +213,13 @@ module.exports.getSelectLangInterpreter = async function(req, res) {
 
 // add languages
 
-module.exports.addLanguage = async function(req, res) {
+module.exports. addLanguage = async function(req, res) {
     //validation start
     const v = new Validator(req.body, {
         name: 'required',
         code: 'required',
-        country: 'required'
+        country: 'required',
+        base_rate: 'required',
     });
     
     const matched = await v.check();
@@ -242,10 +243,11 @@ module.exports.addLanguage = async function(req, res) {
     let name = req.body.name;
     let code = req.body.code;
     let country = req.body.country;
+    let base_rate = req.body.base_rate;
     let description = req.body.description ? req.body.description : "";
     
     var resultdata = await usermodel.languageExist(code);
-
+    console.log("base_rate",base_rate);
     if (resultdata != "" && resultdata != undefined) {
         res.json({
             status: 0,
@@ -255,10 +257,12 @@ module.exports.addLanguage = async function(req, res) {
         });
         return true;
     }else{
-        var sql = "INSERT INTO languages(name, code,country, description,status)VALUES('"+name+"', '"+code+"','"+country+"', '"+description+"', '1')";
+        var sql = "INSERT INTO languages(name, code,country,base_rate, description,status)VALUES('"+name+"', '"+code+"','"+country+"','"+base_rate+"', '"+description+"', '1')";
         console.log('sql-',sql)
         con.query(sql, function(err, insert) {
+            console.log("data",err);
             var last_id= insert.insertId;
+            console.log("last_id",last_id);
             if(!err){
                 res.json({
                     status: 1,
@@ -311,13 +315,13 @@ module.exports.updateLanguage = async function(req, res) {
 
     
     let name = req.body.name;
-    // let code = req.body.code;
+    let base_rate = req.body.base_rate;
     let description = req.body.description ? req.body.description : "";
     let country = req.body.country ? req.body.country : "";
     let id = req.body.id;
     let sql;
     if (country != "" && country != undefined) {  
-        sql = "UPDATE languages SET name ='"+name+"',country ='"+country+"', description ='"+description+"' WHERE id = '"+id+"'";
+        sql = "UPDATE languages SET name ='"+name+"',country ='"+country+"', base_rate ='"+base_rate+"', description ='"+description+"' WHERE id = '"+id+"'";
     }else{
         sql = "UPDATE languages SET name ='"+name+"', description ='"+description+"' WHERE id = '"+id+"'";
     }
@@ -484,6 +488,8 @@ module.exports.getLanguages = async function(req, res, next) {
                 Interpreter: totalInter[0].total_interpreter,
                 Assessments: totalAssign[0].total_assignment,
                 status: resultdata[i].status ? resultdata[i].status : '0',
+                base_rate: resultdata[i].base_rate ? resultdata[i].base_rate : "N/A",
+            
             }
             mainArr.push(mainObj); 
         } 

@@ -80,29 +80,11 @@
 
             <ngx-datatable-column [minWidth]="50" name="Basis" prop="basis">
             <ng-template ngx-datatable-header-template>
-              <span title="Basis Interpreter">Basis Rate</span>
+              <span title="Basis Interpreter">Base Rate</span>
             </ng-template>
-            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
-            </ng-template> -->
-          </ngx-datatable-column>
-
-          <ngx-datatable-column [minWidth]="50" name="vendor" prop="vendor">
-            <ng-template ngx-datatable-header-template>
-              <span title="vendor Interpreter">Vendor Rate</span>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.base_rate}}">{{row.base_rate}}</span>
             </ng-template>
-            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
-            </ng-template> -->
-          </ngx-datatable-column>
-
-          <ngx-datatable-column [minWidth]="50" name="client" prop="client">
-            <ng-template ngx-datatable-header-template>
-              <span title="client Interpreter">Client Rate</span>
-            </ng-template>
-            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy'}}</span>
-            </ng-template> -->
           </ngx-datatable-column>
 
           <!-- <ngx-datatable-column [minWidth]="50" name="Created Date" prop="created_at">

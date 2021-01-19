@@ -30,7 +30,8 @@ export class LanguagesAddComponent implements OnInit {
       name: ['', this.validation.onlyRequired_validator],
       code: ['', this.validation.onlyRequired_validator],
       country: ['', this.validation.onlyRequired_validator],
-      description:['']
+      description:[''],
+      base_rate: ['']
     });
   }
   /*========== Form Value End Here========*/
