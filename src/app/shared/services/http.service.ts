@@ -574,5 +574,14 @@ export class HttpService {
 
   /*=====Special Offers Apis End======*/
   
-
+ post(url,value){
+      const URL=this.url+'/cesco/'+url;
+      const httpOptions = {headers:new HttpHeaders({'Content-Type':'application/json'})}
+      return this.http.post(URL,value,httpOptions)
+    }
+    get(url1){
+      console.log(this.url+'/cesco/'+url1);
+       const httpOptions = {headers:new HttpHeaders({'Content-Type':'application/json'})}
+         return this.http.get(this.url+url1,httpOptions)
+    }
 }

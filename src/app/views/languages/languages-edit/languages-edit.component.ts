@@ -38,11 +38,11 @@ export class LanguagesEditComponent implements OnInit {
   createForm() {
     this.langaugeEditForm = this.fb.group({
       name: ['', this.validation.onlyRequired_validator],
-      code: [''],
+      code: ['',this.validation.onlyRequired_validator],
       country: [''],
       // country: [{value: '', disabled: this.data.country != 'N/A' ? true : false }],   
       description: [''],
-      base_rate: [''],
+      base_rate: ['',this.validation.onlyRequired_validator],
       id:['']
     });
   }

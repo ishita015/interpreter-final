@@ -24,11 +24,9 @@ export class LangimportComponent implements OnInit {
   data  =[
     {
     name: 'English',
-    code: 'en'
-    },
-    {
-      name: 'Hindi',
-      code: 'hi'
+    code: 'en',
+    country: 'usa',
+    base_rate: '20',
     }
 ];
   excel=[];
@@ -46,7 +44,8 @@ export class LangimportComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private excelService:ExcelServicesService,
-    public service:HttpService  
+    public service:HttpService,
+   public toastr:ToastrService  
   ) { 
     this.form = this.formBuilder.group({
       
@@ -65,6 +64,9 @@ form: FormGroup;
 
   submitForm() {
     console.log(this.form.value)
+    if(this.selectedFile == null){
+      this.toastr.warning('Please select xlsx file')
+    }else{
 
     var formData: any = new FormData();
     this.form.value.image =  this.selectedFile;
@@ -85,6 +87,7 @@ form: FormGroup;
      // (error) => console.log(error)
     //)
   }
+    }
 
   exportAsXLSX(){
     // this.service.getJSON().subscribe(data => {

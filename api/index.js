@@ -31,6 +31,7 @@ const { Validator } = require('node-input-validator');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 var nodemailer = require('nodemailer')
+var commonDb = require('./routes/Models/commonDev');
 
 // const ct = require('countries-and-timezones');
 
@@ -256,6 +257,7 @@ app.post('/cesco/addServiceTen', serviceController.addServiceTen);
 app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
+app.post('/cesco/update_Account_Setting_Interpreter_Profile', interpreterController.update_Account_Setting_Interpreter_Profile);
 
 // api end
 
@@ -1158,22 +1160,32 @@ imgDownload();
 
 
 /* image upload */
-const EXCLDIR = './public';
-let excelImp = multer.diskStorage({
-    destination: function(req, excelImp, callback) {
-        callback(null, DOCDIR);
-    },
-    filename: function(req, excelImp, cb) {
-        cb(null, excelImp.fieldname + '-' + Date.now() + path.extname(excelImp.originalname));
-    }
-});
+// const EXCLDIR = './public';
+// let excelImp = multer.diskStorage({
+//     destination: function(req, excelImp, callback) {
+//         callback(null, DOCDIR);
+//     },
+//     filename: function(req, excelImp, cb) {
+//         cb(null, excelImp.fieldname + '-' + Date.now() + path.extname(excelImp.originalname));
+//     }
+// });
 
-let exclupload = multer({
-    storage: excelImp
-});
+// let exclupload = multer({
+//     storage: excelImp
+// });
 
 
-
+var storagee = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public')
+  },
+  filename: function (req, file, cb) {
+      console.log('fieldname',file)
+    cb(null, file.originalname + '-' + Date.now())
+  }
+})
+ 
+var uploadd = multer({ storage: storagee })
 
 
 
@@ -1185,23 +1197,23 @@ const { Console } = require('console');
 
 
 //update profile 
-app.post('/cesco/importLang', exclupload.any(),async function(req, res, next) {
-    console.log('result-',req.files);
-    console.log('file name-',req.files[0].filename);
+app.post('/cesco/importLang', uploadd.any(),async function(req, res, next) {
 
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             const workbook = XLSX.readFile('./public/'+req.files[0].filename);
             const [sheetName] = workbook.SheetNames;
             const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
-            console.log(jsonData)
 
             for (var i = 0; i < jsonData.length; i++) {
-                // console.log('result-',jsonData[i].name);
-                // console.log('result-',jsonData[i].code);
-                var sql = "INSERT INTO languages (name,code,status) values ('"+jsonData[i].name+"','"+jsonData[i].code+"','1')";
-                console.log('sql-',sql)
+            var onsiteDataEx = await  commonDb.AsyncSellectAllWhere('languages' ,{code:jsonData[i].code})
+            if(onsiteDataEx.length == 0){
+                var sql = "INSERT INTO languages (name,code,base_rate,status) values ('"+jsonData[i].name+"','"+jsonData[i].code+"','"+jsonData[i].base_rate+"','1')";
                 var query = con.query(sql, function(err, result) {});            
+            }else{
+            await  commonDb.AsyncUpdate('languages' ,{name:jsonData[i].name,base_rate:jsonData[i].base_rate,status:1},{code:jsonData[i].code})
+
+            }
                 
              }
 

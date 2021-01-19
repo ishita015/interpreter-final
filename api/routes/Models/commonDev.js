@@ -77,7 +77,7 @@ this.AsyncUpdate = function(table,obj,where) {
         que += " WHERE " + key[0] + " = '" + where[key[0]] + "'";
         
             // console.log(where)
-            // console.log(que)
+            console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
              if(err){

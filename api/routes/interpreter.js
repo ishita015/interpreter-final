@@ -76,6 +76,7 @@ module.exports.getLogPrice = async function (req, res) {
 
 module.exports.getInterpreterProfile = async function (req, res, next) {
     //validation start
+    var interpreter_assignment_status=0;
     const v = new Validator(req.body, {
         interpreter_id: 'required'
     });
@@ -175,6 +176,7 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
         if (assignment != "" && assignment != undefined) {
             assignmentArr = assignment;
+            interpreter_assignment_status=1;
         }
 
         if ((resultData[0].first_name != "" && resultData[0].first_name != undefined) && (resultData[0].last_name != "" && resultData[0].last_name != undefined) && (resultData[0].email != "" && resultData[0].email != undefined) && (resultData[0].mobile != "" && resultData[0].mobile != undefined) && (resultData[0].address != "" && resultData[0].address != undefined) && (resultData[0].timezone != "" && resultData[0].timezone != "0" && resultData[0].timezone != undefined) && (resultData[0].date_of_birth != "" && resultData[0].date_of_birth != undefined)) {
@@ -259,6 +261,7 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
             secondary_language: langArr,
             special_attributes: attributesArr,
             interpreter_assignment: assignmentArr,
+            interpreter_assignment_status: interpreter_assignment_status,
         }
         mainArr.push(mainObj);
 
@@ -311,7 +314,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                   if(onsiteDataEx.length == 0){
                      await  commonDb.AsyncInsert('interpreter_assignment_settings', onsitedata )
                     }else{
-                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:2} ,{Interpreter_id:req.body.interpreter_id,assignment_type:1})
+                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:1})
                                              }
       
             }else{
@@ -348,7 +351,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                if(vclDataEx.length == 0){
                   await  commonDb.AsyncInsert('interpreter_assignment_settings', vclInfodata )
                }else{
-                  await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:2} ,{Interpreter_id:req.body.interpreter_id,assignment_type:4})
+                  await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:4})
                                 }
       
             }else{
@@ -384,7 +387,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                 if(opiDataEx.length == 0){
                   await  commonDb.AsyncInsert('interpreter_assignment_settings', opiInfodata )
                 }else{
-                  await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:2} ,{Interpreter_id:req.body.interpreter_id,assignment_type:2})
+                  await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:2})
                                 }
       
             }else{
@@ -422,7 +425,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
               if(vriDataEx.length == 0){
                   await  commonDb.AsyncInsert('interpreter_assignment_settings', vriInfodata )
               }else{
-                  await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:2} ,{Interpreter_id:req.body.interpreter_id,assignment_type:3})
+                  await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:3})
                             }
       
             }else{
@@ -460,7 +463,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                   if(onsiteDataEx.length == 0){
                      await  commonDb.AsyncInsert('interpreter_assignment_settings', onsitedata )
                     }else{
-                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:2} ,{Interpreter_id:req.body.interpreter_id,assignment_type:5})
+                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:5})
                                              }
       
             }else{
@@ -497,7 +500,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                   if(onsiteDataEx.length == 0){
                      await  commonDb.AsyncInsert('interpreter_assignment_settings', onsitedata )
                     }else{
-                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:2} ,{Interpreter_id:req.body.interpreter_id,assignment_type:6})
+                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:6})
                                              }
       
             }else{
@@ -3776,3 +3779,155 @@ module.exports.statusUpdate = async function (req, res) {
 
 
 };
+module.exports.update_Account_Setting_Interpreter_Profile = async function (req, res) {
+    console.log(req.body);
+
+     if(req.body.type == 'onsite'){
+           for (var i = 0; i < req.body.assignment.length; i++) {
+                var onsitedata ={
+                                status:1,
+                                 Interpreter_id:req.body.interpreter_id,
+                                language_id: req.body.assignment[i].language_id,
+                                lob: req.body.assignment[i].lob,
+                                assignment_type:1,
+                                rates_on_duration_hourly: req.body.assignment[i].hourly_rate,
+                                min_paid_hourly: req.body.assignment[i].hourly_rate_min_paid ,
+                                pay_increment_hourly: req.body.assignment[i].hourly_rate_pay_increment,
+                                rates_on_duration_half_day: req.body.assignment[i].half_day ,
+                                min_paid_half_day: req.body.assignment[i].half_day_min_paid ,
+                                pay_increment_half_day: req.body.assignment[i].half_day_pay_increment ,
+                                rates_on_duration_full_day: req.body.assignment[i].full_day ,
+                                min_paid_full_day: req.body.assignment[i].full_day_min_paid ,
+                                pay_increment_full_day: req.body.assignment[i].full_day_pay_increment 
+                                }
+                 
+          await  commonDb.AsyncUpdate('interpreter_assignment_settings', onsitedata ,{id:req.body.assignment[i].id})
+        }
+     }
+
+  if(req.body.type == 'vcl'){
+       for (var j = 0; j < req.body.assignment_vcl.length; j++) {
+                var vclInfodata ={
+                    status:1,
+                                 Interpreter_id:req.body.interpreter_id,
+                                language_id: req.body.assignment_vcl[j].vcl_language_id,
+                                lob: req.body.assignment_vcl[j].vcl_lob,
+                                assignment_type:4,
+                                rates_on_duration_hourly: req.body.assignment_vcl[j].vcl_hourly_rate,
+                                min_paid_hourly: req.body.assignment_vcl[j].vcl_hourly_rate_min_paid ,
+                                pay_increment_hourly: req.body.assignment_vcl[j].vcl_hourly_rate_pay_increment,
+                                rates_on_duration_half_day: req.body.assignment_vcl[j].vcl_half_day ,
+                                min_paid_half_day: req.body.assignment_vcl[j].vcl_half_day_min_paid ,
+                                pay_increment_half_day: req.body.assignment_vcl[j].vcl_half_day_pay_increment ,
+                                rates_on_duration_full_day: req.body.assignment_vcl[j].vcl_full_day ,
+                                min_paid_full_day: req.body.assignment_vcl[j].vcl_full_day_min_paid ,
+                                pay_increment_full_day: req.body.assignment_vcl[j].vcl_full_day_pay_increment 
+                                }
+           
+          await  commonDb.AsyncUpdate('interpreter_assignment_settings', vclInfodata,{id:req.body.assignment_vcl[j].vcl_id})
+        }
+  }
+
+  if(req.body.type == 'opi'){
+        for (var k = 0; k < req.body.assignment_opi.length; k++) {
+                var opiInfodata ={
+                    status:1,
+                                 Interpreter_id:req.body.interpreter_id,
+                                language_id: req.body.assignment_opi[k].opi_language_id,
+                                lob: req.body.assignment_opi[k].opi_lob,
+                                assignment_type:2,
+                                rates_on_duration_hourly: req.body.assignment_opi[k].opi_hourly_rate,
+                                min_paid_hourly: req.body.assignment_opi[k].opi_hourly_rate_min_paid ,
+                                pay_increment_hourly: req.body.assignment_opi[k].opi_hourly_rate_pay_increment,
+                                rates_on_duration_half_day: req.body.assignment_opi[k].opi_half_day ,
+                                min_paid_half_day: req.body.assignment_opi[k].opi_half_day_min_paid ,
+                                pay_increment_half_day: req.body.assignment_opi[k].opi_half_day_pay_increment ,
+                                rates_on_duration_full_day: req.body.assignment_opi[k].opi_full_day ,
+                                min_paid_full_day: req.body.assignment_opi[k].opi_full_day_min_paid ,
+                                pay_increment_full_day: req.body.assignment_opi[k].opi_full_day_pay_increment 
+                                }
+      
+          await  commonDb.AsyncUpdate('interpreter_assignment_settings', opiInfodata ,{id:req.body.assignment_opi[k].opi_id})
+        }
+        }
+
+ if(req.body.type == 'vri'){
+        for (var l = 0; l < req.body.assignment_vri.length; l++) {
+                var vriInfodata ={
+                    status:1,
+                                 Interpreter_id:req.body.interpreter_id,
+                                language_id: req.body.assignment_vri[l].vri_language_id,
+                                lob: req.body.assignment_vri[l].vri_lob,
+                                assignment_type:3,
+                                rates_on_duration_hourly: req.body.assignment_vri[l].vri_hourly_rate,
+                                min_paid_hourly: req.body.assignment_vri[l].vri_hourly_rate_min_paid ,
+                                pay_increment_hourly: req.body.assignment_vri[l].vri_hourly_rate_pay_increment,
+                                rates_on_duration_half_day: req.body.assignment_vri[l].vri_half_day ,
+                                min_paid_half_day: req.body.assignment_vri[l].vri_half_day_min_paid ,
+                                pay_increment_half_day: req.body.assignment_vri[l].vri_half_day_pay_increment ,
+                                rates_on_duration_full_day: req.body.assignment_vri[l].vri_full_day ,
+                                min_paid_full_day: req.body.assignment_vri[l].vri_full_day_min_paid ,
+                                pay_increment_full_day: req.body.assignment_vri[l].vri_full_day_pay_increment 
+                                }
+               
+          await  commonDb.AsyncUpdate('interpreter_assignment_settings',vriInfodata ,{id:req.body.assignment_vri[l].vri_id})
+        }
+        }
+    if(req.body.type == 'rsi'){
+        for (var i = 0; i < req.body.assignment_rsi.length; i++) {
+                var rsiData ={
+                                status:1,
+                                 Interpreter_id:req.body.interpreter_id,
+                                language_id: req.body.assignment_rsi[i].rsi_language_id,
+                                lob: req.body.assignment_rsi[i].rsi_lob,
+                                assignment_type:5,
+                                rates_on_duration_hourly: req.body.assignment_rsi[i].rsi_hourly_rate,
+                                min_paid_hourly: req.body.assignment_rsi[i].rsi_hourly_rate_min_paid ,
+                                pay_increment_hourly: req.body.assignment_rsi[i].rsi_hourly_rate_pay_increment,
+                                rates_on_duration_half_day: req.body.assignment_rsi[i].rsi_half_day ,
+                                min_paid_half_day: req.body.assignment_rsi[i].rsi_half_day_min_paid ,
+                                pay_increment_half_day: req.body.assignment_rsi[i].rsi_half_day_pay_increment ,
+                                rates_on_duration_full_day: req.body.assignment_rsi[i].rsi_full_day ,
+                                min_paid_full_day: req.body.assignment_rsi[i].rsi_full_day_min_paid ,
+                                pay_increment_full_day: req.body.assignment_rsi[i].rsi_full_day_pay_increment 
+                                }
+         
+          await  commonDb.AsyncUpdate('interpreter_assignment_settings', rsiData ,{id:req.body.assignment_rsi[i].rsi_id})
+        }
+        }
+
+
+    if(req.body.type == 'vci_opi'){
+          for (var i = 0; i < req.body.assignment_vci_opi.length; i++) {
+                var onsitedata ={
+                                status:1,
+                                 Interpreter_id:req.body.interpreter_id,
+                                language_id: req.body.assignment_vci_opi[i].vci_opi_language_id,
+                                lob: req.body.assignment_vci_opi[i].vci_opi_lob,
+                                assignment_type:6,
+                                rates_on_duration_hourly: req.body.assignment_vci_opi[i].vci_opi_hourly_rate,
+                                min_paid_hourly: req.body.assignment_vci_opi[i].vci_opi_hourly_rate_min_paid ,
+                                pay_increment_hourly: req.body.assignment_vci_opi[i].vci_opi_hourly_rate_pay_increment,
+                                rates_on_duration_half_day: req.body.assignment_vci_opi[i].vci_opi_half_day ,
+                                min_paid_half_day: req.body.assignment_vci_opi[i].vci_opi_half_day_min_paid ,
+                                pay_increment_half_day: req.body.assignment_vci_opi[i].vci_opi_half_day_pay_increment ,
+                                rates_on_duration_full_day: req.body.assignment_vci_opi[i].vci_opi_full_day ,
+                                min_paid_full_day: req.body.assignment_vci_opi[i].vci_opi_full_day_min_paid ,
+                                pay_increment_full_day: req.body.assignment_vci_opi[i].vci_opi_full_day_pay_increment 
+                                }
+           
+              await  commonDb.AsyncUpdate('interpreter_assignment_settings', onsitedata ,{id:req.body.assignment_vci_opi[i].vci_opi_id})
+
+            
+        }
+   
+    }
+
+    res.json({
+        status: 1,
+        error_code: 0,
+        error_line: 1,
+        message: "Assignment successfully"
+    });
+    return true;
+}

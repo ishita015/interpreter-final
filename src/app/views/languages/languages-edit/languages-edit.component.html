@@ -38,20 +38,20 @@
                             
                         </div>
 
-
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="country">Note</label>
-                            <input type="text" class="form-control"  formControlName="description"  placeholder="Note">
+                            <div class="col-md-6 form-group mb-3">
+                            <label for="Bonus">Base Rate (Average)</label>
+                            <input type="number" class="form-control"  formControlName="base_rate" placeholder="Base Rate (Average)">
+                            <div *ngIf="langaugeEditForm.controls['base_rate'].errors && (!langaugeEditForm.controls['base_rate'].pristine || submitted ||langaugeEditForm.controls['base_rate'].touched )" class="error-msg">
+                                <div [hidden]="!langaugeEditForm.controls['base_rate'].errors.required">Base Rate is required.</div>
+                              </div>
                         </div>
+                       
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
-                            <label for="Bonus">Base Rate (Average)</label>
-                            <input type="text" class="form-control"  formControlName="base_rate" placeholder="Base Rate (Average)">
-                            <!-- <div *ngIf="langaugeForm.controls['bonus'].errors && (!langaugeForm.controls['bonus'].pristine || submitted ||langaugeForm.controls['bonus'].touched )" class="error-msg">
-                                <div [hidden]="!langaugeForm.controls['bonus'].errors.required">Bonus is required.</div>
-                              </div> -->
+                            <label for="country">Note</label>
+                            <textarea type="text" class="form-control"  formControlName="description"  placeholder="Note"></textarea>
                         </div>
                     </div>
 

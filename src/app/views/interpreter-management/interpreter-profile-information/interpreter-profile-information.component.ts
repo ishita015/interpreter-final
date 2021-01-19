@@ -21,7 +21,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./interpreter-profile-information.component.scss']
 })
 export class InterpreterProfileInformationComponent implements OnInit {
-
+  showArroveBtn=0;
+on_site_language_btn=0;
+opi_language_btn=0;
+vri_language_btn=0;
+vci_language_btn=0;
+rsi_language_btn=0;
+vci_opi_language_btn=0;
 documentUrl=environment.documentUrl
 
   @ViewChild('imageModal', { static: true }) imageModal;
@@ -659,6 +665,13 @@ addLanguageOnAssignment(type,val){
         this.detail_Obj = res
         console.log("api response", res);
       }
+
+      if(this.detail_Obj?.bank_profile_status=='1' && this.detail_Obj?.interpreter_assignment_status=='1' &&this.detail_Obj?.user_profile_status=='1' && this.detail_Obj?.skill_complete=='1'){
+          this.showArroveBtn=1
+      }else{
+          this.showArroveBtn=0
+
+      }
     });
   }
 
@@ -836,7 +849,8 @@ addLanguageOnAssignment(type,val){
         this.rsiInfo = false;
       }
     }
-
+    console.log(eveKey)
+    console.log(event.target.checked)
     if (eveKey == '6') {
       if (event.target.checked) {
         this.vci_opi = true;
@@ -1096,6 +1110,7 @@ imgview(e: string) {
   private assignmentGroup(): FormGroup {
   return this.fb.group({
   id:[''],
+  lob:[''],
     language_id:[0],
     hourly_rate:[0],
     hourly_rate_min_paid:[0],
@@ -1112,6 +1127,7 @@ imgview(e: string) {
   private opiAssignmentGroup(): FormGroup {
   return this.fb.group({
     opi_id:[''],
+    opi_lob:[''],
     opi_language_id:[0],
     opi_hourly_rate:[0],
     opi_hourly_rate_min_paid:[0],
@@ -1128,6 +1144,7 @@ imgview(e: string) {
   private vriAssignmentGroup(): FormGroup {
   return this.fb.group({
     vri_id:[''],
+    vri_lob:[''],
     vri_language_id:[0],
     vri_hourly_rate:[0],
     vri_hourly_rate_min_paid:[0],
@@ -1144,6 +1161,7 @@ imgview(e: string) {
   private vclAssignmentGroup(): FormGroup {
   return this.fb.group({
     vcl_id:[''],
+    vcl_lob:[''],
     vcl_language_id:[0],
     vcl_hourly_rate:[0],
     vcl_hourly_rate_min_paid:[0],
@@ -1160,6 +1178,7 @@ imgview(e: string) {
 private rsiAssignmentGroup(): FormGroup {
   return this.fb.group({
     rsi_id:[''],
+    rsi_lob:[''],
     rsi_language_id:[0],
    rsi_hourly_rate:[0],
    rsi_hourly_rate_min_paid:[0],
@@ -1174,6 +1193,7 @@ private rsiAssignmentGroup(): FormGroup {
 }private vci_opiAssignmentGroup(): FormGroup {
   return this.fb.group({
     vci_opi_id:[''],
+    vci_opi_lob:[''],
     vci_opi_language_id:[0],
     vci_opi_hourly_rate:[0],
     vci_opi_hourly_rate_min_paid:[0],
@@ -1210,6 +1230,9 @@ get assignmentVcl_opiArray(): FormArray {
   return <FormArray>this.assignmentForm.get('assignment_vci_opi');
 }
 
+
+
+
 getAssignmentSettingByInterpreterId() {
     this.service.getAssignmentSettingByInterpreterId(this.interId).subscribe(res => {
       console.log('dev------------------------------',res)
@@ -1219,10 +1242,12 @@ getAssignmentSettingByInterpreterId() {
           if(document.getElementById('on-site') != null){
             document.getElementById('on-site')['checked'] =true;
           }
-
+          this.on_site_language_btn=res[i].language_id;
+          
           let langArr1 = <FormArray>this.assignmentForm.controls["assignment"];
           langArr1.controls[0].patchValue({
               id:res[i].id,
+              lob:res[i].lob,
               language_id:res[i].language_id,
               hourly_rate:res[i].rates_on_duration_hourly,
               hourly_rate_min_paid:res[i].min_paid_hourly,
@@ -1241,9 +1266,12 @@ getAssignmentSettingByInterpreterId() {
           if(document.getElementById('opi') != null){
             document.getElementById('opi')['checked'] =true;
           }
+          this.opi_language_btn=res[i].language_id;
+          
           let langArr2 = <FormArray>this.assignmentForm.controls["assignment_opi"];
           langArr2.controls[0].patchValue({
               opi_id:res[i].id,
+              opi_lob:res[i].lob,
               opi_language_id:res[i].language_id,
               opi_hourly_rate:res[i].rates_on_duration_hourly,
               opi_hourly_rate_min_paid:res[i].min_paid_hourly,
@@ -1261,10 +1289,12 @@ getAssignmentSettingByInterpreterId() {
           if(document.getElementById('vri') != null){
             document.getElementById('vri')['checked'] =true;
           }
-
+          this.vri_language_btn=res[i].language_id;
+          
           let langArr3 = <FormArray>this.assignmentForm.controls["assignment_vri"];
           langArr3.controls[0].patchValue({
               vri_id:res[i].id,
+              vri_lob:res[i].lob,
               vri_language_id:res[i].language_id,
               vri_hourly_rate:res[i].rates_on_duration_hourly,
               vri_hourly_rate_min_paid:res[i].min_paid_hourly,
@@ -1282,9 +1312,12 @@ getAssignmentSettingByInterpreterId() {
           if(document.getElementById('vcl') != null){
           document.getElementById('vcl')['checked'] =true;
           }
+          this.vci_language_btn=res[i].language_id;
+          
           let langArr4 = <FormArray>this.assignmentForm.controls["assignment_vcl"];
           langArr4.controls[0].patchValue({
               vcl_id:res[i].id,
+              vcl_lob:res[i].lob,
               vcl_language_id:res[i].language_id,
               vcl_hourly_rate:res[i].rates_on_duration_hourly,
               vcl_hourly_rate_min_paid:res[i].min_paid_hourly,
@@ -1302,9 +1335,11 @@ getAssignmentSettingByInterpreterId() {
           if(document.getElementById('rsi') != null){
           document.getElementById('rsi')['checked'] =true;
           }
+          this.rsi_language_btn=res[i].language_id;
           let langArr5 = <FormArray>this.assignmentForm.controls["assignment_rsi"];
           langArr5.controls[0].patchValue({
               rsi_id:res[i].id,
+              rsi_lob:res[i].lob,
               rsi_language_id:res[i].language_id,
               rsi_hourly_rate:res[i].rates_on_duration_hourly,
               rsi_hourly_rate_min_paid:res[i].min_paid_hourly,
@@ -1322,9 +1357,14 @@ getAssignmentSettingByInterpreterId() {
           if(document.getElementById('vci_opi') != null){
           document.getElementById('vci_opi')['checked'] =true;
           }
+
+         
+           this.vci_opi_language_btn=res[i].language_id;
+
           let langArr6 = <FormArray>this.assignmentForm.controls["assignment_vci_opi"];
           langArr6.controls[0].patchValue({
               vci_opi_id:res[i].id,
+              vci_opi_lob:res[i].lob,
               vci_opi_language_id:res[i].language_id,
               vci_opi_hourly_rate:res[i].rates_on_duration_hourly,
               vci_opi_hourly_rate_min_paid:res[i].min_paid_hourly,
@@ -1386,6 +1426,57 @@ addInterpreterAssignment(type) {
     });
 
 }
+
+addInterpreterAssignmentSave(type){
+  console.log(type)
+  console.log(this.assignmentForm.value)
+
+   this.assignmentForm.value.assignment[0].language_id=this.on_site_language;
+  this.assignmentForm.value.assignment_opi[0].opi_language_id=this.opi_language;
+  this.assignmentForm.value.assignment_vri[0].vri_language_id=this.vri_language;
+  this.assignmentForm.value.assignment_vcl[0].vcl_language_id=this.vci_language;
+  this.assignmentForm.value.assignment_rsi[0].rsi_language_id=this.rsi_language;
+  this.assignmentForm.value.assignment_vci_opi[0].vci_opi_language_id=this.vci_opi_language;
+  
+  this.assignmentForm.value.interpreter_id = this.interId;
+  this.assignmentForm.value.onsiteInfo = this.onsiteInfo;
+  this.assignmentForm.value.opiInfo = this.opiInfo;
+  this.assignmentForm.value.vriInfo = this.vriInfo;
+  this.assignmentForm.value.vclInfo = this.vclInfo;
+  this.assignmentForm.value.rsiInfo= this.rsiInfo;
+  this.assignmentForm.value.vci_opi = this.vci_opi;
+
+  this.assignmentForm.value.type = type;
+
+
+  console.log('data',this.assignmentForm.value)
+  // return
+  this.service.post('update_Account_Setting_Interpreter_Profile',this.assignmentForm.value)
+    .subscribe(res => {
+      if (res['status'] == 1) {
+        this.ass_Obj = res
+        this.toastr.success(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        if(type == 'skills'){
+          this.assignment_form = true;
+          this.general_form = false;  
+          this.skills_form = false;
+          this.banking_form = false;
+        }
+        else{
+          this.banking_form = true;
+          this.assignment_form = false;
+          this.general_form = false; 
+          this.skills_form = false;
+          
+        }
+       
+        
+      } else {
+        this.ass_Obj = res
+        this.toastr.error(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      }
+    });
+}
 // Radio button ssn and ein function
 ssnRadioBtn() {
   this.einshowInput = false;
@@ -1395,5 +1486,7 @@ einRadioBtn() {
   this.einshowInput = true;
   this.ssnshowInput = false;
 }
-
+ApproveInterpreter(){
+  alert('dev')
+}
 }
