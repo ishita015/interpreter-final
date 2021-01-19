@@ -593,17 +593,17 @@
                             </div>
                             <div class="card-body h-100 u-fancy-scrollbar scrollable">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12" *ngIf="communityinter">
 
                                         <div class="card image-thumb-card p-2 form-group">
 
-                                                    <div class="form-group" *ngIf="communityinter">
+                                                    <div class="form-group" >
                                                         <label for="image">Community Interpreting</label>
                                                         <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="community_doc"
                                                             (change)="onSingleFileChange($event,'community_doc','1')" style="font-size: 10px;">
                                                             <div class="form-group mb-0"
                                                                 *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCommunityDoc}}"
+                                                                <img src="{{documentUrl}}{{detail_Obj?.skillsCommunityDoc}}"
                                                                     style="width:100%; height:90px;">
                                                                 <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)"
                                                                     class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -615,16 +615,16 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12" *ngIf="conferenceinter">
                                         <div class="card image-thumb-card p-2 form-group">
 
-                                                <div class="form-group mb-3" *ngIf="conferenceinter">
+                                                <div class="form-group mb-3" >
                                                     <label for="image">Conference Interpreter</label>
                                                     <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="conference_doc"
                                                         (change)="onSingleFileChange($event,'conference_doc','2')" style="font-size: 10px;">
                                                         <div class="form-group mb-0"
                                                         *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsConferenceDoc}}"
+                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsConferenceDoc}}"
                                                              style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -637,7 +637,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div *ngIf="court_open" class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
 
                                                 <div class="form-group" *ngIf="court_open">
@@ -645,7 +645,7 @@
                                                     <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="court_doc"
                                                         (change)="onSingleFileChange($event,'court_doc','3')" style="font-size: 10px;">
                                                         <div class="form-group mb-0" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''" >
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCourtDoc}}"  
+                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsCourtDoc}}"  
                                                             style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -658,16 +658,16 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div *ngIf="credent_open" class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
 
-                                                    <div class="form-group" *ngIf="credent_open">
+                                                    <div class="form-group" >
                                                         <label for="image">Court Credentialed</label>
                                                         <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="credential_doc"
                                                             (change)="onSingleFileChange($event,'credential_doc','4')" style="font-size: 10px;">
                                                             <div class="form-group mb-0"
                                                                 *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
-                                                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCredentialDoc}}"
+                                                                <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}"
                                                                      style="width:100%; height:90px;">
                                                                 <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)"
                                                                     class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -680,10 +680,10 @@
 
                                         </div>
                                     </div> 
-                                    <div class="col-lg-12">
+                                    <div *ngIf="equipment_open" class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
 
-                                                    <div class="form-group" *ngIf="equipment_open">
+                                                    <div class="form-group" >
                                                         <label for="image">Equipment Qualified</label>
                                                         <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="equipment_doc"
                                                             (change)="onSingleFileChange($event,'equipment_doc','5')" style="font-size: 10px;">
@@ -692,7 +692,7 @@
                                                               </button> -->
                                                         <div class="form-group mb-0"
                                                         *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
-                                                            <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsEquipmentDoc}}"
+                                                            <img src="{{documentUrl}}{{detail_Obj?.skillsEquipmentDoc}}"
                                                                  style="width:100%; height:90px;">
                                                             <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
                                                                 class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -706,16 +706,16 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div *ngIf="legal_open" class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
 
 
-                                                <div class="form-group" *ngIf="legal_open">
+                                                <div class="form-group" >
                                                     <label for="image">Legal</label>
                                                     <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="legal_doc"
                                                         (change)="onSingleFileChange($event,'legal_doc','6')" style="font-size: 10px;">
                                                         <div class="form-group mb-0" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsLegalDoc}}" 
+                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsLegalDoc}}" 
                                                             style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -727,16 +727,16 @@
                                                 
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div *ngIf="simult_open" class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
-                                                    <div class="form-group" *ngIf="simult_open">
+                                                    <div class="form-group" >
                                                         <label for="image">Simultaneous</label>
                                                         <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
                                                             (change)="onSingleFileChange($event,'simultaneous_doc','7')" style="font-size: 10px;">
 
                                                             <div class="form-group mb-0"
                                                                 *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
-                                                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillSimultOpen}}"
+                                                                <img src="{{documentUrl}}{{detail_Obj?.skillSimultOpen}}"
                                                                     style="width:100%; height:90px;">
                                                                 <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)"
                                                                     class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -746,9 +746,9 @@
                                                     </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-12">
+                                    <div *ngIf="other_open" class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
-                                            <div *ngIf="other_open">
+                                            <div >
                                                     <div class="form-group">
                                                         <label for="image">Other</label>
                                                         <input type="text" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="other_title" style="font-size: 10px;">
@@ -763,7 +763,7 @@
 
                                                     <div class="form-group mb-0"
                                                     *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}"
+                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}"
                                                             style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -774,17 +774,17 @@
                                                 </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-12">
+                                    <div *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''"  class="col-lg-12">
                                         <div class="card image-thumb-card p-2 form-group">
                                              <div
-                                                    *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''">
+                                                    >
                                                     <div class="form-group mb-3">
                                                         <h5>{{detail_Obj?.skillsOtherDocTitle}}</h5>
                                                     </div>
 
 
                                                     <div class="form-group mb-0">
-                                                        <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
+                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
                                                             <i class="i-Eye" style="display: block;"></i>
@@ -840,6 +840,30 @@
                                     class="mr-2" id="vcl" name="vcl" value="VCL"><span class="checkmark"></span>
                                         </label>
                                         <div class="ul-widget2__info"><a class="ul-widget2__title" >VCI</a><a class="ul-widget2__username" ></a></div>
+                                        
+                                    </div>
+                                </div>
+
+
+                                 <div class="ul-widget1">
+                                    <div class="ul-widget2__item">
+                                         <label class="checkbox checkbox-outline-primary">
+                                        <input type="checkbox" (click)="rsiShow()" (change)="assignmentFormCheck($event,'5')"
+                                    class="mr-2" id="rsi" name="rsi" value="RSI"><span class="checkmark"></span>
+                                        </label>
+                                        <div class="ul-widget2__info"><a class="ul-widget2__title" >RSI</a><a class="ul-widget2__username" ></a></div>
+                                        
+                                    </div>
+                                </div>
+
+
+                                <div class="ul-widget1">
+                                    <div class="ul-widget2__item">
+                                         <label class="checkbox checkbox-outline-primary">
+                                        <input type="checkbox" (click)="vci_opiShow()" (change)="assignmentFormCheck($event,'5')"
+                                    class="mr-2" id="vci_opi" name="vci_opi" value="VCI + OPI"><span class="checkmark"></span>
+                                        </label>
+                                        <div class="ul-widget2__info"><a class="ul-widget2__title" >VCI + OPI</a><a class="ul-widget2__username" ></a></div>
                                         
                                     </div>
                                 </div>
@@ -980,7 +1004,7 @@
 
                             <div class="col-md-3 form-group mb-3"
                                 *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCommunityDoc}}"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsCommunityDoc}}"
                                     class="mr-3" style="width:100px; height:100px;">
 
                                 <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)"
@@ -1001,7 +1025,7 @@
 
                             <div class="col-md-3 form-group mb-3"
                                 *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsConferenceDoc}}"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsConferenceDoc}}"
                                     class="mr-3" style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)"
                                     class="btn btn-primary mr-2">
@@ -1021,7 +1045,7 @@
                             </div>
 
                             <div class="col-md-6 form-group mb-3" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCourtDoc}}" class="mr-3"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsCourtDoc}}" class="mr-3"
                                     style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)"
                                     class="btn btn-primary mr-2">
@@ -1044,7 +1068,7 @@
 
                             <div class="col-md-6 form-group mb-3"
                                 *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsCredentialDoc}}"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}"
                                     class="mr-3" style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)"
                                     class="btn btn-primary mr-2">
@@ -1065,7 +1089,7 @@
 
                             <div class="col-md-6 form-group mb-3"
                                 *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsEquipmentDoc}}"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsEquipmentDoc}}"
                                     class="mr-3" style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
                                     class="btn btn-primary mr-2">
@@ -1088,7 +1112,7 @@
                             </div>
 
                             <div class="col-md-6 form-group mb-3" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsLegalDoc}}" class="mr-3"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsLegalDoc}}" class="mr-3"
                                     style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)"
                                     class="btn btn-primary mr-2">
@@ -1110,7 +1134,7 @@
 
                             <div class="col-md-6 form-group mb-3"
                                 *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillSimultOpen}}"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillSimultOpen}}"
                                     class="mr-3" style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)"
                                     class="btn btn-primary mr-2">
@@ -1134,7 +1158,7 @@
 
                             <div class="col-md-6 form-group mb-3"
                             *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
-                            <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}"
+                            <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}"
                                 class="mr-3" style="width:100px; height:100px;">
                             <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
                                 class="btn btn-primary mr-2">
@@ -1153,7 +1177,7 @@
 
 
                             <div class="col-md-6 form-group mb-3">
-                                <img src="http://192.168.0.4:3300/documents/{{detail_Obj?.skillsOtherDoc}}" class="mr-3"
+                                <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" class="mr-3"
                                     style="width:100px; height:100px;">
                                 <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
                                     class="btn btn-primary mr-2">
@@ -1218,10 +1242,13 @@
                                         <div class="col-md-12">
                                             <h5>On Site :
                                                 <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                               <select class="form-control" formControlName="hourly_rate_min_paid">
+                                               <!-- <select class="form-control" formControlName="hourly_rate_min_paid">
                                                 <option selected="" disabled="">Select language</option>
                                                 <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                            </select>
+                                            </select> -->
+
+                                             <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('on_site',lan.id)" value="{{lan.id}}"  class="btn btn-primary btn-rounded m-1" type="button">{{lan.name}}</button>
+
                                             </h5>
                                         </div>
 
@@ -1389,10 +1416,12 @@
                                         <div class="col-md-12">
                                             <h5>OPI :
                                                <!--  {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                               <select class="form-control" formControlName="hourly_rate_min_paid">
+                                               <!-- <select class="form-control" formControlName="hourly_rate_min_paid">
                                                 <option selected="" disabled="">Select language</option>
                                                 <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                            </select>
+                                            </select> -->
+
+                                            <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('opi',lan.id)" value="{{lan.id}}" class="btn btn-primary btn-rounded m-1" type="button">{{lan.name}}</button>
                                             </h5>
                                         </div>
 
@@ -1567,10 +1596,12 @@
                                         <div class="col-md-12">
                                             <h5>VRI :
                                                 <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                <select class="form-control" formControlName="hourly_rate_min_paid">
+                                               <!--  <select class="form-control" formControlName="hourly_rate_min_paid">
                                                 <option selected="" disabled="">Select language</option>
                                                 <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                            </select>
+                                            </select> -->
+
+                                             <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('vri',lan.id)" value="{{lan.id}}" class="btn btn-primary btn-rounded m-1" type="button">{{lan.name}}</button>
                                             </h5>
                                         </div>
 
@@ -1748,10 +1779,12 @@
                                         <div class="col-md-12">
                                             <h5>VCI :
                                                 <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                <select class="form-control" formControlName="hourly_rate_min_paid">
+                                                <!-- <select class="form-control" formControlName="hourly_rate_min_paid">
                                                 <option selected="" disabled="">Select language</option>
                                                 <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                            </select>
+                                            </select> -->
+
+                                             <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('vci',lan.id)" value="{{lan.id}}" class="btn btn-primary btn-rounded m-1" type="button">{{lan.name}}</button>
                                             </h5>
                                         </div>
 
@@ -1911,7 +1944,348 @@
                             </div>
                         </div>
                         <!--vcl end-->
+                          <div *ngIf="rsiInfo">
+                            <div *ngFor="let group of assignmentRsiArray.controls; let i = index;"
+                                formArrayName="assignment_rsi">
 
+                                <div [formGroupName]='i'>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>RSI :
+                                                <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
+                                               <!-- <select class="form-control" formControlName="rsi_hourly_rate_min_paid">
+                                                <option selected="" disabled="">Select language</option>
+                                                <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
+                                            </select> -->
+
+                                             <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('rsi',lan.id)" value="{{lan.id}}"  class="btn btn-primary btn-rounded m-1" type="button">{{lan.name}}</button>
+
+                                            </h5>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="hourly_rate"> Hourly Rate </label>
+                                            <input type="text" class="form-control" formControlName="rsi_hourly_rate"
+                                                placeholder="On-Site Hourly Rate">
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+                                            <!-- <input value="15 min" id="plus" class="form-control" formControlName="rsi_hourly_rate_min_paid"/> -->
+                                            <select class="form-control" formControlName="rsi_hourly_rate_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                                <option value="7 Hours">7 Hours</option>
+                                                <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="rsi_hourly_rate_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <!-- <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+                                                <input type="text" class="form-control" formControlName="rsi_hourly_rate_min_paid" placeholder="On-Site -Hourly Rate- Minimum Paid">
+                                            </div>
+            
+                                            <div class="col-md-4">
+                                                <label for="firstName">Pay Increment </label>
+                                                <input type="text" class="form-control" formControlName="rsi_hourly_rate_pay_increment" placeholder="On-Site -Hourly Rate- Pay Increment">
+                                            </div> -->
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="hourly_rate">Half Day Rates </label>
+                                            <input type="text" class="form-control" formControlName="rsi_half_day"
+                                                placeholder="On-Site Half Day">
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+
+                                            <select class="form-control" formControlName="rsi_half_day_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                                <option value="7 Hours">7 Hours</option>
+                                                <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="rsi_half_day_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+                                                <input type="text" class="form-control" formControlName="rsi_half_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
+                                            </div>
+            
+                                            <div class="col-md-4">
+                                                <label for="firstName">Pay Increment </label>
+                                                <input type="text" class="form-control" formControlName="rsi_half_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
+                                            </div> -->
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="hourly_rate">Full Day Rates </label>
+                                            <input type="text" class="form-control" formControlName="rsi_full_day"
+                                                placeholder="On-Site Full Day">
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+
+                                            <select class="form-control" formControlName="rsi_full_day_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                                <option value="7 Hours">7 Hours</option>
+                                                <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="rsi_full_day_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- <div class="col-md-4 mb-2">
+                                                <label for="min_paid"> Minimum Paid </label>
+                                                <input type="text" class="form-control" formControlName="rsi_full_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
+                                            </div>
+            
+                                            <div class="col-md-4">
+                                                <label for="firstName">Pay Increment </label>
+                                                <input type="text" class="form-control" formControlName="rsi_full_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
+                                            </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div *ngIf="vci_opi">
+                            <div *ngFor="let group of assignmentVcl_opiArray.controls; let i = index;"
+                                formArrayName="assignment_vci_opi">
+
+                                <div [formGroupName]='i'>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>VCI + OPI :
+                                                <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
+                                               <!-- <select class="form-control" formControlName="vci_opi_hourly_rate_min_paid">
+                                                <option selected="" disabled="">Select language</option>
+                                                <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
+                                            </select> -->
+
+                                             <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('vci_opi',lan.id)" value="{{lan.id}}"  class="btn btn-primary btn-rounded m-1" type="button">{{lan.name}}</button>
+
+                                            </h5>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="hourly_rate"> Hourly Rate </label>
+                                            <input type="text" class="form-control" formControlName="vci_opi_hourly_rate"
+                                                placeholder="On-Site Hourly Rate">
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+                                            <!-- <input value="15 min" id="plus" class="form-control" formControlName="vci_opi_hourly_rate_min_paid"/> -->
+                                            <select class="form-control" formControlName="vci_opi_hourly_rate_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                                <option value="7 Hours">7 Hours</option>
+                                                <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="vci_opi_hourly_rate_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <!-- <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+                                                <input type="text" class="form-control" formControlName="vci_opi_hourly_rate_min_paid" placeholder="On-Site -Hourly Rate- Minimum Paid">
+                                            </div>
+            
+                                            <div class="col-md-4">
+                                                <label for="firstName">Pay Increment </label>
+                                                <input type="text" class="form-control" formControlName="vci_opi_hourly_rate_pay_increment" placeholder="On-Site -Hourly Rate- Pay Increment">
+                                            </div> -->
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="hourly_rate">Half Day Rates </label>
+                                            <input type="text" class="form-control" formControlName="vci_opi_half_day"
+                                                placeholder="On-Site Half Day">
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+
+                                            <select class="form-control" formControlName="vci_opi_half_day_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                                <option value="7 Hours">7 Hours</option>
+                                                <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="vci_opi_half_day_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- <div class="col-md-4 mb-2">
+                                                <label for="min_paid">Minimum Paid </label>
+                                                <input type="text" class="form-control" formControlName="vci_opi_half_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
+                                            </div>
+            
+                                            <div class="col-md-4">
+                                                <label for="firstName">Pay Increment </label>
+                                                <input type="text" class="form-control" formControlName="vci_opi_half_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
+                                            </div> -->
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="hourly_rate">Full Day Rates </label>
+                                            <input type="text" class="form-control" formControlName="vci_opi_full_day"
+                                                placeholder="On-Site Full Day">
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Minimum Paid </label>
+
+                                            <select class="form-control" formControlName="vci_opi_full_day_min_paid">
+                                                <option value="1 Min">1 Min</option>
+                                                <option value="5 Min">5 Min</option>
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                                <option value="2 Hours">2 Hours</option>
+                                                <option value="3 Hours">3 Hours</option>
+                                                <option value="4 Hours">4 Hours</option>
+                                                <option value="5 Hours">5 Hours</option>
+                                                <option value="6 Hours">6 Hours</option>
+                                                <option value="7 Hours">7 Hours</option>
+                                                <option value="8 Hours">8 Hours</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col-md-4 mb-2">
+                                            <label for="min_paid">Pay Increment </label>
+
+                                            <select class="form-control" formControlName="vci_opi_full_day_pay_increment">
+                                                <option value="15 Min">15 Min</option>
+                                                <option value="30 Min">30 Min</option>
+                                                <option value="1 Hours">1 Hours</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- <div class="col-md-4 mb-2">
+                                                <label for="min_paid"> Minimum Paid </label>
+                                                <input type="text" class="form-control" formControlName="vci_opi_full_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
+                                            </div>
+            
+                                            <div class="col-md-4">
+                                                <label for="firstName">Pay Increment </label>
+                                                <input type="text" class="form-control" formControlName="full_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
+                                            </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
 
 
                         <div class="form-group row" *ngIf="opiInfo || vriInfo || vclInfo || onsiteInfo">

@@ -50,7 +50,7 @@ var database = new function() {
             counter++;
         }
         que += ")";
-        console.log(que)
+        // console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
                 if(err){
@@ -76,8 +76,8 @@ this.AsyncUpdate = function(table,obj,where) {
         var key = Object.keys(where);
         que += " WHERE " + key[0] + " = '" + where[key[0]] + "'";
         
-            console.log(where)
-            console.log(que)
+            // console.log(where)
+            // console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
              if(err){
