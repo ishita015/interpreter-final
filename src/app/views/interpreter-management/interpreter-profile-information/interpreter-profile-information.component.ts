@@ -135,6 +135,7 @@ documentUrl=environment.documentUrl
   timezone_Obj;
 
   role_id;
+  role_idAPI;
 
   //map location variable
   country_name;
@@ -171,8 +172,8 @@ documentUrl=environment.documentUrl
   }
 
   ngOnInit() {
-    this.addBankInfo(); // add bank details
-    this.createForm2();
+    // this.addBankInfo(); // add bank details
+   
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
@@ -209,15 +210,26 @@ documentUrl=environment.documentUrl
     this.LanguageList();
     this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
     this.detailProfile();
+    this.createForm2();
     this.getUserLanguage();
   }
 
  /*========== Bank Routing Value Start Here========*/
   createForm2() {
     this.bankingRoutingForm = this.fb.group({
-      customer_name: [''],
-      address: [''],
-      routing_number:['']
+      // customer_name: [''],
+      // address: [''],
+      // routing_number:[''],
+      bank_name: ['',this.validation.onlyRequired_validator],
+      account_type: ['',this.validation.onlyRequired_validator],
+      bank_country: ['',this.validation.onlyRequired_validator],
+      account_no: ['',this.validation.onlyRequired_validator],
+      bank_routing_no: ['',this.validation.onlyRequired_validator],
+      payment_method: ['',this.validation.onlyRequired_validator],
+      electronic: ['',this.validation.onlyRequired_validator],
+      SWIFT_code: ['',this.validation.onlyRequired_validator],
+      bank_address: ['',this.validation.onlyRequired_validator],
+      paypal_id: ['',this.validation.onlyRequired_validator]
     });
   }
   /*========== Bank Routing Value End Here========*/
@@ -552,16 +564,16 @@ addLanguageOnAssignment(type,val){
     this.generalForm.get('ssn').patchValue(this.detail_Obj.ssn);
     this.generalForm.get('ein').patchValue(this.detail_Obj.ein);
 
-    this.bankingForm.get('bank_name').patchValue(this.detail_Obj.bank_name);
-    this.bankingForm.get('account_type').patchValue(this.detail_Obj.account_type);
-    this.bankingForm.get('bank_country').patchValue(this.detail_Obj.bank_country);
-    this.bankingForm.get('account_no').patchValue(this.detail_Obj.account_no);
-    this.bankingForm.get('bank_routing_no').patchValue(this.detail_Obj.bank_routing_no);
-    this.bankingForm.get('payment_method').patchValue(this.detail_Obj.payment_method);
-    this.bankingForm.get('electronic').patchValue(this.detail_Obj.electronic);
-    this.bankingForm.get('SWIFT_code').patchValue(this.detail_Obj.SWIFT_code);
-    this.bankingForm.get('bank_address').patchValue(this.detail_Obj.bank_address);
-    this.bankingForm.get('paypal_id').patchValue(this.detail_Obj.paypal_id);
+    this.bankingRoutingForm.get('bank_name').patchValue(this.detail_Obj.bank_name);
+    this.bankingRoutingForm.get('account_type').patchValue(this.detail_Obj.account_type);
+    this.bankingRoutingForm.get('bank_country').patchValue(this.detail_Obj.bank_country);
+    this.bankingRoutingForm.get('account_no').patchValue(this.detail_Obj.account_no);
+    this.bankingRoutingForm.get('bank_routing_no').patchValue(this.detail_Obj.bank_routing_no);
+    this.bankingRoutingForm.get('payment_method').patchValue(this.detail_Obj.payment_method);
+    this.bankingRoutingForm.get('electronic').patchValue(this.detail_Obj.electronic);
+    this.bankingRoutingForm.get('SWIFT_code').patchValue(this.detail_Obj.SWIFT_code);
+    this.bankingRoutingForm.get('bank_address').patchValue(this.detail_Obj.bank_address);
+    this.bankingRoutingForm.get('paypal_id').patchValue(this.detail_Obj.paypal_id);
 
     this.interpreterSkillForm.get('primary_language').patchValue(this.detail_Obj.primay_lang_id);
     this.interpreterSkillForm.get('secondary_language').patchValue(this.detail_Obj.secondary_language);
@@ -608,8 +620,8 @@ addLanguageOnAssignment(type,val){
     this.service.getProfileDetail(this.interId).subscribe(res => {
       if (res['status'] == 1) {
         this.detail_Obj = res['data'][0];
+        this.role_idAPI = this.detail_Obj.role_id
         console.log("detail_Obj", this.detail_Obj);
-
         if (this.detail_Obj.skillsCommunityDoc != '' && this.detail_Obj.skillsCommunityDoc != undefined) {
           this.communityinter = true;
           this.ci = true;
@@ -662,8 +674,7 @@ addLanguageOnAssignment(type,val){
         this.CityList(this.detail_Obj.state);
         // addAssignment
       } else {
-        this.detail_Obj = res
-        console.log("api response", res);
+        this.detail_Obj = res;
       }
 
       if(this.detail_Obj?.bank_profile_status=='1' && this.detail_Obj?.interpreter_assignment_status=='1' &&this.detail_Obj?.user_profile_status=='1' && this.detail_Obj?.skill_complete=='1'){
@@ -715,30 +726,47 @@ addLanguageOnAssignment(type,val){
 
   // interpreter general details end
   //banking code start
-  addBankInfo() {
-    this.bankingForm = this.fb.group({
-      bank_name: ['', this.validation.onlyRequired_validator],
-      account_type: ['', this.validation.onlyRequired_validator],
-      bank_country: ['', this.validation.onlyRequired_validator],
-      account_no: ['', this.validation.onlyRequired_validator],
-      bank_routing_no: ['', this.validation.onlyRequired_validator],
-      payment_method: ['', this.validation.onlyRequired_validator],
-      electronic: ['', this.validation.onlyRequired_validator],
-      SWIFT_code: ['', this.validation.onlyRequired_validator],
-      bank_address: ['', this.validation.onlyRequired_validator],
-      paypal_id: ['', this.validation.onlyRequired_validator]
+  // addBankInfo() {
+  //   this.bankingForm = this.fb.group({
+  //     bank_name: ['', this.validation.onlyRequired_validator],
+  //     account_type: ['', this.validation.onlyRequired_validator],
+  //     bank_country: ['', this.validation.onlyRequired_validator],
+  //     account_no: ['', this.validation.onlyRequired_validator],
+  //     bank_routing_no: ['', this.validation.onlyRequired_validator],
+  //     payment_method: ['', this.validation.onlyRequired_validator],
+  //     electronic: ['', this.validation.onlyRequired_validator],
+  //     SWIFT_code: ['', this.validation.onlyRequired_validator],
+  //     bank_address: ['', this.validation.onlyRequired_validator],
+  //     paypal_id: ['', this.validation.onlyRequired_validator]
+  //   });
+  // }
+// banking routing number
+  selectRoutingNo(e){
+    this.service.getRoutingNumber(e).subscribe(res => {
+      if (res['code'] == 200) {
+        this.routingNo = res;
+        console.log("api respone for routing no",this.routingNo);
+        // this.bankingRoutingForm.get('routing_number').patchValue(this.routingNo.routing_number);
+        this.bankingRoutingForm.get('bank_name').patchValue(this.routingNo.customer_name);
+        this.bankingRoutingForm.get('bank_address').patchValue(this.routingNo.address);
+        this.toastr.success( this.routingNo.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      }
+       else {
+        this.routingNo = res;
+        this.toastr.error( this.routingNo.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      }
     });
   }
 
   //add bank details
   addBankDetails() {
     this.submitted = true;
-    if (this.bankingForm.invalid) {
+    if (this.bankingRoutingForm.invalid) {
       return;
     }
     this.submitted = false;
-    this.bankingForm.value.user_id = this.interId;
-    this.service.getBankingAdd(this.bankingForm.value)
+    this.bankingRoutingForm.value.user_id = this.interId;
+    this.service.getBankingAdd(this.bankingRoutingForm.value)
       .subscribe(res => {
         if (res['status'] == 1) {
           this.banking_Obj = res
@@ -749,7 +777,7 @@ addLanguageOnAssignment(type,val){
         } else {
           this.banking_Obj = res
           this.banking_Msg = res
-          this.toastr.success(this.banking_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+          this.toastr.error(this.banking_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
           // this.router.navigate(['/languages/list']);  
         }
 
@@ -759,12 +787,12 @@ addLanguageOnAssignment(type,val){
   //update bank details
   updateBankDetails() {
     this.submitted = true;
-    // if (this.bankingForm.invalid) {
-    //   return;
-    // }
-    // this.submitted = false;
-    this.bankingForm.value.user_id = this.interId;
-    this.service.bankingUpdate(this.bankingForm.value)
+    if (this.bankingRoutingForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+    this.bankingRoutingForm.value.user_id = this.interId;
+    this.service.bankingUpdate(this.bankingRoutingForm.value)
       .subscribe(res => {
         if (res['status'] == 1) {
           console.log("api response", res);
@@ -1489,21 +1517,5 @@ einRadioBtn() {
 ApproveInterpreter(){
   alert('dev')
 }
-selectRoutingNo(e){
-  this.service.getRoutingNumber(e).subscribe(res => {
-  // console.log("api respone for routing no",res);
-  this.routingNo = res;
-  console.log("api respone for routing no",this.routingNo);
-  this.bankingRoutingForm.get('routing_number').patchValue(this.routingNo.routing_number);
-  this.bankingRoutingForm.get('customer_name').patchValue(this.routingNo.customer_name);
-  this.bankingRoutingForm.get('address').patchValue(this.routingNo.address);
 
-    // if (res['status'] == 1) {
-    //   this.ass_Obj = res
-    // }
-    //  else {
-    //   this.ass_Obj = res
-    // }
-  });
-}
 }
