@@ -2503,7 +2503,7 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="payment">Bank Routing Number</label>
-                                        <input type="text" class="form-control"  (change)="selectRoutingNo($event.target.value)" onkeypress ="if(this.value.length == 9) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " 
+                                        <input type="number" class="form-control" (keypress) ="selectRoutingNo($event)" 
                                         
                                         formControlName="bank_routing_no" placeholder="Bank Routing Number">
                                         <div *ngIf="bankingRoutingForm.controls['bank_routing_no'].errors && (!bankingRoutingForm.controls['bank_routing_no'].pristine || submitted ||bankingRoutingForm.controls['bank_routing_no'].touched )"
