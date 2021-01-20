@@ -93,6 +93,11 @@ export class NavigationService {
             type: 'link',
             icon: 'i-Add-User',
             state: '/interpreter/interpreter-list',
+        },{   
+            name: 'Client management',
+            type: 'link',
+            icon: 'i-Add-User',
+            state: '/client/client-list',
         },
         {   
             name: 'Requests',

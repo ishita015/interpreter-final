@@ -9,20 +9,19 @@
   <div class="separator-breadcrumb border-top"></div>
 
   <div class="row">
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <div class="form-group">
         <input id="search" placeholder="Search" [formControl]="searchControl" class="form-control form-control-rounded"
           type="text">
       </div>
-    </div>
-
-
+    </div> -->
 
     <div class="col-md-12">
-      <div class="card  o-hidden">
+      <!-- <div class="card  o-hidden">
         <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-          [rows]="filteredUser">
+          [rows]="filteredUser"
+          >
           <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
             <ng-template ngx-datatable-header-template>
               S.No
@@ -30,7 +29,7 @@
             <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
               {{rowIndex +1}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
           <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
                 <ng-template ngx-datatable-header-template>
@@ -41,7 +40,7 @@
                 </ng-template>
               </ngx-datatable-column> -->
 
-          <ngx-datatable-column name="Appointment Type" prop="appointment_type">
+          <!-- <ngx-datatable-column name="Appointment Type" prop="appointment_type">
             <ng-template ngx-datatable-header-template>
               Appointment Type
             </ng-template>
@@ -56,7 +55,7 @@
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               {{row.cell_phone | mask: '(000) 000-0000'}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
           <!-- <ngx-datatable-column name="Requester" prop="requester_name">
                     <ng-template ngx-datatable-header-template>
                       Requester
@@ -65,7 +64,7 @@
                       {{row.requester_name}}
                     </ng-template>
                 </ngx-datatable-column> -->
-          <ngx-datatable-column name="Interpreter" prop="requester_name">
+          <!-- <ngx-datatable-column name="Interpreter" prop="requester_name">
             <ng-template ngx-datatable-header-template>
               Interpreter
             </ng-template>
@@ -119,7 +118,7 @@
               <button class="btn btn-outline-secondary" 
               (click)="viewDetail(row.ris_id)">View</button>  
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
           <!-- <ngx-datatable-column [width]="120" [sortable]="false">
                   <ng-template ngx-datatable-header-template *ngIf="roleId=='1';then Status; else Actions">
                   </ng-template>
@@ -136,11 +135,11 @@
                 </ng-template>
               </ngx-datatable-column>
 -->
-        </ngx-datatable>
+        <!-- </ngx-datatable>
       </div>
       <ng-container *ngIf="list_Obj?.length <= 0">
         No Data Found
-      </ng-container>
+      </ng-container> -->
     </div>
 
   </div>

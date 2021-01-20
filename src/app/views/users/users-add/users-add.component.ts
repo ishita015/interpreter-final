@@ -13,7 +13,7 @@ import { MapsAPILoader } from '@agm/core';
 // import { MouseEvent as AGMMouseEvent } from '@agm/core';
 // import { MapsAPILoader, MouseEvent } from '@agm/core';
 
-
+//
 import { DataLayerService } from 'src/app/shared/services/data-layer.service';
  import { FunctionService } from './../../../shared/services/function.service'
 @Component({

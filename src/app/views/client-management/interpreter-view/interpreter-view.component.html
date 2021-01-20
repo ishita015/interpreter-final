@@ -1,0 +1,283 @@
+<style type="text/css">
+    /* .profilesec {} */
+    .profile_pic {text-align: center;}
+    .profile_pic img{     width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid #ededed; } 
+    .profiletitle h4{     font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    color: #222222;}
+    .profilecontent h5{    color: #484848;}
+    .profilecontent .basic_info li a i {
+        position: relative;
+    left: 0px;
+    top: 4px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #002763;
+    padding-right: 10px;
+    font-weight: bold;
+}
+.profilecontent ul{
+    list-style: none;
+        padding-left: 10px;
+}
+.profilecontent ul li{
+        margin-bottom: 10px;
+}
+
+
+
+    .lan_block .list-inline {
+    padding-left: 16px;
+    list-style: disc;
+    display: flex;
+}
+.lan_block .list-inline-item:not(:last-child) {
+    margin-right: 0.5rem;
+    padding-right: 18px;
+}
+.lan_block .list-inline-item {
+    display: list-item;
+}
+.basic_info a {
+    color: #002763;
+    font-weight: bold;
+    position: relative;
+}
+</style>
+<div class="row mainblock">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="profilesec">
+                    <div class="profile_pic">
+                    <img src="./assets/images/faces/1.jpg">
+                    </div>
+                    <div class="profiletitle mt-2">
+
+                        <h4>{{data.name}}</h4>
+                    </div>
+                    <div class="profilecontent">
+                        <ul class="list basic_info">
+                            <li><a href="#"><i class="i-Envelope"></i> {{data.email}}</a></li>
+                            <li><a href="#"><i class="i-Telephone"></i> {{data.mobile | mask: '(000) 000-0000'}}</a></li>
+                            <li><a href="#"><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
+                            <li><a href="#"><i class="i-Address-Book"></i> {{data.address}}</a></li>
+                        </ul>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+              
+                <!---===== Print Area =======-->
+                <div id="print-area">
+                    <h5 class="font-weight-bold">Interpreter Details</h5>
+                    <div class=" mb-2 border-top"></div>
+                    <div class="row mb-2">
+                        <div class="col-md-12 userstable mb-3">
+                             
+                            <table>
+                                <tbody>
+                                  <tr>
+                                    <td>Full Name</td>
+                                    <td>{{data.first_name}} {{data.last_name}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Date Of Birth</td>
+                                    <td>{{data.date_of_birth}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Rating</td>
+                                    <td>{{data.rating}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>SSN/EIN</td>
+                                    <td>{{data.ssn_no ? data.ssn_no : data.ein_no}}</td>
+                                  </tr>
+                                  <!-- <tr>
+                                    <td>EIN No.</td>
+                                    <td>{{data.ein}}</td>
+                                  </tr> -->
+                                  <tr>
+                                    <td>Notes</td>
+                                    <td>{{data.notes}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>TimeZone</td>
+                                    <td>{{data.timezone}}</td>
+                                  </tr>
+                                    <!-- <tr>
+                                        <td>User Type</td>
+                                        <td>{{data.role_name}}</td>
+                                    </tr>
+                                    <tr *ngIf="data.role_id == '2'">
+                                        <td>Rate/Hour</td>
+                                        <td>${{data.interpreter_rate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apt/Ste</td>
+                                        <td>{{data.apartment}}</td>
+                                    </tr> -->
+                                    <!-- <tr>
+                                        <td>Street</td>
+                                        <td>{{data.street}}</td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 lan_block mt-1 mb-1">
+                           <h5 class="font-weight-bold">Language Details</h5>
+                         <div class="mb-2 border-top"></div>
+                       
+                                <div class="pri_lan">
+                              <h6 class="font-weight-bold">Primary Language</h6>
+                              <ul class="list-inline">
+                                <li class="list-inline-item"> {{data.primary_language}}</li>
+                                </ul>   
+                            </div>
+                        
+                            <div class="sec_lan">
+                                <h6 class="font-weight-bold">Secondary Language</h6>
+                              <ul class="list-inline">
+                                <li *ngFor="let lang of data.interLanguage" class="list-inline-item">{{lang.name}}</li>
+                                </ul>   
+                            </div>
+                        
+                        </div>
+                    </div>
+                  
+                </div>
+                
+            </div>
+        </div>
+    </div>
+      
+</div>
+<br><br>
+<div class="card">
+    <div class="">
+      <div class="p-3 d-flex justify-content-between align-items-center calendar-title">
+        <!-- Arrow navigations -->
+        <div class="cal-top-col text-center">
+          <button 
+          class="btn btn-rounded btn-icon btn-outline-primary m-1" 
+          mwlCalendarPreviousView 
+          [view]="view" 
+          [(viewDate)]="viewDate">
+            <i class="i-Arrow-Left"></i>
+          </button>
+          <button 
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          mwlCalendarToday 
+          [(viewDate)]="viewDate">
+            <i class="i-Calendar-2"></i>
+          </button>
+          <button 
+          class="btn btn-rounded btn-icon btn-outline-primary m-1" 
+          mwlCalendarNextView 
+          [view]="view" 
+          [(viewDate)]="viewDate">
+            <i class="i-Arrow-Right"></i>
+          </button>
+        </div>
+  
+        <!-- Date title -->
+        <div class=" text-center">
+          <h5 class="m-0 text-muted font-weight-bold">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h5>
+        </div>
+  
+        <!-- Month, day, week view toggle buttons -->
+        <div class="d-flex justify-content-center">
+          <button 
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          (click)="view = 'month'" 
+          [class.active]="view === 'month'"
+          ngbTooltip="Month view">
+            <i class="i-Calendar"></i>
+          </button>
+          <button 
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          (click)="view = 'week'" 
+          [class.active]="view === 'week'"
+          ngbTooltip="Week view">
+            <i class="i-Split-Vertical-2"></i>
+          </button>
+          <button  
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          (click)="view = 'day'" 
+          [class.active]="view === 'day'"
+          ngbTooltip="Day view">
+            <i class="i-Align-Justify-All"></i>
+          </button>
+        </div>
+      </div>
+      <!-- <mat-divider></mat-divider> -->
+    </div>
+  
+    <!-- Calendar -->
+    <div class="p-0">
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-day-view>
+      </div>
+    </div>
+  </div>
+
+
+<ng-template #eventViewConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">View Event</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+  <span>{{viewObj?.data[0]?.title}}</span> 
+  <span class="view_left">{{viewObj?.data[0]?.start_time}}</span> 
+ 
+    <p class="mt-2 mb-0">{{viewObj?.data[0]?.end_time}}</p> 
+    <p class="mt-2">{{viewObj?.data[0]?.description}}</p> 
+ 
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.close('Ok')">Cancel</button>
+    <!-- <button type="button" ngbAutofocus class="btn btn-rounded btn-success" (click)="editCalender(viewObj?.data[0],viewObj?.data[0]?.id);modal.close('Ok')">Edit</button>
+    <button type="button" ngbAutofocus class="btn btn-rounded btn-danger"  (click)="removeEvent(viewObj?.data[0]?.id,eventDeleteConfirm);modal.close('Ok')">Delete</button> -->
+  </div>
+</ng-template>

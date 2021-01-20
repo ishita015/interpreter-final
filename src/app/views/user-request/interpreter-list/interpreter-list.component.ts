@@ -131,7 +131,7 @@ export class InterpreterListComponent implements OnInit {
     // this.markers[index].visible = false;
   }
   
-  mapClicked($event: MouseEvent) {
+  mapClicked($event) {
     console.log("eeeee",$event);
     this.markers.push({
       lat: $event.coords.lat,
@@ -142,7 +142,7 @@ export class InterpreterListComponent implements OnInit {
     });
   }
   
-  markerDragEnd(m: marker, $event: MouseEvent) {
+  markerDragEnd(m: marker, $event) {
     console.log('dragEnd', m, $event);
   }
 

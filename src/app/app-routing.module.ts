@@ -30,6 +30,9 @@ const adminRoutes: Routes = [
     {
       path: 'interpreter',
       loadChildren: () => import('./views/interpreter-management/interpreter-management.module').then(m => m.InterpreterManagementModule)
+    },{
+      path: 'client',
+      loadChildren: () => import('./views/client-management/interpreter-management.module').then(m => m.InterpreterManagementModule)
     },
     {
       path: 'interpreter-request',
