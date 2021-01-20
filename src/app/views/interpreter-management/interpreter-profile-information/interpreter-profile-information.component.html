@@ -2664,22 +2664,25 @@
                         <div class="card-body">
                             <h5 class="font-weight-bold">Details</h5>
                             <div class="mt-3 mb-4 border-top"></div>
+                            <form [formGroup]="bankingRoutingForm">
                             <div class="row">
                                 <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
+                                  
                                     <table>
                                         <tbody>
                                             <tr>
                                                 <td>Bank Routing Number</td>
                                                 <td>
                                                     <!-- {{detail_Obj?.bank_routing_no}} -->
-                                                    <input type="text" class="form-control" 
-                                                    placeholder="Bank Routing Number">
+                                                    <input type="text" class="form-control" (keyup)="selectRoutingNo($event.target.value)"
+                                                    formControlName="routing_number" placeholder="Bank Routing Number">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Bank Name</td>
                                                 <td>{{detail_Obj?.bank_name}}
                                                     <input type="text" class="form-control" 
+                                                    formControlName="customer_name"
                                                     placeholder="Bank Name">
                                                 </td>
                                             </tr>
@@ -2697,8 +2700,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
-
+                                  
                                 </div>
 
                                 <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
@@ -2724,6 +2726,7 @@
                                                 <td>Bank Address</td>
                                                 <td>{{detail_Obj?.bank_address}}
                                                     <input type="text" class="form-control" 
+                                                    formControlName="address"
                                                     placeholder="Bank Address">
                                                 </td>
                                             </tr>
@@ -2737,6 +2740,7 @@
                                 </div>
 
                             </div>
+                        </form>
                         </div>
                     </div>
                 </div>

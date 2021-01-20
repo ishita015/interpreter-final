@@ -573,6 +573,13 @@ export class HttpService {
  
 
   /*=====Special Offers Apis End======*/
+
+   /*=====Routing no. Apis start======*/
+   getRoutingNumber(code): Observable<any> {
+    return this.http.get('https://www.routingnumbers.info/api/data.json?rn='+code);
+   }
+    /*=====Routing no. Apis end======*/
+
   
  post(url,value){
       const URL=this.url+'/cesco/'+url;

@@ -38,6 +38,7 @@ documentUrl=environment.documentUrl
   selectedFile: File = null;
   //general form declare
   generalForm: FormGroup;
+  bankingRoutingForm: FormGroup;
   userForm: FormGroup;
   submitted: boolean;
 
@@ -144,6 +145,9 @@ documentUrl=environment.documentUrl
   state_Json;
   city_Json;
 
+  //bank routing no variable
+  routingNo;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -168,7 +172,7 @@ documentUrl=environment.documentUrl
 
   ngOnInit() {
     this.addBankInfo(); // add bank details
-    // this.createForm2();
+    this.createForm2();
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
@@ -208,19 +212,15 @@ documentUrl=environment.documentUrl
     this.getUserLanguage();
   }
 
- /*========== Form2 Value Start Here========*/
-  // createForm2() {
-  //   this.Profile = this.fb.group({
-  //     payment_mode: ['', this.validation.onlyRequired_validator],
-  //     service_type: ['', this.validation.onlyRequired_validator],
-  //     duration:['', this.validation.onlyRequired_validator],
-  //     cases:['', this.validation.onlyRequired_validator],
-  //     subcases:['', this.validation.onlyRequired_validator],
-  //     minimum_paid:['', this.validation.onlyRequired_validator],
-  //     pay_increment:['', this.validation.onlyRequired_validator],
-  //   });
-  // }
-  /*========== Form2 Value End Here========*/
+ /*========== Bank Routing Value Start Here========*/
+  createForm2() {
+    this.bankingRoutingForm = this.fb.group({
+      customer_name: [''],
+      address: [''],
+      routing_number:['']
+    });
+  }
+  /*========== Bank Routing Value End Here========*/
 
   /*========== Add Api Start Here========*/
   onCountryChange(id) {
@@ -1488,5 +1488,22 @@ einRadioBtn() {
 }
 ApproveInterpreter(){
   alert('dev')
+}
+selectRoutingNo(e){
+  this.service.getRoutingNumber(e).subscribe(res => {
+  // console.log("api respone for routing no",res);
+  this.routingNo = res;
+  console.log("api respone for routing no",this.routingNo);
+  this.bankingRoutingForm.get('routing_number').patchValue(this.routingNo.routing_number);
+  this.bankingRoutingForm.get('customer_name').patchValue(this.routingNo.customer_name);
+  this.bankingRoutingForm.get('address').patchValue(this.routingNo.address);
+
+    // if (res['status'] == 1) {
+    //   this.ass_Obj = res
+    // }
+    //  else {
+    //   this.ass_Obj = res
+    // }
+  });
 }
 }
