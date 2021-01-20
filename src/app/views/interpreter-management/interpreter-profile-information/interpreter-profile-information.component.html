@@ -2491,36 +2491,41 @@
         <!-- Banking -->
 
 
-        <div *ngIf="banking_form" class="col-md-12">
-            <div *ngIf="role_id == 2" class="row">
+        <div *ngIf="banking_form" class="col-md-12" >
+        <div class="col-md-12">
+            <!-- <div *ngIf="role_id == 2" class="row"> -->
+            <div *ngIf="role_id == 1" class="row">
                 <div class="col-md-12">
                     <div class="card animate mb-4">
                         <div class="card-body">
-                            <form [formGroup]="bankingForm">
+                            <form [formGroup]="bankingRoutingForm">
 
                                 <div class="row">
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="payment">Bank Routing Number</label>
-                                        <input type="text" class="form-control" formControlName="bank_routing_no"
-                                            placeholder="Bank Routing Number">
+                                        <input type="text" class="form-control"  (change)="selectRoutingNo($event.target.value)" onkeypress ="if(this.value.length == 9) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " 
+                                        
+                                        formControlName="bank_routing_no" placeholder="Bank Routing Number">
+                                        <div *ngIf="bankingRoutingForm.controls['bank_routing_no'].errors && (!bankingRoutingForm.controls['bank_routing_no'].pristine || submitted ||bankingRoutingForm.controls['bank_routing_no'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!bankingRoutingForm.controls['bank_routing_no'].errors.required">Bank Routing No.
+                                                is required.</div>
+                                        </div>
+                                        
+                                        <!-- <input type="text" class="form-control" formControlName="bank_routing_no"
+                                            placeholder="Bank Routing Number"> -->
                                     </div>
 
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="Account">Bank Name</label>
                                         <input type="text" class="form-control" formControlName="bank_name"
                                             placeholder="Bank Name">
-                                        <div *ngIf="bankingForm.controls['bank_name'].errors && (!bankingForm.controls['bank_name'].pristine || submitted ||bankingForm.controls['bank_name'].touched )"
+                                        <div *ngIf="bankingRoutingForm.controls['bank_name'].errors && (!bankingRoutingForm.controls['bank_name'].pristine || submitted ||bankingRoutingForm.controls['bank_name'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!bankingForm.controls['bank_name'].errors.required">Bank Name
+                                            <div [hidden]="!bankingRoutingForm.controls['bank_name'].errors.required">Bank Name
                                                 is required.</div>
                                         </div>
                                     </div>
-
-
-
-
-
-
                                 </div>
 
                                 <div class="row">
@@ -2542,9 +2547,9 @@
                                                 Checking
                                             </label>
                                         </div>
-                                        <div *ngIf="bankingForm.controls['account_type'].errors && (!bankingForm.controls['account_type'].pristine || submitted ||bankingForm.controls['account_type'].touched )"
+                                        <div *ngIf="bankingRoutingForm.controls['account_type'].errors && (!bankingRoutingForm.controls['account_type'].pristine || submitted ||bankingRoutingForm.controls['account_type'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!bankingForm.controls['account_type'].errors.required">
+                                            <div [hidden]="!bankingRoutingForm.controls['account_type'].errors.required">
                                                 Account type required.</div>
                                         </div>
                                     </div>
@@ -2554,9 +2559,9 @@
                                         <label for="Country">Country</label>
                                         <input type="text" class="form-control" formControlName="bank_country"
                                             id="bank_country" placeholder="Country">
-                                        <div *ngIf="bankingForm.controls['bank_country'].errors && (!bankingForm.controls['bank_country'].pristine || submitted ||bankingForm.controls['bank_country'].touched )"
+                                        <div *ngIf="bankingRoutingForm.controls['bank_country'].errors && (!bankingRoutingForm.controls['bank_country'].pristine || submitted ||bankingRoutingForm.controls['bank_country'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!bankingForm.controls['bank_country'].errors.required">
+                                            <div [hidden]="!bankingRoutingForm.controls['bank_country'].errors.required">
                                                 Country is required.</div>
                                         </div>
                                     </div>
@@ -2572,9 +2577,9 @@
                                         <label for="country">Bank Account No</label>
                                         <input type="text" class="form-control" formControlName="account_no"
                                             placeholder="Bank Account No">
-                                        <div *ngIf="bankingForm.controls['account_no'].errors && (!bankingForm.controls['account_no'].pristine || submitted ||bankingForm.controls['account_no'].touched )"
+                                        <div *ngIf="bankingRoutingForm.controls['account_no'].errors && (!bankingRoutingForm.controls['account_no'].pristine || submitted ||bankingRoutingForm.controls['account_no'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!bankingForm.controls['account_no'].errors.required">Bank
+                                            <div [hidden]="!bankingRoutingForm.controls['account_no'].errors.required">Bank
                                                 Account No is required.</div>
                                         </div>
                                     </div>
@@ -2584,9 +2589,9 @@
                                         <label>Payment Method</label>
                                         <input type="text" class="form-control" formControlName="payment_method"
                                             placeholder="Account is personal or business">
-                                        <div *ngIf="bankingForm.controls['payment_method'].errors && (!bankingForm.controls['payment_method'].pristine || submitted ||bankingForm.controls['payment_method'].touched )"
+                                        <div *ngIf="bankingRoutingForm.controls['payment_method'].errors && (!bankingRoutingForm.controls['payment_method'].pristine || submitted ||bankingRoutingForm.controls['payment_method'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!bankingForm.controls['payment_method'].errors.required">
+                                            <div [hidden]="!bankingRoutingForm.controls['payment_method'].errors.required">
                                                 Payment Method is required.</div>
                                         </div>
                                     </div>
@@ -2607,9 +2612,9 @@
                                         <label>Swift Code</label>
                                         <input type="text" class="form-control" formControlName="SWIFT_code"
                                             placeholder="Swift Code">
-                                        <div *ngIf="bankingForm.controls['SWIFT_code'].errors && (!bankingForm.controls['SWIFT_code'].pristine || submitted ||bankingForm.controls['SWIFT_code'].touched )"
+                                        <div *ngIf="bankingRoutingForm.controls['SWIFT_code'].errors && (!bankingRoutingForm.controls['SWIFT_code'].pristine || submitted ||bankingRoutingForm.controls['SWIFT_code'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!bankingForm.controls['SWIFT_code'].errors.required">Swift
+                                            <div [hidden]="!bankingRoutingForm.controls['SWIFT_code'].errors.required">Swift
                                                 Code is required.</div>
                                         </div>
                                     </div>
@@ -2628,22 +2633,20 @@
                                         <label>Paypal Id/Paypal Account</label>
                                         <input type="text" class="form-control" formControlName="paypal_id"
                                             placeholder="Paypal Id/Paypal Account">
-                                        <!-- <div *ngIf="bankingForm.controls['SWIFT_code'].errors && (!bankingForm.controls['SWIFT_code'].pristine || submitted ||bankingForm.controls['SWIFT_code'].touched )" class="error-msg">
-                                        <div [hidden]="!bankingForm.controls['SWIFT_code'].errors.required">Swift Code is required.</div>
-                                      </div> -->
+                                        <div *ngIf="bankingRoutingForm.controls['paypal_id'].errors && (!bankingRoutingForm.controls['paypal_id'].pristine || submitted ||bankingRoutingForm.controls['paypal_id'].touched )" class="error-msg">
+                                        <div [hidden]="!bankingRoutingForm.controls['paypal_id'].errors.required">Paypal Id is required.</div>
+                                      </div>
                                     </div>
                                 </div>
-
-
-                                <!-- {{detail_Obj.banlking_id}}   -->
+                               
                                 <div class="form-group row" *ngIf="detail_Obj.banlking_id==null">
                                     <div class="col-sm-12">
                                         <button type="button" (click)="addBankDetails()"
                                             class="btn btn-primary">Save</button>
                                     </div>
                                 </div>
-
-                                <div class="form-group row" *ngIf="detail_Obj.banlking_id!=null">
+                              
+                                <div class="form-group row" *ngIf="detail_Obj.banlking_id!=null" >
                                     <div class="col-sm-12">
                                         <button type="button" (click)="updateBankDetails()"
                                             class="btn btn-primary">Update</button>
@@ -2658,7 +2661,7 @@
 
 
 
-            <div *ngIf="role_id == 1" class="row">
+            <!-- <div *ngIf="role_id == 1" class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -2673,7 +2676,7 @@
                                             <tr>
                                                 <td>Bank Routing Number</td>
                                                 <td>
-                                                    <!-- {{detail_Obj?.bank_routing_no}} -->
+                                                 
                                                     <input type="text" class="form-control" (keyup)="selectRoutingNo($event.target.value)"
                                                     formControlName="routing_number" placeholder="Bank Routing Number">
                                                 </td>
@@ -2731,10 +2734,10 @@
                                                 </td>
                                             </tr>
 
-                                            <!-- <tr>
+                                            <tr>
                                                 <td>Paypal Id/Paypal Account</td>
                                                 <td>{{detail_Obj?.role_name}}</td>
-                                            </tr> -->
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -2744,11 +2747,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
         </div>
-
+        </div>
 
     <style type="text/css">
         .selectedBtnClass{
