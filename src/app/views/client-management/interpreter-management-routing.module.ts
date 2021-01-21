@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'client-list', component: InterpreterListComponent },
   { path: 'client-list/:id/:type', component: InterpreterListComponent },
   { path: 'client-add', component: InterpreterAddComponent }, 
+  { path: 'client-edit/:id', component: InterpreterAddComponent }, 
   // { path: 'interpreter-profile/:id', component: InterpreterProfileComponent }, 
   { path: 'client-profile/:id', component: InterpreterProfileInformationComponent }, 
   { path: 'client-edit/:id', component: InterpreterEditComponent }, 

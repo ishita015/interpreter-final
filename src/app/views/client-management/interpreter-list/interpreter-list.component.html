@@ -63,10 +63,10 @@
 
                  <ngx-datatable-column name="Full Name" prop="name" [minWidth]="20" >
                   <ng-template ngx-datatable-header-template >
-                   Full Name
+                   Company Name
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    <span class="full_name" (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
+                    <span class="full_name" (click)="userView(row.id)">{{row.name}} </span>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
@@ -124,15 +124,10 @@
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         <button style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userInterpreter(row.id)">View</button>  
-                        <!-- <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editInterpreter(row.id,row)">Edit</button> -->
-                        <button style="overflow: visible !important;" class="btn btn-outline-secondary  ml-2 databuttonnone buttondisplay buttonlabel" (click)="profileInterpreter(row.id)">Profile</button>  
+                     
+                        <button style="overflow: visible !important;" class="btn btn-outline-secondary  ml-2 databuttonnone buttondisplay buttonlabel" (click)="EditInterpreter(row.id)">Edit</button>  
                        
-                        <!-- <button style="overflow: visible !important;" class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel"  (click)="viewCalendar(row.id)">View Calendar</button> -->
-                        <!-- <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button> -->
-                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
-                        <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
-                            Delete
-                        </button> -->
+                        
                     </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
