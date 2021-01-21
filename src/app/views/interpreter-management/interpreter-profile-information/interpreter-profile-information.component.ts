@@ -743,10 +743,8 @@ addLanguageOnAssignment(type,val){
   // }
 // banking routing number
   selectRoutingNo(e){
-    console.log(e.target.value);
     this.routingNoValue = e.target.value;
-    
-    if(this.routingNoValue.length == 9) {
+    // if(this.routingNoValue.length == 9) {
       this.service.getRoutingNumber(this.routingNoValue).subscribe(res => {
         if (res['code'] == 200) {
           this.routingNo = res;
@@ -754,17 +752,16 @@ addLanguageOnAssignment(type,val){
           // this.bankingRoutingForm.get('routing_number').patchValue(this.routingNo.routing_number);
           this.bankingRoutingForm.get('bank_name').patchValue(this.routingNo.customer_name);
           this.bankingRoutingForm.get('bank_address').patchValue(this.routingNo.address);
-          // this.toastr.success( this.routingNo.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
         }
          else {
-          this.routingNo = res;
-          this.bankingRoutingForm.get('bank_name').patchValue('');
-          this.bankingRoutingForm.get('bank_address').patchValue('');
-          this.toastr.error( this.routingNo.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+            this.routingNo = res;
+            this.bankingRoutingForm.get('bank_name').patchValue('');
+            this.bankingRoutingForm.get('bank_address').patchValue('');
+            // this.toastr.error( this.routingNo.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
         }
       });
-     return false;
-    }
+    //  return false;
+    // }
     
    
   }
