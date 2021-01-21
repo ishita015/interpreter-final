@@ -14,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
 import { th } from 'date-fns/locale';
 import { environment } from 'src/environments/environment';
 
-
 @Component({
   selector: 'app-interpreter-profile-information',
   templateUrl: './interpreter-profile-information.component.html',
@@ -150,6 +149,7 @@ documentUrl=environment.documentUrl
   routingNo;
   routingNoValue;
 
+  baseRate;
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -318,7 +318,14 @@ UserLangData=[]
   vci_language =0;
   rsi_language=0;
 vci_opi_language=0;
+
+
 addLanguageOnAssignment(type,val){
+  console.log("base rateeeeeeeee",val);
+  this.http.post('baseRateDetail',{id:val}).subscribe(res => {
+    this.baseRate=res['data'];
+    console.log("base rateeeeeeeee",this.baseRate); 
+   });
   if(type == 'on_site'){
     this.on_site_language=val;
   }
