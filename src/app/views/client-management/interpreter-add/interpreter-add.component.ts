@@ -140,36 +140,24 @@ export class InterpreterAddComponent implements OnInit {
   /*========== Form Value Start Here========*/
   createForm() {
     this.userForm = this.fb.group({
-      title: ['', this.validation.onlyRequired_validator],
-      first_name: ['', this.validation.onlyRequired_validator],
-      last_name: ['', this.validation.onlyRequired_validator],
+      name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
       password: ['', this.validation.onlyRequired_validator],
-      mobile: ['', this.validation.onlyRequired_validator],
-      // phone_no: [''],
-      international_phone_no: ['', this.validation.onlyRequired_validator],
-      // username: [''],
-      dob: ['', this.validation.onlyRequired_validator],
       country_code: ['', this.validation.onlyRequired_validator],
-      // address: ['', this.validation.onlyRequired_validator],
-      address: [''],
-      company_name: ['', this.validation.onlyRequired_validator],
-      social_security_no: ['', this.validation.onlyRequired_validator],
-      // apartment:['', this.validation.onlyRequired_validator],
-      gender: ['', this.validation.onlyRequired_validator],
-      latitude: [''],
-      longitude: [''],
-      nick_name: ['', ],
-      // middle_name: ['', this.validation.onlyRequired_validator],
-      country: ['',this.validation.onlyRequired_validator ],
-      city: ['', this.validation.onlyRequired_validator],
-      state: ['',  this.validation.onlyRequired_validator],
+      mobile: ['', this.validation.onlyRequired_validator],
+      international_phone_no: ['', this.validation.onlyRequired_validator],
+      address: ['', this.validation.onlyRequired_validator],
+      country: ['', this.validation.onlyRequired_validator],
+      state: ['', this.validation.onlyRequired_validator],
       zipCode: ['', this.validation.onlyRequired_validator],
-      timezone: ['',this.validation.onlyRequired_validator ],
-      other_gender: [''],
-      image: ['',  this.validation.onlyRequired_validator],
-      ssn: [''],
-      ein: [''],
+      timezone: ['', this.validation.onlyRequired_validator],
+      city: ['', ],
+      
+      contact_person_name: ['', this.validation.onlyRequired_validator],
+      contact_person_phone_no: ['', this.validation.onlyRequired_validator],
+      ssn: ['', this.validation.onlyRequired_validator],
+      contact_person_country_code: ['', this.validation.onlyRequired_validator],
+      contact_person_mobile: ['', this.validation.onlyRequired_validator],
     });
   }
 
@@ -178,6 +166,7 @@ export class InterpreterAddComponent implements OnInit {
 
   onCountryChange(id) {
     this.country_id = id.target.value;
+    // this.userForm.patchValue({state:this.country_id})
     this.StateList();
   }
 
@@ -296,6 +285,8 @@ export class InterpreterAddComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
+    console.log(this.userForm.value);
+    return
     this.submitted = false;
 
     this.userForm.value.address = this.new_address;
@@ -499,32 +490,37 @@ export class InterpreterAddComponent implements OnInit {
             "zipcode": zipcode,
           };
           this.userForm.get('zipCode').patchValue(zipcode);
-
-           //------------ Country api call ----------------------------//
+          console.log('map_address',this.map_address)
           this.service.getCountryMobileCode().subscribe(res => {
             if (res['status'] == '1') 
             {
+
               this.country_Json = res['data'];
               let contHash = this.country_Json.find(cont => cont.name == country)
-              this.userForm.get('country').patchValue(contHash.id);
-              //------------ State api call ----------------------------//
+              this.userForm.patchValue({country:contHash.id});
               this.service.getStateCode(contHash.id).subscribe(contryRes => {
                 if (contryRes['status'] == '1') {
                   this.state_Obj = contryRes["data"];
                   this.timezone_Obj = contryRes['timeZoneData']['timezones'];
-                  let stateHash =  this.state_Obj.find(st => st.name == state)
-                  if(stateHash)
+                  let stateHash =  this.state_Obj.find(st => st.name == state);
+                  console.log('stateHash',stateHash)
+                  // setTimeout(()=>{
+
+                  if(stateHash.id != undefined)
                   {
-                  this.userForm.get('state').patchValue(stateHash.id);
-                    //------------ City api call ----------------------------//
+                    console.log('yes in')
+                  this.userForm.patchValue({state:stateHash.id.toString()});
                   this.service.getCityCode(stateHash.id).subscribe(cityRes => {
                     if (cityRes['status'] == '1') {
                       this.city_Obj = cityRes["data"];
                       let cityHash = this.city_Obj.find(ct => ct.name == city)
-                      this.userForm.get('city').patchValue(cityHash.id); 
+                      this.userForm.patchValue({city:cityHash.id.toString()}); 
                     }
                   });
+
+                  console.log('yes-------------------------------------',this.userForm.value)
                 }
+                 // }, 500);
                 }
               })
             }
