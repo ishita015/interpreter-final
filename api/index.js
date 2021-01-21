@@ -464,6 +464,98 @@ let upload = multer({
     storage: storage
 });
 
+// --------------------------------add Client management -----------------------------//
+
+app.post('/cesco/saveClient', async function(req, res, next) {
+    console.log("reqqqqqqqqqqqqqqqqqq",req.body);
+    //validation start
+    const v = new Validator(req.body, {
+        company_name:'required',
+        company_email:'required',
+        password: 'required',
+        country_code: 'required',
+        mobile: 'required',
+        phone_no:'required',
+        address: 'required',
+        country: 'required',
+        state: 'required',
+        city: 'required',  
+        zipCode: 'required',
+        timezone: 'required',
+        contact_person_name:'required',
+        contact_country_code:'required',
+        contact_mobile_no:'required',
+        ssn: 'required',
+    });
+
+    const matched = await v.check();
+    
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    
+    let company_name = req.body.company_name;
+    let company_email = req.body.company_email;
+    let password = req.body.password;
+    let country_code = req.body.country_code;
+    let mobile = req.body.mobile;  
+    let phone_no = req.body.phone_no;
+    let country = req.body.country;
+    let state = req.body.state ? req.body.state : "";
+    let city = req.body.city;
+    let address = req.body.address;
+    let timezone = req.body.timezone ? req.body.timezone : "";
+    let latitude = req.body.latitude ? req.body.latitude : 0;
+    let longitude = req.body.longitude ? req.body.longitude : 0;
+    let zipCode = req.body.zipCode;
+    // let ssn = req.body.ssn ? req.body.ssn : "";
+    let contact_person_name = req.body.contact_person_name;
+    let contact_country_code = req.body.contact_country_code;
+    let contact_mobile_no = req.body.contact_mobile_no;
+    let ssn = req.body.ssn;
+
+
+   password = cryptr.encrypt(password);
+    var sql = "INSERT INTO user(role_id,company_name,company_email,mobile,password,phone_no,country,country_code,state,city,address,latitude,longitude,zipCode,timezone,ssn,contact_person_name,contact_country_code,contact_mobile_no)VALUES('3','"+company_name+"','"+company_email+"','"+mobile+"','"+password+"','"+phone_no+"','"+country+"','"+country_code+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+zipCode+"','"+timezone+"','"+ssn+"','"+contact_person_name+"','"+contact_country_code+"','"+contact_mobile_no+"')";
+
+    console.log("sql",sql)
+
+    con.query(sql, function(err, insert) {
+        let last_id= insert.insertId;
+        console.log("addd",err);
+        if(!err){
+            // var name = first_name+" "+last_name;
+            // common.sendRegistrationEmail(name,email,first_password);
+            
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 6,
+                message: "Client add successfully",
+            });
+            return true;
+        }else{
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "server error",
+            });
+            return true;
+        }
+    });
+});
+
 
 
 

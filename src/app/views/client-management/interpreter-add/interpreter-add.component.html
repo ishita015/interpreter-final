@@ -20,9 +20,9 @@
 
                        <div class="col-md-6 form-group mb-3">
                             <label for="Last">Company Name</label>
-                            <input type="text" class="form-control" formControlName="name"  placeholder=" Name">
-                            <div *ngIf="userForm.controls['name'].errors && (!userForm.controls['name'].pristine || submitted ||userForm.controls['name'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['name'].errors.required">Company Name is required.</div>
+                            <input type="text" class="form-control" formControlName="company_name"  placeholder="company_name">
+                            <div *ngIf="userForm.controls['company_name'].errors && (!userForm.controls['company_name'].pristine || submitted ||userForm.controls['company_name'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['company_name'].errors.required">Company Name is required.</div>
                             </div>
                         
                         </div>
@@ -30,9 +30,9 @@
                         
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Company Email</label>
-                            <input type="text" class="form-control"  formControlName="email" (blur)="checkEmail($event,$event.target.value)"  placeholder="Email">
-                            <div *ngIf="userForm.controls['email'].errors && (!userForm.controls['email'].pristine || submitted ||userForm.controls['email'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['email'].errors.required">Email is required.</div>
+                            <input type="text" class="form-control"  formControlName="company_email" (blur)="checkEmail($event,$event.target.value)"  placeholder="Email">
+                            <div *ngIf="userForm.controls['company_email'].errors && (!userForm.controls['company_email'].pristine || submitted ||userForm.controls['company_email'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['company_email'].errors.required">Company Email is required.</div>
                               </div>
                         </div>
 
@@ -79,11 +79,10 @@
                        <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label>Phone</label>
-                            <input type="number"  class="form-control" formControlName="international_phone_no" 
-                                  
+                            <input type="number"  class="form-control" formControlName="phone_no" 
                                 placeholder="Home Phone">
-                            <div *ngIf="userForm.controls['international_phone_no'].errors && (!userForm.controls['international_phone_no'].pristine || submitted ||userForm.controls['international_phone_no'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['international_phone_no'].errors.required">Home Phone No. is required.</div>
+                            <div *ngIf="userForm.controls['phone_no'].errors && (!userForm.controls['phone_no'].pristine || submitted ||userForm.controls['phone_no'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['phone_no'].errors.required">Home Phone No. is required.</div>
                             </div>
                         </div>
 
@@ -186,26 +185,26 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Code</label>
-                                    <select class="form-control"  formControlName="contact_person_country_code">
+                                    <select class="form-control"  formControlName="contact_country_code">
                                         <option value="" selected disabled>Code</option>
                                         <option *ngFor="let isd of country_Obj"
                                                    [value]="isd.id">
                                         {{isd?.name}} (+{{isd?.phonecode}})
                                         </option>
                                     </select>
-                                    <div *ngIf="userForm.controls['contact_person_country_code'].errors && ( !userForm.controls['contact_person_country_code'].pristine || submitted ||userForm.controls['contact_person_country_code'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['contact_person_country_code'].errors.required">Code is required.</div>
+                                    <div *ngIf="userForm.controls['contact_country_code'].errors && ( !userForm.controls['contact_country_code'].pristine || submitted ||userForm.controls['contact_country_code'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['contact_country_code'].errors.required">Code is required.</div>
                             </div>
                                 </div>
                                 <div class="col-md-8">
                                     <label for="MobileNo.">Mobile No.</label>
-                                    <input type="number"  class="form-control" formControlName="contact_person_mobile"   placeholder="Mobile">
+                                    <input type="number"  class="form-control" formControlName="contact_mobile_no"   placeholder="Mobile">
                                 </div>
                             </div>
                             
                            
-                            <div *ngIf="userForm.controls['contact_person_mobile'].errors && (!userForm.controls['contact_person_mobile'].pristine || submitted ||userForm.controls['contact_person_mobile'].touched )" class="error-msg">
-                                <div [hidden]="!userForm.controls['contact_person_mobile'].errors.required">Mobile No. is required.</div>
+                            <div *ngIf="userForm.controls['contact_mobile_no'].errors && (!userForm.controls['contact_mobile_no'].pristine || submitted ||userForm.controls['contact_mobile_no'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['contact_mobile_no'].errors.required">Mobile No. is required.</div>
                             </div>
                         </div>
 
@@ -217,8 +216,7 @@
                      <div class="row">
                     <div class="col-md-6 form-group mb-3">
                             <label for="SSN">SSN</label>
-                                
-                               
+
                                     <input type="text" mask="000-00-0000" class="form-control" 
                                     placeholder="SSN" formControlName="ssn">
                             <div *ngIf="userForm.controls['ssn'].errors && (!userForm.controls['ssn'].pristine || submitted ||userForm.controls['ssn'].touched )" class="error-msg">

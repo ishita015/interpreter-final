@@ -89,16 +89,19 @@ export class InterpreterAddComponent implements OnInit {
     //   this.CityList();
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
+  
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
+       
         this.ngZone.run(() => {
+        
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           this.new_address = place['formatted_address'];
-          console.log("address", this.new_address);
+          console.log("addresssssssssssss", this.new_address);
 
           this.sec_address = place['formatted_address'];
 
@@ -112,8 +115,8 @@ export class InterpreterAddComponent implements OnInit {
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
 
-          console.log("latitude-", this.latitude);
-          console.log("longitude-", this.longitude);
+          console.log("latitude--------------", this.latitude);
+          console.log("longitude-------------------", this.longitude);
 
           this.zoom = 12;
           this.geocodeLatLng(this.latitude, this.longitude);
@@ -140,24 +143,24 @@ export class InterpreterAddComponent implements OnInit {
   /*========== Form Value Start Here========*/
   createForm() {
     this.userForm = this.fb.group({
-      name: ['', this.validation.onlyRequired_validator],
-      email: ['', this.validation.onlyRequired_validator],
+      company_name: ['', this.validation.onlyRequired_validator],
+      company_email: ['', this.validation.onlyRequired_validator],
       password: ['', this.validation.onlyRequired_validator],
       country_code: ['', this.validation.onlyRequired_validator],
       mobile: ['', this.validation.onlyRequired_validator],
-      international_phone_no: ['', this.validation.onlyRequired_validator],
+      phone_no: ['', this.validation.onlyRequired_validator],
       address: ['', this.validation.onlyRequired_validator],
       country: ['', this.validation.onlyRequired_validator],
       state: ['', this.validation.onlyRequired_validator],
       zipCode: ['', this.validation.onlyRequired_validator],
       timezone: ['', this.validation.onlyRequired_validator],
       city: ['', ],
-      
+      latitude: [''],
+      longitude: [''],
       contact_person_name: ['', this.validation.onlyRequired_validator],
-      contact_person_phone_no: ['', this.validation.onlyRequired_validator],
+      contact_mobile_no: ['', this.validation.onlyRequired_validator],
       ssn: ['', this.validation.onlyRequired_validator],
-      contact_person_country_code: ['', this.validation.onlyRequired_validator],
-      contact_person_mobile: ['', this.validation.onlyRequired_validator],
+      contact_country_code: ['', this.validation.onlyRequired_validator],
     });
   }
 
@@ -243,33 +246,7 @@ export class InterpreterAddComponent implements OnInit {
     this.selectedFile = file;
   }
   /*==========Single Image Function End Here========*/
-
-
-
-  // saveUser() {
-  //     this.submitted = true;
-  //     if (this.userForm.invalid) {
-  //         return;
-  //     }
-  //     this.submitted = false;
-  //     this.userForm.value.latitude = this.latitude;
-  //     this.userForm.value.longitude = this.longitude;
-  //     this.userForm.value.address = this.new_address;
-  //     this.userForm.value.language = this.newlanguageVal;
-  //     // this.userForm.value.role = this.newrole;
-
-  //     console.log("form value", this.userForm.value);
-  //     this.service.interpreterAdd(this.userForm.value)
-  //         .subscribe(res => {
-  //             // console.log("api response",res);
-  //             this.user_Obj = res
-  //             this.user_Msg = res
-  //             this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
-  //             this.router.navigate(['/interpreter/interpreter-list']);
-  //         });
-  // }
-
-  check_dob(e) {
+   check_dob(e) {
     const d = new Date(e);
     const check = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
     if (d <= check) {
@@ -281,58 +258,54 @@ export class InterpreterAddComponent implements OnInit {
   }
 
   saveUser() {
-    this.submitted = true;
-    if (this.userForm.invalid) {
-      return;
-    }
-    console.log(this.userForm.value);
-    return
-    this.submitted = false;
+    // this.submitted = true;
+    // if (this.userForm.invalid) {
+    //   return;
+    // }
+    // console.log(this.userForm.value);
+    // this.submitted = false;
 
     this.userForm.value.address = this.new_address;
-    this.userForm.value.latitude = this.latitude
-    this.userForm.value.longitude = this.longitude
+    console.log("address",this.new_address);
+    
+    
+    this.userForm.value.latitude = this.latitude;
+    console.log("this.latitude",this.latitude);
+   
+    this.userForm.value.longitude = this.longitude;
+    console.log("this.latitude", this.longitude);
     // this.userForm.value.title
     const formData: any = new FormData();
-    this.userForm.value.image = this.selectedFile;
-    formData.append('title', this.userForm.value.title);
-    formData.append('first_name', this.userForm.value.first_name);
-    // formData.append('middle_name', this.userForm.value.middle_name);
-    formData.append('last_name', this.userForm.value.last_name);
-    formData.append('email', this.userForm.value.email);
-    formData.append('nick_name', this.userForm.value.nick_name);
-    formData.append('mobile', this.userForm.value.mobile);
-    formData.append('international_phone_no', this.userForm.value.international_phone_no);
+   
     formData.append('company_name', this.userForm.value.company_name);
-    formData.append('social_security_no', this.userForm.value.social_security_no);
-    formData.append('dob', this.userForm.value.dob);
-    formData.append('address', this.userForm.value.address);
-    formData.append('country', this.userForm.value.country);
+    formData.append('company_email', this.userForm.value.company_email);
+    formData.append('country_code', this.userForm.value.country_code);
     formData.append('password', this.userForm.value.password);
-    // formData.append('apartment', this.userForm.value.apartment);
+    formData.append('mobile', this.userForm.value.mobile);
+    formData.append('phone_no', this.userForm.value.phone_no);
+    formData.append('address', this.new_address);
+    formData.append('country', this.userForm.value.country);
     formData.append('state', this.state_id);
     formData.append('city', this.userForm.value.city); //this.city_id
-    formData.append('gender', this.userForm.value.gender);
-    formData.append('other_gender', this.userForm.value.other_gender);
-    formData.append('latitude', this.userForm.value.latitude);
-    formData.append('longitude', this.userForm.value.longitude);
+    formData.append('latitude', this.latitude);
+    formData.append('longitude', this.longitude);
     formData.append('timezone', this.userForm.value.timezone);
     formData.append('zipCode', this.userForm.value.zipCode);
-    formData.append('country_code', this.userForm.value.country_code);
-
-    formData.append('ein', this.userForm.value.ein);
     formData.append('ssn', this.userForm.value.ssn);
-
-    formData.append('image', this.selectedFile);
+    formData.append('contact_person_name', this.userForm.value.contact_person_name);
+    formData.append('contact_mobile_no', this.userForm.value.contact_mobile_no);
+    formData.append('contact_country_code', this.userForm.value.contact_country_code);
 
     console.log("final form value", this.userForm.value);
 
-    this.service.interpreterAdd(formData).subscribe(res => {
+    this.service.post('saveClient',formData).subscribe(res => {
+      console.log("res",res);
+      
       if (res['status'] == '1') {
       this.user_Obj = res
       this.user_Msg = res
       this.toastr.success(this.user_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-      this.router.navigate(['/interpreter/interpreter-list']);
+      // this.router.navigate(['/interpreter/interpreter-list']);
       }
     });
   }
