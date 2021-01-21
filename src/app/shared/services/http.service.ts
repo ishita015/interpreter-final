@@ -589,6 +589,6 @@ export class HttpService {
     get(url1){
       console.log(this.url+'/cesco/'+url1);
        const httpOptions = {headers:new HttpHeaders({'Content-Type':'application/json'})}
-         return this.http.get(this.url+url1,httpOptions)
+         return this.http.get(this.url+'/cesco/'+url1,httpOptions)
     }
 }

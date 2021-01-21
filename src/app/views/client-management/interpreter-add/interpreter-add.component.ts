@@ -6,7 +6,9 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import {} from 'googlemaps';
+import { environment } from 'src/environments/environment';
 
+import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 
 import { MapsAPILoader } from '@agm/core';
 import { DataLayerService } from 'src/app/shared/services/data-layer.service';
@@ -77,10 +79,38 @@ export class InterpreterAddComponent implements OnInit {
     private dl: DataLayerService,
     public service: HttpService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,private http:HttpClient
   ) { }
-
+client_image='';
   ngOnInit() {
+    if(window.location.href.split('client/client-edit/') != undefined){
+    if(window.location.href.split('client/client-edit/')[1] != undefined){
+    var param=window.location.href.split('client/client-edit/')[1];
+      this.service.get('getClientDetails/'+param).subscribe(res => {
+        this.userForm.patchValue({
+       id:res['data'][0].id,
+      company_name: res['data'][0].name,
+      company_email: res['data'][0].email,
+      country_code:res['data'][0].country_code,
+      mobile: res['data'][0].mobile,
+      phone_no: res['data'][0].phone_no,
+      address: res['data'][0].address,
+      country:res['data'][0].country,
+      state: res['data'][0].state,
+      zipCode: res['data'][0].zipCode,
+      timezone:res['data'][0].timezone,
+      city:res['data'][0].city ,
+      latitude:res['data'][0].latitude,
+      longitude:res['data'][0].longitude ,
+      contact_person_name: res['data'][0].contact_person_name,
+      contact_mobile_no: res['data'][0].contact_mobile_no,
+      ssn: res['data'][0].ssn_no,
+      contact_country_code: res['data'][0].contact_country_code,
+        })
+        this.client_image=res['data'][0].profile_img
+      })
+    }
+    }
     this.createForm();
     this.LanguageList();
     this.userRoleList();
@@ -143,6 +173,7 @@ export class InterpreterAddComponent implements OnInit {
   /*========== Form Value Start Here========*/
   createForm() {
     this.userForm = this.fb.group({
+      id:[''],
       company_name: ['', this.validation.onlyRequired_validator],
       company_email: ['', this.validation.onlyRequired_validator],
       password: ['', this.validation.onlyRequired_validator],
@@ -154,6 +185,7 @@ export class InterpreterAddComponent implements OnInit {
       state: ['', this.validation.onlyRequired_validator],
       zipCode: ['', this.validation.onlyRequired_validator],
       timezone: ['', this.validation.onlyRequired_validator],
+      image: ['', this.validation.onlyRequired_validator],
       city: ['', ],
       latitude: [''],
       longitude: [''],
@@ -258,26 +290,17 @@ export class InterpreterAddComponent implements OnInit {
   }
 
   saveUser() {
-    // this.submitted = true;
-    // if (this.userForm.invalid) {
-    //   return;
-    // }
-    // console.log(this.userForm.value);
-    // this.submitted = false;
-
-    this.userForm.value.address = this.new_address;
-    console.log("address",this.new_address);
-    
-    
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      return;
+    }
+    console.log(this.userForm.value);
+    this.submitted = false;
+   this.userForm.value.address = this.new_address;
     this.userForm.value.latitude = this.latitude;
-    console.log("this.latitude",this.latitude);
-   
     this.userForm.value.longitude = this.longitude;
-    console.log("this.latitude", this.longitude);
-    // this.userForm.value.title
     const formData: any = new FormData();
-   
-    formData.append('company_name', this.userForm.value.company_name);
+   formData.append('company_name', this.userForm.value.company_name);
     formData.append('company_email', this.userForm.value.company_email);
     formData.append('country_code', this.userForm.value.country_code);
     formData.append('password', this.userForm.value.password);
@@ -285,7 +308,7 @@ export class InterpreterAddComponent implements OnInit {
     formData.append('phone_no', this.userForm.value.phone_no);
     formData.append('address', this.new_address);
     formData.append('country', this.userForm.value.country);
-    formData.append('state', this.state_id);
+    formData.append('state', this.userForm.value.state);
     formData.append('city', this.userForm.value.city); //this.city_id
     formData.append('latitude', this.latitude);
     formData.append('longitude', this.longitude);
@@ -295,17 +318,12 @@ export class InterpreterAddComponent implements OnInit {
     formData.append('contact_person_name', this.userForm.value.contact_person_name);
     formData.append('contact_mobile_no', this.userForm.value.contact_mobile_no);
     formData.append('contact_country_code', this.userForm.value.contact_country_code);
+    formData.append('image', this.selectedFile);
 
-    console.log("final form value", this.userForm.value);
-
-    this.service.post('saveClient',formData).subscribe(res => {
-      console.log("res",res);
-      
+    this.http.post(environment.apiUrl+'/cesco/saveClient',formData).subscribe(res => {
       if (res['status'] == '1') {
-      this.user_Obj = res
-      this.user_Msg = res
-      this.toastr.success(this.user_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-      // this.router.navigate(['/interpreter/interpreter-list']);
+      this.toastr.success(res['msg'], '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      this.router.navigate(['/client/client-list']);
       }
     });
   }

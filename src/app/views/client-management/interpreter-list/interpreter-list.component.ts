@@ -108,7 +108,7 @@ export class InterpreterListComponent implements OnInit {
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;
     this.endDate = this.range.value.end_date;
-    this.service.getInterpreterList(this.id,this.type,this.allData,this.startDate,this.endDate)
+    this.service.get('getAllClient')
     // this.service.getInterpreterList(this.id,this.type)
       .subscribe(res => {
 
@@ -191,6 +191,9 @@ export class InterpreterListComponent implements OnInit {
 
   userView(id){
     this.router.navigate(['/interpreter/interpreter-view', id])
+  } 
+  EditInterpreter(id){
+    this.router.navigate(['/client/client-edit/'+id])
   }
 
   userInterpreter(id) {

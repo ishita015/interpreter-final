@@ -17,11 +17,25 @@ var database = new function() {
             }
             counter++;
         }
-        console.log('aaaaaaa',que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
             console.log('err',err)
             
+                resolve(response);
+        });
+
+    }); 
+ }
+
+  this.getAllClient = (table,obj) => {
+       
+        var que = "SELECT * FROM  " + table + " WHERE status != 2 AND role_id=3";
+       
+        return new Promise((resolve, reject) => {
+        con.query(que, (err, response) => {
+                if(err){
+                   resolve([]);
+                }            
                 resolve(response);
         });
 
