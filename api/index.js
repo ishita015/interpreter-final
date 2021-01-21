@@ -193,6 +193,8 @@ app.post('/cesco/getInterpreter', interpreterController.getInterpreter);
 
 app.get('/cesco/getAllUser', interpreterController.getAllUser);
 
+app.post('/cesco/baseRateDetail', interpreterController.baseRate);
+
 // app.post('/cesco/saveInterpreter', interpreterController.addInterpreter);
 app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
@@ -209,6 +211,7 @@ app.get('/cesco/getlanguages', languageController.getLanguages);
 app.post('/cesco/savelanguage', languageController.addLanguage);
 app.post('/cesco/updatelanguage', languageController.updateLanguage);
 app.post('/cesco/removelanguage', languageController.removeLanguage);
+
 
 //role & permission route
 app.get('/cesco/getuserRole', userroleController.getUserRole);
