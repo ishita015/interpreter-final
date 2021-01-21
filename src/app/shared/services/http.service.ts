@@ -580,6 +580,12 @@ export class HttpService {
    }
     /*=====Routing no. Apis end======*/
 
+    /*=====Base Rate Details Apis Start======*/
+    baseRateDetail(id): Observable<any> {
+      return this.http.post(this.url + '/cesco/baseRateDetail',{id:id}, this.httpOptions);
+    }
+    /*=====Base Rate Details Apis End======*/
+
   
  post(url,value){
       const URL=this.url+'/cesco/'+url;
