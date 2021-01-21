@@ -3931,3 +3931,51 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function (req,
     });
     return true;
 }
+
+
+module.exports.baseRate = async function (req, res) {
+    console.log("baseRate",req);
+    //validation start
+    const v = new Validator(req.body, {
+        id: 'required'
+    });
+
+    const matched = await v.check();
+
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+    let id = req.body.id;
+
+    var sql = "SELECT * FROM languages WHERE id='" + id + "'";
+    console.log(sql)
+    con.query(sql, function (err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result,
+                message: "Record found"
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
