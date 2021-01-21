@@ -108,11 +108,11 @@ export class InterpreterListComponent implements OnInit {
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;
     this.endDate = this.range.value.end_date;
-    this.service.get('getAllClient')
-    // this.service.getInterpreterList(this.id,this.type)
+        this.service.post('getAllClient',{search_info:this.allData,start_date:this.startDate,end_date:this.endDate})
+
       .subscribe(res => {
 
-        if (res['status'] == 1) {
+        if (res['status'] == true) {
           this.list_Obj = res['data'];
           this.userData = [...res['data']];
           this.filteredUser = this.list_Obj;
@@ -121,14 +121,17 @@ export class InterpreterListComponent implements OnInit {
           this.list_Obj = [];
           this.userData = [];
           this.filteredUser = [];
-          // this.response_msg=res;
-          // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
-          this.router.navigate(['/interpreter/interpreter-list'])
+          this.router.navigate(['/client/client-list'])
         }
       });
   }
 
-
+clearAll(){
+  this.search_name.setValue('');
+  this.range.setValue({start_date:'',end_date:''});
+  this.toastr.success('Filter cleared successfully')
+  this.ngOnInit();
+}
   deleteInterpreter(id, modal) {
     console.log("delete idddddddddd", id);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
@@ -190,21 +193,15 @@ export class InterpreterListComponent implements OnInit {
   }
 
   userView(id){
-    this.router.navigate(['/interpreter/interpreter-view', id])
+    this.router.navigate(['/client/client-view/'+id])
   } 
   EditInterpreter(id){
     this.router.navigate(['/client/client-edit/'+id])
   }
 
   userInterpreter(id) {
-    // localStorage.setItem('Id', JSON.stringify(id));
-    this.service.getInterpreterDetail(id).subscribe(res => {
-      // console.log("apiii", res);
-      this.viewUser_obj = res['data'][0];
-      console.log("view object", this.viewUser_obj);
-      localStorage.setItem('userViewData', JSON.stringify(this.viewUser_obj));
-      this.router.navigate(['/interpreter/interpreter-view', id])
-    })
+      this.router.navigate(['/client/client-view/'+id])
+  
   }
 
   

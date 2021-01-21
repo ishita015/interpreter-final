@@ -50,13 +50,13 @@
     position: relative;
 }
 </style>
-<div class="row mainblock">
+<div *ngFor="let data of data" class="row mainblock">
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
                 <div class="profilesec">
                     <div class="profile_pic">
-                    <img src="./assets/images/faces/1.jpg">
+                    <img src="{{data.profile_img}}">
                     </div>
                     <div class="profiletitle mt-2">
 
@@ -64,10 +64,10 @@
                     </div>
                     <div class="profilecontent">
                         <ul class="list basic_info">
-                            <li><a href="#"><i class="i-Envelope"></i> {{data.email}}</a></li>
-                            <li><a href="#"><i class="i-Telephone"></i> {{data.mobile | mask: '(000) 000-0000'}}</a></li>
-                            <li><a href="#"><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
-                            <li><a href="#"><i class="i-Address-Book"></i> {{data.address}}</a></li>
+                            <li><a ><i class="i-Envelope"></i> {{data.email}}</a></li>
+                            <li><a ><i class="i-Telephone"></i>+{{data.country_code}} {{data.mobile | mask: '(000) 000-0000'}}</a></li>
+                            <li><a ><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
+                            <li><a ><i class="i-Address-Book"></i> {{data.address}}</a></li>
                         </ul>
                    
                     </div>
@@ -81,7 +81,7 @@
               
                 <!---===== Print Area =======-->
                 <div id="print-area">
-                    <h5 class="font-weight-bold">Interpreter Details</h5>
+                    <h5 class="font-weight-bold">Client Details</h5>
                     <div class=" mb-2 border-top"></div>
                     <div class="row mb-2">
                         <div class="col-md-12 userstable mb-3">
@@ -89,70 +89,63 @@
                             <table>
                                 <tbody>
                                   <tr>
-                                    <td>Full Name</td>
-                                    <td>{{data.first_name}} {{data.last_name}}</td>
+                                    <td>Company Name</td>
+                                    <td>{{data.name}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Date Of Birth</td>
-                                    <td>{{data.date_of_birth}}</td>
+                                    <td>Phone</td>
+                                    <td>{{data.phone_no}}</td>
+                                  </tr> 
+                                  <tr>
+                                    <td>Country</td>
+                                    <td>{{data.country_name}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Rating</td>
-                                    <td>{{data.rating}}</td>
+                                    <td>State</td>
+                                    <td>{{data.state_name}}</td>
+                                  </tr> 
+                                  <tr>
+                                    <td>City</td>
+                                    <td>{{data.city_name}}</td>
                                   </tr>
                                   <tr>
                                     <td>SSN/EIN</td>
                                     <td>{{data.ssn_no ? data.ssn_no : data.ein_no}}</td>
                                   </tr>
-                                  <!-- <tr>
-                                    <td>EIN No.</td>
-                                    <td>{{data.ein}}</td>
-                                  </tr> -->
-                                  <tr>
-                                    <td>Notes</td>
-                                    <td>{{data.notes}}</td>
-                                  </tr>
+                                 
                                   <tr>
                                     <td>TimeZone</td>
                                     <td>{{data.timezone}}</td>
                                   </tr>
-                                    <!-- <tr>
-                                        <td>User Type</td>
-                                        <td>{{data.role_name}}</td>
-                                    </tr>
-                                    <tr *ngIf="data.role_id == '2'">
-                                        <td>Rate/Hour</td>
-                                        <td>${{data.interpreter_rate}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apt/Ste</td>
-                                        <td>{{data.apartment}}</td>
-                                    </tr> -->
-                                    <!-- <tr>
-                                        <td>Street</td>
-                                        <td>{{data.street}}</td>
-                                    </tr> -->
+                                  <tr>
+                                    <td>Password</td>
+                                    <td>{{data.password}}</td>
+                                  </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
                         <div class="col-md-12 lan_block mt-1 mb-1">
-                           <h5 class="font-weight-bold">Language Details</h5>
+                           <h5 class="font-weight-bold">Contact Person Details</h5>
                          <div class="mb-2 border-top"></div>
-                       
-                                <div class="pri_lan">
-                              <h6 class="font-weight-bold">Primary Language</h6>
-                              <ul class="list-inline">
-                                <li class="list-inline-item"> {{data.primary_language}}</li>
-                                </ul>   
-                            </div>
-                        
-                            <div class="sec_lan">
-                                <h6 class="font-weight-bold">Secondary Language</h6>
-                              <ul class="list-inline">
-                                <li *ngFor="let lang of data.interLanguage" class="list-inline-item">{{lang.name}}</li>
-                                </ul>   
-                            </div>
-                        
+                         <div class="col-md-12 userstable mb-3">
+                             
+                            <table>
+                                <tbody>
+                                  <tr>
+                                    <td> Person Name</td>
+                                    <td>{{data.contact_person_name}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Movbile</td>
+                                    <td>+{{data.contact_country_code}} {{contact_mobile_no | mask: '(000) 000-0000'}}</td>
+                                  </tr> 
+                                 
+                                  
+                                   
+                                </tbody>
+                            </table>
+                        </div>                        
                         </div>
                     </div>
                   

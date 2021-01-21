@@ -2,7 +2,7 @@
     <!-- <h1>Language</h1> -->
     <ul class="heading">
         <li><a>Client</a></li>
-        <li>Add</li> 
+        <li>{{userForm.value.id == '' ? 'Add':'Edit' }}</li> 
     </ul>
 </div>
 
@@ -41,9 +41,9 @@
                     <div class="row">
 
 
-                        <div class="col-md-6 form-group mb-3">
+                        <div  class="col-md-6 form-group mb-3">
                             <label for="email">Password</label>
-                            <input type="password" class="form-control"  formControlName="password"  placeholder="password">
+                            <input type="text" class="form-control"  formControlName="password"  placeholder="password">
                             <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['password'].errors.required">Password is required.</div>
                               </div>
@@ -114,6 +114,7 @@
                         <div class="col-md-6 form-group mb-3">
                             <label for="State">State</label>
                             <select class="form-control" (change)="onStateChange($event)" formControlName="state">
+                                <option selected value="{{stateData?.id}}"> {{stateData?.name}} </option>
                                 <option *ngFor="let isd of state_Obj"
                                         value="{{isd.id}}">
                                 {{isd?.name}}
@@ -133,6 +134,7 @@
                             <label for="City">City</label>
                             <select class="form-control" (change)="onCityChange($event)" formControlName="city">
                                 <option value="" selected disabled>City</option>
+                                <option selected value="{{cityData?.id}}"> {{cityData?.name}} </option>
                                 <option *ngFor="let isd of city_Obj"
                                         [value]="isd.id">
                                 {{isd?.name}}
@@ -169,9 +171,9 @@
                         <div class="{{userForm.value.id == '' ? 'col-md-6': 'col-md-3'}} form-group mb-3">
                             <label for="image">Image</label>
                             <input  accept="image/*" type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
-                            <div *ngIf="userForm.controls['image'].errors && (!userForm.controls['image'].pristine || submitted ||userForm.controls['image'].touched )" class="error-msg">
+                           <!--  <div *ngIf="userForm.controls['image'].errors && (!userForm.controls['image'].pristine || submitted ||userForm.controls['image'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['image'].errors.required">Image is required.</div> 
-                              </div>
+                              </div> -->
                         </div>
 
                         <div *ngIf="client_image != '' && userForm.value.id != ''" class="col-md-3 form-group mb-3">
@@ -237,7 +239,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">{{userForm.value.id == '' ? 'Save':'Update' }}</button>
                         </div>
                     </div>
                 </form>

@@ -21,6 +21,7 @@ const ct = require('countries-and-timezones');
 
 
 module.exports.addClient = async function (req, res) {
+    
      var data={
         role_id:3,
         name:req.body.company_name,
@@ -41,11 +42,20 @@ module.exports.addClient = async function (req, res) {
         contact_person_name:req.body.contact_person_name,
         contact_mobile_no:req.body.contact_mobile_no,
         contact_country_code:req.body.contact_country_code,
-        profile_img:req.files[0].filename
+    }
+    if(req.files.length > 0){
+     data.profile_img =req.files[0].filename
     }
     try {
+      if(req.body.id == ''){
         await commonDb.AsyncInsert('user',data)
         res.send({status:true,msg:'Client Added Successfully'})
+        }else{
+          var user_id=req.body.id;
+          await commonDb.AsyncUpdate('user',data,{id:user_id})
+        res.send({status:true,msg:'Client Added Successfully'})
+          
+        }
       } catch (e) {
         
         res.send({status:false,msg:'Client Added Failed'})
@@ -56,9 +66,33 @@ module.exports.addClient = async function (req, res) {
   module.exports.getAllClient = async function (req, res) {
      
     try {
-       var data = await commonDb.getAllClient('user')
-        res.send({status:true,data:data})
-      } catch (e) {
+       // var data = await commonDb.getAllClient('user')
+       //  res.send({status:true,data:data})
+
+    let serach = req.body.search_info ? req.body.search_info : ""; 
+    let start_date = req.body.start_date ? req.body.start_date : '0';
+    let end_date = req.body.end_date ? req.body.end_date : '0';
+  
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id=3 ";
+    if (serach != "") {
+        sql += " && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ";
+    }
+    if ((start_date != '0' && end_date != '0')) {
+        let sd = start_date.replace(/T/, ' ').replace(/\..+/, '');
+        let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');
+        sql += " && u.create_dt BETWEEN '" + sd + "' AND '" + ed + "'";
+    }
+    sql += " ORDER BY u.id DESC";
+    con.query(sql, function (err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({status: true, data: result });
+            return true;
+        } else {
+            res.json({status: false, message: "No record found"});
+            return true;
+        }
+    });
+ } catch (e) {
         
         res.send({status:false,msg:'Client Added Failed'})
       }
@@ -67,8 +101,9 @@ module.exports.addClient = async function (req, res) {
   module.exports.getClientDetails = async function (req, res) {
      
     try {
-       var data = await commonDb.AsyncSellectAllWhere('user',{id:req.params.id})
+       var data = await commonDb.getClientDetails({user_id:req.params.id})
        data[0].profile_img=process.env.image_path+data[0].profile_img
+       data[0].password=cryptr.decrypt(data[0].password);
         res.send({status:true,data:data})
       } catch (e) {
         

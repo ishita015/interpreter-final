@@ -82,6 +82,8 @@ export class InterpreterAddComponent implements OnInit {
     private ngZone: NgZone,private http:HttpClient
   ) { }
 client_image='';
+stateData
+cityData
   ngOnInit() {
     if(window.location.href.split('client/client-edit/') != undefined){
     if(window.location.href.split('client/client-edit/')[1] != undefined){
@@ -89,6 +91,7 @@ client_image='';
       this.service.get('getClientDetails/'+param).subscribe(res => {
         this.userForm.patchValue({
        id:res['data'][0].id,
+      password: res['data'][0].password,
       company_name: res['data'][0].name,
       company_email: res['data'][0].email,
       country_code:res['data'][0].country_code,
@@ -100,14 +103,17 @@ client_image='';
       zipCode: res['data'][0].zipCode,
       timezone:res['data'][0].timezone,
       city:res['data'][0].city ,
-      latitude:res['data'][0].latitude,
-      longitude:res['data'][0].longitude ,
       contact_person_name: res['data'][0].contact_person_name,
       contact_mobile_no: res['data'][0].contact_mobile_no,
       ssn: res['data'][0].ssn_no,
       contact_country_code: res['data'][0].contact_country_code,
         })
-        this.client_image=res['data'][0].profile_img
+      this.new_address=res['data'][0].address,
+      this.latitude=res['data'][0].latitude,
+      this.longitude=res['data'][0].longitude ,
+        this.client_image=res['data'][0].profile_img;
+        this.StateList1(res['data'][0].country);
+        this.CityList1(res['data'][0].state)
       })
     }
     }
@@ -120,7 +126,7 @@ client_image='';
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
   
-      this.setCurrentLocation();
+      // this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
@@ -131,7 +137,6 @@ client_image='';
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           this.new_address = place['formatted_address'];
-          console.log("addresssssssssssss", this.new_address);
 
           this.sec_address = place['formatted_address'];
 
@@ -139,14 +144,12 @@ client_image='';
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          // console.log("place-",place[0].formatted_address);
 
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
 
-          console.log("latitude--------------", this.latitude);
-          console.log("longitude-------------------", this.longitude);
+          
 
           this.zoom = 12;
           this.geocodeLatLng(this.latitude, this.longitude);
@@ -185,7 +188,7 @@ client_image='';
       state: ['', this.validation.onlyRequired_validator],
       zipCode: ['', this.validation.onlyRequired_validator],
       timezone: ['', this.validation.onlyRequired_validator],
-      image: ['', this.validation.onlyRequired_validator],
+      image: [''],
       city: ['', ],
       latitude: [''],
       longitude: [''],
@@ -230,6 +233,7 @@ client_image='';
   /*========== State Code for Mobile Start Here========*/
 
   StateList() {
+    console.log(this.country_id)
     this.service.getStateCode(this.country_id).subscribe(res => {
       console.log("state api res", res);
       if (res['status'] == '1') {
@@ -254,6 +258,22 @@ client_image='';
   }
 
   /*==========  City Code for Mobile End Here========*/
+StateList1(id) {
+    this.service.getStateCode(id).subscribe(res => {
+      if (res['status'] == '1') {
+        this.state_Obj = res['data'];
+        this.timezone_Obj = res['timeZoneData']['timezones'];
+      }
+    });
+  }
+
+  CityList1(id) {
+    this.service.getCityCode(id).subscribe(res => {
+      if (res['status'] == '1') {
+        this.city_Obj = res['data'];
+      }
+    });
+  }
 
   username() {
     this.fullnameVal = this.userForm.value.first_name + this.userForm.value.last_name;
@@ -290,16 +310,21 @@ client_image='';
   }
 
   saveUser() {
-    this.submitted = true;
-    if (this.userForm.invalid) {
-      return;
-    }
-    console.log(this.userForm.value);
-    this.submitted = false;
-   this.userForm.value.address = this.new_address;
+    console.log('in',this.userForm.value);
+    console.log('incheck',this.userForm);
+    if(this.userForm.value.id == ''){
+          this.submitted = true;
+        if (this.userForm.invalid) {
+          return;
+        }
+        console.log(this.userForm.value);
+        this.submitted = false;
+     }
+    this.userForm.value.address = this.new_address;
     this.userForm.value.latitude = this.latitude;
     this.userForm.value.longitude = this.longitude;
     const formData: any = new FormData();
+   formData.append('id', this.userForm.value.id);
    formData.append('company_name', this.userForm.value.company_name);
     formData.append('company_email', this.userForm.value.company_email);
     formData.append('country_code', this.userForm.value.country_code);
@@ -349,17 +374,17 @@ client_image='';
 
 
   checkEmail($event, email) {
-    console.log("email-", email)
-    // console.log("event-",$event)
+    if(this.userForm.value.id == ''){
+
     this.service.checkUserEmail(email)
       .subscribe(res => {
         if (res['status'] == '1') {
           alert(res['message']);
-          // this.userForm.value.email = '';
           $event.target.value = "";
         }
 
       });
+    }
   }
 
 
@@ -410,6 +435,7 @@ client_image='';
     var geocoder = new google.maps.Geocoder;
     var latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
     geocoder.geocode({ 'location': latlng }, (results, status) => {
+
       if (status === 'OK') {
         if (results[0]) {
           var street = "";
@@ -481,31 +507,34 @@ client_image='';
             "zipcode": zipcode,
           };
           this.userForm.get('zipCode').patchValue(zipcode);
+
           console.log('map_address',this.map_address)
+         
           this.service.getCountryMobileCode().subscribe(res => {
             if (res['status'] == '1') 
             {
-
-              this.country_Json = res['data'];
+             this.country_Json = res['data'];
               let contHash = this.country_Json.find(cont => cont.name == country)
+             
               this.userForm.patchValue({country:contHash.id});
+            
               this.service.getStateCode(contHash.id).subscribe(contryRes => {
                 if (contryRes['status'] == '1') {
                   this.state_Obj = contryRes["data"];
                   this.timezone_Obj = contryRes['timeZoneData']['timezones'];
                   let stateHash =  this.state_Obj.find(st => st.name == state);
-                  console.log('stateHash',stateHash)
+                  this.stateData =  this.state_Obj.find(st => st.name == state);
                   // setTimeout(()=>{
-
+                    console.log('state_Obj',stateHash)
                   if(stateHash.id != undefined)
                   {
-                    console.log('yes in')
-                  this.userForm.patchValue({state:stateHash.id.toString()});
+                  this.userForm.patchValue({state:stateHash.id});
                   this.service.getCityCode(stateHash.id).subscribe(cityRes => {
                     if (cityRes['status'] == '1') {
                       this.city_Obj = cityRes["data"];
                       let cityHash = this.city_Obj.find(ct => ct.name == city)
-                      this.userForm.patchValue({city:cityHash.id.toString()}); 
+                      this.cityData = this.city_Obj.find(ct => ct.name == city)
+                      this.userForm.patchValue({city:cityHash.id}); 
                     }
                   });
 

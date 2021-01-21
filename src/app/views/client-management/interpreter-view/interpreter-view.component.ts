@@ -61,13 +61,16 @@ export class InterpreterViewComponent implements OnInit {
 	}
 
 	ngOnInit() {
-    	this.data = JSON.parse(localStorage.getItem('userViewData'));
-		this.roleName = JSON.parse(localStorage.getItem('roleName'));
-		this.userId = JSON.parse(localStorage.getItem('userId'));
-		this.interpreter_Id = JSON.parse(localStorage.getItem('userViewData'));
+    	 var param=window.location.href.split('client/client-view/')[1];
+      this.service.get('getClientDetails/'+param).subscribe(res => {
+        this.data=res['data']
+    })
+		// this.roleName = JSON.parse(localStorage.getItem('roleName'));
+		// this.userId = JSON.parse(localStorage.getItem('userId'));
+		// this.interpreter_Id = JSON.parse(localStorage.getItem('userViewData'));
 		// console.log("calendar_Id",this.interpreter_Id.id);
 		// this.loadEvents();
-		this.getInterpreterRequestInfo();
+		this.getInterpreterRequestInfo(param);
 	}
 
 //   getInterpreterRequestInfo(){
@@ -93,8 +96,8 @@ export class InterpreterViewComponent implements OnInit {
 
 
 	  // get admin assign
-	  getInterpreterRequestInfo(){
-		this.service.interpreterDashboardData(this.interpreter_Id.id)
+	  getInterpreterRequestInfo(param){
+		this.service.interpreterDashboardData(param)
 		.subscribe(res => {
 			if(res['status']=='1'){
 				this.cal_data = res['data'];

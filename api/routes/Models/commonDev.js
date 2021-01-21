@@ -76,7 +76,6 @@ var database = new function() {
     }); 
  }
 this.AsyncUpdate = function(table,obj,where) {
-       
          var que = "UPDATE " + table + " SET ";
         var counter = 1;
         for (var k in obj) {
@@ -146,6 +145,18 @@ this.AsyncUpdate1 = function(table,obj,where) {
  this.getUserLanguage = function(ob) {
        
         var que = "SELECT languages.name,languages.id  FROM interpreter_language LEFT JOIN languages ON interpreter_language.language_id = languages.id WHERE interpreter_language.user_id="+ob.user_id ;
+        return new Promise((resolve, reject) => {
+        con.query(que, (err, response) => {
+            console.log('err',err)
+            
+                resolve(response);
+        });
+
+    }); 
+ }
+ this.getClientDetails = function(obj) {
+       
+        var que = "SELECT user.*,countries.name as country_name,states.name as state_name,cities.name as city_name FROM user LEFT JOIN countries ON countries.id = user.country LEFT JOIN states ON states.id = user.state LEFT JOIN cities ON cities.id = user.city WHERE user.id="+obj.user_id;
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
             console.log('err',err)

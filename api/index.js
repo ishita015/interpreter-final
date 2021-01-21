@@ -481,7 +481,7 @@ let uploadClientFile = multer({
 
 // --------------------------------add Client management -----------------------------//
 app.post('/cesco/saveClient', uploadClientFile.any(), clientController.addClient);
-app.get('/cesco/getAllClient', clientController.getAllClient);
+app.post('/cesco/getAllClient', clientController.getAllClient);
 app.get('/cesco/getClientDetails/:id', clientController.getClientDetails);
 
 
