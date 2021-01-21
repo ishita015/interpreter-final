@@ -20,7 +20,7 @@
 
                        <div class="col-md-6 form-group mb-3">
                             <label for="Last">Company Name</label>
-                            <input type="text" class="form-control" formControlName="company_name"  placeholder="company_name">
+                            <input type="text" class="form-control" formControlName="company_name"  placeholder="Company Name">
                             <div *ngIf="userForm.controls['company_name'].errors && (!userForm.controls['company_name'].pristine || submitted ||userForm.controls['company_name'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['company_name'].errors.required">Company Name is required.</div>
                             </div>
@@ -165,6 +165,17 @@
                             <div *ngIf="userForm.controls['timezone'].errors && (!userForm.controls['timezone'].pristine || submitted ||userForm.controls['timezone'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['timezone'].errors.required">Timezone is required.</div> 
                               </div>
+                        </div>
+                        <div class="{{userForm.value.id == '' ? 'col-md-6': 'col-md-3'}} form-group mb-3">
+                            <label for="image">Image</label>
+                            <input  accept="image/*" type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
+                            <div *ngIf="userForm.controls['image'].errors && (!userForm.controls['image'].pristine || submitted ||userForm.controls['image'].touched )" class="error-msg">
+                                <div [hidden]="!userForm.controls['image'].errors.required">Image is required.</div> 
+                              </div>
+                        </div>
+
+                        <div *ngIf="client_image != '' && userForm.value.id != ''" class="col-md-3 form-group mb-3">
+                            <img src="{{client_image}}">
                         </div>
                     </div>
 
