@@ -145,4 +145,8 @@ export class AllRequestComponent implements OnInit {
 
        /*========== Detail End Here========*/
 
+       newRequest(){
+        this.router.navigate(['/interpreter-request/step-form']);
+       }
+
 }

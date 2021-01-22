@@ -22,13 +22,15 @@ import { InterpreterHistoryListComponent } from './interpreter-history-list/inte
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import { StepFormsComponent } from './step-forms/step-forms.component';
+
 @NgModule({
   declarations: [InterpreterRequestListComponent, 
     AcceptRequestComponent, 
     CompleteRequestComponent, 
     CancelledRequestComponent, 
     RejectRequestComponent, 
-    AllRequestComponent, InterpreterHistoryListComponent],
+    AllRequestComponent, InterpreterHistoryListComponent, StepFormsComponent],
   imports: [
     CommonModule,
     InterpreterRequestRoutingModule,
@@ -41,6 +43,10 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     SharedComponentsModule,
     TagInputModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38',//'AIzaSyBkH1R6_PO7fNY5L0z6CvV00oeNX8Vn0iE', 
+      libraries: ['places']
+    }),
     NgbModule,
   ]
 })
