@@ -66,7 +66,7 @@ export class StepFormsComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-  
+    // this.GetAllPagesPermission()
     this.createForm1();
     this.languageList();
     this.date_func();
@@ -100,6 +100,26 @@ export class StepFormsComponent implements OnInit {
     // }
     
   }
+
+  // GetAllPagesPermission(){
+  //       this.service.get('getClientRoleMenusForPages/'+JSON.parse(localStorage.getItem('roleId'))).subscribe(res => {
+  //      var count=0;
+  //       for (var i = 0; i < res['data'].length; ++i) {
+  //          if(res['data'][i].module_id == 7){
+  //           if(res['data'][i].add_permission == 'false'){
+  //                this.router.navigate(['/client-request/all-request-list']);    
+  //              }else{
+  //                count+=1
+  //              }
+  //          }else{
+  //            if(count == 0){
+  //                this.router.navigate(['/client-request/all-request-list']);    
+  //            }
+  //          }
+  //          }
+  //       })
+  //     }
+
 
   /*==========Map Function Start Here========*/
   private setCurrentLocation() {

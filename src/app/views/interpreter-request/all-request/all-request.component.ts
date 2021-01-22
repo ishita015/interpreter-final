@@ -59,6 +59,7 @@ export class AllRequestComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.interpreterAllRequest('1');
+    this.GetAllPagesPermission();
     this.searchControl.valueChanges
       .pipe(debounceTime(200))
       .subscribe(value => {
@@ -140,6 +141,41 @@ export class AllRequestComponent implements OnInit {
             this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 , positionClass: 'toast-top-center' });
           }
             
+        })
+      }
+  PermissionData=[]
+      GetAllPagesPermission(){
+        this.service.get('getClientRoleMenusForPages/'+JSON.parse(localStorage.getItem('roleId'))).subscribe(res => {
+        this.PermissionData=res['data'];
+        console.log('PermissionData',this.PermissionData)
+        for (var i = 0; i < this.PermissionData.length; ++i) {
+                           var aa= document.getElementsByClassName('ClientViewId');
+
+           if(this.PermissionData[i].module_id == 7){
+               if(this.PermissionData[i].add_permission == 'true'){
+                 document.getElementById('ClientAddId').classList.remove('displayNone')
+               }else{
+                 document.getElementById('ClientAddId').classList.add('displayNone')
+              }
+
+               if(this.PermissionData[i].view_permission == 'true'){
+                 for (var nk = 0; nk < aa.length; ++nk) {
+                 document.getElementsByClassName('ClientViewId')[nk].classList.remove('displayNone')
+                 }
+
+               }else{
+                 for (var nk = 0; nk < aa.length; ++nk) {
+                 document.getElementsByClassName('ClientViewId')[nk].classList.add('displayNone')
+                 }
+              }
+           }else{
+                        document.getElementById('ClientAddId').classList.add('displayNone')
+                for (var nk = 0; nk < aa.length; ++nk) {
+                 document.getElementsByClassName('ClientViewId')[nk].classList.add('displayNone')
+                 }
+
+           }
+         } 
         })
       }
 

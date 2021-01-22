@@ -412,3 +412,19 @@ module.exports.getUserRoleMenus = async function(req, res) {
         }
     });
 };
+
+
+
+module.exports.getClientRoleMenusForPages = async function(req, res) {
+/*
+1 userRoleId
+*/
+    let sql = "SELECT * FROM user_module_permission  WHERE user_module_permission.status='true' AND user_module_permission.userRoleId="+req.params.userRoleId;
+    var query = con.query(sql, function(err, result) {
+        if(!err){
+           return res.json({status: true, message: "Success", data:result});
+        }else{
+           return res.json({status: false,message: "no records found",data:[] });
+        }
+    });
+};
