@@ -374,7 +374,7 @@ module.exports.removeModule = async function(req, res) {
 
 module.exports.getUserPermission = async function(req, res, next) { 
     var userRoleId = req.body.id ? req.body.id : 1;
-    console.log("userRoleId--",userRoleId)
+    console.log("userRoleId---",userRoleId)
     // var mainArr = [];
     var permission = await userRolemodel.getPermission(userRoleId);
     
@@ -399,3 +399,16 @@ module.exports.getUserPermission = async function(req, res, next) {
 };
 
 
+module.exports.getUserRoleMenus = async function(req, res) {
+/*
+1 userRoleId
+*/
+    let sql = "SELECT user_module_permission.*,role_module.module_name as name,role_module.type,role_module.icon,role_module.state,role_module.sub FROM user_module_permission LEFT JOIN role_module ON user_module_permission.module_id = role_module.id WHERE user_module_permission.status='true' AND user_module_permission.userRoleId="+req.params.userRoleId;
+    var query = con.query(sql, function(err, result) {
+        if(!err){
+           return res.json({status: true, message: "Success", data:result});
+        }else{
+           return res.json({status: false,message: "no records found",data:[] });
+        }
+    });
+};

@@ -16,6 +16,9 @@ const routes: Routes = [
   {
     path: 'v2',
     component: DashboardV2Component
+  },{
+    path: 'v3',
+    component: DashboardV2Component
   },
   {
     path: 'add',

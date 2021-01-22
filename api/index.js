@@ -264,6 +264,11 @@ app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 app.post('/cesco/update_Account_Setting_Interpreter_Profile', interpreterController.update_Account_Setting_Interpreter_Profile);
 
+
+////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
+app.get('/cesco/getUserRoleMenus/:userRoleId', userroleController.getUserRoleMenus);
+////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
+
 // api end
 
 
@@ -433,7 +438,7 @@ app.post('/cesco/userRoleAdd', function(req, res) {
   let data =req.body;
   for (var i = 0; i < data.length; i++) {
     console.log('result-',data[i].id);
-    let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE id = '"+data[i].id+"'";  
+    let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"',status ='"+data[i].status+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE id = '"+data[i].id+"'";  
     console.log('yes-',sql)
     var query = con.query(sql, function(err, result) {});
   }
