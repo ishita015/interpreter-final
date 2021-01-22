@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   // apiUrl: 'http://192.168.0.69:3300',
   apiUrl: 'http://192.168.0.56:3300',
-  documentUrl:'http://192.168.0.56:3300/documents/'
+  documentUrl:'http://192.168.0.56:3300/documents/',
+  imageUrl:'http://192.168.0.56:3300/user/'
   
 };
 

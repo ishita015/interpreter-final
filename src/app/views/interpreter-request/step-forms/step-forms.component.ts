@@ -52,7 +52,7 @@ export class StepFormsComponent implements OnInit {
 
   step1 = false;
   myvar;
-  select_form: FormControl = new FormControl();
+  select_form: FormControl = new FormControl('no');
   constructor(
     public validation: ValidationsService,
     private fb: FormBuilder,
@@ -160,13 +160,18 @@ export class StepFormsComponent implements OnInit {
 
    /*==========Today and future date function start here========*/
    date_func(){
-    var today = new Date().toISOString().split('T')[0];
-    document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+     if(document.getElementsByName("setTodaysDate") != null){
+      var today = new Date().toISOString().split('T')[0];
+     if(document.getElementsByName("setTodaysDate")[0] != undefined){
+      document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);
+       }
+       }
   }
  /*==========Today and future date function end here========*/
 
  newRequest(e){
    console.log(e);
+   document.getElementById('firstFormId').classList.remove('displayNone')
    this.myvar = e.target.value
   }
 
@@ -224,7 +229,7 @@ export class StepFormsComponent implements OnInit {
           this.step1_Obj = res;
           console.log("ressss",this.step1_Obj);
           this.toastr.success(this.step1_Obj.message,'', { timeOut: 2000 });
-          this.router.navigate(['/interpreter-request/all-request-list']);
+          this.router.navigate(['/client-request/all-request-list']);
       });
     }
 

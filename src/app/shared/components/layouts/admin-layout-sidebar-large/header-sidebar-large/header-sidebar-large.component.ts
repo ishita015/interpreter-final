@@ -3,6 +3,7 @@ import { NavigationService } from '../../../../services/navigation.service';
 import { SearchService } from '../../../../services/search.service';
 import { AuthService } from '../../../../services/auth.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header-sidebar-large',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderSidebarLargeComponent implements OnInit {
   updatedata;
+  imageUrl=environment.imageUrl
     notifications: any[];
 
     constructor(

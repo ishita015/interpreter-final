@@ -15,13 +15,14 @@
             <div class="card-body">
                 <div class="col-md-3 pl-0">
                     <div class="form-group">
-                      <select class="form-control" (change)="newRequest($event)"  [formControl]="select_form">
-                        <option value="" disabled>Select</option>
+                      <select class="form-control"  (change)="newRequest($event)"  [formControl]="select_form">
+                        <option value="no" selected="" disabled>Select Form</option>
                         <option  value="newrequest">New Request</option>
                       </select>
                     </div>
                 </div>
-                <form *ngIf="myvar == 'newrequest'" [formGroup]="stepOneForm">
+                <div id="firstFormId" class="displayNone">
+                <form  [formGroup]="stepOneForm">
 
                     <h4>Information Required:</h4>
                     <h5>Requester Information</h5>
@@ -292,7 +293,14 @@
                         </div>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .displayNone{
+        display: none;
+    }
+</style>
