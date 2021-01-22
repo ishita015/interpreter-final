@@ -127,7 +127,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLayoutSidebarLargeComponent,
-    //canActivate: [AuthGaurd],
+    canActivate: [AuthGaurd],
     children: adminRoutes
   },
   {
