@@ -10,6 +10,12 @@
 .pro_info .cardtext{     color: #2f2e2e !important;
   font-size: 23px !important;
   font-weight: bold;}
+  /*font awesome*/
+  .fa, .fas {
+    font-family: "Font Awesome 5 Pro" !important;
+    font-weight: 900;
+}
+  /*end*/
 .dashboard_block .yellowcard:hover {box-shadow: 0 4px 20px 1px rgb(254 156 22 / 50%), 0 1px 4px rgb(253 156 23 / 39%); }
 .dashboard_block .cardsky:hover{box-shadow: 0 4px 20px 1px rgb(31 193 213 / 35%), 0 1px 4px rgb(20 186 206 / 14%);}
 .dashboard_block  .card {border-radius: 8px; box-shadow: none; border: 1px solid #dedede;     background: #fff;}

@@ -19,26 +19,28 @@ export class RequestDetailComponent implements OnInit {
   ngOnInit(): void {
     // this.GetAllPagesPermission()
   }
-// GetAllPagesPermission(){
-//   var count=0;
-//         this.service.get('getClientRoleMenusForPages/'+JSON.parse(localStorage.getItem('roleId'))).subscribe(res => {
-//         for (var i = 0; i < res['data'].length; ++i) {
-//            if(res['data'][i].module_id == 7){
-//               if(res['data'][i].view_permission == 'false'){
-//                  this.router.navigate(['/client-request/all-request-list']);    
-//                }else{
-//              alert('s')
-//                  count=count+1;
-//                }
-//            }
-//            else{
-//              if(count == 0){
+GetAllPagesPermission(){
+        this.service.get('getClientRoleMenusForPages/'+JSON.parse(localStorage.getItem('roleId'))).subscribe(res => {
+  var count=0;
+        for (var i = 0; i < res['data'].length; ++i) {
+           if(res['data'][i].module_id == 7){
+              if(res['data'][i].view_permission == 'false'){
+                 this.router.navigate(['/client-request/all-request-list']);    
+               }else{
+                 count=count+1;
+             alert(count)
+               }
+           }
+           else{
+               let obj = res['data'].find(o => o.module_id === 7);
+           alert(JSON.stringify(obj))
+             if(count == 0){
 
-//                  this.router.navigate(['/client-request/all-request-list']);    
-//              }
+                 this.router.navigate(['/client-request/all-request-list']);    
+             }
 
-//            }
-//            }
-//         })
-//       }
+           }
+           }
+        })
+      }
 }
