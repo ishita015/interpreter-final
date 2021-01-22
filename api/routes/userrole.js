@@ -374,7 +374,7 @@ module.exports.removeModule = async function(req, res) {
 
 module.exports.getUserPermission = async function(req, res, next) { 
     var userRoleId = req.body.id ? req.body.id : 1;
-    console.log("userRoleId-",userRoleId)
+    console.log("userRoleId--",userRoleId)
     // var mainArr = [];
     var permission = await userRolemodel.getPermission(userRoleId);
     
