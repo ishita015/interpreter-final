@@ -84,6 +84,7 @@ var serviceController = require('./routes/service');
 var loginController = require('./routes/login');
 
 var chatController = require('./routes/managechat');
+var mobileController = require('./routes/mobile');
 // api start
 
 
@@ -123,6 +124,19 @@ app.get('/cesco/getTotalInprogress', serviceController.getTotalinprogress);
 app.get('/cesco/getTotalComplete', serviceController.getTotalComplete);
 app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 // app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
+
+//interpreter login api by lukesh 
+app.post('/cesco/interpreterlogin', mobileController.interpreterlogin);
+app.post('/cesco/interpreterForgetPassword', mobileController.sendOtp);
+app.post('/cesco/interpreterResetPassword', mobileController.resetPassword);
+app.get('/cesco/getRequestCount/:id',mobileController.getRequestCount);
+app.get('/cesco/getRequestList/:id',mobileController.getRequestList);
+app.get('/cesco/getInProgressList/:id',mobileController.getInProgressList);
+app.get('/cesco/getInterpreterData/:id', mobileController.getInterpreterData);
+app.post('/cesco/updateRequestReject', mobileController.updateRequestReject);
+app.post('/cesco/updateRequestAccept', mobileController.updateRequestAccept);
+// app.get('/cesco/getRequestCountAccept',mobileController.getRequestCountAccept);
+//app.get('/cesco/getRequestCountReject',mobileController.getRequestCountReject);
 
 
 // for interpreter dashboard
@@ -1497,7 +1511,70 @@ app.post('/cesco/sendQrcode', async function(req, res) {
     
   });
   
-  
+  //update profile interpreter by lukesh
+app.post('/cesco/updateInterpreterProfile', upload.any(),async function(req, res, next) {
+     //validation start
+     const v = new Validator(req.body, {
+        id: 'required',
+        first_name: 'required',
+        last_name: 'required',
+        mobile: 'required',
+        address: 'required',
+        email: 'required',
+     });
+ 
+     const matched = await v.check();
+     
+     if (!matched) {
+         var error;
+         for (var i = 0; i <= Object.values(v.errors).length; i++) {
+             error = Object.values(v.errors)[0].message;
+             break;
+         }
+         res.json({
+             status: 0,
+             message: error
+         });
+         return true;
+     }
+ 
+     
+     
+    let id = req.body.id;
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let mobile = req.body.mobile;
+    let address = req.body.address ? req.body.address : '';
+    let email = req.body.email;
+    var profileImg='';
+     if (typeof req.files !== 'undefined' && req.files.length > 0) {
+ 
+         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
+             profileImg=req.files[0].filename;
+         }
+     }
+
+     let sql = "UPDATE user SET first_name ='"+first_name+"',last_name ='"+last_name+"',mobile ='"+mobile+"',email ='"+email+"'"; 
+   
+    if(profileImg!="" && profileImg != 'undefined'){     
+        sql += ",profile_img ='"+profileImg+"'";
+    }
+
+    if(address!="" && address != 'undefined'){
+          sql += ",address ='"+address+"'";
+    }
+
+    sql += " WHERE id = '"+id+"'";
+    var query = con.query(sql, function(err, result) {
+        if(!err){
+            return res.json({ status: true, message: "Update Profile successfully"});
+        }else{
+            return res.json({
+                status: false, message: "server error"});
+        }
+    });
+    
+});
 
 
 

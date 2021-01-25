@@ -2,7 +2,9 @@ var http     = require('https');
 var con      = require('../../config');
 // var constant = require('../constant');
 // var con      = require('../../config');
-
+const Cryptr = require('cryptr');//by lukesh
+const cryptr = new Cryptr('myTotalySecretKey');
+ 
 
 let dt = new Date().getTime() / 1000;
     dt = Math.floor(dt);
@@ -428,6 +430,7 @@ class userClass {
                         resolve(false);
                     }else{
                         const decryptedString = cryptr.decrypt(result[0].password);
+                        console.log(decryptedString)
                         if (password == decryptedString) {
                             resolve(result);
                         } else {
@@ -439,10 +442,49 @@ class userClass {
                 }
             });
         });
+    } 
+// interpreter email check by lukesh //
+    emailCheck(email) {
+        return new Promise(function(resolve, reject) {
+            let sql = "SELECT * from user where email='"+email+"' && role_id=2";
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
     }
 
+// interpreter otp check by lukesh //
+    otpCheck(otp) {
+        return new Promise(function(resolve, reject) {
+            let sql = "SELECT * from user where mobile_otp='"+otp+"' && role_id=2";
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
 
-
+    // interpreter id check by lukesh //
+    interpreterIdCheck(interpreterId) {
+        return new Promise(function(resolve, reject) {
+            let sql = "SELECT * from interpreter_request where interpreter_id='"+interpreterId+"'";
+            //console.log(sql)
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
 
 
     checkRequestSend(interpreter_id,service_id){
