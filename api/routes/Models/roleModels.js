@@ -12,6 +12,7 @@ class roleClass {
     getPermission(userRoleId){
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT p.*,m.module_name,m.id as module_id FROM user_module_permission as p INNER JOIN role_module as m ON m.id=p.module_id WHERE p.userRoleId='"+userRoleId+"'";
+            console.log('dev-0--',sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);

@@ -28,18 +28,17 @@ export class RolesetComponent implements OnInit {
 
   ngOnInit() {
     this.dataResult = JSON.parse(localStorage.getItem('permissionInfo'));
-    console.log("yes is working",this.dataResult);
+    // console.log("yes is working",this.dataResult);
     // this.createForm();
   }
 
 
   
   setCheck(event,eve_key,i){
-    console.log(event);
     if ( event.target.checked ) {
-        this.dataResult[i][eve_key] = true;
+        this.dataResult[i][eve_key] = 'true';
     }else{
-        this.dataResult[i][eve_key] = false;
+        this.dataResult[i][eve_key] = 'false';
     }
   }
 
@@ -48,15 +47,45 @@ export class RolesetComponent implements OnInit {
 
 
     saveRole(){
-      console.log("this is test",this.dataResult);
-      
+      var count=0;
+      var count1=0;
+      for (var i = 0; i < this.dataResult.length; ++i) {
+        if(this.dataResult[i].status == true || this.dataResult[i].status == 'true'){
+          if(this.dataResult[i].add_permission == 'false'  && this.dataResult[i].delete_permission == 'false'  && this.dataResult[i].edit_permission  == 'false' && this.dataResult[i].status_permission  == 'false' && this.dataResult[i].view_permission  == 'false')
+          {
+            count=count+1;
+        }
+      }
+  }
+      if(count > 0){
+            this.toastr.warning('Please select permission if module is selected');
+            return
+
+      }else{
+
+      for (var i = 0; i < this.dataResult.length; ++i) {
+          if(this.dataResult[i].add_permission == 'true'  || this.dataResult[i].delete_permission == 'true' || this.dataResult[i].edit_permission  == 'true' || this.dataResult[i].status_permission  == 'true' || this.dataResult[i].view_permission  == 'true')
+          {
+           if(this.dataResult[i].status == false || this.dataResult[i].status == 'false'){
+              count1=count1+1;
+           }
+        }
+        }  
+
+        if(count1 > 0){
+            this.toastr.warning('Please select  module');
+            return
+
+      }else{
       this.service.userRoleadd(this.dataResult)
       .subscribe(res => {
-          console.log("api response",res);
           this.role_Msg = res
           this.toastr.success(this.role_Msg.message,'', { timeOut: 1000 });
            this.router.navigate(['/permission/rolelist']);  
       });
-  }
+      }
+      }
 
+
+}
 }

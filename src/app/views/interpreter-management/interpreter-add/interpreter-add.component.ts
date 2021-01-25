@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import {} from 'googlemaps';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 import { MapsAPILoader } from '@agm/core';
@@ -77,7 +78,9 @@ export class InterpreterAddComponent implements OnInit {
     private dl: DataLayerService,
     public service: HttpService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+        private spinner: NgxSpinnerService,
+
   ) { }
 
   ngOnInit() {
@@ -145,9 +148,9 @@ export class InterpreterAddComponent implements OnInit {
       last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
       password: ['', this.validation.onlyRequired_validator],
-      mobile: ['', this.validation.onlyRequired_validator],
+      mobile: ['',[Validators.required, Validators.minLength(8)]],
       // phone_no: [''],
-      international_phone_no: ['', this.validation.onlyRequired_validator],
+      international_phone_no: ['', [Validators.required, Validators.minLength(8)]],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
       country_code: ['', this.validation.onlyRequired_validator],
@@ -291,140 +294,15 @@ export class InterpreterAddComponent implements OnInit {
     }
   }
 
-  saveUser() {
-    this.submitted = true;
-    if (this.userForm.invalid) {
-      return;
-    }
-    this.submitted = false;
-
-    this.userForm.value.address = this.new_address;
-    this.userForm.value.latitude = this.latitude
-    this.userForm.value.longitude = this.longitude
-    // this.userForm.value.title
-    const formData: any = new FormData();
-    this.userForm.value.image = this.selectedFile;
-    formData.append('title', this.userForm.value.title);
-    formData.append('first_name', this.userForm.value.first_name);
-    // formData.append('middle_name', this.userForm.value.middle_name);
-    formData.append('last_name', this.userForm.value.last_name);
-    formData.append('email', this.userForm.value.email);
-    formData.append('nick_name', this.userForm.value.nick_name);
-    formData.append('mobile', this.userForm.value.mobile);
-    formData.append('international_phone_no', this.userForm.value.international_phone_no);
-    formData.append('company_name', this.userForm.value.company_name);
-    formData.append('social_security_no', this.userForm.value.social_security_no);
-    formData.append('dob', this.userForm.value.dob);
-    formData.append('address', this.userForm.value.address);
-    formData.append('country', this.userForm.value.country);
-    formData.append('password', this.userForm.value.password);
-    // formData.append('apartment', this.userForm.value.apartment);
-    formData.append('state', this.state_id);
-    formData.append('city', this.userForm.value.city); //this.city_id
-    formData.append('gender', this.userForm.value.gender);
-    formData.append('other_gender', this.userForm.value.other_gender);
-    formData.append('latitude', this.userForm.value.latitude);
-    formData.append('longitude', this.userForm.value.longitude);
-    formData.append('timezone', this.userForm.value.timezone);
-    formData.append('zipCode', this.userForm.value.zipCode);
-    formData.append('country_code', this.userForm.value.country_code);
-
-    formData.append('ein', this.userForm.value.ein);
-    formData.append('ssn', this.userForm.value.ssn);
-
-    formData.append('image', this.selectedFile);
-
-    console.log("final form value", this.userForm.value);
-
-    this.service.interpreterAdd(formData).subscribe(res => {
-      if (res['status'] == '1') {
-      this.user_Obj = res
-      this.user_Msg = res
-      this.toastr.success(this.user_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-      this.router.navigate(['/interpreter/interpreter-list']);
-      }
-    });
-  }
-
-
-
-
-  LanguageList() {
-    this.service.getLanguageList()
-      .subscribe(res => {
-        // console.log("api response",res);
-        this.language_Obj = res['data'];
-      });
-  }
-
-  userRoleList() {
-    this.service.roleList()
-      .subscribe(res => {
-        // console.log("api response",res);
-        this.role_Obj = res['data'];
-      });
-  }
-
-
-  checkEmail($event, email) {
-    console.log("email-", email)
-    // console.log("event-",$event)
-    this.service.checkUserEmail(email)
-      .subscribe(res => {
-        if (res['status'] == '1') {
-          alert(res['message']);
-          // this.userForm.value.email = '';
-          $event.target.value = "";
-        }
-
-      });
-  }
-
-
-  // Get Current Location Coordinates
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 8;
-        this.getAddress(this.latitude, this.longitude);
-        this.geocodeLatLng(this.latitude, this.longitude);
-      });
-    }
-  }
-
-
-
-  markerDragEnd($event: any) {
-    console.log($event);
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
-    this.geocodeLatLng(this.latitude, this.longitude);
-  }
-
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 12;
-          this.address = results[0].formatted_address;
-          this.sec_address = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
-
-   //------------ get country, city, state  ----------------------------//
+//------------ get country, city, state  ----------------------------//
    geocodeLatLng(latitude, longitude) {
+         this.spinner.show();
+           this.country_Json=[];
+          this.state_Obj=[];
+          this.city_Obj=[];
+
+     this.latitude=latitude;
+     this.longitude=longitude;
     var geocoder = new google.maps.Geocoder;
     var latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
     geocoder.geocode({ 'location': latlng }, (results, status) => {
@@ -516,12 +394,15 @@ export class InterpreterAddComponent implements OnInit {
                   if(stateHash)
                   {
                   this.userForm.get('state').patchValue(stateHash.id);
+                  this.state_id=stateHash.id;
                     //------------ City api call ----------------------------//
                   this.service.getCityCode(stateHash.id).subscribe(cityRes => {
                     if (cityRes['status'] == '1') {
                       this.city_Obj = cityRes["data"];
                       let cityHash = this.city_Obj.find(ct => ct.name == city)
                       this.userForm.get('city').patchValue(cityHash.id); 
+                          this.spinner.hide();
+
                     }
                   });
                 }
@@ -540,7 +421,154 @@ export class InterpreterAddComponent implements OnInit {
       }
     });
   }
+mainMobile='';
+Mask(phone){
+var formated_phone =phone.length == 0 ? 0 : "("+phone.substring(0,3)+") "+phone.substring(3,7)+"-"+phone.substring(7,15)
+this.mainMobile=formated_phone == 0 ? '': formated_phone.toString();
+}
+mainhomeMobile="";
+HomeMask(phone){
+var formated_phone =phone.length == 0 ? 0 : "("+phone.substring(0,3)+") "+phone.substring(3,7)+"-"+phone.substring(7,15)
+this.mainhomeMobile= formated_phone == 0 ?'' : formated_phone.toString();
+}
+  saveUser() {
 
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      return;
+    }
+    this.submitted = false;
+        this.spinner.show();
+    // alert('yes')
+// return
+    this.userForm.value.address = this.new_address;
+    this.userForm.value.latitude = this.latitude
+    this.userForm.value.longitude = this.longitude
+    // this.userForm.value.title
+    const formData: any = new FormData();
+    this.userForm.value.image = this.selectedFile;
+    formData.append('title', this.userForm.value.title);
+    formData.append('first_name', this.userForm.value.first_name);
+    // formData.append('middle_name', this.userForm.value.middle_name);
+    formData.append('last_name', this.userForm.value.last_name);
+    formData.append('email', this.userForm.value.email);
+    formData.append('nick_name', this.userForm.value.nick_name);
+    formData.append('mobile', this.userForm.value.mobile);
+    formData.append('international_phone_no', this.userForm.value.international_phone_no);
+    formData.append('company_name', this.userForm.value.company_name);
+    formData.append('social_security_no', this.userForm.value.social_security_no);
+    formData.append('dob', this.userForm.value.dob);
+    formData.append('address', this.userForm.value.address);
+    formData.append('country', this.userForm.value.country);
+    formData.append('password', this.userForm.value.password);
+    // formData.append('apartment', this.userForm.value.apartment);
+    formData.append('state', this.state_id);
+    formData.append('city', this.userForm.value.city); //this.city_id
+    formData.append('gender', this.userForm.value.gender);
+    formData.append('other_gender', this.userForm.value.other_gender);
+    formData.append('latitude', this.userForm.value.latitude);
+    formData.append('longitude', this.userForm.value.longitude);
+    formData.append('timezone', this.userForm.value.timezone);
+    formData.append('zipCode', this.userForm.value.zipCode);
+    formData.append('country_code', this.userForm.value.country_code);
+
+    formData.append('ein', this.userForm.value.ein);
+    formData.append('ssn', this.userForm.value.ssn);
+
+    formData.append('image', this.selectedFile);
+
+    console.log("final form value", this.userForm.value);
+
+    this.service.interpreterAdd(formData).subscribe(res => {
+          this.spinner.hide();
+
+      if (res['status'] == '1') {
+      this.user_Obj = res
+      this.user_Msg = res
+      this.toastr.success(this.user_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      this.router.navigate(['/interpreter/interpreter-list']);
+      }
+    });
+  }
+
+
+
+
+  LanguageList() {
+    this.service.getLanguageList()
+      .subscribe(res => {
+        // console.log("api response",res);
+        this.language_Obj = res['data'];
+      });
+  }
+
+  userRoleList() {
+    this.service.roleList()
+      .subscribe(res => {
+        // console.log("api response",res);
+        this.role_Obj = res['data'];
+      });
+  }
+
+
+  checkEmail($event, email) {
+    console.log("email-", email)
+    // console.log("event-",$event)
+    this.service.checkUserEmail(email)
+      .subscribe(res => {
+        if (res['status'] == '1') {
+          alert(res['message']);
+          // this.userForm.value.email = '';
+          $event.target.value = "";
+        }
+
+      });
+  }
+
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
+        this.geocodeLatLng(this.latitude, this.longitude);
+      });
+    }
+  }
+
+
+
+  markerDragEnd($event: any) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+    this.geocodeLatLng(this.latitude, this.longitude);
+  }
+
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+          this.sec_address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
+  }
+
+   
 
   // Radio button gender function
   radioButton1() {

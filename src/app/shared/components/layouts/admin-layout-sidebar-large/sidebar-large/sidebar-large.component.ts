@@ -9,6 +9,7 @@ import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 import { filter } from 'rxjs/operators';
 import { Utils } from '../../../../utils';
+import { HttpService } from "../../../../../shared/services/http.service";
 
 @Component({
   selector: 'app-sidebar-large',
@@ -21,7 +22,8 @@ export class SidebarLargeComponent implements OnInit {
   @ViewChildren(PerfectScrollbarDirective) psContainers:QueryList<PerfectScrollbarDirective>;
   psContainerSecSidebar: PerfectScrollbarDirective;
 
-  constructor(public router: Router, public navService: NavigationService) {
+  constructor(    public service:HttpService
+,public router: Router, public navService: NavigationService) {
     setTimeout(() => {
       this.psContainerSecSidebar = this.psContainers.toArray()[1];
     });
@@ -42,12 +44,24 @@ export class SidebarLargeComponent implements OnInit {
     this.navService.menuItems$.subscribe(items => {
       var roleType=localStorage.getItem('roleId')
 
-      console.log('items',items)
+
       if(roleType == '1'){
         this.nav = items.v1
+       }
 
-      }else{
+      if(roleType == '2'){
         this.nav = items.v2
+       }
+
+       if(roleType == '3'){
+         this.service.get('getUserRoleMenus/'+roleType).subscribe(res => {
+          for (var i = 0; i < res['data'].length; ++i) {
+             if(res['data'][i].sub != null){
+                 res['data'][i].sub=JSON.parse(res['data'][i].sub)
+             }
+          }
+        this.nav = res['data']
+        })
       }
       // console.log('dev',this.nav)
       // console.log('------',roleType)

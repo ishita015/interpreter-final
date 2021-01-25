@@ -10,6 +10,7 @@ import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 // const config: SocketIoConfig = { url: 'http://192.168.0.69:3300', options: {} }; //mt local server
 // const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} }; //live server(4004)
@@ -22,7 +23,7 @@ const config: SocketIoConfig = { url: 'http://103.15.67.78:3300', options: {} };
     //SetroleComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,NgxSpinnerModule,
     SharedModule,
     FormsModule,
     HttpClientModule,

@@ -35,7 +35,7 @@ const adminRoutes: Routes = [
       loadChildren: () => import('./views/client-management/interpreter-management.module').then(m => m.InterpreterManagementModule)
     },
     {
-      path: 'interpreter-request',
+      path: 'client-request',
       loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
     },
     {
@@ -127,7 +127,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLayoutSidebarLargeComponent,
-    //canActivate: [AuthGaurd],
+    canActivate: [AuthGaurd],
     children: adminRoutes
   },
   {

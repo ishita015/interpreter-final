@@ -278,6 +278,13 @@ app.post('/cesco/addServiceEleven', serviceController.addServiceEleven);
 app.post('/cesco/addServiceTwelve', serviceController.addServiceTwelve);
 app.post('/cesco/update_Account_Setting_Interpreter_Profile', interpreterController.update_Account_Setting_Interpreter_Profile);
 
+
+////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
+app.get('/cesco/getUserRoleMenus/:userRoleId', userroleController.getUserRoleMenus);
+app.get('/cesco/getClientRoleMenusForPages/:userRoleId', userroleController.getClientRoleMenusForPages);
+app.get('/cesco/getlob', interpreterController.getlob);
+////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
+
 // api end
 
 
@@ -447,7 +454,7 @@ app.post('/cesco/userRoleAdd', function(req, res) {
   let data =req.body;
   for (var i = 0; i < data.length; i++) {
     console.log('result-',data[i].id);
-    let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE id = '"+data[i].id+"'";  
+    let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"',status ='"+data[i].status+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE id = '"+data[i].id+"'";  
     console.log('yes-',sql)
     var query = con.query(sql, function(err, result) {});
   }
@@ -1080,19 +1087,20 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     
 
     // console.log("primary_language--",primary_language);
-    console.log("secondary_language--",secondary_language);
+    // console.log("secondary_language--",JSON.parse(secondary_language));
 
+    secondary_language=JSON.parse(secondary_language)
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             // let documents=req.files[0].filename;
 
             console.log("yes is working",req.files);
             for (var i = 0; i < req.files.length; i++) {
-                type[i]
+                // type[i]
                 var docfield = req.files[i].fieldname;
                 var filename=req.files[i].filename;
                 // var type=req.files[i].type;
-                console.log(type[i]);
+                // console.log(type[i]);
                 let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
                 con.query(sqlDelete, function(err, res_delete) {});
 
@@ -1116,14 +1124,14 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
         con.query(sqlDelete, function(err, res_delete) {});
         for (var i = 0; i < secondary_language.length; i++) {
             // console.log("secondary-language-id",secondary_language[i].language_id);    
-            secLang = JSON.parse(secondary_language[i]);
+            secLang = secondary_language[i];
             
 
             if (secLang.id != undefined) {
-                console.log("finsaly 1",secLang.id)
+                // console.log("finsaly 1",secLang.id)
                 seclangid=secLang.id;    
             }else{
-                console.log("finsaly 2",secLang.language_id)
+                // console.log("finsaly 2",secLang.language_id)
                 seclangid=secLang.language_id;
             }
 

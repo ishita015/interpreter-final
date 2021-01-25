@@ -59,7 +59,9 @@
       </mat-form-field>
     </div>
 
-
+    <div id="ClientAddId" class="col-md-2">
+      <button class="btn btn-primary float-right" (click)="newRequest()">Create New Request</button>
+  </div>
     <!-- <div class="col-md-2">
   <button class="btn btn-outline-secondary" (click)="interpreterAllRequest()">Apply</button>
   </div> -->
@@ -145,12 +147,12 @@
           </ngx-datatable-column>
 
 
-          <ngx-datatable-column [width]="120" [sortable]="false">
+          <ngx-datatable-column  [width]="120" [sortable]="false">
             <ng-template ngx-datatable-header-template>Action
             </ng-template>
 
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <button class="btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
+              <button  class="ClientViewId btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
@@ -162,3 +164,11 @@
 
   </div>
 </div>
+
+<style type="text/css">
+  .displayNone{
+    display: none !important;
+  }
+ 
+
+</style>

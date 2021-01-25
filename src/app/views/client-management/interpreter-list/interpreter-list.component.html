@@ -29,9 +29,11 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
     </div>
-    <button (click)="clearAll()">x</button>
-    <div class="col-md-4">
-        <button class="btn btn-primary float-right" (click)="addInterpreter()">Create</button>
+    <div class="col-md-1">
+    <button class="btn btn-primary" (click)="clearAll()"><i class="fas fa-sync"></i></button>
+  </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary" (click)="addInterpreter()">Create</button>
     </div>
         <div class="col-md-12 lang_block">
             <div class="card  o-hidden">
@@ -134,7 +136,14 @@
               </ngx-datatable>
             </div>
           <ng-container *ngIf="list_Obj?.length <= 0">
-              No Data Found
+              <div  class="row">
+          <div  class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mainbox">
+     
+            <div class="boxblock">
+             <i class="fas fa-frown-open"></i>
+             </div>
+              <p class="mt-20 mb-20">Sorry, we couldn't find any matches.<br> Please try again</p> </div>
+            </div>
           </ng-container>
         </div>
           

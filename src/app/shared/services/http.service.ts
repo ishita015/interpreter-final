@@ -19,6 +19,7 @@ import { AddInterpreterProfile } from '../models/add-interpreter-profile';
 import { InterpreterSkills } from '../models/interpreter-skills';
 import { SetCalculationModel } from '../models/set-calculation-model';
 import { SpecialOfferModel } from '../models/special-offer-model';
+import { SteponeformModel } from '../models/stepform-model/steponeform-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -586,6 +587,15 @@ export class HttpService {
     }
     /*=====Base Rate Details Apis End======*/
 
+ /*=====Step Form Apis Start======*/
+    getLanguage(): Observable<any>{
+      return this.http.get(this.url + '/cesco/getlanguages' );
+    }
+
+    getStepTwelveForm(step1Info: SteponeformModel): Observable<any> {
+      return this.http.post(this.url + '/cesco/addServiceTwelve' , step1Info);
+    }
+  /*=====Step Form Apis Start======*/
   
  post(url,value){
       const URL=this.url+'/cesco/'+url;

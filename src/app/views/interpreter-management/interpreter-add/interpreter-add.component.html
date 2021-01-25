@@ -119,8 +119,9 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for="MobileNo.">Mobile No.</label>
-                                    <input type="text" mask="(000) 0000-0000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Mobile">
-                                </div>
+                                    <input style="    color: #f8f9fa;" type="text" value="" class="form-control" formControlName="mobile" (keyup)="Mask($event.target.value)" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="MobileNo">
+                                    <span style="position: absolute; bottom: 8px; left: 28px;">{{mainMobile}}</span>
+                                     </div>
                             </div>
                             <div *ngIf="userForm.controls['country_code'].errors && ( !userForm.controls['country_code'].pristine || submitted ||userForm.controls['country_code'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['country_code'].errors.required">Code is required.</div>
@@ -128,6 +129,7 @@
                            
                             <div *ngIf="userForm.controls['mobile'].errors && (!userForm.controls['mobile'].pristine || submitted ||userForm.controls['mobile'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['mobile'].errors.required">Mobile No. is required.</div>
+                                <div [hidden]="!userForm.controls['mobile'].errors.minlength">Mobile No. should be 8 digits.</div>
                             </div>
                         </div>
 
@@ -137,11 +139,13 @@
                      <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label>Home Phone</label>
-                            <input type="text" mask="(000) 0000-0000" class="form-control" formControlName="international_phone_no" 
+                            <input style=" position:absolute;   color: #f8f9fa;" type="text" (keyup)="HomeMask($event.target.value)" class="form-control" formControlName="international_phone_no" 
                                 onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  
                                 placeholder="Home Phone">
+                                 <span style="position: absolute; bottom: 8px; left: 28px;">{{mainhomeMobile}}</span>
                             <div *ngIf="userForm.controls['international_phone_no'].errors && (!userForm.controls['international_phone_no'].pristine || submitted ||userForm.controls['international_phone_no'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['international_phone_no'].errors.required">Home Phone No. is required.</div>
+                                 <div [hidden]="!userForm.controls['international_phone_no'].errors.minlength">Mobile No. should be 8 digits.</div>
                             </div>
                         </div>
 
@@ -298,7 +302,7 @@
                     <div class="row">
                      <div class="col-md-6 form-group mb-3">
                             <label for="image">Image</label>
-                            <input type="file" class="form-control" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
+                            <input type="file" class="form-control" accept="image/*" (change)="onSingleFileChange($event)" formControlName="image" placeholder="Image">
                             <div *ngIf="userForm.controls['image'].errors && (!userForm.controls['image'].pristine || submitted ||userForm.controls['image'].touched )" class="error-msg">
                                 <div [hidden]="!userForm.controls['image'].errors.required">Image is required.</div> 
                               </div>

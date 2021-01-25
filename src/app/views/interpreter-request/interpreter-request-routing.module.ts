@@ -7,6 +7,7 @@ import { InterpreterRequestListComponent } from './interpreter-request-list/inte
 import { RejectRequestComponent } from './reject-reques/reject-request.component';
 import { AllRequestComponent } from './all-request/all-request.component';
 import { InterpreterHistoryListComponent } from './interpreter-history-list/interpreter-history-list.component';
+import { StepFormsComponent } from './step-forms/step-forms.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'cancelled-list', component: CancelledRequestComponent },
   { path: 'reject-list', component: RejectRequestComponent },
   { path: 'interpreter-history', component: InterpreterHistoryListComponent },
+  { path: 'step-form', component: StepFormsComponent },
+  
 ];
 
 @NgModule({

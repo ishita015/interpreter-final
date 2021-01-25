@@ -13,6 +13,7 @@ import { tap, startWith, debounceTime, distinctUntilChanged, switchMap, map } fr
 import { HttpClient } from '@angular/common/http';
 import { th } from 'date-fns/locale';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-interpreter-profile-information',
@@ -165,7 +166,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     private ngZone: NgZone,
     private mapsAPILoader: MapsAPILoader,
     public service: HttpService,
-
+    private spinner: NgxSpinnerService,
     private http: HttpClient,
   ) {
     this.assignmentForm = this.fb.group({
@@ -182,6 +183,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   ngOnInit() {
     // this.addBankInfo(); // add bank details
 
+    this.GetLOB();
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
@@ -313,6 +315,15 @@ export class InterpreterProfileInformationComponent implements OnInit {
     }
   }
   /*==========  City Code for Mobile End Here========*/
+
+MasterLobData=[]
+  GetLOB() {
+    this.service.get('getlob').subscribe(res => {
+      this.MasterLobData = res['data'];
+    });
+  }
+
+
   UserLangData = []
   getUserLanguage() {
     this.service.getUserLanguage(this.interId).subscribe(res => {
@@ -326,15 +337,18 @@ export class InterpreterProfileInformationComponent implements OnInit {
   rsi_language = 0;
   vci_opi_language = 0;
 
-
+lanArr=[];
   addLanguageOnAssignment(type, val) {
     if (type == 'on_site') {
+      this.lanArr.push(val)
       this.on_site_language = val;
       this.service.baseRateDetail(val).subscribe(res => {
         this.baseRate1 = res['data']['0'];
         let langArr1 = <FormArray>this.assignmentForm.controls["assignment"];
         langArr1.controls[0].patchValue({
-          hourly_rate: this.baseRate1.base_rate
+          hourly_rate: this.baseRate1.base_rate,
+          Communityhourly_rate: this.baseRate1.base_rate,
+          Medicalhourly_rate: this.baseRate1.base_rate,
         })
       });
     }
@@ -580,7 +594,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   /*====================== interpreter general information view and edit  bankingForm ==============*/
 
   patchValue() {
-
+    console.log('===============',this.detail_Obj)
     this.generalForm.get('title').patchValue(this.detail_Obj.title);
     this.generalForm.get('email').patchValue(this.detail_Obj.email);
     this.generalForm.get('first_name').patchValue(this.detail_Obj.first_name);
@@ -588,6 +602,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     // this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
     // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
     this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name);
+    this.generalForm.get('notes').patchValue(this.detail_Obj.about);
     this.generalForm.get('mobile').patchValue(this.detail_Obj.mobile);
     this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code);
     this.generalForm.get('address').patchValue(this.detail_Obj.address);
@@ -598,8 +613,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('state').patchValue(this.detail_Obj.state);
     if (this.detail_Obj.gender == "Other") {
       this.showOther = true;
-      this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
     }
+      this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
     this.generalForm.get('city').patchValue(this.detail_Obj.city);
     this.generalForm.get('zipCode').patchValue(this.detail_Obj.zipCode);
     this.generalForm.get('timezone').patchValue(this.detail_Obj.timezone);
@@ -613,8 +628,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
       this.ssnshowInput = true;
       this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no);
     }
-    this.generalForm.get('ssn').patchValue(this.detail_Obj.ssn);
-    this.generalForm.get('ein').patchValue(this.detail_Obj.ein);
+    this.generalForm.get('ssn').patchValue(this.detail_Obj.ssn_no);
+    this.generalForm.get('ein').patchValue(this.detail_Obj.ein_no);
 
     this.bankingRoutingForm.get('bank_name').patchValue(this.detail_Obj.bank_name);
     this.bankingRoutingForm.get('account_type').patchValue(this.detail_Obj.account_type);
@@ -757,6 +772,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     // }
 
     // this.submitted = false;
+    this.spinner.show();
     this.generalForm.value.interpreter_id = this.interId;
     this.generalForm.value.address = this.new_address;
     this.generalForm.value.latitude = this.latitude
@@ -764,6 +780,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
     console.log("inside", this.generalForm.value);
     this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
+      this.spinner.hide();
       this.gen_Msg = res;
       if (res['status'] == 1) {
         this.toastr.success(this.gen_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
@@ -987,6 +1004,10 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
   geocodeLatLng(latitude, longitude) {
+     this.spinner.show();
+         this.country_Json=[];
+        this.state_Obj=[];
+        this.city_Obj=[];
     var geocoder = new google.maps.Geocoder;
     var latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
     geocoder.geocode({ 'location': latlng }, (results, status) => {
@@ -1086,6 +1107,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
                         this.city_Obj = cityRes["data"];
                         let cityHash = this.city_Obj.find(ct => ct.name == city)
                         this.generalForm.get('city').patchValue(cityHash.id);
+                        this.spinner.hide();
                       }
                     });
                   }
@@ -1159,9 +1181,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.submitted = false;
     const formData: any = new FormData();
     this.lang = this.interpreterSkillForm.value.secondary_language
-    for (let a of this.lang) {
-      formData.append('secondary_language', JSON.stringify(a));
-    }
+    // for (let a of this.lang) {
+    // }
+      formData.append('secondary_language', JSON.stringify(this.lang));
 
     for (let img of this.doc) {
       console.log("img", img.all_img)
@@ -1180,6 +1202,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
       if (res['status'] == '1') {
         this.toastr.success(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
         this.detailProfile();
+        this.ngOnInit();
       } else {
         this.toastr.error(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
@@ -1188,7 +1211,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   imgview(e: string) {
     console.log("images", e);
-    window.open('http://192.168.0.4:3300/documents/' + e);
+    window.open(this.documentUrl + e);
   }
 
   private assignmentGroup(): FormGroup {
@@ -1197,6 +1220,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
       lob: [''],
       language_id: [0],
       hourly_rate: [0],
+      Communityhourly_rate:[0],
+      Medicalhourly_rate:[0],
       hourly_rate_min_paid: [0],
       hourly_rate_pay_increment: [0],
       half_day: [0],
@@ -1333,7 +1358,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
             id: res[i].id,
             lob: res[i].lob,
             language_id: res[i].language_id,
-            hourly_rate: res[i].rates_on_duration_hourly,
+            // hourly_rate: res[i].rates_on_duration_hourly,
             hourly_rate_min_paid: res[i].min_paid_hourly,
             hourly_rate_pay_increment: res[i].pay_increment_hourly,
             half_day: res[i].rates_on_duration_half_day,
@@ -1343,7 +1368,19 @@ export class InterpreterProfileInformationComponent implements OnInit {
             full_day_min_paid: res[i].min_paid_full_day,
             full_day_pay_increment: res[i].pay_increment_full_day
           });
-
+          // Communityhourly_rate
+// Medicalhourly_rate
+          for (var legalI = 0; legalI < res[i].settingsLob.length; ++legalI) {
+              if(res[i].settingsLob[legalI].lob == 'Legal'){
+                langArr1.controls[0].patchValue({hourly_rate:res[i].settingsLob[legalI].rates_on_duration_hourly})
+              }
+              if(res[i].settingsLob[legalI].lob == 'Community'){
+                langArr1.controls[0].patchValue({Communityhourly_rate:res[i].settingsLob[legalI].rates_on_duration_hourly})
+              }
+              if(res[i].settingsLob[legalI].lob == 'Medical'){
+                langArr1.controls[0].patchValue({Medicalhourly_rate:res[i].settingsLob[legalI].rates_on_duration_hourly})
+              }
+          }
         }
 
         if (res[i].assignment_type == 2 && res[i].status == 1) {
@@ -1516,10 +1553,33 @@ export class InterpreterProfileInformationComponent implements OnInit {
       });
 
   }
+showLegalLob=1;
+showCommunityLob=0;
+showMedicalLob=0;
+  logChange(val){
+    console.log(val)
+    if(val == 'Legal'){
+      this.showLegalLob=1;
+      this.showCommunityLob=0;
+      this.showMedicalLob=0;
+    }
+    if(val == 'Community'){
+      this.showLegalLob=0;
+      this.showCommunityLob=1;
+      this.showMedicalLob=0;
+    }
+    if(val == 'Medical'){
+      this.showLegalLob=0;
+      this.showCommunityLob=0;
+      this.showMedicalLob=1;
+    }
+  }
 
   addInterpreterAssignmentSave(type) {
-    console.log(type)
     console.log(this.assignmentForm.value)
+    console.log('==============lanArr',this.lanArr)
+    // return
+    console.log(type)
 
     this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
     this.assignmentForm.value.assignment_opi[0].opi_language_id = this.opi_language;
@@ -1551,12 +1611,16 @@ export class InterpreterProfileInformationComponent implements OnInit {
             this.general_form = false;
             this.skills_form = false;
             this.banking_form = false;
+            
+
           }
           else {
             this.banking_form = true;
             this.assignment_form = false;
             this.general_form = false;
             this.skills_form = false;
+           ;
+
 
           }
 
@@ -1564,7 +1628,12 @@ export class InterpreterProfileInformationComponent implements OnInit {
         } else {
           this.ass_Obj = res
           this.toastr.error(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-        }
+        
+        
+      }
+            this.showLegalLob=1;
+              this.showCommunityLob=0;
+              this.showMedicalLob=0;
       });
   }
   // Radio button ssn and ein function

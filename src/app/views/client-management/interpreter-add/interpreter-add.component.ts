@@ -312,14 +312,14 @@ StateList1(id) {
   saveUser() {
     console.log('in',this.userForm.value);
     console.log('incheck',this.userForm);
-    if(this.userForm.value.id == ''){
-          this.submitted = true;
-        if (this.userForm.invalid) {
-          return;
-        }
-        console.log(this.userForm.value);
-        this.submitted = false;
-     }
+    // if(this.userForm.value.id == ''){
+    //       this.submitted = true;
+    //     if (this.userForm.invalid) {
+    //       return;
+    //     }
+    //     console.log(this.userForm.value);
+    //     this.submitted = false;
+    //  }
     this.userForm.value.address = this.new_address;
     this.userForm.value.latitude = this.latitude;
     this.userForm.value.longitude = this.longitude;

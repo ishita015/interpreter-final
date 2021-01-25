@@ -608,7 +608,7 @@
                                                             (change)="onSingleFileChange($event,'community_doc','1')" style="font-size: 10px;">
                                                             <div class="form-group mb-0"
                                                                 *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                                                <img src="{{documentUrl}}{{detail_Obj?.skillsCommunityDoc}}"
+                                                                <img  src="{{detail_Obj?.skillsCommunityDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsCommunityDoc}}"
                                                                     style="width:100%; height:90px;">
                                                                 <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)"
                                                                     class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -629,7 +629,7 @@
                                                         (change)="onSingleFileChange($event,'conference_doc','2')" style="font-size: 10px;">
                                                         <div class="form-group mb-0"
                                                         *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
-                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsConferenceDoc}}"
+                                                        <img  src="{{detail_Obj?.skillsConferenceDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsConferenceDoc}}"
                                                              style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -650,7 +650,8 @@
                                                     <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="court_doc"
                                                         (change)="onSingleFileChange($event,'court_doc','3')" style="font-size: 10px;">
                                                         <div class="form-group mb-0" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''" >
-                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsCourtDoc}}"  
+                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsCourtDoc}}"   -->
+                                                        <img src="{{detail_Obj?.skillsCourtDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsCourtDoc}}"  
                                                             style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -672,7 +673,8 @@
                                                             (change)="onSingleFileChange($event,'credential_doc','4')" style="font-size: 10px;">
                                                             <div class="form-group mb-0"
                                                                 *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
-                                                                <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}"
+                                                                <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}" -->
+                                                                <img src="{{detail_Obj?.skillsCredentialDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsCredentialDoc}}"
                                                                      style="width:100%; height:90px;">
                                                                 <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)"
                                                                     class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -697,7 +699,8 @@
                                                               </button> -->
                                                         <div class="form-group mb-0"
                                                         *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
-                                                            <img src="{{documentUrl}}{{detail_Obj?.skillsEquipmentDoc}}"
+                                                            <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsEquipmentDoc}}" -->
+                                                            <img src="{{detail_Obj?.skillsEquipmentDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsEquipmentDoc}}"
                                                                  style="width:100%; height:90px;">
                                                             <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
                                                                 class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -720,7 +723,8 @@
                                                     <input type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="legal_doc"
                                                         (change)="onSingleFileChange($event,'legal_doc','6')" style="font-size: 10px;">
                                                         <div class="form-group mb-0" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
-                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsLegalDoc}}" 
+                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsLegalDoc}}"  -->
+                                                        <img src="{{detail_Obj?.skillsLegalDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsLegalDoc}}"
                                                             style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -741,7 +745,8 @@
 
                                                             <div class="form-group mb-0"
                                                                 *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
-                                                                <img src="{{documentUrl}}{{detail_Obj?.skillSimultOpen}}"
+                                                                <!-- <img src="{{documentUrl}}{{detail_Obj?.skillSimultOpen}}" -->
+                                                                <img src="{{detail_Obj?.skillSimultOpen.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillSimultOpen}}"
                                                                     style="width:100%; height:90px;">
                                                                 <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)"
                                                                     class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -768,7 +773,8 @@
 
                                                     <div class="form-group mb-0"
                                                     *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
-                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}"
+                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" -->
+                                                        <img src="{{detail_Obj?.skillsOtherDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsOtherDoc}}"
                                                             style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
@@ -789,7 +795,8 @@
 
 
                                                     <div class="form-group mb-0">
-                                                        <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
+                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;"> -->
+                                                        <img src="{{detail_Obj?.skillsOtherDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
                                                         <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
                                                             class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
                                                             <i class="i-Eye" style="display: block;"></i>
@@ -1269,20 +1276,31 @@
                                         <div class="col-md-12 p-0">
                                           <div class="col-md-4 mb-2">
                                             <label for="min_paid">LOB</label>
-                                            <select class="form-control" formControlName="lob">
-                                                <option >Select</option>
-                                                <option value="Legal">Legal</option>
-                                                <option value="Community">Community</option>
-                                                <option value="Medical">Medical</option>
+                                            <select class="form-control" (change)= logChange($event.target.value)  formControlName="lob">
+                                                <option  disabled="" selected="">Select</option>
+                                                <option *ngFor="let lob of MasterLobData;"  value="{{lob.name}}">{{lob.name}}</option>
+                                               
                                                
                                             </select>
                                         </div>
 
                                     </div>
 
-                                        <div class="col-md-4 mb-2">
+                                        <div *ngIf="showLegalLob == 1" class="col-md-4 mb-2">
                                             <label for="hourly_rate"> Hourly Rate </label>
                                             <input type="text" class="form-control" formControlName="hourly_rate"
+                                                placeholder="On-Site Hourly Rate">
+                                        </div>
+
+                                         <div *ngIf="showCommunityLob == 1" class="col-md-4 mb-2">
+                                            <label for="hourly_rate"> Hourly Rate </label>
+                                            <input type="text" class="form-control" formControlName="Communityhourly_rate"
+                                                placeholder="On-Site Hourly Rate">
+                                        </div>
+
+                                         <div *ngIf="showMedicalLob == 1" class="col-md-4 mb-2">
+                                            <label for="hourly_rate"> Hourly Rate </label>
+                                            <input type="text" class="form-control" formControlName="Medicalhourly_rate"
                                                 placeholder="On-Site Hourly Rate">
                                         </div>
 
