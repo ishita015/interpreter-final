@@ -191,6 +191,7 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
         mainObj = {
             interpreter_id: resultData[0].id,
+            about: resultData[0].about,
             nick_name: resultData[0].nick_name,
             role_id: resultData[0].role_id,
             company_name: resultData[0].company_name,
@@ -532,6 +533,13 @@ module.exports.addAssignmentSetting = async function (req, res) {
 
 module.exports.getAssignmentSettingByInterpreterId = async function (req, res) {
      var data =    await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', {status:1,Interpreter_id:req.body.interpreter_id} )
+     for (var i = 0; i < data.length; i++) {
+         if(data[i].assignment_type == 1){
+             data[i].settingsLob=await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings_lob_rate', {status:1,interpreter_assignment_settings_id:data[i].id,type:'onsite'} )
+         }else{
+              data[i].settingsLob=[];
+         }
+     }
      res.send(data);
 }
 
@@ -540,7 +548,9 @@ module.exports.getUserLanguage = async function (req, res) {
      var userData =    await  commonDb.AsyncSellectAllWhere('user',{id:req.params.id})
      var Primarydata =    await  commonDb.AsyncSellectAllWhere('languages',{id:userData[0].primary_language})
      console.log(Primarydata)
-     data.push({id:Primarydata[0].id,name:Primarydata[0].name})
+     // data.push({id:Primarydata[0].id,name:Primarydata[0].name})
+     data.splice(0, 0, {id:Primarydata[0].id,name:Primarydata[0].name});
+
      res.send({status:true,data:data});
 }
 module.exports.addAssignmentSetting_OLD = async function (req, res) {
@@ -3666,6 +3676,7 @@ module.exports.updateInterpreter = async function (req, res) {
 
     let id = req.body.interpreter_id;
     let title = req.body.title;
+    let about = req.body.notes;
     let nick_name = req.body.nick_name ? req.body.nick_name : "";
     let first_name = req.body.first_name;
     let last_name = req.body.last_name;
@@ -3702,7 +3713,7 @@ module.exports.updateInterpreter = async function (req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='" + first_name + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
+    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
 
     console.log("sql-update", sql)
     con.query(sql, function (err, result) {
@@ -3788,7 +3799,8 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function (req,
                                 status:1,
                                  Interpreter_id:req.body.interpreter_id,
                                 language_id: req.body.assignment[i].language_id,
-                                lob: req.body.assignment[i].lob,
+                                // lob: req.body.assignment[i].lob,
+                                lob: 'Legal',
                                 assignment_type:1,
                                 rates_on_duration_hourly: req.body.assignment[i].hourly_rate,
                                 min_paid_hourly: req.body.assignment[i].hourly_rate_min_paid ,
@@ -3802,6 +3814,34 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function (req,
                                 }
                  
           await  commonDb.AsyncUpdate('interpreter_assignment_settings', onsitedata ,{id:req.body.assignment[i].id})
+          console.log('=======================',req.body.assignment)
+          var onSIteLobArr=[];
+          onSIteLobArr.push({interpreter_assignment_settings_id:req.body.assignment[i].id,
+                                  language_id      :req.body.assignment[i].language_id,
+                                  lob:'Legal',
+                                  type:'onsite',
+                                  rates_on_duration_hourly:req.body.assignment[i].hourly_rate,
+                              })
+           onSIteLobArr.push({interpreter_assignment_settings_id:req.body.assignment[i].id,
+                                  language_id      :req.body.assignment[i].language_id,
+                                  lob:'Community',
+                                  type:'onsite',
+                                  rates_on_duration_hourly:req.body.assignment[i].Communityhourly_rate,
+                              })
+            onSIteLobArr.push({interpreter_assignment_settings_id:req.body.assignment[i].id,
+                                  language_id      :req.body.assignment[i].language_id,
+                                  lob:'Medical',
+                                  type:'onsite',
+                                  rates_on_duration_hourly:req.body.assignment[i].Medicalhourly_rate,
+                              })
+            console.log('===============onSIteLobArr========',onSIteLobArr)
+           await  commonDb.AsyncUpdate('interpreter_assignment_settings_lob_rate', {status:2} ,{interpreter_assignment_settings_id:req.body.assignment[0].id,type:'onsite'})
+
+            for (var ii = 0; ii < onSIteLobArr.length; ii++) {
+                          await  commonDb.AsyncInsert('interpreter_assignment_settings_lob_rate', onSIteLobArr[ii])
+ 
+            }
+          // return
         }
      }
 
@@ -3933,6 +3973,12 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function (req,
 }
 
 
+module.exports.getlob = async function (req, res) {
+ var data=  await  commonDb.AsyncSellectAll('master_lob')
+ res.send({data:data
+ })
+
+}
 module.exports.baseRate = async function (req, res) {
     console.log("baseRate",req);
     //validation start
