@@ -320,5 +320,33 @@ module.exports.sendForgetPasswordEmail = function(result,activation_code) {
     transporter.sendMail(mailOptions, function(error, info) {});
     return true;
 };
+// interpreter send otp via mail by lukesh //
+module.exports.sendOtpInterpreterEmail =function(otp,email){
+    let mailbody = "Dear, <br>";
+    mailbody+="Your verification otp is - "+otp+" <br>";
+    mailbody+="Please Reset Your Password <br>";
+    // otp send mail //  
+    var transporter = nodemailer.createTransport({
+        host: 'samosys.com',
+        port: 465,
+        secure: true,
+            auth: {
+            user: 'test@samosys.com',
+            pass: 'test@#321',
+            }
+    });
+    var mailOptions = {
+        from: 'test@samosys.com',
+        to: email,
+        subject: 'Otp send',
+        html: mailbody
+    };
+    //console.log(mailOptions)
+     transporter.sendMail(mailOptions, function(error, info) {
+        // console.log("error==========", error)
+        // console.log("info==========", info)
+     });
+    return true;
+};
 
 
