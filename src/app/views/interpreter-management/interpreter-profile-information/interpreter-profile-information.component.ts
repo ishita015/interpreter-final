@@ -1580,6 +1580,9 @@ showMedicalLob=0;
     console.log('==============lanArr',this.lanArr)
     // return
     console.log(type)
+    
+
+    
 
     this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
     this.assignmentForm.value.assignment_opi[0].opi_language_id = this.opi_language;
@@ -1597,7 +1600,34 @@ showMedicalLob=0;
     this.assignmentForm.value.vci_opi = this.vci_opi;
 
     this.assignmentForm.value.type = type;
+if(type == 'onsite' && this.assignmentForm.value.assignment[0].language_id == 0){
+        this.toastr.warning('Please Select On Site Language');
+        return;
+       }
+    if(type == 'opi' && this.assignmentForm.value.assignment_opi[0].language_id == 0){
+        this.toastr.warning('Please Select OPI Language');
+        return;
+      }
 
+      if(type == 'vri' && this.assignmentForm.value.assignment_vri[0].language_id == 0){
+        this.toastr.warning('Please Select VRI Language');
+        return;
+      }
+
+      if(type == 'vcl' && this.assignmentForm.value.assignment_vcl[0].language_id == 0){
+        this.toastr.warning('Please Select VCL Language');
+        return;
+      }
+
+      if(type == 'rsi' && this.assignmentForm.value.assignment_rsi[0].language_id == 0){
+        this.toastr.warning('Please Select RSI Language');
+        return;
+      }
+
+      if(type == 'vci_opi' && this.assignmentForm.value.assignment_vci_opi[0].language_id == 0){
+        this.toastr.warning('Please Select VCI+OPI language');
+        return;
+      }
 
     console.log('data', this.assignmentForm.value)
     // return
