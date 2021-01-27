@@ -125,18 +125,23 @@ app.get('/cesco/getTotalComplete', serviceController.getTotalComplete);
 app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 // app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 
-//interpreter login api by lukesh 
+//interpreter login api by lukesh  
 app.post('/cesco/interpreterlogin', mobileController.interpreterlogin);
 app.post('/cesco/interpreterForgetPassword', mobileController.sendOtp);
 app.post('/cesco/interpreterResetPassword', mobileController.resetPassword);
-app.get('/cesco/getRequestCount/:id',mobileController.getRequestCount);
+app.get('/cesco/getInterpreterData/:id', mobileController.getInterpreterData);
 app.get('/cesco/getRequestList/:id',mobileController.getRequestList);
 app.get('/cesco/getInProgressList/:id',mobileController.getInProgressList);
-app.get('/cesco/getInterpreterData/:id', mobileController.getInterpreterData);
-app.post('/cesco/updateRequestReject', mobileController.updateRequestReject);
-app.post('/cesco/updateRequestAccept', mobileController.updateRequestAccept);
-// app.get('/cesco/getRequestCountAccept',mobileController.getRequestCountAccept);
-//app.get('/cesco/getRequestCountReject',mobileController.getRequestCountReject);
+
+app.post('/cesco/interpreterRejectRequest', mobileController.interpreterRejectRequest);
+app.post('/cesco/interpreterAcceptRequest', mobileController.interpreterAcceptRequest);
+app.post('/cesco/interpreterCompleteRequest',mobileController.interpreterCompleteRequest
+);//send mail
+app.post('/cesco/getCancelledRequestCount',mobileController.getRequestCancelled);
+app.post('/cesco/getCompleteRequestCount',mobileController.getCompleteRequest);
+app.post('/cesco/getInprogressRequestCount',mobileController.getInprogressRequest);
+app.get('/cesco/getRequestCount/:id',mobileController.getRequestCount);
+
 
 
 // for interpreter dashboard
