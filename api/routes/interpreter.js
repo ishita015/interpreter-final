@@ -2553,14 +2553,6 @@ module.exports.interpreterRequestComplete = async function (req, res) {
 
 
 
-        //calculation part start
-
-
-
-        //calculation part end
-
-
-
         common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
 
         //update status
