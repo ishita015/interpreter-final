@@ -201,13 +201,13 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <label for="MobileNo.">Mobile No. <span class="error-msg"> * </span></label>
-                                                    <input type="text" mask="(000) 0000-0000" class="form-control"
+                                                    <input type="text" mask="(000) 0000-00000000" class="form-control"
                                                         formControlName="mobile"
-                                                        onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                                        onkeypress="if(this.value.length==19) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                         placeholder="Mobile">
                                                 </div>
                                             </div>
-                                            <div *ngIf="generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
+                                            <div *ngIf=" ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['country_code'].errors.required">
                                                     Code is required.</div>
@@ -215,23 +215,26 @@
 
                                             <div *ngIf="generalForm.controls['mobile'].errors && (!generalForm.controls['mobile'].pristine || submitted ||generalForm.controls['mobile'].touched )"
                                                 class="error-msg">
-                                                <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile
-                                                    No. is required.</div>
+                                              <!--   <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile
+                                                    No. is required.</div> -->
+                                                    <div *ngIf="generalForm.value.mobile.length < 8">Mobile No. should be 8 digits.</div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Home Phone</label>
-                                            <input type="text" mask="(000) 0000-0000" class="form-control"
+                                            <input type="text" mask="(000) 0000-00000000" class="form-control"
                                                 formControlName="international_phone_no"
-                                                onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                                onkeypress="if(this.value.length==19) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                 placeholder="Home Phone">
-                                            <!-- <div *ngIf="generalForm.controls['international_phone_no'].errors && (!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )"
+                                            <div *ngIf="(!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )"
                                                 class="error-msg">
-                                                <div
+                                                <!-- <div
                                                     [hidden]="!generalForm.controls['international_phone_no'].errors.required">
-                                                    Home Phone No. is required.</div>
-                                            </div> -->
+                                                    Home Phone No. is required.</div> -->
+                                                     <!-- <div [hidden]="!generalForm.controls['international_phone_no'].errors.minlength">Home Phone No. should be 8 digits.</div> -->
+                                                     <div *ngIf="generalForm.value.international_phone_no.length < 8 && generalForm.value.international_phone_no.length > 0">Home Phone No. should be 8 digits.</div>
+                                            </div>
                                         </div>
                                     </div>
 

@@ -602,12 +602,12 @@ lanArr=[];
     // this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
     // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
     this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name);
-    this.generalForm.get('notes').patchValue(this.detail_Obj.about);
+    this.generalForm.get('notes').patchValue(this.detail_Obj.about == 'null' ?'' : this.detail_Obj.about);
     this.generalForm.get('mobile').patchValue(this.detail_Obj.mobile);
     this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code);
     this.generalForm.get('address').patchValue(this.detail_Obj.address);
     this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth);
-    this.generalForm.get('international_phone_no').patchValue(this.detail_Obj.international_phone_no);
+    this.generalForm.get('international_phone_no').patchValue(this.detail_Obj.international_phone_no  == 0 ? '':this.detail_Obj.international_phone_no );
 
     this.generalForm.get('country').patchValue(this.detail_Obj.country);
     this.generalForm.get('state').patchValue(this.detail_Obj.state);
@@ -653,8 +653,7 @@ lanArr=[];
       first_name: ['', this.validation.onlyRequired_validator],
       last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
-
-      mobile: ['', this.validation.onlyRequired_validator],
+      mobile: [''],
       international_phone_no: [''],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
@@ -772,6 +771,12 @@ lanArr=[];
     // }
 
     // this.submitted = false;
+    if(this.generalForm.value.mobile.length < 8){
+      return
+    }
+    if(this.generalForm.value.international_phone_no.length < 8 && this.generalForm.value.international_phone_no.length > 0){
+      return
+    }
     this.spinner.show();
     this.generalForm.value.interpreter_id = this.interId;
     this.generalForm.value.address = this.new_address;

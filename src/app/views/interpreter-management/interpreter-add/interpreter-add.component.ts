@@ -148,9 +148,9 @@ export class InterpreterAddComponent implements OnInit {
       last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
       password: ['', this.validation.onlyRequired_validator],
-      mobile: ['',[Validators.required, Validators.minLength(8)]],
+      mobile: [''],
       // phone_no: [''],
-      international_phone_no: ['', [Validators.required, Validators.minLength(8)]],
+      international_phone_no: [''],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
       country_code: ['', this.validation.onlyRequired_validator],
@@ -437,6 +437,12 @@ this.mainhomeMobile= formated_phone == 0 ?'' : formated_phone.toString();
     if (this.userForm.invalid) {
       return;
     }
+    if(this.userForm.value.mobile.length < 7){
+      return
+    }
+    if(this.userForm.value.international_phone_no.length < 7){
+      return
+    }
     this.submitted = false;
         this.spinner.show();
     // alert('yes')
@@ -517,7 +523,7 @@ this.mainhomeMobile= formated_phone == 0 ?'' : formated_phone.toString();
     this.service.checkUserEmail(email)
       .subscribe(res => {
         if (res['status'] == '1') {
-          alert(res['message']);
+          this.toastr.warning(res['message']);
           // this.userForm.value.email = '';
           $event.target.value = "";
         }
