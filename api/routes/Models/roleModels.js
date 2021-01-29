@@ -12,7 +12,7 @@ class roleClass {
     getPermission(userRoleId){
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT p.*,m.module_name,m.id as module_id FROM user_module_permission as p INNER JOIN role_module as m ON m.id=p.module_id WHERE p.userRoleId='"+userRoleId+"'";
-            console.log('dev-0--',sql)
+            //console.log('dev-0--',sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -141,7 +141,7 @@ class roleClass {
     getUploadCertificate(user_id,table){
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT id,documents,file_type FROM "+table+" WHERE cook_id='"+user_id+"'";
-            console.log(sql)
+            //console.log(sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -204,7 +204,7 @@ class roleClass {
     getBoatList(user_id){  
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT b.*,mtb.boat_type FROM boat as b INNER JOIN manage_boat_type as mtb ON b.bt_id=mtb.id WHERE b.user_id='"+user_id+"'";
-            console.log(sql);
+            //console.log(sql);
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -250,7 +250,7 @@ class roleClass {
             } else {
                 sql += " limit " + limit;
             }
-            console.log(sql)
+            //console.log(sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -266,7 +266,7 @@ class roleClass {
     getOrgTripInfo(trip_id, user_id){ 
         return new Promise(function(resolve, reject) { 
         var sql = "SELECT t.id,t.trip_unique_id,t.title,t.trip_date_time,t.trip_duration,t.trip_budget,t.destination,t.boat_id,t.departure_point,t.description,t.status,b.user_id,b.default_image,b.boat_name,b.total_seats,b.about_boat,mbt.boat_type,(SELECT group_concat(mts.target_title) FROM trip_target_species as tts LEFT JOIN manage_target_species as mts ON mts.id=tts.ts_id WHERE tts.trip_id='"+trip_id+"') as target_species_name FROM trip as t INNER JOIN boat as b ON b.id=t.boat_id INNER JOIN manage_boat_type as mbt ON b.bt_id=mbt.id WHERE t.id='"+trip_id+"' && t.user_id='"+user_id+"'";
-        console.log(sql);
+        //console.log(sql);
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -281,7 +281,7 @@ class roleClass {
     getTripTargetSpecies(trip_id){ 
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT tts.id,tts.trip_id,mts.target_title FROM trip_target_species as tts LEFT JOIN manage_target_species as mts ON mts.id=tts.ts_id WHERE tts.trip_id='"+trip_id+"'";
-            console.log(sql);
+            //console.log(sql);
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -342,7 +342,7 @@ class roleClass {
     //         if (user_id >0 ) { //organizer id
     //             sql += " && t.user_id='"+user_id+"'";
     //         } 
-    //         console.log(sql);
+    //         //console.log(sql);
     //         con.query(sql, function(err, result) {
     //             if (result != "" && result != "undefined") {
     //                 resolve(result);
@@ -382,7 +382,7 @@ class roleClass {
                 search_key = search_key.trim();
                 search_key = search_key.toLowerCase();
 
-                console.log("search_key-",search_key)
+                //console.log("search_key-",search_key)
 
                 sql += " && (t.title LIKE'%"+search_key+"%' || t.trip_unique_id LIKE'%"+search_key+"%')";
             }
@@ -405,7 +405,7 @@ class roleClass {
             if(min_price != "" && max_price != "" ) {
                 sql += " && t.trip_budget BETWEEN "+min_price+" AND "+max_price;
             } 
-            console.log(sql)
+            //console.log(sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -421,7 +421,7 @@ class roleClass {
      userRequestCheck(user_id,trip_id){ 
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT * FROM join_user_trip WHERE trip_id ='"+trip_id+"' && user_id='"+user_id+"'";
-            console.log(sql);
+            //console.log(sql);
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -565,7 +565,7 @@ class roleClass {
         return new Promise(function(resolve, reject) { 
         var sql = "SELECT t.id,t.trip_unique_id,t.user_id as org_id,t.title,t.trip_date_time,t.trip_budget,t.boat_id,t.departure_point,t.description,t.destination,t.status,t.trip_duration,b.user_id,b.boat_name,b.total_seats,b.default_image,b.about_boat,mbt.boat_type,u.name as organizer_name,u.mobile as organizer_mobile,u.profile_img as organizer_profile, (SELECT group_concat(mts.target_title) FROM trip_target_species as tts LEFT JOIN manage_target_species as mts ON mts.id=tts.ts_id WHERE tts.trip_id='"+trip_id+"') as target_species_name FROM trip as t INNER JOIN boat as b ON b.id=t.boat_id INNER JOIN manage_boat_type as mbt ON mbt.id=b.bt_id INNER JOIN user as u ON u.id=t.user_id WHERE t.id='"+trip_id+"'";
 
-        console.log(sql);
+        //console.log(sql);
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -595,7 +595,7 @@ class roleClass {
     getAvaliableSeat(trip_id){
         return new Promise(function(resolve, reject) { 
             var sql = "SELECT t.boat_id,b.total_seats,(SELECT COUNT(id) FROM join_user_trip WHERE trip_id ='"+trip_id+"' && status='Accept') as join_user FROM trip as t INNER JOIN boat as b ON b.id=t.boat_id WHERE t.id='"+trip_id+"'";
-        console.log(sql);
+        //console.log(sql);
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -648,7 +648,7 @@ class roleClass {
     //         } else if (type==3) { //complete or cancel trip
     //             sql += " && (t.status='Cancelled' || t.status='Compeleted')";
     //         }
-    //         console.log(sql)
+    //         //console.log(sql)
     //         con.query(sql, function(err, result) {
     //             if (result != "" && result != "undefined") {
     //                 resolve(result);
@@ -700,7 +700,7 @@ class roleClass {
         return new Promise(function(resolve, reject) {
         var sql = "SELECT SUM(amount) as total_amount FROM transaction_history WHERE contract_id='"+contract_id+"' && receiver_id='"+user_id+"' && status='succeeded'";
 
-            // console.log("amot",sql)
+            // //console.log("amot",sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);

@@ -1280,7 +1280,7 @@
                                           <div class="col-md-4 mb-2">
                                             <label for="min_paid">LOB</label>
                                             <select class="form-control" (change)= logChange($event.target.value)  formControlName="lob">
-                                                <option  disabled="" selected="">Select</option>
+                                                <option  disabled selected>Select</option>
                                                 <option *ngFor="let lob of MasterLobData;"  value="{{lob.name}}">{{lob.name}}</option>
                                                
                                                

@@ -17,9 +17,9 @@ var momentTimeZone = require('moment-timezone');
 
 module.exports.getUserRole = function(req, res, next) {
     var sql = "SELECT * FROM user_roles";
-    // console.log(sql)
+    // //console.log(sql)
     con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -60,11 +60,11 @@ module.exports.addUserRole = async function(req, res) {
             
             
             let moduleInfo = await userRolemodel.getModule(); 
-            console.log(moduleInfo)
+            //console.log(moduleInfo)
             if(moduleInfo != "" && moduleInfo != undefined) {
                 for (var i = 0; i < moduleInfo.length; i++) {
                     var sql_insert = "INSERT INTO user_module_permission (userRoleId,module_id,view_permission,edit_permission,delete_permission,status_permission) values ('"+lastInsertId+"','"+moduleInfo[i].id+"','false','false','false','0')";
-                    console.log(sql_insert)
+                    //console.log(sql_insert)
                     con.query(sql_insert, async function(err, inserts) {});
                 }
             }
@@ -125,7 +125,7 @@ module.exports.updateUserRole = async function(req, res) {
     // }
 
     let sql = "UPDATE user_roles SET role_name ='"+role_name+"' WHERE id = '"+role_id+"'";
-    console.log("update-",sql);
+    //console.log("update-",sql);
     var query = con.query(sql, function(err, result) {
         if(!err){
             res.json({
@@ -176,7 +176,7 @@ module.exports.removeRole = async function(req, res) {
     // }
 
     let sql = "DELETE FROM user_roles WHERE id = '"+role_id+"'";
-    console.log("sql",sql)
+    //console.log("sql",sql)
     var query = con.query(sql, function(err, result) {
         if(!err){
             res.json({
@@ -213,9 +213,9 @@ module.exports.removeRole = async function(req, res) {
 
 module.exports.getModule = function(req, res, next) {
     var sql = "SELECT * FROM role_module";
-    // console.log(sql)
+    // //console.log(sql)
     con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -254,11 +254,11 @@ module.exports.addModule = async function(req, res) {
             var lastInsertId = insert.insertId;
             
             let roleInfo = await userRolemodel.getRoleInfo(); 
-            console.log(roleInfo)
+            //console.log(roleInfo)
             if(roleInfo != "" && roleInfo != undefined) {
                 for (var i = 0; i < roleInfo.length; i++) {
                     var sql_insert = "INSERT INTO user_module_permission (userRoleId,module_id,view_permission,edit_permission,delete_permission,status_permission) values ('"+roleInfo[i].id+"','"+lastInsertId+"','false','false','false','0')";
-                    console.log(sql_insert)
+                    //console.log(sql_insert)
                     con.query(sql_insert, async function(err, inserts) {});
                 }
             }
@@ -315,7 +315,7 @@ module.exports.updateModule = async function(req, res) {
     // }
 
     let sql = "UPDATE role_module SET module_name ='"+module_name+"' WHERE id = '"+module_id+"'";
-    console.log(sql)
+    //console.log(sql)
     var query = con.query(sql, function(err, result) {
         if(!err){
             res.json({
@@ -346,7 +346,7 @@ module.exports.removeModule = async function(req, res) {
     let module_id = req.body.id ? req.body.id : 0;
 
     let sql = "DELETE FROM role_module WHERE id = '"+module_id+"'";
-    console.log("sql",sql)
+    //console.log("sql",sql)
     var query = con.query(sql, function(err, result) {
         if(!err){
             res.json({
@@ -374,7 +374,7 @@ module.exports.removeModule = async function(req, res) {
 
 module.exports.getUserPermission = async function(req, res, next) { 
     var userRoleId = req.body.id ? req.body.id : 1;
-    console.log("userRoleId---",userRoleId)
+    //console.log("userRoleId---",userRoleId)
     // var mainArr = [];
     var permission = await userRolemodel.getPermission(userRoleId);
     

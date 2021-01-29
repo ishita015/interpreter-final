@@ -288,6 +288,7 @@ app.post('/cesco/update_Account_Setting_Interpreter_Profile', interpreterControl
 app.get('/cesco/getUserRoleMenus/:userRoleId', userroleController.getUserRoleMenus);
 app.get('/cesco/getClientRoleMenusForPages/:userRoleId', userroleController.getClientRoleMenusForPages);
 app.get('/cesco/getlob', interpreterController.getlob);
+app.post('/cesco/getAssignmentByLanguageID', interpreterController.getAssignmentByLanguageID);
 ////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
 
 // api end
@@ -311,7 +312,7 @@ function percentage(percent, total) {
 }
 
 let percentResult = percentage(20, 450);
-console.log("percentResult", percentResult)
+//console.log("percentResult", percentResult)
 
 //calculation part end
 
@@ -377,12 +378,12 @@ console.log("percentResult", percentResult)
 //    password = cryptr.encrypt(password);
    
 //    var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street)VALUES('"+user_role+"','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"')";
-//    console.log('sql-',sql)
+//    //console.log('sql-',sql)
 //    con.query(sql, function(err, insert) {
 //        let last_id= insert.insertId;
 //        if(!err){
 //            for (var i = 0; i < languageid.length; i++) {
-//                console.log("language id",languageid[i].id);
+//                //console.log("language id",languageid[i].id);
 //                var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+languageid[i].id+"')";
 //                con.query(sql1, function(err, insert) {});
 //            }
@@ -458,9 +459,9 @@ app.post('/cesco/location_update', function(req, res) {
 app.post('/cesco/userRoleAdd', function(req, res) {
   let data =req.body;
   for (var i = 0; i < data.length; i++) {
-    console.log('result-',data[i].id);
+    //console.log('result-',data[i].id);
     let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"',status ='"+data[i].status+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE id = '"+data[i].id+"'";  
-    console.log('yes-',sql)
+    //console.log('yes-',sql)
     var query = con.query(sql, function(err, result) {});
   }
 
@@ -606,19 +607,19 @@ app.post('/cesco/saveInterpreter', upload.any(),async function(req, res, next) {
 
     var sql = "INSERT INTO user(role_id,title,nick_name,first_name,last_name,email,mobile,password,international_phone_no,gender,date_of_birth,social_security_no,profile_img,country,country_code,company_name,state,city,address,latitude,longitude,apartment,zipCode,timezone,profile_status,other_gender,ssn_no,ein_no)VALUES('2','"+title+"','"+nick_name+"','"+first_name+"','"+last_name+"','"+email+"','"+mobile+"','"+password+"','"+international_phone_no+"','"+gender+"','"+dob+"','"+social_security_no+"','"+profileImg+"','"+country+"','"+country_code+"','"+company_name+"','"+state+"','"+city+"','"+address+"','"+latitude+"','"+longitude+"','"+apartment+"','"+zipCode+"','"+timezone+"','1','"+other_gender+"','"+ssn+"','"+ein+"')";
 
-    console.log("image",sql)
+    //console.log("image",sql)
 
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-            /*console.log("2 nd language-id", languageid);
+            /*//console.log("2 nd language-id", languageid);
             if (languageid != "" && languageid != undefined) {
                 let sec_lang=JSON.parse(languageid)
                 // let sec_lang = JSON.stringify(languageid);
 
-                console.log("language id",sec_lang);
+                //console.log("language id",sec_lang);
                 for (var i = 0; i < sec_lang.length; i++) {
-                    console.log("language id",sec_lang[i].id);
+                    //console.log("language id",sec_lang[i].id);
                     var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+sec_lang[i].id+"')";
                     con.query(sql1, function(err, insert) {});
                 }
@@ -716,19 +717,19 @@ app.post('/cesco/saveInterpreter_old', upload.any(),async function(req, res, nex
 
     var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street,profile_img,other_gender,country_code)VALUES('2','"+first_name+"','"+last_name+"','"+email+"','"+password+"','"+mobile+"','"+address+"','"+gender+"','"+latitude+"','"+longitude+"','"+primary_language+"','"+rate+"','"+apartment+"','"+street+"','"+profileImg+"','"+other_gender+"','"+country_code+"')";
 
-    console.log("image",sql)
+    //console.log("image",sql)
 
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-            /*console.log("2 nd language-id", languageid);
+            /*//console.log("2 nd language-id", languageid);
             if (languageid != "" && languageid != undefined) {
                 let sec_lang=JSON.parse(languageid)
                 // let sec_lang = JSON.stringify(languageid);
 
-                console.log("language id",sec_lang);
+                //console.log("language id",sec_lang);
                 for (var i = 0; i < sec_lang.length; i++) {
-                    console.log("language id",sec_lang[i].id);
+                    //console.log("language id",sec_lang[i].id);
                     var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+last_id+"','"+sec_lang[i].id+"')";
                     con.query(sql1, function(err, insert) {});
                 }
@@ -763,7 +764,7 @@ app.post('/cesco/saveInterpreter_old', upload.any(),async function(req, res, nex
 
 //update profile 
 app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, next) {
-    console.log("all up body",req.body)
+    //console.log("all up body",req.body)
      //validation start
      const v = new Validator(req.body, {
         id: 'required',
@@ -813,7 +814,7 @@ app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, n
     let latitude = req.body.latitude ? req.body.latitude : '';
     let longitude = req.body.longitude ? req.body.longitude : '';
     
-    console.log("primary_lang_id ",req.body.primary_lang_id)
+    //console.log("primary_lang_id ",req.body.primary_lang_id)
    
     
     var profileImg='';
@@ -836,18 +837,18 @@ app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, n
     }
 
     if(address!="" && address != 'undefined'){    
-        console.log("address",address);
+        //console.log("address",address);
         if((latitude!="" && latitude != 'undefined')  && (longitude!="" && longitude != 'undefined') ){        
-            console.log("latitude",latitude);
-            console.log("longitude",longitude);
+            //console.log("latitude",latitude);
+            //console.log("longitude",longitude);
           sql += ",address ='"+address+"', latitude ='"+latitude+"',longitude ='"+longitude+"'";
         }
     }
 
     sql += " WHERE id = '"+id+"'";
 
-    // console.log(sql);
-    console.log("sql-update",sql)
+    // //console.log(sql);
+    //console.log("sql-update",sql)
     var query = con.query(sql, function(err, result) {
         if(!err){
             /*if (languageid != "" && languageid != undefined) {
@@ -857,7 +858,7 @@ app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, n
 
 
                 for (var i = 0; i < languageid.length; i++) {
-                    console.log("language id",languageid[i].id);
+                    //console.log("language id",languageid[i].id);
                     var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+id+"','"+languageid[i].id+"')";
                     con.query(sql1, function(err, insert) {});
                 }
@@ -891,7 +892,7 @@ app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, n
 //update profile 
 app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
 
-    console.log("all request--",req.body);
+    //console.log("all request--",req.body);
 
     //validation start
     const v = new Validator(req.body, {
@@ -946,14 +947,14 @@ app.post('/cesco/profileUpdate', upload.any(),async function(req, res, next) {
         var user_update = "UPDATE user SET first_name='"+first_name+"',last_name='"+last_name+"',address='"+address+"',mobile='"+mobile+"',country_code='"+country_code+"',profile_img='"+profileImg+"' WHERE id ='"+user_id+"'";
     }
 
-    console.log("user_update sql--",user_update)
+    //console.log("user_update sql--",user_update)
 
     con.query(user_update, function(err, results) {
         if(results.affectedRows ==1){
             
             var loginsql = "SELECT u.*,ur.role_name FROM user AS u INNER JOIN user_roles AS ur ON u.role_id=ur.id WHERE u.id='"+user_id+"'";
 
-            // console.log("loginsql--", loginsql)
+            // //console.log("loginsql--", loginsql)
 
             con.query(loginsql, function(err, result, fields) {
                 res.json({
@@ -1010,12 +1011,12 @@ let chatupload = multer({
 
 //upload chat images
 app.post('/cesco/uploadChatImage', chatupload.any(),async function(req, res, next) {
-    console.log(req.files)
+    //console.log(req.files)
     var profileImg='';
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             profileImg=req.files[0].filename;
-            console.log(profileImg)
+            //console.log(profileImg)
             res.json({
                 status: 1,
                 error_code: 0,
@@ -1091,21 +1092,21 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     let secondary_language  = req.body.secondary_language ? req.body.secondary_language : "";
     
 
-    // console.log("primary_language--",primary_language);
-    // console.log("secondary_language--",JSON.parse(secondary_language));
+    // //console.log("primary_language--",primary_language);
+    // //console.log("secondary_language--",JSON.parse(secondary_language));
 
     secondary_language=JSON.parse(secondary_language)
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             // let documents=req.files[0].filename;
 
-            console.log("yes is working",req.files);
+            //console.log("yes is working",req.files);
             for (var i = 0; i < req.files.length; i++) {
                 // type[i]
                 var docfield = req.files[i].fieldname;
                 var filename=req.files[i].filename;
                 // var type=req.files[i].type;
-                // console.log(type[i]);
+                // //console.log(type[i]);
                 let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
                 con.query(sqlDelete, function(err, res_delete) {});
 
@@ -1128,15 +1129,15 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
         let sqlDelete = "DELETE FROM interpreter_language WHERE user_id = '"+interpreter_id+"'";
         con.query(sqlDelete, function(err, res_delete) {});
         for (var i = 0; i < secondary_language.length; i++) {
-            // console.log("secondary-language-id",secondary_language[i].language_id);    
+            // //console.log("secondary-language-id",secondary_language[i].language_id);    
             secLang = secondary_language[i];
             
 
             if (secLang.id != undefined) {
-                // console.log("finsaly 1",secLang.id)
+                // //console.log("finsaly 1",secLang.id)
                 seclangid=secLang.id;    
             }else{
-                // console.log("finsaly 2",secLang.language_id)
+                // //console.log("finsaly 2",secLang.language_id)
                 seclangid=secLang.language_id;
             }
 
@@ -1177,7 +1178,7 @@ const options = {
 
 download.image(options)
   .then(({ filename }) => {
-    console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+    //console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
   })
   .catch((err) => console.error(err))
 
@@ -1194,15 +1195,15 @@ imgDownload();
 
 // var download = function(uri, filename, callback){
 //     requests.head(uri, function(err, res, body){
-//     console.log('content-type:', res.headers['content-type']);
-//     console.log('content-length:', res.headers['content-length']);
+//     //console.log('content-type:', res.headers['content-type']);
+//     //console.log('content-length:', res.headers['content-length']);
 
 //     requests(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
 //   });
 // };
 
 // download('http://192.168.0.4:3300/user/image-1608011520859.jpg', 'google.png', function(){
-//   console.log('done');
+//   //console.log('done');
 // });
 
 
@@ -1231,7 +1232,7 @@ var storagee = multer.diskStorage({
     cb(null, './public')
   },
   filename: function (req, file, cb) {
-      console.log('fieldname',file)
+      //console.log('fieldname',file)
     cb(null, file.originalname + '-' + Date.now())
   }
 })
@@ -1312,9 +1313,9 @@ app.post('/cesco/importLang', uploadd.any(),async function(req, res, next) {
 //----------------------socket start-----------------------------
 
 io.sockets.on('connection', function(socket) {
-    console.log(room + ' joined the chat.');
+    //console.log(room + ' joined the chat.');
     socket.on('room', function(room) {
-        console.log(room + ' joined the chat.');
+        //console.log(room + ' joined the chat.');
         socket.room = room;
         socket.join(room);
     });
@@ -1347,7 +1348,7 @@ io.sockets.on('connection', function(socket) {
         if(group_id!='0' && group_id!=undefined){
             let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp,senderName,msgType,lat,lang)VALUES('"+group_id+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','"+msg_type+"','0','0')";
 
-            console.log(sql);
+            //console.log(sql);
             con.query(sql, function(err, result) {
                 if(result.affectedRows == 1){
                     // io.sockets.in(group_id).emit('responce_chat', {
@@ -1371,7 +1372,7 @@ io.sockets.on('connection', function(socket) {
                     var groupId=result[0].group_id;
                     let sql = "INSERT INTO message(chatRoomId,senderId,receiverId,msg,sendTimestamp ,senderName,msgType,lat,lang)VALUES('"+groupId+"','"+sender_id+"','"+receiver_id+"','"+message+"','"+ new_date+"','admin','"+msg_type+"','0','0')";
 
-                    console.log(sql);
+                    //console.log(sql);
                     con.query(sql, function(err, result) {
                         if(result.affectedRows == 1){
                             // io.sockets.in(groupId).emit('responce_chat', {
@@ -1399,7 +1400,7 @@ io.sockets.on('connection', function(socket) {
 
         
     socket.on('updateLatLong', function(unique_code) {
-        console.log("unique_code",unique_code)
+        //console.log("unique_code",unique_code)
         var sql = "SELECT ilc.unique_code,u.id as interpreter_id,u.latitude,u.longitude,u.first_name,u.last_name FROM interpreter_live_code as ilc INNER JOIN user as u ON u.id=ilc.user_id WHERE ilc.unique_code='"+unique_code+"'";
         con.query(sql, function(err, result, fields) {
             if (result && result.length > 0) {
@@ -1477,7 +1478,7 @@ app.post('/cesco/sendQrcode', async function(req, res) {
 
             mailbody+="<img src='http://192.168.0.4:3300/"+final_qr+"'/> <br>";
             
-            console.log("qr code",mailbody)
+            //console.log("qr code",mailbody)
 
 
             var transporter = nodemailer.createTransport({
@@ -1591,7 +1592,7 @@ app.post('/cesco/updateInterpreterProfile', upload.any(),async function(req, res
 
 // var hostname = req.headers.host; // hostname = 'localhost:8080'
 // var pathname = url.parse(url).pathname; // pathname = '/MyApp'
-// console.log('http://' + hostname + pathname);
+// //console.log('http://' + hostname + pathname);
 
 
 
@@ -1601,7 +1602,7 @@ app.post('/cesco/updateInterpreterProfile', upload.any(),async function(req, res
 http.createServer(function (req, res) {
   var hostname = req.headers.host; // hostname = 'localhost:8080'
   var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
-  console.log('http://' + hostname + pathname);
+  //console.log('http://' + hostname + pathname);
 
 //   res.writeHead(200);
 //   res.end();
@@ -1614,7 +1615,7 @@ http.createServer(function (req, res) {
 // function createServer(req, res){
 //     var hostname = req.headers.host; // hostname = 'localhost:8080'
 //     var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
-//     console.log('http://' + hostname + pathname);
+//     //console.log('http://' + hostname + pathname);
 // }
 
 
@@ -1625,4 +1626,4 @@ http.createServer(function (req, res) {
 var port = process.env.PORT || 3300;
 server.listen(port);
 var ip = ip.address();
-console.log(' interpreter Run at http://' + ip + ':' + port);
+//console.log(' interpreter Run at http://' + ip + ':' + port);

@@ -17,9 +17,11 @@ var database = new function() {
             }
             counter++;
         }
+        //console.log("===dev",que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
-            console.log('err',err)
+            //console.log('err',err)
+            //console.log('err',response)
             
                 resolve(response);
         });
@@ -64,11 +66,11 @@ var database = new function() {
             counter++;
         }
         que += ")";
-        // console.log(que)
+        // //console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
                 if(err){
-                    console.log(err)
+                    //console.log(err)
                 }
                 resolve(response);
         });
@@ -89,12 +91,12 @@ this.AsyncUpdate = function(table,obj,where) {
         var key = Object.keys(where);
         que += " WHERE " + key[0] + " = '" + where[key[0]] + "'";
         
-            // console.log(where)
-            console.log(que)
+            // //console.log(where)
+            //console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
              if(err){
-                    console.log(err)
+                    //console.log(err)
                 }
                 resolve(response);
         });
@@ -117,12 +119,12 @@ this.AsyncUpdate1 = function(table,obj,where) {
         var key = Object.keys(where);
         que += " WHERE Interpreter_id=" +where.Interpreter_id + " AND assignment_type='"+where.assignment_type+"'";
         
-            console.log(where)
-            console.log(que)
+            //console.log(where)
+            //console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
              if(err){
-                    console.log(err)
+                    //console.log(err)
                 }
                 resolve(response);
         });
@@ -134,7 +136,7 @@ this.AsyncUpdate1 = function(table,obj,where) {
         var que = "SELECT * FROM  " + table ;
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
-            console.log('err',err)
+            //console.log('err',err)
             
                 resolve(response);
         });
@@ -144,10 +146,10 @@ this.AsyncUpdate1 = function(table,obj,where) {
 
  this.getUserLanguage = function(ob) {
        
-        var que = "SELECT languages.name,languages.id  FROM interpreter_language LEFT JOIN languages ON interpreter_language.language_id = languages.id WHERE interpreter_language.user_id="+ob.user_id ;
+        var que = "SELECT languages.name,languages.base_rate,languages.id  FROM interpreter_language LEFT JOIN languages ON interpreter_language.language_id = languages.id WHERE interpreter_language.user_id="+ob.user_id ;
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
-            console.log('err',err)
+            //console.log('err',err)
             
                 resolve(response);
         });
@@ -159,13 +161,39 @@ this.AsyncUpdate1 = function(table,obj,where) {
         var que = "SELECT user.*,countries.name as country_name,states.name as state_name,cities.name as city_name FROM user LEFT JOIN countries ON countries.id = user.country LEFT JOIN states ON states.id = user.state LEFT JOIN cities ON cities.id = user.city WHERE user.id="+obj.user_id;
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
-            console.log('err',err)
+            //console.log('err',err)
             
                 resolve(response);
         });
 
     }); 
  }
+this.getAssignmentSettingsCheck =(onsitedata) =>{
+        return new Promise(function(resolve, reject) {
+             var sql = "SELECT * FROM interpreter_assignment_settings WHERE language_id= "+onsitedata.language_id+" AND Interpreter_id= "+onsitedata.Interpreter_id+" AND assignment_type= "+onsitedata.assignment_type;
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve([]);
+                 }
+             });
+        });  
+     }
+
+     this.getInterpreterSeting = (obj) => {
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM interpreter_assignment_settings WHERE Interpreter_id='"+obj.interpreter_id+"' AND assignment_type="+obj.assignment_type+" AND status=1 ORDER BY id ASC  LIMIT 1"; 
+           // console.log(sql)
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    }
 
  
 }

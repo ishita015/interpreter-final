@@ -132,7 +132,7 @@ module.exports.userlogin = async function(req, res) {
     let password  = req.body.password;
 
     var sql = "SELECT u.*,ur.role_name FROM user AS u INNER JOIN user_roles AS ur ON u.role_id=ur.id WHERE u.email='"+email+"'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
             const decryptedString = cryptr.decrypt(result[0].password);

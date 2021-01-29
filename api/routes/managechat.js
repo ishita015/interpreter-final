@@ -42,7 +42,7 @@ module.exports.getContactList = async function(req, res, next) {
     }
 
     var checkResults = await chatapi.getContactData(user_id,roleid);
-    // console.log("contact list", checkResults) 
+    // //console.log("contact list", checkResults) 
     if (checkResults != "" && checkResults != undefined) {
         var mainObj1 = {};
         for (var i = 0; i < checkResults.length; i++) {
@@ -63,7 +63,7 @@ module.exports.getContactList = async function(req, res, next) {
             mainArr1.push(mainObj1);
         }
 
-        console.log("contact list-",mainArr1)
+        //console.log("contact list-",mainArr1)
 
         res.json({
             status: 1,
@@ -119,13 +119,13 @@ module.exports.getChats = async function(req, res) {
     
     let sql = "select *,(select count(id) from message where chatRoomId = '" + group_id + "' ) as total_records from (select * from message where chatRoomId = '" + group_id + "' ORDER BY id ASC) tmp order by tmp.id ASC";
 
-    console.log("sql -1", sql)
+    //console.log("sql -1", sql)
 
     con.query(sql, (error, results, fields) => {
         if (results && results.length > 0) {
             let sql = "select *, (SELECT if(sender_id = '" + user_id + "' || receiver_id = '" + user_id + "' , reciver_mute, '0') FROM chatroom where group_id = '" + group_id + "') as reciver_mute, (SELECT if(receiver_id = '" + user_id + "' || sender_id = '" + user_id + "' , sender_mute, '0') FROM chatroom where group_id = '" + group_id + "') as sender_mute, (select count(id) from message where chatRoomId = '" + group_id + "' ) as total_records from (select * from message where chatRoomId = '" + group_id + "' ORDER BY id ASC) tmp order by tmp.id ASC";
                   
-            console.log("sql -2", sql)
+            //console.log("sql -2", sql)
             con.query(sql, (error, resultss, fields) => {
                 if (resultss && resultss.length > 0) {
                     res.json({
@@ -157,7 +157,7 @@ module.exports.getChats = async function(req, res) {
         } 
         /*else {
             var sql = "SELECT (SELECT if(sender_id = '" + user_id + "' , reciver_mute, '0') FROM chatroom where group_id = '" + group_id + "') as reciver_mute, (SELECT if(receiver_id = '" + user_id + "' , sender_mute, '0') FROM chatroom where group_id = '" + group_id + "') as sender_mute FROM chatroom where group_id = '" + group_id + "'";
-            console.log("sql -3", sql)
+            //console.log("sql -3", sql)
             con.query(sql, (error, resultss, fields) => {
                 if (resultss && resultss.length > 0) {
                     res.json({
@@ -184,7 +184,7 @@ module.exports.getChats = async function(req, res) {
 
 // send request for chat 
 module.exports.sendRequest = async function(req, res, next) {
-    console.log("req-",req.body)
+    //console.log("req-",req.body)
     //validation start
     const v = new Validator(req.body, {
         user_id: 'required',
@@ -417,14 +417,14 @@ module.exports.groupInfo = async function(req, res, next) {
     var user_id = req.body.user_id;
     //group info
     let sql = "SELECT group_id,groupName,groupIcon FROM toot_chat_room_group WHERE group_id ='"+group_id+"'";
-    console.log("sql1",sql)
+    //console.log("sql1",sql)
     con.query(sql, function(err, result) {
         if (result.length != '') {
             var userIdarray={}
             
             let chatFriend = "SELECT chatRoom.reciver_request,user.id as user_id,user.full_name as name,user.user_pic as profile_img FROM toot_chat_room as chatRoom INNER JOIN toot_users as user ON user.id=chatRoom.sender_id WHERE chatRoom.group_id = '"+group_id+"' && chatRoom.group_status='Active'";
             con.query(chatFriend, function(err, grpfnd_result) {
-                console.log(grpfnd_result);
+                //console.log(grpfnd_result);
                 var friendData = [];
                 grpfnd_result.forEach(function (result_id) {
                     if(result_id.user_id!=user_id){
@@ -545,7 +545,7 @@ module.exports.removeUserInGroup = async function(req, res) {
 
 
     var sql = "UPDATE toot_chat_room SET group_status = 'Block' WHERE sender_id='"+user_id+"' AND group_id='"+group_id+"'";
-    console.log(sql);
+    //console.log(sql);
         con.query(sql, function(err, result_update) {})
         res.json({
             status: 1,
@@ -618,7 +618,7 @@ module.exports.addUserInGroup = async function(req, res) {
 // send request for chat
 module.exports.chatUserBlockUnblock = async function(req, res, next) {
    
-   console.log(req.body);
+   //console.log(req.body);
     let validator = new Validator(req.body, {
         user_id : 'required',
         request_user_id : 'required',
@@ -648,7 +648,7 @@ module.exports.chatUserBlockUnblock = async function(req, res, next) {
     var checkResults    = await chatapi.checkSenderBlock(user_id, req_user_id);
     if (checkResults.length > 0) {
         var sql = "UPDATE toot_chat_room SET sender_block = '"+req_type+"' WHERE sender_id='"+user_id+"' AND receiver_id='"+req_user_id+"'";
-        console.log(sql);
+        //console.log(sql);
         con.query(sql, function(err, result_update) {})
         res.json({
             status: 1,
@@ -661,7 +661,7 @@ module.exports.chatUserBlockUnblock = async function(req, res, next) {
         var checkResult = await chatapi.checkReceiverBlock(user_id, req_user_id);
             if (checkResult.length > 0) {
             var sql = "UPDATE toot_chat_room SET reciver_block = '"+req_type+"' WHERE sender_id='"+req_user_id+"' AND receiver_id='"+user_id+"'";
-            console.log(sql);
+            //console.log(sql);
             con.query(sql, function(err, result_update) {})
             res.json({
                 status: 1,

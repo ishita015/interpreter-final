@@ -46,7 +46,7 @@ module.exports.getLogPrice = async function (req, res) {
 
     var sql = "SELECT * FROM price_calculation WHERE type='" + log_type + "' ORDER BY id DESC";
 
-    // console.log("bank", sql)
+    // //console.log("bank", sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -74,6 +74,18 @@ module.exports.getLogPrice = async function (req, res) {
 
 
 
+module.exports.getAssignmentByLanguageID = async function (req, res, next) {
+              var onSiteCheckData =  await  commonDb.getAssignmentSettingsCheck(req.body)
+              if(onSiteCheckData.length > 0){
+
+              if(req.body.assignment_type == 1){
+                 onSiteCheckData[0].settingsLob=await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings_lob_rate', {status:1,interpreter_assignment_settings_id:onSiteCheckData[0].id,type:'onsite'} )
+                  }else{
+                  }
+              }
+         res.send({data:onSiteCheckData})
+    
+}
 module.exports.getInterpreterProfile = async function (req, res, next) {
     //validation start
     var interpreter_assignment_status=0;
@@ -170,7 +182,43 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
         // interpreter_assignment_settings
         //get interpreter special_attributes
-        var assignment = await usermodel.getInterpreterAssignment(interpreter_id);
+        // var assignment = await usermodel.getInterpreterAssignment(interpreter_id);
+        // var assignment = await usermodel.getInterpreterAssignment(interpreter_id);
+        var OneAssignment = await commonDb.getInterpreterSeting({interpreter_id:interpreter_id,assignment_type:1})
+        var TwoAssignment = await commonDb.getInterpreterSeting({interpreter_id:interpreter_id,assignment_type:2})
+        var ThreeAssignment = await commonDb.getInterpreterSeting({interpreter_id:interpreter_id,assignment_type:3})
+        var FOurAssignment = await commonDb.getInterpreterSeting({interpreter_id:interpreter_id,assignment_type:4})
+        var FiveAssignment = await commonDb.getInterpreterSeting({interpreter_id:interpreter_id,assignment_type:5})
+        var SixAssignment = await commonDb.getInterpreterSeting({interpreter_id:interpreter_id,assignment_type:6})
+       var s_data=[];
+       if(OneAssignment.length > 0){
+           s_data.push(OneAssignment[0]);
+       }
+
+         if(TwoAssignment.length > 0){
+           s_data.push(TwoAssignment[0]);
+       }
+
+         if(ThreeAssignment.length > 0){
+           s_data.push(ThreeAssignment[0]);
+       }
+
+         if(FOurAssignment.length > 0){
+           s_data.push(FOurAssignment[0]);
+       }
+
+         if(FiveAssignment.length > 0){
+           s_data.push(FiveAssignment[0]);
+       }
+
+         if(SixAssignment.length > 0){
+           s_data.push(SixAssignment[0]);
+       }
+
+         var assignment=s_data;
+
+        console.log('--------assignment---------',assignment)
+        // return
         var assignmentArr = [];
 
 
@@ -290,7 +338,7 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
 
 module.exports.addAssignmentSetting = async function (req, res) {
-    console.log('devd---------------------------------dd',req.body);
+    // //console.log('devd---------------------------------dd',req.body);
     
     if(req.body.onsiteInfo == true){
         for (var i = 0; i < req.body.assignment.length; i++) {
@@ -309,7 +357,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                                 min_paid_full_day: req.body.assignment[i].full_day_min_paid ,
                                 pay_increment_full_day: req.body.assignment[i].full_day_pay_increment 
                                 }
-                  console.log('req.body.assignment[i]',req.body.assignment[i])
+                  // //console.log('req.body.assignment[i]',req.body.assignment[i])
             if(req.body.assignment[i].id == '' ){
                   var onsiteDataEx = await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings' ,{Interpreter_id:req.body.interpreter_id,assignment_type:1})
                   if(onsiteDataEx.length == 0){
@@ -420,7 +468,7 @@ module.exports.addAssignmentSetting = async function (req, res) {
                                 min_paid_full_day: req.body.assignment_vri[l].vri_full_day_min_paid ,
                                 pay_increment_full_day: req.body.assignment_vri[l].vri_full_day_pay_increment 
                                 }
-                  console.log('req.body.assignment[i]',req.body.assignment_vri[l])
+                  // //console.log('req.body.assignment[i]',req.body.assignment_vri[l])
             if(req.body.assignment_vri[l].vri_id == ''){
                  var vriDataEx = await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings' ,{Interpreter_id:req.body.interpreter_id,assignment_type:3})
               if(vriDataEx.length == 0){
@@ -532,7 +580,8 @@ module.exports.addAssignmentSetting = async function (req, res) {
 
 
 module.exports.getAssignmentSettingByInterpreterId = async function (req, res) {
-     var data =    await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', {status:1,Interpreter_id:req.body.interpreter_id} )
+     // var data =    await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', {status:1,Interpreter_id:req.body.interpreter_id} )
+     var data =    await commonDb.getInterpreterSeting({interpreter_id:req.body.interpreter_id,assignment_type:1})
      for (var i = 0; i < data.length; i++) {
          if(data[i].assignment_type == 1){
              data[i].settingsLob=await  commonDb.AsyncSellectAllWhere('interpreter_assignment_settings_lob_rate', {status:1,interpreter_assignment_settings_id:data[i].id,type:'onsite'} )
@@ -547,14 +596,14 @@ module.exports.getUserLanguage = async function (req, res) {
      var data =    await  commonDb.getUserLanguage({user_id:req.params.id})
      var userData =    await  commonDb.AsyncSellectAllWhere('user',{id:req.params.id})
      var Primarydata =    await  commonDb.AsyncSellectAllWhere('languages',{id:userData[0].primary_language})
-     console.log(Primarydata)
+     // //console.log(Primarydata)
      // data.push({id:Primarydata[0].id,name:Primarydata[0].name})
-     data.splice(0, 0, {id:Primarydata[0].id,name:Primarydata[0].name});
+     data.splice(0, 0, {id:Primarydata[0].id,name:Primarydata[0].name,base_rate:Primarydata[0].base_rate});
 
      res.send({status:true,data:data});
 }
 module.exports.addAssignmentSetting_OLD = async function (req, res) {
-    console.log('devddd',req.body);
+    // //console.log('devddd',req.body);
     return
     //validation start
     const v = new Validator(req.body, {
@@ -589,7 +638,7 @@ module.exports.addAssignmentSetting_OLD = async function (req, res) {
     let assignment_vri = req.body.assignment_vri; //array
     let assignment_vcl = req.body.assignment_vcl; //array
     let assignment_opi = req.body.assignment_opi; //array
-    // console.log("assignment_setting", assignment_setting);    
+    // //console.log("assignment_setting", assignment_setting);    
 
     if (assignment != "" && assignment != undefined) {
         for (var i = 0; i < assignment.length; i++) {
@@ -608,7 +657,7 @@ module.exports.addAssignmentSetting_OLD = async function (req, res) {
             let pay_inc_full_day = assignment[i].full_day_pay_increment ? assignment[i].full_day_pay_increment : '0';
 
             var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('" + interpreter_id + "','" + language_id + "','1','" + rate_hourly + "','" + min_paid_hourly + "','" + pay_inc_hourly + "','" + rate_half_day + "','" + min_paid_half_day + "','" + pay_inc_half_day + "','" + rate_full_day + "','" + min_paid_full_day + "','" + pay_inc_full_day + "')";
-            // console.log("sql", sql);    
+            // //console.log("sql", sql);    
             con.query(sql, function (err, insert) { });
         }
 
@@ -633,7 +682,7 @@ module.exports.addAssignmentSetting_OLD = async function (req, res) {
             let pay_inc_full_day = assignment_vri[j].vri_full_day_pay_increment ? assignment_vri[j].vri_full_day_pay_increment : '0';
 
             var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('" + interpreter_id + "','" + language_id + "','2','" + rate_hourly + "','" + min_paid_hourly + "','" + pay_inc_hourly + "','" + rate_half_day + "','" + min_paid_half_day + "','" + pay_inc_half_day + "','" + rate_full_day + "','" + min_paid_full_day + "','" + pay_inc_full_day + "')";
-            console.log("sql", sql);
+            // //console.log("sql", sql);
             con.query(sql, function (err, insert) { });
         }
     }
@@ -656,7 +705,7 @@ module.exports.addAssignmentSetting_OLD = async function (req, res) {
             let pay_inc_full_day = assignment_vcl[k].vcl_full_day_pay_increment ? assignment_vcl[k].vcl_full_day_pay_increment : '0';
 
             var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('" + interpreter_id + "','" + language_id + "','3','" + rate_hourly + "','" + min_paid_hourly + "','" + pay_inc_hourly + "','" + rate_half_day + "','" + min_paid_half_day + "','" + pay_inc_half_day + "','" + rate_full_day + "','" + min_paid_full_day + "','" + pay_inc_full_day + "')";
-            console.log("sql", sql);
+            // //console.log("sql", sql);
             con.query(sql, function (err, insert) { });
         }
     }
@@ -678,7 +727,7 @@ module.exports.addAssignmentSetting_OLD = async function (req, res) {
             let pay_inc_full_day = assignment_opi[g].opi_full_day_pay_increment;
 
             var sql = "INSERT INTO interpreter_assignment_settings(Interpreter_id,language_id,assignment_type,rates_on_duration_hourly,min_paid_hourly,pay_increment_hourly,rates_on_duration_half_day,min_paid_half_day,pay_increment_half_day,rates_on_duration_full_day,min_paid_full_day,pay_increment_full_day)VALUES('" + interpreter_id + "','" + language_id + "','4','" + rate_hourly + "','" + min_paid_hourly + "','" + pay_inc_hourly + "','" + rate_half_day + "','" + min_paid_half_day + "','" + pay_inc_half_day + "','" + rate_full_day + "','" + min_paid_full_day + "','" + pay_inc_full_day + "')";
-            console.log("sql", sql);
+            // //console.log("sql", sql);
             con.query(sql, function (err, insert) { });
         }
     }
@@ -733,7 +782,7 @@ module.exports.addInterpreterLanguage = async function (req, res) {
         if (results.affectedRows == 1) {
             // secondary_language=JSON.parse(secondary_language) // for form data case
             for (var i = 0; i < secondary_language.length; i++) {
-                console.log("secondary_language", secondary_language[i].id);
+                // //console.log("secondary_language", secondary_language[i].id);
                 var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('" + interpreter_id + "','" + secondary_language[i].id + "')";
                 con.query(sql, function (err, insert) { });
             }
@@ -784,7 +833,7 @@ module.exports.saveCalculation = async function (req, res) {
     }
 
 
-    console.log("bank", sql)
+    // //console.log("bank", sql)
     con.query(sql, function (err, insert) {
         let last_id = insert.insertId;
         if (!err) {
@@ -823,7 +872,7 @@ module.exports.updateCalculation = async function (req, res) {
 
 
     var sql = "UPDATE price_calculation SET after_hours='" + after_hours + "',weekend='" + weekend + "',holidays='" + holidays + "',last_minute='" + last_minute + "',rush_fee='" + rush_fee + "',weekend_after_hours='" + weekend_after_hours + "',holiday_after_hours='" + holiday_after_hours + "' WHERE id='1'";
-    console.log("bank", sql);
+    // //console.log("bank", sql);
 
     con.query(sql, function (err, result) {
         if (!err) {
@@ -882,7 +931,7 @@ module.exports.getPriceCalculation = async function (req, res) {
     }
 
 
-    console.log("bank", sql)
+    //console.log("bank", sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -963,7 +1012,7 @@ module.exports.saveBankingInfo = async function (req, res) {
     let paypal_id = req.body.paypal_id;
 
     var sql = "INSERT INTO banking_detail(user_id,bank_name,account_type,bank_country,account_no,bank_routing_no,payment_method,electronic,SWIFT_code,bank_address,paypal_id,is_complete)VALUES('" + user_id + "','" + bank_name + "','" + account_type + "','" + bank_country + "','" + account_no + "','" + bank_routing_no + "','" + payment_method + "','" + electronic + "','" + SWIFT_code + "','" + bank_address + "','" + paypal_id + "','1')";
-    console.log("bank", sql)
+    //console.log("bank", sql)
     con.query(sql, function (err, insert) {
         let last_id = insert.insertId;
         if (!err) {
@@ -1042,7 +1091,7 @@ module.exports.updateBankingInfo = async function (req, res) {
 
 
     var sql = "UPDATE banking_detail SET bank_name='" + bank_name + "',account_type='" + account_type + "',bank_country='" + bank_country + "',account_no='" + account_no + "',bank_routing_no='" + bank_routing_no + "',payment_method='" + payment_method + "',electronic='" + electronic + "',SWIFT_code='" + SWIFT_code + "',bank_address='" + bank_address + "',paypal_id='" + paypal_id + "' WHERE user_id='" + user_id + "'";
-    console.log("bank", sql);
+    //console.log("bank", sql);
 
     con.query(sql, function (err, result) {
         if (!err) {
@@ -1113,9 +1162,9 @@ module.exports.getUsername = async function (req, res) {
     });
     return true;
 
-    // console.log("username", username);
+    // //console.log("username", username);
     // var checUsername = await usermodel.checkUsernameExist(username);
-    // console.log("resultData",checUsername);
+    // //console.log("resultData",checUsername);
     // if (checUsername != "" && checUsername != undefined) {
 
     // }else{
@@ -1190,7 +1239,7 @@ module.exports.getInterpreterForAssignrequest = async function (req, res) {
 module.exports.newAssignmentList = async function (req, res, next) {
     var sql = "SELECT ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='1'";
 
-    console.log("country code sql-", sql)
+    //console.log("country code sql-", sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -1220,7 +1269,7 @@ module.exports.newAssignmentList = async function (req, res, next) {
 module.exports.getCountryCode = async function (req, res, next) {
     var sql = "SELECT * FROM countries";
 
-    console.log("country code sql-", sql)
+    //console.log("country code sql-", sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -1271,7 +1320,7 @@ module.exports.getstate = async function (req, res, next) {
     let country_id = req.body.country_id;
     let codename = '';
     var countrycode = await usermodel.getCountrycode(country_id);
-    console.log(countrycode)
+    //console.log(countrycode)
     if (countrycode != "" && countrycode != undefined) {
         codename = countrycode[0].sortname;
     }
@@ -1281,12 +1330,12 @@ module.exports.getstate = async function (req, res, next) {
 
     var sql = "SELECT * FROM states WHERE country_id='" + country_id + "'";
 
-    console.log("state sql-", sql)
+    //console.log("state sql-", sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
 
             var timeZone = ct.getCountry(codename);
-            // console.log("timeZone-",timeZone);
+            // ////console.log("timeZone-",timeZone);
 
             res.json({
                 status: 1,
@@ -1338,7 +1387,7 @@ module.exports.getCity = async function (req, res, next) {
     let state_id = req.body.state_id;
     var sql = "SELECT * FROM cities WHERE state_id='" + state_id + "'";
 
-    console.log("country code sql-", sql)
+    ////console.log("country code sql-", sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -1393,13 +1442,13 @@ module.exports.addRateReview = async function (req, res) {
     let review = req.body.review ? req.body.review : "";
 
     var resultData = await usermodel.getDataForRequestInfo(unique_code);
-    console.log("resultData", resultData);
+    //console.log("resultData", resultData);
     if (resultData != "" && resultData != undefined) {
         let request_id = resultData[0].job_id;
         let interpreter_id = resultData[0].Interpreter_id;
 
         var sql = "INSERT INTO user_rate_review(request_id,receiver_user_id,rate,review)VALUES('" + request_id + "','" + interpreter_id + "','" + rating + "','" + review + "')";
-        console.log('sql-', sql)
+        //console.log('sql-', sql)
         con.query(sql, function (err, insert) {
             if (!err) {
                 let updatesql = "UPDATE interpreter_request SET unique_code = '' WHERE id='" + resultData[0].id + "'";
@@ -1465,7 +1514,7 @@ module.exports.getInterpreterCurrentLocation = async function (req, res) {
 
     let unique_code = req.body.unique_code;
     var getlocation = await usermodel.getIntgerpreterLocation(unique_code);
-    console.log("getlocation", getlocation);
+    //console.log("getlocation", getlocation);
     if (getlocation != "" && getlocation != undefined) {
         res.json({
             status: 1,
@@ -1493,7 +1542,7 @@ module.exports.getInterpreterCurrentLocation = async function (req, res) {
 
 // add interpreter
 module.exports.assignAllInterpreter = async function (req, res) {
-    console.log("all body", req.body)
+    //console.log("all body", req.body)
     //validation start
     const v = new Validator(req.body, {
 
@@ -1532,11 +1581,11 @@ module.exports.assignAllInterpreter = async function (req, res) {
             con.query(updatesql, function (err, result) { });
         } else {
             var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
-            console.log('sql-', sql)
+            //console.log('sql-', sql)
             con.query(sql, function (err, insert) {
                 if (!err) {
                     var query = "SELECT * FROM request_information_services WHERE id='" + service_id + "'";
-                    console.log(query)
+                    //console.log(query)
                     con.query(query, function (err, result, fields) {
                         if (result && result.length > 0) {
                             let caseworker_name = result[0].caseworker_name;
@@ -1617,7 +1666,7 @@ module.exports.updateInterpreterEvents = async function (req, res) {
     let sql = "UPDATE interpreter_event SET title ='" + title + "',description ='" + description + "', date ='" + date + "', start_time='" + start_time + "',end_time ='" + end_time + "' WHERE id = '" + id + "'";
 
 
-    console.log('sql-', sql)
+    //console.log('sql-', sql)
     con.query(sql, function (err, insert) {
         if (!err) {
             res.json({
@@ -1672,9 +1721,9 @@ module.exports.getLocalEventsData = async function (req, res, next) {
     // interpreter_request as ir,request_information_services as ris,appointment_information_services as ais
     var sql = "SELECT * FROM interpreter_event WHERE user_id='" + user_id + "' && id='" + event_id + "'";
 
-    console.log("local event sql-", sql)
+    //console.log("local event sql-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -1794,9 +1843,9 @@ module.exports.getInterpreterEvents = async function (req, res, next) {
     // interpreter_request as ir,request_information_services as ris,appointment_information_services as ais
     var sql = "SELECT * FROM interpreter_event WHERE user_id='" + user_id + "'";
 
-    console.log("local event sql-", sql)
+    //console.log("local event sql-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -1861,7 +1910,7 @@ module.exports.addInterpreterEvents = async function (req, res) {
     let description = req.body.description ? req.body.description : "";
 
     var sql = "INSERT INTO interpreter_event(user_id,title,description,date,start_time,end_time)VALUES('" + user_id + "','" + title + "','" + description + "','" + date + "','" + start_time + "','" + end_time + "')";
-    console.log('sql-', sql)
+    //console.log('sql-', sql)
     con.query(sql, function (err, insert) {
         let last_id = insert.insertId;
         if (!err) {
@@ -2017,7 +2066,7 @@ module.exports.getIntAccReqDashboardData = async function (req, res, next) {
         }
     }
 
-    console.log("mainArr1", mainArr1)
+    //console.log("mainArr1", mainArr1)
 
     if (mainArr1 != "" && mainArr1 != undefined) {
         res.json({
@@ -2048,9 +2097,9 @@ module.exports.getIntAccReqDashboardData = async function (req, res, next) {
 
 //     var sql = "SELECT ir.status as int_req_status,ris.id as request_id,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ris.status,ais.appointment_type,ais.date,ais.start_time,ais.anticipated_end_time,ais.address FROM interpreter_request as ir INNER JOIN request_information_services as ris ON ris.id=ir.job_id INNER JOIN appointment_information_services as ais ON ais.ris_id=ris.id WHERE ir.Interpreter_id='"+user_id+"' && ir.status='2'";
 
-//     console.log("sql 2-",sql)
+//     //console.log("sql 2-",sql)
 //     con.query(sql, function(err, result, fields) {
-//         // console.log("result-",result)
+//         // //console.log("result-",result)
 //         if (result && result.length > 0) {
 //             res.json({
 //                 status: 1,
@@ -2099,9 +2148,9 @@ module.exports.getNewRequestCount = async function (req, res, next) {
     //validation end
     let user_id = req.body.userId;
     var sql = "SELECT COUNT(id) as new_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && status='1'";
-    console.log("sql 1-", sql)
+    //console.log("sql 1-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -2153,9 +2202,9 @@ module.exports.getAcceptRequest = async function (req, res, next) {
 
     var sql = "SELECT COUNT(id) as accept_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && status='2'";
 
-    console.log("sql 2-", sql)
+    //console.log("sql 2-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -2210,9 +2259,9 @@ module.exports.getRejectRequest = async function (req, res, next) {
 
     var sql = "SELECT COUNT(id) as reject_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && (status='3' || is_reject='1')";
 
-    console.log("sql 3-", sql)
+    //console.log("sql 3-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -2263,9 +2312,9 @@ module.exports.getCompleteRequest = async function (req, res, next) {
 
     var sql = "SELECT COUNT(id) as complete_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && status='4'";
 
-    console.log("sql 4-", sql)
+    //console.log("sql 4-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -2317,9 +2366,9 @@ module.exports.getCancelledRequest = async function (req, res, next) {
     let user_id = req.body.userId;
 
     var sql = "SELECT COUNT(id) as cancel_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && status='5'";
-    console.log("sql 5-", sql)
+    //console.log("sql 5-", sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -2481,15 +2530,15 @@ module.exports.interpreterRequestReply = async function (req, res) {
 
     //update status
     let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
-    console.log("updatesql--", updatesql)
+    //console.log("updatesql--", updatesql)
     con.query(updatesql, function (err, result) {
         if (!err) {
             let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
-            console.log("sql--", sql)
+            //console.log("sql--", sql)
             con.query(sql, function (err, result) { });
             if (res_type == 3) {
                 var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
-                console.log('his_sql-', his_sql)
+                //console.log('his_sql-', his_sql)
                 con.query(his_sql, function (err, insert) { });
             }
 
@@ -2544,7 +2593,7 @@ module.exports.interpreterRequestComplete = async function (req, res) {
     var token = randtoken.generate(30);
 
     var requestData = await usermodel.getInterpreterAndCustomerInfo(user_id, ris_id);
-    console.log("urequestDatapdatesql--", requestData)
+    //console.log("urequestDatapdatesql--", requestData)
     if (requestData != "" && requestData != undefined) {
 
         let requester_name = requestData[0].requester_name;
@@ -2557,11 +2606,11 @@ module.exports.interpreterRequestComplete = async function (req, res) {
 
         //update status
         let updatesql = "UPDATE interpreter_request SET status = '4', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
-        console.log("updatesql--", updatesql)
+        //console.log("updatesql--", updatesql)
         con.query(updatesql, function (err, result) { });
 
         let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
-        console.log("sql--", sql)
+        //console.log("sql--", sql)
         con.query(sql, function (err, result) { });
 
         res.json({
@@ -2651,7 +2700,7 @@ module.exports.getAllPendingRequest = async function (req, res) {
     var mainArr = [];
     var resultdata = await usermodel.getPendingRequestList(serach, start_date, end_date);
     if (resultdata != "" && resultdata != undefined) {
-        console.log("resultdata", resultdata)
+        //console.log("resultdata", resultdata)
         var mainObj = {};
         for (var i = 0; i < resultdata.length; i++) {
 
@@ -2795,7 +2844,7 @@ module.exports.requestSendtoInterpreter = async function (req, res) {
     let email = '';
     var interpreterDetail = await usermodel.getInterpreterInfo(interpreter_id);
     if (interpreterDetail != "" && interpreterDetail != undefined) {
-        console.log("resylt", interpreterDetail)
+        //console.log("resylt", interpreterDetail)
 
         // name=interpreterDetail[0].name;
         name = interpreterDetail[0].first_name + " " + interpreterDetail[0].last_name;
@@ -2822,13 +2871,13 @@ module.exports.requestSendtoInterpreter = async function (req, res) {
     } else {
 
         var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
-        console.log('sql-', sql)
+        //console.log('sql-', sql)
         con.query(sql, function (err, insert) {
             // let last_id= insert.insertId;
             if (!err) {
                 //get data in request form
                 var query = "SELECT * FROM request_information_services WHERE id='" + service_id + "'";
-                console.log(query)
+                //console.log(query)
                 con.query(query, function (err, result, fields) {
                     if (result && result.length > 0) {
                         let caseworker_name = result[0].caseworker_name;
@@ -2907,9 +2956,9 @@ module.exports.getNearbyInterpreter = async function (req, res, next) {
     // var localArr = [];
 
     var mainArr1 = [];
-    // console.log("service_id--",service_id);
+    // //console.log("service_id--",service_id);
     var nearData = await usermodel.getNearInterpreterInfo(lat, long, language_id, searchNameEmail, distance, rate, rating);
-    console.log("nearData hello-", nearData)
+    //console.log("nearData hello-", nearData)
     if (nearData != "" && nearData != undefined) {
         var mainObj1 = {};
         for (var i = 0; i < nearData.length; i++) {
@@ -2973,9 +3022,9 @@ module.exports.getNearbyInterpreter = async function (req, res, next) {
 
 module.exports.getTotalInterpreter = function (req, res, next) {
     var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id ='2'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3004,9 +3053,9 @@ module.exports.getTotalInterpreter = function (req, res, next) {
 
 module.exports.getTotalUser = function (req, res, next) {
     var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id !='1' && role_id !='2'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3035,9 +3084,9 @@ module.exports.getTotalUser = function (req, res, next) {
 
 module.exports.getTotalLanguage = function (req, res, next) {
     var sql = "SELECT COUNT(id) as total_user FROM languages";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3063,9 +3112,9 @@ module.exports.getTotalLanguage = function (req, res, next) {
 
 module.exports.getRole = function (req, res, next) {
     var sql = "SELECT * FROM user_roles order by id desc";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3099,18 +3148,18 @@ module.exports.getInterpreter = async function (req, res, next) {
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
-    console.log("serach", serach)
-    console.log("start_date", start_date)
-    console.log("end_date", end_date)
-    console.log("id", id)
+    //console.log("serach", serach)
+    //console.log("start_date", start_date)
+    //console.log("end_date", end_date)
+    //console.log("id", id)
 
     interpreter_id = '0';
     if (type == '2') {
         var resultdata = await usermodel.getInterpreterIds(id);
-        console.log("resultdata", resultdata)
+        //console.log("resultdata", resultdata)
         if (resultdata != "" && resultdata != undefined) {
             interpreter_id = resultdata[0].id;
-            // console.log("interpreter_id", interpreter_id)
+            // //console.log("interpreter_id", interpreter_id)
         }
     }
     var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id=2 ";
@@ -3135,9 +3184,9 @@ module.exports.getInterpreter = async function (req, res, next) {
         //sql += " && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ";          
     }
     sql += " ORDER BY u.id DESC";
-    console.log("date", sql);
+    //console.log("date", sql);
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3166,9 +3215,9 @@ module.exports.getInterpreter = async function (req, res, next) {
 // module.exports.getInterpreter = function(req, res, next) {
 //     var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id!=1 ORDER BY u.id DESC";
 //     //var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur  ORDER BY id DESC";
-//     console.log(sql)
+//     //console.log(sql)
 //     con.query(sql, function(err, result, fields) {
-//         // console.log("result-",result)
+//         // //console.log("result-",result)
 //         if (result && result.length > 0) {
 //             res.json({
 //                 status: 1,
@@ -3196,9 +3245,9 @@ module.exports.getInterpreter = async function (req, res, next) {
 // get All User
 module.exports.getAllUser = function (req, res, next) {
     var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE (u.role_id!=1 && u.role_id!=2) ORDER BY u.id DESC";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3249,11 +3298,11 @@ module.exports.getInterpreterDetail = async function (req, res, next) {
 
 
     let user_id = req.body.id;
-    console.log(user_id)
+    //console.log(user_id)
     var mainArr = [];
     var resultdata = await usermodel.getInterpreterInfo(user_id);
 
-    console.log("resultdata--", resultdata)
+    //console.log("resultdata--", resultdata)
 
     if (resultdata != "" && resultdata != undefined) {
         var mainObj = {};
@@ -3291,7 +3340,7 @@ module.exports.getInterpreterDetail = async function (req, res, next) {
             mainArr.push(mainObj);
         }
     }
-    console.log("user info-", mainArr);
+    // //console.log("user info-", mainArr);
     if (mainArr && mainArr.length > 0) {
         res.json({
             status: 1,
@@ -3326,7 +3375,7 @@ module.exports.getInterpreterTime = async function (req, res, next) {
     var mainArr = [];
     var resultdata = await usermodel.getUserTime(user_id);
 
-    console.log("start_time-", resultdata);
+    //console.log("start_time-", resultdata);
 
     if (resultdata != "" && resultdata != undefined) {
         var mainObj = {};
@@ -3345,7 +3394,7 @@ module.exports.getInterpreterTime = async function (req, res, next) {
             } else if (resultdata[i].day == '6') {
                 dayname = "Saturday";
             }
-            console.log("start_time-", resultdata[i].start_time);
+            //console.log("start_time-", resultdata[i].start_time);
 
             mainObj = {
                 day: dayname,
@@ -3385,7 +3434,7 @@ module.exports.getInterpreterLanguage = async function (req, res, next) {
     // var mainArr = [];
     var resultdata = await usermodel.getUserLanguage(user_id);
 
-    console.log("start_time-", resultdata);
+    //console.log("start_time-", resultdata);
 
     if (resultdata != "" && resultdata != undefined) {
         // var mainObj = {};
@@ -3404,7 +3453,7 @@ module.exports.getInterpreterLanguage = async function (req, res, next) {
         //     }else if (resultdata[i].day =='6') {
         //         dayname="Saturday";
         //     }
-        //     console.log("start_time-",resultdata[i].start_time);
+        //     //console.log("start_time-",resultdata[i].start_time);
 
         //     mainObj = {
         //         day: dayname,
@@ -3460,7 +3509,7 @@ module.exports.getInterpreterTime_old = async function (req, res, next) {
     let user_id = req.body.id ? req.body.id : 0;
 
     var sql = "SELECT * FROM interpreter_working_time WHERE user_id='" + user_id + "'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -3509,7 +3558,7 @@ module.exports.checkeEmail = async function (req, res) {
     let email = req.body.email;
 
     var sql = "SELECT * FROM user WHERE email='" + email + "'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -3587,12 +3636,12 @@ module.exports.addInterpreter = async function (req, res) {
     password = cryptr.encrypt(password);
 
     var sql = "INSERT INTO user(role_id,first_name,last_name,email,password,mobile,address,gender,latitude,longitude,primary_language,interpreter_rate,apartment,street)VALUES('" + user_role + "','" + first_name + "','" + last_name + "','" + email + "','" + password + "','" + mobile + "','" + address + "','" + gender + "','" + latitude + "','" + longitude + "','" + primary_language + "','" + rate + "','" + apartment + "','" + street + "')";
-    console.log('sql-', sql)
+    //console.log('sql-', sql)
     con.query(sql, function (err, insert) {
         let last_id = insert.insertId;
         if (!err) {
             for (var i = 0; i < languageid.length; i++) {
-                console.log("language id", languageid[i].id);
+                //console.log("language id", languageid[i].id);
                 var sql1 = "INSERT INTO interpreter_language(user_id,language_id)VALUES('" + last_id + "','" + languageid[i].id + "')";
                 con.query(sql1, function (err, insert) { });
             }
@@ -3707,7 +3756,7 @@ module.exports.updateInterpreter = async function (req, res) {
 
     let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
 
-    console.log("sql-update", sql)
+    // //console.log("sql-update", sql)
     con.query(sql, function (err, result) {
         if (!err) {
             res.json({
@@ -3735,7 +3784,7 @@ module.exports.updateInterpreter = async function (req, res) {
 
 
 module.exports.statusUpdate = async function (req, res) {
-    console.log(req.body)
+    // //console.log(req.body)
     let id = req.body.id ? req.body.id : 0;
     let status = req.body.status ? req.body.status : 0;
     let new_status = '';
@@ -3758,7 +3807,7 @@ module.exports.statusUpdate = async function (req, res) {
 
         let sql = "UPDATE user SET status ='" + new_status + "' WHERE id = '" + id + "'";
 
-        console.log("sql-update", sql)
+        // //console.log("sql-update", sql)
         var query = con.query(sql, function (err, result) {
             if (!err) {
                 res.json({
@@ -3783,7 +3832,9 @@ module.exports.statusUpdate = async function (req, res) {
 
 };
 module.exports.update_Account_Setting_Interpreter_Profile = async function (req, res) {
-    console.log(req.body);
+    //console.log(req.body);
+
+    // return
 
      if(req.body.type == 'onsite'){
            for (var i = 0; i < req.body.assignment.length; i++) {
@@ -3805,35 +3856,44 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function (req,
                                 pay_increment_full_day: req.body.assignment[i].full_day_pay_increment 
                                 }
                  
-          await  commonDb.AsyncUpdate('interpreter_assignment_settings', onsitedata ,{id:req.body.assignment[i].id})
-          console.log('=======================',req.body.assignment)
+              
+            var onSiteCheckData =  await  commonDb.getAssignmentSettingsCheck(onsitedata)
+            var onsiteInserted
+              //console.log('onSiteCheckData',onSiteCheckData)
+           if(onSiteCheckData.length == 0){
+             onsiteInserted = await  commonDb.AsyncInsert('interpreter_assignment_settings', onsitedata)
+
+           }else{
+              await  commonDb.AsyncUpdate('interpreter_assignment_settings', onsitedata ,{id:req.body.assignment[i].id})
+           }
           var onSIteLobArr=[];
-          onSIteLobArr.push({interpreter_assignment_settings_id:req.body.assignment[i].id,
+          onSIteLobArr.push({interpreter_assignment_settings_id:onSiteCheckData.length == 0 ?onsiteInserted.insertId : req.body.assignment[i].id,
                                   language_id      :req.body.assignment[i].language_id,
                                   lob:'Legal',
                                   type:'onsite',
                                   rates_on_duration_hourly:req.body.assignment[i].hourly_rate,
                               })
-           onSIteLobArr.push({interpreter_assignment_settings_id:req.body.assignment[i].id,
+           onSIteLobArr.push({interpreter_assignment_settings_id:onSiteCheckData.length == 0 ?onsiteInserted.insertId :req.body.assignment[i].id,
                                   language_id      :req.body.assignment[i].language_id,
                                   lob:'Community',
                                   type:'onsite',
                                   rates_on_duration_hourly:req.body.assignment[i].Communityhourly_rate,
                               })
-            onSIteLobArr.push({interpreter_assignment_settings_id:req.body.assignment[i].id,
+            onSIteLobArr.push({interpreter_assignment_settings_id:onSiteCheckData.length == 0 ?onsiteInserted.insertId :req.body.assignment[i].id,
                                   language_id      :req.body.assignment[i].language_id,
                                   lob:'Medical',
                                   type:'onsite',
                                   rates_on_duration_hourly:req.body.assignment[i].Medicalhourly_rate,
                               })
-            console.log('===============onSIteLobArr========',onSIteLobArr)
-           await  commonDb.AsyncUpdate('interpreter_assignment_settings_lob_rate', {status:2} ,{interpreter_assignment_settings_id:req.body.assignment[0].id,type:'onsite'})
+            // //console.log('===============onSIteLobArr========',onSIteLobArr)
+           await  commonDb.AsyncUpdate('interpreter_assignment_settings_lob_rate', {status:2} ,{language_id:req.body.assignment[i].language_id,interpreter_assignment_settings_id:req.body.assignment[0].id,type:'onsite'})
 
             for (var ii = 0; ii < onSIteLobArr.length; ii++) {
                           await  commonDb.AsyncInsert('interpreter_assignment_settings_lob_rate', onSIteLobArr[ii])
  
             }
           // return
+              
         }
      }
 
@@ -3972,7 +4032,7 @@ module.exports.getlob = async function (req, res) {
 
 }
 module.exports.baseRate = async function (req, res) {
-    console.log("baseRate",req);
+    // //console.log("baseRate",req);
     //validation start
     const v = new Validator(req.body, {
         id: 'required'
@@ -3995,7 +4055,7 @@ module.exports.baseRate = async function (req, res) {
     let id = req.body.id;
 
     var sql = "SELECT * FROM languages WHERE id='" + id + "'";
-    console.log(sql)
+    // //console.log(sql)
     con.query(sql, function (err, result, fields) {
         if (result && result.length > 0) {
             res.json({

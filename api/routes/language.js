@@ -35,9 +35,9 @@ module.exports.getInterpreterInLang = async function(req, res, next) {
    //validation end
    let user_id = req.body.userId;
    var sql = "SELECT COUNT(id) as total_interpreter FROM user WHERE primary_language='"+language_id+"'";
-   console.log("sql 1-",sql)
+   //console.log("sql 1-",sql)
    con.query(sql, function(err, result, fields) {
-       // console.log("result-",result)
+       // //console.log("result-",result)
        if (result && result.length > 0) {
            res.json({
                status: 1,
@@ -91,9 +91,9 @@ module.exports.getAssignmentInLang = async function(req, res, next) {
    //validation end
    let user_id = req.body.userId;
    var sql = "SELECT COUNT(id) as total_assignment FROM appointment_information_services WHERE language='"+language_id+"'";
-   console.log("sql 1-",sql)
+   //console.log("sql 1-",sql)
    con.query(sql, function(err, result, fields) {
-       // console.log("result-",result)
+       // //console.log("result-",result)
        if (result && result.length > 0) {
            res.json({
                status: 1,
@@ -147,7 +147,7 @@ module.exports.getSelectLangInterpreter = async function(req, res) {
 
     let language_id = req.body.language_id;
     var sql = "SELECT u.id,u.first_name,u.last_name,l.name FROM languages as l INNER JOIN user as u ON u.primary_language=l.id WHERE l.id='"+language_id+"'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -183,7 +183,7 @@ module.exports.getSelectLangInterpreter = async function(req, res) {
         return true;
     }else{
         var sql = "INSERT INTO languages(name, code,country, description,status)VALUES('"+name+"', '"+code+"','"+country+"', '"+description+"', '1')";
-        console.log('sql-',sql)
+        //console.log('sql-',sql)
         con.query(sql, function(err, insert) {
             var last_id= insert.insertId;
             if(!err){
@@ -247,7 +247,7 @@ module.exports. addLanguage = async function(req, res) {
     let description = req.body.description ? req.body.description : "";
     
     var resultdata = await usermodel.languageExist(code);
-    console.log("base_rate",base_rate);
+    //console.log("base_rate",base_rate);
     if (resultdata != "" && resultdata != undefined) {
         res.json({
             status: 0,
@@ -258,11 +258,11 @@ module.exports. addLanguage = async function(req, res) {
         return true;
     }else{
         var sql = "INSERT INTO languages(name, code,country,base_rate, description,status)VALUES('"+name+"', '"+code+"','"+country+"','"+base_rate+"', '"+description+"', '1')";
-        console.log('sql-',sql)
+        //console.log('sql-',sql)
         con.query(sql, function(err, insert) {
-            console.log("data",err);
+            //console.log("data",err);
             var last_id= insert.insertId;
-            console.log("last_id",last_id);
+            //console.log("last_id",last_id);
             if(!err){
                 res.json({
                     status: 1,
@@ -325,7 +325,7 @@ module.exports.updateLanguage = async function(req, res) {
     }else{
         sql = "UPDATE languages SET name ='"+name+"', description ='"+description+"' WHERE id = '"+id+"'";
     }
-    console.log("sql--",sql)
+    //console.log("sql--",sql)
     
     var query = con.query(sql, function(err, result) {
         if(!err){
@@ -405,9 +405,9 @@ module.exports.removeLanguage = async function(req, res) {
 
 module.exports.getLanguages = function(req, res, next) {
     var sql = "SELECT * FROM languages order by id desc";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
+        // //console.log("result-",result)
         if (result && result.length > 0) {addLanguage
             res.json({
                 status: 1,
@@ -436,7 +436,7 @@ module.exports.getLanguages = function(req, res, next) {
 module.exports.checkLanguage = function(req, res) {
     let code = req.body.code ? req.body.code : 0;
     var sql = "SELECT * FROM languages WHERE code='"+code+"'";
-    console.log(sql)
+    //console.log(sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -476,7 +476,7 @@ module.exports.getLanguages = async function(req, res, next) {
             var langArr = [];
             var totalInter = await usermodel.getInterpreterInLang(resultdata[i].id);
             var totalAssign = await usermodel.getAssignmentInLang(resultdata[i].id);
-            // console.log("total_interpreter", total_interpreter)
+            // //console.log("total_interpreter", total_interpreter)
             mainObj = {
                 id: resultdata[i].id,
                 name: resultdata[i].name,
@@ -494,7 +494,7 @@ module.exports.getLanguages = async function(req, res, next) {
             mainArr.push(mainObj); 
         } 
     }
-    console.log("user info-",mainArr);
+    //console.log("user info-",mainArr);
     if (mainArr && mainArr.length > 0) {
         res.json({
             status: 1,
@@ -519,7 +519,7 @@ module.exports.getLanguages = async function(req, res, next) {
 
 
 module.exports.langStatusUpdate = async function(req, res) {
-    console.log(req.body)
+    //console.log(req.body)
     
         
         let id = req.body.id ? req.body.id : 0;
@@ -541,11 +541,11 @@ module.exports.langStatusUpdate = async function(req, res) {
             });
             return true;
         }else{
-            console.log("status-",req.body.status)   
-            console.log("new_status-",new_status)   
+            //console.log("status-",req.body.status)   
+            //console.log("new_status-",new_status)   
             let sql = "UPDATE languages SET status ='"+new_status+"' WHERE id = '"+id+"'";
     
-            console.log("sql-update",sql)
+            //console.log("sql-update",sql)
             var query = con.query(sql, function(err, result) {
                 if(!err){
                     res.json({

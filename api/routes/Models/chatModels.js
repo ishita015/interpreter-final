@@ -11,7 +11,7 @@ class chatClass {
         return new Promise(function(resolve, reject) {
             // let sql = "SELECT u.*,c_sender.group_id as c_group_id,c_receiver.group_id as r_group_id from user as u LEFT join chatroom as c_sender on c_sender.sender_id = u.id LEFT join chatroom as c_receiver on c_receiver.receiver_id = u.id where u.id != '"+user_id+"'";
             let sql = "SELECT * FROM `user` WHERE id != '"+user_id+"' && role_id = '"+roleid+"'"
-            console.log("contact sql", sql);
+            //console.log("contact sql", sql);
 
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
@@ -29,7 +29,7 @@ class chatClass {
         return new Promise(function(resolve, reject) {
             let sql = "SELECT * from chatroom where (sender_id = '"+user_id+"' && receiver_id = '"+user_id2+"') || (sender_id = '"+user_id2+"' && receiver_id = '"+user_id+"')";
 
-            console.log("sql group id", sql);
+            //console.log("sql group id", sql);
 
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
@@ -98,7 +98,7 @@ class chatClass {
 
         return new Promise(function(resolve, reject) {
             var sql = "INSERT INTO chatroom (sender_id,receiver_id, group_id, status)values('"+user_id+"','"+request_user_id+"','"+group_id+"','Send')";
-            console.log("req send",sql)
+            //console.log("req send",sql)
             con.query(sql, function(err, result) {
                     if (result != "" && result != "undefined") {
                         resolve(result);
@@ -114,7 +114,7 @@ class chatClass {
         checkpendingRequest(user_id){
         return new Promise(function(resolve, reject) {
              var sql = "SELECT u.id as user_id ,u.full_name as name, u.user_pic as profile_img, cr.sender_id, cr.receiver_id, cr.group_id, cr.request_time, cr. isGroup, cr.reciver_request FROM toot_chat_room as cr inner join toot_users as u on cr.sender_id = u.id WHERE cr.receiver_id ='"+user_id+"' AND cr.reciver_request ='Send' AND cr.sender_block ='0' AND cr.reciver_block ='0'";
-             console.log(sql)
+             //console.log(sql)
                con.query(sql, function(err, result) {
                     if (result != "" && result != "undefined") {
                         resolve(result);
@@ -131,7 +131,7 @@ class chatClass {
         getFollowFollowingIds(user_id){
            return new Promise(function(resolve, reject) {
              var sql = "SELECT user_id,friend_id FROM user_followers WHERE user_id='"+user_id+"' or friend_id='"+user_id+"'";
-             // console.log(sql)
+             // //console.log(sql)
                con.query(sql, function(err, result) {
                     if (result != "" && result != "undefined") {
                         resolve(result);
@@ -175,7 +175,7 @@ class chatClass {
  getSenderBlockIds(user_id){
         return new Promise(function(resolve, reject) {
         var sql = "SELECT receiver_id as userid FROM toot_chat_room WHERE sender_id='"+user_id+"' and sender_block='1'";
-        console.log("sender",sql)
+        //console.log("sender",sql)
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -190,7 +190,7 @@ class chatClass {
     getReceiverBlockIds(user_id){
         return new Promise(function(resolve, reject) {
         var sql = "SELECT sender_id as userid FROM toot_chat_room WHERE receiver_id='"+user_id+"' and reciver_block='1'";
-        console.log("receiver",sql)
+        //console.log("receiver",sql)
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -205,7 +205,7 @@ class chatClass {
      checkUserExist(group_id,user_id){
        return new Promise(function(resolve, reject) {
         var sql = "SELECT * FROM toot_chat_room WHERE group_id='"+group_id+"' AND sender_id='"+user_id+"' AND isGroup='1'";
-        console.log(sql)
+        //console.log(sql)
            con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
