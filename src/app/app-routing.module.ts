@@ -14,6 +14,12 @@ const adminRoutes: Routes = [
     {
       path: 'languages',
       loadChildren: () => import('./views/languages/languages.module').then(m => m.LanguagesModule)
+    },{
+      path: 'lob',
+      loadChildren: () => import('./views/lob/languages.module').then(m => m.LanguagesModule)
+    }, {
+      path: 'language-assignment-settings',
+      loadChildren: () => import('./views/language-assignment-settings/languages.module').then(m => m.LanguagesModule)
     },
     {
       path: 'profile',

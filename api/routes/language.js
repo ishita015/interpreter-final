@@ -6,6 +6,7 @@ var momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault("Asia/Calcutta");
 var userModel = require('./Models/userModels');
 const usermodel = new userModel();
+var commonDb = require('./Models/commonDev');
 
 
 
@@ -569,3 +570,91 @@ module.exports.langStatusUpdate = async function(req, res) {
     
         
     };
+
+    module.exports.getLanguagesActive = async function(req, res, next) {
+           try{
+           var resultdata = await commonDb.AsyncSellectAllWhere('languages',{status:1}); 
+            return res.send({status:true,data:resultdata});
+        }
+        catch{
+            return res.send({status:false,data:[]});
+        }
+}
+    module.exports.calculateRateLanguageSettings = async function(req, res, next) {
+        
+           try{
+           var source_language = await commonDb.AsyncSellectAllWhere('languages',{id:req.body.source_language}); 
+           var destination_language = await commonDb.AsyncSellectAllWhere('languages',{id:req.body.destination_language}); 
+           var c = (parseFloat(source_language[0].base_rate) + parseFloat(destination_language[0].base_rate) )* 2
+
+            return res.send({status:true,data:{total:c,source_language:parseFloat(source_language[0].base_rate ),destination_language:parseFloat(destination_language[0].base_rate)}});
+        }
+        catch{
+            return res.send({status:false,data:[]});
+        }
+        }
+
+module.exports.GetLanguageAssignmentSettings = async function (req, res) {
+     try{
+
+         var data =   await commonDb.GetLanguageAssignmentSettings();
+            return res.send({status:true,data:data});
+        }
+        catch{
+            return res.send({status:false,data:[]});
+        }
+}
+
+module.exports.GetLanguageAssignmentSettingsDetail = async function (req, res) {
+     try{
+
+         var data =   await commonDb.AsyncSellectAllWhere('language_assignment_settings',{id:req.params.id});
+            return res.send({status:true,data:data});
+        }
+        catch{
+            return res.send({status:false,data:[]});
+        }
+}
+module.exports.addEditLanguageSetting = async function (req, res) {
+    var id =req.body.id;
+    var p = req.body;
+    delete p.id;
+    if(id == ''){
+        try{
+
+            await commonDb.AsyncInsert('language_assignment_settings',p);
+            return res.send({status:true,msg:'Language Settings Added Successfully'});
+        }
+        catch{
+            return res.send({status:false,msg:'Something Went Wrong'});
+        }
+
+    }else{
+         try{
+            await commonDb.AsyncUpdate('language_assignment_settings',p,{id:id});
+            return res.send({status:true,msg:'Language Settings Updated Successfully'});
+        }
+        catch{
+            return res.send({status:false,msg:'Something Went Wrong'});
+        }
+    }
+    
+}; 
+
+module.exports.LanguageAssignmentChangeStatus = async function (req, res) {
+    
+         try{
+            await commonDb.AsyncUpdate('language_assignment_settings',{status:req.body.status},{id:req.body.id});
+            if(req.body.status == 2){
+              return res.send({status:true,msg:'Deleted Successfully'});
+
+            }else{
+                return res.send({status:true,msg:'Status Change Successfully'});
+            }
+        }
+        catch{
+            return res.send({status:false,msg:'Something Went Wrong'});
+        }
+   
+    
+};

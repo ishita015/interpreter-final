@@ -61,6 +61,7 @@
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.6.3",
     "socket.io-client": "^3.0.3",
+    "sweetalert2": "^10.14.0",
     "tslib": "^2.0.0",
     "web-animations-js": "^2.3.2",
     "xlsx": "^0.16.9",

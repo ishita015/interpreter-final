@@ -85,6 +85,7 @@ var loginController = require('./routes/login');
 
 var chatController = require('./routes/managechat');
 var mobileController = require('./routes/mobile');
+var lobController = require('./routes/lob');
 // api start
 
 
@@ -289,6 +290,21 @@ app.get('/cesco/getUserRoleMenus/:userRoleId', userroleController.getUserRoleMen
 app.get('/cesco/getClientRoleMenusForPages/:userRoleId', userroleController.getClientRoleMenusForPages);
 app.get('/cesco/getlob', interpreterController.getlob);
 app.post('/cesco/getAssignmentByLanguageID', interpreterController.getAssignmentByLanguageID);
+
+
+
+
+app.post('/cesco/add-edit-lob', lobController.AddEditLob);
+app.post('/cesco/ChangeStatus', lobController.ChangeStatus);
+app.get('/cesco/get-lob', lobController.getLob);
+app.get('/cesco/get-lob-details/:id', lobController.getLobDetail);
+app.get('/cesco/get-lob-active', lobController.getLobActive);
+app.get('/cesco/get-language-active', languageController.getLanguagesActive);
+app.post('/cesco/calculate-rate-language-settings', languageController.calculateRateLanguageSettings);
+app.post('/cesco/addEditLanguageSetting', languageController.addEditLanguageSetting);
+app.get('/cesco/GetLanguageAssignmentSettings', languageController.GetLanguageAssignmentSettings);
+app.get('/cesco/GetLanguageAssignmentSettingsDetail/:id', languageController.GetLanguageAssignmentSettingsDetail);
+app.post('/cesco/LanguageAssignmentChangeStatus', languageController.LanguageAssignmentChangeStatus);
 ////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
 
 // api end

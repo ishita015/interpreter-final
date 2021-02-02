@@ -17,13 +17,25 @@ var database = new function() {
             }
             counter++;
         }
-        //console.log("===dev",que)
+        // console.log("===dev",que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
-            //console.log('err',err)
-            //console.log('err',response)
+            // console.log('err',err)
+            // console.log('err',response)
             
                 resolve(response);
+        });
+
+    }); 
+ }
+
+ this.AsyncSellectAllWhereNotEqual = function(table) {
+       
+        var que = "SELECT * FROM  " + table + " WHERE status != 2 ";
+        
+        return new Promise((resolve, reject) => {
+        con.query(que, (err, response) => {
+            resolve(response);
         });
 
     }); 
@@ -189,7 +201,20 @@ this.getAssignmentSettingsCheck =(onsitedata) =>{
                 if (result != "" && result != "undefined") {
                     resolve(result);
                 } else {
-                    resolve(false);
+                    resolve([]);
+                }
+            });
+        });
+    }
+this.GetLanguageAssignmentSettings = () => {
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT language_assignment_settings.*,master_lob.name as lob_name,l1.name as source_language_name,l2.name as destination_language_name FROM language_assignment_settings LEFT JOIN master_lob ON language_assignment_settings.lob_id = master_lob.id LEFT JOIN languages as l1 ON language_assignment_settings.source_language = l1.id LEFT JOIN languages as l2 ON language_assignment_settings.destination_language = l2.id WHERE language_assignment_settings.status != 2 ORDER BY language_assignment_settings.id DESC"; 
+           // console.log(sql)
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve([]);
                 }
             });
         });

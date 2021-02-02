@@ -1,0 +1,82 @@
+<div class="breadcrumb">
+    <!-- <h1>Language</h1> -->
+    <ul class="heading">
+        <li><a>Language Assignment Settings</a></li>
+        <li>{{Check}}</li> 
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <!-- <form [formGroup]="langaugeForm"> -->
+                <form [formGroup]="langaugeEditForm" (ngSubmit)="submitEdit()">
+                    <div class="row">
+                        
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="language">LOB</label>
+                                <select  class="form-control select" formControlName="lob_id">
+                                    <option *ngFor="let lob of LobData;" value="{{lob.id}}">{{lob.name}}</option>
+                                </select>
+                            <div *ngIf="langaugeEditForm.controls['lob_id'].errors && (!langaugeEditForm.controls['lob_id'].pristine || submitted ||langaugeEditForm.controls['lob_id'].touched )" class="error-msg">
+                                <div [hidden]="!langaugeEditForm.controls['lob_id'].errors.required">LOB is required.</div>
+                              </div>
+                        </div>
+
+                         <div class="col-md-6 form-group mb-3">
+                            <label for="language">Source Language</label>
+                                <select (change)="rateCal($event.target.value,'s')"  class="form-control select" formControlName="source_language">
+                                    <option *ngFor="let lob of LanguageData;" value="{{lob.id}}">{{lob.name}}</option>
+                                </select>
+                            <div *ngIf="langaugeEditForm.controls['source_language'].errors && (!langaugeEditForm.controls['source_language'].pristine || submitted ||langaugeEditForm.controls['source_language'].touched )" class="error-msg">
+                                <div [hidden]="!langaugeEditForm.controls['source_language'].errors.required">Source Language is required.</div>
+                              </div>
+                        </div>
+
+
+                        
+                    </div>
+                    <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                            <label for="language">Destination Language</label>
+                                <select (change)="rateCal($event.target.value,'d')"  class="form-control select" formControlName="destination_language">
+                                    <option *ngFor="let lob of LanguageData;" value="{{lob.id}}">{{lob.name}}</option>
+                                </select>
+                            <div *ngIf="langaugeEditForm.controls['destination_language'].errors && (!langaugeEditForm.controls['destination_language'].pristine || submitted ||langaugeEditForm.controls['destination_language'].touched )" class="error-msg">
+                                <div [hidden]="!langaugeEditForm.controls['destination_language'].errors.required">Destination Language is required.</div>
+                              </div>
+                        </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                            <label for="Bonus">Base Rate (Average)</label>
+                            <input type="number" class="form-control"  formControlName="rate" placeholder="Base Rate (Average)">
+                            <div *ngIf="langaugeEditForm.controls['rate'].errors && (!langaugeEditForm.controls['rate'].pristine || submitted ||langaugeEditForm.controls['rate'].touched )" class="error-msg">
+                                <div [hidden]="!langaugeEditForm.controls['rate'].errors.required">Base Rate is required.</div>
+                              </div>
+                        </div>
+                       
+                    </div>
+
+                   
+
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary">{{Check == 'Add' ? 'Save': 'Update'}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    
