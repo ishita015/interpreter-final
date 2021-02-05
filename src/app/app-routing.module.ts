@@ -43,6 +43,9 @@ const adminRoutes: Routes = [
     {
       path: 'client-request',
       loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
+    },{
+      path: 'interpreter-request',
+      loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
     },
     {
       path: 'permission',
