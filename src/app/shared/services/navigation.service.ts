@@ -134,6 +134,21 @@ export class NavigationService {
             icon: 'i-Add-User',
             state: '/chat/chat',
         },
+        {   
+            name: 'Request-scheduler',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
+            type: 'dropDown',
+            icon: 'i-Library',
+            sub: [
+                { icon: 'i-Bell', name: 'All Request', state: '/request-scheduler/all-request-list-schedular', type: 'link' },
+                // { icon: 'i-Bell', name: 'New Request', state: '/user-request/list', type: 'link' },
+                // { icon: 'i-Bell', name: 'Broadcasting', state: '/interpreter-request/list', type: 'link' },
+                // // { icon: 'i-Split-Horizontal-2-Window', name: 'Assign', state: '/interpreter-request/accept-list', type: 'link' },
+                // { icon: 'i-Split-Horizontal-2-Window', name: 'In Progress', state: '/interpreter-request/accept-list', type: 'link' },
+                // { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/interpreter-request/completed-list', type: 'link' },
+                // { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
+            ]
+        },
        
     ];
 
