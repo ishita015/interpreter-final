@@ -346,7 +346,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for=" Phone No.">Cell Phone No.</label>
-                                    <input type="text"  class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Cell Phone No.">
+                                    <input   type="text" mask="(000) 000-0000"  class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Cell Phone No.">
                                     <div *ngIf="newRequestForm.controls['cell_phone'].errors && (!newRequestForm.controls['cell_phone'].pristine || submitted ||newRequestForm.controls['cell_phone'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
                                     </div>
