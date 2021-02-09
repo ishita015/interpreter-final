@@ -81,6 +81,7 @@ var database = new function() {
         // //console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
+            console.log("AsyncInsert========",err)
                 if(err){
                     //console.log(err)
                 }

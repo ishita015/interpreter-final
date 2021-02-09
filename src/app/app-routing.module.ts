@@ -104,7 +104,11 @@ const adminRoutes: Routes = [
     {
         path: 'icons',
         loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
-    }
+    },
+    {
+      path: 'request-scheduler',
+      loadChildren: () => import('./views/request-scheduler/request-scheduler.module').then(m => m.RequestSchedulerModule)
+    },
   ];
 
 const routes: Routes = [

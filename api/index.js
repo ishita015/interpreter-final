@@ -86,6 +86,9 @@ var loginController = require('./routes/login');
 var chatController = require('./routes/managechat');
 var mobileController = require('./routes/mobile');
 var lobController = require('./routes/lob');
+
+var schedulerController = require('./routes/scheduler');
+  
 // api start
 
 
@@ -305,7 +308,23 @@ app.post('/cesco/addEditLanguageSetting', languageController.addEditLanguageSett
 app.get('/cesco/GetLanguageAssignmentSettings', languageController.GetLanguageAssignmentSettings);
 app.get('/cesco/GetLanguageAssignmentSettingsDetail/:id', languageController.GetLanguageAssignmentSettingsDetail);
 app.post('/cesco/LanguageAssignmentChangeStatus', languageController.LanguageAssignmentChangeStatus);
+
 ////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////Adnan start/////////////////////////////////////////////////////////////////////
+app.get('/cesco/getAllClients', schedulerController.getAllClients);
+app.get('/cesco/getAllAssignmentTypes', schedulerController.getAllAssignmentTypes);
+app.get('/cesco/getAllPlatforms', schedulerController.getAllPlatforms);
+app.get('/cesco/getAllLanguages', schedulerController.getAllLanguages);
+app.get('/cesco/getDays', schedulerController.getDays);
+app.post('/cesco/enterNewInterpreterRequestBasicTab', schedulerController.enterNewInterpreterRequestBasicTab);
+app.get('/cesco/getAllBasicTabList/:id', schedulerController.getAllBasicTabList);
+app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
+
+// app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
+
+////////////////////////////////////////////////////////////////////Adnan end/////////////////////////////////////////////////////////////////////
 
 // api end
 
