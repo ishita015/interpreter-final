@@ -18,6 +18,8 @@
     background-color: #663399 !important;
     border-color: #663399 !important;
      border-radius: 20px;
+     width: 100%;
+
 }
 .topbtn .btn-primary:hover {
     background: transparent !important;
@@ -28,7 +30,9 @@
     .topbtn .btn-primary:last-child{    background: transparent !important;
     border: 1px solid #663399 !important;
     border-radius: 20px;
-    color: #663399 !important;}
+    color: #663399 !important;width: 100%;
+    position: relative;
+    left: 7px;}
         .topbtn .btn-primary:last-child:hover{     color: #fff !important;
     background-color: #663399 !important;
     border-color: #663399 !important;}
