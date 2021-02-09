@@ -1,0 +1,100 @@
+<div class="">
+    <div class="breadcrumb">
+      <ul class="heading">
+        <li><a>All Request Scheduler</a></li>
+        <li>List</li>
+      </ul>
+    </div>
+  
+  
+    <div class="separator-breadcrumb border-top"></div>
+  
+    <div class="row">
+      <!-- <div class="col-md-4">
+        <div class="form-group">
+          <input id="search" placeholder="Email" (keyup)="interpreterAllRequest($event.target.value)"
+            [formControl]="search_email" class="form-control form-control-rounded" type="text">
+        </div>
+  
+      </div> -->
+      <div class="col-md-12">
+        <button class="btn btn-primary mb-2 float-right" (click)="newRequest()">Create New Request</button>
+    </div>
+     
+      <div class="col-md-12 lang_block">
+        <div class="card o-hidden">
+          <ngx-datatable *ngIf="list_Obj?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
+            [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+            [rows]="list_Obj">
+            <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+              <ng-template ngx-datatable-header-template>
+                S.No
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                {{rowIndex +1}}
+              </ng-template>
+            </ngx-datatable-column>
+  
+            <ngx-datatable-column name="Client Name" prop="client_name">
+              <ng-template ngx-datatable-header-template>
+                Client Name
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.client_name}}
+              </ng-template>
+            </ngx-datatable-column>
+  
+  
+            <ngx-datatable-column name="Contact Name" prop="contact_name">
+              <ng-template ngx-datatable-header-template>
+                Contact Name
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.contact_name}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+              <ng-template ngx-datatable-header-template>
+                Cell Phone
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.cell_phone}}
+              </ng-template>
+            </ngx-datatable-column>
+  
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span title="Appointment date"> Assignment Date</span>
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                <span title="{{row.assignment_date}}"> {{row.assignment_date | date:'MM/dd/yyyy' }}</span>
+              </ng-template>
+            </ngx-datatable-column>
+  
+            <ngx-datatable-column name="Request Date" prop="request_date">
+              <ng-template ngx-datatable-header-template>
+                Request Date
+              </ng-template>
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                {{row.request_date }}
+              </ng-template>
+            </ngx-datatable-column>
+  
+            <!-- <ngx-datatable-column [width]="120" [sortable]="false">
+              <ng-template ngx-datatable-header-template>Action
+              </ng-template>
+  
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                <button class="btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
+              </ng-template>
+            </ngx-datatable-column> -->
+          </ngx-datatable>
+        </div>
+        <ng-container *ngIf="list_Obj?.length <= 0">
+          No Data Found
+        </ng-container>
+      </div>
+  
+    </div>
+  </div>
