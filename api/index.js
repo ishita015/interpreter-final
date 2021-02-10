@@ -261,6 +261,7 @@ app.post('/cesco/sendTrackingLink', serviceController.sendTrackingLinkTocustomer
 
 app.post('/cesco/getAllAssignment', serviceController.getAllAssignment);
 app.get('/cesco/getRequestData', serviceController.getRequestData);
+app.post('/cesco/getRequestData', serviceController.getRequestData);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);
 

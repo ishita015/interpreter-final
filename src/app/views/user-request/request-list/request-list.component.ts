@@ -97,6 +97,7 @@ export class RequestListComponent implements OnInit {
     console.log("all", this.allData, this.startDate,this.endDate);
     this.service.getUserRequest(this.allData,this.startDate,this.endDate)
     .subscribe(res => {
+      console.log("==============================res", res);
       if(res['status'] == 1){
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
