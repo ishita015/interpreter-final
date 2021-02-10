@@ -1,5 +1,5 @@
 <div class="breadcrumb">
-    <!-- <h1>Language</h1> -->
+      <!-- <h1>Language</h1> -->
     <ul class="heading">
         <li><a>Request Scheduler</a></li>
         <li>Add</li> 
@@ -10,16 +10,38 @@
 <div class="separator-breadcrumb border-top"></div>
 
 <div class="row">
-    <div class="col-md-12">
-        <button class="btn btn-primary mb-2 ml-2 float-right">+ Add Client</button>
-        <button class="btn btn-primary mb-2  float-right">+ Add Requester</button>
-    </div>
+<!--     <div class="col-md-12 topbtn" style="align-items: center; justify-content: center;">
+        <div class="new-interpriter">
+            <div class="basictap-main">
+               <h4>Enter New Interpreter Request - Basic Tab</h4>
+            </div>
+            <div class="right-buttton float-right">
+                <button class="botton-fst btn btn-primary mb-2 ml-2 float-right">+ Add Client</button>
+                <button class="button-sec btn btn-primary mb-2  float-right">+ Add Requester</button>
+            </div>
+        </div>
+        
+        
+    </div> -->
     <div class="col-md-12">
         <div class="card mb-4">
             <div class="card-body">
+                  <div class="col-md-12 topbtn" style="align-items: center; justify-content: center;">
+        <div class="new-interpriter">
+            <div class="basictap-main">
+               <h4>Enter New Interpreter Request - Basic Tab</h4>
+            </div>
+            <div class="right-buttton float-right">
+                <button routerLink="/client/client-add" class="botton-fst btn btn-primary mb-2 ml-2 float-right">+ Add Client</button>
+                <button class="button-sec btn btn-primary mb-2  float-right">+ Add Requester</button>
+            </div>
+        </div>
+        
+        
+    </div>
                 <form [formGroup]="newRequestForm">
-                    <div class="row">
-                       <div class="col-md-6 form-group mb-3">
+                    <div class="row pl-4">
+                       <div class="col-md-5 form-group mb-3 firstir">
                             <label for="Last">IR #:</label>
                             <input type="text" class="form-control" formControlName="ir"  placeholder="IR #" disabled>
                             <div *ngIf="newRequestForm.controls['ir'].errors && (!newRequestForm.controls['ir'].pristine || submitted ||newRequestForm.controls['ir'].touched )" class="error-msg">
@@ -28,13 +50,14 @@
                         
                         </div>
 
-                        <div class="col-md-6 form-group mb-3">
+                        <div class="col-md-5 form-group mb-3 firstir">
                             <label for="Last">Entered By</label>
                             <input type="text" class="form-control" formControlName="entered_by"  placeholder="Entered By" disabled>
                             <div *ngIf="newRequestForm.controls['entered_by'].errors && (!newRequestForm.controls['entered_by'].pristine || submitted ||newRequestForm.controls['entered_by'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['entered_by'].errors.required">Entered By is required.</div>
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group mb-3">
@@ -56,24 +79,22 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-4 form-group mb-3">
+                        <div class="col-sm-4 form-group mb-3 req_form">
                             <label>Requested By</label>
                             <div class="form-group form-field">
-                                <select class="form-control" (change)="onChangeRequest($event)" formControlName="requested_by"
+                                <select class="form-control"  
                                     id="requested_by" name="requested_by">
                                     <option value="">Requested By</option>
-                                    <option *ngFor="let arr of clientObj" [value]="arr.id">
-                                        {{arr?.name}}
-                                    </option>
+                                    
                                 </select>
                             </div>
-                            <div *ngIf="newRequestForm.controls['requested_by'].errors && ( !newRequestForm.controls['requested_by'].pristine || submitted ||newRequestForm.controls['requested_by'].touched )"
+                         <!--    <div *ngIf="newRequestForm.controls['requested_by'].errors && ( !newRequestForm.controls['requested_by'].pristine || submitted ||newRequestForm.controls['requested_by'].touched )"
                                 class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['requested_by'].errors.required">Requested By is required.
                                 </div>
-                            </div>
-                        </div> -->
-                        <div class="col-sm-4 form-group mb-3">
+                            </div> -->
+                        </div>
+                        <div class="col-sm-4 form-group mb-3 req_date">
                             <label>Request Date</label>
                             <input type="date" name="setTodaysDate" class="form-control" formControlName="request_date"
                                 placeholder="Date">
@@ -130,7 +151,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div *ngIf="simultaneous_var"  class="col-md-2 form-group mb-3">
+                        <div *ngIf="newRequestForm.value.platform == 'On-Site' && newRequestForm.value.receivers_required == '1'"  class="col-md-2 form-group mb-3">
                             <label for="Last">How many recievers?</label>
                             <input type="text" class="form-control" formControlName="how_many_receivers"  placeholder="How many receivers?">
                             <!-- <div *ngIf="newRequestForm.controls['recievers_reqiured'].errors && (!newRequestForm.controls['recievers_reqiured'].pristine || submitted ||newRequestForm.controls['recievers_reqiured'].touched )" class="error-msg">
@@ -200,11 +221,13 @@
                     
                   
                     <div class="offset-lg-4" *ngIf="assignment_var">
-                        <h3>Repeats</h3>
+                        <div class="col-sm-6 borderfull">
+                        <!-- <h3>Repeats</h3> -->
                         <div class="row">
-                            <div class="col-sm-3 form-group mb-3">
-                                <label>Repeats</label>
-                                <div class="form-group form-field">
+                            <div class="col-sm-12 form-group mb-3">
+                               
+                                <div class="form-group form-field rep_lab">
+                                    <label>Repeats</label>
                                     <select class="form-control" (change)="newRepeat($event)" formControlName="repeats">
                                         <option value="1">Daily</option>
                                         <option value="2">Weekly</option>
@@ -213,55 +236,64 @@
                                     </select>
                                 </div>
                             </div>
-                            <div *ngIf="every_show_hide" class="col-sm-3 form-group mb-3">
-                                <div class="form-group form-field">
+                        </div>
+                      
+                        <div class="row">
+                            <div *ngIf="every_show_hide" class="col-sm-12 form-group mb-3">
+                                <div class="form-group form-field border_label span_lab">
                                     <label>Every</label>
                                     <input type="text" class="form-control" formControlName="every" 
                                         onkeypress="if(this.value.length==3) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  
                                         placeholder="Every">
+                                        <span>Week(s)</span>
                                     <div *ngIf="newRequestForm.controls['every'].errors && (!newRequestForm.controls['every'].pristine || submitted ||newRequestForm.controls['every'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['every'].errors.required">Every is required.</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="days" class="row">
-                            <div class="col-sm-3 form-group mb-3">
+                        <div *ngIf="days" class="row new_row">
+                            <div class="col-sm-12 form-group mb-3 border_label">
                                 <label>On</label>
+                                                                <div class="form-check form-check-inline">
+
                                 <div *ngFor="let result of days_Obj;let i=index">
-                                <label class = "checkbox-inline">
-                                    <input type = "checkbox"  
-                                    id="result{{result.day_id}}"
-                                     (change)="changeCheckbox(i)" 
-                                     checked disabled> {{result.day}}
+                                    <input type = "checkbox"id="result{{result.day_id}}"(change)="changeCheckbox(i)" class="form-check-input"checked disabled > 
+                                <label for="result{{result.day_id}}" class = "newlabel  form-check-label checkbox-inline">
+                                    {{result.day}}
                                  </label>
+                             </div>
                                  </div>
                             </div>
                         </div>
-                        <div *ngIf="days2" class="row">
-                            <div class="col-sm-3 form-group mb-3">
+                        <div *ngIf="days2" class="row new_row">
+                            <div class="col-sm-12 form-group mb-3 border_label">
                                 <label>On</label>
+                                               <div class="form-check form-check-inline">
                                 <div *ngFor="let result of days_Obj;let i=index">
-                                <label class = "checkbox-inline">
                                     <input type = "checkbox"  
-                                    id="result{{result.day_id}}"
-                                     (change)="changeCheckbox(i)"> {{result.day}}
+                                    id="result{{result.day_id}}" class="form-check-input"  
+                                     (change)="changeCheckbox(i)">
+                                <label for="result{{result.day_id}}"  class = "newlabel form-check-label checkbox-inline">
+                                     {{result.day}}
                                  </label>
+</div>
                                  </div>
                             </div>
                         </div>
                        
                        
-                        <div *ngIf="start_end" class="row">
-                            <div class="col-sm-3 form-group mb-3">
+                        <!-- <div *ngIf="start_end" class="row"> -->
+                        <div  class="row">
+                            <div class="col-sm-12 form-group mb-3 border_label">
                                 <label>Start Date</label>
                                 <input type="date" class="form-control" id="StartTime" formControlName="event_start_date" placeholder="Start Time">
                                 <div *ngIf="newRequestForm.controls['event_start_date'].errors && ( !newRequestForm.controls['event_start_date'].pristine || submitted ||newRequestForm.controls['event_start_date'].touched )" class="error-msg">
                                    <div [hidden]="!newRequestForm.controls['event_start_date'].errors.required">Start Date is required.</div>
                                  </div>
                             </div>
-    
-                            <div class="col-sm-3 form-group mb-3">
+     
+                            <div class="col-sm-12 form-group mb-3 border_label">
                                 <label>End Date</label>
                                 <input type="date"  class="form-control" id="End Date" (change)="start_end_date($event)"  formControlName="event_end_date" placeholder="End Date">
                                 <div *ngIf="newRequestForm.controls['event_end_date'].errors && ( !newRequestForm.controls['event_end_date'].pristine || submitted ||newRequestForm.controls['event_end_date'].touched )" class="error-msg">
@@ -270,7 +302,7 @@
                             </div>
                         </div>
                     <div class="row">
-                        <div class="col-sm-3 form-group mb-3">
+                        <div class="col-sm-12 form-group mb-3 border_label">
                             <label>Start Time</label>
                             <input type="time" class="form-control" id="StartTime" formControlName="event_start_time" placeholder="Start Time">
                             <div *ngIf="newRequestForm.controls['event_start_time'].errors && ( !newRequestForm.controls['event_start_time'].pristine || submitted ||newRequestForm.controls['event_start_time'].touched )" class="error-msg">
@@ -278,7 +310,7 @@
                              </div>
                         </div>
 
-                        <div class="col-sm-3 form-group mb-3">
+                        <div class="col-sm-12 form-group mb-3 border_label">
                             <label>End Time</label>
                             <input type="time"  class="form-control" id="EndTime" (change)="start_end_time_repeats($event)"  formControlName="event_end_time" placeholder="End Time">
                             <div *ngIf="newRequestForm.controls['event_end_time'].errors && ( !newRequestForm.controls['event_end_time'].pristine || submitted ||newRequestForm.controls['event_end_time'].touched )" class="error-msg">
@@ -286,7 +318,7 @@
                              </div> 
                         </div>
                     </div>
-                   
+                   </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
@@ -314,7 +346,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for=" Phone No.">Cell Phone No.</label>
-                                    <input type="text"  class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Cell Phone No.">
+                                    <input   type="text" mask="(000) 000-0000"  class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "  placeholder="Cell Phone No.">
                                     <div *ngIf="newRequestForm.controls['cell_phone'].errors && (!newRequestForm.controls['cell_phone'].pristine || submitted ||newRequestForm.controls['cell_phone'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
                                     </div>

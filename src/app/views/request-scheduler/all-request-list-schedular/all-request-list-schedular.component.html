@@ -71,7 +71,21 @@
                 <span title="{{row.assignment_date}}"> {{row.assignment_date | date:'MM/dd/yyyy' }}</span>
               </ng-template>
             </ngx-datatable-column>
-  
+    <ngx-datatable-column [width]="120" [sortable]="false">
+            <ng-template ngx-datatable-header-template>Status
+            </ng-template>
+
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+
+              <span class="text-warning" *ngIf="row.status==1">New Request</span>
+              <span class="assign-color" *ngIf="row.status==2">Broadcasting</span>
+              <span class="text-primary" *ngIf="row.status==3">In Progress</span>
+              <span class="text-success" *ngIf="row.status==4">Completed</span>
+              <span class="text-danger" *ngIf="row.status==5">Canceled</span>
+              <!-- <span class="text-danger" >Unable to fill</span> -->
+            </ng-template>
+
+          </ngx-datatable-column>
             <ngx-datatable-column name="Request Date" prop="request_date">
               <ng-template ngx-datatable-header-template>
                 Request Date

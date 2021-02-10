@@ -19,7 +19,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NgxDatatableModule,
     SharedComponentsModule,
     NgbModule,
-    NgxMaskModule
+    NgxMaskModule.forRoot(),
   ]
 })
 export class RequestSchedulerModule { }
