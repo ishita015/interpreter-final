@@ -315,6 +315,7 @@ app.post('/cesco/LanguageAssignmentChangeStatus', languageController.LanguageAss
 
 ////////////////////////////////////////////////////////////////////Adnan start/////////////////////////////////////////////////////////////////////
 app.get('/cesco/getAllClients', schedulerController.getAllClients);
+app.get('/cesco/getAllLOB', schedulerController.getAllLOB);
 app.get('/cesco/getAllAssignmentTypes', schedulerController.getAllAssignmentTypes);
 app.get('/cesco/getAllPlatforms', schedulerController.getAllPlatforms);
 app.get('/cesco/getAllLanguages', schedulerController.getAllLanguages);

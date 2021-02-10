@@ -19,8 +19,8 @@ const ct = require('countries-and-timezones');
 //***** GET ALL CLIENT LIST START *****//
 
 module.exports.getAllClients = async function (req, res) {
-  var result = await commonDb.selectAllWhere("user", { role_id: 3, status: 1 });
   try {
+    var result = await commonDb.selectAllWhere("user", { role_id: 3, status: 1 });
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
@@ -28,12 +28,22 @@ module.exports.getAllClients = async function (req, res) {
 }
 //***** GET ALL CLIENT LIST END *****//
 
-//***** GET ALL ASSIGNMENT TYPES START *****//
+//***** GET ALL LOB START *****//
 
-module.exports.getAllAssignmentTypes = async function (req, res) {
-
-  var result = await commonDb.selectAllWhere("master_lob", { status: 1 });
+module.exports.getAllLOB = async function (req, res) {
   try {
+    var result = await commonDb.selectAllWhere("master_lob", { status: 1 });
+    return res.json({ status: true, msg: 'Data Found!', data: result });
+  } catch (err) {
+    return res.json({ status: false, data: '', msg: 'No Data Found!' });
+  }
+}
+//***** GET ALL LOB END *****//
+
+//***** GET ALL ASSIGNMENT TYPES START *****//
+module.exports.getAllAssignmentTypes = async function (req, res) {
+  try {
+    var result = await commonDb.selectAllWhere("assignment_types", { status: 1 });
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
@@ -43,8 +53,8 @@ module.exports.getAllAssignmentTypes = async function (req, res) {
 
 //***** GET ALL PLATFORMS START *****//
 module.exports.getAllPlatforms = async function (req, res) {
-  var result = await commonDb.selectAllWhere("master_platform", { status: 1 });
   try {
+    var result = await commonDb.selectAllWhere("master_platform", { status: 1 });
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
@@ -55,8 +65,8 @@ module.exports.getAllPlatforms = async function (req, res) {
 //***** GET ALL LANGUAGES START *****//
 
 module.exports.getAllLanguages = async function (req, res) {
-  var result = await commonDb.selectAllWhere("languages", { status: 1 });
   try {
+    var result = await commonDb.selectAllWhere("languages", { status: 1 });
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
@@ -76,7 +86,6 @@ module.exports.getDays = async function (req, res) {
 }
 //***** GET DAYS END *****//
 
-
 //***** ADD NEW BASIC TAB START *****//
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
@@ -89,7 +98,6 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
     return res.json({ status: true, msg: 'Add successfully!' });
 
   } catch (err) {
-    console.log("errerr===", err);
     return res.json({ status: false, msg: 'There was an error in add!' });
   }
 }
@@ -97,13 +105,12 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
 
 
 //***** GET LAST IR START *****//
-
 module.exports.getLastRISEntry = async function (req, res) {
   try {
     var result = await commonDb.getLastRISEntry();
-    return res.json({ status: true, msg: 'Add successfully!', data: { req: "REQ-" + (result[0].id + 1) } });
+    return res.json({ status: true, msg: 'Data Found!', data: { req: "REQ-" + (result[0].id + 1) } });
   } catch (err) {
-    return res.json({ status: false, data: '', msg: 'There was an error in add!' });
+    return res.json({ status: false, data: '', msg: 'No Data Found!' });
   }
 }
 //***** GET LAST IR START *****//
@@ -115,7 +122,6 @@ module.exports.getAllBasicTabList = async function (req, res) {
     var result = await commonDb.getAllBasicTabList(req.params.id);
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
-    console.log("err=====",err)
     return res.json({ status: false, data: '', msg: 'No data found!' });
   }
 }
