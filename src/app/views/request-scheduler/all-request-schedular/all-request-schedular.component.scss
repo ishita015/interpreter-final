@@ -1,0 +1,47 @@
+.dummy_text ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0px 14px !important;
+    border-radius: 15px !important;
+    outline: initial !important;
+    border: 1px solid #dedede !important;
+   background: #f8f9fa;
+   height: 32px;
+    color: #47404f;
+    width: 470px !important;
+   
+   }
+   .dummy_text   .mat-input-element {  border: 1px solid #ced4da !important;
+    background: #f8f9fa;
+    height: 34px;
+    width: 470px !important;
+    position: relative;
+    bottom: 16px;
+    border-radius: 0.25rem;
+   }
+   .dummy_text  .mat-form-field-infix {
+    border-top: 0 solid transparent;
+    bottom: 5px !important;
+}
+   .dummy_text  .mat-form-field {
+    width: 470px !important;
+}
+
+   .dummy_text ::ng-deep .mat-form-field-underline{
+   background: #fff;
+   }
+   .dummy_text ::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 3px 0;
+   }
+   .dummy_text ::ng-deep .mat-form-field-underline {
+    display: none !important;
+   }
+   .dummy_text ::ng-deep  .mat-date-range-input {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+    bottom: 7px;
+   }
+   
+   .dummy_text ::ng-deep .mat-input-element::placeholder{
+   color: #9b9b9b;
+   }
