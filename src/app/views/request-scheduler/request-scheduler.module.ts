@@ -9,6 +9,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
+
 import { AgmCoreModule } from '@agm/core';
 import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -19,6 +20,12 @@ import { CancelledRequestComponent } from './cancelled-request/cancelled-request
 import { AcceptRequestComponent } from './accept-request/accept-request.component';
 import { BroadcastRequestComponent } from './broadcast-request/broadcast-request.component';
 import { MaterialModule } from '../../material.module';
+
+import { RequestDetailComponent } from './request-detail/request-detail.component';
+import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
+
+
+
 @NgModule({
   declarations: [
     AllRequestSchedularComponent,
@@ -27,7 +34,10 @@ import { MaterialModule } from '../../material.module';
     CompleteRequestComponent,
     CancelledRequestComponent,
     AcceptRequestComponent,
-    BroadcastRequestComponent
+    BroadcastRequestComponent,
+    RequestDetailComponent,
+    InterpreterListComponent
+   
   ],
   imports: [
     CommonModule,

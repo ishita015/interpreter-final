@@ -7,6 +7,10 @@ import { CompleteRequestComponent } from './complete-request/complete-request.co
 import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
 import { AcceptRequestComponent } from './accept-request/accept-request.component';
 import { BroadcastRequestComponent } from './broadcast-request/broadcast-request.component';
+import { RequestDetailComponent } from './request-detail/request-detail.component';
+import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
+
+
 const routes: Routes = [
   { path: 'all-request-schedular', component:AllRequestSchedularComponent },
   { path: 'all-request-list-schedular', component:AllRequestListSchedularComponent },
@@ -15,6 +19,8 @@ const routes: Routes = [
   { path: 'completed-list-schedular', component: CompleteRequestComponent },
   { path: 'cancelled-list-schedular', component: CancelledRequestComponent },
   { path: 'broadcast-list-schedular', component: BroadcastRequestComponent },
+  { path: 'details/:id', component: RequestDetailComponent },
+  { path: 'interpreter-view/:id', component: InterpreterListComponent },
 ];
 
 @NgModule({
