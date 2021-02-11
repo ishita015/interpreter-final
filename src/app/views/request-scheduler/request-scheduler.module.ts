@@ -23,6 +23,8 @@ import { MaterialModule } from '../../material.module';
 
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 
+
+
 @NgModule({
   declarations: [
     AllRequestSchedularComponent,
@@ -33,7 +35,8 @@ import { RequestDetailComponent } from './request-detail/request-detail.componen
     CancelledRequestComponent,
     AcceptRequestComponent,
     BroadcastRequestComponent,
-    RequestDetailComponent
+    RequestDetailComponent,
+   
   ],
   imports: [
     CommonModule,
