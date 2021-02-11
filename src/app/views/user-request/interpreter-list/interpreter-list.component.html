@@ -2,19 +2,19 @@
   <div class="col-md-4">
       <div>
           <label for="test"><b>Caseworker Name  :   </b></label>
-          <span>  {{assignInfo.caseworker_name}}  </span>
+          <span>  {{assignInfo?.caseworker_name}}  </span>
       </div>
       <div>
           <label for="test"><b>Requester Name  :   </b></label>
-          <span>  {{assignInfo.requester_name}}  </span>
+          <span>  {{assignInfo?.requester_name}}  </span>
       </div>
       <div>
           <label for="test"><b>Email  :   </b></label>
-          <span>  {{assignInfo.email}}  </span>
+          <span>  {{assignInfo?.email}}  </span>
       </div>
       <div>
         <label for="test"><b>Mobile No. :   </b></label>
-        <span>  {{assignInfo.office_phone | mask: '(000) 000-0000'}}  </span>
+        <span>  {{assignInfo?.office_phone | mask: '(000) 000-0000'}}  </span>
     </div>
 
     <button class="btn btn-outline-secondary" (click)="viewDetail()">View Detail</button>  

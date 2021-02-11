@@ -1,4 +1,5 @@
 const commenModel = {};
+const { lightFormat } = require('date-fns');
 var sql = require('../../config');
 runSQLquery = (query, data) => {
     return new Promise((resolve, reject) => {
@@ -125,9 +126,17 @@ commenModel.getAllBasicTabList = (id) => {
 
 //*****  Get request details start *****//
 commenModel.getRequestDetails = (id) => {
-    var que = "SELECT ris.id,ris.caseworker_name, ris.business_bill, ris.requester_name, ris.health_department, ris.north_metro_community_service, ris.human_services, ris.ahs_department, ris.office_phone, ris.cell_phone, ris.email, ris.site_contact, ris.human_services, ris.cell_phone, ris.status, DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date, ais.case_name, ais.address, ais.notes, ais.client_name, ais.name_of_contact_person, languages.name as language, ais.cell_phone as cellphone_contact_person, ais.doctor as name_of_provider, ais.name_of_person, ais.claim_number, ais.appointment_type, ais.service_requested, ais.school_name, ais.trails, ais.how_many_receivers, ais.date, ais.start_time, ais.anticipated_end_time FROM request_information_services as ris LEFT JOIN appointment_information_services as ais ON ris.id = ais.ris_id LEFT JOIN languages ON languages.id = ais.language WHERE ris.id = " + id;
+    var que = "SELECT ris.id,ris.scheduler_id, ris.caseworker_name, ris.type, ris.business_bill, ris.requester_name, ris.health_department, ris.north_metro_community_service, ris.human_services, ris.ahs_department, ris.office_phone, ris.cell_phone, ris.email, ris.site_contact, ris.human_services, ris.status, DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date, ris.is_reject, ais.case_name, ais.client_name, ais.name_of_contact_person, ais.cell_phone as cellphone_contact_person, ais.name_of_person, ais.doctor as name_of_provider, ais.patient, ais.address, ais.claim_number, ais.school_name, ais.trails, ais.appointment_type, ais.date,  ais.start_time, ais.anticipated_end_time, ais.service_requested, ais.receivers_required, ais.address, ais.language as language_id,languages.name as language, ais.latitude, ais.longitude, ais.notes, ais.entered_by, ais.requested_by, ais.request_date, ais.platform, ais.assignment_type, ais.phone_code, ais.how_many_receivers, ais.ir, ais.assignment_date, ais.from_time, ais.to_time, ais.lob, ais.recurrent_assignment, ais.building_name, ais.building_address, ais.room, ais.repeats, ais.event_at, ais.event_start_date, ais.event_start_time, ais.event_end_date, ais.event_end_time, ais.every, ais.event_duration FROM request_information_services as ris LEFT JOIN appointment_information_services as ais ON ris.id = ais.ris_id LEFT JOIN languages ON languages.id = ais.language WHERE ris.id = " + id;
     return runSQLquery(que);
 }
 //***** Get request details end *****//
+
+//*****  Get REQ code start *****//
+commenModel.getCode = () => {
+    var que = "SELECT * FROM master_code";
+    return runSQLquery(que);
+
+}
+//***** Get REQ code end *****//
 
 module.exports = commenModel;

@@ -14,7 +14,6 @@ import { AgmCoreModule } from '@agm/core';
 import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
-
 import { RequestListComponent } from './request-list/request-list.component';
 import { CompleteRequestComponent } from './complete-request/complete-request.component';
 import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
@@ -23,6 +22,7 @@ import { BroadcastRequestComponent } from './broadcast-request/broadcast-request
 import { MaterialModule } from '../../material.module';
 
 import { RequestDetailComponent } from './request-detail/request-detail.component';
+
 @NgModule({
   declarations: [
     AllRequestSchedularComponent,

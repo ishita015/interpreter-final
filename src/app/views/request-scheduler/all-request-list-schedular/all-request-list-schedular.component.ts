@@ -28,7 +28,6 @@ export class AllRequestListSchedularComponent implements OnInit {
   array_Obj;
   msg;
   reminder;
- 
   view_obj;
   resp_msg;
   status;
@@ -108,7 +107,8 @@ export class AllRequestListSchedularComponent implements OnInit {
         // console.log("statusssss",this.searchStatus );
          this.email_formdata = this.search_email.value;
          this.searchEmail = this.email_formdata ;
-
+        console.log("=========================startDate",this.startDate);
+        console.log("=========================endDate",this.endDate);
         //  alert(this.status);
 
          this.service.interpreterAllRequestList(this.searchStatus,this.searchEmail,this.startDate,this.endDate)

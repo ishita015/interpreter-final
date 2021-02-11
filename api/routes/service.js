@@ -961,7 +961,7 @@ module.exports.getRecordid = async function(req, res) {
 
 // get all assignment/all request
 module.exports.getAllAssignment = async function(req, res) {
-
+    console.log("=============================req.body",req.body);
     let status = req.body.status ? req.body.status : '0';
     let lang_id = req.body.lang_id ? req.body.lang_id : '0';
     let search_email = req.body.search_email ? req.body.search_email : "";
@@ -999,7 +999,7 @@ module.exports.getAllAssignment = async function(req, res) {
     }
 
 
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
+    var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
 
 
     if(lang_id != '0' ) { 
@@ -1065,7 +1065,7 @@ module.exports.getRequestData = function(req, res) {
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
-    var sql = "SELECT ris.*,ais.language,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1'";
+    var sql = "SELECT ris.*,ais.language,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1'";
 
     if( serach != "") {
         sql += " && (ris.email LIKE  '%" + serach + "%')";

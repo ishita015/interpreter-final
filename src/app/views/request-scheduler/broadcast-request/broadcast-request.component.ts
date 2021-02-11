@@ -111,6 +111,7 @@ export class BroadcastRequestComponent implements OnInit {
           this.userData = [...res['data']];
           // console.log("listttttttt", this.list_Obj);
           this.filteredUser = this.list_Obj;
+          console.log("=================",this.filteredUser);
         }
       });
   }
