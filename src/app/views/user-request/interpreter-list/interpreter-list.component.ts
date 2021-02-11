@@ -98,7 +98,7 @@ export class InterpreterListComponent implements OnInit {
     //   this.filerData(value);
     // });
   }
-  getRequestDetails() {
+  getRequestDetails() { 
     this.service.get("getRequestDetails/" + this.serviceid).subscribe((res) => {
       this.assignInfo = res['data'][0];
       console.log("this.assignInfo=============", this.assignInfo);
