@@ -36,6 +36,9 @@ export class SigninComponent implements OnInit {
      }
 
     ngOnInit() {
+        if(localStorage.getItem('userId') != null){
+             this.router.navigate(['dashboard/v1'])   
+        }
         this.router.events.subscribe(event => {
             if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
                 this.loadingText = 'Loading Dashboard Module...';
