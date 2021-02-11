@@ -98,6 +98,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
     return res.json({ status: true, msg: 'Add successfully!' });
 
   } catch (err) {
+    console.log("err===========", err);
     return res.json({ status: false, msg: 'There was an error in add!' });
   }
 }
@@ -108,7 +109,8 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
 module.exports.getLastRISEntry = async function (req, res) {
   try {
     var result = await commonDb.getLastRISEntry();
-    return res.json({ status: true, msg: 'Data Found!', data: { req: "REQ-" + (result[0].id + 1) } });
+    var getCode = await commonDb.getCode();
+    return res.json({ status: true, msg: 'Data Found!', data: { req: getCode[0].code + '-' + (result[0].id + 1) } });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
   }
@@ -134,7 +136,7 @@ module.exports.getRequestDetails = async function (req, res) {
     var result = await commonDb.getRequestDetails(req.params.id);
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
-    console.log("=======================",err);
+    console.log("=======================", err);
     return res.json({ status: false, data: '', msg: 'No data found!' });
   }
 }

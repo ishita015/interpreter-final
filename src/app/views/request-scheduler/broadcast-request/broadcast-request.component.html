@@ -58,7 +58,30 @@
                     {{row.caseworker_name}}
                   </ng-template>
                 </ngx-datatable-column> -->
-
+                <ngx-datatable-column name="IR" prop="ir">
+                  <ng-template ngx-datatable-header-template>
+                    IR
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.ir}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Client Name" prop="client_name">
+                  <ng-template ngx-datatable-header-template>
+                    Client Name
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.client_name}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
+                  <ng-template ngx-datatable-header-template>
+                    Contact Person
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.name_of_contact_person}}
+                  </ng-template>
+                </ngx-datatable-column>
                  <ngx-datatable-column name="Appointment Type" prop="appointment_type">
                   <ng-template ngx-datatable-header-template>
                     Appointment Type
@@ -129,7 +152,6 @@
                
             </ngx-datatable-column>
             
-            
              <ngx-datatable-column [width]="120" [sortable]="false" >
                 <ng-template ngx-datatable-header-template>Action
                 </ng-template>
@@ -153,7 +175,7 @@
             </ngx-datatable>
           </div>
           <ng-container *ngIf="list_Obj?.length <= 0">
-              No Data Found
+              No Data Found!
           </ng-container>
         </div>
           

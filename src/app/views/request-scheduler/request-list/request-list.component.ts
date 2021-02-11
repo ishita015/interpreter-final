@@ -137,15 +137,13 @@ export class RequestListComponent implements OnInit {
 
   //assign
   assignMyNearbyInterpreter(service_id,info){
-    console.log("id assign",service_id);
-    console.log("Infoooooooooooo lang",info.language);
     
-    localStorage.setItem('assignData', JSON.stringify(info));
-    localStorage.setItem('serviceId', JSON.stringify(service_id));
+    // localStorage.setItem('assignData', JSON.stringify(info));
+    // localStorage.setItem('serviceId', JSON.stringify(service_id));
     this.service.myNearbyInterpreter(service_id,info.language,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
         this.interpreter_obj = res['data'];
         console.log("interpreter_obj",  this.interpreter_obj);
-        localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
+        // localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
         this.router.navigate(['/user-request/interpreter-view',service_id])
     })
   }

@@ -2708,6 +2708,10 @@ module.exports.getAllPendingRequest = async function (req, res) {
             var totalInter = await usermodel.getSendInterpreterRequest(resultdata[i].ris_id);
 
             mainObj = {
+                client_name: resultdata[i].client_name,
+                ir: resultdata[i].ir,
+                name_of_contact_person: resultdata[i].name_of_contact_person,
+                created_date: resultdata[i].created_date,
                 ris_id: resultdata[i].ris_id,
                 requester_name: resultdata[i].requester_name,
                 office_phone: resultdata[i].office_phone,
