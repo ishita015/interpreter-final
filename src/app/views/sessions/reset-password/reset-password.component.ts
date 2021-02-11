@@ -7,12 +7,12 @@ import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, Resolve
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-forgot',
-  templateUrl: './forgot.component.html',
-  styleUrls: ['./forgot.component.scss'],
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss'],
   animations: [SharedAnimations]
 })
-export class ForgotComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
 
   Form: FormGroup;
     submitted = false;

@@ -9,6 +9,9 @@ const usermodel = new userModel();
 var randtoken = require('rand-token');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
+var commonDb = require('./Models/commonDev');
+var mail = require('../helper/mail');
+const btoa = require('btoa');
 
 
 // user login
@@ -168,3 +171,32 @@ module.exports.userlogin = async function(req, res) {
 
 
 
+
+module.exports.forgetPassword = async function(req, res) {
+    try{
+        var userdata = await commonDb.AsyncSellectAllWhere('user',{email:req.body.email});
+        if(userdata.length == 0){
+            return res.send({status:false,msg:'Please enter correct email'});
+        }else{
+             await commonDb.AsyncUpdate('user',{reset_password_key:btoa(req.body.email)},{email:req.body.email});
+                var url = process.env.reset_password+'/'+btoa(req.body.email);
+                req.body.url=url;
+                var EmailTemplate = await commonDb.AsyncSellectAllWhere('email_template',{id:1});
+                if(EmailTemplate.length == 0){
+                   return res.send({status:false,msg:'Please add Email Template'});
+                }else{
+                    req.body.subject = EmailTemplate[0].subject;
+                    req.body.body = EmailTemplate[0].body;
+                    mail.forgetPasswordMail(req.body,(err,sendmail) =>{
+                       return res.send({status:true,msg:'Mail sent successfully.'});
+                    })
+                }
+
+        }
+    }
+    catch(err){
+        console.log(err)
+           return res.send({status:false,msg:'Something went wrong'});
+    }
+
+}
