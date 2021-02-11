@@ -116,7 +116,6 @@ module.exports.getLastRISEntry = async function (req, res) {
 //***** GET LAST IR START *****//
 
 //***** GET ALL BASIC TAB LIST START *****//
-
 module.exports.getAllBasicTabList = async function (req, res) {
   try {
     var result = await commonDb.getAllBasicTabList(req.params.id);
@@ -126,3 +125,17 @@ module.exports.getAllBasicTabList = async function (req, res) {
   }
 }
 //***** GET ALL BASIC TAB LIST END *****//
+
+
+//***** GET REQUEST DETAILS START *****//
+
+module.exports.getRequestDetails = async function (req, res) {
+  try {
+    var result = await commonDb.getRequestDetails(req.params.id);
+    return res.json({ status: true, msg: 'Data Found!', data: result });
+  } catch (err) {
+    console.log("=======================",err);
+    return res.json({ status: false, data: '', msg: 'No data found!' });
+  }
+}
+//***** GET REQUEST DETAILS END *****//

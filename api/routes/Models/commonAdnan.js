@@ -123,4 +123,11 @@ commenModel.getAllBasicTabList = (id) => {
 //***** Get all basic tab list end *****//
 
 
+//*****  Get request details start *****//
+commenModel.getRequestDetails = (id) => {
+    var que = "SELECT ris.id,ris.caseworker_name, ris.business_bill, ris.requester_name, ris.health_department, ris.north_metro_community_service, ris.human_services, ris.ahs_department, ris.office_phone, ris.cell_phone, ris.email, ris.site_contact, ris.human_services, ris.cell_phone, ris.status, DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date, ais.case_name, ais.address, ais.notes, ais.client_name, ais.name_of_contact_person, languages.name as language, ais.cell_phone as cellphone_contact_person, ais.doctor as name_of_provider, ais.name_of_person, ais.claim_number, ais.appointment_type, ais.service_requested, ais.school_name, ais.trails, ais.how_many_receivers, ais.date, ais.start_time, ais.anticipated_end_time FROM request_information_services as ris LEFT JOIN appointment_information_services as ais ON ris.id = ais.ris_id LEFT JOIN languages ON languages.id = ais.language WHERE ris.id = " + id;
+    return runSQLquery(que);
+}
+//***** Get request details end *****//
+
 module.exports = commenModel;

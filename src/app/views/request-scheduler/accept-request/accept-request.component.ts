@@ -31,8 +31,8 @@ export class AcceptRequestComponent implements OnInit {
   noteForm: FormGroup;
   view_obj;
   resp_msg;
-  ReadOnlyStyleGuideNotes: boolean =false;
-  call_check:boolean = false;
+  ReadOnlyStyleGuideNotes: boolean = false;
+  call_check: boolean = false;
   // searchControl: FormControl = new FormControl();
 
   //search calendar
@@ -55,7 +55,7 @@ export class AcceptRequestComponent implements OnInit {
 
 
   ngOnInit() {
-   
+
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
 
@@ -68,7 +68,7 @@ export class AcceptRequestComponent implements OnInit {
     //   .subscribe(value => {
     //     this.filerData(value);
     //   });
-      this.createForm();
+    this.createForm();
     /*this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
     this.array_Obj = this.roleData['data'][0];
     if(this.array_Obj.id){
@@ -77,13 +77,13 @@ export class AcceptRequestComponent implements OnInit {
     }
     */
   }
-   /*========== Form Value Start Here========*/
- createForm() {
-  this.noteForm = this.fb.group({
-    notes:['']
-  });
-}
-/*========== Form Value End Here========*/
+  /*========== Form Value Start Here========*/
+  createForm() {
+    this.noteForm = this.fb.group({
+      notes: ['']
+    });
+  }
+  /*========== Form Value End Here========*/
 
   // filerData(val) {
   //   if (val) {
@@ -115,7 +115,7 @@ export class AcceptRequestComponent implements OnInit {
     this.startDate = this.range.value.start_date;
     this.endDate = this.range.value.end_date;
     this.service.interpreterRequestList(this.roleId, this.userId, '2', this.allData,
-    this.startDate,this.endDate)
+      this.startDate, this.endDate)
       .subscribe(res => {
         if (res['status'] == '1') {
           console.log("api response", res);
@@ -124,8 +124,8 @@ export class AcceptRequestComponent implements OnInit {
           // console.log("listttttttt", this.list_Obj);
           this.filteredUser = this.list_Obj;
         }
-
       });
+    console.log("=======================filter", this.filteredUser)
   }
 
   // request completed by interpreter
@@ -150,102 +150,102 @@ export class AcceptRequestComponent implements OnInit {
       }, (reason) => {
       });
   }
-  
+
   //send reminder
-  reminder_popup_open(id,risId,modal) {
-    console.log("iddddddd",id,risId);
+  reminder_popup_open(id, risId, modal) {
+    console.log("iddddddd", id, risId);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-    .result.then((result) => {
-      this.service.getReminderRequest(id,risId,this.noteForm.value.notes)
-        .subscribe(res => {
-          this.reminder = res;
-          // this.msg.message = res;
-          console.log("reminder form", this.reminder);
-          if (res['status'] == 1) {
-            this.toastr.success(this.reminder.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
-            this.router.navigate(['/interpreter-request/accept-list']);
-          }
-        })
-    }, (reason) => {
-    });
-    
+      .result.then((result) => {
+        this.service.getReminderRequest(id, risId, this.noteForm.value.notes)
+          .subscribe(res => {
+            this.reminder = res;
+            // this.msg.message = res;
+            console.log("reminder form", this.reminder);
+            if (res['status'] == 1) {
+              this.toastr.success(this.reminder.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
+              this.router.navigate(['/interpreter-request/accept-list']);
+            }
+          })
+      }, (reason) => {
+      });
+
   }
 
 
 
   // trackingLinkSend(row.ris_id, linkConfirmModal)
 
-  trackingLinkSend(id,risId,modal) {
-    console.log("iddddddd",id,risId);
+  trackingLinkSend(id, risId, modal) {
+    console.log("iddddddd", id, risId);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-    .result.then((result) => {
-      this.service.interpreterTrackingLinkSend(id,risId).subscribe(res => {
+      .result.then((result) => {
+        this.service.interpreterTrackingLinkSend(id, risId).subscribe(res => {
           this.resp_msg = res;
           // this.msg.message = res;
           console.log("reminder form", this.reminder);
           if (res['status'] == 1) {
             this.toastr.success(this.resp_msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
             this.router.navigate(['/interpreter-request/accept-list']);
-          }else{
+          } else {
             this.toastr.error(this.resp_msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
             this.router.navigate(['/interpreter-request/accept-list']);
           }
         })
-    }, (reason) => {
-    });
-    
+      }, (reason) => {
+      });
+
   }
 
 
-  call_Check(){
-    if(this.ReadOnlyStyleGuideNotes){
+  call_Check() {
+    if (this.ReadOnlyStyleGuideNotes) {
       this.ReadOnlyStyleGuideNotes = false;
     }
-    else{
+    else {
       this.ReadOnlyStyleGuideNotes = true;
-     
+
     }
   }
 
-  email_check(){
-  
-    if( this.call_check){
+  email_check() {
+
+    if (this.call_check) {
       this.call_check = false;
     }
-    else{
+    else {
       this.call_check = true;
     }
   }
-  sms_check(){
-    if( this.call_check){
+  sms_check() {
+    if (this.call_check) {
       this.call_check = true;
     }
-    else{
+    else {
       this.call_check = false;
     }
   }
-  push_check(){
-    if( this.call_check){
+  push_check() {
+    if (this.call_check) {
       this.call_check = true;
     }
-    else{
+    else {
       this.call_check = false;
     }
   }
 
-  viewDetail(request_id){
-    console.log("id--",  request_id);
+  viewDetail(request_id) {
+    console.log("id--", request_id);
     this.service.getRequestDetail(request_id).subscribe(res => {
-      if(res['status'] == 1){
+      if (res['status'] == 1) {
         this.view_obj = res['data'][0];
-        console.log("api data",  this.view_obj);
+        console.log("api data", this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-        this.router.navigate(['/user-request/request-view',request_id]);
-      }else{
+        this.router.navigate(['/user-request/request-view', request_id]);
+      } else {
         this.resp_msg = res;
-        this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
+        this.toastr.error(this.resp_msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
       }
-        
+
     })
   }
 

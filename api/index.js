@@ -196,7 +196,8 @@ app.post('/cesco/getCity', interpreterController.getCity);
 
 app.get('/cesco/getNewAssignmentList', interpreterController.newAssignmentList);
 
-app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
+// app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
+app.post('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
 app.post('/cesco/interpreterForAssignrequest', interpreterController.getInterpreterForAssignrequest);
 
 app.post('/cesco/addRateReview', interpreterController.addRateReview);
@@ -323,6 +324,9 @@ app.get('/cesco/getDays', schedulerController.getDays);
 app.post('/cesco/enterNewInterpreterRequestBasicTab', schedulerController.enterNewInterpreterRequestBasicTab);
 app.get('/cesco/getAllBasicTabList/:id', schedulerController.getAllBasicTabList);
 app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
+
+app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
+
 
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 
