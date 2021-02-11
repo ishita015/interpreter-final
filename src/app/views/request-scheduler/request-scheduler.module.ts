@@ -22,6 +22,7 @@ import { BroadcastRequestComponent } from './broadcast-request/broadcast-request
 import { MaterialModule } from '../../material.module';
 
 import { RequestDetailComponent } from './request-detail/request-detail.component';
+import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
 
 
 
@@ -30,12 +31,12 @@ import { RequestDetailComponent } from './request-detail/request-detail.componen
     AllRequestSchedularComponent,
     AllRequestListSchedularComponent,
     RequestListComponent,
-   
     CompleteRequestComponent,
     CancelledRequestComponent,
     AcceptRequestComponent,
     BroadcastRequestComponent,
     RequestDetailComponent,
+    InterpreterListComponent
    
   ],
   imports: [

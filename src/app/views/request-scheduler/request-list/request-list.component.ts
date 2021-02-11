@@ -145,7 +145,7 @@ export class RequestListComponent implements OnInit {
         this.interpreter_obj = res['data'];
         console.log("interpreter_obj",  this.interpreter_obj);
         // localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
-        this.router.navigate(['/user-request/interpreter-view',service_id])
+        this.router.navigate(['/request-scheduler/interpreter-view',service_id])
     })
   }
 
