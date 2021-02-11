@@ -91,9 +91,13 @@ var schedulerController = require('./routes/scheduler');
   
 // api start
 
+/*forget-password*/
+
+app.post('/cesco/forget-password', loginController.forgetPassword);
+/*forget-password*/
+
 
 //chat start api
-app.post('/cesco/getContactList', chatController.getContactList);
 
 app.post('/cesco/getChatData', chatController.getChats);
 app.post('/cesco/sendRequest', chatController.sendRequest);
