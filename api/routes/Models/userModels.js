@@ -552,7 +552,7 @@ class userClass {
     
             sql += " ORDER BY u.distance ASC";  
 
-            //console.log("sql-",sql);
+            console.log("sql------------------",sql);
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
