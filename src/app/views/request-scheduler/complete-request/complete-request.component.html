@@ -1,0 +1,170 @@
+<div class="">
+<div class="breadcrumb">
+<ul class="heading">
+<li><a>Completed</a></li>
+<li>List</li>
+</ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+<div class="col-md-4">
+<div class="form-group">
+<input id="search" (keyup)="interpreterRequestData($event.target.value)" placeholder="Search" [formControl]="search_name" class="form-control form-control-rounded" type="text">
+</div>
+</div>
+
+<div class="col-md-4 dummy_text">
+<mat-form-field appearance="fill">
+<!-- <mat-label>Enter a date range</mat-label> -->
+<mat-date-range-input [formGroup]="range"
+[rangePicker]="picker">
+<input matStartDate formControlName="start_date" (dateChange)="interpreterRequestData($event.target.value)" placeholder="Start date">
+<input matEndDate formControlName="end_date" (dateChange)="interpreterRequestData($event.target.value)" placeholder="End date">
+
+</mat-date-range-input>
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+</div>
+
+<div class="col-md-12">
+<div class="card o-hidden">
+<ngx-datatable *ngIf="filteredUser?.length"
+style="height: 500px; box-shadow: none"
+class="material fullscreen"
+[columnMode]="'force'"
+[headerHeight]="50"
+[footerHeight]="50"
+[rowHeight]="60"
+[scrollbarV]="true"
+[rows]="filteredUser">
+<ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+<ng-template ngx-datatable-header-template>
+S.No
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+{{rowIndex +1}}
+</ng-template>
+</ngx-datatable-column>
+
+<!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
+<ng-template ngx-datatable-header-template>
+Caseworker
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+{{row.caseworker_name}}
+</ng-template>
+</ngx-datatable-column> -->
+
+<ngx-datatable-column name="Appointment Type" prop="appointment_type">
+<ng-template ngx-datatable-header-template>
+Appointment Type
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+{{row.appointment_type}}
+</ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column name="Cell Phone" prop="cell_phone">
+<ng-template ngx-datatable-header-template>
+Cell Phone
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+{{row.cell_phone | mask: '(000) 000-0000'}}
+</ng-template>
+</ngx-datatable-column>
+<!-- <ngx-datatable-column name="Requester" prop="requester_name">
+<ng-template ngx-datatable-header-template>
+Requester
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+{{row.requester_name}}
+</ng-template>
+</ngx-datatable-column> -->
+<ngx-datatable-column name="Interpreter" prop="requester_name">
+<ng-template ngx-datatable-header-template>
+Interpreter
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+{{row.name}}
+</ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column name="Interpreter Mobile" prop="mobile">
+<ng-template ngx-datatable-header-template>
+Interpreter Mobile
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+{{row.mobile | mask: '(000) 000-0000'}}
+</ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column>
+<ng-template ngx-datatable-header-template>
+<span title="Requested date">Requested date</span>
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+<span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy' }}</span>
+</ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column>
+<ng-template ngx-datatable-header-template>
+<span title="Appointment date"> Appointment date</span>
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+<span title="{{row.date}}">{{row.date | date:'MM/dd/yyyy' }}</span>
+</ng-template>
+</ngx-datatable-column>
+
+<ngx-datatable-column [width]="120" [sortable]="false">
+<ng-template ngx-datatable-header-template>Status
+</ng-template>
+
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
+Completed Request
+</ng-template>
+
+</ngx-datatable-column>
+
+<ngx-datatable-column [width]="120" [sortable]="false" >
+<ng-template ngx-datatable-header-template>Action
+</ng-template>
+
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
+<button class="btn btn-outline-secondary"
+(click)="viewDetail(row.ris_id)">View</button>
+</ng-template>
+</ngx-datatable-column>
+
+
+
+
+
+
+<!-- <ngx-datatable-column [width]="120" [sortable]="false">
+<ng-template ngx-datatable-header-template *ngIf="roleId=='1';then Status; else Actions">
+</ng-template>
+<ng-template ngx-datatable-header-template #Status>Status
+</ng-template>
+<ng-template ngx-datatable-header-template #Actions>Actions
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row" #Status>
+<button class="btn btn-outline-secondary ml-2" >Request Accept</button>
+</ng-template>
+<ng-template ngx-datatable-cell-template let-value="value" let-row="row" #Actions>
+<button class="btn btn-outline-secondary" (click)="interpreterReply(row.user_id,row.ris_id,'2')">Accept</button>
+<button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>
+</ng-template>
+</ngx-datatable-column>
+-->
+</ngx-datatable>
+</div>
+<ng-container *ngIf="list_Obj?.length <= 0">
+No Data Found
+</ng-container>
+</div>
+
+</div>
+</div>

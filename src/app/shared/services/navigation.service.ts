@@ -141,12 +141,11 @@ export class NavigationService {
             icon: 'i-Library',
             sub: [
                 { icon: 'i-Bell', name: 'All Request', state: '/request-scheduler/all-request-list-schedular', type: 'link' },
-                // { icon: 'i-Bell', name: 'New Request', state: '/user-request/list', type: 'link' },
-                // { icon: 'i-Bell', name: 'Broadcasting', state: '/interpreter-request/list', type: 'link' },
-                // // { icon: 'i-Split-Horizontal-2-Window', name: 'Assign', state: '/interpreter-request/accept-list', type: 'link' },
-                // { icon: 'i-Split-Horizontal-2-Window', name: 'In Progress', state: '/interpreter-request/accept-list', type: 'link' },
-                // { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/interpreter-request/completed-list', type: 'link' },
-                // { icon: 'i-Split-Horizontal-2-Window', name: 'Cancelled', state: '/interpreter-request/cancelled-list', type: 'link' },
+                { icon: 'i-Bell', name: 'New Request', state: '/request-scheduler/request-list-schedular', type: 'link' },
+                { icon: 'i-Bell', name: 'Broadcasting', state: '/request-scheduler/broadcast-list-schedular', type: 'link' },
+                { icon: 'i-Split-Horizontal-2-Window', name: 'In Progress', state: '/request-scheduler/progress-list-schedular', type: 'link' },
+                { icon: 'i-Split-Horizontal-2-Window', name: 'Completed', state: '/request-scheduler/completed-list-schedular', type: 'link' },
+                { icon: 'i-Split-Horizontal-2-Window', name: 'Cencelled', state: '/request-scheduler/cancelled-list-schedular', type: 'link' },
             ]
         },
        

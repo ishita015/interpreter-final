@@ -1060,6 +1060,7 @@ module.exports.getAllAssignment = async function(req, res) {
 
 // get form data
 module.exports.getRequestData = function(req, res) {
+    console.log("==================req", req.body);
     let serach = req.body.search_info ? req.body.search_info : ""; 
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
@@ -1079,6 +1080,9 @@ module.exports.getRequestData = function(req, res) {
 
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
+    console.log("==================err", err);
+    console.log("==================result", result);
+
         if (result && result.length > 0) {
             res.json({
                 status: 1,

@@ -9,14 +9,32 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
+<<<<<<< HEAD
 import { AgmCoreModule } from '@agm/core';
 import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+=======
+import { RequestListComponent } from './request-list/request-list.component';
+import { CompleteRequestComponent } from './complete-request/complete-request.component';
+import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
+import { AcceptRequestComponent } from './accept-request/accept-request.component';
+import { BroadcastRequestComponent } from './broadcast-request/broadcast-request.component';
+import { MaterialModule } from '../..//material.module';
+>>>>>>> master
 @NgModule({
-  declarations: [AllRequestSchedularComponent, AllRequestListSchedularComponent],
+  declarations: [
+    AllRequestSchedularComponent,
+    AllRequestListSchedularComponent,
+    RequestListComponent,
+    CompleteRequestComponent,
+    CancelledRequestComponent,
+    AcceptRequestComponent,
+    BroadcastRequestComponent
+  ],
   imports: [
     CommonModule,
+    MaterialModule,
     RequestSchedulerRoutingModule,
     FormsModule,
     ReactiveFormsModule,

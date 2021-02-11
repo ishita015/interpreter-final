@@ -91,9 +91,13 @@ var schedulerController = require('./routes/scheduler');
   
 // api start
 
+/*forget-password*/
+
+app.post('/cesco/forget-password', loginController.forgetPassword);
+/*forget-password*/
+
 
 //chat start api
-app.post('/cesco/getContactList', chatController.getContactList);
 
 app.post('/cesco/getChatData', chatController.getChats);
 app.post('/cesco/sendRequest', chatController.sendRequest);
@@ -196,7 +200,8 @@ app.post('/cesco/getCity', interpreterController.getCity);
 
 app.get('/cesco/getNewAssignmentList', interpreterController.newAssignmentList);
 
-app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
+// app.get('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
+app.post('/cesco/getAllPendingRequest', interpreterController.getAllPendingRequest);
 app.post('/cesco/interpreterForAssignrequest', interpreterController.getInterpreterForAssignrequest);
 
 app.post('/cesco/addRateReview', interpreterController.addRateReview);
@@ -261,6 +266,7 @@ app.post('/cesco/sendTrackingLink', serviceController.sendTrackingLinkTocustomer
 
 app.post('/cesco/getAllAssignment', serviceController.getAllAssignment);
 app.get('/cesco/getRequestData', serviceController.getRequestData);
+app.post('/cesco/getRequestData', serviceController.getRequestData);
 
 app.post('/cesco/addServiceOne', serviceController.addServiceOne);
 
@@ -314,6 +320,7 @@ app.post('/cesco/LanguageAssignmentChangeStatus', languageController.LanguageAss
 
 ////////////////////////////////////////////////////////////////////Adnan start/////////////////////////////////////////////////////////////////////
 app.get('/cesco/getAllClients', schedulerController.getAllClients);
+app.get('/cesco/getAllLOB', schedulerController.getAllLOB);
 app.get('/cesco/getAllAssignmentTypes', schedulerController.getAllAssignmentTypes);
 app.get('/cesco/getAllPlatforms', schedulerController.getAllPlatforms);
 app.get('/cesco/getAllLanguages', schedulerController.getAllLanguages);
@@ -321,6 +328,9 @@ app.get('/cesco/getDays', schedulerController.getDays);
 app.post('/cesco/enterNewInterpreterRequestBasicTab', schedulerController.enterNewInterpreterRequestBasicTab);
 app.get('/cesco/getAllBasicTabList/:id', schedulerController.getAllBasicTabList);
 app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
+
+app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
+
 
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 
