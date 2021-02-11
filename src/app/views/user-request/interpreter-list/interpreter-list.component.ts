@@ -91,7 +91,7 @@ export class InterpreterListComponent implements OnInit {
     // this.language_id = this.assignInfo.language;
   
 
-    this.assignMyNearbyInterpreter();
+    
     // this.searchControl.valueChanges
     // .pipe(debounceTime(200))
     // .subscribe(value => {
@@ -101,9 +101,11 @@ export class InterpreterListComponent implements OnInit {
   getRequestDetails() {
     this.service.get("getRequestDetails/" + this.serviceid).subscribe((res) => {
       this.assignInfo = res['data'][0];
+      console.log("this.assignInfo=============", this.assignInfo);
       this.lat = this.assignInfo.latitude;
       this.lng = this.assignInfo.longitude;
       this.language_id = this.assignInfo.language_id;
+      this.assignMyNearbyInterpreter();
     })
   }
 
@@ -193,6 +195,12 @@ export class InterpreterListComponent implements OnInit {
     this.rating = this.ratings_formdata;
 
     //  console.log("value set", this.distance);
+    console.log("============this.language_id", this.language_id);
+    console.log("============this.serviceid", this.serviceid);
+    console.log("============this.searchNameEmail", this.searchNameEmail);
+    console.log("============this.distance", this.rating);
+    console.log("============this.rate", this.rate);
+    console.log("============this.rating", this.rating);    
     this.service.myNearbyInterpreter(this.serviceid, this.language_id, this.searchNameEmail, this.distance, this.rate, this.rating).subscribe(res => {
       if (res['status'] == 0) {
 
@@ -207,7 +215,8 @@ export class InterpreterListComponent implements OnInit {
             label: this.assignInfo.caseworker_name,
             id: this.assignInfo.id,
             mobile: this.assignInfo.cell_phone,
-            address: this.assignInfo.lang_name,
+            // address: this.assignInfo.lang_name,
+            address: this.assignInfo.language,
             email: this.assignInfo.email,
             draggable: false,
             visible: false,
@@ -228,7 +237,8 @@ export class InterpreterListComponent implements OnInit {
             label: this.assignInfo.caseworker_name,
             id: this.assignInfo.id,
             mobile: this.assignInfo.cell_phone,
-            address: this.assignInfo.lang_name,
+            // address: this.assignInfo.lang_name,
+            address: this.assignInfo.language,
             email: this.assignInfo.email,
             draggable: false,
             visible: false,
@@ -288,11 +298,6 @@ export class InterpreterListComponent implements OnInit {
       }, (reason) => {
       });
   }
-
-
-
-
-
 
   assignAllInterpreter() {
     console.log("j", this.list_Obj)
