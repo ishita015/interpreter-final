@@ -112,7 +112,8 @@ viewDetail(request_id){
       this.view_obj = res['data'][0];
       console.log("api response",  this.view_obj);
       localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-      this.router.navigate(['/user-request/request-view',request_id])
+      this.router.navigate(['/request-scheduler/details',request_id]);
+      // this.router.navigate(['/user-request/request-view',request_id])
     }else{
       this.resp_msg = res;
       this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });

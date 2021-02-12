@@ -272,7 +272,8 @@ export class InterpreterListComponent implements OnInit {
   //}
 
   viewDetail() {
-    this.router.navigate(['/user-request/request-view', this.assignInfo.id])
+    this.router.navigate(['/request-scheduler/details', this.assignInfo.id]);
+    // this.router.navigate(['/user-request/request-view', this.assignInfo.id])
   }
 
   requestDetail(id, data, modal) {
@@ -305,10 +306,10 @@ export class InterpreterListComponent implements OnInit {
       console.log("res", res)
       this.requestStatus = res;
       if (res['status'] == '1') {
-        this.router.navigate(['/user-request/list'])
+        this.router.navigate(['/request-scheduler/request-list-schedular'])
         this.toastr.success(this.requestStatus.message, '', { timeOut: 2000 });
       } else {
-        this.router.navigate(['/user-request/list'])
+        this.router.navigate(['/request-scheduler/request-list-schedular'])
         this.toastr.error(this.requestStatus.message, '', { timeOut: 2000 });
       }
 
