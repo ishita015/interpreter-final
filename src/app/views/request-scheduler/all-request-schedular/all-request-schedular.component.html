@@ -56,11 +56,11 @@
                             <label for="Last">Entered By</label>
                             <input type="text" class="form-control" formControlName="entered_by"
                                 placeholder="Entered By" disabled>
-                            <div *ngIf="newRequestForm.controls['entered_by'].errors && (!newRequestForm.controls['entered_by'].pristine || submitted ||newRequestForm.controls['entered_by'].touched )"
+                            <!-- <div *ngIf="newRequestForm.controls['entered_by'].errors && (!newRequestForm.controls['entered_by'].pristine || submitted ||newRequestForm.controls['entered_by'].touched )"
                                 class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['entered_by'].errors.required">Entered By is
                                     required.</div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -69,9 +69,9 @@
                             <label>Client Name</label>
                             <!-- <div class="form-group form-field"> -->
                                 <mat-form-field class="example-full-width ">
-                                    <input type="text"  aria-label="Number" matInput
+                                    <input type="text" matInput
                                       [matAutocomplete]="auto" formControlName="client_name">
-                                    <mat-autocomplete #auto="matAutocomplete" (keyup)="getRegions($event)">
+                                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (keyup)="getRegions($event)">
                                       <mat-option *ngFor="let option of filterRegions | async; let i = index"  (click)="changeClient(option,i)" [value]="option.name">
                                         {{ option.name }}
                                       </mat-option>
@@ -83,9 +83,6 @@
                                     </div>
                                 </div>
                                   </mat-form-field>
-
-
-
                                 <!-- <ejs-autocomplete  [dataSource]='clientObj' [fields]='localFields' ></ejs-autocomplete> -->
                                 <!-- <select class="form-control" (change)="onChangeClient($event)"
                                     formControlName="client_name" id="client_name" name="client_name">
@@ -103,7 +100,7 @@
                             <label>Requested By</label>
                             <div class="form-group form-field">
                                 <input type="text" class="form-control" formControlName="requested_by"
-                                    placeholder="Requested By">
+                                    placeholder="Requested By" disabled>
                                 <div *ngIf="newRequestForm.controls['requested_by'].errors && (!newRequestForm.controls['requested_by'].pristine || submitted ||newRequestForm.controls['requested_by'].touched )"
                                     class="error-msg">
                                     <div [hidden]="!newRequestForm.controls['requested_by'].errors.required">Requested
@@ -185,6 +182,7 @@
                             <div class="form-group form-field">
                                 <select class="form-control" (change)="newSimultaneous($event)"
                                     formControlName="receivers_required">
+                                    <option value="">Simultaneous Interpreting?</option>
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -235,9 +233,11 @@
                             <label>From Time</label>
                             <!-- <input type="time" class="form-control" id="txtStartTime" formControlName="from_time"
                                 placeholder="From Time"> -->
+                            <div class="s_Time">
                             <ejs-timepicker [format]='formatString' [step]='interval' id="txtStartTime"
-                                placeholder="Start Time" formControlName="from_time"></ejs-timepicker>
-                            <!-- <ejs-timepicker 
+                                placeholder="From Time" formControlName="from_time"></ejs-timepicker>
+                            </div>
+                                <!-- <ejs-timepicker 
                                 ></ejs-timepicker> -->
                             <div *ngIf="newRequestForm.controls['from_time'].errors && ( !newRequestForm.controls['from_time'].pristine || submitted ||newRequestForm.controls['from_time'].touched )"
                                 class="error-msg">
@@ -250,10 +250,11 @@
                             <label>To Time</label>
                             <!-- <input type="time" class="form-control" id="txtEndTime" (change)="start_end_time($event)"
                                 formControlName="to_time" placeholder="To Time"> -->
-
+                            <div class="e_Time">
                             <ejs-timepicker [format]='formatString' [step]='interval' [min]="newRequestForm.value.from_time" id="txtEndTime"
                              placeholder="To Time" formControlName="to_time"></ejs-timepicker>
-                            <div *ngIf="newRequestForm.controls['to_time'].errors && ( !newRequestForm.controls['to_time'].pristine || submitted ||newRequestForm.controls['to_time'].touched )"
+                            </div>                            
+                                 <div *ngIf="newRequestForm.controls['to_time'].errors && ( !newRequestForm.controls['to_time'].pristine || submitted ||newRequestForm.controls['to_time'].touched )"
                                 class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['to_time'].errors.required">To Time is required.
                                 </div>
@@ -315,7 +316,7 @@
                                     <div class="form-group form-field border_label span_lab">
                                         <label>Every</label>
                                         <input type="text" class="form-control" formControlName="every"
-                                            onkeypress="if(this.value.length==3) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                            onkeypress="if(this.value.length==1) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                             placeholder="Every">
                                         <span>Week(s)</span>
                                         <div *ngIf="newRequestForm.controls['every'].errors && (!newRequestForm.controls['every'].pristine || submitted ||newRequestForm.controls['every'].touched )"
@@ -430,10 +431,10 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Code</label>
-                                    <select class="form-control" formControlName="phone_code">
+                                    <select class="form-control country_code" formControlName="phone_code">
                                         <option value="" selected disabled>Code</option>
-                                        <option *ngFor="let isd of country_Obj" [value]="isd.id">
-                                            {{isd?.name}} (+{{isd?.phonecode}})
+                                        <option *ngFor="let isd of country_Obj" [value]="isd.phonecode">
+                                            {{isd?.name}} ({{isd?.phonecode}})
                                         </option>
                                     </select>
                                     <div *ngIf="newRequestForm.controls['phone_code'].errors && ( !newRequestForm.controls['phone_code'].pristine || submitted ||newRequestForm.controls['phone_code'].touched )"

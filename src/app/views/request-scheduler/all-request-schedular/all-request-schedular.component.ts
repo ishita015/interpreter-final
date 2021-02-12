@@ -14,7 +14,7 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import * as moment from 'moment';
 import { MapsAPILoader } from '@agm/core';
 import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 //enable ripple style
 enableRipple(true);
 @Component({
@@ -64,18 +64,18 @@ export class AllRequestSchedularComponent implements OnInit {
   private geoCoder;
   @ViewChild('search')
   public searchElementRef: ElementRef;
-   // maps the local data column to fields property
-   public localFields: Object = { value: 'name' };
-   //set the placeholder to AutoComplete input
+  // maps the local data column to fields property
+  public localFields: Object = { value: 'name' };
+  //set the placeholder to AutoComplete input
 
-//auto complete
-form: FormGroup;
-client_name: FormControl;
-filterRegions: Observable<any[]>;
-data1: string[] = [];
+  //auto complete
+  form: FormGroup;
+  client_name: FormControl;
+  filterRegions: Observable<any[]>;
+  data1: string[] = [];
 
-myControl = new FormControl();  
-   
+  myControl = new FormControl();
+
 
 
   constructor(
@@ -113,36 +113,25 @@ myControl = new FormControl();
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
-          this.ngZone.run(() => {
-              //get the place result
-              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-              this.new_address = place['formatted_address'];
-              //verify result
-              if (place.geometry === undefined || place.geometry === null) {
-                  return;
-              }
-              // console.log("place-",place[0].formatted_address);
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          this.new_address = place['formatted_address'];
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          // console.log("place-",place[0].formatted_address);
 
-              //set latitude, longitude and zoom
-              this.latitude = place.geometry.location.lat();
-              console.log("llllllllllllllll",  this.latitude);
-              
-              this.longitude = place.geometry.location.lng();
-              console.log("llllllllllllllll",  this.longitude);
-
-              // console.log("latitude-",this.latitude);
-              // console.log("longitude-",this.longitude);
-
-
-
-
-              this.zoom = 12;
-          });
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+         
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
       });
-  });
-
+    });
   }
-
 
   /*==========Step Form Value Start Here========*/
   createForm1() {
@@ -186,7 +175,7 @@ myControl = new FormControl();
     })
   }
 
-   
+
 
   /*==========Step Form Value End Here========*/
 
@@ -228,7 +217,7 @@ myControl = new FormControl();
 
   /*==========Client name list end Here========*/
 
-  
+
   /*==========LOB list start Here========*/
 
   allLobList() {
@@ -291,8 +280,8 @@ myControl = new FormControl();
   onChangeLob($event) {
 
   }
- /*==========Client name search function start Here========*/
- 
+  /*==========Client name search function start Here========*/
+
 
   /*==========Client name search function end Here========*/
   newRecurrent(ev) {
@@ -345,8 +334,8 @@ myControl = new FormControl();
     }
   }
 
-  changeClient(data,e){
-   this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
+  changeClient(data, e) {
+    this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
   }
 
   changeCheckbox(i) {
@@ -416,19 +405,19 @@ myControl = new FormControl();
     // var beginningTime = this.newRequestForm.value.from_time;
     // var endTime = this.newRequestForm.value.to_time;
     // if (beginningTime > endTime) {
-   
+
     //   this.newRequestForm.controls['from_time'].setValue('');
     //   this.newRequestForm.controls['to_time'].setValue('');
     //   this.toastr.error("Invalid Time", '', { timeOut: 2000 });
     // }
     // if (beginningTime == endTime) {
-   
+
     //   this.newRequestForm.controls['from_time'].setValue('');
     //   this.newRequestForm.controls['to_time'].setValue('');
     //   this.toastr.error("Invalid Time", '', { timeOut: 2000 });
     // }
     // if (beginningTime < endTime) {
-     
+
     // }
   }
   /*==========Start and end time valid function end here========*/
@@ -438,20 +427,20 @@ myControl = new FormControl();
       return;
     }
     this.submitted = false;
-  
-    let stime=moment(this.newRequestForm.value.from_time).format("HH:mm");
+
+    let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
     let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
-    let s_eventtime=moment(this.newRequestForm.value.event_start_date).format("HH:mm");
+    let s_eventtime = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
     let e_enenttime = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
-    this.newRequestForm.value.from_time =stime;
-    this.newRequestForm.value.to_time =etime;
-    this.newRequestForm.value.event_start_date = s_eventtime;
+    this.newRequestForm.value.from_time = stime;
+    this.newRequestForm.value.to_time = etime;
+    this.newRequestForm.value.event_start_time = s_eventtime;
     this.newRequestForm.value.event_end_time = e_enenttime;
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     this.newRequestForm.value.latitude = this.latitude;
     this.newRequestForm.value.longitude = this.longitude;
-    console.log("formccc",this.newRequestForm.value);
+    console.log("formccc", this.newRequestForm.value);
     this.service.post('enterNewInterpreterRequestBasicTab', this.newRequestForm.value).subscribe(res => {
       if (res['status'] == true) {
         this.save_obj = res;
@@ -462,22 +451,22 @@ myControl = new FormControl();
     });
   }
 
-   // Get Current Location Coordinates
-   private setCurrentLocation() {
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
     if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.latitude = position.coords.latitude;
-            this.longitude = position.coords.longitude;
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
 
-            this.zoom = 8;
-            this.getAddress(this.latitude, this.longitude);
-        });
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
+      });
     }
-}
+  }
 
 
 
-markerDragEnd($event: any) {
+  markerDragEnd($event: any) {
     console.log($event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
@@ -485,35 +474,35 @@ markerDragEnd($event: any) {
     console.log("longitude-", this.longitude);
 
     this.getAddress(this.latitude, this.longitude);
-}
+  }
 
-getAddress(latitude, longitude) {
+  getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-        console.log(results);
-        console.log(status);
-        if (status === 'OK') {
-            if (results[0]) {
-                this.zoom = 12;
-                this.address = results[0].formatted_address;
-            } else {
-                window.alert('No results found');
-            }
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
         } else {
-            window.alert('Geocoder failed due to: ' + status);
+          window.alert('No results found');
         }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
 
     });
-}
-selectEvent(item) {
-  // do something with selected item
-}
+  }
+  selectEvent(item) {
+    // do something with selected item
+  }
 
-onChangeSearch(search: string) {
-  // fetch remote data from here
-  // And reassign the 'data' which is binded to 'data' property.
-}
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
 
-onFocused(e) {
-  // do something
-}
+  onFocused(e) {
+    // do something
+  }
 }

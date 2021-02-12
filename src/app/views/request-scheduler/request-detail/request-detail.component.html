@@ -1,0 +1,380 @@
+<!-- <div class="col-md-12 mb-2">
+<button class="btn btn-outline-secondary progress_btn" *ngIf="data?.status == '1'" >In Progress</button> 
+<button class="btn btn-outline-secondary progress_btn" *ngIf="data?.status == '2'" >Request Send</button>  
+<button class="btn btn-outline-secondary progress_btn" *ngIf="data?.status =='3'" >Accept Request</button> 
+<button class="btn btn-outline-secondary progress_btn" *ngIf="data?.status =='4'" >Complete</button> 
+<button class="btn btn-outline-secondary progress_btn" *ngIf="data?.status =='5'" >Cancel</button> 
+</div> -->
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div id="print-area">
+                    <h5 class="font-weight-bold">User Request Details</h5>
+                    <div class="mt-3 mb-4 border-top"></div>
+
+                    <div class="request_Tab userstable mb-3 mb-sm-0 ">
+
+
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Caseworker</td>
+                                    <td>{{data?.caseworker_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Business/Organization-</td>
+                                    <td>{{data?.business_bill}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Requester</td>
+                                    <td>{{data?.requester_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Health Department/Division</td>
+                                    <td>{{data?.health_department}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Community Service</td>
+                                    <td>{{data?.north_metro_community_service}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa Country Human Services</td>
+                                    <td>{{data?.human_services}}</td>
+                                </tr>
+                                <tr>
+                                    <td>AHS Department/Division</td>
+                                    <td>{{data?.ahs_department}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Office Phone</td>
+                                    <td>{{data?.office_phone | mask: '(000) 000-0000'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell Phone</td>
+                                    <td>{{data?.cell_phone | mask: '(000) 000-0000'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{data?.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Site Contact</td>
+                                    <td>{{data?.site_contact | mask: '(000) 000-0000'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Create Date</td>
+                                    <td>{{data?.created_date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--form 1 start-->
+                    <!--    <p>Caseworker- {{data.caseworker_name}}</p>
+                            <p>Business/Organization- {{data.business_bill}}</p>
+                            <p>Requester- {{data.requester_name}}</p>
+                            <p>Health Department/Division- {{data.health_department}}</p>
+                            <p>Community Service- {{data.north_metro_community_service}}</p>
+                            <p>Mesa Country Human Services- {{data.human_services}}</p>
+                            <p>AHS Department/Division- {{data.ahs_department}}</p>
+                            <p>Office Phone- {{data.office_phone}}</p>
+                            <p>Cell Phone- {{data.cell_phone}}</p>
+                            <p>Email- {{data.email}}</p>
+                            <p>Site Contact- {{data.site_contact}}</p>
+                            <p>Create Date- {{data.updated_at | date:'MM-dd-yyyy' }}</p> -->
+
+                    <!--form 1 end-->
+
+
+
+
+
+
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                           
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+
+        <div class="card">
+            <div class="card-body h-592">
+                <h5 class="font-weight-bold">Appointment Details</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '1'">New request</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '2'">Assigned</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '3'">In Progress</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '4'">Completed</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '5'">Cancelled</h5>
+                <div class="mt-3 mb-4 border-top"></div>
+                <div class="request_Tab userstable mb-3 mb-sm-0 ">
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Appointment Type</td>
+                                <td>{{data?.appointment_type}}</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>{{data?.date | date:'MM/dd/yyyy' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Start Time</td>
+                                <td>{{data?.start_time}}</td>
+                            </tr>
+                            <tr>
+                                <td>Anticipated End Time</td>
+                                <td>{{data?.anticipated_end_time}}</td>
+                            </tr>
+                            <tr>
+                                <td>Service Requested</td>
+                                <td>{{data?.service_requested}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="font-weight-bold">Case Details</h5>
+                <div class="mt-3 mb-4 border-top"></div>
+                <div class="row">
+                    <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Case Name</td>
+                                    <td>{{data?.case_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Client Name-</td>
+                                    <td>{{data?.client_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Contact Person</td>
+                                    <td>{{data?.name_of_contact_person}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell Phone</td>
+                                    <td>{{data?.cellphone_contact_person}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Name Of Person Require Interpreter</td>
+                                    <td>{{data?.name_of_person}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Name Of Provider/Doctor</td>
+                                    <td>{{data?.name_of_provider}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Case/Claim/ID Number-</td>
+                                    <td>{{data?.claim_number}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event At</td>
+                                    <td>{{data?.event_at}}</td>
+                                </tr>
+                               
+                                <tr>
+                                    <td>Event Start Date</td>
+                                    <td>{{data?.event_start_date  | date:'MM-dd-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event End Date</td>
+                                    <td>{{data?.event_end_date | date:'MM-dd-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>From Time</td>
+                                    <td>{{data?.from_time}}</td>
+                                </tr>
+                                <tr>
+                                    <td>To Time</td>
+                                    <td>{{data?.to_time}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>How Many Receivers</td>
+                                    <td>{{data?.how_many_receivers}}</td>
+                                </tr> -->
+
+                                <tr>
+                                    <td>IR</td>
+                                    <td>{{data?.ir}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Language</td>
+                                    <td>{{data?.language}}</td>
+                                </tr>
+                                <tr>
+                                    <td>LOB</td>
+                                    <td>{{data?.lob}}</td>
+                                </tr>
+                                <tr>
+                                    <td>North Metro Community Service</td>
+                                    <td>{{data?.north_metro_community_service}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Patient</td>
+                                    <td>{{data?.patient}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Platform</td>
+                                    <td>{{data?.platform}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Recurrent Assignment</td>
+                                    <td>{{data?.recurrent_assignment}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Repeats</td>
+                                    <td>{{data?.repeats}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Request Date</td>
+                                    <td>{{data?.request_date | date:'MM-dd-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Requester Name</td>
+                                    <td>{{data?.requester_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Claim Number</td>
+                                    <td>{{data?.claim_number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>School Name or Building</td>
+                                    <td>{{data?.school_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Trails/Reference</td>
+                                    <td>{{data?.trails}}</td>
+                                </tr>
+                                <tr>
+                                    <td>How Many Receivers Required</td>
+                                    <td>{{data?.how_many_receivers}}</td>
+                                </tr>
+                                <tr>
+                                    <td>address</td>
+                                    <td>{{data?.address}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{data?.notes}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Language</td>
+                                    <td>{{data?.language}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Entered By</td>
+                                    <td>{{data?.entered_by}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event Duration</td>
+                                    <td>{{data?.event_duration}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Event End Time</td>
+                                    <td>{{data?.event_end_time}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event End Date</td>
+                                    <td>{{data?.event_end_date | date:'MM-dd-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Every</td>
+                                    <td>{{data?.every}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Health Department</td>
+                                    <td>{{data?.health_department}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td>Human Services</td>
+                                    <td>{{data?.human_services}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Is Reject</td>
+                                    <td>{{data?.is_reject}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>LOB</td>
+                                    <td>{{data?.lob}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{data?.notes}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Phone Code</td>
+                                    <td>{{data?.phone_code}}</td>
+                                </tr> -->
+                                
+                                <tr>
+                                    <td>Receivers Required</td>
+                                    <td>{{data?.receivers_required}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Repeats</td>
+                                    <td>{{data?.repeats}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Requested By</td>
+                                    <td>{{data?.requested_by}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Room</td>
+                                    <td>{{data?.room}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Assignment Date</td>
+                                    <td>{{data?.assignment_date | date:'MM-dd-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Assignment Type</td>
+                                    <td>{{data?.assignment_type}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Building Address</td>
+                                    <td>{{data?.building_address}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Building Name</td>
+                                    <td>{{data?.building_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Business Bill</td>
+                                    <td>{{data?.business_bill}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

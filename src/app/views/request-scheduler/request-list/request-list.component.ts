@@ -123,7 +123,8 @@ export class RequestListComponent implements OnInit {
         this.view_obj = res['data'][0];
         console.log("view object",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-        this.router.navigate(['/user-request/request-view',request_id])
+        this.router.navigate(['/request-scheduler/details',request_id]);
+        // this.router.navigate(['/user-request/request-view',request_id])
       }else{
         this.resp_msg = res;
         this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 });
@@ -144,7 +145,7 @@ export class RequestListComponent implements OnInit {
         this.interpreter_obj = res['data'];
         console.log("interpreter_obj",  this.interpreter_obj);
         // localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
-        this.router.navigate(['/user-request/interpreter-view',service_id])
+        this.router.navigate(['/request-scheduler/interpreter-view',service_id])
     })
   }
 

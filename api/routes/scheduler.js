@@ -94,11 +94,11 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
     delete req.body.cell_phone;
     delete req.body.scheduler_id;
     req.body.ris_id = result.insertId;
+    req.body.phone_code = "+"+req.body.phone_code
     var result01 = await commonDb.insert("appointment_information_services", req.body);
     return res.json({ status: true, msg: 'Add successfully!' });
 
   } catch (err) {
-    console.log("err===========", err);
     return res.json({ status: false, msg: 'There was an error in add!' });
   }
 }
@@ -134,9 +134,9 @@ module.exports.getAllBasicTabList = async function (req, res) {
 module.exports.getRequestDetails = async function (req, res) {
   try {
     var result = await commonDb.getRequestDetails(req.params.id);
+    result[0].cellphone_contact_person = result[0].phone_code + result[0].cellphone_contact_person
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
-    console.log("=======================", err);
     return res.json({ status: false, data: '', msg: 'No data found!' });
   }
 }
