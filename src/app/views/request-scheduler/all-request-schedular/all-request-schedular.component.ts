@@ -434,7 +434,7 @@ export class AllRequestSchedularComponent implements OnInit {
     let e_enenttime = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
     this.newRequestForm.value.from_time = stime;
     this.newRequestForm.value.to_time = etime;
-    this.newRequestForm.value.event_start_date = s_eventtime;
+    this.newRequestForm.value.event_start_time = s_eventtime;
     this.newRequestForm.value.event_end_time = e_enenttime;
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
