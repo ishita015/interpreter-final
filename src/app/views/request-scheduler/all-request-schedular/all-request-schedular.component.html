@@ -56,11 +56,11 @@
                             <label for="Last">Entered By</label>
                             <input type="text" class="form-control" formControlName="entered_by"
                                 placeholder="Entered By" disabled>
-                            <div *ngIf="newRequestForm.controls['entered_by'].errors && (!newRequestForm.controls['entered_by'].pristine || submitted ||newRequestForm.controls['entered_by'].touched )"
+                            <!-- <div *ngIf="newRequestForm.controls['entered_by'].errors && (!newRequestForm.controls['entered_by'].pristine || submitted ||newRequestForm.controls['entered_by'].touched )"
                                 class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['entered_by'].errors.required">Entered By is
                                     required.</div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -233,7 +233,7 @@
                             <!-- <input type="time" class="form-control" id="txtStartTime" formControlName="from_time"
                                 placeholder="From Time"> -->
                             <ejs-timepicker [format]='formatString' [step]='interval' id="txtStartTime"
-                                placeholder="Start Time" formControlName="from_time"></ejs-timepicker>
+                                placeholder="From Time" formControlName="from_time"></ejs-timepicker>
                             <!-- <ejs-timepicker 
                                 ></ejs-timepicker> -->
                             <div *ngIf="newRequestForm.controls['from_time'].errors && ( !newRequestForm.controls['from_time'].pristine || submitted ||newRequestForm.controls['from_time'].touched )"
@@ -427,7 +427,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Code</label>
-                                    <select class="form-control" formControlName="phone_code">
+                                    <select class="form-control country_code" formControlName="phone_code">
                                         <option value="" selected disabled>Code</option>
                                         <option *ngFor="let isd of country_Obj" [value]="isd.id">
                                             {{isd?.name}} (+{{isd?.phonecode}})
