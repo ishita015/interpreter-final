@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
@@ -36,10 +36,28 @@ export class UsersListComponent implements OnInit {
     private toastr: ToastrService,
     public service: HttpService,
     private router: Router,
+     private activatedRoute: ActivatedRoute,
     public func:FunctionService
   ) { }
+  param
+  role_name='User'
+  async ngOnInit() {
+     this.activatedRoute.params.subscribe(params => {
+       this.param = params['id'];
 
-  ngOnInit() {
+      })
+
+      try{
+      var result=  await this.service.get('role-detail/'+this.param).toPromise();
+      if(result['data'].length > 0){
+        this.role_name=result['data'][0].role_name;
+      console.log(result['data'][0].role_name)
+      }
+    }
+    catch(e){
+
+    }
+
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.userList();
@@ -85,7 +103,7 @@ export class UsersListComponent implements OnInit {
 
 
   userList() {
-    this.service.getAllUserList()
+    this.service.get('getAllUser/'+this.param)
       .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];
@@ -95,7 +113,7 @@ export class UsersListComponent implements OnInit {
         } else {
           // this.response_msg=res;
           // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
-          this.router.navigate(['/users/user-list'])
+          // this.router.navigate(['/users/user-list'])
         }
 
 

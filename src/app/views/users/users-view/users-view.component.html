@@ -64,10 +64,10 @@
                     </div>
                     <div class="profilecontent">
                         <ul class="list basic_info">
-                            <li><a href="#"><i class="i-Envelope"></i> {{data.email}}</a></li>
-                            <li><a href="#"><i class="i-Telephone"></i> {{data.mobile | mask: '(000) 000-0000'}}</a></li>
-                            <li><a href="#"><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
-                            <li><a href="#"><i class="i-Address-Book"></i> {{data.address}}</a></li>
+                            <li><a ><i class="i-Envelope"></i> {{data.email}}</a></li>
+                            <li><a ><i class="i-Telephone"></i> {{data.mobile | mask: '(000) 000-0000'}}</a></li>
+                            <li><a ><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
+                            <li><a ><i class="i-Address-Book"></i> {{data.address}}</a></li>
                         </ul>
                    
                     </div>
@@ -92,7 +92,7 @@
                                         <td>User Type</td>
                                         <td>{{data.role_name}}</td>
                                     </tr>
-                                    <tr *ngIf="data.role_id == '2'">
+                                    <!-- <tr *ngIf="data.role_id == '2'">
                                         <td>Rate/Hour</td>
                                         <td>${{data.interpreter_rate}}</td>
                                     </tr>
@@ -103,11 +103,11 @@
                                     <tr>
                                         <td>Street</td>
                                         <td>{{data.street}}</td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-12 lan_block mt-1 mb-1">
+                        <!-- <div class="col-md-12 lan_block mt-1 mb-1">
                            <h5 class="font-weight-bold">Language Details</h5>
                          <div class="mb-2 border-top"></div>
                        
@@ -125,7 +125,7 @@
                                 </ul>   
                             </div>
                         
-                        </div>
+                        </div> -->
                     </div>
                   
                 </div>

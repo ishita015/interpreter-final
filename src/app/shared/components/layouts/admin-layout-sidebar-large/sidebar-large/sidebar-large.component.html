@@ -59,9 +59,9 @@
 
 <ng-template #menuTemplate let-parentItem="parentItem">
   <ul class="childNav" appDropdown>
-    <li *ngFor="let item of parentItem?.sub" appDropdownLink class="nav-item">
+    <li *ngFor="let item of parentItem?.sub" (click)="openLink(item.state)" appDropdownLink class="nav-item">
       <a
-        routerLink="{{ item.state }}"
+
         *ngIf="item.type === 'link'"
         class=""
         routerLinkActive="open"

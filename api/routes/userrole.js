@@ -5,6 +5,7 @@ const cryptr = new Cryptr('myTotalySecretKey');
 const v = require('node-input-validator');
 var roleModel = require('./Models/roleModels');
 const userRolemodel = new roleModel();
+var commonDb = require('./Models/commonDev');
 
 var moment = require('moment');
 var momentTimeZone = require('moment-timezone');
@@ -58,7 +59,15 @@ module.exports.addUserRole = async function(req, res) {
             // last instered id
             var lastInsertId = insert.insertId;
             
-            
+                 await commonDb.AsyncInsert('role_module',{
+                            name:role_name,
+                            type:'link',
+                            // icon:'i-Bell',
+                            state:'/users/user-list/'+insert.insertId,
+                            parent_id:8
+                          })
+
+                 
             let moduleInfo = await userRolemodel.getModule(); 
             //console.log(moduleInfo)
             if(moduleInfo != "" && moduleInfo != undefined) {
@@ -248,6 +257,8 @@ module.exports.addModule = async function(req, res) {
     
 
     var sql_insert = "INSERT INTO role_module (module_name) values ('"+module_name+"')";
+
+
     con.query(sql_insert,async function(err, insert) {
         if(insert.affectedRows == 1){
             // last instered id
@@ -412,9 +423,54 @@ module.exports.getUserRoleMenus = async function(req, res) {
         }
     });
 };
+module.exports.getAdminRoleMenus = async function(req, res) {
+/*
+1 userRoleId
+*/
+    // let sql = "SELECT role_module.* FROM role_module ";
+    // var query = con.query(sql, function(err, result) {
+    //     if(!err){
+    //        return res.json({status: true, message: "Success", data:result});
+    //     }else{
+    //        return res.json({status: false,message: "no records found",data:[] });
+    //     }
+    // });
+
+    try{
+        var data = await commonDb.AsyncSellectAllWhere('role_module',{status:1,parent_id:0});
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].type == 'link'){
+                delete data[i].sub;
+            }
+             var subdata = await commonDb.AsyncSellectAllWhere('role_module',{parent_id:data[i].id});
+                if(subdata.length > 0){
+                data[i].sub = subdata;
+                }
+        }
 
 
 
+       return res.json({status: true, message: "Success", data:data});
+
+    }
+    catch(e){
+         return res.json({status: false,message: "no records found",data:[] });
+    }
+};
+
+
+
+module.exports.RoleDetail = async function(req, res) {
+      try{
+        var data = await commonDb.AsyncSellectAllWhere('user_roles',{id:req.params.id});
+               return res.json({status: true, message: "Success", data:data});
+
+    }
+    catch(e){
+        return res.json({status: false,message: "no records found",data:[] });
+
+    }
+}
 module.exports.getClientRoleMenusForPages = async function(req, res) {
 /*
 1 userRoleId
