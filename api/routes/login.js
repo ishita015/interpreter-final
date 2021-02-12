@@ -12,6 +12,7 @@ const cryptr = new Cryptr('myTotalySecretKey');
 var commonDb = require('./Models/commonDev');
 var mail = require('../helper/mail');
 const btoa = require('btoa');
+const md5 = require('md5');
 
 
 // user login
@@ -178,19 +179,44 @@ module.exports.forgetPassword = async function(req, res) {
         if(userdata.length == 0){
             return res.send({status:false,msg:'Please enter correct email'});
         }else{
-             await commonDb.AsyncUpdate('user',{reset_password_key:btoa(req.body.email)},{email:req.body.email});
-                var url = process.env.reset_password+'/'+btoa(req.body.email);
+             await commonDb.AsyncUpdate('user',{reset_password_key:md5(userdata[0].id)},{email:req.body.email});
+                var url = process.env.reset_password+'/'+md5(userdata[0].id);
                 req.body.url=url;
-                var EmailTemplate = await commonDb.AsyncSellectAllWhere('email_template',{id:1});
-                if(EmailTemplate.length == 0){
-                   return res.send({status:false,msg:'Please add Email Template'});
-                }else{
-                    req.body.subject = EmailTemplate[0].subject;
-                    req.body.body = EmailTemplate[0].body;
+                // var EmailTemplate = await commonDb.AsyncSellectAllWhere('email_template',{id:1});
+                // if(EmailTemplate.length == 0){
+                //    return res.send({status:false,msg:'Please add Email Template'});
+                // }else{
+                    // req.body.subject = EmailTemplate[0].subject;
+                    // req.body.body = EmailTemplate[0].body;
+                    req.body.first_name=userdata[0].first_name;
+                    req.body.last_name=userdata[0].last_name;
                     mail.forgetPasswordMail(req.body,(err,sendmail) =>{
                        return res.send({status:true,msg:'Mail sent successfully.'});
                     })
-                }
+                // }
+
+        }
+    }
+    catch(err){
+        console.log(err)
+           return res.send({status:false,msg:'Something went wrong'});
+    }
+
+}
+
+module.exports.resetPassword = async function(req, res) {
+    var reset_password_key=req.body.reset_password_key    
+
+    try{
+        var userdata = await commonDb.AsyncSellectAllWhere('user',{reset_password_key:reset_password_key});
+        if(userdata.length == 0){
+            return res.send({status:false,msg:'Reset token is expired'});
+        }else{
+             await commonDb.AsyncUpdate('user',{reset_password_key:'',password:cryptr.encrypt(req.body.password)},{reset_password_key:reset_password_key});
+                    mail.resetPasswordMail(userdata[0],(err,sendmail) =>{
+                       return res.send({status:true,msg:'Password reset successfully.'});
+                    })
+                // }
 
         }
     }

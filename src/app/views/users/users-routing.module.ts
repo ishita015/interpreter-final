@@ -8,7 +8,7 @@ import { UsersViewComponent } from './users-view/users-view.component';
 // import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 
 const routes: Routes = [
-  { path: 'user-list', component: UsersListComponent },
+  { path: 'user-list/:id', component: UsersListComponent },
   { path: 'user-add', component: UsersAddComponent }, 
   { path: 'view-calendar', component: ViewCalendarComponent }, 
   { path: 'user-edit/:id', component: UsersEditComponent }, 

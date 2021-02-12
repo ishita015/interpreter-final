@@ -1,7 +1,7 @@
 <div class="">
     <div class="breadcrumb">
       <ul class="heading">
-          <li><a>User </a></li>
+          <li><a>{{role_name}} </a></li>
           <li>List</li>
       </ul>
   </div>
@@ -14,7 +14,7 @@
             <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
           </div>
     </div>
-    <div class="col-md-8">
+    <div *ngIf="role_name == 'User'" class="col-md-8">
         <button class="btn btn-primary float-right" (click)="addUser()">Create</button>
     </div>
         <div class="col-md-12 lang_block">
@@ -70,14 +70,14 @@
                         {{row.mobile  | mask: '(000) 000-0000'}}
                       </ng-template>
                   </ngx-datatable-column>
-                  <ngx-datatable-column [minWidth]="30">
+                 <!--  <ngx-datatable-column [minWidth]="30">
                     <ng-template ngx-datatable-header-template>
                         Gender
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.gender}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
                 
                 <ngx-datatable-column [minWidth]="50">
                   <ng-template ngx-datatable-header-template>

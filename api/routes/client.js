@@ -111,3 +111,44 @@ module.exports.addClient = async function (req, res) {
       }
 
   }
+  module.exports.GetUserDetail = async function (req, res) {
+  }
+  module.exports.AddEditUser = async function (req, res) {
+    var id = req.body.id;
+    req.body.role_id = req.body.user_role;
+    delete req.body.user_role;
+    delete req.body.id;
+
+    // var check_role = await commonDb.AsyncSellectAllWhere('user',{role_id:req.body.role_id});
+    // if(check_role.length == 0){
+    //   var roleData = await commonDb.AsyncSellectAllWhere('user_roles',{id:req.body.role_id});
+    //   console.log(roleData)
+    //   await commonDb.AsyncInsert('role_module',{
+    //     name:roleData[0].role_name,
+    //     type:'link',
+    //     // icon:'i-Bell',
+    //     state:'/users/user-list/'+req.body.role_id,
+    //     parent_id:8
+    //   })
+    // }
+
+    req.body.password = cryptr.encrypt(req.body.password);
+    if(id == ''){
+      try {
+        var checkUser = await commonDb.AsyncSellectAllWhere('user',{email:req.body.email});
+        if(checkUser.length == 0){
+          await commonDb.AsyncInsert('user',req.body);
+        return res.send({status:true,msg:'User Added Successfully'})
+        }else{
+        return res.send({status:false,msg:'User Already exists'})
+
+        } 
+        
+        } catch (e) {
+            console.log(e)
+          res.send({status:false,msg:'Something went wrong in server/api'})
+        }
+    }else{
+      console.log('else')
+    }
+  }

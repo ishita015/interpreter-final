@@ -3249,10 +3249,16 @@ module.exports.getInterpreter = async function (req, res, next) {
 
 // get All User
 module.exports.getAllUser = function (req, res, next) {
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE (u.role_id!=1 && u.role_id!=2) ORDER BY u.id DESC";
+    console.log('sss',req.params)
+    if(req.params.id == 'all'){
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id != 1  ORDER BY u.id DESC";
+        }else{
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id ="+req.params.id+" ORDER BY u.id DESC";
+
+    }
     //console.log(sql)
     con.query(sql, function (err, result, fields) {
-        // //console.log("result-",result)
+        console.log("result-",err)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
