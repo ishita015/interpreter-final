@@ -18,6 +18,8 @@ import { CalendarFormDialogComponent } from '../../calendar/calendar-form-dialog
 import { HttpService } from 'src/app/shared/services/http.service';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -55,6 +57,7 @@ export class UsersViewComponent implements OnInit {
 		private router: Router,
 		private calendarService: CalendarAppService,
 		 private activatedRoute: ActivatedRoute,
+		 private toastr: ToastrService,
 	) {
 		// this.actions = [{
 		// 	label: '<i class="i-Edit m-1 text-secondary"></i>',
@@ -76,17 +79,16 @@ async ngOnInit() {
         this.param=params['id']
       })
 		console.log(this.param)
-		// try{
-		// 	var result=  await this.service.get('get-user-detail/'+this.param).toPromise();
-			
-		// }
-		// catch(e){
+		try{
+			var result=  await this.service.get('get-user-detail/'+this.param).toPromise();
+			this.data=result['data'][0]
+		}
+		catch(e){
+			this.toastr.warning(environment.serverError);
 
+		}
 
-		// 	console.log(e)
-		// }
-
-    		this.data = JSON.parse(localStorage.getItem('userViewData'));
+    		// this.data = JSON.parse(localStorage.getItem('userViewData'));
 		this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.userId = JSON.parse(localStorage.getItem('userId'));
 		this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));
