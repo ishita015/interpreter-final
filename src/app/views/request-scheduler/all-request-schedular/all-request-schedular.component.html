@@ -72,7 +72,7 @@
                                     <input type="text" matInput
                                       [matAutocomplete]="auto" formControlName="client_name">
                                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (keyup)="getRegions($event)">
-                                      <mat-option *ngFor="let option of filterRegions | async; let i = index"  (click)="changeClient(option,i)" [value]="option.name">
+                                      <mat-option *ngFor="let option of clientObj; let i = index"  (click)="changeClient(option,i)" [value]="option.name">
                                         {{ option.name }}
                                       </mat-option>
                                     </mat-autocomplete>
@@ -433,8 +433,8 @@
                                     <label>Code</label>
                                     <select class="form-control country_code" formControlName="phone_code">
                                         <option value="" selected disabled>Code</option>
-                                        <option *ngFor="let isd of country_Obj" [value]="isd.phonecode">
-                                            {{isd?.name}} ({{isd?.phonecode}})
+                                        <option *ngFor="let isd of country_Obj" [value]="isd.id">
+                                            {{isd?.name}} (+{{isd?.phonecode}})
                                         </option>
                                     </select>
                                     <div *ngIf="newRequestForm.controls['phone_code'].errors && ( !newRequestForm.controls['phone_code'].pristine || submitted ||newRequestForm.controls['phone_code'].touched )"
