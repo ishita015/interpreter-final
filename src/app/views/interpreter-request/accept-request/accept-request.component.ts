@@ -114,7 +114,8 @@ export class AcceptRequestComponent implements OnInit {
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;
     this.endDate = this.range.value.end_date;
-    this.service.interpreterRequestList(this.roleId, this.userId, '2', this.allData,
+    // this.service.interpreterRequestList(this.roleId, this.userId, '2', this.allData,
+    this.service.interpreterRequestList(this.roleId, this.userId, '3', this.allData,
     this.startDate,this.endDate)
       .subscribe(res => {
         if (res['status'] == '1') {
