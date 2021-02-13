@@ -387,7 +387,7 @@ module.exports.getUserPermission = async function(req, res, next) {
     //console.log("userRoleId---",userRoleId)
     // var mainArr = [];
     var permission = await userRolemodel.getPermission(userRoleId);
-     var subpermission = await commonDb.AsyncSellectAllWhere('role_module',{status:1}) 
+     var subpermission = await commonDb.AsyncSellectAllWhere('role_module',{status:1 , parent_id : 0}) 
         var arr=[];
           if(permission.length == 0 ){
               arr=subpermission;
