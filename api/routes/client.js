@@ -112,6 +112,14 @@ module.exports.addClient = async function (req, res) {
 
   }
   module.exports.GetUserDetail = async function (req, res) {
+    try {
+       var data = await commonDb.getUserDetail({id:req.params.id})
+       
+        res.send({status:true,data:data})
+      } catch (e) {
+        
+        res.send({status:false,data:[]})
+      }
   }
   module.exports.AddEditUser = async function (req, res) {
     var id = req.body.id;

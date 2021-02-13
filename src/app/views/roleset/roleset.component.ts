@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from "../../shared/services/http.service";
 // import { ValidationsService } from 'src/app/shared/services/validations.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 
@@ -23,11 +23,24 @@ export class RolesetComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    public service:HttpService
+    public service:HttpService,
+    private activatedRoute: ActivatedRoute,
   ) { }
-
+param
   ngOnInit() {
-    this.dataResult = JSON.parse(localStorage.getItem('permissionInfo'));
+    this.activatedRoute.params.subscribe(params => {
+        this.param=params['id'];
+      })
+    this.service.editPemisssion( this.param)
+          .subscribe(res => {
+    this.dataResult = res['data']
+
+        for (var i = 0; i < this.dataResult.length; ++i) {
+          if(this.dataResult[i].status == 1){
+            this.dataResult[i].status='false';
+          }
+        }
+          })
     // console.log("yes is working",this.dataResult);
     // this.createForm();
   }
@@ -47,11 +60,15 @@ export class RolesetComponent implements OnInit {
 
 
     saveRole(){
+      console.log(this.dataResult)
+      // return
       var count=0;
       var count1=0;
       for (var i = 0; i < this.dataResult.length; ++i) {
+                  this.dataResult[i].roleId=this.param
+
         if(this.dataResult[i].status == true || this.dataResult[i].status == 'true'){
-          if(this.dataResult[i].add_permission == 'false'  && this.dataResult[i].delete_permission == 'false'  && this.dataResult[i].edit_permission  == 'false' && this.dataResult[i].status_permission  == 'false' && this.dataResult[i].view_permission  == 'false')
+          if(this.dataResult[i].add_permission == undefined  && this.dataResult[i].delete_permission == undefined  && this.dataResult[i].edit_permission  == undefined && this.dataResult[i].status_permission  == undefined && this.dataResult[i].view_permission  == undefined)
           {
             count=count+1;
         }

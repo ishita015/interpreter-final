@@ -55,14 +55,8 @@ export class SidebarLargeComponent implements OnInit {
           }
         this.nav = res['data']
       })
-       }
-
-      if(roleType == '2'){
-        this.nav = items.v2
-       }
-
-       if(roleType == '3'){
-         this.service.get('getUserRoleMenus/'+roleType).subscribe(res => {
+       }else{
+             this.service.get('getUserRoleMenus/'+roleType).subscribe(res => {
           for (var i = 0; i < res['data'].length; ++i) {
              if(res['data'][i].sub != null){
                  // res['data'][i].sub=JSON.parse(res['data'][i].sub)
@@ -70,7 +64,22 @@ export class SidebarLargeComponent implements OnInit {
           }
         this.nav = res['data']
         })
-      }
+       }
+
+      // if(roleType == '2'){
+      //   this.nav = items.v2
+      //  }
+
+      //  if(roleType == '3'){
+      //    this.service.get('getUserRoleMenus/'+roleType).subscribe(res => {
+      //     for (var i = 0; i < res['data'].length; ++i) {
+      //        if(res['data'][i].sub != null){
+      //            // res['data'][i].sub=JSON.parse(res['data'][i].sub)
+      //        }
+      //     }
+      //   this.nav = res['data']
+      //   })
+      // }
       // console.log('dev',this.nav)
       // console.log('------',roleType)
       this.setActiveFlag();
