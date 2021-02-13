@@ -61,3 +61,4 @@ export class ForgotComponent implements OnInit {
    	 }
     }
     }
+
