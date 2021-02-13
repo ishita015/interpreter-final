@@ -270,11 +270,15 @@ class userClass {
 
 
 
-    getPendingRequestList(serach,start_date,end_date){
+    getPendingRequestList(serach,start_date,end_date,userId){
         return new Promise(function(resolve, reject) {
-            var sql = "SELECT ris.id as ris_id,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='2'";
-            
-
+            // var sql = "SELECT ris.id as ris_id,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='2'";
+            var sql = "SELECT ris.id as ris_id,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language ";
+            if( userId != '0') {
+                sql += "INNER JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='2' AND ir.status = 1 AND ir.is_reject = 0 AND ir.pending_status = 0 AND Interpreter_id="+userId;
+            }else{
+                sql += " WHERE ris.status='2'"
+            }
             if( serach != "") {
                 sql += " && (ris.email LIKE  '%" + serach + "%')";
             }
@@ -285,7 +289,7 @@ class userClass {
             }
             sql += " ORDER BY ris.id DESC"; 
 
-
+            console.log("=========================irs",sql)
             //console.log("check sql",sql);
             con.query(sql, function(err, result) {
                  if (result != "" && result != "undefined") {
@@ -533,7 +537,7 @@ class userClass {
             // let lang = 76.1305457; 
 
             var sql = "SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '"+lat+"' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '"+lat+"' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '"+lang+"' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='"+language_id+"'";
-            
+            // SELECT CONCAT(first_name, ' ', last_name) AS 'CUSTOMER NAME' FROM user
             if(distance != 0 ) { 
                 sql += " && u.distance <= '"+distance+"'"; 
                 // sql += " && (u.distance >= '"+min_distance+"' && u.distance <= '"+max_distance+"')"; 
@@ -545,14 +549,20 @@ class userClass {
                 sql += " && u.interpreter_rate <= '"+rate+"'"; 
             }
 
-            if(searchNameEmail != "" ) { 
-                sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + searchNameEmail + "%')"; 
+            if(rating != 0 ) { 
+                sql += " && u.interpreter_rate <= '"+rate+"'"; 
+            }
+            if(searchNameEmail != "" ) {
+                var flName =searchNameEmail.split(" ")
+                console.log("flName=======",flName);
+                // sql += " && (u.name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + searchNameEmail + "%')"; 
+                sql += " && ((u.first_name LIKE  '%" + flName[0] + "%' && u.last_name LIKE  '%" + flName[1] + "%') || u.first_name LIKE  '%" + searchNameEmail + "%' || u.email LIKE  '%" + searchNameEmail + "%')"; 
             }
 
-    
-            sql += " ORDER BY u.distance ASC";  
+            sql += " ORDER BY u.distance ASC"; 
 
-            console.log("sql------------------",sql);
+            console.log("sql=======",sql);
+
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -591,7 +601,7 @@ class userClass {
                 sql +=" && ir.Interpreter_id='"+user_id+"'";
             }
 
-            //console.log("check sql",sql);
+            console.log("In Progress-==================",sql);
             con.query(sql, function(err, result) {
                  if (result != "" && result != "undefined") {
                      resolve(result);

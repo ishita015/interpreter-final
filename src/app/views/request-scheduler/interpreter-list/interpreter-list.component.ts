@@ -198,7 +198,7 @@ export class InterpreterListComponent implements OnInit {
     console.log("============this.language_id", this.language_id);
     console.log("============this.serviceid", this.serviceid);
     console.log("============this.searchNameEmail", this.searchNameEmail);
-    console.log("============this.distance", this.rating);
+    console.log("============this.distance", this.distance);
     console.log("============this.rate", this.rate);
     console.log("============this.rating", this.rating);    
     this.service.myNearbyInterpreter(this.serviceid, this.language_id, this.searchNameEmail, this.distance, this.rate, this.rating).subscribe(res => {
@@ -250,6 +250,7 @@ export class InterpreterListComponent implements OnInit {
         this.list_Obj = res['data'];
         this.userData = [...res['data']];
         this.filteredUser = this.list_Obj;
+        console.log("===============this.filteredUser",this.filteredUser)
         for (let i = 0; i < this.list_Obj.length; i++) {
           this.markers.push({
             lat: this.list_Obj[i].latitude,
@@ -300,15 +301,16 @@ export class InterpreterListComponent implements OnInit {
   }
 
   assignAllInterpreter() {
-    console.log("j", this.list_Obj)
-    this.service.requestAssignAllInterpreter(this.serviceid, this.list_Obj).subscribe(res => {
-      console.log("res", res)
+    
+    // this.service.requestAssignAllInterpreter(this.serviceid, this.list_Obj).subscribe(res => {
+      this.service.requestAssignAllInterpreter(this.serviceid, this.filteredUser).subscribe(res => {
+      console.log("res====", res)
       this.requestStatus = res;
       if (res['status'] == '1') {
         this.router.navigate(['/user-request/list'])
         this.toastr.success(this.requestStatus.message, '', { timeOut: 2000 });
       } else {
-        this.router.navigate(['/user-request/list'])
+        // this.router.navigate(['/user-request/list'])
         this.toastr.error(this.requestStatus.message, '', { timeOut: 2000 });
       }
 

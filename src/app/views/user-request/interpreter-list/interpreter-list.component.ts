@@ -195,12 +195,7 @@ export class InterpreterListComponent implements OnInit {
     this.rating = this.ratings_formdata;
 
     //  console.log("value set", this.distance);
-    console.log("============this.language_id", this.language_id);
-    console.log("============this.serviceid", this.serviceid);
-    console.log("============this.searchNameEmail", this.searchNameEmail);
-    console.log("============this.distance", this.rating);
-    console.log("============this.rate", this.rate);
-    console.log("============this.rating", this.rating);    
+  
     this.service.myNearbyInterpreter(this.serviceid, this.language_id, this.searchNameEmail, this.distance, this.rate, this.rating).subscribe(res => {
       if (res['status'] == 0) {
 
@@ -300,7 +295,7 @@ export class InterpreterListComponent implements OnInit {
   }
 
   assignAllInterpreter() {
-    console.log("j", this.list_Obj)
+    console.log("list_Obj==============", this.list_Obj)
     this.service.requestAssignAllInterpreter(this.serviceid, this.list_Obj).subscribe(res => {
       console.log("res", res)
       this.requestStatus = res;

@@ -434,6 +434,7 @@ this.mainhomeMobile= formated_phone == 0 ?'' : formated_phone.toString();
   saveUser() {
 
     this.submitted = true;
+    console.log("this.userForm.invalid==========", this.userForm.invalid);
     if (this.userForm.invalid) {
       return;
     }
