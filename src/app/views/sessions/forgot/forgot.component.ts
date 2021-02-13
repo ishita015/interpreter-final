@@ -27,6 +27,7 @@ export class ForgotComponent implements OnInit {
 ) { }
 
     ngOnInit() {
+      localStorage.clear();
         this.Form = this.formBuilder.group({
 		email   : ['', [Validators.required, Validators.pattern(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,6})$/)]],
         });
@@ -36,12 +37,12 @@ export class ForgotComponent implements OnInit {
     get f() { return this.Form.controls; }
 
    async onSubmit() {
-   	this.spinner.show();
         this.submitted = true;
 
         if (this.Form.invalid) {
             return;
         }
+   	this.spinner.show();
     try{
     	var result=  await this.apiservice.post('forget-password',this.Form.value).toPromise();
     	this.spinner.hide();

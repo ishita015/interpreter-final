@@ -52,7 +52,9 @@ export class AddRoleComponent implements OnInit {
         this.role_Msg = res
         this.toastr.success(this.role_Msg.message,'', { timeOut: 1000 });
         // this.router.navigate(['/login'])
+        this.router.navigateByUrl('/sessions/signin', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/permission/rolelist']);  
+}); 
     });
   }
   /*==========Add Api End Here========*/  

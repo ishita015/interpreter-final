@@ -16,7 +16,7 @@ import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { CalendarAppService } from '../../calendar/calendar-app.service';
 import { CalendarFormDialogComponent } from '../../calendar/calendar-form-dialog/calendar-form-dialog.component';
 import { HttpService } from 'src/app/shared/services/http.service';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 
@@ -54,6 +54,7 @@ export class UsersViewComponent implements OnInit {
 		public service:HttpService,
 		private router: Router,
 		private calendarService: CalendarAppService,
+		 private activatedRoute: ActivatedRoute,
 	) {
 		// this.actions = [{
 		// 	label: '<i class="i-Edit m-1 text-secondary"></i>',
@@ -68,8 +69,21 @@ export class UsersViewComponent implements OnInit {
 		// }];
 	}
 
+param
 	ngOnInit() {
-    this.data = JSON.parse(localStorage.getItem('userViewData'));
+
+		this.activatedRoute.params.subscribe(params => {
+        this.param=params['id']
+      })
+		console.log(this.param)
+		// try{
+		// 	var result=  await this.service.get('get-user-detail/'+this.param).toPromise();
+		// }
+		// catch(e){
+		// 	console.log(e)
+		// }
+
+    		this.data = JSON.parse(localStorage.getItem('userViewData'));
 		this.roleName = JSON.parse(localStorage.getItem('roleName'));
 		this.userId = JSON.parse(localStorage.getItem('userId'));
 		this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));

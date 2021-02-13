@@ -69,36 +69,36 @@ export class UsersAddComponent implements OnInit {
         this.LanguageList();
         this.userRoleList();
         //load Places Autocomplete
-        this.mapsAPILoader.load().then(() => {
-            this.setCurrentLocation();
-            this.geoCoder = new google.maps.Geocoder;
+        // this.mapsAPILoader.load().then(() => {
+        //     this.setCurrentLocation();
+        //     this.geoCoder = new google.maps.Geocoder;
 
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-            autocomplete.addListener("place_changed", () => {
-                this.ngZone.run(() => {
-                    //get the place result
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                    this.new_address = place['formatted_address'];
-                    //verify result
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-                    // console.log("place-",place[0].formatted_address);
+        //     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+        //     autocomplete.addListener("place_changed", () => {
+        //         this.ngZone.run(() => {
+        //             //get the place result
+        //             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+        //             this.new_address = place['formatted_address'];
+        //             //verify result
+        //             if (place.geometry === undefined || place.geometry === null) {
+        //                 return;
+        //             }
+        //             // console.log("place-",place[0].formatted_address);
 
-                    //set latitude, longitude and zoom
-                    this.latitude = place.geometry.location.lat();
-                    this.longitude = place.geometry.location.lng();
+        //             //set latitude, longitude and zoom
+        //             this.latitude = place.geometry.location.lat();
+        //             this.longitude = place.geometry.location.lng();
 
-                    // console.log("latitude-",this.latitude);
-                    // console.log("longitude-",this.longitude);
-
-
+        //             // console.log("latitude-",this.latitude);
+        //             // console.log("longitude-",this.longitude);
 
 
-                    this.zoom = 12;
-                });
-            });
-        });
+
+
+        //             this.zoom = 12;
+        //         });
+        //     });
+        // });
 
     }
 
@@ -119,21 +119,22 @@ export class UsersAddComponent implements OnInit {
     /*========== Form Value Start Here========*/
     createForm() {
         this.userForm = this.fb.group({
+            id:[''],
             first_name: ['', this.validation.name_validation],
             last_name: ['', this.validation.name_validation],
             email: ['', this.validation.onlyRequired_validator],
             password: ['', this.validation.onlyRequired_validator],
             mobile: ['', this.validation.onlyRequired_validator],
-            address: ['', this.validation.onlyRequired_validator],
-            apartment:['', this.validation.onlyRequired_validator],
-            street:['', this.validation.onlyRequired_validator],
-            gender: ['', this.validation.onlyRequired_validator],
-            languageid: [''],
-            latitude: [''],
-            longitude: [''],
-            primary_language: ['', this.validation.onlyRequired_validator],
+            // address: ['', this.validation.onlyRequired_validator],
+            // apartment:['', this.validation.onlyRequired_validator],
+            // street:['', this.validation.onlyRequired_validator],
+            // gender: ['', this.validation.onlyRequired_validator],
+            // languageid: [''],
+            // latitude: [''],
+            // longitude: [''],
+            // primary_language: ['', this.validation.onlyRequired_validator],
             user_role: ['', this.validation.onlyRequired_validator],
-            rate:[''],
+            // rate:[''],
         });
     }
     /*========== Form Value End Here========*/
@@ -144,20 +145,19 @@ export class UsersAddComponent implements OnInit {
             return;
         }
         this.submitted = false;
-        this.userForm.value.latitude = this.latitude;
-        this.userForm.value.longitude = this.longitude
-        this.userForm.value.address = this.new_address;
-        this.userForm.value.language = this.newlanguageVal;
-        this.userForm.value.role = this.newrole;
-        // this.func.formatPhoneNumber(this.userForm.value.mobile);
-        console.log("form value", this.userForm.value);
-        this.service.interpreterAdd(this.userForm.value)
+        
+        this.service.post('add-edit-user',this.userForm.value)
             .subscribe(res => {
-                // console.log("api response",res);
-                this.user_Obj = res
-                this.user_Msg = res
-                this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
-                this.router.navigate(['/users/user-list']);
+                if(res['status'] == true){
+                    this.toastr.success(res['msg'], '', { timeOut: 1000 });
+                    this.router.navigateByUrl('/sessions/signin', { skipLocationChange: true }).then(() => {
+                    this.router.navigate(['/users/user-list/'+this.userForm.value.user_role]);
+                }); 
+                    // location.reload();
+
+                 }else{
+                    this.toastr.warning(res['msg'], '', { timeOut: 1000 });
+                    }
             });
     }
 
@@ -186,7 +186,7 @@ export class UsersAddComponent implements OnInit {
         this.service.checkUserEmail(email)
             .subscribe(res => {
                 if (res['status'] == '1') {
-                    alert(res['message']);
+                    this.toastr.warning(res['message']);
                     // this.userForm.value.email = '';
                     $event.target.value = "";
                 }

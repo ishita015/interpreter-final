@@ -46,7 +46,15 @@ export class SidebarLargeComponent implements OnInit {
 
 
       if(roleType == '1'){
-        this.nav = items.v1
+        // this.nav = items.v1
+         this.service.get('getAdminRoleMenus/'+roleType).subscribe(res => {
+          for (var i = 0; i < res['data'].length; ++i) {
+             if(res['data'][i].sub != null){
+                 // res['data'][i].sub=JSON.parse(res['data'][i].sub)
+             }
+          }
+        this.nav = res['data']
+      })
        }
 
       if(roleType == '2'){
@@ -57,7 +65,7 @@ export class SidebarLargeComponent implements OnInit {
          this.service.get('getUserRoleMenus/'+roleType).subscribe(res => {
           for (var i = 0; i < res['data'].length; ++i) {
              if(res['data'][i].sub != null){
-                 res['data'][i].sub=JSON.parse(res['data'][i].sub)
+                 // res['data'][i].sub=JSON.parse(res['data'][i].sub)
              }
           }
         this.nav = res['data']
@@ -89,6 +97,14 @@ export class SidebarLargeComponent implements OnInit {
   onClickChangeActiveFlag(item) {
     this.setActiveMainItem(item);
   }
+  openLink(link){
+    this.router.navigate([link]);
+//     window.location.href="http://192.168.0.56:4200/#/"+link
+//     console.log(link);
+    this.router.navigateByUrl('/dashboard/v1', { skipLocationChange: true }).then(() => {
+    this.router.navigate([link]);
+}); 
+  }
   setActiveMainItem(item) {
     this.nav.forEach(i => {
       i.active = false;
@@ -98,6 +114,8 @@ export class SidebarLargeComponent implements OnInit {
 
   setActiveFlag() {
     if (window && window.location) {
+      if(this.nav != undefined){
+
       const activeRoute = window.location.hash || window.location.pathname;
       this.nav.forEach(item => {
         item.active = false;
@@ -105,7 +123,8 @@ export class SidebarLargeComponent implements OnInit {
           this.navService.selectedItem = item;
           item.active = true;
         }
-        if (item.sub) {
+        if (item.sub != undefined) {
+      console.log('============item.sub==========', item.sub)
           item.sub.forEach(subItem => {
             subItem.active = false;
             if (activeRoute.indexOf(subItem.state) !== -1) {
@@ -124,6 +143,7 @@ export class SidebarLargeComponent implements OnInit {
           });
         }
       });
+      }
     }
   }
 

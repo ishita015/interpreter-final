@@ -191,11 +191,11 @@
                                
                                 <tr>
                                     <td>Event Start Date</td>
-                                    <td>{{data?.event_start_date}}</td>
+                                    <td>{{data?.event_start_date  | date:'MM-dd-yyyy'}}</td>
                                 </tr>
                                 <tr>
                                     <td>Event End Date</td>
-                                    <td>{{data?.event_end_date}}</td>
+                                    <td>{{data?.event_end_date | date:'MM-dd-yyyy'}}</td>
                                 </tr>
                                 <tr>
                                     <td>From Time</td>
@@ -302,7 +302,7 @@
                                 </tr>
                                 <tr>
                                     <td>Event End Date</td>
-                                    <td>{{data?.event_end_date}}</td>
+                                    <td>{{data?.event_end_date | date:'MM-dd-yyyy'}}</td>
                                 </tr>
                                 <tr>
                                     <td>Every</td>
@@ -324,10 +324,6 @@
                                 <tr>
                                     <td>LOB</td>
                                     <td>{{data?.lob}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Notes</td>
-                                    <td>{{data?.notes}}</td>
                                 </tr>
                                 <!-- <tr>
                                     <td>Phone Code</td>

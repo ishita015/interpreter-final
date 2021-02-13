@@ -94,8 +94,16 @@ var schedulerController = require('./routes/scheduler');
 /*forget-password*/
 
 app.post('/cesco/forget-password', loginController.forgetPassword);
+app.post('/cesco/reset-password', loginController.resetPassword);
 /*forget-password*/
 
+
+/*User Management*/
+app.post('/cesco/add-edit-user', clientController.AddEditUser);
+app.get('/cesco/role-detail/:id', userroleController.RoleDetail);
+app.get('/cesco/get-user-detail/:id', clientController.GetUserDetail);
+
+/*User Management*/
 
 //chat start api
 
@@ -221,7 +229,7 @@ app.post('/cesco/getInterpreterLanguage', interpreterController.getInterpreterLa
 app.post('/cesco/getInterpreterDatatime', interpreterController.getInterpreterTime);
 app.post('/cesco/getInterpreter', interpreterController.getInterpreter);
 
-app.get('/cesco/getAllUser', interpreterController.getAllUser);
+app.get('/cesco/getAllUser/:id', interpreterController.getAllUser);
 
 app.post('/cesco/baseRateDetail', interpreterController.baseRate);
 
@@ -296,6 +304,7 @@ app.post('/cesco/update_Account_Setting_Interpreter_Profile', interpreterControl
 
 ////////////////////////////////////////////////////////////////////DEV/////////////////////////////////////////////////////////////////////
 app.get('/cesco/getUserRoleMenus/:userRoleId', userroleController.getUserRoleMenus);
+app.get('/cesco/getAdminRoleMenus/:userRoleId', userroleController.getAdminRoleMenus);
 app.get('/cesco/getClientRoleMenusForPages/:userRoleId', userroleController.getClientRoleMenusForPages);
 app.get('/cesco/getlob', interpreterController.getlob);
 app.post('/cesco/getAssignmentByLanguageID', interpreterController.getAssignmentByLanguageID);
