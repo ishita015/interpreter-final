@@ -1546,7 +1546,7 @@ module.exports.assignAllInterpreter = async function (req, res) {
     //validation start
     const v = new Validator(req.body, {
 
-        allInterpreter: 'required', //array
+        // allInterpreter: 'required', //array
         request_id: 'required',
     });
 
@@ -1566,10 +1566,11 @@ module.exports.assignAllInterpreter = async function (req, res) {
     }
 
 
-    let allInterpreter = req.body.allInterpreter;
+    let allInterpreter = req.body.allInterpreter ? req.body.allInterpreter : null;
     let service_id = req.body.request_id;
-
-
+    if(allInterpreter == null){
+        return res.json({message: "No Interpreter available near by location", status:0})
+    }
     for (var i = 0; i < allInterpreter.length; i++) {
         let interpreter_id = allInterpreter[i].id;
         let name = allInterpreter[i].name;
@@ -2477,7 +2478,7 @@ module.exports.changePassword = async function (req, res, next) {
 
 
 // interpreter request accept/Reject 
-module.exports.interpreterRequestReply = async function (req, res) {
+module.exports. interpreterRequestReply = async function (req, res) {
     //validation start
     const v = new Validator(req.body, {
         user_id: 'required',
@@ -2527,21 +2528,36 @@ module.exports.interpreterRequestReply = async function (req, res) {
         message = "Request reject successfully";
     }
 
-
+        console.log("==========================res_type",res_type)
+        console.log("==========================isreject",isreject)
+        console.log("==========================rejectreq",rejectreq)
     //update status
     let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
     //console.log("updatesql--", updatesql)
     con.query(updatesql, function (err, result) {
         if (!err) {
-            let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
-            //console.log("sql--", sql)
-            con.query(sql, function (err, result) { });
-            if (res_type == 3) {
+            // let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
+            // //console.log("sql--", sql)
+            // con.query(sql, function (err, result) { });
+            // if (res_type == 3) {
+            //     var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
+            //     //console.log('his_sql-', his_sql)
+            //     con.query(his_sql, function (err, insert) { });
+            // }
+
+            // res.json({
+            //     status: 1,
+            //     error_code: 0,
+            //     error_line: 6,
+            //     message: message,
+            // });
+            // return true;
+
+
+            if(res_type == 3){
                 var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
                 //console.log('his_sql-', his_sql)
                 con.query(his_sql, function (err, insert) { });
-            }
-
             res.json({
                 status: 1,
                 error_code: 0,
@@ -2549,6 +2565,17 @@ module.exports.interpreterRequestReply = async function (req, res) {
                 message: message,
             });
             return true;
+        }else{
+            let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
+                con.query(sql, function (err, result) { });
+                res.json({
+                    status: 1,
+                    error_code: 0,
+                    error_line: 6,
+                    message: message,
+                });
+            return true;
+        }
         } else {
             res.json({
                 status: 0,
@@ -2693,12 +2720,13 @@ module.exports.getRequestForInterpreter = async function (req, res) {
 
 // get all pending request
 module.exports.getAllPendingRequest = async function (req, res) {
+    let userId = req.body.userId ? req.body.userId : "0";
     let serach = req.body.search_info ? req.body.search_info : "";
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
     var mainArr = [];
-    var resultdata = await usermodel.getPendingRequestList(serach, start_date, end_date);
+    var resultdata = await usermodel.getPendingRequestList(serach, start_date, end_date, userId);
     if (resultdata != "" && resultdata != undefined) {
         //console.log("resultdata", resultdata)
         var mainObj = {};
@@ -2949,7 +2977,6 @@ module.exports.getNearbyInterpreter = async function (req, res, next) {
     let distance = req.body.distance ? req.body.distance : "";
     let rate = req.body.rate ? req.body.rate : "";
     let rating = req.body.rating ? req.body.rating : "";
-
     let lat; let long;
     var getLatlong = await usermodel.getRequestreLatLong(service_id);
     if (getLatlong != "" && getLatlong != undefined) {

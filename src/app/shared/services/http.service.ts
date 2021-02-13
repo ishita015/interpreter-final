@@ -156,8 +156,8 @@ export class HttpService {
     }, this.httpOptions);
   }
 
-  AllPendingRequest(search_info, start_date, end_date): Observable<any> {
-    return this.http.post(this.url + '/cesco/getAllPendingRequest', { search_info: search_info, start_date: start_date, end_date: end_date }, this.httpOptions);
+  AllPendingRequest(search_info, start_date, end_date,userId): Observable<any> {
+    return this.http.post(this.url + '/cesco/getAllPendingRequest', { search_info: search_info, start_date: start_date, end_date: end_date, userId: userId }, this.httpOptions);
   }
 
   interpreterAllRequestList(status, search_email, start_date, end_date): Observable<any> {

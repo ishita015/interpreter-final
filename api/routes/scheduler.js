@@ -90,8 +90,7 @@ module.exports.getDays = async function (req, res) {
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
   try {
-    var result = await commonDb.insert("request_information_services", { cell_phone: req.body.cell_phone, scheduler_id: req.body.scheduler_id });
-    delete req.body.cell_phone;
+    var result = await commonDb.insert("request_information_services", {scheduler_id: req.body.scheduler_id });
     delete req.body.scheduler_id;
     req.body.ris_id = result.insertId;
     req.body.phone_code = "+"+req.body.phone_code
