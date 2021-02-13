@@ -199,5 +199,14 @@ export class UsersListComponent implements OnInit {
     localStorage.setItem('calendarId', JSON.stringify(id));
     this.router.navigate(['/users/view-calendar'])
   }
+profileOpen(row){
+  console.log(row)
+  if(row.role_id == 2){
+    this.router.navigate(['interpreter/interpreter-profile/'+row.id])
+  }
 
+  if(row.role_id == 3){
+    this.router.navigate(['client/client-edit/'+row.id])
+  }
+}
 }
