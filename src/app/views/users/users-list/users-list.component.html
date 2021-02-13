@@ -37,7 +37,7 @@
                   </ng-template>
                  </ngx-datatable-column>
 
-                 <ngx-datatable-column name="Name" prop="name" [minWidth]="50"> 
+                 <ngx-datatable-column *ngIf="role_name == 'User'" name="Name" prop="name" [minWidth]="50"> 
                   <ng-template ngx-datatable-header-template>
                     Type
                   </ng-template>

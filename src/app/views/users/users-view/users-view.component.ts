@@ -78,7 +78,6 @@ async ngOnInit() {
 		this.activatedRoute.params.subscribe(params => {
         this.param=params['id']
       })
-		console.log(this.param)
 		try{
 			var result=  await this.service.get('get-user-detail/'+this.param).toPromise();
 			this.data=result['data'][0]

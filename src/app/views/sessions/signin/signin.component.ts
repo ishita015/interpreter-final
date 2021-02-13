@@ -91,12 +91,13 @@ export class SigninComponent implements OnInit {
                         localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
                         localStorage.setItem('loggeduser', JSON.stringify(this.name));
                         this.toastr.success(this.log_Msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
-
-                        if(this.log_Obj.role_id==1){
                             this.router.navigate(['/dashboard/v1']);
-                        }else{
-                            this.router.navigate(['/dashboard/v2']);
-                        }
+
+                        // if(this.log_Obj.role_id==1){
+                        //     this.router.navigate(['/dashboard/v1']);
+                        // }else{
+                        //     this.router.navigate(['/dashboard/v2']);
+                        // }
 
                         // dashboard-v2
 

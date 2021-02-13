@@ -93,15 +93,15 @@ export class RoleListComponent implements OnInit {
 
 
       editPemisssion(id) {
-        console.log("permission idddddddddd",id);
-        this.service.editPemisssion(id)
-          .subscribe(res => {
-              this.list_Obj = res['data'];
-              console.log("api response yes",this.list_Obj);
-              localStorage.setItem('permissionInfo', JSON.stringify(this.list_Obj));
-              // this.router.navigate(['/permission/setpermission',id]);
+        // this.service.editPemisssion(id)
+        //   .subscribe(res => {
+        //       this.list_Obj = res['data'];
+        //       console.log("api response yes",this.list_Obj);
+        //       localStorage.setItem('permissionInfo', JSON.stringify(this.list_Obj));
+        //       // this.router.navigate(['/permission/setpermission',id]);
+        //       this.router.navigate(['/roleset/roleset',id]);
+        //   })
               this.router.navigate(['/roleset/roleset',id]);
-          })
       }
     
 

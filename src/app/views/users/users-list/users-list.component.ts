@@ -203,10 +203,10 @@ profileOpen(row){
   console.log(row)
   if(row.role_id == 2){
     this.router.navigate(['interpreter/interpreter-profile/'+row.id])
-  }
-
-  if(row.role_id == 3){
+  }else if(row.role_id == 3){
     this.router.navigate(['client/client-edit/'+row.id])
+  }else{
+    this.toastr.warning('Profile is Pending')
   }
 }
 }

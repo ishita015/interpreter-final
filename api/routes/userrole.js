@@ -69,13 +69,12 @@ module.exports.addUserRole = async function(req, res) {
 
                  
             let moduleInfo = await userRolemodel.getModule(); 
-            //console.log(moduleInfo)
-            if(moduleInfo != "" && moduleInfo != undefined) {
-                for (var i = 0; i < moduleInfo.length; i++) {
-                    var sql_insert = "INSERT INTO user_module_permission (userRoleId,module_id,view_permission,edit_permission,delete_permission,status_permission) values ('"+lastInsertId+"','"+moduleInfo[i].id+"','false','false','false','0')";
-                    //console.log(sql_insert)
-                    con.query(sql_insert, async function(err, inserts) {});
-                }
+            if(moduleInfo.length > 0) {
+                    var sql_insert = "INSERT INTO user_module_permission (userRoleId,module_id,view_permission,edit_permission,delete_permission,status_permission,status) values ('"+lastInsertId+"','"+moduleInfo[0].id+"','true','false','false','0','true')";
+                    con.query(sql_insert, async function(sasas, inserts) {
+                    });
+
+                
             }
 
             res.json({
@@ -388,24 +387,33 @@ module.exports.getUserPermission = async function(req, res, next) {
     //console.log("userRoleId---",userRoleId)
     // var mainArr = [];
     var permission = await userRolemodel.getPermission(userRoleId);
-    
-    if (permission != "" && permission != undefined) {
-        res.json({
-            status: 1,
-            error_code: 0,
-            error_line: 2,
-            data: permission
-        });
-        return true;
-    }else{
-        //no record found
-        res.json({
-            status: 0,
-            error_code: 105,
-            error_line: 4,
-            message: "no record found"
-        });
-        return true;
+     var subpermission = await commonDb.AsyncSellectAllWhere('role_module',{status:1}) 
+        var arr=[];
+          if(permission.length == 0 ){
+              arr=subpermission;
+          }else{
+              arr=subpermission;
+               for (var i = 0; i < arr.length; i++) {
+                      for (var ik = 0; ik < permission.length; ik++) {
+                          if(arr[i].id == permission[ik].module_id){
+                              arr[i].status = permission[ik].status;
+                              arr[i].view_permission = permission[ik].view_permission;
+                              arr[i].add_permission = permission[ik].add_permission;
+                              arr[i].edit_permission = permission[ik].edit_permission;
+                              arr[i].status_permission = permission[ik].status_permission;
+                              arr[i].delete_permission = permission[ik].delete_permission;
+                          }else{
+                              
+                          }
+                      }
+               }
+          }
+
+
+                if (arr != "" && arr != undefined) {
+                   return  res.json({status: 1, error_code: 0, error_line: 2, data: arr }); return true;
+                }else{
+                    return res.json({status: 0, error_code: 105, error_line: 4, message: "no record found"});
     }
 };
 
@@ -414,9 +422,18 @@ module.exports.getUserRoleMenus = async function(req, res) {
 /*
 1 userRoleId
 */
-    let sql = "SELECT user_module_permission.*,role_module.module_name as name,role_module.type,role_module.icon,role_module.state,role_module.sub FROM user_module_permission LEFT JOIN role_module ON user_module_permission.module_id = role_module.id WHERE user_module_permission.status='true' AND user_module_permission.userRoleId="+req.params.userRoleId;
-    var query = con.query(sql, function(err, result) {
+    let sql = "SELECT user_module_permission.*,role_module.name,role_module.type,role_module.icon,role_module.state,role_module.sub FROM user_module_permission LEFT JOIN role_module ON user_module_permission.module_id = role_module.id WHERE user_module_permission.status='true' AND user_module_permission.userRoleId="+req.params.userRoleId;
+    var query = con.query(sql,async function(err, result) {
         if(!err){
+              for (var i = 0; i < result.length; i++) {
+            if(result[i].type == 'link'){
+                delete result[i].sub;
+            }
+             var subdata = await commonDb.AsyncSellectAllWhere('role_module',{parent_id:result[i].module_id});
+                if(subdata.length > 0){
+                result[i].sub = subdata;
+                }
+        }
            return res.json({status: true, message: "Success", data:result});
         }else{
            return res.json({status: false,message: "no records found",data:[] });
