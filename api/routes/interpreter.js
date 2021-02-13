@@ -1578,10 +1578,12 @@ module.exports.assignAllInterpreter = async function (req, res) {
         var lastData = await usermodel.checkRequestSend(interpreter_id, service_id);
 
         if (lastData != "" && lastData != undefined) {
-            let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            // let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            let updatesql = "UPDATE interpreter_request SET status = '0' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             con.query(updatesql, function (err, result) { });
         } else {
-            var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
+            // var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
+            var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','0')";
             //console.log('sql-', sql)
             con.query(sql, function (err, insert) {
                 if (!err) {

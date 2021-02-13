@@ -21,6 +21,9 @@ const ct = require('countries-and-timezones');
 module.exports.getAllClients = async function (req, res) {
   try {
     var result = await commonDb.selectAllWhere("user", { role_id: 3, status: 1 });
+      for(let x of result){
+        x.fullName = x.first_name +" "+x.last_name;  
+      }
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
@@ -90,10 +93,10 @@ module.exports.getDays = async function (req, res) {
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
   try {
-    var result = await commonDb.insert("request_information_services", {scheduler_id: req.body.scheduler_id });
+    var result = await commonDb.insert("request_information_services", { scheduler_id: req.body.scheduler_id });
     delete req.body.scheduler_id;
     req.body.ris_id = result.insertId;
-    req.body.phone_code = "+"+req.body.phone_code
+    req.body.phone_code = "+" + req.body.phone_code
     var result01 = await commonDb.insert("appointment_information_services", req.body);
     return res.json({ status: true, msg: 'Add successfully!' });
 
@@ -107,10 +110,19 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
 //***** GET LAST IR START *****//
 module.exports.getLastRISEntry = async function (req, res) {
   try {
-    var result = await commonDb.getLastRISEntry();
     var getCode = await commonDb.getCode();
-    return res.json({ status: true, msg: 'Data Found!', data: { req: getCode[0].code + '-' + (result[0].id + 1) } });
+    var result = await commonDb.getLastRISEntry();
+    console.log("result",result)
+    var data;
+    if(result.length <= 0){
+      data = getCode[0].code + '-' + 1;
+    }else{
+      data = getCode[0].code + '-' + (result[0].id+1);
+    }
+    console.log("result",result)
+    return res.json({ status: true, msg: 'Data Found!', data: { req: data } });
   } catch (err) {
+    console.log("err====", err);
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
   }
 }

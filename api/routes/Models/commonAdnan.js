@@ -4,7 +4,7 @@ var sql = require('../../config');
 runSQLquery = (query, data) => {
     return new Promise((resolve, reject) => {
         sql.query(query, (err, response) => {
-            if (response != "" && response != undefined) {
+            if (response) {
                 resolve(response);
             } else {
                 reject(err);
@@ -16,7 +16,7 @@ runSQLqueryData = (query, data) => {
     return new Promise((resolve, reject) => {
         sql.query(query, data, (err, response) => {
             console.log("err", err);
-            if (response != "" && response != undefined) {
+            if (response) {
                 resolve(response);
             } else {
                 reject(err);
