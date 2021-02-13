@@ -46,14 +46,14 @@ export class ForgotComponent implements OnInit {
     try{
     	var result=  await this.apiservice.post('forget-password',this.Form.value).toPromise();
     	this.spinner.hide();
-		if(result['status'] == true){
-			this.toastr.success(result['msg']);
-			this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
-			    this.router.navigate(['sessions/forgot']);
-			}); 	
-		}else{
-			this.toastr.warning(result['msg'])
-		}
+      		if(result['status'] == true){
+      			this.toastr.success(result['msg']);
+      			this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
+      			    this.router.navigate(['sessions/forgot']);
+      			}); 	
+      		}else{
+      			this.toastr.warning(result['msg'])
+      		}
     }
     catch(err){
     	this.spinner.hide();

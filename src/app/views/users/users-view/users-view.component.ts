@@ -70,7 +70,7 @@ export class UsersViewComponent implements OnInit {
 	}
 
 param
-	ngOnInit() {
+async ngOnInit() {
 
 		this.activatedRoute.params.subscribe(params => {
         this.param=params['id']
@@ -78,8 +78,11 @@ param
 		console.log(this.param)
 		// try{
 		// 	var result=  await this.service.get('get-user-detail/'+this.param).toPromise();
+			
 		// }
 		// catch(e){
+
+
 		// 	console.log(e)
 		// }
 

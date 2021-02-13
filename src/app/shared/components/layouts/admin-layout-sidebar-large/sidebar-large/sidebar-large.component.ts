@@ -124,7 +124,7 @@ export class SidebarLargeComponent implements OnInit {
           item.active = true;
         }
         if (item.sub != undefined) {
-      console.log('============item.sub==========', item.sub)
+      // console.log('============item.sub==========', item.sub)
           item.sub.forEach(subItem => {
             subItem.active = false;
             if (activeRoute.indexOf(subItem.state) !== -1) {
