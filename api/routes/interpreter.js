@@ -1589,7 +1589,7 @@ module.exports.assignAllInterpreter = async function (req, res) {
             
             var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','0')";
             let sql0 = "UPDATE request_information_services SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
-            con.query(updatesql0, function (err, result) { });
+            con.query(sql0, function (err, result) { });
             //console.log('sql-', sql)
             con.query(sql, function (err, insert) {
                 if (!err) {
