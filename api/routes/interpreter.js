@@ -259,6 +259,8 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
             state: resultData[0].state,
             zipCode: resultData[0].zipCode,
             address: resultData[0].address,
+            latitude: resultData[0].latitude,
+            longitude: resultData[0].longitude,
 
             countryName: resultData[0].countryName ? resultData[0].countryName : '',
             sortname: resultData[0].sortname ? resultData[0].sortname : '',
@@ -339,12 +341,11 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
 module.exports.addAssignmentSetting = async function (req, res) {
     // //console.log('devd---------------------------------dd',req.body);
-    
     if(req.body.onsiteInfo == true){
         for (var i = 0; i < req.body.assignment.length; i++) {
                 var onsitedata ={
                                 status:1,
-                                 Interpreter_id:req.body.interpreter_id,
+                                Interpreter_id:req.body.interpreter_id,
                                 language_id: req.body.assignment[i].language_id,
                                 assignment_type:1,
                                 rates_on_duration_hourly: req.body.assignment[i].hourly_rate,
@@ -596,8 +597,9 @@ module.exports.getUserLanguage = async function (req, res) {
      var data =    await  commonDb.getUserLanguage({user_id:req.params.id})
      var userData =    await  commonDb.AsyncSellectAllWhere('user',{id:req.params.id})
      var Primarydata =    await  commonDb.AsyncSellectAllWhere('languages',{id:userData[0].primary_language})
+    //  console.log("================Primarydata",Primarydata);
      // data.push({id:Primarydata[0].id,name:Primarydata[0].name})
-     data.splice(0, 0, {id:Primarydata[0].id,name:Primarydata[0].name,base_rate:Primarydata[0].base_rate});
+    //  data.splice(0, 0, {id:Primarydata[0].id,name:Primarydata[0].name,base_rate:Primarydata[0].base_rate});
      res.send({status:true,data:data});
 }
 module.exports.addAssignmentSetting_OLD = async function (req, res) {
@@ -3798,7 +3800,9 @@ module.exports.updateInterpreter = async function (req, res) {
     let address = req.body.address ? req.body.address : '';
     let latitude = req.body.latitude ? req.body.latitude : '';
     let longitude = req.body.longitude ? req.body.longitude : '';
-
+    let ein_no = req.body.ein ? req.body.ein : '';
+    let ssn_no = req.body.ssn ? req.body.ssn : '';
+    
 
 
     // let old_address='';
@@ -3816,10 +3820,11 @@ module.exports.updateInterpreter = async function (req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',address ='" + address + "',latitude ='" + latitude + "',longitude ='" + longitude + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
+    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',ssn_no ='" + ssn_no + "',ein_no ='" + ein_no + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',address ='" + address + "',latitude ='" + latitude + "',longitude ='" + longitude + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
 
     // //console.log("sql-update", sql)
     con.query(sql, function (err, result) {
+        console.log("err====",err);
         if (!err) {
             res.json({
                 status: 1,

@@ -131,6 +131,13 @@ commenModel.getRequestDetails = (id) => {
 }
 //***** Get request details end *****//
 
+//*****  Get request details start *****//
+commenModel.getRateSettingPlatforms = (id) => {
+    var que = "SELECT master_platform.* FROM master_platform LEFT JOIN interpreter_assignment_settings AS ias ON master_platform.id = ias.assignment_type  WHERE Interpreter_id = "+ id +" GROUP BY master_platform.id ";
+    return runSQLquery(que);
+}
+//***** Get request details end *****//
+
 //*****  Get REQ code start *****//
 commenModel.getCode = () => {
     var que = "SELECT * FROM master_code";

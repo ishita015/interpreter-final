@@ -152,3 +152,14 @@ module.exports.getRequestDetails = async function (req, res) {
   }
 }
 //***** GET REQUEST DETAILS END *****//
+
+
+module.exports.getRateSettingPlatforms = async function (req, res) {
+  try {
+    var result = await commonDb.getRateSettingPlatforms(req.params.id);
+    return res.json({ status: true, msg: 'Data Found!', data: result });
+  } catch (err) {
+    console.log("err====",err);
+    return res.json({ status: false, data: '', msg: 'No data found!' });
+  }
+}
