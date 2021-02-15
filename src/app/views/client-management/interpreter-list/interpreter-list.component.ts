@@ -64,6 +64,7 @@ export class InterpreterListComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.interpreterList('1');
+    this.rolePermission()
     // this.searchControl.valueChanges
     //   .pipe(debounceTime(200))
     //   .subscribe(value => {
@@ -76,7 +77,15 @@ export class InterpreterListComponent implements OnInit {
     //   // console.log("roleData", this.array_Obj);
   }
 
-
+rolePermission(){
+  this.service.get('get-user-role-permission/'+localStorage.getItem('userId')).subscribe(res =>{
+    for (var i = 0; i < res['data'].length; ++i) {
+        if(res['data'][i].module_id == 10){
+            this.array_Obj=res['data'][i]
+        }
+      }
+  })
+}
 
   // filerData(val) {
   //   if (val) {

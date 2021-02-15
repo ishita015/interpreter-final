@@ -15,8 +15,8 @@
           type="text">
       </div>
     </div>
-   <!--  <div class="col-md-8">
-      <button class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''"
+  <!--   <div class="col-md-8">
+      <button [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''" class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''"
         (click)="languageAddEditOpen('add')" >Create</button>
     </div> -->
 
@@ -50,10 +50,10 @@
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <label class="switch switch-primary mt-2 mr-3">
                 <input type="checkbox"  checked="" 
-                  *ngIf="row.status == '1'" (click)="statusLanguageChange(0,row.id)">
+                  *ngIf="row.status == '1'" [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''" (click)="statusLanguageChange(0,row.id)">
 
                    <input type="checkbox" 
-                  *ngIf="row.status == '0'" (click)="statusLanguageChange(1,row.id)">
+                  *ngIf="row.status == '0'"  [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''"(click)="statusLanguageChange(1,row.id)">
 
                   
 
@@ -86,12 +86,12 @@
               Actions
             </ng-template>
             <ng-template class="newbutton" ngx-datatable-cell-template let-value="value" let-row="row">
-              <button class="btn btn-outline-success btnnew" (click)="Edit(row.id,row)"
-                [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''"
+              <button class="btn btn-outline-success btnnew" 
+                [disabled]="role_id!=1 ? array_Obj?.edit_permission !== 'true' : ''"
                 [routerLink]="['/lob/edit', row.id]">Edit</button>
               <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
               <button class="btn btn-outline-danger ml-2 btnnew"
-                [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
+                [disabled]="role_id!=1 ? array_Obj?.delete_permission !== 'true' : ''"
                 (click)="statusLanguageChange(2,row.id)">
                 Delete
               </button>
