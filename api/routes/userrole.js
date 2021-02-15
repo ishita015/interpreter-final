@@ -430,8 +430,14 @@ module.exports.getUserRoleMenus = async function(req, res) {
                 delete result[i].sub;
             }
              var subdata = await commonDb.AsyncSellectAllWhere('role_module',{parent_id:result[i].module_id});
+                 var arr=[];
                 if(subdata.length > 0){
-                result[i].sub = subdata;
+                     for (var ik = 0; ik < subdata.length; ik++) {
+                         if(subdata[ik].id != 32 && subdata[ik].id != 33){
+                             arr.push(subdata[ik])
+                         }
+                     }
+                    result[i].sub = arr;
                 }
         }
            return res.json({status: true, message: "Success", data:result});
