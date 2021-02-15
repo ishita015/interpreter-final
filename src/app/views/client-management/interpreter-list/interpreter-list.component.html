@@ -33,7 +33,7 @@
     <button class="btn btn-primary" (click)="clearAll()"><i class="fas fa-sync"></i></button>
   </div>
     <div class="col-md-3">
-        <button class="btn btn-primary" (click)="addInterpreter()">Create</button>
+        <button [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''" class="btn btn-primary" (click)="addInterpreter()">Create</button>
     </div>
         <div class="col-md-12 lang_block">
             <div class="card  o-hidden">
@@ -113,7 +113,7 @@
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                        
                         <label class="switch" > 
-                            <input type="checkbox" [checked]="row.status == '1'" 
+                            <input [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''" type="checkbox" [checked]="row.status == '1'" 
                             (click)="statusChange($event.target,row.status,row.id)">
                             <span class="slider">
                             </span>
@@ -126,9 +126,9 @@
                         Actions
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userInterpreter(row.id)">View</button>  
+                        <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''"  style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userInterpreter(row.id)">View</button>  
                      
-                        <button style="overflow: visible !important;" class="btn btn-outline-secondary  ml-2 databuttonnone buttondisplay buttonlabel" (click)="EditInterpreter(row.id)">Edit</button>  
+                        <button [disabled]="role_id!=1 ? array_Obj?.edit_permission !== 'true' : ''"  style="overflow: visible !important;" class="btn btn-outline-secondary  ml-2 databuttonnone buttondisplay buttonlabel" (click)="EditInterpreter(row.id)">Edit</button>  
                        
                         
                     </ng-template>

@@ -14,6 +14,7 @@ var commonDb = require('./Models/commonDev');
 const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
+const { CONSOLE_APPENDER } = require('karma/lib/constants');
 
 
 
@@ -1576,12 +1577,19 @@ module.exports.assignAllInterpreter = async function (req, res) {
         let name = allInterpreter[i].name;
         let email = allInterpreter[i].email;
         var lastData = await usermodel.checkRequestSend(interpreter_id, service_id);
-
         if (lastData != "" && lastData != undefined) {
-            let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            // let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            let updatesql = "UPDATE interpreter_request SET status = '0' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            let updatesql0 = "UPDATE request_information_services SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             con.query(updatesql, function (err, result) { });
+            con.query(updatesql0, function (err, result) { });
+            
         } else {
-            var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
+            // var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
+            
+            var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','0')";
+            let sql0 = "UPDATE request_information_services SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            con.query(sql0, function (err, result) { });
             //console.log('sql-', sql)
             con.query(sql, function (err, insert) {
                 if (!err) {
@@ -1599,7 +1607,7 @@ module.exports.assignAllInterpreter = async function (req, res) {
     }
 
     //update status
-    let updatesql = "UPDATE request_information_services SET status = '2' WHERE id = '" + service_id + "'";
+    let updatesql = "UPDATE request_information_services SET status = '1' WHERE id = '" + service_id + "'";
     con.query(updatesql, function (err, result) {
         if (!err) {
             res.json({
@@ -1970,6 +1978,7 @@ module.exports.adminReminderForinterpreter = async function (req, res, next) {
 
 
     var resultData = await usermodel.getRequestDetails(user_id, ris_id);
+    console.log("remderrrrrrr",resultData);
     if (resultData != "" && resultData != undefined) {
         var name = resultData[0].last_name + " " + resultData[0].first_name;
         var date = resultData[0].date;
@@ -2515,14 +2524,16 @@ module.exports. interpreterRequestReply = async function (req, res) {
     let status = '0';
     let message = '0';
     let isreject = 0;
-    if (res_type == '2') { // accept
-        status = '3';
+    let pending = 0;
+    if (res_type == '1') { // accept
+        status = 2;
         isreject = 0;
-
+        pending = 0
         message = "Request accept successfully";
     } else if (res_type == '3') { // reject
-        status = '1';
+        status = 4;
         isreject = 1;
+        pending = 1
         rejectreq = 1; //for inter request table
         message = "Request reject successfully";
     }
@@ -2531,7 +2542,9 @@ module.exports. interpreterRequestReply = async function (req, res) {
         console.log("==========================isreject",isreject)
         console.log("==========================rejectreq",rejectreq)
     //update status
-    let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
+    // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
+    // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+    let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
     //console.log("updatesql--", updatesql)
     con.query(updatesql, function (err, result) {
         if (!err) {
@@ -2551,13 +2564,24 @@ module.exports. interpreterRequestReply = async function (req, res) {
             //     message: message,
             // });
             // return true;
-
-
             if(res_type == 3){
+
                 var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
                 //console.log('his_sql-', his_sql)
                 con.query(his_sql, function (err, insert) { });
-            res.json({
+                var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+                con.query(request_assign, function (err, insert) { 
+                    var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && status = '3' && is_reject = '1'  && pending_status = 1 ";
+                    con.query(request_rejecter, function (err, insert0) { 
+                        
+                    if(insert.length == insert0.length){
+                        let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
+                        con.query(sql, function (err, insert0) { })
+                    }
+                });
+                });
+                
+                res.json({
                 status: 1,
                 error_code: 0,
                 error_line: 6,
@@ -2565,7 +2589,7 @@ module.exports. interpreterRequestReply = async function (req, res) {
             });
             return true;
         }else{
-            let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
+            let sql = "UPDATE interpreter_request SET status = '" + status + "',is_reject='" + isreject +"',pending_status='" + pending + "' WHERE id = '" + ris_id + "'";
                 con.query(sql, function (err, result) { });
                 res.json({
                     status: 1,
@@ -2631,11 +2655,11 @@ module.exports.interpreterRequestComplete = async function (req, res) {
         common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
 
         //update status
-        let updatesql = "UPDATE interpreter_request SET status = '4', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+        let updatesql = "UPDATE interpreter_request SET status = '2', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
         //console.log("updatesql--", updatesql)
         con.query(updatesql, function (err, result) { });
 
-        let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
+        let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
         //console.log("sql--", sql)
         con.query(sql, function (err, result) { });
 

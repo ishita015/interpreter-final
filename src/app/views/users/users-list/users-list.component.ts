@@ -51,7 +51,6 @@ export class UsersListComponent implements OnInit {
       var result=  await this.service.get('role-detail/'+this.param).toPromise();
       if(result['data'].length > 0){
         this.role_name=result['data'][0].role_name;
-      console.log(result['data'][0].role_name)
       }
     }
     catch(e){
@@ -61,6 +60,7 @@ export class UsersListComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.userList();
+    this.rolePermission();
     this.searchControl.valueChanges
       .pipe(debounceTime(200))
       .subscribe(value => {
@@ -74,12 +74,19 @@ export class UsersListComponent implements OnInit {
     // }
   }
 
-
+rolePermission(){
+  this.service.get('get-user-role-permission/'+localStorage.getItem('userId')).subscribe(res =>{
+    for (var i = 0; i < res['data'].length; ++i) {
+        if(res['data'][i].module_id == 8){
+            this.array_Obj=res['data'][i]
+        }
+      }
+  })
+}
   filerData(val) {
     if (val) {
       val = val.toLowerCase();
     } else {
-      console.log("xxxxxxx", this.filteredUser);
       return this.filteredUser = [... this.userData];
     }
 
@@ -122,13 +129,11 @@ export class UsersListComponent implements OnInit {
 
 
   deleteUser(id, modal) {
-    console.log("delete idddddddddd", id);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
         this.service.getUserDelete(id)
           .subscribe(res => {
             this.userdelete_msg = res;
-            console.log("api", res);
             this.toastr.success(this.userdelete_msg.message, '', { timeOut: 1000 });
             // this.languageList();
           })
@@ -149,15 +154,12 @@ export class UsersListComponent implements OnInit {
 
 
   editUser(id, data) {
-    console.log("permission idddddddddd", id);
-    console.log("data", data);
     localStorage.setItem('editData', JSON.stringify(data));
     localStorage.setItem('rowId', JSON.stringify(id));
     this.service.getInterpreterDetail(id)
       .subscribe(res => {
         this.user_Obj = res['data'];
         this.json_Obj = res['data']['0']
-        console.log("edit api", this.json_Obj.id);
         // localStorage.setItem('editData', JSON.stringify(this.json_Obj));
         // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
         // this.router.navigate(['/permission/setpermission',id]);
@@ -167,9 +169,6 @@ export class UsersListComponent implements OnInit {
   }
 
   statusChange(target, status, id) {
-    console.log("permission target", target);
-    console.log("permission status", status);
-    console.log("permission id", id);
     this.service.statusUpdate(status, id)
       .subscribe(res => {
         this.status_msg = res;
@@ -187,7 +186,6 @@ export class UsersListComponent implements OnInit {
     this.service.getInterpreterDetail(id).subscribe(res => {
       // console.log("apiii", res);
       this.viewUser_obj = res['data'][0];
-      console.log("view object", this.viewUser_obj);
       localStorage.setItem('userViewData', JSON.stringify(this.viewUser_obj));
 
       this.router.navigate(['/users/user-view', id])
@@ -195,18 +193,16 @@ export class UsersListComponent implements OnInit {
   }
 
   viewCalendar(id){
-    console.log("calendarId",id);
     localStorage.setItem('calendarId', JSON.stringify(id));
     this.router.navigate(['/users/view-calendar'])
   }
 profileOpen(row){
-  console.log(row)
   if(row.role_id == 2){
     this.router.navigate(['interpreter/interpreter-profile/'+row.id])
-  }
-
-  if(row.role_id == 3){
+  }else if(row.role_id == 3){
     this.router.navigate(['client/client-edit/'+row.id])
+  }else{
+    this.toastr.warning('Profile is Pending')
   }
 }
 }

@@ -1,3 +1,4 @@
+<div *ngIf="roleId == '1'">
 <div class="">
     <div class="breadcrumb">
         <ul>
@@ -372,3 +373,349 @@
 <!-- 
     </div>
 </div> -->
+
+
+</div>
+</div>
+
+
+
+
+<div *ngIf="roleId != '1'" class="">
+  <div class="breadcrumb">
+      <ul>
+          <li><a class="heading"><b>{{roleName}}</b> Dashboard</a></li>
+          <!-- <li>Version 1</li> cal_data -->
+      </ul>
+  </div>
+
+    
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row dashboard_block">
+    <div (click) = "newRequest()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <div class="card-icon">
+                <i class="i-Add-User"></i>
+                </div>
+                <div class="content">
+                    <p class="cardtext mt-2 mb-0">New Request</p>
+                    <p class="totalnumber text-24 line-height-1 mb-2">{{newrequest_obj?.new_request}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div (click) = "acceptRquest()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card cardsky card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body  text-center">
+                <div class="card-icon cardskyblue">
+                <i class="i-Financial"></i>
+                </div>
+                <div class="content">
+                    <p class="cardtext mt-2 mb-0">In Progress</p>
+                    <p class="totalnumber text-24 line-height-1 mb-2">{{accept_obj?.accept_request}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div (click) = "RejectRequest()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <div class="card-icon cardred">                   
+                     <i class="i-Financial"></i>
+                    </div>
+                <div class="content">
+                    <p class="cardtext mt-2 mb-0">Rejected</p>
+                    <p class="totalnumber text-24 line-height-1 mb-2">{{reject_obj?.reject_request}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div (click) = "completeRequest()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card_gr card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <div class="card-icon cardgreen">
+                <i class="i-Financial"></i>
+                </div>
+                <div class="content">
+                    <p class="cardtext mt-2 mb-0">Completed</p>
+                    <p class="totalnumber text-24 line-height-1 mb-2">{{totalcomplete_obj?.complete_request}}</p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div (click) = "cancelRequest()" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <div class="card-icon">
+                <i class="i-Financial"></i>
+               </div>
+                <div class="content">
+                    <p class="cardtext mt-2 mb-0">Cancelled</p>
+                    <p class="totalnumber text-24 line-height-1 mb-2">{{totalcancel_obj?.cancel_request}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+<!-------------------------------------CALENDAR FORM- cal_data ------------------------------------->
+
+<div class="mb-4">
+    <button class="btn btn-rounded btn-primary" (click)="addEvent()">Add Event</button>
+</div>
+<div class="card">
+    <div class="">
+      <div class="p-3 d-flex justify-content-between align-items-center calendar-title">
+        <!-- Arrow navigations -->
+        <div class="cal-top-col text-center">
+          <button 
+          class="btn btn-rounded btn-icon btn-outline-primary m-1" 
+          mwlCalendarPreviousView 
+          [view]="view" 
+          [(viewDate)]="viewDate">
+            <i class="i-Arrow-Left"></i>
+          </button>
+          <button 
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          mwlCalendarToday 
+          [(viewDate)]="viewDate">
+            <i class="i-Calendar-2"></i>
+          </button>
+          <button 
+          class="btn btn-rounded btn-icon btn-outline-primary m-1" 
+          mwlCalendarNextView 
+          [view]="view" 
+          [(viewDate)]="viewDate">
+            <i class="i-Arrow-Right"></i>
+          </button>
+        </div>
+  
+        <!-- Date title -->
+        <div class=" text-center">
+          <h5 class="m-0 text-muted font-weight-bold">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h5>
+        </div>
+  
+        <!-- Month, day, week view toggle buttons -->
+        <div class="d-flex justify-content-center">
+          <button 
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          (click)="view = 'month'" 
+          [class.active]="view === 'month'"
+          ngbTooltip="Month view">
+            <i class="i-Calendar"></i>
+          </button>
+          <button 
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          (click)="view = 'week'" 
+          [class.active]="view === 'week'"
+          ngbTooltip="Week view">
+            <i class="i-Split-Vertical-2"></i>
+          </button> 
+          <button  
+          class="btn btn-rounded btn-icon btn-primary m-1" 
+          (click)="view = 'day'" 
+          [class.active]="view === 'day'"
+          ngbTooltip="Day view">
+            <i class="i-Align-Justify-All"></i>
+          </button> 
+        </div>
+      </div>
+      <!-- <mat-divider></mat-divider> -->
+    </div>
+  
+    <!-- Calendar -->
+    <div class="p-0">
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="viewEvent($event,eventViewConfirm)"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-day-view> 
+      </div>
+    </div>
+  </div>
+
+  <ng-template #eventDeleteConfirm let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Delete Event?</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">Are you sure want to delete this event?</div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.dismiss('cancel')">No</button>
+      <button type="button" ngbAutofocus class="btn btn-rounded btn-danger" (click)="modal.close('Ok')">Yes</button>
+    </div>
+</ng-template> 
+
+
+<ng-template #eventViewConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">View Event</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.close('Ok')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+  <label class="mb-0"><b>Title</b></label>
+  <p class="mb-0">{{viewObj?.data[0]?.title}}</p> 
+  <label class="mb-0 mt-2 view_label"><b>Start Time</b></label>
+  <p class="view_left mb-0">{{viewObj?.data[0]?.start_time}}</p> 
+ 
+  <label class="mb-0 mt-2 view_label1"><b>End Time</b></label>
+    <p class="view_left1 mb-0">{{viewObj?.data[0]?.end_time}}</p> 
+   
+    <label class="mb-0 mt-2 "><b>Description</b></label>
+    <p class=" mb-0">{{viewObj?.data[0]?.description}}</p> 
+ 
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.close('Ok')">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-rounded btn-success" (click)="editCalender(viewObj?.data[0],viewObj?.data[0]?.id);modal.close('Ok')">Edit</button>
+    <button type="button" ngbAutofocus class="btn btn-rounded btn-danger"  (click)="removeEvent(viewObj?.data[0]?.id,eventDeleteConfirm);modal.close('Ok')">Delete</button>
+  </div>
+</ng-template>
+
+<ng-template #requestViewConfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">View Event</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+  
+    <p class="mt-2">Press vidw detail</p> 
+ 
+
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-secondary" (click)="modal.close('Ok')">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-rounded btn-success" (click)="editCalender(viewObj?.data[0],viewObj?.data[0]?.id);modal.close('Ok')">Edit</button>
+    <button type="button" ngbAutofocus class="btn btn-rounded btn-danger"  (click)="removeEvent(viewObj?.data[0]?.id,eventDeleteConfirm);modal.close('Ok')">Delete</button>
+  </div>
+</ng-template>
+
+
+<!-- 
+<ng-template #addCalenderConfirmModal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Add</h4>
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+
+    <form [formGroup]="addCalForm" class="event-form p-3">
+      <div class="row">
+       
+        <div class="col-md-12 form-group">
+          <label>Title</label>
+          <input 
+            class="form-control form-control-rounded" 
+            formControlName="title" 
+            placeholder="Title">
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Start Date</label>
+          <div class="input-group">
+            <input type="time"
+            class="form-control form-control-rounded"
+            placeholder="Start Date"
+            name="startDate" 
+            formControlName="start_time">
+          </div>
+        </div>
+  
+        <div class="col-md-6 form-group">
+          <label>End Date</label>
+          <div class="input-group">
+            <input type="time"
+            class="form-control form-control-rounded"
+            placeholder="End Date" 
+            name="endDate" 
+            formControlName="end_time">
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Date</label>
+          <input 
+            type="date" 
+            name="setTodaysDate"
+            class="form-control form-control-rounded"
+            formControlName="date" 
+            placeholder="Date">
+        </div>
+  
+        <div class="col-md-12 form-group">
+          <label>Description</label>
+          <textarea 
+            class="form-control form-control-rounded" 
+            formControlName="description" 
+            placeholder="Description" 
+            max-rows="4">
+            </textarea>
+        </div>
+      </div>
+  
+    </form>
+    
+  
+    </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+      <button type="button" ngbAutofocus class="btn btn-wide btn btn-primary btn-rounded" (click)="modal.close('Ok')">Save</button>
+  </div>
+</ng-template> -->

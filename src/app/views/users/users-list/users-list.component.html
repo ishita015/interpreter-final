@@ -15,7 +15,7 @@
           </div>
     </div>
     <div *ngIf="role_name == 'User'" class="col-md-8">
-        <button class="btn btn-primary float-right" (click)="addUser()">Create</button>
+        <button [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''" class="btn btn-primary float-right" (click)="addUser()">Create</button>
     </div>
         <div class="col-md-12 lang_block">
             <div class="card  o-hidden">
@@ -37,7 +37,7 @@
                   </ng-template>
                  </ngx-datatable-column>
 
-                 <ngx-datatable-column name="Name" prop="name" [minWidth]="50"> 
+                 <ngx-datatable-column *ngIf="role_name == 'User'" name="Name" prop="name" [minWidth]="50"> 
                   <ng-template ngx-datatable-header-template>
                     Type
                   </ng-template>
@@ -95,7 +95,7 @@
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                        
                         <label class="switch" > 
-                            <input type="checkbox" [checked]="row.status == '1'" 
+                            <input [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''" type="checkbox" [checked]="row.status == '1'" 
                             (click)="statusChange($event.target,row.status,row.id)">
                             <span class="slider">
                             </span>
@@ -108,10 +108,10 @@
                         Actions
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userView(row.id)">View</button>  
+                        <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''" style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userView(row.id)">View</button>  
                         <!-- <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button> -->
 
-                        <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="profileOpen(row)" >Profile</button>
+                        <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''"  style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="profileOpen(row)" >Profile</button>
                         <!-- <button style="overflow: visible !important;" class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel"  (click)="viewCalendar(row.id)">View Calendar</button> -->
                         <!-- <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button> -->
                         <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->

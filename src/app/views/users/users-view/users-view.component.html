@@ -60,14 +60,14 @@
                     </div>
                     <div class="profiletitle mt-2">
 
-                        <h4>{{data.name}}</h4>
+                        <h4>{{data?.name}}</h4>
                     </div>
                     <div class="profilecontent">
                         <ul class="list basic_info">
-                            <li><a ><i class="i-Envelope"></i> {{data.email}}</a></li>
-                            <li><a ><i class="i-Telephone"></i> {{data.mobile | mask: '(000) 000-0000'}}</a></li>
-                            <li><a ><i class="i-Business-ManWoman"></i> {{data.gender}}</a></li>
-                            <li><a ><i class="i-Address-Book"></i> {{data.address}}</a></li>
+                            <li><a ><i class="i-Envelope"></i> {{data?.email}}</a></li>
+                            <li><a ><i class="i-Telephone"></i> {{data?.mobile | mask: '(000) 000-0000'}}</a></li>
+                            <li><a ><i class="i-Business-ManWoman"></i> {{data?.gender}}</a></li>
+                            <li><a ><i class="i-Address-Book"></i> {{data?.address}}</a></li>
                         </ul>
                    
                     </div>
@@ -90,7 +90,7 @@
                                 <tbody>
                                     <tr>
                                         <td>User Type</td>
-                                        <td>{{data.role_name}}</td>
+                                        <td>{{data?.role_name}}</td>
                                     </tr>
                                     <!-- <tr *ngIf="data.role_id == '2'">
                                         <td>Rate/Hour</td>

@@ -18,7 +18,7 @@
                    <div *ngFor="let result of dataResult;let i=index" class="form-group row">
                         <div class="col-sm-2">
                           <label>
-                          {{result.module_name}}    
+                          {{result.name}}    
                                 <input   checked="{{result.status =='true' ? 'checked' : ''}}" (change)="setCheck($event,'status',i)" name="status_{{i}}" type="checkbox" id="gridCheck1">
                           </label>
                         </div>

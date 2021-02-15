@@ -104,6 +104,7 @@ app.get('/cesco/role-detail/:id', userroleController.RoleDetail);
 app.get('/cesco/get-user-detail/:id', clientController.GetUserDetail);
 
 /*User Management*/
+app.get('/cesco/get-user-role-permission/:id', userroleController.GetUserRolePermission);
 
 //chat start api
 
@@ -310,8 +311,6 @@ app.get('/cesco/getlob', interpreterController.getlob);
 app.post('/cesco/getAssignmentByLanguageID', interpreterController.getAssignmentByLanguageID);
 
 
-
-
 app.post('/cesco/add-edit-lob', lobController.AddEditLob);
 app.post('/cesco/ChangeStatus', lobController.ChangeStatus);
 app.get('/cesco/get-lob', lobController.getLob);
@@ -510,23 +509,55 @@ app.post('/cesco/location_update', function(req, res) {
 
 
 
-app.post('/cesco/userRoleAdd', function(req, res) {
+app.post('/cesco/userRoleAdd',async function(req, res) {
   let data =req.body;
   for (var i = 0; i < data.length; i++) {
-    //console.log('result-',data[i].id);
-    let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"',status ='"+data[i].status+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE id = '"+data[i].id+"'";  
-    //console.log('yes-',sql)
+     var ch_data = await commonDb.AsyncSellectAllWhere('user_module_permission',{userRoleId:data[i].roleId,module_id:data[i].id});
+     if(ch_data.length == 0){
+         // console.log(data[i])
+          try{
+              if(data[i].status == 'true'){
+              await commonDb.AsyncInsert('user_module_permission',{userRoleId:data[i].roleId,module_id:data[i].id,status:true,
+                  view_permission:data[i].view_permission == undefined ? 'false' : data[i].view_permission,
+                  add_permission:data[i].add_permission == undefined ? 'false' : data[i].add_permission,
+                  edit_permission:data[i].edit_permission == undefined ? 'false' : data[i].edit_permission,
+                  delete_permission:data[i].delete_permission == undefined ? 'false' : data[i].delete_permission,
+                  status_permission:data[i].status_permission == undefined ? 'false' : data[i].status_permission,
+              })
+              }
+  
+          }
+          catch(e){
+             console.log(e)
+          }
+
+     }else{
+
+
+       try{
+      console.log(i)
+    let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"',status ='"+data[i].status+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE userRoleId = "+data[i].roleId+" AND module_id="+data[i].id+"";  
+    console.log('yes-',sql)
     var query = con.query(sql, function(err, result) {});
+              // await commonDb.AsyncUpdate('user_module_permission',{
+              //     userRoleId:data[i].roleId,module_id:data[i].id,
+              //     status:data[i].id,status,
+              //     view_permission:data[i].view_permission == undefined ? 'false' : data[i].view_permission,
+              //     add_permission:data[i].add_permission == undefined ? 'false' : data[i].add_permission,
+              //     edit_permission:data[i].edit_permission == undefined ? 'false' : data[i].edit_permission,
+              //     delete_permission:data[i].delete_permission == undefined ? 'false' : data[i].delete_permission,
+              //     status_permission:data[i].status_permission == undefined ? 'false' : data[i].status_permission,
+              // })
+             
+          }
+          catch(e){
+             console.log(e)
+          }
+     }
   }
 
 
-  res.json({
-      status: 1,
-      error_code: 0,
-      error_line: 6,
-      message: "Permission update successfully",
-  });
-  return true;
+   return  res.json({status: 1, error_code: 0, error_line: 6, message: "Permission saved successfully", });
 
   
 });

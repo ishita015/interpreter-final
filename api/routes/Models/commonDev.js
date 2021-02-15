@@ -156,6 +156,30 @@ this.AsyncUpdate1 = function(table,obj,where) {
 
     }); 
  }  
+  this.getUserRolePermission = function(obj) {
+       
+        var que = "SELECT role_module.name,user_module_permission.* FROM user_module_permission LEFT JOIN role_module ON user_module_permission.module_id = role_module.id WHERE user_module_permission.userRoleId="+obj.id;
+        return new Promise((resolve, reject) => {
+        con.query(que, (err, response) => {
+            // console.log('err',err)
+            
+                resolve(response);
+        });
+
+    }); 
+ }
+ this.getUserDetail = function(obj) {
+       
+        var que = "SELECT user.*,user_roles.role_name FROM user LEFT JOIN user_roles ON user.role_id = user_roles.id WHERE user.id="+obj.id;
+        return new Promise((resolve, reject) => {
+        con.query(que, (err, response) => {
+            // console.log('err',err)
+            
+                resolve(response);
+        });
+
+    }); 
+ }  
 
  this.getUserLanguage = function(ob) {
        
