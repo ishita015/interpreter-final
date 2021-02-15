@@ -137,7 +137,7 @@
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   <button class="btn btn-outline-secondary" (click)="viewDetail(row.ris_id)">View</button>  
                    <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
-                  (click)="interpreterReply(row.ris_id,'2', acceptConfirmModal)">
+                  (click)="interpreterReply(row.ris_id,'1', acceptConfirmModal)">
                   Accept
                   </button>
 
