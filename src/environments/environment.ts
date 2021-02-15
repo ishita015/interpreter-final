@@ -12,6 +12,7 @@ export const environment = {
   imageUrl:'http://103.15.67.78:3300/user/',
   apiUrl: 'http://192.168.0.56:3300',
   serverError:'Something went wrong from server/api'
+ 
 };
 
 /*
