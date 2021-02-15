@@ -218,7 +218,6 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
          var assignment=s_data;
 
-        console.log('--------assignment---------',assignment)
         // return
         var assignmentArr = [];
 
@@ -597,10 +596,8 @@ module.exports.getUserLanguage = async function (req, res) {
      var data =    await  commonDb.getUserLanguage({user_id:req.params.id})
      var userData =    await  commonDb.AsyncSellectAllWhere('user',{id:req.params.id})
      var Primarydata =    await  commonDb.AsyncSellectAllWhere('languages',{id:userData[0].primary_language})
-     // //console.log(Primarydata)
      // data.push({id:Primarydata[0].id,name:Primarydata[0].name})
      data.splice(0, 0, {id:Primarydata[0].id,name:Primarydata[0].name,base_rate:Primarydata[0].base_rate});
-
      res.send({status:true,data:data});
 }
 module.exports.addAssignmentSetting_OLD = async function (req, res) {
@@ -3734,6 +3731,7 @@ module.exports.addInterpreter = async function (req, res) {
 
 
 module.exports.updateInterpreter = async function (req, res) {
+    console.log("req.body==============================",req.body);
     //validation start
     const v = new Validator(req.body, {
         interpreter_id: 'required',
@@ -3797,6 +3795,9 @@ module.exports.updateInterpreter = async function (req, res) {
     let timezone = req.body.timezone ? req.body.timezone : "";
     let other_gender = req.body.other_gender ? req.body.other_gender : "";
     let zipCode = req.body.zipCode ? req.body.zipCode : '';
+    let address = req.body.address ? req.body.address : '';
+    let latitude = req.body.latitude ? req.body.latitude : '';
+    let longitude = req.body.longitude ? req.body.longitude : '';
 
 
 
@@ -3815,7 +3816,7 @@ module.exports.updateInterpreter = async function (req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
+    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',address ='" + address + "',latitude ='" + latitude + "',longitude ='" + longitude + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
 
     // //console.log("sql-update", sql)
     con.query(sql, function (err, result) {
