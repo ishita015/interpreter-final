@@ -40,10 +40,11 @@ const adminRoutes: Routes = [
       path: 'client',
       loadChildren: () => import('./views/client-management/interpreter-management.module').then(m => m.InterpreterManagementModule)
     },
+    // {
+    //   path: 'client-request',
+    //   loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
+    // },
     {
-      path: 'client-request',
-      loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
-    },{
       path: 'interpreter-request',
       loadChildren: () => import('./views/interpreter-request/interpreter-request.module').then(m => m.InterpreterRequestModule)
     },
@@ -108,6 +109,9 @@ const adminRoutes: Routes = [
     {
       path: 'request-scheduler',
       loadChildren: () => import('./views/request-scheduler/request-scheduler.module').then(m => m.RequestSchedulerModule)
+    },{
+      path: 'client-request',
+      loadChildren: () => import('./views/request-client/request-scheduler.module').then(m => m.RequestSchedulerModule)
     },
   ];
 

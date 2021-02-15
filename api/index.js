@@ -273,6 +273,10 @@ app.post('/cesco/sendTrackingLink', serviceController.sendTrackingLinkTocustomer
 
 
 
+app.post('/cesco/getAllClientRequest', serviceController.getAllClientRequest);
+
+
+
 app.post('/cesco/getAllAssignment', serviceController.getAllAssignment);
 app.get('/cesco/getRequestData', serviceController.getRequestData);
 app.post('/cesco/getRequestData', serviceController.getRequestData);

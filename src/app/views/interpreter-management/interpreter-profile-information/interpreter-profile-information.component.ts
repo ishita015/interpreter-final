@@ -1585,7 +1585,6 @@ MasterLobData=[]
     this.assignmentForm.value.rsiInfo = this.rsiInfo;
     this.assignmentForm.value.vci_opi = this.vci_opi;
 
-    console.log('data==============', this.assignmentForm.value)
     // return
     this.service.addInterpreterAssignmentSetting(this.assignmentForm.value)
       .subscribe(res => {

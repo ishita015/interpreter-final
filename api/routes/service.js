@@ -1058,6 +1058,101 @@ module.exports.getAllAssignment = async function(req, res) {
 
 
 
+// get all assignment/all request
+module.exports.getAllClientRequest = async function(req, res) {
+    let status = req.body.status ? req.body.status : '';
+    let lang_id = req.body.lang_id ? req.body.lang_id : '0';
+    let search_email = req.body.search_email ? req.body.search_email : "";
+    let start_date = req.body.start_date ? req.body.start_date : '0';
+    let end_date = req.body.end_date ? req.body.end_date : '0';
+
+   
+    console.log("enddec_date-",req.body)
+
+
+    var unfil_ids='';
+    if(status=='6'){
+        // let getId = module.exports.getRecordid();
+        var resultdata = await usermodel.getLangIds(); 
+        if (resultdata != "" && resultdata != undefined) {
+            unfil_ids =resultdata.toString();
+            console.log("resultdata", resultdata.toString());
+
+            
+            // var langid = resultdata[0].lang_id;
+            // var tdata1 = await usermodel.getUnfilLangIds(langid); 
+            // if (resultdata1 != "" && resultdata1 != undefined) {
+                // var array = langid.split(',');
+            //     for (var i = 0; i < resultdata1.length; i++) {
+                    
+            //         var n = array.includes(resultdata1[i].primary_language);
+            //         if(n==false){
+            //             unfil_ids+=resultdata1[i].primary_language+',';
+            //         }
+            //     }
+            // }   
+        }
+    }
+
+
+    // var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
+    var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE ris.scheduler_id="+req.body.userId;
+
+
+    if(lang_id != '0' ) { 
+        sql += " && ais.language='"+lang_id+"'";
+    }
+
+    // if(status != '0' && status != '6' ) { 
+    //     sql += " && ris.status='"+status+"'";
+    // }
+    
+    if(status != '' && status != '6' ) { 
+        sql += " && ris.status='"+status+"'";
+    }
+    if(search_email != "" ) { 
+        sql += " && (ris.email LIKE  '%" + search_email + "%')";
+    }
+
+    if((start_date != '0' && end_date != '0') ) {
+        let sd = start_date.replace(/T/, ' ').replace(/\..+/, '');  
+        let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');      
+        sql += " && ris.updated_at BETWEEN '"+sd+"' AND '"+ed+"'";
+    }
+
+    
+    if(unfil_ids != "" && status=='6') { 
+        //sql += " && (ris.email LIKE  '%" + unfil_ids + "%')";
+        sql += " && FIND_IN_SET(ais.language, '"+unfil_ids+"')";
+    }
+
+    sql += " ORDER BY ris.id DESC";  
+
+
+    console.log("request_information_services-",sql);
+    con.query(sql, function(err, result, fields) {
+        if (result && result.length > 0) {
+            res.json({
+                status: 1,
+                error_code: 0,
+                error_line: 1,
+                data: result,
+                message: "Record found"
+            });
+            return true;
+        } else {
+            res.json({
+                status: 0,
+                error_code: 0,
+                error_line: 6,
+                message: "No record found"
+            });
+            return true;
+        }
+    });
+};
+
+
 
 
 
