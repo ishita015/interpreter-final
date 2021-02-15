@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="col-md-8">
-      <button class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''"
+      <button class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''"
         (click)="languageAddEditOpen('add')" [routerLink]="['/languages/add']">Create</button>
     </div>
 
@@ -102,7 +102,7 @@
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <label class="switch switch-primary mt-2 mr-3">
-                <input type="checkbox" [disabled]="role_id!=1 ? array_Obj.status_permission !== 'true' : ''"
+                <input type="checkbox" [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''"
                   [checked]="row.status == '1'" (click)="statusLanguageChange($event.target,row.status,row.id)">
                 <span class="slider">
                 </span>
@@ -133,11 +133,11 @@
             </ng-template>
             <ng-template class="newbutton" ngx-datatable-cell-template let-value="value" let-row="row">
               <button class="btn btn-outline-success btnnew" (click)="Edit(row.id,row)"
-                [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''"
+                [disabled]="role_id!=1 ? array_Obj?.edit_permission !== 'true' : ''"
                 [routerLink]="['/languages/edit', row.id]">Edit</button>
               <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
               <button class="btn btn-outline-danger ml-2 btnnew"
-                [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
+                [disabled]="role_id!=1 ? array_Obj?.delete_permission !== 'true' : ''"
                 (click)="deleteLanguage(row.id, deleteConfirmModal)">
                 Delete
               </button>

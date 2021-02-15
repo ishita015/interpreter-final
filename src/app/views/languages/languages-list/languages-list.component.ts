@@ -38,6 +38,7 @@ export class LanguagesListComponent implements OnInit {
     ngOnInit() {
       this.userId = JSON.parse(localStorage.getItem('userId'));
       this.roleId = JSON.parse(localStorage.getItem('roleId'));
+        this.rolePermission();
         this.languageList();
         this.searchControl.valueChanges
         .pipe(debounceTime(200))
@@ -45,14 +46,25 @@ export class LanguagesListComponent implements OnInit {
             this.filerData(value);
         });
 
-        this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-        this.array_Obj = this.roleData['data'][1];
-        if(this.array_Obj.id){
-          this.array_Obj = this.roleData['data'][1];
-          console.log("roleData xxxxxxxxxxxxxx", this.array_Obj);
-        }
+        // this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
+        // this.array_Obj = this.roleData['data'][1];
+        // if(this.array_Obj.id){
+        //   this.array_Obj = this.roleData['data'][1];
+        // }
+
     }
 
+rolePermission(){
+  this.service.get('get-user-role-permission/'+localStorage.getItem('userId')).subscribe(res =>{
+    console.log(res['data']);
+    for (var i = 0; i < res['data'].length; ++i) {
+        if(res['data'][i].module_id == 2){
+            this.array_Obj=res['data'][i]
+
+        }
+      }
+  })
+}
 
     filerData(val) {
         if (val) {

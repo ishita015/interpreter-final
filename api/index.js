@@ -104,6 +104,7 @@ app.get('/cesco/role-detail/:id', userroleController.RoleDetail);
 app.get('/cesco/get-user-detail/:id', clientController.GetUserDetail);
 
 /*User Management*/
+app.get('/cesco/get-user-role-permission/:id', userroleController.GetUserRolePermission);
 
 //chat start api
 

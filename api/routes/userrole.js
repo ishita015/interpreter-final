@@ -494,6 +494,15 @@ module.exports.RoleDetail = async function(req, res) {
 
     }
 }
+module.exports.GetUserRolePermission = async function(req, res) {
+    try{
+        var data = await commonDb.getUserRolePermission({id:req.params.id});
+        return res.send({status:true,data:data});
+    }
+    catch(e){
+        return res.send({status:false,data:[]})
+    }
+}
 module.exports.getClientRoleMenusForPages = async function(req, res) {
 /*
 1 userRoleId
