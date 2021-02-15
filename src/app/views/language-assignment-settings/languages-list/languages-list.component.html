@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="col-md-8">
-      <button class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj.add_permission !== 'true' : ''"
+      <button class="btn btn-primary float-right" [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''"
         (click)="languageAddEditOpen('add')" >Create</button>
     </div>
 
@@ -111,11 +111,11 @@
             </ng-template>
             <ng-template class="newbutton" ngx-datatable-cell-template let-value="value" let-row="row">
               <button class="btn btn-outline-success btnnew" (click)="Edit(row.id,row)"
-                [disabled]="role_id!=1 ? array_Obj.edit_permission !== 'true' : ''"
+                [disabled]="role_id!=1 ? array_Obj?.edit_permission !== 'true' : ''"
                 [routerLink]="['/language-assignment-settings/edit', row.id]">Edit</button>
               <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
               <button class="btn btn-outline-danger ml-2 btnnew"
-                [disabled]="role_id!=1 ? array_Obj.delete_permission !== 'true' : ''"
+                [disabled]="role_id!=1 ? array_Obj?.delete_permission !== 'true' : ''"
                 (click)="statusLanguageChange(2,row.id)">
                 Delete
               </button>

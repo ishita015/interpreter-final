@@ -433,9 +433,14 @@ module.exports.getUserRoleMenus = async function(req, res) {
                  var arr=[];
                 if(subdata.length > 0){
                      for (var ik = 0; ik < subdata.length; ik++) {
-                         if(subdata[ik].id != 32 && subdata[ik].id != 33&& subdata[ik].id != 26 && subdata[ik].id != 27 ){
-                             arr.push(subdata[ik])
-                         }
+                         if(req.params.userRoleId == 2){
+                                    if(subdata[ik].id != 32 && subdata[ik].id != 33 && subdata[ik].id != 26 && subdata[ik].id != 27 ){
+                                     arr.push(subdata[ik])
+                                     }
+                         }else{
+                                         
+                                     arr.push(subdata[ik])
+                                     }
                      }
                     result[i].sub = arr;
                 }
@@ -492,6 +497,15 @@ module.exports.RoleDetail = async function(req, res) {
     catch(e){
         return res.json({status: false,message: "no records found",data:[] });
 
+    }
+}
+module.exports.GetUserRolePermission = async function(req, res) {
+    try{
+        var data = await commonDb.getUserRolePermission({id:req.params.id});
+        return res.send({status:true,data:data});
+    }
+    catch(e){
+        return res.send({status:false,data:[]})
     }
 }
 module.exports.getClientRoleMenusForPages = async function(req, res) {
