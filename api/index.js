@@ -311,8 +311,6 @@ app.get('/cesco/getlob', interpreterController.getlob);
 app.post('/cesco/getAssignmentByLanguageID', interpreterController.getAssignmentByLanguageID);
 
 
-
-
 app.post('/cesco/add-edit-lob', lobController.AddEditLob);
 app.post('/cesco/ChangeStatus', lobController.ChangeStatus);
 app.get('/cesco/get-lob', lobController.getLob);

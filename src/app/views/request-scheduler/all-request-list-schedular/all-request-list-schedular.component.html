@@ -25,12 +25,12 @@
           [formControl]="request_status">
           <option value="">Select Status</option>
 
-          <option class="black-text bg-warning" value="1">New Request</option>
-          <option class="bg-black text-white" value="2">Broadcasting</option>
-          <option class="bg-primary text-white" value="3">In Progress</option>
-          <option class="bg-success black-text" value="4">Completed</option>
-          <option class="bg-danger text-white" value="5">Cancelled</option>
-          <option class="bg-default black-text" value="6">Unable To Fill</option>
+          <option class="black-text bg-warning" value="0">New Request</option>
+          <option class="bg-black text-white" value="1">Broadcasting</option>
+          <option class="bg-primary text-white" value="2">In Progress</option>
+          <option class="bg-success black-text" value="3">Completed</option>
+          <!-- <option class="bg-danger text-white" value="5">Cancelled</option> -->
+          <!-- <option class="bg-default black-text" value="6">Unable To Fill</option> -->
         </select>
       </div>
     </div>
@@ -150,11 +150,18 @@
             </ng-template>
 
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-
+<!-- 
               <span class="text-warning" *ngIf="row.status==1">New Request</span>
               <span class="assign-color" *ngIf="row.status==2">Broadcasting</span>
               <span class="text-primary" *ngIf="row.status==3">In Progress</span>
               <span class="text-success" *ngIf="row.status==4">Completed</span>
+              <span class="text-danger" *ngIf="row.status==5">Canceled</span> -->
+
+              <span class="text-warning" *ngIf="row.status==0">New Request</span>
+              <span class="assign-color" *ngIf="row.status==1">Broadcasting</span>
+              <span class="text-primary" *ngIf="row.status==2">In Progress</span>
+              <span class="text-success" *ngIf="row.status==3">Completed</span>
+              <span class="text-danger" *ngIf="row.status==4">Reassign</span>
               <span class="text-danger" *ngIf="row.status==5">Canceled</span>
               <!-- <span class="text-danger" >Unable to fill</span> -->
             </ng-template>
