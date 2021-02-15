@@ -72,8 +72,8 @@
                                     <input type="text" matInput
                                       [matAutocomplete]="auto" formControlName="client_name">
                                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (keyup)="getRegions($event)">
-                                      <mat-option *ngFor="let option of clientObj; let i = index"  (click)="changeClient(option,i)" [value]="option.name">
-                                        {{ option.name }}
+                                      <mat-option *ngFor="let option of clientObj; let i = index"  (click)="changeClient(option,i)" [value]="option.fullName">
+                                        {{ option.fullName }} 
                                       </mat-option>
                                     </mat-autocomplete>
                                     <div *ngIf="newRequestForm.controls['client_name'].errors && ( !newRequestForm.controls['client_name'].pristine || submitted ||newRequestForm.controls['client_name'].touched )"
