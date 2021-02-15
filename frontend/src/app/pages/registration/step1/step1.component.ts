@@ -11,7 +11,7 @@ interface marker {
 	lng: number;
 	label?: string;
 	draggable: boolean;
-  visible: boolean;
+  visible: boolean; 
   opacity: number;
 }
 @Component({

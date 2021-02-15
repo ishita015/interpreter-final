@@ -1979,7 +1979,6 @@ module.exports.adminReminderForinterpreter = async function (req, res, next) {
 
         // send mail are pending
         common.sendReminderEmail(name, interpreter_email, date, start_time, end_time, notes);
-
         res.json({
             status: 1,
             error_code: 0,
