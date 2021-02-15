@@ -1580,10 +1580,16 @@ module.exports.assignAllInterpreter = async function (req, res) {
         if (lastData != "" && lastData != undefined) {
             // let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             let updatesql = "UPDATE interpreter_request SET status = '0' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            let updatesql0 = "UPDATE request_information_services SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             con.query(updatesql, function (err, result) { });
+            con.query(updatesql0, function (err, result) { });
+            
         } else {
             // var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
+            
             var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','0')";
+            let sql0 = "UPDATE request_information_services SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            con.query(updatesql0, function (err, result) { });
             //console.log('sql-', sql)
             con.query(sql, function (err, insert) {
                 if (!err) {
@@ -2518,14 +2524,16 @@ module.exports. interpreterRequestReply = async function (req, res) {
     let status = '0';
     let message = '0';
     let isreject = 0;
-    if (res_type == '2') { // accept
-        status = '3';
+    let pending = 0;
+    if (res_type == '1') { // accept
+        status = '2';
         isreject = 0;
-
+        pending = 0
         message = "Request accept successfully";
     } else if (res_type == '3') { // reject
-        status = '1';
+        // status = '4';
         isreject = 1;
+        pending = 1
         rejectreq = 1; //for inter request table
         message = "Request reject successfully";
     }
@@ -2534,7 +2542,9 @@ module.exports. interpreterRequestReply = async function (req, res) {
         console.log("==========================isreject",isreject)
         console.log("==========================rejectreq",rejectreq)
     //update status
-    let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
+    // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
+    // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+    let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
     //console.log("updatesql--", updatesql)
     con.query(updatesql, function (err, result) {
         if (!err) {
@@ -2634,11 +2644,11 @@ module.exports.interpreterRequestComplete = async function (req, res) {
         common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
 
         //update status
-        let updatesql = "UPDATE interpreter_request SET status = '4', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+        let updatesql = "UPDATE interpreter_request SET status = '2', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
         //console.log("updatesql--", updatesql)
         con.query(updatesql, function (err, result) { });
 
-        let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
+        let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
         //console.log("sql--", sql)
         con.query(sql, function (err, result) { });
 
