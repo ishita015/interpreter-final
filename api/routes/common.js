@@ -50,14 +50,8 @@ module.exports.sendRatingPageLinkEmail = function(requester_name,email,interpret
     
     
 
-
-
-
 module.exports.sendReminderEmail = function(name,interpreter_email,date,start_time,end_time,notes) {
-
-    
     let mailbody = "Hi "+name+", <br><br>";
-
     mailbody+=" This is admin reminder mail your working date is "+date+" and time is "+start_time+" to "+end_time+" <br>";
     if(notes!="" && notes!=undefined){
         mailbody+="Additional admin notes are : " +notes;

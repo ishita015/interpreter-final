@@ -17,81 +17,88 @@ export class LanguagesEditComponent implements OnInit {
   public data;
   public language_Obj;
   public language_Msg;
+  state = false;
   submitted: boolean;
   constructor(public validation: ValidationsService,
-    public service:HttpService,private fb: FormBuilder,
-    private toastr: ToastrService,private router: Router,
-    private route : ActivatedRoute
-    ) { }
-Check='Add'
-  ngOnInit(){
-    this.createForm();  
-    this.LOB();  
-    this.Language();  
-    
-     this.route.paramMap.subscribe(params => {
-    console.log("country",);
-    if(params.get('id') == null){
-    this.Check='Add'
-    }else{
-    this.Check='Edit'
-      this.service.get('GetLanguageAssignmentSettingsDetail/'+params.get('id')).subscribe(res => {
+    public service: HttpService, private fb: FormBuilder,
+    private toastr: ToastrService, private router: Router,
+    private route: ActivatedRoute
+  ) { }
+  Check = 'Add'
+ 
+  ngOnInit() {
+    this.createForm();
+    this.LOB();
+    this.Language();
+
+    this.route.paramMap.subscribe(params => {
+      console.log("country",);
+      if (params.get('id') == null) {
+        this.Check = 'Add'
+        // this.state = false;
+      } else {
+        this.Check = 'Edit'
+        this.state = false;
+        this.service.get('GetLanguageAssignmentSettingsDetail/' + params.get('id')).subscribe(res => {
           this.langaugeEditForm.patchValue(res['data'][0])
+        })
+      }
+    });
+  }
+  LobData = []
+  LOB() {
+    this.service.get('get-lob-active').subscribe(res => {
+      this.LobData = res['data']
+    })
+  }
+  LanguageData = []
+  Language() {
+    this.service.get('get-language-active').subscribe(res => {
+      this.LanguageData = res['data']
+    })
+  }
+  d_id = 0;
+  s_id = 0;
+  rateCal(e, type) {
+    if (type == 'd') {
+      this.d_id = e;
+    } else {
+      this.s_id = e
+    }
+    if (this.d_id != 0 && this.s_id != 0) {
+      this.service.post('calculate-rate-language-settings', { destination_language: this.d_id, source_language: this.s_id }).subscribe(res => {
+        this.langaugeEditForm.patchValue({ rate: res['data']['total'] })
       })
     }
-  });
   }
-LobData=[]
-LOB(){
-  this.service.get('get-lob-active').subscribe(res => {
-    this.LobData=res['data']
-  })
-}
-LanguageData=[]
-Language(){
-  this.service.get('get-language-active').subscribe(res => {
-    this.LanguageData=res['data']
-  })
-}
-d_id=0;
-s_id=0;
-rateCal(e,type){
-  if(type == 'd'){
-    this.d_id=e;
-  }else{
-    this.s_id=e
-  }
-  if(this.d_id != 0 && this.s_id != 0){
-    this.service.post('calculate-rate-language-settings',{destination_language:this.d_id,source_language:this.s_id}).subscribe(res => {
-    this.langaugeEditForm.patchValue({rate:res['data']['total']})
-  })
-  }
-}
   /*========== Form Value Start Here========*/
   createForm() {
     this.langaugeEditForm = this.fb.group({
       lob_id: ['', this.validation.onlyRequired_validator],
-      source_language: ['',this.validation.onlyRequired_validator],
-      destination_language: ['',this.validation.onlyRequired_validator],
-      rate: ['',this.validation.onlyRequired_validator],
-     
-      id:['']
+      source_language: ['', this.validation.onlyRequired_validator],
+      // source_language: [''],
+      destination_language: ['', this.validation.onlyRequired_validator],
+      rate: ['', this.validation.onlyRequired_validator],
+      id: ['']
     });
   }
-  
 
-submitEdit(){
+
+  submitEdit() {
     this.submitted = true;
     if (this.langaugeEditForm.invalid) {
       return;
     }
     this.submitted = false;
-  this.service.post('addEditLanguageSetting',this.langaugeEditForm.value)
-                .subscribe(res => {
-                    this.toastr.success(res['msg'],'', { timeOut: 1000 , positionClass: 'toast-top-center'});
-                    this.router.navigate(['/language-assignment-settings/list']);  
-        });
-      }
+    this.service.post('addEditLanguageSetting', this.langaugeEditForm.value)
+      .subscribe(res => {
+        this.toastr.success(res['msg'], '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        this.router.navigate(['/language-assignment-settings/list']);
+      });
+  }
 
+  changeState() {
+      this.state = true;
+  }
 
 }

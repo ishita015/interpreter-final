@@ -8,3 +8,11 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.dropdown_btn{
+  position: absolute;
+    right: -74px;
+    bottom: 0px;
+}
+a.btn.btn-primary.change_btn.mt-4 {
+  color: white;
+}
