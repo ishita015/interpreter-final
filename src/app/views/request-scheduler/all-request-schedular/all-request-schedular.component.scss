@@ -22,7 +22,7 @@
     bottom: 5px !important;
 }
    .dummy_text  .mat-form-field {
-    width: 470px !important;
+    width: 100% !important;
 }
 
    .dummy_text ::ng-deep .mat-form-field-underline{
@@ -53,19 +53,21 @@
         border: 1px solid #ced4da !important;
         background: #f8f9fa;
         height: 36px;
-        width: 230px !important;
+        width: 100% !important;
         position: relative;
         bottom: 4px;
         border-radius: 0.25rem;
         top: -1px;
+        padding: 0px 10px;
     }
     .e_Time{
         border: 1px solid #ced4da !important;
         background: #f8f9fa;
         height: 36px;
-        width: 230px !important;
+        width: 100% !important;
         position: relative;
         bottom: 4px;
         border-radius: 0.25rem;
         top: -1px;
+        padding: 0px 10px;
     }
