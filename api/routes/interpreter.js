@@ -14,6 +14,7 @@ var commonDb = require('./Models/commonDev');
 const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
+const { CONSOLE_APPENDER } = require('karma/lib/constants');
 
 
 
@@ -2530,7 +2531,7 @@ module.exports. interpreterRequestReply = async function (req, res) {
         pending = 0
         message = "Request accept successfully";
     } else if (res_type == '3') { // reject
-        // status = '4';
+        status = 4;
         isreject = 1;
         pending = 1
         rejectreq = 1; //for inter request table
@@ -2563,13 +2564,24 @@ module.exports. interpreterRequestReply = async function (req, res) {
             //     message: message,
             // });
             // return true;
-
-
             if(res_type == 3){
+
                 var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
                 //console.log('his_sql-', his_sql)
                 con.query(his_sql, function (err, insert) { });
-            res.json({
+                var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+                con.query(request_assign, function (err, insert) { 
+                    var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && status = '3' && is_reject = '1'  && pending_status = 1 ";
+                    con.query(request_rejecter, function (err, insert0) { 
+                        
+                    if(insert.length == insert0.length){
+                        let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
+                        con.query(sql, function (err, insert0) { })
+                    }
+                });
+                });
+                
+                res.json({
                 status: 1,
                 error_code: 0,
                 error_line: 6,
@@ -2577,7 +2589,7 @@ module.exports. interpreterRequestReply = async function (req, res) {
             });
             return true;
         }else{
-            let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
+            let sql = "UPDATE interpreter_request SET status = '" + status + "',is_reject='" + isreject +"',pending_status='" + pending + "' WHERE id = '" + ris_id + "'";
                 con.query(sql, function (err, result) { });
                 res.json({
                     status: 1,
