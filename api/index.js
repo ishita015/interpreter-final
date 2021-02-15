@@ -898,7 +898,7 @@ app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, n
     let address = req.body.address ? req.body.address : '';
     let latitude = req.body.latitude ? req.body.latitude : '';
     let longitude = req.body.longitude ? req.body.longitude : '';
-    
+
     //console.log("primary_lang_id ",req.body.primary_lang_id)
    
     
@@ -932,7 +932,7 @@ app.post('/cesco/updateInterpreter_old', upload.any(),async function(req, res, n
 
     sql += " WHERE id = '"+id+"'";
 
-    // //console.log(sql);
+
     //console.log("sql-update",sql)
     var query = con.query(sql, function(err, result) {
         if(!err){

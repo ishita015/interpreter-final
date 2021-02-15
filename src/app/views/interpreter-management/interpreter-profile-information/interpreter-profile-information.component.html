@@ -71,7 +71,7 @@
                         <ion-icon name="close-outline"></ion-icon>
                     </div> -->
                     <div class="content">
-                        <p class="cardtext mb-0">Assignment Settings</p>
+                        <p class="cardtext mb-0">Rate Settings</p>
                     </div>
 
                     <div class="card-icon cardgreenn" *ngIf="detail_Obj?.interpreter_assignment_status=='1'">
@@ -207,7 +207,7 @@
                                                         placeholder="Mobile">
                                                 </div>
                                             </div>
-                                            <div *ngIf=" ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
+                                            <div *ngIf=" generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['country_code'].errors.required">
                                                     Code is required.</div>
