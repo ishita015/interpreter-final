@@ -159,9 +159,10 @@ this.AsyncUpdate1 = function(table,obj,where) {
   this.getUserRolePermission = function(obj) {
        
         var que = "SELECT role_module.name,user_module_permission.* FROM user_module_permission LEFT JOIN role_module ON user_module_permission.module_id = role_module.id WHERE user_module_permission.userRoleId="+obj.id;
+            console.log('err',que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
-            // console.log('err',err)
+            console.log('err',err)
             
                 resolve(response);
         });

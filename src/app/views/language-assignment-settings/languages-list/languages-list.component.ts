@@ -56,7 +56,7 @@ export class LanguagesListComponent implements OnInit {
     }
 
 rolePermission(){
-  this.service.get('get-user-role-permission/'+localStorage.getItem('userId')).subscribe(res =>{
+  this.service.get('get-user-role-permission/'+localStorage.getItem('roleId')).subscribe(res =>{
     for (var i = 0; i < res['data'].length; ++i) {
         if(res['data'][i].module_id == 2){
             this.array_Obj=res['data'][i]
