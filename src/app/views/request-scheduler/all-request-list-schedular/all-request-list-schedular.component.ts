@@ -150,34 +150,34 @@ export class AllRequestListSchedularComponent implements OnInit {
         this.service.get('getClientRoleMenusForPages/'+JSON.parse(localStorage.getItem('roleId'))).subscribe(res => {
         this.PermissionData=res['data'];
         console.log('PermissionData',this.PermissionData)
-        for (var i = 0; i < this.PermissionData.length; ++i) {
-                           var aa= document.getElementsByClassName('ClientViewId');
+        // for (var i = 0; i < this.PermissionData.length; ++i) {
+        //                    var aa= document.getElementsByClassName('ClientViewId');
 
-           if(this.PermissionData[i].module_id == 7){
-               if(this.PermissionData[i].add_permission == 'true'){
-                 document.getElementById('ClientAddId').classList.remove('displayNone')
-               }else{
-                 document.getElementById('ClientAddId').classList.add('displayNone')
-              }
+        //    if(this.PermissionData[i].module_id == 7){
+        //        if(this.PermissionData[i].add_permission == 'true'){
+        //          document.getElementById('ClientAddId').classList.remove('displayNone')
+        //        }else{
+        //          document.getElementById('ClientAddId').classList.add('displayNone')
+        //       }
 
-               if(this.PermissionData[i].view_permission == 'true'){
-                 for (var nk = 0; nk < aa.length; ++nk) {
-                 document.getElementsByClassName('ClientViewId')[nk].classList.remove('displayNone')
-                 }
+        //        if(this.PermissionData[i].view_permission == 'true'){
+        //          for (var nk = 0; nk < aa.length; ++nk) {
+        //          document.getElementsByClassName('ClientViewId')[nk].classList.remove('displayNone')
+        //          }
 
-               }else{
-                 for (var nk = 0; nk < aa.length; ++nk) {
-                 document.getElementsByClassName('ClientViewId')[nk].classList.add('displayNone')
-                 }
-              }
-           }else{
-                        document.getElementById('ClientAddId').classList.add('displayNone')
-                for (var nk = 0; nk < aa.length; ++nk) {
-                 document.getElementsByClassName('ClientViewId')[nk].classList.add('displayNone')
-                 }
+        //        }else{
+        //          for (var nk = 0; nk < aa.length; ++nk) {
+        //          document.getElementsByClassName('ClientViewId')[nk].classList.add('displayNone')
+        //          }
+        //       }
+        //    }else{
+        //                 document.getElementById('ClientAddId').classList.add('displayNone')
+        //         for (var nk = 0; nk < aa.length; ++nk) {
+        //          document.getElementsByClassName('ClientViewId')[nk].classList.add('displayNone')
+        //          }
 
-           }
-         } 
+        //    }
+        //  } 
         })
       }
 
