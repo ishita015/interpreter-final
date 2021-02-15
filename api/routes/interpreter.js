@@ -1970,6 +1970,7 @@ module.exports.adminReminderForinterpreter = async function (req, res, next) {
 
 
     var resultData = await usermodel.getRequestDetails(user_id, ris_id);
+    console.log("remderrrrrrr",resultData);
     if (resultData != "" && resultData != undefined) {
         var name = resultData[0].last_name + " " + resultData[0].first_name;
         var date = resultData[0].date;
@@ -1979,7 +1980,6 @@ module.exports.adminReminderForinterpreter = async function (req, res, next) {
 
         // send mail are pending
         common.sendReminderEmail(name, interpreter_email, date, start_time, end_time, notes);
-
         res.json({
             status: 1,
             error_code: 0,
