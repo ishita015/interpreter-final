@@ -433,7 +433,7 @@ module.exports.getUserRoleMenus = async function(req, res) {
                  var arr=[];
                 if(subdata.length > 0){
                      for (var ik = 0; ik < subdata.length; ik++) {
-                         if(subdata[ik].id != 32 && subdata[ik].id != 33){
+                         if(subdata[ik].id != 32 && subdata[ik].id != 33&& subdata[ik].id != 26 && subdata[ik].id != 27 ){
                              arr.push(subdata[ik])
                          }
                      }

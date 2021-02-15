@@ -1576,7 +1576,6 @@ module.exports.assignAllInterpreter = async function (req, res) {
         let name = allInterpreter[i].name;
         let email = allInterpreter[i].email;
         var lastData = await usermodel.checkRequestSend(interpreter_id, service_id);
-
         if (lastData != "" && lastData != undefined) {
             // let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             let updatesql = "UPDATE interpreter_request SET status = '0' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
@@ -1607,7 +1606,7 @@ module.exports.assignAllInterpreter = async function (req, res) {
     }
 
     //update status
-    let updatesql = "UPDATE request_information_services SET status = '2' WHERE id = '" + service_id + "'";
+    let updatesql = "UPDATE request_information_services SET status = '1' WHERE id = '" + service_id + "'";
     con.query(updatesql, function (err, result) {
         if (!err) {
             res.json({
@@ -2526,7 +2525,7 @@ module.exports. interpreterRequestReply = async function (req, res) {
     let isreject = 0;
     let pending = 0;
     if (res_type == '1') { // accept
-        status = '2';
+        status = 2;
         isreject = 0;
         pending = 0
         message = "Request accept successfully";
