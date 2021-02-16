@@ -128,18 +128,21 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.get('entered_by').patchValue(this.entry_By_data.first_name);
     this.editId = JSON.parse(localStorage.getItem('rowId'));
     //load Places Autocomplete
+    //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
-    
-      console.log("vvvvvvvvvvvvvvvvvvvvvvvvv",this.searchElementRef.nativeElement);
-      
+     
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           this.new_address = place['formatted_address'];
+          console.log("address", this.new_address);
+
+          this.sec_address = place['formatted_address'];
+
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -148,12 +151,17 @@ export class AllRequestSchedularComponent implements OnInit {
 
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
-         
           this.longitude = place.geometry.location.lng();
+
+          console.log("latitude-", this.latitude);
+          console.log("longitude-", this.longitude);
+
           this.zoom = 12;
+        
         });
       });
     });
+   
   }
 
   /*==========Step Form Value Start Here========*/  
