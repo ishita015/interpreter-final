@@ -342,7 +342,7 @@ app.get('/cesco/getAllBasicTabList/:id', schedulerController.getAllBasicTabList)
 app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
 
 app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
-
+app.get('/cesco/getRateSettingPlatforms/:id', schedulerController.getRateSettingPlatforms);
 
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 

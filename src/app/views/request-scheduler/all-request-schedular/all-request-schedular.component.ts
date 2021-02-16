@@ -86,6 +86,7 @@ export class AllRequestSchedularComponent implements OnInit {
   myControl = new FormControl();
 
 
+
   showEductionForm = false;
   showMedicalForm = false;
   showLegalForm = false;
@@ -93,6 +94,7 @@ export class AllRequestSchedularComponent implements OnInit {
   showOtherForm = false;
 
   
+
 
   constructor(
     public validation: ValidationsService,

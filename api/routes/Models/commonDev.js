@@ -221,8 +221,9 @@ this.getAssignmentSettingsCheck =(onsitedata) =>{
 
      this.getInterpreterSeting = (obj) => {
         return new Promise(function(resolve, reject) {
-            var sql = "SELECT * FROM interpreter_assignment_settings WHERE Interpreter_id='"+obj.interpreter_id+"' AND assignment_type="+obj.assignment_type+" AND status=1 ORDER BY id ASC  LIMIT 1"; 
-           // console.log(sql)
+            // var sql = "SELECT * FROM interpreter_assignment_settings WHERE Interpreter_id='"+obj.interpreter_id+"' AND assignment_type="+obj.assignment_type+" AND status=1 ORDER BY id ASC  LIMIT 1"; 
+            var sql = "SELECT ias.*, mp.platform FROM interpreter_assignment_settings AS ias LEFT JOIN master_platform as mp ON ias.assignment_type = mp.id WHERE Interpreter_id='"+obj.interpreter_id+"' AND ias.status=1 ORDER BY id ASC"; 
+           console.log("===============",sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);
@@ -234,7 +235,7 @@ this.getAssignmentSettingsCheck =(onsitedata) =>{
     }
 this.GetLanguageAssignmentSettings = () => {
         return new Promise(function(resolve, reject) {
-            var sql = "SELECT language_assignment_settings.*,master_lob.name as lob_name,l1.name as source_language_name,l2.name as destination_language_name FROM language_assignment_settings LEFT JOIN master_lob ON language_assignment_settings.lob_id = master_lob.id LEFT JOIN languages as l1 ON language_assignment_settings.source_language = l1.id LEFT JOIN languages as l2 ON language_assignment_settings.destination_language = l2.id WHERE language_assignment_settings.status != 2 ORDER BY language_assignment_settings.id DESC"; 
+            var sql = "SELECT language_assignment_settings.*,master_lob.name as lob_name,l1.name as source_language_name,l2.name as destination_language_name FROM language_assignment_settings LEFT JOIN master_lob ON language_assignment_settings.lob_id = master_lob.id LEFT JOIN languages as l1 ON language_assignment_settings.source_language = l1.id LEFT JOIN languages as l2 ON language_assignment_settings.destination_language = l2.id WHERE language_assignment_settings.status != 2 ORDER BY language_assignment_settings.lob_id, language_assignment_settings.created_at DESC"; 
            // console.log(sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {

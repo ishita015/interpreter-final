@@ -455,6 +455,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   getUserLanguage() {
     this.service.getUserLanguage(this.interId).subscribe(res => {
       this.UserLangData = res['data'];
+      console.log("=============UserLangData",this.UserLangData)
       // let langArr1 = <FormArray>this.assignmentForm.controls["assignment"];
       //   langArr1.controls[0].patchValue({
       //     hourly_rate: this.UserLangData[0].base_rate,
@@ -755,6 +756,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
         this.detail_Obj = res['data'][0];
         this.role_idAPI = this.detail_Obj.role_id
         console.log("detail_Obj", this.detail_Obj);
+        
         if (this.detail_Obj.skillsCommunityDoc != '' && this.detail_Obj.skillsCommunityDoc != undefined) {
           this.communityinter = true;
           this.ci = true;
@@ -845,11 +847,16 @@ export class InterpreterProfileInformationComponent implements OnInit {
       return
     }
     this.spinner.show();
+    if(this.latitude != undefined && this.longitude != undefined){
+      this.generalForm.value.address = this.new_address;
+      this.generalForm.value.latitude = this.latitude
+      this.generalForm.value.longitude = this.longitude
+    }else{
+      this.generalForm.value.address = this.detail_Obj.address;
+      this.generalForm.value.latitude = this.detail_Obj.latitude
+      this.generalForm.value.longitude = this.detail_Obj.longitude 
+    }
     this.generalForm.value.interpreter_id = this.interId;
-    this.generalForm.value.address = this.new_address;
-    this.generalForm.value.latitude = this.latitude
-    this.generalForm.value.longitude = this.longitude
-
     console.log("inside", this.generalForm.value);
     this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       this.spinner.hide();
@@ -1255,7 +1262,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.lang = this.interpreterSkillForm.value.secondary_language
     // for (let a of this.lang) {
     // }
-    formData.append('secondary_language', JSON.stringify(this.lang));
+
+
+
 
     for (let img of this.doc) {
       console.log("img", img.all_img)
@@ -1266,6 +1275,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     }
     formData.append('interpreter_id', this.interId);
     formData.append('primary_language', this.priLanguageId);
+    formData.append('secondary_language', JSON.stringify(this.lang));
 
     // formData.append('secondary_language', this.interpreterSkillForm.value.secondary_language);
     formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
@@ -1600,7 +1610,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.assignmentForm.value.rsiInfo = this.rsiInfo;
     this.assignmentForm.value.vci_opi = this.vci_opi;
 
-    console.log('data', this.assignmentForm.value)
     // return
     this.service.addInterpreterAssignmentSetting(this.assignmentForm.value)
       .subscribe(res => {
@@ -1668,7 +1677,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.assignmentForm.value.vclInfo = this.vclInfo;
     this.assignmentForm.value.rsiInfo = this.rsiInfo;
     this.assignmentForm.value.vci_opi = this.vci_opi;
-    console.log(this.assignmentForm.value)
     this.assignmentForm.value.type = type;
     if (type == 'onsite' && this.assignmentForm.value.assignment[0].language_id == 0) {
       this.toastr.warning('Please Select On Site Language');
