@@ -78,8 +78,6 @@ export class AllRequestSchedularComponent implements OnInit {
 
   myControl = new FormControl();
 
-
-
   constructor(
     public validation: ValidationsService,
     private fb: FormBuilder,

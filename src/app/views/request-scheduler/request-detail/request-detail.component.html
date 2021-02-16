@@ -20,6 +20,95 @@
                         <table>
                             <tbody>
                                 <tr>
+                                    <td>IR</td>
+                                    <td>{{data?.ir}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Enterd By</td>
+                                    <td>{{data?.entered_by}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Client Name</td>
+                                    <td>{{data?.client_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Requested By</td>
+                                    <td>{{data?.requested_by}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Requested Date</td>
+                                    <td>{{data?.request_date | date:'MM-dd-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Assignment Type</td>
+                                    <td>{{data?.assignment_type}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Platform</td>
+                                    <td>{{data?.platform}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Simultaneous Interpreting?</td>
+                                    <td>{{data?.receivers_required ? 'Yes' : 'No'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Language</td>
+                                    <td>{{data?.language}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Assignment Date</td>
+                                    <td>{{data?.assignment_date | date:'MM-dd-yyyy'}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>From Time</td>
+                                    <td>{{data?.from_time}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>To Time</td>
+                                    <td>{{data?.to_time}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>Repeats</td>
+                                    <td>{{data?.repeats}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>Every</td>
+                                    <td>{{data?.every}}</td>
+                                </tr> 
+                                <tr *ngIf="data?.event_at != null">
+                                    <td>ON</td>
+                                    <td>{{Daily}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event Start Date</td>
+                                    <td>{{data?.event_start_date}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event End Date</td>
+                                    <td>{{data?.event_end_date}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event Start Time</td>
+                                    <td>{{data?.event_start_time}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Event End Time</td>
+                                    <td>{{data?.event_end_time}}</td>
+                                </tr>
+                               
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+                                <tr>
                                     <td>Caseworker</td>
                                     <td>{{data?.caseworker_name}}</td>
                                 </tr>
@@ -66,7 +155,7 @@
                                 <tr>
                                     <td>Create Date</td>
                                     <td>{{data?.created_date}}</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -106,19 +195,19 @@
 
 
         <div class="card">
-            <div class="card-body h-592">
+            <div class="card-body">
                 <h5 class="font-weight-bold">Appointment Details</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '1'">New request</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '2'">Assigned</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '3'">In Progress</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '4'">Completed</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '5'">Cancelled</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '0'">New request</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '1'">Assigned</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '2'">In Progress</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '3'">Completed</h5>
+                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '4'">Cancelled</h5>
                 <div class="mt-3 mb-4 border-top"></div>
                 <div class="request_Tab userstable mb-3 mb-sm-0 ">
 
                     <table>
                         <tbody>
-                            <tr>
+                            <!-- <tr>
                                 <td>Appointment Type</td>
                                 <td>{{data?.appointment_type}}</td>
                             </tr>
@@ -137,6 +226,70 @@
                             <tr>
                                 <td>Service Requested</td>
                                 <td>{{data?.service_requested}}</td>
+                            </tr> -->
+                           
+                            <tr *ngIf="data?.caseworker_name != null">
+                                <td>Caseworker worker</td>
+                                <td>{{data?.caseworker_name}}</td>
+                            </tr>
+                            <tr *ngIf="data?.cellphone_contact_person != null">
+                                <td>Cell Phone</td>
+                                <td>{{data?.phone_code}}{{data?.cellphone_contact_person | mask: '(000) 000-0000'}}</td>
+                            </tr> 
+                            <tr *ngIf="data?.name_of_contact_person != null">
+                                <td>Contact Name of Person at Assignment</td>
+                                <td>{{data?.name_of_contact_person}}</td>
+                            </tr>
+                            <tr *ngIf="data?.email != null">
+                                <td>Email</td>
+                                <td>{{data?.email}}</td>
+                            </tr>
+                            <tr *ngIf="data?.practice_name != null">
+                                <td>Practice Name</td>
+                                <td>{{data?.practice_name}}</td>
+                            </tr>
+                            <tr *ngIf="data?.position != null">
+                                <td>Position</td>
+                                <td>{{data?.position}}</td>
+                            </tr>
+                            <tr *ngIf="data?.provider_name != null">
+                                
+                                <td>Provider Name</td>
+                                <td>{{data?.provider_name}}</td>
+                            </tr>
+                            <tr *ngIf="data?.contact_person_phone_code != null">
+                                <td>Contact Person</td>
+                                <td>{{data?.contact_person_phone_code}}{{data?.contact_person_cellphone | mask: '(000) 000-0000'}}</td>
+                            </tr>
+                           
+                            <tr *ngIf="data?.building_name != null">
+                                <td>Case Name </td>
+                                <td>{{data?.building_name}}</td>
+                            </tr>
+                            <tr *ngIf="data?.clientName != null">
+                                <td>Client Name</td>
+                                <td>{{data?.clientName}}</td>
+                            </tr>
+                            <tr *ngIf="data?.trails != null">
+                                <td>Trails/Case Number</td>
+                                <td>{{data?.trails}}</td>
+                            </tr>
+                            <tr *ngIf="data?.home_visit != null">
+                                <td>Home Visit</td>
+                                <td>{{data?.home_visit ? 'Yes' : 'No'}}</td>
+                            </tr>
+
+                            <tr *ngIf="data?.address != null">
+                                <td>Address</td>
+                                <td>{{data?.address}}</td>
+                            </tr>
+                            <tr *ngIf="data?.building_address != null">
+                                <td>School/Building Address</td>
+                                <td>{{data?.building_address}}</td>
+                            </tr>
+                            <tr *ngIf="data?.notes != null">
+                                <td>Notes</td>
+                                <td>{{data?.notes}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -146,7 +299,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -210,7 +363,7 @@
                                     <td>{{data?.how_many_receivers}}</td>
                                 </tr> -->
 
-                                <tr>
+                                <!-- <tr>
                                     <td>IR</td>
                                     <td>{{data?.ir}}</td>
                                 </tr>
@@ -255,10 +408,10 @@
                                     <td>{{data?.claim_number}}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
 
 
-                    </div>
+                    <!-- </div>
                     <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
                         <table>
                             <tbody>
@@ -307,12 +460,12 @@
                                 <tr>
                                     <td>Every</td>
                                     <td>{{data?.every}}</td>
-                                </tr>
+                                </tr> -->
                                 <!-- <tr>
                                     <td>Health Department</td>
                                     <td>{{data?.health_department}}</td>
                                 </tr> -->
-                                <tr>
+                                <!-- <tr>
                                     <td>Human Services</td>
                                     <td>{{data?.human_services}}</td>
                                 </tr>
@@ -324,13 +477,13 @@
                                 <tr>
                                     <td>LOB</td>
                                     <td>{{data?.lob}}</td>
-                                </tr>
+                                </tr> -->
                                 <!-- <tr>
                                     <td>Phone Code</td>
                                     <td>{{data?.phone_code}}</td>
                                 </tr> -->
                                 
-                                <tr>
+                                <!-- <tr>
                                     <td>Receivers Required</td>
                                     <td>{{data?.receivers_required}}</td>
                                 </tr>
@@ -373,4 +526,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --> 

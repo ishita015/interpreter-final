@@ -128,6 +128,47 @@
     backface-visibility: hidden;
     width: 100% !important;
 }
+
+
+
+
+.lang_block.yellowtable .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background: rgb(255 193 7 / 32%);
+}
+.lang_block.yellowtablenew .ngx-datatable .datatable-body .datatable-row-wrapper{
+  background: rgb(255 193 7 / 32%);
+}
+.lang_block.greentable .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background: rgb(76 175 80 / 38%);
+}
+.lang_block.greentablenew .ngx-datatable .datatable-body .datatable-row-wrapper {
+  background: rgb(76 175 80 / 38%);
+}
+.lang_block.redtable .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background: #f2dede;
+}
+
+.lang_block.redtablenew .ngx-datatable .datatable-body .datatable-row-wrapper {
+  background: #f2dede;
+}
+.lang_block.bluetable .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background: rgb(102 51 153 / 58%);
+}
+.lang_block.bluetablenew .ngx-datatable .datatable-body .datatable-row-wrapper {
+  background: rgb(102 51 153 / 58%);
+}
+
+
+/* .abc .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background-color: #e0c165 !important;
+}
+.abcd .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background-color: #e0c165 !important;
+}
+.abcd .ngx-datatable .datatable-body .datatable-row-wrapper{
+  background:#e0c165 !important;
+} */
+
 .eye-icon{float: right; margin-right: 6px;margin-top: -23px;position: relative;}
 /* 22dec animation */
 .animate {

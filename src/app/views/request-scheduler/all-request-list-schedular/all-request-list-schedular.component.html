@@ -57,16 +57,16 @@
   </div> -->
 
 
-    <div class="col-md-12 lang_block">
+    <div class="col-md-12 lang_block yellowtable">
       <div class="card o-hidden">
         <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
           [rows]="filteredUser">
           <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
             <ng-template ngx-datatable-header-template>
-              S.No
+              S.No  
             </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+            <ng-template  ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
               {{rowIndex +1}}
             </ng-template>
           </ngx-datatable-column>

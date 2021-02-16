@@ -107,13 +107,10 @@ export class AllRequestListSchedularComponent implements OnInit {
         // console.log("statusssss",this.searchStatus );
          this.email_formdata = this.search_email.value;
          this.searchEmail = this.email_formdata ;
-        console.log("=========================startDate",this.startDate);
-        console.log("=========================endDate",this.endDate);
         //  alert(this.status);
 
          this.service.interpreterAllRequestList(this.searchStatus,this.searchEmail,this.startDate,this.endDate)
           .subscribe(res => {
-
             if (res['status'] == '1') {
               console.log("api response", res);
               this.list_Obj = res['data'];
