@@ -944,14 +944,44 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
-                                <label>Cell Phone Number</label>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Code</label>
+                                        <select class="form-control country_code" formControlName="phone_code">
+                                            <option value="" selected disabled>Code</option>
+                                            <option *ngFor="let isd of country_Obj" [value]="isd.id">
+                                                {{isd?.name}} (+{{isd?.phonecode}})
+                                            </option>
+                                        </select>
+                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedEdu ||educationRequestForm.controls['phone_code'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code
+                                                is
+                                                required.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for=" Phone No.">Cell Phone No.</label>
+                                        <input type="text" mask="(000) 000-0000" class="form-control"
+                                            formControlName="cell_phone"
+                                            onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                            placeholder="Cell Phone No.">
+                                            <div *ngIf="legalRequestForm.controls['cell_phone'].errors && (!legalRequestForm.controls['cell_phone'].pristine || submittedLeg ||legalRequestForm.controls['cell_phone'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!legalRequestForm.controls['cell_phone'].errors.required">
+                                                Cell Phone Number.</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <!-- <label>Cell Phone Number</label>
                                 <input type="text" class="form-control" formControlName="cell_phone"
                                     placeholder="Cell Phone Number">
                                 <div *ngIf="legalRequestForm.controls['cell_phone'].errors && (!legalRequestForm.controls['cell_phone'].pristine || submittedLeg ||legalRequestForm.controls['cell_phone'].touched )"
                                     class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['cell_phone'].errors.required">
                                         Cell Phone Number.</div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
@@ -1034,14 +1064,45 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
-                                <label>Cell Phone Number</label>
+
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Code</label>
+                                        <select class="form-control country_code" formControlName="phone_code">
+                                            <option value="" selected disabled>Code</option>
+                                            <option *ngFor="let isd of country_Obj" [value]="isd.id">
+                                                {{isd?.name}} (+{{isd?.phonecode}})
+                                            </option>
+                                        </select>
+                                        <div *ngIf="otherRequestForm.controls['phone_code'].errors && ( !otherRequestForm.controls['phone_code'].pristine || submittedEdu ||otherRequestForm.controls['phone_code'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!otherRequestForm.controls['phone_code'].errors.required">Code
+                                                is
+                                                required.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for=" Phone No.">Cell Phone No.</label>
+                                        <input type="text" mask="(000) 000-0000" class="form-control"
+                                            formControlName="cell_phone"
+                                            onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                            placeholder="Cell Phone No.">
+                                            <div *ngIf="otherRequestForm.controls['cell_phone'].errors && (!otherRequestForm.controls['cell_phone'].pristine || submittedLeg ||otherRequestForm.controls['cell_phone'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!otherRequestForm.controls['cell_phone'].errors.required">
+                                                Cell Phone Number.</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <!-- <label>Cell Phone Number</label>
                                 <input type="text" class="form-control" formControlName="cell_phone"
                                     placeholder="Cell Phone Number">
                                 <div *ngIf="otherRequestForm.controls['cell_phone'].errors && (!otherRequestForm.controls['cell_phone'].pristine || submittedOther ||otherRequestForm.controls['cell_phone'].touched )"
                                     class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['cell_phone'].errors.required">
                                         Cell Phone Number.</div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
