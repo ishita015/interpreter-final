@@ -430,6 +430,16 @@ export class AllRequestSchedularComponent implements OnInit {
         this.getGooleAddress();
       }, 500);
     }
+    if(e.target.value == '1'){
+      this.communityRequestForm.controls['address'].setValue('');
+      this.communityRequestForm.controls['apt'].setValue('');
+    }
+    if(e.target.value == '0'){
+      this.communityRequestForm.controls['practice_name'].setValue('');
+      this.communityRequestForm.controls['provider_name'].setValue('');
+      this.communityRequestForm.controls['room'].setValue('');
+      this.communityRequestForm.controls['provider_address'].setValue('');
+    }
   }
   onChangeLob(e) {
     if (e.target.value == 'Education') {

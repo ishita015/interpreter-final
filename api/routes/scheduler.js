@@ -14,6 +14,7 @@ var commonDb = require('./Models/commonAdnan');
 const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
+const { delete } = require('request');
 
 
 //***** GET ALL CLIENT LIST START *****//
@@ -179,8 +180,11 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       delete req.body.event_duration;
       delete req.body.event_at;
     }
-
-    var result = await commonDb.insert("request_information_services", { scheduler_id: req.body.scheduler_id, email: req.body.email });
+    var ris = { scheduler_id: req.body.scheduler_id, email: req.body.email };
+    if (req.body.email = 'undefined') {
+      delete ris.email;
+    }
+    var result = await commonDb.insert("request_information_services", ris);
     delete req.body.scheduler_id;
     delete req.body.email;
     req.body.ris_id = result.insertId;
