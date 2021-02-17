@@ -23,14 +23,6 @@ enableRipple(true);
   styleUrls: ['./all-request-schedular.component.scss']
 })
 export class AllRequestSchedularComponent implements OnInit {
-
-
-  newRequestForm: FormGroup;
-  educationRequestForm: FormGroup;
-  // legalRequestForm:FormGroup;
-  communityRequestForm: FormGroup;
-  medicalRequestForm: FormGroup;
-  // otherRequestForm:FormGroup;
   public clientObj: string[] = [];
   public assignment_Obj;
   public platform_Obj;
@@ -43,6 +35,8 @@ export class AllRequestSchedularComponent implements OnInit {
   submittedMed: boolean;
   submittedEdu: boolean;
   submittedComm: boolean;
+  submittedLeg:boolean;
+  submittedOther:boolean;
   public save_obj;
   public save_Msg;
   public recurrent;
@@ -67,12 +61,15 @@ export class AllRequestSchedularComponent implements OnInit {
   // map variable
   latitude: number;
   longitude: number;
+ 
   zoom: number;
   address: string;
   sec_address: string;
   new_address: string;
+  
   private geoCoder;
   @ViewChild('search', { static: false }) searchElementRef: ElementRef;  
+  
   // maps the local data column to fields property
   public localFields: Object = { value: 'name' };
   //set the placeholder to AutoComplete input
@@ -93,6 +90,12 @@ export class AllRequestSchedularComponent implements OnInit {
   showCommunityForm = false;
   showOtherForm = false;
   
+  newRequestForm: FormGroup;
+  educationRequestForm: FormGroup;
+  legalRequestForm:FormGroup;
+  communityRequestForm: FormGroup;
+  medicalRequestForm: FormGroup;
+  otherRequestForm:FormGroup;
 
 
 
@@ -114,6 +117,9 @@ export class AllRequestSchedularComponent implements OnInit {
     this.createForm2();
     this.createForm3();
     this.createForm4();
+    this.createForm5();
+    this.createForm6();
+
     this.allClientList();
     this.allAssignmentTypeList();
     this.allPlatformList();
@@ -148,6 +154,8 @@ export class AllRequestSchedularComponent implements OnInit {
           this.new_address = place['formatted_address'];
           console.log("address", this.new_address);
 
+         
+          
           this.sec_address = place['formatted_address'];
 
           //verify result
@@ -162,6 +170,8 @@ export class AllRequestSchedularComponent implements OnInit {
 
           console.log("latitude-", this.latitude);
           console.log("longitude-", this.longitude);
+
+
 
           this.zoom = 12;
 
@@ -245,10 +255,7 @@ export class AllRequestSchedularComponent implements OnInit {
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
       phone_code: ['', this.validation.onlyRequired_validator],
-      // address:[''],
       email: ['', this.validation.onlyRequired_validator],
-      // latitude: [''],
-      // longitude: [''],
     })
   }
 
@@ -292,6 +299,31 @@ export class AllRequestSchedularComponent implements OnInit {
       notes: ['', this.validation.onlyRequired_validator],
       latitude: [''],
       longitude: [''],
+    })
+  }
+
+  createForm5() {
+    this.legalRequestForm = this.fb.group({
+      name_of_contact_person: ['', this.validation.onlyRequired_validator],
+      cell_phone: ['', this.validation.onlyRequired_validator],
+      building_name: ['', this.validation.onlyRequired_validator],
+      building_address: ['', this.validation.onlyRequired_validator],
+      room: ['', this.validation.onlyRequired_validator],
+      notes: ['', this.validation.onlyRequired_validator],
+      phone_code: ['', this.validation.onlyRequired_validator],
+      email: ['', this.validation.onlyRequired_validator],
+    })
+  }
+  createForm6() {
+    this.otherRequestForm = this.fb.group({
+      name_of_contact_person: ['', this.validation.onlyRequired_validator],
+      cell_phone: ['', this.validation.onlyRequired_validator],
+      building_name: ['', this.validation.onlyRequired_validator],
+      building_address: ['', this.validation.onlyRequired_validator],
+      room: ['', this.validation.onlyRequired_validator],
+      notes: ['', this.validation.onlyRequired_validator],
+      phone_code: ['', this.validation.onlyRequired_validator],
+      email: ['', this.validation.onlyRequired_validator],
     })
   }
 
@@ -400,7 +432,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.getGooleAddress();
   }
   onChangeLob(e) {
-    if (e.target.value == 'Education' || e.target.value == 'Legal1' || e.target.value == 'Others') {
+    if (e.target.value == 'Education' ) {
       this.showEductionForm = true;
       this.showMedicalForm = false;
       this.showLegalForm = false;
@@ -422,20 +454,21 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showCommunityForm = true;
       this.showOtherForm = false;
     }
-    //  else if(e.target.value == 'Legal1' || e.target.value == 'Others'){
-    //   this.showMedicalForm = false;
-    //   this.showEductionForm = false;
-    //   this.showLegalForm = true;
-    //   this.showCommunityForm = false;
-    //   this.showOtherForm = false;
-    //  }
-    //  else if(e.target.value == 'Others'){
-    //   this.showMedicalForm = false;
-    //   this.showEductionForm = false;
-    //   this.showLegalForm = false;
-    //   this.showCommunityForm = false;
-    //   this.showOtherForm = true;
-    //  }
+     if(e.target.value == 'Legal1'){
+      this.showMedicalForm = false;
+      this.showEductionForm = false;
+      this.showLegalForm = true;
+      this.showCommunityForm = false;
+      this.showOtherForm = false;
+     }
+     if(e.target.value == 'Others'){
+      this.showMedicalForm = false;
+      this.showEductionForm = false;
+      this.showCommunityForm = false;
+      this.showLegalForm = false;
+     
+      this.showOtherForm = true;
+     }
   }
 
 
@@ -582,13 +615,6 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   /*==========Start and end time valid function end here========*/
   saveUser() {
-    console.log("=====newRequestForm",this.newRequestForm.invalid)
-    console.log("=====educationRequestForm",this.educationRequestForm.invalid)
-    console.log("=====showEductionForm",this.showEductionForm)
-    console.log("=====medicalRequestForm", this.medicalRequestForm.invalid)
-    console.log("=====showMedicalForm",this.showMedicalForm)
-    console.log("=====communityRequestForm",this.communityRequestForm.invalid)
-    console.log("=====showCommunityForm",this.showCommunityForm)
     this.submitted = true;
     if(this.showEductionForm){
       this.submittedEdu = true;
@@ -611,6 +637,20 @@ export class AllRequestSchedularComponent implements OnInit {
     if (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) {
       return;
     }
+
+    if(this.showLegalForm){
+      this.submittedLeg = true;
+    }
+    if (this.showLegalForm && this.legalRequestForm.invalid && this.newRequestForm.invalid) {
+      return;
+    }
+
+    if(this.showOtherForm){
+      this.submittedOther = true;
+    }
+    if (this.showOtherForm && this.otherRequestForm.invalid && this.newRequestForm.invalid) {
+      return;
+    }
    
     let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
     let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
@@ -622,14 +662,18 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_end_time = e_enenttime;
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
-    // this.newRequestForm.value.latitude = this.latitude;
-    // this.newRequestForm.value.longitude = this.longitude;
-
+  
 
 
     if (this.showEductionForm) {
 
       this.newRequestForm.value.education = this.educationRequestForm.value;
+    }
+    if( this.showLegalForm){
+      this.newRequestForm.value.education = this.legalRequestForm.value;
+    }
+    if( this.showOtherForm){
+      this.newRequestForm.value.education = this.otherRequestForm.value;
     }
     if (this.showMedicalForm) {
       this.medicalRequestForm.value.latitude = this.latitude;
