@@ -92,7 +92,7 @@ module.exports.getDays = async function (req, res) {
 //***** ADD NEW BASIC TAB START *****//
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
-  
+
   try {
 
     console.log("===================body", req.body);
@@ -152,7 +152,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       req.body.notes = education.notes;
       req.body.room = education.room;
       req.body.home_visit = education.home_visit;
-  
+
       if (home_visit == '1') {
         req.body.address = education.address;
         req.body.latitude = education.latitude;
@@ -168,7 +168,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       delete req.body.medical;
       req.body.practice_name = medical.practice_name;
       req.body.provider_name = medical.provider_name;
-      req.body.phone_code = "+" + medical.phone_code ;
+      req.body.phone_code = "+" + medical.phone_code;
       req.body.cell_phone = medical.cell_phone;
       req.body.address = medical.address;
       req.body.room = medical.room;
@@ -176,13 +176,25 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       req.body.latitude = medical.latitude;
       req.body.longitude = medical.longitude;
     }
+    if (req.body.recurrent_assignment == '') {
+      req.body.recurrent_assignment == 0;  
+      delete req.body.how_many_receivers;
+      delete req.body.event_start_time;
+      delete req.body.event_end_time;
+      delete req.body.event_start_date;
+      delete req.body.event_end_date;
+      delete req.body.repeats;
+      delete req.body.every;
+      delete req.body.event_duration;
+      delete req.body.event_at;
+    }
 
     var result = await commonDb.insert("request_information_services", { scheduler_id: req.body.scheduler_id, email: req.body.email });
     delete req.body.scheduler_id;
     delete req.body.email;
     req.body.ris_id = result.insertId;
     var result01 = await commonDb.insert("appointment_information_services", req.body);
-    
+
     return res.json({ status: true, msg: 'Add successfully!' });
   } catch (err) {
     console

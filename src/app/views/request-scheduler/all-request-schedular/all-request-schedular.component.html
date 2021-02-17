@@ -38,8 +38,6 @@
                             <button class="button-sec btn btn-primary mb-2  float-right">+ Add Requester</button>
                         </div>
                     </div>
-
-
                 </div>
                 <form [formGroup]="newRequestForm">
                     <div class="row pl-4">
@@ -111,12 +109,11 @@
                         </div>
                         <div class="col-sm-4 form-group mb-3 req_date">
                             <label>Request Date</label>
-                            <input type="date" name="setTodaysDate" class="form-control" formControlName="request_date"
+                            <input type="date" name="setTodaysDate"  class="form-control" formControlName="request_date"
                                 placeholder="Date">
                             <div *ngIf="newRequestForm.controls['request_date'].errors && ( !newRequestForm.controls['request_date'].pristine || submitted ||newRequestForm.controls['request_date'].touched )"
                                 class="error-msg">
-                                <div [hidden]="!newRequestForm.controls['request_date'].errors.required">Request Date is
-                                    required.</div>
+                                <div [hidden]="!newRequestForm.controls['request_date'].errors.required">Request Date is required.</div>
                                 <!-- <div [hidden]="!newRequestForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
                             </div>
                         </div>
@@ -167,12 +164,11 @@
                                 </select>
 
                             </div>
-                            <!-- <div *ngIf="newRequestForm.controls['assignment_type'].errors && ( !newRequestForm.controls['assignment_type'].pristine || submitted ||newRequestForm.controls['assignment_type'].touched )"
+                            <div *ngIf="newRequestForm.controls['assignment_type'].errors && ( !newRequestForm.controls['assignment_type'].pristine || submitted ||newRequestForm.controls['assignment_type'].touched )"
                                 class="error-msg">
-                                <div [hidden]="!newRequestForm.controls['assignment_type'].errors.required">Assignment
-                                    Type is required.
+                                <div [hidden]="!newRequestForm.controls['assignment_type'].errors.required">Assignment Type is required.
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="col-sm-4 form-group mb-3">
                             <label>Platform</label>
@@ -187,9 +183,7 @@
                             </div>
                             <div *ngIf="newRequestForm.controls['platform'].errors && ( !newRequestForm.controls['platform'].pristine || submitted ||newRequestForm.controls['platform'].touched )"
                                 class="error-msg">
-                                <div [hidden]="!newRequestForm.controls['platform'].errors.required">Platform is
-                                    required.
-                                </div>
+                                <div [hidden]="!newRequestForm.controls['platform'].errors.required">Platform is required.</div>
                             </div>
                         </div>
                         <div class="col-sm-2 form-group mb-3">
@@ -201,6 +195,10 @@
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
+                            </div>
+                            <div *ngIf="newRequestForm.controls['receivers_required'].errors && ( !newRequestForm.controls['receivers_required'].pristine || submitted ||newRequestForm.controls['receivers_required'].touched )"
+                                class="error-msg">
+                                <div [hidden]="!newRequestForm.controls['receivers_required'].errors.required">Simultaneous Interpreting is required.</div>
                             </div>
                         </div>
                         <div *ngIf="newRequestForm.value.platform == 'On-Site' && newRequestForm.value.receivers_required == '1'"
@@ -732,8 +730,8 @@
                                             <select class="form-control"
                                             formControlName="position">
                                             <option value="">Position</option>
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
+                                            <option value="Position 1">Position 1</option>
+                                            <option value="Position 2">Position 2</option>
                                         </select>
                                             <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )"
                                             class="error-msg">
