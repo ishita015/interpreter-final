@@ -158,7 +158,12 @@
   background: rgb(102 51 153 / 58%);
 }
 
-
+.lang_block .broadcast .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background: #4ccece;
+}
+.lang_block .broadcastnew .ngx-datatable .datatable-body .datatable-row-wrapper {
+  background: #4ccece;
+}
 /* .abc .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
   background-color: #e0c165 !important;
 }

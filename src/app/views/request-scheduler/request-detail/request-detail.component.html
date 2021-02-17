@@ -66,32 +66,36 @@
                                 <tr>
                                     <td>To Time</td>
                                     <td>{{data?.to_time}}</td>
-                                </tr> 
+                                </tr>
                                 <tr>
+                                    <td>Recurrent Assignment</td>
+                                    <td>{{data?.recurrent_assignment == '1' ? "YES" : "NO"}}</td>
+                                </tr> 
+                                <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Repeats</td>
                                     <td>{{data?.repeats}}</td>
                                 </tr> 
-                                <tr>
+                                <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Every</td>
                                     <td>{{data?.every}}</td>
                                 </tr> 
-                                <tr *ngIf="data?.event_at != null">
+                                <tr *ngIf="data?.event_at != null && data?.recurrent_assignment == '1'">
                                     <td>ON</td>
                                     <td>{{Daily}}</td>
                                 </tr>
-                                <tr>
+                                <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event Start Date</td>
                                     <td>{{data?.event_start_date}}</td>
                                 </tr>
-                                <tr>
+                                <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event End Date</td>
                                     <td>{{data?.event_end_date}}</td>
                                 </tr>
-                                <tr>
+                                <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event Start Time</td>
                                     <td>{{data?.event_start_time}}</td>
                                 </tr>
-                                <tr>
+                                <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event End Time</td>
                                     <td>{{data?.event_end_time}}</td>
                                 </tr>
@@ -240,11 +244,11 @@
                                 <td>Contact Name of Person at Assignment</td>
                                 <td>{{data?.name_of_contact_person}}</td>
                             </tr>
-                            <tr *ngIf="data?.email != null">
+                            <tr *ngIf="data?.email != null && data?.email != 'undefined'">
                                 <td>Email</td>
                                 <td>{{data?.email}}</td>
                             </tr>
-                            <tr *ngIf="data?.practice_name != null">
+                            <tr *ngIf="data?.practice_name != null && data?.practice_name != ''">
                                 <td>Practice Name</td>
                                 <td>{{data?.practice_name}}</td>
                             </tr>

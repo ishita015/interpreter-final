@@ -475,7 +475,6 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*==========Client name search function start Here========*/
 
-
   /*==========Client name search function end Here========*/
   newRecurrent(ev) {
     this.recurrent = ev.target.value;
@@ -484,9 +483,6 @@ export class AllRequestSchedularComponent implements OnInit {
     }
     else {
       this.assignment_var = false;
-    }
-    if (this.recurrent == '0') {
-      this.getGooleAddress();
     }
   }
 

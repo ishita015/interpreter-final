@@ -92,16 +92,13 @@ module.exports.getDays = async function (req, res) {
 //***** ADD NEW BASIC TAB START *****//
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
-
   try {
-
     console.log("===================body", req.body);
     var medical = req.body.medical;
     var community = req.body.community;
     var education = req.body.education;
     var legal = req.body.legal;
     var others = req.body.others;
-    delete req.body.others;
     if (education != undefined) {
       delete req.body.education;
       req.body.name_of_contact_person = education.name_of_contact_person;
@@ -125,6 +122,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       req.body.email = legal.email;
     }
     if (others != undefined) {
+      delete req.body.others;
       req.body.name_of_contact_person = others.name_of_contact_person;
       req.body.cell_phone = others.cell_phone;
       req.body.building_name = others.building_name;
@@ -136,32 +134,25 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
     }
     if (community != undefined) {
       delete req.body.community;
-      req.body.caseworker_firstname = education.caseworker_firstname;
-      req.body.caseworker_lastname = education.caseworker_lastname;
-      req.body.position = education.position;
-      req.body.contact_person_cellphone = education.contact_person_cellphone;
-      req.body.phone_code = "+" + education.phone_code;
-      req.body.cell_phone = education.cell_phone;
-      req.body.apt = education.apt;
-      req.body.case_name = education.case_name;
-      req.body.client_firstname = education.client_firstname;
-      req.body.client_lastname = education.client_lastname;
-      req.body.trails = education.trails;
-      req.body.apt = education.apt;
-      req.body.practice_name = education.practice_name;
-      req.body.notes = education.notes;
-      req.body.room = education.room;
-      req.body.home_visit = education.home_visit;
-
-      if (home_visit == '1') {
-        req.body.address = education.address;
-        req.body.latitude = education.latitude;
-        req.body.longitude = education.longitude;
-      }
-      if (home_visit == '0') {
-        req.body.provider_address = education.address;
-        req.body.provider_latitude = education.latitude;
-        req.body.provider_longitude = education.longitude;
+      req.body.caseworker_firstname = community.caseworker_firstname;
+      req.body.caseworker_lastname = community.caseworker_lastname;
+      req.body.position = community.position;
+      req.body.contact_person_cellphone = community.contact_person_cellphone;
+      req.body.phone_code = "+" + community.phone_code;
+      req.body.cell_phone = community.cell_phone;
+      req.body.case_name = community.case_name;
+      req.body.client_firstname = community.client_firstname;
+      req.body.client_lastname = community.client_lastname;
+      req.body.trails = community.trails;
+      req.body.practice_name = community.practice_name;
+      req.body.notes = community.notes;
+      req.body.room = community.room;
+      req.body.home_visit = community.home_visit;
+      req.body.address = community.address;
+      req.body.latitude = community.latitude;
+      req.body.longitude = community.longitude;
+      if (community.home_visit == '1') {
+        req.body.apt = community.apt;
       }
     }
     if (medical != undefined) {
@@ -176,8 +167,8 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       req.body.latitude = medical.latitude;
       req.body.longitude = medical.longitude;
     }
-    if (req.body.recurrent_assignment == '') {
-      req.body.recurrent_assignment == 0;  
+    if (req.body.recurrent_assignment == '0' || req.body.recurrent_assignment == '') {
+      req.body.recurrent_assignment == 0;
       delete req.body.how_many_receivers;
       delete req.body.event_start_time;
       delete req.body.event_end_time;
@@ -196,8 +187,9 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
     var result01 = await commonDb.insert("appointment_information_services", req.body);
 
     return res.json({ status: true, msg: 'Add successfully!' });
+
   } catch (err) {
-    console
+    console.log("err-======", err);
     return res.json({ status: false, msg: 'There was an error in add!' });
   }
 }
