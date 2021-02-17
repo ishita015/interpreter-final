@@ -279,7 +279,7 @@ export class AllRequestSchedularComponent implements OnInit {
       provider_name: [''],
       provider_address: [''],
       room: [''],
-      notes: [''],
+      notes: ['', this.validation.onlyRequired_validator],
       latitude: [''],
       longitude: [''],
       provider_latitude: [''],

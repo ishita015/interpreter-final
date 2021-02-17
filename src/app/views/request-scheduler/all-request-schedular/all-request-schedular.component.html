@@ -29,7 +29,8 @@
                 <div class="col-md-12 topbtn" style="align-items: center; justify-content: center;">
                     <div class="new-interpriter">
                         <div class="basictap-main">
-                            <h4>Enter New Interpreter Request - Basic Tab</h4>
+                            <!-- <h4>Enter New Interpreter Request - Basic Tab</h4> -->
+                            <h4>Enter New Interpreter Request</h4>
                         </div>
                         <div class="right-buttton float-right">
                             <button routerLink="/client/client-add"
@@ -127,7 +128,7 @@
                             <div class="form-group form-field">
                                 <select class="form-control" (change)="onChangeLob($event)" formControlName="lob"
                                     id="lob" name="lob">
-                                    <option value="">LOB</option>
+                                    <!-- <option value="">LOB</option> -->
                                     <option *ngFor="let lob of lob_Obj" [value]="lob.name">
                                         {{lob?.name}}
                                     </option>
@@ -227,8 +228,7 @@
                             </div>
                             <div *ngIf="newRequestForm.controls['language'].errors && ( !newRequestForm.controls['language'].pristine || submitted ||newRequestForm.controls['language'].touched )"
                                 class="error-msg">
-                                <div [hidden]="!newRequestForm.controls['language'].errors.required">Language is
-                                    required.
+                                <div [hidden]="!newRequestForm.controls['language'].errors.required">Language is required.
                                 </div>
                             </div>
                         </div>
@@ -238,8 +238,7 @@
                                 placeholder="Assignment Date">
                             <div *ngIf="newRequestForm.controls['assignment_date'].errors && ( !newRequestForm.controls['assignment_date'].pristine || submitted ||newRequestForm.controls['assignment_date'].touched )"
                                 class="error-msg">
-                                <div [hidden]="!newRequestForm.controls['assignment_date'].errors.required">Assignment
-                                    Date is required.</div>
+                                <div [hidden]="!newRequestForm.controls['assignment_date'].errors.required">Assignment Date is required.</div>
 
                             </div>
                         </div>
@@ -906,12 +905,12 @@
                                         <label>IR General Notes</label>
                                         <textarea type="text" class="form-control" formControlName="notes"
                                             placeholder="IR General Notes"></textarea>
-                                        <!-- <div *ngIf="newRequestForm.controls['notes'].errors && (!newRequestForm.controls['notes'].pristine || submittedMed ||newRequestForm.controls['notes'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['notes'].errors && (!communityRequestForm.controls['notes'].pristine || submittedComm ||communityRequestForm.controls['notes'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!newRequestForm.controls['notes'].errors.required">IR General Notes
+                                            <div [hidden]="!communityRequestForm.controls['notes'].errors.required">IR General Notes
                                                 is
                                                 required.</div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
     
@@ -954,11 +953,9 @@
                                                 {{isd?.name}} (+{{isd?.phonecode}})
                                             </option>
                                         </select>
-                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedEdu ||educationRequestForm.controls['phone_code'].touched )"
+                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedLeg ||educationRequestForm.controls['phone_code'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code
-                                                is
-                                                required.</div>
+                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
@@ -1004,8 +1001,7 @@
                                 <div *ngIf="legalRequestForm.controls['building_name'].errors && (!legalRequestForm.controls['building_name'].pristine || submittedLeg ||legalRequestForm.controls['building_name'].touched )"
                                     class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['building_name'].errors.required">
-                                        School/Building
-                                        Name is required.</div>
+                                        School/Building Name is required.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
@@ -1119,8 +1115,7 @@
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Building/Office Name</label>
                                 <input type="text" class="form-control" formControlName="building_name"
-                                    placeholder="Building/Office
-                                    Name">
+                                    placeholder="Building/Office Name">
                                 <div *ngIf="otherRequestForm.controls['building_name'].errors && (!otherRequestForm.controls['building_name'].pristine || submittedOther ||otherRequestForm.controls['building_name'].touched )"
                                     class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['building_name'].errors.required">
@@ -1156,9 +1151,7 @@
                                     placeholder="IR General Notes"></textarea>
                                 <div *ngIf="otherRequestForm.controls['notes'].errors && (!otherRequestForm.controls['notes'].pristine || submittedOther ||otherRequestForm.controls['notes'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!otherRequestForm.controls['notes'].errors.required">IR General Notes
-                                        is
-                                        required.</div>
+                                    <div [hidden]="!otherRequestForm.controls['notes'].errors.required">IR General Notes is required.</div>
                                 </div>
                             </div>
                         </div>
