@@ -158,12 +158,13 @@
   background: rgb(102 51 153 / 58%);
 }
 
-.lang_block .broadcast .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
-  background: #4ccece;
+.lang_block.broad .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
+  background: #8df1f1;
 }
-.lang_block .broadcastnew .ngx-datatable .datatable-body .datatable-row-wrapper {
-  background: #4ccece;
+.lang_block.broadnew .ngx-datatable .datatable-body .datatable-row-wrapper {
+  background: #8df1f1;
 }
+
 /* .abc .ngx-datatable .datatable-body .datatable-row-wrapper:nth-of-type(odd) {
   background-color: #e0c165 !important;
 }
