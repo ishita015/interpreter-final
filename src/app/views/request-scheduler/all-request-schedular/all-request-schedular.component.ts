@@ -24,12 +24,12 @@ enableRipple(true);
 })
 export class AllRequestSchedularComponent implements OnInit {
 
-  
+
   newRequestForm: FormGroup;
-  educationRequestForm:FormGroup;
+  educationRequestForm: FormGroup;
   // legalRequestForm:FormGroup;
-  communityRequestForm:FormGroup;
-  medicalRequestForm:FormGroup;
+  communityRequestForm: FormGroup;
+  medicalRequestForm: FormGroup;
   // otherRequestForm:FormGroup;
   public clientObj: string[] = [];
   public assignment_Obj;
@@ -41,7 +41,8 @@ export class AllRequestSchedularComponent implements OnInit {
   public country_Obj;
   submitted: boolean;
   submittedMed: boolean;
-  submittedEdu:boolean;
+  submittedEdu: boolean;
+  submittedComm: boolean;
   public save_obj;
   public save_Msg;
   public recurrent;
@@ -71,8 +72,7 @@ export class AllRequestSchedularComponent implements OnInit {
   sec_address: string;
   new_address: string;
   private geoCoder;
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  @ViewChild('search', { static: false }) searchElementRef: ElementRef;  
   // maps the local data column to fields property
   public localFields: Object = { value: 'name' };
   //set the placeholder to AutoComplete input
@@ -92,8 +92,8 @@ export class AllRequestSchedularComponent implements OnInit {
   showLegalForm = false;
   showCommunityForm = false;
   showOtherForm = false;
-
   
+
 
 
   constructor(
@@ -109,6 +109,7 @@ export class AllRequestSchedularComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.createForm1();
     this.createForm2();
     this.createForm3();
@@ -123,16 +124,22 @@ export class AllRequestSchedularComponent implements OnInit {
     this.assign_date_func();
     this.getIRList();
     this.allLobList();
+    
     this.scheduler_id = JSON.parse(localStorage.getItem('userId'));
     this.entry_By_data = JSON.parse(localStorage.getItem('loginData'));
     this.newRequestForm.get('entered_by').patchValue(this.entry_By_data.first_name);
     this.editId = JSON.parse(localStorage.getItem('rowId'));
     //load Places Autocomplete
     //load Places Autocomplete
+   
+
+  }
+
+  getGooleAddress(){
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
-     
+
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -157,14 +164,14 @@ export class AllRequestSchedularComponent implements OnInit {
           console.log("longitude-", this.longitude);
 
           this.zoom = 12;
-        
+
         });
       });
     });
-   
   }
 
-  /*==========Step Form Value Start Here========*/  
+  
+  /*==========Step Form Value Start Here========*/
   createForm1() {
     this.newRequestForm = this.fb.group({
       ir: ['', this.validation.onlyRequired_validator],
@@ -197,7 +204,7 @@ export class AllRequestSchedularComponent implements OnInit {
       // notes: [''],
       // phone_code: [''],
 
-     
+
 
       // caseworker_name:[''],
       // caseworker_lastname:[''],
@@ -225,48 +232,48 @@ export class AllRequestSchedularComponent implements OnInit {
       // latitude: [''],
       // longitude: [''],
       // address: [''],
-    
+
     })
   }
 
-  createForm2(){
+  createForm2() {
     this.educationRequestForm = this.fb.group({
-      name_of_contact_person: ['',this.validation.onlyRequired_validator],
-      cell_phone: ['',this.validation.onlyRequired_validator],
-      building_name: ['',this.validation.onlyRequired_validator],
-      building_address: ['',this.validation.onlyRequired_validator],
-      room: ['',this.validation.onlyRequired_validator],
-      notes: ['',this.validation.onlyRequired_validator],
-      phone_code: ['',this.validation.onlyRequired_validator],
+      name_of_contact_person: ['', this.validation.onlyRequired_validator],
+      cell_phone: ['', this.validation.onlyRequired_validator],
+      building_name: ['', this.validation.onlyRequired_validator],
+      building_address: ['', this.validation.onlyRequired_validator],
+      room: ['', this.validation.onlyRequired_validator],
+      notes: ['', this.validation.onlyRequired_validator],
+      phone_code: ['', this.validation.onlyRequired_validator],
       // address:[''],
-      email:['',this.validation.onlyRequired_validator],
+      email: ['', this.validation.onlyRequired_validator],
       // latitude: [''],
       // longitude: [''],
     })
   }
-  
-  createForm3(){
+
+  createForm3() {
     this.communityRequestForm = this.fb.group({
-      caseworker_firstname:['',this.validation.onlyRequired_validator],
-      caseworker_lastname:['',this.validation.onlyRequired_validator],
-      position:['',this.validation.onlyRequired_validator],
-      contact_person_phone_code:['',this.validation.onlyRequired_validator],
-      contact_person_cellphone:['',this.validation.onlyRequired_validator],
-      phone_code:['',this.validation.onlyRequired_validator],
-      name_of_contact_person:['',this.validation.onlyRequired_validator],
-      cell_phone:['',this.validation.onlyRequired_validator],
-      case_name:['',this.validation.onlyRequired_validator],
-      client_firstname:['',this.validation.onlyRequired_validator],
-      client_lastname:['',this.validation.onlyRequired_validator],
-      trails:['',this.validation.onlyRequired_validator],
-      home_visit:[''],
-      apt:[''],
-      address:[''],
-      practice_name:[''],
-      provider_name:[''],
-      provider_address:[''],
-      room:[''],
-      notes:[''],
+      caseworker_firstname: ['', this.validation.onlyRequired_validator],
+      caseworker_lastname: ['', this.validation.onlyRequired_validator],
+      position: ['', this.validation.onlyRequired_validator],
+      contact_person_phone_code: ['', this.validation.onlyRequired_validator],
+      contact_person_cellphone: ['', this.validation.onlyRequired_validator],
+      phone_code: ['', this.validation.onlyRequired_validator],
+      name_of_contact_person: ['', this.validation.onlyRequired_validator],
+      cell_phone: ['', this.validation.onlyRequired_validator],
+      case_name: ['', this.validation.onlyRequired_validator],
+      client_firstname: ['', this.validation.onlyRequired_validator],
+      client_lastname: ['', this.validation.onlyRequired_validator],
+      trails: ['', this.validation.onlyRequired_validator],
+      home_visit: [''],
+      apt: [''],
+      address: [''],
+      practice_name: [''],
+      provider_name: [''],
+      provider_address: [''],
+      room: [''],
+      notes: [''],
       latitude: [''],
       longitude: [''],
       provider_latitude: [''],
@@ -274,15 +281,15 @@ export class AllRequestSchedularComponent implements OnInit {
     })
   }
 
-  createForm4(){
+  createForm4() {
     this.medicalRequestForm = this.fb.group({
-      practice_name: ['',this.validation.onlyRequired_validator],
-      provider_name: ['',this.validation.onlyRequired_validator],
-      phone_code:['',this.validation.onlyRequired_validator],
-      cell_phone:['',this.validation.onlyRequired_validator],
-      address:[''],
-      room:['',this.validation.onlyRequired_validator],
-      notes:['',this.validation.onlyRequired_validator],
+      practice_name: ['', this.validation.onlyRequired_validator],
+      provider_name: ['', this.validation.onlyRequired_validator],
+      phone_code: ['', this.validation.onlyRequired_validator],
+      cell_phone: ['', this.validation.onlyRequired_validator],
+      address: [''],
+      room: ['', this.validation.onlyRequired_validator],
+      notes: ['', this.validation.onlyRequired_validator],
       latitude: [''],
       longitude: [''],
     })
@@ -316,17 +323,17 @@ export class AllRequestSchedularComponent implements OnInit {
       .subscribe(res => {
         this.clientObj = res['data']
       });
-      this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(
-        startWith(''),
-        map(value => this.getRegions(value))
-      );
+    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(
+      startWith(''),
+      map(value => this.getRegions(value))
+    );
   }
 
   getRegions(name: string): any {
     return this.clientObj.filter((x: any) => x.name.toLocaleLowerCase().indexOf(name.toLocaleLowerCase()) > -1);
   }
 
- 
+
   /*==========Client name list end Here========*/
 
 
@@ -389,47 +396,46 @@ export class AllRequestSchedularComponent implements OnInit {
   onChangeLanguage($event) {
 
   }
-  homevisit(e){
-
+  homevisit(e) {
+    this.getGooleAddress();
   }
   onChangeLob(e) {
-   if(e.target.value == 'Education' || e.target.value == 'Legal1' || e.target.value == 'Others'){
-     this.showEductionForm = true;
-     this.showMedicalForm = false;
-     this.showLegalForm = false;
-     this.showCommunityForm = false;
-     this.showOtherForm = false;
-    
-   }
-   else if(e.target.value == 'Medical'){
-    this.showMedicalForm = true;
-    this.showEductionForm = false;
-    this.showLegalForm = false;
-    this.showCommunityForm = false;
-    this.showOtherForm = false;
-   }
-   else if(e.target.value == 'Community'){
-
-   this.showMedicalForm = false;
-    this.showEductionForm = false;
-    this.showLegalForm = false;
-    this.showCommunityForm = true;
-    this.showOtherForm = false;
-   }
-  //  else if(e.target.value == 'Legal1' || e.target.value == 'Others'){
-  //   this.showMedicalForm = false;
-  //   this.showEductionForm = false;
-  //   this.showLegalForm = true;
-  //   this.showCommunityForm = false;
-  //   this.showOtherForm = false;
-  //  }
-  //  else if(e.target.value == 'Others'){
-  //   this.showMedicalForm = false;
-  //   this.showEductionForm = false;
-  //   this.showLegalForm = false;
-  //   this.showCommunityForm = false;
-  //   this.showOtherForm = true;
-  //  }
+    if (e.target.value == 'Education' || e.target.value == 'Legal1' || e.target.value == 'Others') {
+      this.showEductionForm = true;
+      this.showMedicalForm = false;
+      this.showLegalForm = false;
+      this.showCommunityForm = false;
+      this.showOtherForm = false;
+    }
+    if (e.target.value == 'Medical') {
+      this.showMedicalForm = true;
+      this.showEductionForm = false;
+      this.showLegalForm = false;
+      this.showCommunityForm = false;
+      this.showOtherForm = false;
+      this.getGooleAddress();
+    }
+    if (e.target.value == 'Community') {
+      this.showMedicalForm = false;
+      this.showEductionForm = false;
+      this.showLegalForm = false;
+      this.showCommunityForm = true;
+      this.showOtherForm = false;
+    }
+    //  else if(e.target.value == 'Legal1' || e.target.value == 'Others'){
+    //   this.showMedicalForm = false;
+    //   this.showEductionForm = false;
+    //   this.showLegalForm = true;
+    //   this.showCommunityForm = false;
+    //   this.showOtherForm = false;
+    //  }
+    //  else if(e.target.value == 'Others'){
+    //   this.showMedicalForm = false;
+    //   this.showEductionForm = false;
+    //   this.showLegalForm = false;
+    //   this.showCommunityForm = false;
+    //   this.showOtherForm = true;
+    //  }
   }
 
 
@@ -576,30 +582,36 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   /*==========Start and end time valid function end here========*/
   saveUser() {
+    console.log("=====newRequestForm",this.newRequestForm.invalid)
+    console.log("=====educationRequestForm",this.educationRequestForm.invalid)
+    console.log("=====showEductionForm",this.showEductionForm)
+    console.log("=====medicalRequestForm", this.medicalRequestForm.invalid)
+    console.log("=====showMedicalForm",this.showMedicalForm)
+    console.log("=====communityRequestForm",this.communityRequestForm.invalid)
+    console.log("=====showCommunityForm",this.showCommunityForm)
     this.submitted = true;
-    if (this.newRequestForm.invalid) {
+    if(this.showEductionForm){
+      this.submittedEdu = true;
+    }
+    if (this.showEductionForm && this.educationRequestForm.invalid && this.newRequestForm.invalid) {
+      console.log("anana")
       return;
     }
 
-    this.submitted = false;
-    if(this.showEductionForm){
-      this.submittedEdu = true;
-      if (this.educationRequestForm.invalid) {
-        return;
-      }
-  
-      this.submittedEdu = false;
-    }
-    if(this.showMedicalForm){
+    if(this.showMedicalForm == true){
       this.submittedMed = true;
-      if (this.medicalRequestForm.invalid) {
-        return;
-      }
-  
-      this.submittedMed = false;
+    }
+    if (this.showMedicalForm && this.medicalRequestForm.invalid && this.newRequestForm.invalid) {
+      return;
     }
 
-
+    if(this.showCommunityForm){
+      this.submittedComm = true;
+    }
+    if (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) {
+      return;
+    }
+   
     let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
     let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
     let s_eventtime = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
@@ -612,20 +624,20 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     // this.newRequestForm.value.latitude = this.latitude;
     // this.newRequestForm.value.longitude = this.longitude;
-   
 
-    
-    if(this.showEductionForm){
-     
+
+
+    if (this.showEductionForm) {
+
       this.newRequestForm.value.education = this.educationRequestForm.value;
     }
-    if(this.showMedicalForm){
+    if (this.showMedicalForm) {
       this.medicalRequestForm.value.latitude = this.latitude;
       this.medicalRequestForm.value.longitude = this.longitude;
       this.medicalRequestForm.value.address = this.new_address;
       this.newRequestForm.value.medical = this.medicalRequestForm.value;
     }
-    if(this.showCommunityForm){
+    if (this.showCommunityForm) {
       this.communityRequestForm.value.latitude = this.latitude;
       this.communityRequestForm.value.longitude = this.longitude;
       this.communityRequestForm.value.address = this.new_address;

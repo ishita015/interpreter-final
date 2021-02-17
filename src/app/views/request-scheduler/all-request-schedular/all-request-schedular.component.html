@@ -77,11 +77,9 @@
                                         {{ option.fullName }}
                                     </mat-option>
                                 </mat-autocomplete>
-                                <div *ngIf="newRequestForm.controls['client_name'].errors && ( !newRequestForm.controls['client_name'].pristine || submitted ||newRequestForm.controls['client_name'].touched )"
+                                <div *ngIf="newRequestForm.controls['client_name'].errors && ( !newRequestForm.controls['client_name'].pristine || submitted || newRequestForm.controls['client_name'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['client_name'].errors.required">Client Name
-                                        is
-                                        required.
+                                    <div [hidden]="!newRequestForm.controls['client_name'].errors.required">Client Name is required.
                                     </div>
                                 </div>
                             </mat-form-field>
@@ -668,7 +666,7 @@
                                     <label for="Last">Case Worker First Name </label>
                                     <input type="text" class="form-control" formControlName="caseworker_firstname"
                                         placeholder="Case Worker First Name">
-                                    <div *ngIf="communityRequestForm.controls['caseworker_firstname'].errors && (!communityRequestForm.controls['caseworker_firstname'].pristine || submittedMed ||communityRequestForm.controls['caseworker_firstname'].touched )"
+                                    <div *ngIf="communityRequestForm.controls['caseworker_firstname'].errors && (!communityRequestForm.controls['caseworker_firstname'].pristine || submittedComm ||communityRequestForm.controls['caseworker_firstname'].touched )"
                                         class="error-msg">
                                         <div [hidden]="!communityRequestForm.controls['caseworker_firstname'].errors.required">
                                            Contact Name at Assignment.</div>
@@ -678,7 +676,7 @@
                                     <label>Case Worker Last Name</label>
                                     <input type="text" class="form-control" formControlName="caseworker_lastname"
                                         placeholder="Case Worker Last Name">
-                                        <div *ngIf="communityRequestForm.controls['caseworker_lastname'].errors && (!communityRequestForm.controls['caseworker_lastname'].pristine || submittedMed ||communityRequestForm.controls['caseworker_lastname'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['caseworker_lastname'].errors && (!communityRequestForm.controls['caseworker_lastname'].pristine || submittedComm ||communityRequestForm.controls['caseworker_lastname'].touched )"
                                         class="error-msg">
                                         <div [hidden]="!communityRequestForm.controls['caseworker_lastname'].errors.required">
                                             Case Worker Last Name.</div>
@@ -696,7 +694,7 @@
                                                     {{isd?.name}} (+{{isd?.phonecode}})
                                                 </option>
                                             </select>
-                                            <div *ngIf="communityRequestForm.controls['phone_code'].errors && ( !communityRequestForm.controls['phone_code'].pristine || submittedMed ||communityRequestForm.controls['phone_code'].touched )"
+                                            <div *ngIf="communityRequestForm.controls['phone_code'].errors && ( !communityRequestForm.controls['phone_code'].pristine || submittedComm ||communityRequestForm.controls['phone_code'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!communityRequestForm.controls['phone_code'].errors.required">Code
                                                     is
@@ -709,7 +707,7 @@
                                                 formControlName="cell_phone"
                                                 onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                 placeholder="Cell Phone No.">
-                                            <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedMed ||communityRequestForm.controls['cell_phone'].touched )"
+                                            <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedComm ||communityRequestForm.controls['cell_phone'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!communityRequestForm.controls['cell_phone'].errors.required">Cell
                                                     Phone is required.</div>
@@ -720,7 +718,7 @@
                                     <!-- <label>Cell Phone Number</label>
                                     <input type="text" class="form-control" formControlName="cell_phone"
                                         placeholder="Cell Phone Number">
-                                    <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedMed ||communityRequestForm.controls['cell_phone'].touched )"
+                                    <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedComm ||communityRequestForm.controls['cell_phone'].touched )"
                                         class="error-msg">
                                         <div [hidden]="!communityRequestForm.controls['cell_phone'].errors.required">
                                             Cell Phone Number.</div>
@@ -732,7 +730,7 @@
                                         <label for="Last">Contact Name of Person at Assignment</label>
                                         <input type="text" class="form-control" formControlName="name_of_contact_person"
                                             placeholder="Contact Name of Person at Assignment">
-                                        <div *ngIf="communityRequestForm.controls['name_of_contact_person'].errors && (!communityRequestForm.controls['name_of_contact_person'].pristine || submittedMed ||communityRequestForm.controls['name_of_contact_person'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['name_of_contact_person'].errors && (!communityRequestForm.controls['name_of_contact_person'].pristine || submittedComm ||communityRequestForm.controls['name_of_contact_person'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['name_of_contact_person'].errors.required">
                                                 Contact Name of Person at Assignment.</div>
@@ -742,7 +740,7 @@
                                         <label>Position</label>
                                         <input type="text" class="form-control" formControlName="position"
                                             placeholder="Position">
-                                            <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedMed ||communityRequestForm.controls['position'].touched )"
+                                            <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['position'].errors.required">
                                                 Position.</div>
@@ -758,7 +756,7 @@
                                                         {{isd?.name}} (+{{isd?.phonecode}})
                                                     </option>
                                                 </select>
-                                                <div *ngIf="communityRequestForm.controls['contact_person_phone_code'].errors && ( !communityRequestForm.controls['contact_person_phone_code'].pristine || submittedMed ||communityRequestForm.controls['contact_person_phone_code'].touched )"
+                                                <div *ngIf="communityRequestForm.controls['contact_person_phone_code'].errors && ( !communityRequestForm.controls['contact_person_phone_code'].pristine || submittedComm ||communityRequestForm.controls['contact_person_phone_code'].touched )"
                                                     class="error-msg">
                                                     <div [hidden]="!communityRequestForm.controls['contact_person_phone_code'].errors.required">Code
                                                         is
@@ -771,7 +769,7 @@
                                                     formControlName="contact_person_cellphone"
                                                     onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                     placeholder="Cell Phone No.">
-                                                <div *ngIf="communityRequestForm.controls['contact_person_cellphone'].errors && (!communityRequestForm.controls['contact_person_cellphone'].pristine || submittedMed ||communityRequestForm.controls['contact_person_cellphone'].touched )"
+                                                <div *ngIf="communityRequestForm.controls['contact_person_cellphone'].errors && (!communityRequestForm.controls['contact_person_cellphone'].pristine || submittedComm ||communityRequestForm.controls['contact_person_cellphone'].touched )"
                                                     class="error-msg">
                                                     <div [hidden]="!communityRequestForm.controls['contact_person_cellphone'].errors.required">Cell
                                                         Phone is required.</div>
@@ -786,7 +784,7 @@
                                         <label for="Last">Case Name</label>
                                         <input type="text" class="form-control" formControlName="case_name"
                                             placeholder="Case Name">
-                                        <div *ngIf="communityRequestForm.controls['case_name'].errors && (!communityRequestForm.controls['case_name'].pristine || submittedMed ||communityRequestForm.controls['case_name'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['case_name'].errors && (!communityRequestForm.controls['case_name'].pristine || submittedComm ||communityRequestForm.controls['case_name'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['case_name'].errors.required">
                                                 Case Name.</div>
@@ -796,7 +794,7 @@
                                         <label>Client First Name</label>
                                         <input type="text" class="form-control" formControlName="client_firstname"
                                             placeholder="Client First Name">
-                                        <div *ngIf="communityRequestForm.controls['client_firstname'].errors && (!communityRequestForm.controls['client_firstname'].pristine || submittedMed ||communityRequestForm.controls['client_firstname'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['client_firstname'].errors && (!communityRequestForm.controls['client_firstname'].pristine || submittedComm ||communityRequestForm.controls['client_firstname'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['client_firstname'].errors.required">
                                                 Client First Name is required.</div>
@@ -806,7 +804,7 @@
                                         <label for="Last">Client Last Name</label>
                                         <input type="text" class="form-control" formControlName="client_lastname"
                                             placeholder="Client Last Name">
-                                        <div *ngIf="communityRequestForm.controls['client_lastname'].errors && (!communityRequestForm.controls['client_lastname'].pristine || submittedMed ||communityRequestForm.controls['client_lastname'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['client_lastname'].errors && (!communityRequestForm.controls['client_lastname'].pristine || submittedComm ||communityRequestForm.controls['client_lastname'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['client_lastname'].errors.required">Client Last Name is required.
                                             </div>
@@ -816,7 +814,7 @@
                                         <label for="Last">Trails/Case Number</label>
                                         <input type="text" class="form-control" formControlName="trails"
                                             placeholder="Trails/Case Number">
-                                        <div *ngIf="communityRequestForm.controls['trails'].errors && (!communityRequestForm.controls['trails'].pristine || submittedMed ||communityRequestForm.controls['trails'].touched )"
+                                        <div *ngIf="communityRequestForm.controls['trails'].errors && (!communityRequestForm.controls['trails'].pristine || submittedComm ||communityRequestForm.controls['trails'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['trails'].errors.required">Trails/Case Number is required.
                                             </div>
@@ -842,10 +840,9 @@
                                             </label>
                                         </div>
                                     </div>
-                                   
                                         <div  *ngIf="communityRequestForm.value.home_visit == '1'" class="col-sm-4 form-group mb-3">
                                             <label for="Address">Address</label>
-                                            <input type="text" class="form-control" formControlName="address"
+                                            <input type="text" id="address02" class="form-control" formControlName="address"
                                                 (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location"
                                                 autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
                                         </div>
@@ -1122,7 +1119,7 @@
                   
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <button type="button" (click)="saveUser()" class="btn btn-primary">Save</button>
+                            <button type="button" (click)="saveUser()" class="btn btn-primary float-right">Save</button>
                         </div>
                     </div>
                
