@@ -185,9 +185,9 @@ export class AllRequestSchedularComponent implements OnInit {
       // requested_by:['', this.validation.onlyRequired_validator],
       request_date: ['', this.validation.onlyRequired_validator],
       platform: ['', this.validation.onlyRequired_validator],
-      assignment_type: ['',this.validation.onlyRequired_validator],
+      assignment_type: ['', this.validation.onlyRequired_validator],
       // simultaneous:[''],
-      receivers_required: ['',this.validation.onlyRequired_validator],
+      receivers_required: ['', this.validation.onlyRequired_validator],
       language: ['', this.validation.onlyRequired_validator],
       assignment_date: ['', this.validation.onlyRequired_validator],
       from_time: ['', this.validation.onlyRequired_validator],
@@ -614,42 +614,33 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   /*==========Start and end time valid function end here========*/
   saveUser() {
-    console.log("======this.newRequestForm.value",this.newRequestForm.value)
     this.submitted = true;
     if (this.showEductionForm) {
       this.submittedEdu = true;
     }
-    if (this.showEductionForm && this.educationRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
     if (this.showMedicalForm == true) {
       this.submittedMed = true;
     }
-    if (this.showMedicalForm && this.medicalRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
     if (this.showCommunityForm) {
       this.submittedComm = true;
     }
-    if (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
     if (this.showLegalForm) {
       this.submittedLeg = true;
     }
-    if (this.showLegalForm && this.legalRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
     if (this.showOtherForm) {
       this.submittedOther = true;
     }
-    if (this.showOtherForm && this.otherRequestForm.invalid && this.newRequestForm.invalid) {
+    if ((this.showEductionForm && this.educationRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showMedicalForm && this.medicalRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showLegalForm && this.legalRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showOtherForm && this.otherRequestForm.invalid && this.newRequestForm.invalid)) {
       return;
-    }
+    } else {
+      if (this.newRequestForm.invalid) {
+        return;
+      }
+    } 
     if (this.newRequestForm.value.recurrent_assignment == '1') {
       let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
       let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
@@ -661,7 +652,7 @@ export class AllRequestSchedularComponent implements OnInit {
       this.newRequestForm.value.event_end_time = e_enenttime;
       this.newRequestForm.value.event_at = this.event_at;
     }
-    
+
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
 
 
