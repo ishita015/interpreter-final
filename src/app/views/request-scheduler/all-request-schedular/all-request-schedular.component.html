@@ -438,7 +438,7 @@
                     <div *ngIf="showEductionForm">
                         <form [formGroup]="educationRequestForm">
                         <div class="row">
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Contact Name</label>
                                 <input type="text" class="form-control" formControlName="name_of_contact_person"
                                     placeholder="Contact Name">
@@ -450,7 +450,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
+                            <div class="col-md-4 form-group mb-3">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Code</label>
@@ -480,21 +480,20 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
 
-                            <!-- <div class="col-sm-6 form-group mb-3">
-                            <label>Cell Phone Number</label>
-                            <input type="text" class="form-control"
-                                onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                formControlName="phone_number"
-                                placeholder="Cell Phone Number">
-                                <div *ngIf="newRequestForm.controls['phone_number'].errors && ( !newRequestForm.controls['phone_number'].pristine || submittedEdu ||newRequestForm.controls['phone_number'].touched )" class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['phone_number'].errors.required">Cell Phone Number is required.</div>
-                                  </div> 
-                        </div> -->
+                            
+                            <div class="col-md-4 form-group mb-3">
+                                <label for="Last">Email
+                                    </label>
+                                <input type="text" class="form-control" formControlName="email"
+                                    placeholder="Email"> 
+                                <div *ngIf="educationRequestForm.controls['email'].errors && (!educationRequestForm.controls['email'].pristine || submitted ||educationRequestForm.controls['email'].touched )"
+                                    class="error-msg">
+                                    <div [hidden]="!educationRequestForm.controls['email'].errors.required">Email is required.
+                                    </div>
+                                </div>
+                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
@@ -714,15 +713,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- <label>Cell Phone Number</label>
-                                    <input type="text" class="form-control" formControlName="cell_phone"
-                                        placeholder="Cell Phone Number">
-                                    <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedComm ||communityRequestForm.controls['cell_phone'].touched )"
-                                        class="error-msg">
-                                        <div [hidden]="!communityRequestForm.controls['cell_phone'].errors.required">
-                                            Cell Phone Number.</div>
-                                    </div> -->
                                 </div>
                                 </div>
                                 <div class="row">
@@ -934,184 +924,184 @@
                            <!-----------------------------------LOB Community end  -------------------------->
 
                      <!-----------------------------------LOB Legal start  -------------------------->
-                     <!-- <div *ngIf="showLegalForm">
+                     <div *ngIf="showLegalForm">
                         <form [formGroup]="legalRequestForm">
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Contact Name at Assignment</label>
                                 <input type="text" class="form-control" formControlName="name_of_contact_person"
-                                    placeholder="Contact Name at Assignment"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['name_of_contact_person'].errors && (!newRequestForm.controls['name_of_contact_person'].pristine || submitted ||newRequestForm.controls['name_of_contact_person'].touched )"
+                                    placeholder="Contact Name at Assignment">
+                                <div *ngIf="legalRequestForm.controls['name_of_contact_person'].errors && (!legalRequestForm.controls['name_of_contact_person'].pristine || submittedLeg ||legalRequestForm.controls['name_of_contact_person'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['name_of_contact_person'].errors.required">
+                                    <div [hidden]="!legalRequestForm.controls['name_of_contact_person'].errors.required">
                                        Contact Name at Assignment.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Cell Phone Number</label>
                                 <input type="text" class="form-control" formControlName="cell_phone"
-                                    placeholder="Cell Phone Number"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['cell_phone'].errors && (!newRequestForm.controls['cell_phone'].pristine || submitted ||newRequestForm.controls['cell_phone'].touched )"
+                                    placeholder="Cell Phone Number">
+                                <div *ngIf="legalRequestForm.controls['cell_phone'].errors && (!legalRequestForm.controls['cell_phone'].pristine || submittedLeg ||legalRequestForm.controls['cell_phone'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['cell_phone'].errors.required">
-                                        Cell Phone Number<.</div>
-                                </div> -->
-                            <!-- </div>
+                                    <div [hidden]="!legalRequestForm.controls['cell_phone'].errors.required">
+                                        Cell Phone Number.</div>
+                                </div>
+                            </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
                                     </label>
                                 <input type="text" class="form-control" formControlName="email"
-                                    placeholder="Email"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['email'].errors && (!newRequestForm.controls['email'].pristine || submitted ||newRequestForm.controls['email'].touched )"
+                                    placeholder="Email">
+                                <div *ngIf="legalRequestForm.controls['email'].errors && (!legalRequestForm.controls['email'].pristine || submittedLeg ||legalRequestForm.controls['email'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['email'].errors.required">Email is required.
+                                    <div [hidden]="!legalRequestForm.controls['email'].errors.required">Email is required.
                                     </div>
-                                </div> -->
-                            <!-- </div>
-                        </div> -->
+                                </div>
+                            </div>
+                        </div>
                         
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Building/Office Name</label>
                                 <input type="text" class="form-control" formControlName="building_name"
-                                    placeholder="Building/Office Name"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['building_name'].errors && (!newRequestForm.controls['building_name'].pristine || submitted ||newRequestForm.controls['building_name'].touched )"
+                                    placeholder="Building/Office Name">
+                                <div *ngIf="legalRequestForm.controls['building_name'].errors && (!legalRequestForm.controls['building_name'].pristine || submittedLeg ||legalRequestForm.controls['building_name'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['building_name'].errors.required">
+                                    <div [hidden]="!legalRequestForm.controls['building_name'].errors.required">
                                         School/Building
                                         Name is required.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Building/Office
                                     Address</label>
                                 <input type="text" class="form-control" formControlName="building_address"
-                                    placeholder="Building/Office Address"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['building_address'].errors && (!newRequestForm.controls['building_address'].pristine || submitted ||newRequestForm.controls['building_address'].touched )"
+                                    placeholder="Building/Office Address">
+                                <div *ngIf="legalRequestForm.controls['building_address'].errors && (!legalRequestForm.controls['building_address'].pristine || submittedLeg ||legalRequestForm.controls['building_address'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['building_address'].errors.required">
+                                    <div [hidden]="!legalRequestForm.controls['building_address'].errors.required">
                                         Building
                                         Address is required.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Suite/Room/Room #</label>
                                 <input type="text" class="form-control" formControlName="room"
-                                    placeholder="Suite/Room/Room"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['room'].errors && (!newRequestForm.controls['room'].pristine || submitted ||newRequestForm.controls['room'].touched )"
+                                    placeholder="Suite/Room/Room">
+                                <div *ngIf="legalRequestForm.controls['room'].errors && (!legalRequestForm.controls['room'].pristine || submittedLeg ||legalRequestForm.controls['room'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['room'].errors.required">Room is required.
+                                    <div [hidden]="!legalRequestForm.controls['room'].errors.required">Room is required.
                                     </div>
-                                </div> -->
-                            <!-- </div>
-                        </div> -->
+                                </div>
+                            </div>
+                        </div>
 
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-sm-12 form-group mb-3">
                                 <label>IR General Notes</label>
                                 <textarea type="text" class="form-control" formControlName="notes"
-                                    placeholder="IR General Notes"></textarea> -->
-                                <!-- <div *ngIf="newRequestForm.controls['notes'].errors && (!newRequestForm.controls['notes'].pristine || submitted ||newRequestForm.controls['notes'].touched )"
+                                    placeholder="IR General Notes"></textarea>
+                                <div *ngIf="legalRequestForm.controls['notes'].errors && (!legalRequestForm.controls['notes'].pristine || submittedLeg ||legalRequestForm.controls['notes'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['notes'].errors.required">IR General Notes
+                                    <div [hidden]="!legalRequestForm.controls['notes'].errors.required">IR General Notes
                                         is
                                         required.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                         </div>
                         </form>
-                    </div> -->
+                    </div>
                        <!-----------------------------------LOB Legal end  -------------------------->
                      
                           <!-----------------------------------LOB Community start  -------------------------->
-                     <!-- <div *ngIf="showOtherForm">
+                     <div *ngIf="showOtherForm">
                         <form [formGroup]="otherRequestForm">
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Contact Name at Assignment</label>
                                 <input type="text" class="form-control" formControlName="name_of_contact_person"
-                                    placeholder="Contact Name at Assignment"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['name_of_contact_person'].errors && (!newRequestForm.controls['name_of_contact_person'].pristine || submitted ||newRequestForm.controls['name_of_contact_person'].touched )"
+                                    placeholder="Contact Name at Assignment">
+                                <div *ngIf="otherRequestForm.controls['name_of_contact_person'].errors && (!otherRequestForm.controls['name_of_contact_person'].pristine || submittedOther ||otherRequestForm.controls['name_of_contact_person'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['name_of_contact_person'].errors.required">
+                                    <div [hidden]="!otherRequestForm.controls['name_of_contact_person'].errors.required">
                                        Contact Name at Assignment.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Cell Phone Number</label>
                                 <input type="text" class="form-control" formControlName="cell_phone"
-                                    placeholder="Cell Phone Number"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['cell_phone'].errors && (!newRequestForm.controls['cell_phone'].pristine || submitted ||newRequestForm.controls['cell_phone'].touched )"
+                                    placeholder="Cell Phone Number">
+                                <div *ngIf="otherRequestForm.controls['cell_phone'].errors && (!otherRequestForm.controls['cell_phone'].pristine || submittedOther ||otherRequestForm.controls['cell_phone'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['cell_phone'].errors.required">
-                                        Cell Phone Number<.</div>
-                                </div> -->
-                            <!-- </div>
+                                    <div [hidden]="!otherRequestForm.controls['cell_phone'].errors.required">
+                                        Cell Phone Number.</div>
+                                </div>
+                            </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
                                     </label>
                                 <input type="text" class="form-control" formControlName="email"
-                                    placeholder="Email"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['email'].errors && (!newRequestForm.controls['email'].pristine || submitted ||newRequestForm.controls['email'].touched )"
+                                    placeholder="Email">
+                                <div *ngIf="otherRequestForm.controls['email'].errors && (!otherRequestForm.controls['email'].pristine || submittedOther ||otherRequestForm.controls['email'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['email'].errors.required">Email is required.
+                                    <div [hidden]="!otherRequestForm.controls['email'].errors.required">Email is required.
                                     </div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                         </div>
-                         -->
-                        <!-- <div class="row">
+                        
+                        <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Building/Office Name</label>
                                 <input type="text" class="form-control" formControlName="building_name"
                                     placeholder="Building/Office
-                                    Name"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['building_name'].errors && (!newRequestForm.controls['building_name'].pristine || submitted ||newRequestForm.controls['building_name'].touched )"
+                                    Name">
+                                <div *ngIf="otherRequestForm.controls['building_name'].errors && (!otherRequestForm.controls['building_name'].pristine || submittedOther ||otherRequestForm.controls['building_name'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['building_name'].errors.required">
+                                    <div [hidden]="!otherRequestForm.controls['building_name'].errors.required">
                                         School/Building
                                         Name is required.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Building/Office Address</label>
                                 <input type="text" class="form-control" formControlName="building_address"
                                     placeholder="Building/Office
-                                    Address"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['building_address'].errors && (!newRequestForm.controls['building_address'].pristine || submitted ||newRequestForm.controls['building_address'].touched )"
+                                    Address">
+                                <div *ngIf="otherRequestForm.controls['building_address'].errors && (!otherRequestForm.controls['building_address'].pristine || submittedOther ||otherRequestForm.controls['building_address'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['building_address'].errors.required">
+                                    <div [hidden]="!otherRequestForm.controls['building_address'].errors.required">
                                         Building
                                         Address is required.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Suite/Room/Room #</label>
                                 <input type="text" class="form-control" formControlName="room"
-                                    placeholder="Suite/Room/Room"> -->
-                                <!-- <div *ngIf="newRequestForm.controls['room'].errors && (!newRequestForm.controls['room'].pristine || submitted ||newRequestForm.controls['room'].touched )"
+                                    placeholder="Suite/Room/Room">
+                                <div *ngIf="otherRequestForm.controls['room'].errors && (!otherRequestForm.controls['room'].pristine || submittedOther ||otherRequestForm.controls['room'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['room'].errors.required">Room is required.
+                                    <div [hidden]="!otherRequestForm.controls['room'].errors.required">Room is required.
                                     </div>
-                                </div> -->
-                            <!-- </div>
-                        </div> -->
+                                </div>
+                            </div>
+                        </div>
 
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-sm-12 form-group mb-3">
                                 <label>IR General Notes</label>
                                 <textarea type="text" class="form-control" formControlName="notes"
-                                    placeholder="IR General Notes"></textarea> -->
-                                <!-- <div *ngIf="newRequestForm.controls['notes'].errors && (!newRequestForm.controls['notes'].pristine || submitted ||newRequestForm.controls['notes'].touched )"
+                                    placeholder="IR General Notes"></textarea>
+                                <div *ngIf="otherRequestForm.controls['notes'].errors && (!otherRequestForm.controls['notes'].pristine || submittedOther ||otherRequestForm.controls['notes'].touched )"
                                     class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['notes'].errors.required">IR General Notes
+                                    <div [hidden]="!otherRequestForm.controls['notes'].errors.required">IR General Notes
                                         is
                                         required.</div>
-                                </div> -->
-                            <!-- </div>
+                                </div>
+                            </div>
                         </div>
                         </form>
-                    </div> -->
+                    </div>
 
                  
                        <!-----------------------------------LOB Community end  -------------------------->

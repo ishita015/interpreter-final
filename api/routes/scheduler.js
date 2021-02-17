@@ -92,60 +92,78 @@ module.exports.getDays = async function (req, res) {
 //***** ADD NEW BASIC TAB START *****//
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
-  console.log("===================body",req.body);
-  var medical = req.body.medical;
-  var community = req.body.community;
-  var education = req.body.education;
-  delete req.body.education;
-  if(education != undefined || community != undefined || medical != undefined){
-  }
-  if(education != undefined){
-    req.body.name_of_contact_person =  education.name_of_contact_person;
-    req.body.cell_phone =  education.cell_phone;
-    req.body.building_name =  education.building_name;
-    req.body.building_address =  education.building_address;
-    req.body.room =  education.room;
-    req.body.notes =  education.notes;
-    req.body.phone_code =  education.phone_code;
-    req.body.email =  education.email;
-    // req.body.address =  education.address;
-    // req.body.latitude =  education.latitude;
-    // req.body.longitude =  education.longitude;
-  }
-
-  if(community != undefined){
-    req.body.caseworker_firstname =  education.caseworker_firstname;
-    req.body.caseworker_lastname =  education.caseworker_lastname;
-    req.body.position =  education.position;
-    req.body.contact_person_cellphone =  education.contact_person_cellphone;
-    req.body.case_name =  education.case_name;
-    req.body.client_firstname =  education.client_firstname;
-    req.body.client_lastname =  education.client_lastname;
-    req.body.trails =  education.trails;
-    req.body.home_visit =  education.home_visit;
-    req.body.apt =  education.apt;
-    req.body.provider_address =  education.provider_address;
-    req.body.provider_latitude =  education.provider_latitude;
-    req.body.provider_longitude =  education.provider_longitude;
-  }
-  if(medical != undefined){
-    req.body.practice_name =  education.practice_name;
-    req.body.provider_name =  education.provider_name;
-    req.body.phone_code =  education.phone_code;
-    req.body.cell_phone =  education.cell_phone;
-    req.body.address =  education.address;
-    req.body.room =  education.room;
-    req.body.notes =  education.notes;
-    req.body.latitude =  education.latitude;
-    req.body.longitude =  education.longitude;
-
-  }
+  
   try {
+
+    console.log("===================body", req.body);
+    var medical = req.body.medical;
+    var community = req.body.community;
+    var education = req.body.education;
+    var legal = req.body.legal;
+    var others = req.body.others;
+    delete req.body.education;
+    delete req.body.legal;
+    delete req.body.others;
+    if (education != undefined || legal != undefined || others != undefined) {
+      req.body.name_of_contact_person = education.name_of_contact_person;
+      req.body.cell_phone = education.cell_phone;
+      req.body.building_name = education.building_name;
+      req.body.building_address = education.building_address;
+      req.body.room = education.room;
+      req.body.notes = education.notes;
+      req.body.phone_code = education.phone_code;
+      req.body.email = education.email;
+    }
+  
+    if (community != undefined) {
+      delete req.body.community;
+      req.body.caseworker_firstname = education.caseworker_firstname;
+      req.body.caseworker_lastname = education.caseworker_lastname;
+      req.body.position = education.position;
+      req.body.contact_person_cellphone = education.contact_person_cellphone;
+      req.body.phone_code = education.phone_code;
+      req.body.cell_phone = education.cell_phone;
+      req.body.apt = education.apt;
+      req.body.case_name = education.case_name;
+      req.body.client_firstname = education.client_firstname;
+      req.body.client_lastname = education.client_lastname;
+      req.body.trails = education.trails;
+      req.body.apt = education.apt;
+      req.body.practice_name = education.practice_name;
+      req.body.notes = education.notes;
+      req.body.room = education.room;
+      req.body.home_visit = education.home_visit;
+  
+      if (home_visit == '1') {
+        req.body.address = education.address;
+        req.body.latitude = education.latitude;
+        req.body.longitude = education.longitude;
+      }
+      if (home_visit == '0') {
+        req.body.provider_address = education.address;
+        req.body.provider_latitude = education.latitude;
+        req.body.provider_longitude = education.longitude;
+      }
+    }
+    if (medical != undefined) {
+      delete req.body.medical;
+      req.body.practice_name = medical.practice_name;
+      req.body.provider_name = medical.provider_name;
+      req.body.phone_code = medical.phone_code;
+      req.body.cell_phone = medical.cell_phone;
+      req.body.address = medical.address;
+      req.body.room = medical.room;
+      req.body.notes = medical.notes;
+      req.body.latitude = medical.latitude;
+      req.body.longitude = medical.longitude;
+    }
+  
+
     var result = await commonDb.insert("request_information_services", { scheduler_id: req.body.scheduler_id, email: req.body.email });
     delete req.body.scheduler_id;
     delete req.body.email;
     var result01 = await commonDb.insert("appointment_information_services", req.body);
-    
+
     req.body.ris_id = result.insertId;
     req.body.phone_code = "+" + req.body.phone_code
     var result02 = await commonDb.insert("appointment_information_services", medical);
