@@ -14,8 +14,6 @@ var commonDb = require('./Models/commonAdnan');
 const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
-const { delete } = require('request');
-
 
 //***** GET ALL CLIENT LIST START *****//
 
