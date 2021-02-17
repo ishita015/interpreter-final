@@ -101,27 +101,46 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
     var education = req.body.education;
     var legal = req.body.legal;
     var others = req.body.others;
-    delete req.body.education;
-    delete req.body.legal;
     delete req.body.others;
-    if (education != undefined || legal != undefined || others != undefined) {
+    if (education != undefined) {
+      delete req.body.education;
       req.body.name_of_contact_person = education.name_of_contact_person;
       req.body.cell_phone = education.cell_phone;
       req.body.building_name = education.building_name;
       req.body.building_address = education.building_address;
       req.body.room = education.room;
       req.body.notes = education.notes;
-      req.body.phone_code = education.phone_code;
+      req.body.phone_code = "+" + education.phone_code;
       req.body.email = education.email;
     }
-  
+    if (legal != undefined) {
+      delete req.body.legal;
+      req.body.name_of_contact_person = legal.name_of_contact_person;
+      req.body.cell_phone = legal.cell_phone;
+      req.body.building_name = legal.building_name;
+      req.body.building_address = legal.building_address;
+      req.body.room = legal.room;
+      req.body.notes = legal.notes;
+      req.body.phone_code = "+" + legal.phone_code;
+      req.body.email = legal.email;
+    }
+    if (others != undefined) {
+      req.body.name_of_contact_person = others.name_of_contact_person;
+      req.body.cell_phone = others.cell_phone;
+      req.body.building_name = others.building_name;
+      req.body.building_address = others.building_address;
+      req.body.room = others.room;
+      req.body.notes = others.notes;
+      req.body.phone_code = "+" + others.phone_code;
+      req.body.email = others.email;
+    }
     if (community != undefined) {
       delete req.body.community;
       req.body.caseworker_firstname = education.caseworker_firstname;
       req.body.caseworker_lastname = education.caseworker_lastname;
       req.body.position = education.position;
       req.body.contact_person_cellphone = education.contact_person_cellphone;
-      req.body.phone_code = education.phone_code;
+      req.body.phone_code = "+" + education.phone_code;
       req.body.cell_phone = education.cell_phone;
       req.body.apt = education.apt;
       req.body.case_name = education.case_name;
@@ -149,7 +168,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       delete req.body.medical;
       req.body.practice_name = medical.practice_name;
       req.body.provider_name = medical.provider_name;
-      req.body.phone_code = medical.phone_code;
+      req.body.phone_code = "+" + medical.phone_code ;
       req.body.cell_phone = medical.cell_phone;
       req.body.address = medical.address;
       req.body.room = medical.room;
@@ -157,19 +176,16 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       req.body.latitude = medical.latitude;
       req.body.longitude = medical.longitude;
     }
-  
 
     var result = await commonDb.insert("request_information_services", { scheduler_id: req.body.scheduler_id, email: req.body.email });
     delete req.body.scheduler_id;
     delete req.body.email;
-    var result01 = await commonDb.insert("appointment_information_services", req.body);
-
     req.body.ris_id = result.insertId;
-    req.body.phone_code = "+" + req.body.phone_code
-    var result02 = await commonDb.insert("appointment_information_services", medical);
-    var result03 = await commonDb.insert("appointment_information_services", community);
+    var result01 = await commonDb.insert("appointment_information_services", req.body);
+    
     return res.json({ status: true, msg: 'Add successfully!' });
   } catch (err) {
+    console
     return res.json({ status: false, msg: 'There was an error in add!' });
   }
 }
