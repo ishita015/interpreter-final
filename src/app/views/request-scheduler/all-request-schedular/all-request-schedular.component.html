@@ -728,8 +728,14 @@
                                     </div>
                                     <div class="col-sm-4 form-group mb-3">
                                         <label>Position</label>
-                                        <input type="text" class="form-control" formControlName="position"
-                                            placeholder="Position">
+                                        <!-- <input type="text" class="form-control" formControlName="position"
+                                            placeholder="Position"> -->
+                                            <select class="form-control"
+                                            formControlName="position">
+                                            <option value="">Position</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
                                             <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['position'].errors.required">
