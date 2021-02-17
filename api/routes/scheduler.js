@@ -92,24 +92,25 @@ module.exports.getDays = async function (req, res) {
 //***** ADD NEW BASIC TAB START *****//
 
 module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
+  console.log("===================body",req.body);
   var medical = req.body.medical;
   var community = req.body.community;
   var education = req.body.education;
+  delete req.body.education;
   if(education != undefined || community != undefined || medical != undefined){
-    req.body.name_of_contact_person =  education.name_of_contact_person;
   }
   if(education != undefined){
-    
+    req.body.name_of_contact_person =  education.name_of_contact_person;
     req.body.cell_phone =  education.cell_phone;
     req.body.building_name =  education.building_name;
     req.body.building_address =  education.building_address;
     req.body.room =  education.room;
     req.body.notes =  education.notes;
     req.body.phone_code =  education.phone_code;
-    req.body.address =  education.address;
     req.body.email =  education.email;
-    req.body.latitude =  education.latitude;
-    req.body.longitude =  education.longitude;
+    // req.body.address =  education.address;
+    // req.body.latitude =  education.latitude;
+    // req.body.longitude =  education.longitude;
   }
 
   if(community != undefined){

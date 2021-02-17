@@ -71,8 +71,9 @@ export class AllRequestSchedularComponent implements OnInit {
   address: string;
   sec_address: string;
   new_address: string;
+  provider_address: string;
   private geoCoder;
-  @ViewChild('search', { static: false }) searchElementRef: ElementRef;  
+  @ViewChild('search', { static: false }) searchElementRef: ElementRef;
   // maps the local data column to fields property
   public localFields: Object = { value: 'name' };
   //set the placeholder to AutoComplete input
@@ -92,7 +93,7 @@ export class AllRequestSchedularComponent implements OnInit {
   showLegalForm = false;
   showCommunityForm = false;
   showOtherForm = false;
-  
+
 
 
 
@@ -109,7 +110,7 @@ export class AllRequestSchedularComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     this.createForm1();
     this.createForm2();
     this.createForm3();
@@ -124,18 +125,18 @@ export class AllRequestSchedularComponent implements OnInit {
     this.assign_date_func();
     this.getIRList();
     this.allLobList();
-    
+
     this.scheduler_id = JSON.parse(localStorage.getItem('userId'));
     this.entry_By_data = JSON.parse(localStorage.getItem('loginData'));
     this.newRequestForm.get('entered_by').patchValue(this.entry_By_data.first_name);
     this.editId = JSON.parse(localStorage.getItem('rowId'));
     //load Places Autocomplete
     //load Places Autocomplete
-   
+
 
   }
 
-  getGooleAddress(){
+  getGooleAddress() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -159,7 +160,6 @@ export class AllRequestSchedularComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-
           console.log("latitude-", this.latitude);
           console.log("longitude-", this.longitude);
 
@@ -170,7 +170,7 @@ export class AllRequestSchedularComponent implements OnInit {
     });
   }
 
-  
+
   /*==========Step Form Value Start Here========*/
   createForm1() {
     this.newRequestForm = this.fb.group({
@@ -397,7 +397,12 @@ export class AllRequestSchedularComponent implements OnInit {
 
   }
   homevisit(e) {
-    this.getGooleAddress();
+    if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
+      setTimeout(() => {
+        console.log("=====", this.searchElementRef);
+        this.getGooleAddress();
+      }, 500);
+    }
   }
   onChangeLob(e) {
     if (e.target.value == 'Education' || e.target.value == 'Legal1' || e.target.value == 'Others') {
@@ -451,6 +456,9 @@ export class AllRequestSchedularComponent implements OnInit {
     }
     else {
       this.assignment_var = false;
+    }
+    if (this.recurrent == '0') {
+      this.getGooleAddress();
     }
   }
 
@@ -582,36 +590,35 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   /*==========Start and end time valid function end here========*/
   saveUser() {
-    console.log("=====newRequestForm",this.newRequestForm.invalid)
-    console.log("=====educationRequestForm",this.educationRequestForm.invalid)
-    console.log("=====showEductionForm",this.showEductionForm)
+    console.log("=====newRequestForm", this.newRequestForm.invalid)
+    console.log("=====educationRequestForm", this.educationRequestForm.invalid)
+    console.log("=====showEductionForm", this.showEductionForm)
     console.log("=====medicalRequestForm", this.medicalRequestForm.invalid)
-    console.log("=====showMedicalForm",this.showMedicalForm)
-    console.log("=====communityRequestForm",this.communityRequestForm.invalid)
-    console.log("=====showCommunityForm",this.showCommunityForm)
+    console.log("=====showMedicalForm", this.showMedicalForm)
+    console.log("=====communityRequestForm", this.communityRequestForm.invalid)
+    console.log("=====showCommunityForm", this.showCommunityForm)
     this.submitted = true;
-    if(this.showEductionForm){
+    if (this.showEductionForm) {
       this.submittedEdu = true;
     }
     if (this.showEductionForm && this.educationRequestForm.invalid && this.newRequestForm.invalid) {
-      console.log("anana")
       return;
     }
 
-    if(this.showMedicalForm == true){
+    if (this.showMedicalForm == true) {
       this.submittedMed = true;
     }
     if (this.showMedicalForm && this.medicalRequestForm.invalid && this.newRequestForm.invalid) {
       return;
     }
 
-    if(this.showCommunityForm){
+    if (this.showCommunityForm) {
       this.submittedComm = true;
     }
     if (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) {
       return;
     }
-   
+
     let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
     let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
     let s_eventtime = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
