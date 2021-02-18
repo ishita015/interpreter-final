@@ -24,7 +24,6 @@
         <select class="form-control form-control-rounded" (change)="interpreterAllRequest($event.target.value)"
           [formControl]="request_status">
           <option value="">Select Status</option>
-
           <option class="black-text bg-warning" value="0">New Request</option>
           <option class="bg-black text-white" value="1">Broadcasting</option>
           <option class="bg-primary text-white" value="2">In Progress</option>
