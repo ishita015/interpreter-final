@@ -350,62 +350,36 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*==========Client name list start Here========*/
 
-  allClientList() {
-    this.service.get('getAllClients')
-      .subscribe(res => {
-        this.clientObj = res['data']
-      });
-    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(
-      startWith(''),
-      map(value => this.getRegions(value))
-    );
+  allClientList() { this.service.get('getAllClients').subscribe(res => { this.clientObj = res['data'] });
+    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe( startWith(''),
+    map(value => this.getRegions(value)));
   }
 
   getRegions(name: string): any {
     return this.clientObj.filter((x: any) => x.name.toLocaleLowerCase().indexOf(name.toLocaleLowerCase()) > -1);
   }
-
-
   /*==========Client name list end Here========*/
-
 
   /*==========LOB list start Here========*/
 
   allLobList() {
-    this.service.get('getAllLOB')
-      .subscribe(res => {
-        this.lob_Obj = res['data'];
-
-      });
+    this.service.get('getAllLOB').subscribe(res => { this.lob_Obj = res['data'] });
   }
   /*==========LOB list end Here========*/
 
   /*==========Assignment Type list start Here========*/
 
   allAssignmentTypeList() {
-    this.service.get('getAllAssignmentTypes')
-      .subscribe(res => {
-        this.assignment_Obj = res['data'];
-
-      });
   }
   /*==========Assignment Type list end Here========*/
   /*==========Platform start Here========*/
 
-  allPlatformList() {
-    this.service.get('getAllPlatforms')
-      .subscribe(res => {
-        this.platform_Obj = res['data'];
-      });
+  allPlatformList() { this.service.get('getAllPlatforms').subscribe(res => { this.platform_Obj = res['data'] });
   }
   /*==========Platform end Here========*/
   /*==========Language start Here========*/
 
-  allLanguageList() {
-    this.service.get('getAllLanguages')
-      .subscribe(res => {
-        this.language_Obj = res['data'];
-      });
+  allLanguageList() { this.service.get('getAllLanguages').subscribe(res => { this.language_Obj = res['data']});
   }
   /*==========Language end Here========*/
 
@@ -430,9 +404,26 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   homevisit(e) {
     this.getGooleAddress();
+    if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
+      setTimeout(() => {
+        console.log("=====", this.searchElementRef);
+        this.getGooleAddress();
+      }, 500);
+    }
+    if (e.target.value == '1') {
+      this.communityRequestForm.controls['address'].setValue('');
+      this.communityRequestForm.controls['apt'].setValue('');
+    }
+    if (e.target.value == '0') {
+      this.communityRequestForm.controls['practice_name'].setValue('');
+      this.communityRequestForm.controls['provider_name'].setValue('');
+      this.communityRequestForm.controls['room'].setValue('');
+      this.communityRequestForm.controls['provider_address'].setValue('');
+    }
   }
   onChangeLob(e) {
-    if (e.target.value == 'Education' ) {
+    this.service.get('getAllAssignmentTypes/'+this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
+    if (e.target.value == 'Education') {
       this.showEductionForm = true;
       this.showMedicalForm = false;
       this.showLegalForm = false;
@@ -454,7 +445,7 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showCommunityForm = true;
       this.showOtherForm = false;
     }
-     if(e.target.value == 'Legal1'){
+    if (e.target.value == 'Legal') {
       this.showMedicalForm = false;
       this.showEductionForm = false;
       this.showLegalForm = true;
@@ -466,13 +457,9 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showEductionForm = false;
       this.showCommunityForm = false;
       this.showLegalForm = false;
-     
       this.showOtherForm = true;
      }
   }
-
-
-
   /*==========Client name search function start Here========*/
 
 
@@ -552,6 +539,32 @@ export class AllRequestSchedularComponent implements OnInit {
       }
     }
   }
+
+  startWithAssignment(e) {
+    if(this.newRequestForm.value.assignment_date == '' || this.newRequestForm.value.assignment_date == 'undefined'){
+      this.toastr.error("Select Assignment Date", '', { timeOut: 2000 });
+      return false;
+    }
+    if (document.getElementsByName("event_start_d") != null) {
+      var date = new Date().toISOString().split('T')[0];
+      if (document.getElementsByName("event_start_d")[0] != undefined) {
+        document.getElementsByName("event_start_d")[0].setAttribute('min', this.newRequestForm.value.assignment_date);
+      }
+    }
+  }
+
+  endWithAssignment(e) {
+    if(this.newRequestForm.value.event_start_date == '' || this.newRequestForm.value.event_start_date == 'undefined'){
+      this.toastr.error("Select Start Date", '', { timeOut: 2000 });
+      return false;
+    }
+    if (document.getElementsByName("event_end_d") != null) {
+      var date = new Date().toISOString().split('T')[0];
+      if (document.getElementsByName("event_end_d")[0] != undefined) {
+        document.getElementsByName("event_end_d")[0].setAttribute('min', this.newRequestForm.value.event_start_date);
+      }
+    }
+  }
   /*==========Today and future date function end here========*/
 
   /*==========Start and end time valid function start here========*/
@@ -576,6 +589,7 @@ export class AllRequestSchedularComponent implements OnInit {
   }
 
   start_end_time_repeats(e) {
+    
     var beginningTimeRep = this.newRequestForm.value.event_start_time;
     var endTimeRep = this.newRequestForm.value.event_end_time;
     if (beginningTimeRep > endTimeRep) {
@@ -650,6 +664,22 @@ export class AllRequestSchedularComponent implements OnInit {
     }
     if (this.showOtherForm && this.otherRequestForm.invalid && this.newRequestForm.invalid) {
       return;
+    } else {
+      if (this.newRequestForm.invalid) {
+        return;
+      }
+    }
+    if (this.newRequestForm.value.recurrent_assignment == '1') {
+      let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
+      let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
+      let s_eventtime = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
+      let e_enenttime = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
+      this.newRequestForm.value.from_time = stime;
+      this.newRequestForm.value.to_time = etime;
+      this.newRequestForm.value.event_start_time = s_eventtime;
+      this.newRequestForm.value.event_end_time = e_enenttime;
+      this.newRequestForm.value.event_at = this.event_at;
+
     }
    
     let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");

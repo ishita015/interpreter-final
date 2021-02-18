@@ -45,7 +45,7 @@ module.exports.getAllLOB = async function (req, res) {
 //***** GET ALL ASSIGNMENT TYPES START *****//
 module.exports.getAllAssignmentTypes = async function (req, res) {
   try {
-    var result = await commonDb.selectAllWhere("assignment_types", { status: 1 });
+    var result = await commonDb.selectAllWhere("assignment_types", { status: 1, lob_id: req.params.id });
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
