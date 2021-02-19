@@ -646,17 +646,36 @@
                                                         style="font-size: 10px;">
                                                     <div class="form-group mb-0"
                                                         *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                                        <div *ngFor="let url of doc;let i=index">
-                                                            <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                                style="width:100%; height:90px;">
+                                                        <div
+                                                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
+                                                            <div class="row imgblock">
+                                                                <div *ngFor="let url of doc;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                    <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
+                                                                style="width:100%; height:90px;"> -->
+                                                                    <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                                                                    <img *ngIf="url.doc_type == 'community_doc' && url.types == '1'"
+                                                                        [src]="url.all_img"
+                                                                        style="width:100%; height:100%;">
+                                                                     
+                                                                    <!-- <button type="button"
+                                                            (click)="imgview(detail_Obj?.skillsCommunityDoc,viewImgConfirmModal)"
+                                                            class="btn btn-primary mr-2">
+                                                            <i class="far fa-eye"></i>
+                                                        </button> -->
+                                                                </div>
+                                                                <button type="button" class="btn btn-primary btnview"
+                                                                (click)="imgview(detail_Obj?.skillsCommunityDoc,viewImgConfirmModal,$event)">View</button>
+
+                                                            </div>
                                                         </div>
 
-                                                        <button type="button"
+                                                        <!-- <button type="button"
                                                             (click)="imgview(detail_Obj?.skillsCommunityDoc)"
                                                             class="btn btn-primary mr-2"
                                                             style="position: absolute;right: 0;margin: 8px 0 0 0;">
                                                             <i class="i-Eye" style="display: block;"></i>
-                                                        </button>
+                                                        </button> -->
                                                     </div>
                                                 </div>
 
@@ -3003,6 +3022,29 @@
 
             </div>
         </div>
+
+        <ng-template #viewImgConfirmModal let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">Images View</h4>
+                <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                    (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div  *ngFor="let url of doc;let i=index" class="col-md-4">
+                      
+                        <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                        <img *ngIf="url.doc_type == 'community_doc' && url.types == '1'"
+                            [src]="url.all_img"
+                            style="width:100%; height:100%;">
+                    
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
 
         <style type="text/css">
             .selectedBtnClass {

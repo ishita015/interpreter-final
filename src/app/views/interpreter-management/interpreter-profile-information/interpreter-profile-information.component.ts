@@ -1249,9 +1249,14 @@ export class InterpreterProfileInformationComponent implements OnInit {
     console.log("============this.arrImages", this.arrImages);
     let fileArray: File = event.target.files[0];
     let file: File = event.target.files
-    // this.selectedFile = file;
-    // this.addDocInArray(this.selectedFile, key, type);
+ 
     if (file && fileArray) {
+      var totlength = this.doc.length + filesAmount
+      console.log("totlength", totlength);
+      if (totlength > 3) {
+        this.toastr.error('click on view All');
+        return false;
+      }
       for (let i = 0; i < filesAmount; i++) {
         var reader = new FileReader();
         reader.onload = (event: any) => {
@@ -1268,8 +1273,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
-    console.log("===========this.doc", this.doc)
 
+    console.log("===========this.doc", this.doc)
   }
 
   addDocInArray(event, key, type) {
@@ -1322,9 +1327,15 @@ export class InterpreterProfileInformationComponent implements OnInit {
     });
   }
 
-  imgview(e: string) {
-    console.log("images", e);
-    window.open(this.documentUrl + e);
+  imgview(e: string,modal,i) {
+   console.log("pppppppppppppppppppp vvvvvvvvvvvvvvvvvv",i);
+   
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    // console.log("images", e);
+    // window.open(this.documentUrl + e);
+  }
+  removeImage(i){
+    this.doc.splice(i, 1);
   }
 
   private assignmentGroup(): FormGroup {

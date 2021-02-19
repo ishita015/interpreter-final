@@ -71,3 +71,10 @@
         top: -1px;
         padding: 0px 10px;
     }
+    .cdk-overlay-connected-position-bounding-box{top: -34px !important;}
+    .mat-autocomplete-panel {
+        background: #fff;
+        color: rgba(0,0,0,.87);
+        bottom: 21px !important;
+    }
+    ::ng-deep .cdk-overlay-pane{    top: 242px !important;}
