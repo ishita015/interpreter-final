@@ -734,8 +734,7 @@
                                         </select>
                                             <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['position'].errors.required">
-                                                Position.</div>
+                                            <div [hidden]="!communityRequestForm.controls['position'].errors.required">Position is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 form-group mb-3">
@@ -830,6 +829,11 @@
                                                     type="radio" id="gridRadios22" (change)="homevisit($event)" value="0">
                                                 No
                                             </label>
+                                        </div>
+                                        <div *ngIf="communityRequestForm.controls['home_visit'].errors && (!communityRequestForm.controls['home_visit'].pristine || submittedComm ||communityRequestForm.controls['home_visit'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!communityRequestForm.controls['home_visit'].errors.required">Home Visit is required.
+                                            </div>
                                         </div>
                                     </div>
                                         <div  *ngIf="communityRequestForm.value.home_visit == '1'" class="col-sm-4 form-group mb-3">
@@ -950,9 +954,9 @@
                                                 {{isd?.name}} (+{{isd?.phonecode}})
                                             </option>
                                         </select>
-                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedLeg ||educationRequestForm.controls['phone_code'].touched )"
+                                        <div *ngIf="legalRequestForm.controls['phone_code'].errors && ( !legalRequestForm.controls['phone_code'].pristine || submittedLeg ||legalRequestForm.controls['phone_code'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code is required.</div>
+                                            <div [hidden]="!legalRequestForm.controls['phone_code'].errors.required">Code is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
