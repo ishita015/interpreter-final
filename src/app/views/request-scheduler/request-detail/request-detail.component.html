@@ -201,11 +201,13 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="font-weight-bold">Appointment Details</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '0'">New request</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '1'">Assigned</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '2'">In Progress</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '3'">Completed</h5>
-                <h5 class="font-weight-bold progress_btn" *ngIf="data?.status == '4'">Cancelled</h5>
+                <h5 class="font-weight-bold progress_btn text-warning" *ngIf="data?.status == '0'">New request</h5>
+                <h5 class="font-weight-bold progress_btn assign-color" *ngIf="data?.status == '1'">Assigned</h5>
+                <h5 class="font-weight-bold progress_btn text-primary" *ngIf="data?.status == '2'">In Progress</h5>
+                <h5 class="font-weight-bold progress_btn text-success" *ngIf="data?.status == '3'">Completed</h5>
+                <h5 class="font-weight-bold progress_btn text-danger" *ngIf="data?.status == '4'">Reassign</h5>
+                <h5 class="font-weight-bold progress_btn text-danger" *ngIf="data?.status == '5'">Cancelled</h5>
+
                 <div class="mt-3 mb-4 border-top"></div>
                 <div class="request_Tab userstable mb-3 mb-sm-0 ">
 
@@ -238,7 +240,7 @@
                             </tr>
                             <tr *ngIf="data?.cellphone_contact_person != null">
                                 <td>Cell Phone</td>
-                                <td>{{data?.phone_code}}{{data?.cellphone_contact_person | mask: '(000) 000-0000'}}</td>
+                                <td>{{data?.phone_code}} {{data?.cellphone_contact_person | mask: '(000) 000-0000'}}</td>
                             </tr> 
                             <tr *ngIf="data?.name_of_contact_person != null">
                                 <td>Contact Name of Person at Assignment</td>
@@ -263,7 +265,7 @@
                             </tr>
                             <tr *ngIf="data?.contact_person_phone_code != null">
                                 <td>Contact Person</td>
-                                <td>{{data?.contact_person_phone_code}}{{data?.contact_person_cellphone | mask: '(000) 000-0000'}}</td>
+                                <td>{{data?.contact_person_phone_code}} {{data?.contact_person_cellphone | mask: '(000) 000-0000'}}</td>
                             </tr>
                            
                             <tr *ngIf="data?.building_name != null">

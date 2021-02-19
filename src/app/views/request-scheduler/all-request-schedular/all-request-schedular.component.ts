@@ -268,7 +268,7 @@ export class AllRequestSchedularComponent implements OnInit {
       client_firstname: ['', this.validation.onlyRequired_validator],
       client_lastname: ['', this.validation.onlyRequired_validator],
       trails: ['', this.validation.onlyRequired_validator],
-      home_visit: [''],
+      home_visit: ['',this.validation.onlyRequired_validator],
       apt: [''],
       address: [''],
       practice_name: [''],
@@ -347,14 +347,11 @@ export class AllRequestSchedularComponent implements OnInit {
   /*==========Client name list start Here========*/
 
   allClientList() {
-    this.service.get('getAllClients')
-      .subscribe(res => {
-        this.clientObj = res['data']
-      });
-    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(
-      startWith(''),
-      map(value => this.getRegions(value))
-    );
+
+    this.service.get('getAllClients').subscribe(res => { this.clientObj = res['data'] });
+    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(startWith(''),
+      map(value => this.getRegions(value)));
+
   }
 
   getRegions(name: string): any {
@@ -387,19 +384,13 @@ export class AllRequestSchedularComponent implements OnInit {
   /*==========Platform start Here========*/
 
   allPlatformList() {
-    this.service.get('getAllPlatforms')
-      .subscribe(res => {
-        this.platform_Obj = res['data'];
-      });
+    this.service.get('getAllPlatforms').subscribe(res => { this.platform_Obj = res['data'] });
   }
   /*==========Platform end Here========*/
   /*==========Language start Here========*/
 
   allLanguageList() {
-    this.service.get('getAllLanguages')
-      .subscribe(res => {
-        this.language_Obj = res['data'];
-      });
+    this.service.get('getAllLanguages').subscribe(res => { this.language_Obj = res['data'] });
   }
   /*==========Language end Here========*/
 
@@ -446,14 +437,15 @@ export class AllRequestSchedularComponent implements OnInit {
 
     /*==========LOB function start Here========*/
   onChangeLob(e) {
-    if (e.target.value == 'Education') {
+    this.service.get('getAllAssignmentTypes/' + this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
+    if (e.target.value == '8') {
       this.showEductionForm = true;
       this.showMedicalForm = false;
       this.showLegalForm = false;
       this.showCommunityForm = false;
       this.showOtherForm = false;
     }
-    if (e.target.value == 'Medical') {
+    if (e.target.value == '3') {
       this.showMedicalForm = true;
       this.showEductionForm = false;
       this.showLegalForm = false;
@@ -461,21 +453,21 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showOtherForm = false;
       this.getGooleAddress();
     }
-    if (e.target.value == 'Community') {
+    if (e.target.value == '2') {
       this.showMedicalForm = false;
       this.showEductionForm = false;
       this.showLegalForm = false;
       this.showCommunityForm = true;
       this.showOtherForm = false;
     }
-    if (e.target.value == 'Legal1') {
+    if (e.target.value == '1') {
       this.showMedicalForm = false;
       this.showEductionForm = false;
       this.showLegalForm = true;
       this.showCommunityForm = false;
       this.showOtherForm = false;
     }
-    if (e.target.value == 'Others') {
+    if (e.target.value == '9') {
       this.showMedicalForm = false;
       this.showEductionForm = false;
       this.showCommunityForm = false;
@@ -566,6 +558,31 @@ export class AllRequestSchedularComponent implements OnInit {
       }
     }
   }
+  startWithAssignment(e) {
+    if (this.newRequestForm.value.assignment_date == '' || this.newRequestForm.value.assignment_date == 'undefined') {
+      this.toastr.error("Select Assignment Date", '', { timeOut: 2000 });
+      return false;
+    }
+    if (document.getElementsByName("event_start_d") != null) {
+      var date = new Date().toISOString().split('T')[0];
+      if (document.getElementsByName("event_start_d")[0] != undefined) {
+        document.getElementsByName("event_start_d")[0].setAttribute('min', this.newRequestForm.value.assignment_date);
+      }
+    }
+  }
+
+  endWithAssignment(e) {
+    if (this.newRequestForm.value.event_start_date == '' || this.newRequestForm.value.event_start_date == 'undefined') {
+      this.toastr.error("Select Start Date", '', { timeOut: 2000 });
+      return false;
+    }
+    if (document.getElementsByName("event_end_d") != null) {
+      var date = new Date().toISOString().split('T')[0];
+      if (document.getElementsByName("event_end_d")[0] != undefined) {
+        document.getElementsByName("event_end_d")[0].setAttribute('min', this.newRequestForm.value.event_start_date);
+      }
+    }
+  }
   /*==========Today and future date function end here========*/
 
   /*==========Start and end time valid function start here========*/
@@ -636,23 +653,13 @@ export class AllRequestSchedularComponent implements OnInit {
       if (this.newRequestForm.invalid) {
         return;
       }
-    } 
-    if (this.newRequestForm.value.recurrent_assignment == '1') {
-      let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
-      let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
-      let s_eventtime = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
-      let e_enenttime = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
-      this.newRequestForm.value.from_time = stime;
-      this.newRequestForm.value.to_time = etime;
-      this.newRequestForm.value.event_start_time = s_eventtime;
-      this.newRequestForm.value.event_end_time = e_enenttime;
-      this.newRequestForm.value.event_at = this.event_at;
     }
-
+    this.newRequestForm.value.from_time = moment(this.newRequestForm.value.from_time).format("HH:mm");;
+    this.newRequestForm.value.to_time = moment(this.newRequestForm.value.to_time).format("HH:mm");
+    this.newRequestForm.value.event_start_time = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
+    this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
+    this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
-
-
-
     if (this.showEductionForm) {
 
       this.newRequestForm.value.education = this.educationRequestForm.value;
