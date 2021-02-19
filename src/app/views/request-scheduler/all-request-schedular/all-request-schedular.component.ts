@@ -31,12 +31,14 @@ export class AllRequestSchedularComponent implements OnInit {
   public onsite;
   simultaneous_var = false;
   public country_Obj;
+  // validation form variable start
   submitted: boolean;
   submittedMed: boolean;
   submittedEdu: boolean;
   submittedComm: boolean;
-  submittedLeg:boolean;
-  submittedOther:boolean;
+  submittedLeg: boolean;
+  submittedOther: boolean;
+   // validation form variable end
   public save_obj;
   public save_Msg;
   public recurrent;
@@ -58,23 +60,24 @@ export class AllRequestSchedularComponent implements OnInit {
   public formatString: string = 'HH:mm';
   public interval: number = 5;
 
-  // map variable
+  // map variable start
   latitude: number;
   longitude: number;
- 
+
   zoom: number;
   address: string;
   sec_address: string;
   new_address: string;
-  
+  provider_address: string;
+
   private geoCoder;
-  @ViewChild('search', { static: false }) searchElementRef: ElementRef;  
-  
+  @ViewChild('search', { static: false }) searchElementRef: ElementRef;
   // maps the local data column to fields property
   public localFields: Object = { value: 'name' };
   //set the placeholder to AutoComplete input
 
   //auto complete
+  // map variable end
   form: FormGroup;
   client_name: FormControl;
   filterRegions: Observable<any[]>;
@@ -83,22 +86,22 @@ export class AllRequestSchedularComponent implements OnInit {
   myControl = new FormControl();
 
 
-
+  // show hide variable start
   showEductionForm = false;
   showMedicalForm = false;
   showLegalForm = false;
   showCommunityForm = false;
   showOtherForm = false;
-  
+ // show hide variable end
+
+ // form name start here
   newRequestForm: FormGroup;
   educationRequestForm: FormGroup;
-  legalRequestForm:FormGroup;
+  legalRequestForm: FormGroup;
   communityRequestForm: FormGroup;
   medicalRequestForm: FormGroup;
-  otherRequestForm:FormGroup;
-
-
-
+  otherRequestForm: FormGroup;
+  // form name end here
   constructor(
     public validation: ValidationsService,
     private fb: FormBuilder,
@@ -112,7 +115,7 @@ export class AllRequestSchedularComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     this.createForm1();
     this.createForm2();
     this.createForm3();
@@ -130,18 +133,15 @@ export class AllRequestSchedularComponent implements OnInit {
     this.assign_date_func();
     this.getIRList();
     this.allLobList();
-    
+
     this.scheduler_id = JSON.parse(localStorage.getItem('userId'));
     this.entry_By_data = JSON.parse(localStorage.getItem('loginData'));
     this.newRequestForm.get('entered_by').patchValue(this.entry_By_data.first_name);
     this.editId = JSON.parse(localStorage.getItem('rowId'));
-    //load Places Autocomplete
-    //load Places Autocomplete
-   
-
   }
 
-  getGooleAddress(){
+   /*==========google api load Places Autocomplete function start here========*/
+  getGooleAddress() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -154,8 +154,6 @@ export class AllRequestSchedularComponent implements OnInit {
           this.new_address = place['formatted_address'];
           console.log("address", this.new_address);
 
-         
-          
           this.sec_address = place['formatted_address'];
 
           //verify result
@@ -167,11 +165,8 @@ export class AllRequestSchedularComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-
           console.log("latitude-", this.latitude);
           console.log("longitude-", this.longitude);
-
-
 
           this.zoom = 12;
 
@@ -179,8 +174,8 @@ export class AllRequestSchedularComponent implements OnInit {
       });
     });
   }
+ /*==========google api load Places Autocomplete function end here========*/
 
-  
   /*==========Step Form Value Start Here========*/
   createForm1() {
     this.newRequestForm = this.fb.group({
@@ -190,14 +185,14 @@ export class AllRequestSchedularComponent implements OnInit {
       // requested_by:['', this.validation.onlyRequired_validator],
       request_date: ['', this.validation.onlyRequired_validator],
       platform: ['', this.validation.onlyRequired_validator],
-      assignment_type: [''],
+      assignment_type: ['', this.validation.onlyRequired_validator],
       // simultaneous:[''],
-      receivers_required: [''],
+      receivers_required: ['', this.validation.onlyRequired_validator],
       language: ['', this.validation.onlyRequired_validator],
       assignment_date: ['', this.validation.onlyRequired_validator],
       from_time: ['', this.validation.onlyRequired_validator],
       to_time: ['', this.validation.onlyRequired_validator],
-      recurrent_assignment: ['', this.validation.onlyRequired_validator],
+      recurrent_assignment: [''],
       // name_of_contact_person: ['', this.validation.onlyRequired_validator],
       // cell_phone: ['', this.validation.onlyRequired_validator],
       // building_name: ['', this.validation.onlyRequired_validator],
@@ -280,7 +275,7 @@ export class AllRequestSchedularComponent implements OnInit {
       provider_name: [''],
       provider_address: [''],
       room: [''],
-      notes: [''],
+      notes: ['', this.validation.onlyRequired_validator],
       latitude: [''],
       longitude: [''],
       provider_latitude: [''],
@@ -329,6 +324,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*==========Step Form Value End Here========*/
 
+  /*========== IR Start Here========*/
   getIRList() {
     this.service.get('getLastRISEntry')
       .subscribe(res => {
@@ -336,6 +332,7 @@ export class AllRequestSchedularComponent implements OnInit {
         this.newRequestForm.get('ir').patchValue(this.ir_Obj.req);
       });
   }
+  /*========== IR end Here========*/
   /*========== Country Code for Mobile Start Here========*/
 
   CountryList() {
@@ -345,41 +342,64 @@ export class AllRequestSchedularComponent implements OnInit {
       }
     });
   }
-
   /*==========  Country Code for Mobile End Here========*/
 
   /*==========Client name list start Here========*/
 
-  allClientList() { this.service.get('getAllClients').subscribe(res => { this.clientObj = res['data'] });
-    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe( startWith(''),
-    map(value => this.getRegions(value)));
+  allClientList() {
+    this.service.get('getAllClients')
+      .subscribe(res => {
+        this.clientObj = res['data']
+      });
+    this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(
+      startWith(''),
+      map(value => this.getRegions(value))
+    );
   }
 
   getRegions(name: string): any {
     return this.clientObj.filter((x: any) => x.name.toLocaleLowerCase().indexOf(name.toLocaleLowerCase()) > -1);
   }
+
   /*==========Client name list end Here========*/
 
   /*==========LOB list start Here========*/
 
   allLobList() {
-    this.service.get('getAllLOB').subscribe(res => { this.lob_Obj = res['data'] });
+    this.service.get('getAllLOB')
+      .subscribe(res => {
+        this.lob_Obj = res['data'];
+
+      });
   }
   /*==========LOB list end Here========*/
 
   /*==========Assignment Type list start Here========*/
 
   allAssignmentTypeList() {
+    this.service.get('getAllAssignmentTypes')
+      .subscribe(res => {
+        this.assignment_Obj = res['data'];
+
+      });
   }
   /*==========Assignment Type list end Here========*/
   /*==========Platform start Here========*/
 
-  allPlatformList() { this.service.get('getAllPlatforms').subscribe(res => { this.platform_Obj = res['data'] });
+  allPlatformList() {
+    this.service.get('getAllPlatforms')
+      .subscribe(res => {
+        this.platform_Obj = res['data'];
+      });
   }
   /*==========Platform end Here========*/
   /*==========Language start Here========*/
 
-  allLanguageList() { this.service.get('getAllLanguages').subscribe(res => { this.language_Obj = res['data']});
+  allLanguageList() {
+    this.service.get('getAllLanguages')
+      .subscribe(res => {
+        this.language_Obj = res['data'];
+      });
   }
   /*==========Language end Here========*/
 
@@ -402,27 +422,30 @@ export class AllRequestSchedularComponent implements OnInit {
   onChangeLanguage($event) {
 
   }
+   /*==========Home visit function start Here========*/
   homevisit(e) {
-    this.getGooleAddress();
     if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
       setTimeout(() => {
         console.log("=====", this.searchElementRef);
         this.getGooleAddress();
       }, 500);
     }
-    if (e.target.value == '1') {
+    if(e.target.value == '1'){
       this.communityRequestForm.controls['address'].setValue('');
       this.communityRequestForm.controls['apt'].setValue('');
     }
-    if (e.target.value == '0') {
+    if(e.target.value == '0'){
       this.communityRequestForm.controls['practice_name'].setValue('');
       this.communityRequestForm.controls['provider_name'].setValue('');
       this.communityRequestForm.controls['room'].setValue('');
       this.communityRequestForm.controls['provider_address'].setValue('');
     }
   }
+
+   /*==========Home visit function end Here========*/
+
+    /*==========LOB function start Here========*/
   onChangeLob(e) {
-    this.service.get('getAllAssignmentTypes/'+this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
     if (e.target.value == 'Education') {
       this.showEductionForm = true;
       this.showMedicalForm = false;
@@ -445,25 +468,23 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showCommunityForm = true;
       this.showOtherForm = false;
     }
-    if (e.target.value == 'Legal') {
+    if (e.target.value == 'Legal1') {
       this.showMedicalForm = false;
       this.showEductionForm = false;
       this.showLegalForm = true;
       this.showCommunityForm = false;
       this.showOtherForm = false;
-     }
-     if(e.target.value == 'Others'){
+    }
+    if (e.target.value == 'Others') {
       this.showMedicalForm = false;
       this.showEductionForm = false;
       this.showCommunityForm = false;
       this.showLegalForm = false;
       this.showOtherForm = true;
-     }
+    }
   }
-  /*==========Client name search function start Here========*/
-
-
-  /*==========Client name search function end Here========*/
+ /*==========LOB function end Here========*/
+  /*========== Recurrent Assignment function start here ========*/
   newRecurrent(ev) {
     this.recurrent = ev.target.value;
     if (this.recurrent == '1') {
@@ -473,7 +494,9 @@ export class AllRequestSchedularComponent implements OnInit {
       this.assignment_var = false;
     }
   }
+   /*========== Recurrent Assignment function end here ========*/
 
+     /*==========Repeats Function start here ========*/
   newRepeat(event) {
     this.dailyData = event.target.value;
     if (this.dailyData == '1') {
@@ -500,9 +523,10 @@ export class AllRequestSchedularComponent implements OnInit {
       this.start_end = true;
       this.every_show_hide = true;
     }
-
-
   }
+    /*==========Repeats Function end here ========*/
+
+    /*==========Platform Function start here ========*/
   newSimultaneous(e) {
     console.log(e.target.value);
     this.myvar = e.target.value
@@ -513,11 +537,14 @@ export class AllRequestSchedularComponent implements OnInit {
       this.simultaneous_var = false;
     }
   }
+   /*==========platform Function end here ========*/
 
+ /*==========Client Name Function start here ========*/
   changeClient(data, e) {
     this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
   }
 
+  /*==========Client Name Function end here ========*/
   changeCheckbox(i) {
 
   }
@@ -536,32 +563,6 @@ export class AllRequestSchedularComponent implements OnInit {
       var date = new Date().toISOString().split('T')[0];
       if (document.getElementsByName("assignDate")[0] != undefined) {
         document.getElementsByName("assignDate")[0].setAttribute('min', date);
-      }
-    }
-  }
-
-  startWithAssignment(e) {
-    if(this.newRequestForm.value.assignment_date == '' || this.newRequestForm.value.assignment_date == 'undefined'){
-      this.toastr.error("Select Assignment Date", '', { timeOut: 2000 });
-      return false;
-    }
-    if (document.getElementsByName("event_start_d") != null) {
-      var date = new Date().toISOString().split('T')[0];
-      if (document.getElementsByName("event_start_d")[0] != undefined) {
-        document.getElementsByName("event_start_d")[0].setAttribute('min', this.newRequestForm.value.assignment_date);
-      }
-    }
-  }
-
-  endWithAssignment(e) {
-    if(this.newRequestForm.value.event_start_date == '' || this.newRequestForm.value.event_start_date == 'undefined'){
-      this.toastr.error("Select Start Date", '', { timeOut: 2000 });
-      return false;
-    }
-    if (document.getElementsByName("event_end_d") != null) {
-      var date = new Date().toISOString().split('T')[0];
-      if (document.getElementsByName("event_end_d")[0] != undefined) {
-        document.getElementsByName("event_end_d")[0].setAttribute('min', this.newRequestForm.value.event_start_date);
       }
     }
   }
@@ -589,7 +590,6 @@ export class AllRequestSchedularComponent implements OnInit {
   }
 
   start_end_time_repeats(e) {
-    
     var beginningTimeRep = this.newRequestForm.value.event_start_time;
     var endTimeRep = this.newRequestForm.value.event_end_time;
     if (beginningTimeRep > endTimeRep) {
@@ -606,69 +606,37 @@ export class AllRequestSchedularComponent implements OnInit {
       // this.toastr.success("Valid Time ",'', { timeOut: 2000 });
     }
   }
-
-  start_end_time(e) {
-
-    // var beginningTime = this.newRequestForm.value.from_time;
-    // var endTime = this.newRequestForm.value.to_time;
-    // if (beginningTime > endTime) {
-
-    //   this.newRequestForm.controls['from_time'].setValue('');
-    //   this.newRequestForm.controls['to_time'].setValue('');
-    //   this.toastr.error("Invalid Time", '', { timeOut: 2000 });
-    // }
-    // if (beginningTime == endTime) {
-
-    //   this.newRequestForm.controls['from_time'].setValue('');
-    //   this.newRequestForm.controls['to_time'].setValue('');
-    //   this.toastr.error("Invalid Time", '', { timeOut: 2000 });
-    // }
-    // if (beginningTime < endTime) {
-
-    // }
-  }
   /*==========Start and end time valid function end here========*/
+
+  /*======================All Form submitted function start here==============================*/
   saveUser() {
     this.submitted = true;
-    if(this.showEductionForm){
+    if (this.showEductionForm) {
       this.submittedEdu = true;
     }
-    if (this.showEductionForm && this.educationRequestForm.invalid && this.newRequestForm.invalid) {
-      console.log("anana")
-      return;
-    }
-
-    if(this.showMedicalForm == true){
+    if (this.showMedicalForm == true) {
       this.submittedMed = true;
     }
-    if (this.showMedicalForm && this.medicalRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
-    if(this.showCommunityForm){
+    if (this.showCommunityForm) {
       this.submittedComm = true;
     }
-    if (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
-    if(this.showLegalForm){
+    if (this.showLegalForm) {
       this.submittedLeg = true;
     }
-    if (this.showLegalForm && this.legalRequestForm.invalid && this.newRequestForm.invalid) {
-      return;
-    }
-
-    if(this.showOtherForm){
+    if (this.showOtherForm) {
       this.submittedOther = true;
     }
-    if (this.showOtherForm && this.otherRequestForm.invalid && this.newRequestForm.invalid) {
+    if ((this.showEductionForm && this.educationRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showMedicalForm && this.medicalRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showCommunityForm && this.communityRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showLegalForm && this.legalRequestForm.invalid && this.newRequestForm.invalid) ||
+      (this.showOtherForm && this.otherRequestForm.invalid && this.newRequestForm.invalid)) {
       return;
     } else {
       if (this.newRequestForm.invalid) {
         return;
       }
-    }
+    } 
     if (this.newRequestForm.value.recurrent_assignment == '1') {
       let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
       let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
@@ -679,31 +647,21 @@ export class AllRequestSchedularComponent implements OnInit {
       this.newRequestForm.value.event_start_time = s_eventtime;
       this.newRequestForm.value.event_end_time = e_enenttime;
       this.newRequestForm.value.event_at = this.event_at;
-
     }
-   
-    let stime = moment(this.newRequestForm.value.from_time).format("HH:mm");
-    let etime = moment(this.newRequestForm.value.to_time).format("HH:mm");
-    let s_eventtime = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
-    let e_enenttime = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
-    this.newRequestForm.value.from_time = stime;
-    this.newRequestForm.value.to_time = etime;
-    this.newRequestForm.value.event_start_time = s_eventtime;
-    this.newRequestForm.value.event_end_time = e_enenttime;
-    this.newRequestForm.value.event_at = this.event_at;
+
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
-  
+
 
 
     if (this.showEductionForm) {
 
       this.newRequestForm.value.education = this.educationRequestForm.value;
     }
-    if( this.showLegalForm){
-      this.newRequestForm.value.education = this.legalRequestForm.value;
+    if (this.showLegalForm) {
+      this.newRequestForm.value.legal = this.legalRequestForm.value;
     }
-    if( this.showOtherForm){
-      this.newRequestForm.value.education = this.otherRequestForm.value;
+    if (this.showOtherForm) {
+      this.newRequestForm.value.others = this.otherRequestForm.value;
     }
     if (this.showMedicalForm) {
       this.medicalRequestForm.value.latitude = this.latitude;
@@ -728,7 +686,10 @@ export class AllRequestSchedularComponent implements OnInit {
     });
   }
 
-  // Get Current Location Coordinates
+    /*==========================All Form submitted function end here==========================*/
+  
+    /*==========================Google Api function start here==========================*/
+    // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -770,6 +731,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
     });
   }
+   /*==========================Google Api function end here==========================*/
   selectEvent(item) {
     // do something with selected item
   }
