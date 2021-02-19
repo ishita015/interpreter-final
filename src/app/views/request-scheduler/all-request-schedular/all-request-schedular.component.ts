@@ -31,12 +31,14 @@ export class AllRequestSchedularComponent implements OnInit {
   public onsite;
   simultaneous_var = false;
   public country_Obj;
+  // validation form variable start
   submitted: boolean;
   submittedMed: boolean;
   submittedEdu: boolean;
   submittedComm: boolean;
   submittedLeg: boolean;
   submittedOther: boolean;
+   // validation form variable end
   public save_obj;
   public save_Msg;
   public recurrent;
@@ -58,7 +60,7 @@ export class AllRequestSchedularComponent implements OnInit {
   public formatString: string = 'HH:mm';
   public interval: number = 5;
 
-  // map variable
+  // map variable start
   latitude: number;
   longitude: number;
 
@@ -75,6 +77,7 @@ export class AllRequestSchedularComponent implements OnInit {
   //set the placeholder to AutoComplete input
 
   //auto complete
+  // map variable end
   form: FormGroup;
   client_name: FormControl;
   filterRegions: Observable<any[]>;
@@ -83,22 +86,22 @@ export class AllRequestSchedularComponent implements OnInit {
   myControl = new FormControl();
 
 
-
+  // show hide variable start
   showEductionForm = false;
   showMedicalForm = false;
   showLegalForm = false;
   showCommunityForm = false;
   showOtherForm = false;
+ // show hide variable end
 
+ // form name start here
   newRequestForm: FormGroup;
   educationRequestForm: FormGroup;
   legalRequestForm: FormGroup;
   communityRequestForm: FormGroup;
   medicalRequestForm: FormGroup;
   otherRequestForm: FormGroup;
-
-
-
+  // form name end here
   constructor(
     public validation: ValidationsService,
     private fb: FormBuilder,
@@ -135,12 +138,9 @@ export class AllRequestSchedularComponent implements OnInit {
     this.entry_By_data = JSON.parse(localStorage.getItem('loginData'));
     this.newRequestForm.get('entered_by').patchValue(this.entry_By_data.first_name);
     this.editId = JSON.parse(localStorage.getItem('rowId'));
-    //load Places Autocomplete
-    //load Places Autocomplete
-
-
   }
 
+   /*==========google api load Places Autocomplete function start here========*/
   getGooleAddress() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
@@ -174,7 +174,7 @@ export class AllRequestSchedularComponent implements OnInit {
       });
     });
   }
-
+ /*==========google api load Places Autocomplete function end here========*/
 
   /*==========Step Form Value Start Here========*/
   createForm1() {
@@ -324,6 +324,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*==========Step Form Value End Here========*/
 
+  /*========== IR Start Here========*/
   getIRList() {
     this.service.get('getLastRISEntry')
       .subscribe(res => {
@@ -331,6 +332,7 @@ export class AllRequestSchedularComponent implements OnInit {
         this.newRequestForm.get('ir').patchValue(this.ir_Obj.req);
       });
   }
+  /*========== IR end Here========*/
   /*========== Country Code for Mobile Start Here========*/
 
   CountryList() {
@@ -340,32 +342,43 @@ export class AllRequestSchedularComponent implements OnInit {
       }
     });
   }
-
   /*==========  Country Code for Mobile End Here========*/
 
   /*==========Client name list start Here========*/
 
   allClientList() {
+
     this.service.get('getAllClients').subscribe(res => { this.clientObj = res['data'] });
     this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(startWith(''),
       map(value => this.getRegions(value)));
+
   }
 
   getRegions(name: string): any {
     return this.clientObj.filter((x: any) => x.name.toLocaleLowerCase().indexOf(name.toLocaleLowerCase()) > -1);
   }
+
   /*==========Client name list end Here========*/
 
   /*==========LOB list start Here========*/
 
   allLobList() {
-    this.service.get('getAllLOB').subscribe(res => { this.lob_Obj = res['data'] });
+    this.service.get('getAllLOB')
+      .subscribe(res => {
+        this.lob_Obj = res['data'];
+
+      });
   }
   /*==========LOB list end Here========*/
 
   /*==========Assignment Type list start Here========*/
 
   allAssignmentTypeList() {
+    this.service.get('getAllAssignmentTypes')
+      .subscribe(res => {
+        this.assignment_Obj = res['data'];
+
+      });
   }
   /*==========Assignment Type list end Here========*/
   /*==========Platform start Here========*/
@@ -400,6 +413,7 @@ export class AllRequestSchedularComponent implements OnInit {
   onChangeLanguage($event) {
 
   }
+   /*==========Home visit function start Here========*/
   homevisit(e) {
     if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
       setTimeout(() => {
@@ -407,17 +421,21 @@ export class AllRequestSchedularComponent implements OnInit {
         this.getGooleAddress();
       }, 500);
     }
-    if (e.target.value == '1') {
+    if(e.target.value == '1'){
       this.communityRequestForm.controls['address'].setValue('');
       this.communityRequestForm.controls['apt'].setValue('');
     }
-    if (e.target.value == '0') {
+    if(e.target.value == '0'){
       this.communityRequestForm.controls['practice_name'].setValue('');
       this.communityRequestForm.controls['provider_name'].setValue('');
       this.communityRequestForm.controls['room'].setValue('');
       this.communityRequestForm.controls['provider_address'].setValue('');
     }
   }
+
+   /*==========Home visit function end Here========*/
+
+    /*==========LOB function start Here========*/
   onChangeLob(e) {
     this.service.get('getAllAssignmentTypes/' + this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
     if (e.target.value == '8') {
@@ -457,12 +475,8 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showOtherForm = true;
     }
   }
-
-
-
-  /*==========Client name search function start Here========*/
-
-  /*==========Client name search function end Here========*/
+ /*==========LOB function end Here========*/
+  /*========== Recurrent Assignment function start here ========*/
   newRecurrent(ev) {
     this.recurrent = ev.target.value;
     if (this.recurrent == '1') {
@@ -472,7 +486,9 @@ export class AllRequestSchedularComponent implements OnInit {
       this.assignment_var = false;
     }
   }
+   /*========== Recurrent Assignment function end here ========*/
 
+     /*==========Repeats Function start here ========*/
   newRepeat(event) {
     this.dailyData = event.target.value;
     if (this.dailyData == '1') {
@@ -499,9 +515,10 @@ export class AllRequestSchedularComponent implements OnInit {
       this.start_end = true;
       this.every_show_hide = true;
     }
-
-
   }
+    /*==========Repeats Function end here ========*/
+
+    /*==========Platform Function start here ========*/
   newSimultaneous(e) {
     console.log(e.target.value);
     this.myvar = e.target.value
@@ -512,11 +529,14 @@ export class AllRequestSchedularComponent implements OnInit {
       this.simultaneous_var = false;
     }
   }
+   /*==========platform Function end here ========*/
 
+ /*==========Client Name Function start here ========*/
   changeClient(data, e) {
     this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
   }
 
+  /*==========Client Name Function end here ========*/
   changeCheckbox(i) {
 
   }
@@ -538,7 +558,6 @@ export class AllRequestSchedularComponent implements OnInit {
       }
     }
   }
-
   startWithAssignment(e) {
     if (this.newRequestForm.value.assignment_date == '' || this.newRequestForm.value.assignment_date == 'undefined') {
       this.toastr.error("Select Assignment Date", '', { timeOut: 2000 });
@@ -588,7 +607,6 @@ export class AllRequestSchedularComponent implements OnInit {
   }
 
   start_end_time_repeats(e) {
-
     var beginningTimeRep = this.newRequestForm.value.event_start_time;
     var endTimeRep = this.newRequestForm.value.event_end_time;
     if (beginningTimeRep > endTimeRep) {
@@ -605,28 +623,9 @@ export class AllRequestSchedularComponent implements OnInit {
       // this.toastr.success("Valid Time ",'', { timeOut: 2000 });
     }
   }
-
-  start_end_time(e) {
-
-    // var beginningTime = this.newRequestForm.value.from_time;
-    // var endTime = this.newRequestForm.value.to_time;
-    // if (beginningTime > endTime) {
-
-    //   this.newRequestForm.controls['from_time'].setValue('');
-    //   this.newRequestForm.controls['to_time'].setValue('');
-    //   this.toastr.error("Invalid Time", '', { timeOut: 2000 });
-    // }
-    // if (beginningTime == endTime) {
-
-    //   this.newRequestForm.controls['from_time'].setValue('');
-    //   this.newRequestForm.controls['to_time'].setValue('');
-    //   this.toastr.error("Invalid Time", '', { timeOut: 2000 });
-    // }
-    // if (beginningTime < endTime) {
-
-    // }
-  }
   /*==========Start and end time valid function end here========*/
+
+  /*======================All Form submitted function start here==============================*/
   saveUser() {
     this.submitted = true;
     if (this.showEductionForm) {
@@ -661,8 +660,6 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
-
-
     if (this.showEductionForm) {
 
       this.newRequestForm.value.education = this.educationRequestForm.value;
@@ -696,7 +693,10 @@ export class AllRequestSchedularComponent implements OnInit {
     });
   }
 
-  // Get Current Location Coordinates
+    /*==========================All Form submitted function end here==========================*/
+  
+    /*==========================Google Api function start here==========================*/
+    // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -738,6 +738,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
     });
   }
+   /*==========================Google Api function end here==========================*/
   selectEvent(item) {
     // do something with selected item
   }
