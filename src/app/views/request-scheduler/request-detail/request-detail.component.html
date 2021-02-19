@@ -58,11 +58,11 @@
                                 <tr>
                                     <td>Assignment Date</td>
                                     <td>{{data?.assignment_date | date:'MM-dd-yyyy'}}</td>
-                                </tr> 
+                                </tr>
                                 <tr>
                                     <td>From Time</td>
                                     <td>{{data?.from_time}}</td>
-                                </tr> 
+                                </tr>
                                 <tr>
                                     <td>To Time</td>
                                     <td>{{data?.to_time}}</td>
@@ -70,26 +70,46 @@
                                 <tr>
                                     <td>Recurrent Assignment</td>
                                     <td>{{data?.recurrent_assignment == '1' ? "YES" : "NO"}}</td>
-                                </tr> 
+                                </tr>
                                 <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Repeats</td>
-                                    <td>{{data?.repeats}}</td>
-                                </tr> 
+                                    <td *ngIf="data?.repeats == '1'">Daily</td>
+                                    <td *ngIf="data?.repeats == '2'">Weekly</td>
+                                    <td *ngIf="data?.repeats == '3'">Monthly</td>
+                                    <td *ngIf="data?.repeats == '4'">Yearly</td>
+                                </tr>
                                 <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Every</td>
                                     <td>{{data?.every}}</td>
-                                </tr> 
+                                    <!-- <td *ngIf ="data?.every == '1'">First Week</td>
+                                    <td *ngIf ="data?.every == '2'">Second Week</td>
+                                    <td *ngIf ="data?.every == '3'">Third Week</td>
+                                    <td *ngIf ="data?.every == '4'">Fourth Week</td> -->
+                                </tr>
                                 <tr *ngIf="data?.event_at != null && data?.recurrent_assignment == '1'">
                                     <td>ON</td>
-                                    <td>{{Daily}}</td>
+                                    <td *ngIf="len == 7">Daily</td>
+                                    <td *ngIf="len != 7">
+                                        <span *ngFor="let a of event_at">
+                                            <span *ngIf="a == '1'">Monday, </span>
+                                            <span *ngIf="a == '2'">Tuesday, </span>
+                                            <span *ngIf="a == '3'">Wednesay, </span>
+                                            <span *ngIf="a == '4'">Thursday, </span>
+                                            <span *ngIf="a == '5'">Friday, </span>
+                                            <span *ngIf="a == '6'">Saturday</span>
+                                            <span *ngIf="a == '0'">Sunday, </span>
+
+                                        </span>
+
+                                    </td>
                                 </tr>
                                 <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event Start Date</td>
-                                    <td>{{data?.event_start_date}}</td>
+                                    <td>{{data?.event_start_date | date:'MM-dd-yyyy'}}</td>
                                 </tr>
                                 <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event End Date</td>
-                                    <td>{{data?.event_end_date}}</td>
+                                    <td>{{data?.event_end_date | date:'MM-dd-yyyy'}}</td>
                                 </tr>
                                 <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Event Start Time</td>
@@ -99,7 +119,6 @@
                                     <td>Event End Time</td>
                                     <td>{{data?.event_end_time}}</td>
                                 </tr>
-                               
 
 
 
@@ -111,7 +130,8 @@
 
 
 
-<!-- 
+
+                                <!-- 
                                 <tr>
                                     <td>Caseworker</td>
                                     <td>{{data?.caseworker_name}}</td>
@@ -233,15 +253,16 @@
                                 <td>Service Requested</td>
                                 <td>{{data?.service_requested}}</td>
                             </tr> -->
-                           
+
                             <tr *ngIf="data?.caseworker_name != null">
                                 <td>Caseworker worker</td>
                                 <td>{{data?.caseworker_name}}</td>
                             </tr>
                             <tr *ngIf="data?.cellphone_contact_person != null">
                                 <td>Cell Phone</td>
-                                <td>{{data?.phone_code}} {{data?.cellphone_contact_person | mask: '(000) 000-0000'}}</td>
-                            </tr> 
+                                <td>{{data?.phone_code}} {{data?.cellphone_contact_person | mask: '(000) 000-0000'}}
+                                </td>
+                            </tr>
                             <tr *ngIf="data?.name_of_contact_person != null">
                                 <td>Contact Name of Person at Assignment</td>
                                 <td>{{data?.name_of_contact_person}}</td>
@@ -259,15 +280,16 @@
                                 <td>{{data?.position}}</td>
                             </tr>
                             <tr *ngIf="data?.provider_name != null">
-                                
+
                                 <td>Provider Name</td>
                                 <td>{{data?.provider_name}}</td>
                             </tr>
                             <tr *ngIf="data?.contact_person_phone_code != null">
                                 <td>Contact Person</td>
-                                <td>{{data?.contact_person_phone_code}} {{data?.contact_person_cellphone | mask: '(000) 000-0000'}}</td>
+                                <td>{{data?.contact_person_phone_code}} {{data?.contact_person_cellphone | mask: '(000)
+                                    000-0000'}}</td>
                             </tr>
-                           
+
                             <tr *ngIf="data?.building_name != null">
                                 <td>Case Name </td>
                                 <td>{{data?.building_name}}</td>
@@ -369,7 +391,7 @@
                                     <td>{{data?.how_many_receivers}}</td>
                                 </tr> -->
 
-                                <!-- <tr>
+<!-- <tr>
                                     <td>IR</td>
                                     <td>{{data?.ir}}</td>
                                 </tr>
@@ -417,7 +439,7 @@
                         </table> -->
 
 
-                    <!-- </div>
+<!-- </div>
                     <div class="col-md-6 request_Tab userstable mb-3 mb-sm-0 ">
                         <table>
                             <tbody>
@@ -467,11 +489,11 @@
                                     <td>Every</td>
                                     <td>{{data?.every}}</td>
                                 </tr> -->
-                                <!-- <tr>
+<!-- <tr>
                                     <td>Health Department</td>
                                     <td>{{data?.health_department}}</td>
                                 </tr> -->
-                                <!-- <tr>
+<!-- <tr>
                                     <td>Human Services</td>
                                     <td>{{data?.human_services}}</td>
                                 </tr>
@@ -484,12 +506,12 @@
                                     <td>LOB</td>
                                     <td>{{data?.lob}}</td>
                                 </tr> -->
-                                <!-- <tr>
+<!-- <tr>
                                     <td>Phone Code</td>
                                     <td>{{data?.phone_code}}</td>
                                 </tr> -->
-                                
-                                <!-- <tr>
+
+<!-- <tr>
                                     <td>Receivers Required</td>
                                     <td>{{data?.receivers_required}}</td>
                                 </tr>
@@ -532,4 +554,4 @@
             </div>
         </div>
     </div>
-</div> --> 
+</div> -->

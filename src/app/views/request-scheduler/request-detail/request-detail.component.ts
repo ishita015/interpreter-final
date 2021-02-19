@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RequestDetailComponent implements OnInit {
   data;
   id;
+  event_at = [];
+  len;
   constructor(public service: HttpService, private router: Router, private route: ActivatedRoute) {
     this.id = route.snapshot.params['id'];
   }
@@ -48,7 +50,12 @@ export class RequestDetailComponent implements OnInit {
   getRequestDetails() {
     this.service.get("getRequestDetails/" + this.id).subscribe((res) => {
       this.data = res['data'][0];
-      console.log("==================this.data", this.data)
+      if (this.data.recurrent_assignment == "1") {
+        if (this.data.repeats == "1" || this.data.repeats == "2") {
+          this.event_at = this.data.event_at.split(",");
+          this.len = this.event_at.length
+        }
+      }
     })
   }
 }

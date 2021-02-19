@@ -124,7 +124,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.createForm6();
 
     this.allClientList();
-    this.allAssignmentTypeList();
+    // this.allAssignmentTypeList();
     this.allPlatformList();
     this.allLanguageList();
     this.CountryList();
@@ -373,13 +373,13 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*==========Assignment Type list start Here========*/
 
-  allAssignmentTypeList() {
-    this.service.get('getAllAssignmentTypes')
-      .subscribe(res => {
-        this.assignment_Obj = res['data'];
+  // allAssignmentTypeList() {
+  //   this.service.get('getAllAssignmentTypes')
+  //     .subscribe(res => {
+  //       this.assignment_Obj = res['data'];
 
-      });
-  }
+  //     });
+  // }
   /*==========Assignment Type list end Here========*/
   /*==========Platform start Here========*/
 
@@ -451,7 +451,10 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showLegalForm = false;
       this.showCommunityForm = false;
       this.showOtherForm = false;
-      this.getGooleAddress();
+      setTimeout(() => {
+        console.log("=====", this.searchElementRef);
+        this.getGooleAddress();
+      }, 500);
     }
     if (e.target.value == '2') {
       this.showMedicalForm = false;
