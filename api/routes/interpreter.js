@@ -2673,11 +2673,6 @@ module.exports.interpreterRequestComplete = async function (req, res) {
 };
 
 
-
-
-
-
-
 // get all request for interpreter
 module.exports.getRequestForInterpreter = async function (req, res) {
     //validation start
@@ -2757,6 +2752,10 @@ module.exports.getAllPendingRequest = async function (req, res) {
                 requester_name: resultdata[i].requester_name,
                 office_phone: resultdata[i].office_phone,
                 cell_phone: resultdata[i].cell_phone,
+                assignment_type: resultdata[i].assignment_type,
+                phoneCode: resultdata[i].phoneCode,
+                cellPhone: resultdata[i].cellPhone,
+                lob_name: resultdata[i].lob_name,
                 appointment_type: resultdata[i].appointment_type,
                 email: resultdata[i].email,
                 date: resultdata[i].date,

@@ -99,8 +99,6 @@ export class AllRequestListSchedularComponent implements OnInit {
         // this.allData = this.search_name.value;
         this.startDate = this.range.value.start_date;
         this.endDate = this.range.value.end_date;
-
-
         this.status = this.request_status.value ;
       
         this.searchStatus = this.status ;
@@ -111,6 +109,7 @@ export class AllRequestListSchedularComponent implements OnInit {
 
          this.service.interpreterAllRequestList(this.searchStatus,this.searchEmail,this.startDate,this.endDate)
           .subscribe(res => {
+            console.log("============interpreterAllRequestList",res);
             if (res['status'] == '1') {
               console.log("api response", res);
               this.list_Obj = res['data'];

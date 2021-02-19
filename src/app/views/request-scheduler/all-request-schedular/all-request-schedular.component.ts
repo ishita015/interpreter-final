@@ -419,7 +419,6 @@ export class AllRequestSchedularComponent implements OnInit {
     }
   }
   onChangeLob(e) {
-    console.log("eeeee", e.target.value)
     this.service.get('getAllAssignmentTypes/' + this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
     if (e.target.value == '8') {
       this.showEductionForm = true;

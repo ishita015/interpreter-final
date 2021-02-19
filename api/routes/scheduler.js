@@ -179,7 +179,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       delete req.body.event_at;
     }
     var ris = { scheduler_id: req.body.scheduler_id, email: req.body.email };
-    if (req.body.email = 'undefined') {
+    if (req.body.email == 'undefined' && req.body.email == '') {
       delete ris.email;
     }
     var result = await commonDb.insert("request_information_services", ris);
