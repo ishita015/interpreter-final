@@ -333,7 +333,7 @@ app.post('/cesco/LanguageAssignmentChangeStatus', languageController.LanguageAss
 ////////////////////////////////////////////////////////////////////Adnan start/////////////////////////////////////////////////////////////////////
 app.get('/cesco/getAllClients', schedulerController.getAllClients);
 app.get('/cesco/getAllLOB', schedulerController.getAllLOB);
-app.get('/cesco/getAllAssignmentTypes', schedulerController.getAllAssignmentTypes);
+app.get('/cesco/getAllAssignmentTypes/:id', schedulerController.getAllAssignmentTypes);
 app.get('/cesco/getAllPlatforms', schedulerController.getAllPlatforms);
 app.get('/cesco/getAllLanguages', schedulerController.getAllLanguages);
 app.get('/cesco/getDays', schedulerController.getDays);
@@ -1128,10 +1128,6 @@ app.post('/cesco/uploadChatImage', chatupload.any(),async function(req, res, nex
     }  
 });
 
-
-
-
-
 /* image upload */
 const DOCDIR = './public/documents';
 let inter_doc = multer.diskStorage({
@@ -1142,7 +1138,6 @@ let inter_doc = multer.diskStorage({
         cb(null, inter_doc.fieldname + '-' + Date.now() + path.extname(inter_doc.originalname));
     }
 });
-
 let docUpload = multer({
     storage: inter_doc
 });
@@ -1185,23 +1180,25 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     // //console.log("secondary_language--",JSON.parse(secondary_language));
 
     secondary_language=JSON.parse(secondary_language)
+    console.log("===================req.files",req.files);
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             // let documents=req.files[0].filename;
 
             //console.log("yes is working",req.files);
+          
+            for(var i = 0; i < req.files.length; i++){
+                let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
+                con.query(sqlDelete, function(err, res_delete) {});
+            }
             for (var i = 0; i < req.files.length; i++) {
                 // type[i]
                 var docfield = req.files[i].fieldname;
                 var filename=req.files[i].filename;
                 // var type=req.files[i].type;
                 // //console.log(type[i]);
-                let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
-                con.query(sqlDelete, function(err, res_delete) {});
-
                 var saveData = "INSERT INTO interpreter_skills_doc(interpreter_id,doc_name,doc_type,other_doc_title,type)VALUES('"+interpreter_id+"','"+filename+"','"+docfield+"','"+other_doc_title+"','"+type[i]+"')";
                 con.query(saveData, function(err, insert) {});        
-            
             }
         }
     }

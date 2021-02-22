@@ -73,14 +73,33 @@
                     {{row.client_name}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
+                <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
                   <ng-template ngx-datatable-header-template>
                     Contact Person
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     {{row.name_of_contact_person}}
                   </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column name="LOB" prop="lob_name">
+                  <ng-template ngx-datatable-header-template>
+                    LOB
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.lob_name}}
+                  </ng-template>
                 </ngx-datatable-column>
+      
+                <ngx-datatable-column name="Assignment Type" prop="assignment_type">
+                  <ng-template ngx-datatable-header-template>
+                    Assignment Type
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.assignment_type}}
+                  </ng-template>
+                </ngx-datatable-column>
+      
                 <ngx-datatable-column>
                   <ng-template ngx-datatable-header-template name="Email" prop="email">
                       Email
@@ -114,14 +133,22 @@
                         {{row.lang_name}}
                     </ng-template>  
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Business" prop="business_bill">
+                <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+                  <ng-template ngx-datatable-header-template>
+                    Cell Phone
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                   {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!-- <ngx-datatable-column name="Business" prop="business_bill">
                   <ng-template ngx-datatable-header-template>
                     Business
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     {{row.business_bill}}
                   </ng-template>
-                </ngx-datatable-column>  
+                </ngx-datatable-column>   -->
                   <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Community Service" prop="north_metro_community_service">
                         Community Service
@@ -151,14 +178,14 @@
                 </ngx-datatable-column> -->
 
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Office Phone" prop="office_phone">
                         Office Phone
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.office_phone | mask: '(000) 000-0000'}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
                 <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Cell Phone" prop="cell_phone">
@@ -172,14 +199,14 @@
                 
 
 
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Site Contact" prop="site_contact">
                         Site Contact
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         {{row.site_contact | mask: '(000) 000-0000'}}
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
 
                 <ngx-datatable-column>
                   <ng-template ngx-datatable-header-template>
@@ -190,14 +217,14 @@
                   </ng-template>  
               </ngx-datatable-column>
 
-              <ngx-datatable-column>
+              <!-- <ngx-datatable-column>
                 <ng-template ngx-datatable-header-template>
                   <span title="Appointment date"> Appointment date</span>
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   <span title="{{row.date}}">{{row.date | date:'MM/dd/yyyy' }}</span>
                 </ng-template>  
-            </ngx-datatable-column>
+            </ngx-datatable-column> -->
 
               <ngx-datatable-column>
                 <ng-template ngx-datatable-header-template>
@@ -205,9 +232,8 @@
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     <p *ngIf="row.is_reject == '0'">New</p>
-                    <p *ngIf="row.is_reject == '1'">Repeat</p>
+                    <!-- <p *ngIf="row.is_reject == '4'">Repeat</p> -->
                 </ng-template>  
-
             </ngx-datatable-column>
 
               <ngx-datatable-column [width]="120" [sortable]="false">

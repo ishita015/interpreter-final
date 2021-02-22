@@ -15,7 +15,6 @@ const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
 
-
 //***** GET ALL CLIENT LIST START *****//
 
 module.exports.getAllClients = async function (req, res) {
@@ -46,7 +45,7 @@ module.exports.getAllLOB = async function (req, res) {
 //***** GET ALL ASSIGNMENT TYPES START *****//
 module.exports.getAllAssignmentTypes = async function (req, res) {
   try {
-    var result = await commonDb.selectAllWhere("assignment_types", { status: 1 });
+    var result = await commonDb.selectAllWhere("assignment_types", { status: 1, lob_id: req.params.id });
     return res.json({ status: true, msg: 'Data Found!', data: result });
   } catch (err) {
     return res.json({ status: false, data: '', msg: 'No Data Found!' });
@@ -179,8 +178,11 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       delete req.body.event_duration;
       delete req.body.event_at;
     }
-
-    var result = await commonDb.insert("request_information_services", { scheduler_id: req.body.scheduler_id, email: req.body.email });
+    var ris = { scheduler_id: req.body.scheduler_id, email: req.body.email };
+    if (ris.email == undefined) {
+      delete ris.email;
+    }
+    var result = await commonDb.insert("request_information_services", ris);
     delete req.body.scheduler_id;
     delete req.body.email;
     req.body.ris_id = result.insertId;

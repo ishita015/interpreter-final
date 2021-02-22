@@ -117,6 +117,7 @@ export class AcceptRequestComponent implements OnInit {
     this.service.interpreterRequestList(this.roleId, this.userId, 2, this.allData,
       this.startDate, this.endDate)
       .subscribe(res => {
+        console.log("==============resssss",res);
         if (res['status'] == '1') {
           console.log("api response", res);
           this.list_Obj = res['data'];

@@ -331,7 +331,7 @@ module.exports.getInterpreterProfile = async function (req, res, next) {
 
 
 module.exports.addAssignmentSetting = async function (req, res) {
-    // //console.log('devd---------------------------------dd',req.body);
+    console.log('devd---------------------------------dd',req.body);
     if(req.body.onsiteInfo == true){
         for (var i = 0; i < req.body.assignment.length; i++) {
                 var onsitedata ={
@@ -355,8 +355,8 @@ module.exports.addAssignmentSetting = async function (req, res) {
                   if(onsiteDataEx.length == 0){
                      await  commonDb.AsyncInsert('interpreter_assignment_settings', onsitedata )
                     }else{
-                             await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:1})
-                                             }
+                            await  commonDb.AsyncUpdate1('interpreter_assignment_settings', {status:1} ,{Interpreter_id:req.body.interpreter_id,assignment_type:1})
+                        }
       
             }else{
                 if(onsitedata.language_id != 0){
@@ -2673,11 +2673,6 @@ module.exports.interpreterRequestComplete = async function (req, res) {
 };
 
 
-
-
-
-
-
 // get all request for interpreter
 module.exports.getRequestForInterpreter = async function (req, res) {
     //validation start
@@ -2757,6 +2752,10 @@ module.exports.getAllPendingRequest = async function (req, res) {
                 requester_name: resultdata[i].requester_name,
                 office_phone: resultdata[i].office_phone,
                 cell_phone: resultdata[i].cell_phone,
+                assignment_type: resultdata[i].assignment_type,
+                phoneCode: resultdata[i].phoneCode,
+                cellPhone: resultdata[i].cellPhone,
+                lob_name: resultdata[i].lob_name,
                 appointment_type: resultdata[i].appointment_type,
                 email: resultdata[i].email,
                 date: resultdata[i].date,
@@ -4086,7 +4085,7 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function (req,
 
 
 module.exports.getlob = async function (req, res) {
- var data=  await  commonDb.AsyncSellectAll('master_lob')
+ var data=  await  commonDb.AsyncSellectAllWhere('master_lob', {status: 1})
  res.send({data:data
  })
 

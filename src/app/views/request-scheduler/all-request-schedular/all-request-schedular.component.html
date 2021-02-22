@@ -126,7 +126,7 @@
                                 <select class="form-control" (change)="onChangeLob($event)" formControlName="lob"
                                     id="lob" name="lob">
                                     <!-- <option value="">LOB</option> -->
-                                    <option *ngFor="let lob of lob_Obj" [value]="lob.name">
+                                    <option *ngFor="let lob of lob_Obj" [value]="lob.id">
                                         {{lob?.name}}
                                     </option>
                                 </select>
@@ -158,8 +158,8 @@
                                 <select class="form-control" (change)="onChangeAssign($event)"
                                     formControlName="assignment_type" id="assignment_type" name="assignment_type">
                                     <option value="">Assignment Type</option>
-                                    <option *ngFor="let assign of assignment_Obj" [value]="assign.name">
-                                        {{assign?.name}}
+                                    <option *ngFor="let assign of assignment_Obj" [value]="assign.assignment_name">
+                                        {{assign?.assignment_name}}
                                     </option>
                                 </select>
 
@@ -377,7 +377,7 @@
                                 <div class="col-sm-12 form-group mb-3 border_label">
                                     <label>Start Date</label>
                                     <input type="date" class="form-control" id="StartTime"
-                                        formControlName="event_start_date" placeholder="Start Time">
+                                       (click)="startWithAssignment($event)" formControlName="event_start_date" name="event_start_d" placeholder="Start Time">
                                     <div *ngIf="newRequestForm.controls['event_start_date'].errors && ( !newRequestForm.controls['event_start_date'].pristine || submitted ||newRequestForm.controls['event_start_date'].touched )"
                                         class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_start_date'].errors.required">
@@ -389,7 +389,7 @@
                                     <label>End Date</label>
                                     <input type="date" class="form-control" id="End Date"
                                         (change)="start_end_date($event)" formControlName="event_end_date"
-                                        placeholder="End Date">
+                                        placeholder="End Date" (click)="endWithAssignment($event)" name="event_end_d">
                                     <div *ngIf="newRequestForm.controls['event_end_date'].errors && ( !newRequestForm.controls['event_end_date'].pristine || submitted ||newRequestForm.controls['event_end_date'].touched )"
                                         class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_end_date'].errors.required">End
@@ -416,13 +416,12 @@
                                     <!-- <input type="time" class="form-control" id="EndTime"
                                         (change)="start_end_time_repeats($event)" formControlName="event_end_time"
                                         placeholder="End Time"> -->
-                                    <ejs-timepicker [format]='formatString' [step]='interval'
+                                    <ejs-timepicker  [format]='formatString' [step]='interval'
                                         [min]="newRequestForm.value.event_start_time" id="EndTime"
                                         placeholder="End Time" formControlName="event_end_time"></ejs-timepicker>
                                     <div *ngIf="newRequestForm.controls['event_end_time'].errors && ( !newRequestForm.controls['event_end_time'].pristine || submitted ||newRequestForm.controls['event_end_time'].touched )"
                                         class="error-msg">
-                                        <div [hidden]="!newRequestForm.controls['event_end_time'].errors.required">End
-                                            Time is required.</div>
+                                        <div [hidden]="!newRequestForm.controls['event_end_time'].errors.required">End Time is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -735,8 +734,7 @@
                                         </select>
                                             <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['position'].errors.required">
-                                                Position.</div>
+                                            <div [hidden]="!communityRequestForm.controls['position'].errors.required">Position is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 form-group mb-3">
@@ -831,6 +829,11 @@
                                                     type="radio" id="gridRadios22" (change)="homevisit($event)" value="0">
                                                 No
                                             </label>
+                                        </div>
+                                        <div *ngIf="communityRequestForm.controls['home_visit'].errors && (!communityRequestForm.controls['home_visit'].pristine || submittedComm ||communityRequestForm.controls['home_visit'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!communityRequestForm.controls['home_visit'].errors.required">Home Visit is required.
+                                            </div>
                                         </div>
                                     </div>
                                         <div  *ngIf="communityRequestForm.value.home_visit == '1'" class="col-sm-4 form-group mb-3">
@@ -951,9 +954,9 @@
                                                 {{isd?.name}} (+{{isd?.phonecode}})
                                             </option>
                                         </select>
-                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedLeg ||educationRequestForm.controls['phone_code'].touched )"
+                                        <div *ngIf="legalRequestForm.controls['phone_code'].errors && ( !legalRequestForm.controls['phone_code'].pristine || submittedLeg ||legalRequestForm.controls['phone_code'].touched )"
                                             class="error-msg">
-                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code is required.</div>
+                                            <div [hidden]="!legalRequestForm.controls['phone_code'].errors.required">Code is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
