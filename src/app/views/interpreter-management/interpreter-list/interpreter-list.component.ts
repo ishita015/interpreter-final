@@ -45,22 +45,22 @@ export class InterpreterListComponent implements OnInit {
   allData;
   startDate;
   endDate;
-  constructor( private productService: ProductService,
+  constructor(private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public service: HttpService,
 
     private router: Router,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute) {
 
-    }
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     this.id = this.route.snapshot.params.id ? this.route.snapshot.params.id : '0';
     console.log("iddddddd", this.id);
-    this.type = this.route.snapshot.params.type? this.route.snapshot.params.type : '0';
-    console.log("qqqqq", this.type );
- 
+    this.type = this.route.snapshot.params.type ? this.route.snapshot.params.type : '0';
+    console.log("qqqqq", this.type);
+
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.rolePermission();
@@ -77,15 +77,15 @@ export class InterpreterListComponent implements OnInit {
     //   // console.log("roleData", this.array_Obj);
   }
 
-rolePermission(){
-  this.service.get('get-user-role-permission/'+localStorage.getItem('roleId')).subscribe(res =>{
-    for (var i = 0; i < res['data'].length; ++i) {
-        if(res['data'][i].module_id == 9){
-            this.array_Obj=res['data'][i]
+  rolePermission() {
+    this.service.get('get-user-role-permission/' + localStorage.getItem('roleId')).subscribe(res => {
+      for (var i = 0; i < res['data'].length; ++i) {
+        if (res['data'][i].module_id == 9) {
+          this.array_Obj = res['data'][i]
         }
       }
-  })
-}
+    })
+  }
 
   // filerData(val) {
   //   if (val) {
@@ -111,14 +111,14 @@ rolePermission(){
   //   });
   //   this.filteredUser = rows;
   // }
-  
+
 
   interpreterList(e) {
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;
     this.endDate = this.range.value.end_date;
-    this.service.getInterpreterList(this.id,this.type,this.allData,this.startDate,this.endDate)
-    // this.service.getInterpreterList(this.id,this.type)
+    this.service.getInterpreterList(this.id, this.type, this.allData, this.startDate, this.endDate)
+      // this.service.getInterpreterList(this.id,this.type)
       .subscribe(res => {
 
         if (res['status'] == 1) {
@@ -159,15 +159,15 @@ rolePermission(){
     this.router.navigate(['/interpreter/interpreter-add']);
   }
 
-  profileInterpreter(id){
-    console.log("iddddd",id);
+  profileInterpreter(id) {
+    console.log("iddddd", id);
     localStorage.setItem('userId', JSON.stringify(id));
-    this.router.navigate(['/interpreter/interpreter-profile',id]);
+    this.router.navigate(['/interpreter/interpreter-profile', id]);
   }
 
-  
+
   editInterpreter(id, data) {
- 
+
     this.router.navigate(['/interpreter/interpreter-edit', id]);
     console.log("permission idddddddddd", id);
     console.log("data", data);
@@ -181,7 +181,7 @@ rolePermission(){
         // localStorage.setItem('editData', JSON.stringify(this.json_Obj));
         // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
         // this.router.navigate(['/permission/setpermission',id]);
-        
+
         // location.reload();
       })
   }
@@ -198,7 +198,7 @@ rolePermission(){
       })
   }
 
-  userView(id){
+  userView(id) {
     this.router.navigate(['/interpreter/interpreter-view', id])
   }
 
@@ -213,7 +213,7 @@ rolePermission(){
     })
   }
 
-  
+
 
 
 }
