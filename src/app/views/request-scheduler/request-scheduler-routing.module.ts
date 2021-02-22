@@ -10,7 +10,6 @@ import { BroadcastRequestComponent } from './broadcast-request/broadcast-request
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
 
-
 const routes: Routes = [
   { path: 'all-request-schedular', component:AllRequestSchedularComponent },
   { path: 'all-request-list-schedular', component:AllRequestListSchedularComponent },

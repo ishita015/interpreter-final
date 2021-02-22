@@ -25,7 +25,6 @@ import { RequestDetailComponent } from './request-detail/request-detail.componen
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
 
 
-
 @NgModule({
   declarations: [
     AllRequestSchedularComponent,
@@ -37,7 +36,6 @@ import { InterpreterListComponent } from './interpreter-list/interpreter-list.co
     BroadcastRequestComponent,
     RequestDetailComponent,
     InterpreterListComponent
-   
   ],
   imports: [
     CommonModule,

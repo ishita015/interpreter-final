@@ -96,7 +96,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   oo: boolean = false;
 
   country_Obj;
-  arrImages = [];
+
   public priLanguageId;
   language_Obj;
 
@@ -455,7 +455,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
   getUserLanguage() {
     this.service.getUserLanguage(this.interId).subscribe(res => {
       this.UserLangData = res['data'];
-      console.log("=============UserLangData", this.UserLangData)
+      console.log("=============UserLangData",this.UserLangData)
       // let langArr1 = <FormArray>this.assignmentForm.controls["assignment"];
       //   langArr1.controls[0].patchValue({
       //     hourly_rate: this.UserLangData[0].base_rate,
@@ -755,8 +755,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
       if (res['status'] == 1) {
         this.detail_Obj = res['data'][0];
         this.role_idAPI = this.detail_Obj.role_id
-        console.log("detail_Obj=============", this.detail_Obj);
-
+        console.log("detail_Obj", this.detail_Obj);
+        
         if (this.detail_Obj.skillsCommunityDoc != '' && this.detail_Obj.skillsCommunityDoc != undefined) {
           this.communityinter = true;
           this.ci = true;
@@ -847,14 +847,14 @@ export class InterpreterProfileInformationComponent implements OnInit {
       return
     }
     this.spinner.show();
-    if (this.latitude != undefined && this.longitude != undefined) {
+    if(this.latitude != undefined && this.longitude != undefined){
       this.generalForm.value.address = this.new_address;
       this.generalForm.value.latitude = this.latitude
       this.generalForm.value.longitude = this.longitude
-    } else {
+    }else{
       this.generalForm.value.address = this.detail_Obj.address;
       this.generalForm.value.latitude = this.detail_Obj.latitude
-      this.generalForm.value.longitude = this.detail_Obj.longitude
+      this.generalForm.value.longitude = this.detail_Obj.longitude 
     }
     this.generalForm.value.interpreter_id = this.interId;
     console.log("inside", this.generalForm.value);
@@ -1239,42 +1239,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
   onSingleFileChange(event, key, type) {
-    // let file: File = event.target.files[0];
-    // this.selectedFile = file;
-    // this.addDocInArray(this.selectedFile, key, type);
-    var filesAmount = event.target.files.length;
-    for (var i = 0; i < filesAmount; i++) {
-      this.arrImages.push({ all_img: event.target.files[i], doc_type: key, types: type });
-    }
-    console.log("============this.arrImages", this.arrImages);
-    let fileArray: File = event.target.files[0];
-    let file: File = event.target.files
- 
-    if (file && fileArray) {
-      var totlength = this.doc.length + filesAmount
-      console.log("totlength", totlength);
-      if (totlength > 3) {
-        this.toastr.error('click on view All');
-        return false;
-      }
-      for (let i = 0; i < filesAmount; i++) {
-        var reader = new FileReader();
-        reader.onload = (event: any) => {
-          console.log("======event", event)
-          this.doc.push({
-            all_img: event.target.result,
-            doc_type: key,
-            types: type,
-          });
-          // this.interpreterSkillForm.patchValue({
-          // fileSource: this.doc
-          // });
-        }
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
-
-    console.log("===========this.doc", this.doc)
+    let file: File = event.target.files[0];
+    this.selectedFile = file;
+    this.addDocInArray(this.selectedFile, key, type);
   }
 
   addDocInArray(event, key, type) {
@@ -1299,12 +1266,13 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
 
-    for (let img of this.arrImages) {
-      formData.append(img.doc_type, img.all_img);
+    for (let img of this.doc) {
+      console.log("img", img.all_img)
+      console.log("doc_type", img.doc_type)
       formData.append('doc_name', img.doc_type);
+      formData.append(img.doc_type, img.all_img);
       formData.append('type', img.types);
     }
-
     formData.append('interpreter_id', this.interId);
     formData.append('primary_language', this.priLanguageId);
     formData.append('secondary_language', JSON.stringify(this.lang));
@@ -1327,15 +1295,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     });
   }
 
-  imgview(e: string,modal,i) {
-   console.log("pppppppppppppppppppp vvvvvvvvvvvvvvvvvv",i);
-   
-    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-    // console.log("images", e);
-    // window.open(this.documentUrl + e);
-  }
-  removeImage(i){
-    this.doc.splice(i, 1);
+  imgview(e: string) {
+    console.log("images", e);
+    window.open(this.documentUrl + e);
   }
 
   private assignmentGroup(): FormGroup {
@@ -1698,7 +1660,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
 
   addInterpreterAssignmentSave(type, data) {
-
+    
     // return
     // console.log(type)
     this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
@@ -1720,30 +1682,30 @@ export class InterpreterProfileInformationComponent implements OnInit {
       this.toastr.warning('Please Select On Site Language');
       return;
     }
-    if (type == 'opi' && this.assignmentForm.value.assignment_opi[0].language_id == 0) {
-      this.toastr.warning('Please Select OPI Language');
-      return;
-    }
+    if(type == 'opi' && this.assignmentForm.value.assignment_opi[0].language_id == 0){
+        this.toastr.warning('Please Select OPI Language');
+        return;
+      }
 
-    if (type == 'vri' && this.assignmentForm.value.assignment_vri[0].language_id == 0) {
-      this.toastr.warning('Please Select VRI Language');
-      return;
-    }
+      if(type == 'vri' && this.assignmentForm.value.assignment_vri[0].language_id == 0){
+        this.toastr.warning('Please Select VRI Language');
+        return;
+      }
 
-    if (type == 'vcl' && this.assignmentForm.value.assignment_vcl[0].language_id == 0) {
-      this.toastr.warning('Please Select VCL Language');
-      return;
-    }
+      if(type == 'vcl' && this.assignmentForm.value.assignment_vcl[0].language_id == 0){
+        this.toastr.warning('Please Select VCL Language');
+        return;
+      }
 
-    if (type == 'rsi' && this.assignmentForm.value.assignment_rsi[0].language_id == 0) {
-      this.toastr.warning('Please Select RSI Language');
-      return;
-    }
+      if(type == 'rsi' && this.assignmentForm.value.assignment_rsi[0].language_id == 0){
+        this.toastr.warning('Please Select RSI Language');
+        return;
+      }
 
-    if (type == 'vci_opi' && this.assignmentForm.value.assignment_vci_opi[0].language_id == 0) {
-      this.toastr.warning('Please Select VCI+OPI language');
-      return;
-    }
+      if(type == 'vci_opi' && this.assignmentForm.value.assignment_vci_opi[0].language_id == 0){
+        this.toastr.warning('Please Select VCI+OPI language');
+        return;
+      }
 
 
     this.service.post('update_Account_Setting_Interpreter_Profile', this.assignmentForm.value)
@@ -1764,7 +1726,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
             this.assignment_form = false;
             this.general_form = false;
             this.skills_form = false;
-
+         
           }
 
 

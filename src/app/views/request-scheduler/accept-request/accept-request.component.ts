@@ -6,7 +6,6 @@ import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { Console } from 'console';
 @Component({
   selector: 'app-accept-request',
   templateUrl: './accept-request.component.html',
