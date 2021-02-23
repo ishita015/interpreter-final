@@ -1,76 +1,86 @@
 <div class="">
-    <div class="breadcrumb">
-      <ul class="heading">
-          <li><a>{{role_name}} </a></li>
-          <li>List</li>
-      </ul>
+  <div class="breadcrumb">
+    <ul class="heading">
+      <li><a>{{role_name}} </a></li>
+      <li>List</li>
+    </ul>
   </div>
-    
-      <div class="separator-breadcrumb border-top"></div>
-  
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <input id="search" placeholder="Search" [formControl]="searchControl"  class="form-control form-control-rounded" type="text">
-          </div>
-    </div>
-    <div *ngIf="role_name == 'User'" class="col-md-8">
-        <button [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''" class="btn btn-primary float-right" (click)="addUser()">Create</button>
-    </div>
-        <div class="col-md-12 lang_block">
-            <div class="card  o-hidden">
-                <ngx-datatable *ngIf="filteredUser?.length"
-                style="height: 500px; box-shadow: none"
-                class="material fullscreen"
-                [columnMode]="'force'"
-                [headerHeight]="50"
-                [footerHeight]="50"
-                [rowHeight]="60"
-                [scrollbarV]="true"
-                [rows]="filteredUser">
-                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
-                  <ng-template ngx-datatable-header-template>
-                   S.No
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                      {{rowIndex +1}}
-                  </ng-template>
-                 </ngx-datatable-column>
+  <div class="separator-breadcrumb border-top"></div>
 
-                 <ngx-datatable-column *ngIf="role_name == 'User'" name="Name" prop="name" [minWidth]="50"> 
-                  <ng-template ngx-datatable-header-template>
-                    Type
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.role_name}}
-                  </ng-template>
-                </ngx-datatable-column>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input id="search" placeholder="Search name" (keyup)="userList()" [formControl]="searchControl" class="form-control form-control-rounded"
+          type="text">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <select class="form-control form-control-rounded"  (change)="userList()"
+          [formControl]="searchUserRoll">
+          <option disabled value="Select Status">Select Status</option>
+          <option *ngFor="let role of userRole" value={{role.id}}>{{role.role_name}}</option>
+          <!-- <option class="black-text bg-warning" value="0">New Request</option>
+          <option class="bg-black text-white" value="1">Broadcasting</option>
+          <option class="bg-primary text-white" value="2">In Progress</option>
+          <option class="bg-success black-text" value="3">Completed</option> -->
+          <!-- <option class="bg-danger text-white" value="5">Cancelled</option> -->
+          <!-- <option class="bg-default black-text" value="6">Unable To Fill</option> -->
+        </select>
+      </div>
+    </div>
+    <div *ngIf="role_name == 'User'" class="col-md-4">
+      <button [disabled]="role_id!=1 ? array_Obj?.add_permission !== 'true' : ''" class="btn btn-primary float-right"
+        (click)="addUser()">Create</button>
+    </div>
+    <div class="col-md-12 lang_block">
+      <div class="card  o-hidden">
+        <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
+          [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+          [rows]="filteredUser">
+          <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+            <ng-template ngx-datatable-header-template>
+              S.No
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+              {{rowIndex +1}}
+            </ng-template>
+          </ngx-datatable-column>
 
-                 <ngx-datatable-column name="Full Name" prop="name" [minWidth]="20" >
-                  <ng-template ngx-datatable-header-template >
-                   Full Name
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    <span (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
-                  <ng-template ngx-datatable-header-template>
-                    Email
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.email}}
-                  </ng-template>
-                </ngx-datatable-column>
-                  <ngx-datatable-column name="Mobile" prop="mobile" [minWidth]="30">
-                      <ng-template ngx-datatable-header-template>
-                        Mobile
-                      </ng-template>
-                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        {{row.mobile  | mask: '(000) 000-0000'}}
-                      </ng-template>
-                  </ngx-datatable-column>
-                 <!--  <ngx-datatable-column [minWidth]="30">
+          <ngx-datatable-column *ngIf="role_name == 'User'" name="Name" prop="name" [minWidth]="50">
+            <ng-template ngx-datatable-header-template>
+              Type
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.role_name}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Full Name" prop="name" [minWidth]="20">
+            <ng-template ngx-datatable-header-template>
+              Full Name
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span (click)="userView(row.id)">{{row.first_name}} {{row.last_name}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Email" prop="email" [minWidth]="70">
+            <ng-template ngx-datatable-header-template>
+              Email
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.email}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Mobile" prop="mobile" [minWidth]="30">
+            <ng-template ngx-datatable-header-template>
+              Mobile
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.mobile | mask: '(000) 000-0000'}}
+            </ng-template>
+          </ngx-datatable-column>
+          <!--  <ngx-datatable-column [minWidth]="30">
                     <ng-template ngx-datatable-header-template>
                         Gender
                     </ng-template>
@@ -78,108 +88,114 @@
                         {{row.gender}}
                     </ng-template>  
                 </ngx-datatable-column> -->
-                
-                <ngx-datatable-column [minWidth]="50">
-                  <ng-template ngx-datatable-header-template>
-                    <span title="Created date">Created date </span>
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    <span title="{{row.create_dt }}">  {{row.create_dt | date:'MM/dd/yyyy' }} </span> 
-                 
-                  </ng-template>  
-              </ngx-datatable-column>
-                  <ngx-datatable-column name="Status" prop="status" [minWidth]="20">
-                    <ng-template ngx-datatable-header-template>
-                      Status
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                       
-                        <label class="switch" > 
-                            <input [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''" type="checkbox" [checked]="row.status == '1'" 
-                            (click)="statusChange($event.target,row.status,row.id)">
-                            <span class="slider">
-                            </span>
-                          </label>
 
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column [minWidth]="200" [sortable]="false">
-                    <ng-template ngx-datatable-header-template>
-                        Actions
-                    </ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''" style="overflow: visible !important;" class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel" (click)="userView(row.id)">View</button>  
-                        <!-- <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button> -->
+          <ngx-datatable-column [minWidth]="50">
+            <ng-template ngx-datatable-header-template>
+              <span title="Created date">Created date </span>
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="{{row.create_dt }}"> {{row.create_dt | date:'MM/dd/yyyy' }} </span>
 
-                        <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''"  style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="profileOpen(row)" >Profile</button>
-                        <!-- <button style="overflow: visible !important;" class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel"  (click)="viewCalendar(row.id)">View Calendar</button> -->
-                        <!-- <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button> -->
-                        <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
-                        <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Status" prop="status" [minWidth]="20">
+            <ng-template ngx-datatable-header-template>
+              Status
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+
+              <label class="switch">
+                <input [disabled]="role_id!=1 ? array_Obj?.status_permission !== 'true' : ''" type="checkbox"
+                  [checked]="row.status == '1'" (click)="statusChange($event.target,row.status,row.id)">
+                <span class="slider">
+                </span>
+              </label>
+
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="200" [sortable]="false">
+            <ng-template ngx-datatable-header-template>
+              Actions
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''"
+                style="overflow: visible !important;"
+                class="btn btn-outline-secondary databuttonnone buttondisplay buttonlabel"
+                (click)="userView(row.id)">View</button>
+              <!-- <button style="overflow: visible !important;" class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"   (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Edit</button> -->
+
+              <button [disabled]="role_id!=1 ? array_Obj?.view_permission !== 'true' : ''"
+                style="overflow: visible !important;"
+                class="btn btn-outline-success ml-2 databuttonnone buttondisplay buttonlabel"
+                (click)="profileOpen(row)">Profile</button>
+              <!-- <button style="overflow: visible !important;" class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel"  (click)="viewCalendar(row.id)">View Calendar</button> -->
+              <!-- <button class="btn btn-outline-info ml-2 databuttonnone buttondisplay buttonlabel" [routerLink]="['/users/view-calendar']" >View Calendar</button> -->
+              <!-- <button class="btn btn-outline-secondary ml-2" [routerLink]="['/languages/view', row.id]">View</button> -->
+              <!-- <button class="btn btn-outline-danger ml-2" (click)="deleteLanguage(row.id, deleteConfirmModal)">
                             Delete
                         </button> -->
-                    </ng-template>
-                </ngx-datatable-column>
-              </ngx-datatable>
-            </div>
-          <ng-container *ngIf="list_Obj?.length <= 0">
-              No Data Found
-          </ng-container>
-        </div>
-          
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
       </div>
-  </div>  
+      <ng-container *ngIf="filteredUser?.length <= 0">
+        No Data Found
+      </ng-container>
+    </div>
+
+  </div>
+</div>
 
 <ng-template #viewTimeModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-title">Time View</h4>
-        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-      
-      <ngx-datatable *ngIf="user_time?.length" style="box-shadow: none" 
-      class="material fullscreen" [style.height]="60*user_time.length+60+'px'" 
-      [columnMode]="'force'"
-          [headerHeight]="50" [footerHeight]="0" 
-          [rowHeight]="60" [scrollbarV]="false" 
-          [scrollbarH]="false" [rows]="user_time" >
-          
-          <ngx-datatable-column>
-              <ng-template ngx-datatable-header-template>
-                  Day
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.day}}
-              </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column>
-              <ng-template ngx-datatable-header-template>
-                  Start Time
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.start_time}}
-              </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column>
-              <ng-template ngx-datatable-header-template>
-                 End time
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.end_time}}
-              </ng-template>
-          </ngx-datatable-column>
-          
-          
-      </ngx-datatable>
-   <ng-container *ngIf="user_time?.length <= 0">
-      No Data Found
-  </ng-container>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Time View</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
 
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-        <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
-    </div>
+    <ngx-datatable *ngIf="user_time?.length" style="box-shadow: none" class="material fullscreen"
+      [style.height]="60*user_time.length+60+'px'" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="0"
+      [rowHeight]="60" [scrollbarV]="false" [scrollbarH]="false" [rows]="user_time">
+
+      <ngx-datatable-column>
+        <ng-template ngx-datatable-header-template>
+          Day
+        </ng-template>
+        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+          {{row.day}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template ngx-datatable-header-template>
+          Start Time
+        </ng-template>
+        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+          {{row.start_time}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template ngx-datatable-header-template>
+          End time
+        </ng-template>
+        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+          {{row.end_time}}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+    </ngx-datatable>
+    <ng-container *ngIf="user_time?.length <= 0">
+      No Data Found
+    </ng-container>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary btn-rounded"
+      (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-wide btn-primary btn-rounded"
+      (click)="modal.close('Ok')">Ok</button>
+  </div>
 </ng-template>

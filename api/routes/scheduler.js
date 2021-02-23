@@ -264,3 +264,17 @@ module.exports.getRateSettingPlatforms = async function (req, res) {
     return res.json({ status: false, data: '', msg: 'No data found!' });
   }
 }
+
+
+//***** GET USERS ROLE START *****//
+
+module.exports.getUsersRole = async function (req, res) {
+  try {
+    var result = await commonDb.selectAll("user_roles");
+    return res.json({ status: true, msg: 'Data Found!', data: result });
+  } catch (err) {
+    console.log("err====", err);
+    return res.json({ status: false, data: '', msg: 'No data found!' });
+  }
+}
+//***** GET USERS ROLE END *****//

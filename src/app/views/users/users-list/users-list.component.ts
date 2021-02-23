@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import {FunctionService} from './../../../shared/services/function.service';
+import { FunctionService } from './../../../shared/services/function.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -29,31 +29,33 @@ export class UsersListComponent implements OnInit {
   role_id; response_msg;
   json_Obj;
   searchControl: FormControl = new FormControl();
- 
+  searchUserRoll: FormControl = new FormControl();
+
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public service: HttpService,
     private router: Router,
-     private activatedRoute: ActivatedRoute,
-    public func:FunctionService
+    private activatedRoute: ActivatedRoute,
+    public func: FunctionService
   ) { }
   param
-  role_name='User'
+  role_name = 'User';
+  userRole;
   async ngOnInit() {
-     this.activatedRoute.params.subscribe(params => {
-       this.param = params['id'];
+    this.activatedRoute.params.subscribe(params => {
+      this.param = params['id'];
 
-      })
+    })
 
-      try{
-      var result=  await this.service.get('role-detail/'+this.param).toPromise();
-      if(result['data'].length > 0){
-        this.role_name=result['data'][0].role_name;
+    try {
+      var result = await this.service.get('role-detail/' + this.param).toPromise();
+      if (result['data'].length > 0) {
+        this.role_name = result['data'][0].role_name;
       }
     }
-    catch(e){
+    catch (e) {
 
     }
 
@@ -61,11 +63,10 @@ export class UsersListComponent implements OnInit {
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     this.userList();
     this.rolePermission();
-    this.searchControl.valueChanges
-      .pipe(debounceTime(200))
-      .subscribe(value => {
-        this.filerData(value);
-      });
+    // this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
+    //   this.filerData(value);
+    // });
+    this.getUsersRole();
     this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
     // this.array_Obj = this.roleData['data'][3]; 
     // if(this.array_Obj.id){
@@ -74,15 +75,21 @@ export class UsersListComponent implements OnInit {
     // }
   }
 
-rolePermission(){
-  this.service.get('get-user-role-permission/'+localStorage.getItem('roleId')).subscribe(res =>{
-    for (var i = 0; i < res['data'].length; ++i) {
-        if(res['data'][i].module_id == 8){
-            this.array_Obj=res['data'][i]
+  getUsersRole(){
+    this.service.get('getUsersRole').subscribe(res => {
+        this.userRole = res['data']
+        console.log("===============this.userRole========",this.userRole);
+    });
+  }
+  rolePermission() {
+    this.service.get('get-user-role-permission/' + localStorage.getItem('roleId')).subscribe(res => {
+      for (var i = 0; i < res['data'].length; ++i) {
+        if (res['data'][i].module_id == 8) {
+          this.array_Obj = res['data'][i]
         }
       }
-  })
-}
+    })
+  }
   filerData(val) {
     if (val) {
       val = val.toLowerCase();
@@ -107,10 +114,8 @@ rolePermission(){
     this.filteredUser = rows;
   }
 
-
-
   userList() {
-    this.service.get('getAllUser/'+this.param)
+    this.service.get('getAllUser/' + this.param + "/" + this.searchUserRoll.value + "/" + this.searchControl.value )
       .subscribe(res => {
         if (res['status'] == 1) {
           this.list_Obj = res['data'];
@@ -118,6 +123,7 @@ rolePermission(){
           this.filteredUser = this.list_Obj;
           this.role_id = this.roleId;
         } else {
+          this.filteredUser = [];
           // this.response_msg=res;
           // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
           // this.router.navigate(['/users/user-list'])
@@ -192,17 +198,17 @@ rolePermission(){
     })
   }
 
-  viewCalendar(id){
+  viewCalendar(id) {
     localStorage.setItem('calendarId', JSON.stringify(id));
     this.router.navigate(['/users/view-calendar'])
   }
-profileOpen(row){
-  if(row.role_id == 2){
-    this.router.navigate(['interpreter/interpreter-profile/'+row.id])
-  }else if(row.role_id == 3){
-    this.router.navigate(['client/client-edit/'+row.id])
-  }else{
-    this.toastr.warning('Profile is Pending')
+  profileOpen(row) {
+    if (row.role_id == 2) {
+      this.router.navigate(['interpreter/interpreter-profile/' + row.id])
+    } else if (row.role_id == 3) {
+      this.router.navigate(['client/client-edit/' + row.id])
+    } else {
+      this.toastr.warning('Profile is Pending')
+    }
   }
-}
 }

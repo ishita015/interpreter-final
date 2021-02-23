@@ -230,7 +230,7 @@ app.post('/cesco/getInterpreterLanguage', interpreterController.getInterpreterLa
 app.post('/cesco/getInterpreterDatatime', interpreterController.getInterpreterTime);
 app.post('/cesco/getInterpreter', interpreterController.getInterpreter);
 
-app.get('/cesco/getAllUser/:id', interpreterController.getAllUser);
+app.get('/cesco/getAllUser/:id/:userRoll?/:userName?', interpreterController.getAllUser);
 
 app.post('/cesco/baseRateDetail', interpreterController.baseRate);
 
@@ -343,6 +343,7 @@ app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
 
 app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
 app.get('/cesco/getRateSettingPlatforms/:id', schedulerController.getRateSettingPlatforms);
+app.get('/cesco/getUsersRole', schedulerController.getUsersRole);
 
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 

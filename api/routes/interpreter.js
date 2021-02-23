@@ -2518,7 +2518,8 @@ module.exports. interpreterRequestReply = async function (req, res) {
     if (res_type == '1') { // accept
         status = 2;
         isreject = 0;
-        pending = 0
+        pending = 0;
+        rejectreq = 0
         message = "Request accept successfully";
     } else if (res_type == '3') { // reject
         status = 4;
@@ -2534,73 +2535,155 @@ module.exports. interpreterRequestReply = async function (req, res) {
     //update status
     // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
     // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+   
     let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
-    //console.log("updatesql--", updatesql)
     con.query(updatesql, function (err, result) {
-        if (!err) {
-            // let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
-            // //console.log("sql--", sql)
-            // con.query(sql, function (err, result) { });
-            // if (res_type == 3) {
-            //     var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
-            //     //console.log('his_sql-', his_sql)
-            //     con.query(his_sql, function (err, insert) { });
-            // }
 
-            // res.json({
-            //     status: 1,
-            //     error_code: 0,
-            //     error_line: 6,
-            //     message: message,
-            // });
-            // return true;
-            if(res_type == 3){
-
-                var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
-                //console.log('his_sql-', his_sql)
-                con.query(his_sql, function (err, insert) { });
-                var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
-                con.query(request_assign, function (err, insert) { 
-                    var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && status = '3' && is_reject = '1'  && pending_status = 1 ";
-                    con.query(request_rejecter, function (err, insert0) { 
-                        
-                    if(insert.length == insert0.length){
-                        let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
-                        con.query(sql, function (err, insert0) { })
-                    }
-                });
-                });
-                
-                res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 6,
-                message: message,
-            });
-            return true;
+        if(err){
+            return res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            message: "There was an error !!"
+        });
         }else{
-            let sql = "UPDATE interpreter_request SET status = '" + status + "',is_reject='" + isreject +"',pending_status='" + pending + "' WHERE id = '" + ris_id + "'";
-                con.query(sql, function (err, result) { });
-                res.json({
-                    status: 1,
-                    error_code: 0,
-                    error_line: 6,
-                    message: message,
-                });
-            return true;
-        }
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "Please contact admin support",
-            });
-            return true;
-        }
-    });
-};
+            if(res_type == "1"){
+             let sql = "UPDATE request_information_services SET status = '" + status + "' WHERE id = '" + ris_id + "'";
+             con.query(sql, function (err, result) {
+                if(err){
+                    return res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "There was an error !!"
+                    });   
+                }else{
+                    return res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        message: message
+                    });   
+            }
+        })
+    }
+        if(res_type == "3"){
+            console.log("res_type == 3")
+            let sql = "UPDATE request_information_services SET status = '" + status + "' WHERE id = '" + ris_id + "'";
+             con.query(updatesql, function (err, result) {
+                if(err){
+                    return res.json({
+                        status: 1,
+                        error_code: 0,
+                        error_line: 6,
+                        message: "There was an error !!"
+                    });   
+                }else{
+                console.log("res_type == 3")
+                    var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+                    con.query(request_assign, function (err, insert) { 
+                        var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && status = '3' && is_reject = '1'  && pending_status = 1 ";
+                        con.query(request_rejecter, function (err, insert0) { 
+                            
+                        if(insert.length == insert0.length){
+                            let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
+                            con.query(sql, function (err, insert01) { 
+                                if(insert01){
+                                    return res.json({
+                                        status: 1,
+                                        error_code: 0,
+                                        error_line: 6,
+                                        message: message
+                                    });
+                                }
+                            })
+                        }else{
+                            return res.json({
+                                status: 1,
+                                error_code: 0,
+                                error_line: 6,
+                                message: message
+                            }); 
+                        }
+                    }); 
+    });  
+            }
+        })
+       
+               
+    }
+}
+    //console.log("updatesql--", updatesql)
+    // con.query(updatesql, function (err, result) {
+    //     if (!err) {
+    //         // let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject + "' WHERE id = '" + ris_id + "'";
+    //         // //console.log("sql--", sql)
+    //         // con.query(sql, function (err, result) { });
+    //         // if (res_type == 3) {
+    //         //     var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
+    //         //     //console.log('his_sql-', his_sql)
+    //         //     con.query(his_sql, function (err, insert) { });
+    //         // }
 
+    //         // res.json({
+    //         //     status: 1,
+    //         //     error_code: 0,
+    //         //     error_line: 6,
+    //         //     message: message,
+    //         // });
+    //         // return true;
+    //         if(res_type == 3){
+
+    //             var his_sql = "INSERT INTO request_reject_history(Interpreter_id,request_id)VALUES('" + user_id + "','" + ris_id + "')";
+    //             //console.log('his_sql-', his_sql)
+    //             con.query(his_sql, function (err, insert) { });
+    //             var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+    //             con.query(request_assign, function (err, insert) { 
+    //                 var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && status = '3' && is_reject = '1'  && pending_status = 1 ";
+    //                 con.query(request_rejecter, function (err, insert0) { 
+                        
+    //                 if(insert.length == insert0.length){
+    //                     let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
+    //                     con.query(sql, function (err, insert0) { })
+    //                 }
+    //             });
+    //             });
+                
+    //             res.json({
+    //             status: 1,
+    //             error_code: 0,
+    //             error_line: 6,
+    //             message: message,
+    //         });
+    //         return true;
+    //     }else{
+    //         let sql = "UPDATE request_information_services SET status = '" + status + "',is_reject='" + isreject +"',pending_status='" + pending + "' WHERE id = '" + ris_id + "'";
+    //             con.query(sql, function (err, result) { 
+    //                 console.log("=============err=====err",err)
+    //                 console.log("=============result=====result",result)
+    //             });
+    //             res.json({
+    //                 status: 1,
+    //                 error_code: 0,
+    //                 error_line: 6,
+    //                 message: message,
+    //             });
+    //         return true;
+    //     }
+    //     } else {
+    //         res.json({
+    //             status: 0,
+    //             error_code: 0,
+    //             error_line: 6,
+    //             message: "Please contact admin support",
+    //         });
+    //         return true;
+    //     }
+    // });
+
+
+})
+}
 
 
 
@@ -2699,7 +2782,7 @@ module.exports.getRequestForInterpreter = async function (req, res) {
 
     //validation end
     let role_id = req.body.role_id;
-    let user_id = req.body.user_id;
+    let user_id = req.body.user_id ? req.body.user_id: '0';
     let status = req.body.status;
 
     var requestData = await usermodel.interpreterRequestList(role_id, user_id, status);
@@ -3288,16 +3371,30 @@ module.exports.getInterpreter = async function (req, res, next) {
 
 // get All User
 module.exports.getAllUser = function (req, res, next) {
-    console.log('sss',req.params)
+    console.log("==================req.params.userRoll==============",req.params.userRoll);
+    console.log("==================req.params.userName==============",req.params.userName);
     if(req.params.id == 'all'){
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id != 1  ORDER BY u.id DESC";
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id != 1";
         }else{
-    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id ="+req.params.id+" ORDER BY u.id DESC";
-
+    var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id ="+req.params.id;
     }
-    //console.log(sql)
+
+    if(req.params.userName != undefined && req.params.userName != 'null'){
+        var name = req.params.userName.split(" ");
+        if(name[0] != undefined){
+         sql += " && u.first_name='"+name[0]+"'";
+        }
+        if(name[1] != undefined){
+            sql += " && u.last_name='"+name[1]+"'";
+        }
+    }
+    if(req.params.userRoll != undefined && req.params.userRoll != 'null') { 
+        sql += " && ur.id='"+req.params.userRoll+"'";
+    }
+    
+    sql += " ORDER BY u.id DESC";  
     con.query(sql, function (err, result, fields) {
-        console.log("result-",err)
+        console.log("=========err",err)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
