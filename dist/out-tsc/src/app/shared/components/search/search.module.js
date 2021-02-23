@@ -10,9 +10,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CommonModule } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ReactiveFormsModule } from '@angular/forms';
-var SearchModule = /** @class */ (function () {
-    function SearchModule() {
-    }
+let SearchModule = /** @class */ (() => {
+    let SearchModule = class SearchModule {
+    };
     SearchModule = __decorate([
         NgModule({
             imports: [
@@ -26,6 +26,6 @@ var SearchModule = /** @class */ (function () {
         })
     ], SearchModule);
     return SearchModule;
-}());
+})();
 export { SearchModule };
 //# sourceMappingURL=search.module.js.map

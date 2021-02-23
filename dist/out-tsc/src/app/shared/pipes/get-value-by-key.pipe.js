@@ -5,18 +5,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Pipe } from '@angular/core';
-var GetValueByKeyPipe = /** @class */ (function () {
-    function GetValueByKeyPipe() {
-    }
-    GetValueByKeyPipe.prototype.transform = function (value, id, property) {
-        var filteredObj = value.find(function (item) {
-            if (item.id !== undefined) {
-                return item.id === id;
+let GetValueByKeyPipe = /** @class */ (() => {
+    let GetValueByKeyPipe = class GetValueByKeyPipe {
+        transform(value, id, property) {
+            const filteredObj = value.find(item => {
+                if (item.id !== undefined) {
+                    return item.id === id;
+                }
+                return false;
+            });
+            if (filteredObj) {
+                return filteredObj[property];
             }
-            return false;
-        });
-        if (filteredObj) {
-            return filteredObj[property];
         }
     };
     GetValueByKeyPipe = __decorate([
@@ -26,6 +26,6 @@ var GetValueByKeyPipe = /** @class */ (function () {
         })
     ], GetValueByKeyPipe);
     return GetValueByKeyPipe;
-}());
+})();
 export { GetValueByKeyPipe };
 //# sourceMappingURL=get-value-by-key.pipe.js.map

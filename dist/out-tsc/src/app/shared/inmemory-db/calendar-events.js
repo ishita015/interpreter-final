@@ -1,6 +1,6 @@
 import { startOfDay, subDays, addDays, endOfMonth, addHours } from 'date-fns';
-var CalendarEventDB = /** @class */ (function () {
-    function CalendarEventDB() {
+export class CalendarEventDB {
+    constructor() {
         this.colors = {
             red: {
                 primary: '#f44336',
@@ -45,7 +45,5 @@ var CalendarEventDB = /** @class */ (function () {
                 draggable: true
             }];
     }
-    return CalendarEventDB;
-}());
-export { CalendarEventDB };
+}
 //# sourceMappingURL=calendar-events.js.map

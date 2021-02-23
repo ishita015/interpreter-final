@@ -19,7 +19,7 @@ import { LoadersComponent } from './loaders/loaders.component';
 import { ButtonsLoadingComponent } from './buttons-loading/buttons-loading.component';
 import { PopoverComponent } from './popover/popover.component';
 import { RatingComponent } from './rating/rating.component';
-var routes = [
+const routes = [
     {
         path: 'alerts',
         component: AlertsComponent
@@ -73,9 +73,9 @@ var routes = [
         component: RatingComponent
     }
 ];
-var UiKitsRoutingModule = /** @class */ (function () {
-    function UiKitsRoutingModule() {
-    }
+let UiKitsRoutingModule = /** @class */ (() => {
+    let UiKitsRoutingModule = class UiKitsRoutingModule {
+    };
     UiKitsRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -83,6 +83,6 @@ var UiKitsRoutingModule = /** @class */ (function () {
         })
     ], UiKitsRoutingModule);
     return UiKitsRoutingModule;
-}());
+})();
 export { UiKitsRoutingModule };
 //# sourceMappingURL=ui-kits-routing.module.js.map

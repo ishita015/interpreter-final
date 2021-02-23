@@ -13,55 +13,56 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CalendarEventDB } from 'src/app/shared/inmemory-db/calendar-events';
-var CalendarAppService = /** @class */ (function () {
-    function CalendarAppService(http) {
-        this.http = http;
-    }
-    CalendarAppService.prototype.getEvents = function () {
-        // return this.http.get('api/calendar/events')
-        // .map((events: CalendarEvent[]) => {
-        //   this.events = events;
-        //   return events;
-        // });
-        var _this = this;
-        var eventDB = new CalendarEventDB();
-        return of(eventDB.events)
-            .pipe(map(function (events) {
-            _this.events = events;
-            return events;
-        }));
-    };
-    CalendarAppService.prototype.addEvent = function (event) {
-        // return this.http.post('api/calendar/events', event)
-        // .map((events: CalendarAppEvent[]) => {
-        //   this.events = events;
-        //   return events;
-        // });
-        this.events.push(event);
-        return of(this.events);
-    };
-    CalendarAppService.prototype.updateEvent = function (event) {
-        // return this.http.put('api/calendar/events/'+event._id, event)
-        // .map((events: CalendarAppEvent[]) => {
-        //   this.events = events;
-        //   return events;
-        // });
-        this.events = this.events.map(function (e) {
-            if (e._id === event._id) {
-                return Object.assign(e, event);
-            }
-            return e;
-        });
-        return of(this.events);
-    };
-    CalendarAppService.prototype.deleteEvent = function (eventID) {
-        // return this.http.delete('api/calendar/events/'+eventID)
-        // .map((events: CalendarAppEvent[]) => {
-        //   this.events = events;
-        //   return events;
-        // });
-        this.events = this.events.filter(function (e) { return e._id !== eventID; });
-        return of(this.events);
+let CalendarAppService = /** @class */ (() => {
+    let CalendarAppService = class CalendarAppService {
+        constructor(http) {
+            this.http = http;
+        }
+        getEvents() {
+            // return this.http.get('api/calendar/events')
+            // .map((events: CalendarEvent[]) => {
+            //   this.events = events;
+            //   return events;
+            // });
+            const eventDB = new CalendarEventDB();
+            return of(eventDB.events)
+                .pipe(map(events => {
+                this.events = events;
+                return events;
+            }));
+        }
+        addEvent(event) {
+            // return this.http.post('api/calendar/events', event)
+            // .map((events: CalendarAppEvent[]) => {
+            //   this.events = events;
+            //   return events;
+            // });
+            this.events.push(event);
+            return of(this.events);
+        }
+        updateEvent(event) {
+            // return this.http.put('api/calendar/events/'+event._id, event)
+            // .map((events: CalendarAppEvent[]) => {
+            //   this.events = events;
+            //   return events;
+            // });
+            this.events = this.events.map(e => {
+                if (e._id === event._id) {
+                    return Object.assign(e, event);
+                }
+                return e;
+            });
+            return of(this.events);
+        }
+        deleteEvent(eventID) {
+            // return this.http.delete('api/calendar/events/'+eventID)
+            // .map((events: CalendarAppEvent[]) => {
+            //   this.events = events;
+            //   return events;
+            // });
+            this.events = this.events.filter(e => e._id !== eventID);
+            return of(this.events);
+        }
     };
     CalendarAppService = __decorate([
         Injectable({
@@ -70,6 +71,6 @@ var CalendarAppService = /** @class */ (function () {
         __metadata("design:paramtypes", [HttpClient])
     ], CalendarAppService);
     return CalendarAppService;
-}());
+})();
 export { CalendarAppService };
 //# sourceMappingURL=calendar-app.service.js.map

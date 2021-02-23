@@ -9,24 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-var InputMaskComponent = /** @class */ (function () {
-    function InputMaskComponent(fb) {
-        this.fb = fb;
-        this.isbnMask1 = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/];
-        this.isbnMask2 = [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/];
-        this.isbnMask3 = [/\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '/', /\d/];
-        this.phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-        this.cardMask = [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
-        this.dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
-    }
-    InputMaskComponent.prototype.ngOnInit = function () {
-        this.formMask = this.fb.group({
-            experience: [],
-            phone: []
-        });
-    };
-    InputMaskComponent.prototype.submit = function () {
-        console.log(this.formMask.value);
+let InputMaskComponent = /** @class */ (() => {
+    let InputMaskComponent = class InputMaskComponent {
+        constructor(fb) {
+            this.fb = fb;
+            this.isbnMask1 = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, '-', /\d/];
+            this.isbnMask2 = [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/];
+            this.isbnMask3 = [/\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '/', /\d/];
+            this.phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+            this.cardMask = [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
+            this.dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+        }
+        ngOnInit() {
+            this.formMask = this.fb.group({
+                experience: [],
+                phone: []
+            });
+        }
+        submit() {
+            console.log(this.formMask.value);
+        }
     };
     InputMaskComponent = __decorate([
         Component({
@@ -37,6 +39,6 @@ var InputMaskComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [FormBuilder])
     ], InputMaskComponent);
     return InputMaskComponent;
-}());
+})();
 export { InputMaskComponent };
 //# sourceMappingURL=input-mask.component.js.map

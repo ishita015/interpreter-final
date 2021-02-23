@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var NotFoundComponent = /** @class */ (function () {
-    function NotFoundComponent() {
-    }
-    NotFoundComponent.prototype.ngOnInit = function () {
+let NotFoundComponent = /** @class */ (() => {
+    let NotFoundComponent = class NotFoundComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     NotFoundComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var NotFoundComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], NotFoundComponent);
     return NotFoundComponent;
-}());
+})();
 export { NotFoundComponent };
 //# sourceMappingURL=not-found.component.js.map

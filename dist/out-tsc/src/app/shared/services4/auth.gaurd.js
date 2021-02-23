@@ -10,17 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-var AuthGaurd = /** @class */ (function () {
-    function AuthGaurd(router, auth) {
-        this.router = router;
-        this.auth = auth;
-    }
-    AuthGaurd.prototype.canActivate = function () {
-        if (this.auth.authenticated) {
-            return true;
+let AuthGaurd = /** @class */ (() => {
+    let AuthGaurd = class AuthGaurd {
+        constructor(router, auth) {
+            this.router = router;
+            this.auth = auth;
         }
-        else {
-            this.router.navigateByUrl('/sessions/signin');
+        canActivate() {
+            if (this.auth.authenticated) {
+                return true;
+            }
+            else {
+                this.router.navigateByUrl('/sessions/signin');
+            }
         }
     };
     AuthGaurd = __decorate([
@@ -31,6 +33,6 @@ var AuthGaurd = /** @class */ (function () {
             AuthService])
     ], AuthGaurd);
     return AuthGaurd;
-}());
+})();
 export { AuthGaurd };
 //# sourceMappingURL=auth.gaurd.js.map

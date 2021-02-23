@@ -64,5 +64,10 @@
     left: 4px;
     font-weight: bold;}
    .new_row .form-check-inline .form-check-input {    margin-right: 24px;}
-
- 
+.nomargin{
+    margin: 0px !important;
+ }
+ .travelblock label{    margin-right: 20px; }
+  .travelblock input[type="radio"]{box-sizing: border-box; padding: 0; margin-right: 10px; margin-left: 10px; }
+  .travelblock span{    position: relative; bottom: 2px;}
+.paddingzero{padding: 0 !important;}

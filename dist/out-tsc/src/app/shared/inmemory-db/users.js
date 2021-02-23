@@ -1,5 +1,5 @@
-var UserDB = /** @class */ (function () {
-    function UserDB() {
+let UserDB = /** @class */ (() => {
+    class UserDB {
     }
     UserDB.users = [
         {
@@ -1092,6 +1092,6 @@ var UserDB = /** @class */ (function () {
         }
     ];
     return UserDB;
-}());
+})();
 export { UserDB };
 //# sourceMappingURL=users.js.map

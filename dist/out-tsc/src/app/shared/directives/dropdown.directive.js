@@ -10,44 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Directive } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-var AppDropdownDirective = /** @class */ (function () {
-    function AppDropdownDirective(router) {
-        this.router = router;
-        this.navlinks = [];
-    }
-    AppDropdownDirective.prototype.closeOtherLinks = function (openLink) {
-        this.navlinks.forEach(function (link) {
-            if (link !== openLink) {
-                link.open = false;
-            }
-        });
-    };
-    AppDropdownDirective.prototype.addLink = function (link) {
-        this.navlinks.push(link);
-    };
-    AppDropdownDirective.prototype.removeGroup = function (link) {
-        var index = this.navlinks.indexOf(link);
-        if (index !== -1) {
-            this.navlinks.splice(index, 1);
+let AppDropdownDirective = /** @class */ (() => {
+    let AppDropdownDirective = class AppDropdownDirective {
+        constructor(router) {
+            this.router = router;
+            this.navlinks = [];
         }
-    };
-    AppDropdownDirective.prototype.getUrl = function () {
-        return this.router.url;
-    };
-    AppDropdownDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._router = this.router.events.pipe(filter(function (event) { return event instanceof NavigationEnd; })).subscribe(function (event) {
-            _this.navlinks.forEach(function (link) {
-                if (link.group) {
-                    var routeUrl = _this.getUrl();
-                    var currentUrl = routeUrl.split('/');
-                    if (currentUrl.indexOf(link.group) > 0) {
-                        link.open = true;
-                        _this.closeOtherLinks(link);
-                    }
+        closeOtherLinks(openLink) {
+            this.navlinks.forEach((link) => {
+                if (link !== openLink) {
+                    link.open = false;
                 }
             });
-        });
+        }
+        addLink(link) {
+            this.navlinks.push(link);
+        }
+        removeGroup(link) {
+            const index = this.navlinks.indexOf(link);
+            if (index !== -1) {
+                this.navlinks.splice(index, 1);
+            }
+        }
+        getUrl() {
+            return this.router.url;
+        }
+        ngOnInit() {
+            this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event) => {
+                this.navlinks.forEach((link) => {
+                    if (link.group) {
+                        const routeUrl = this.getUrl();
+                        const currentUrl = routeUrl.split('/');
+                        if (currentUrl.indexOf(link.group) > 0) {
+                            link.open = true;
+                            this.closeOtherLinks(link);
+                        }
+                    }
+                });
+            });
+        }
     };
     AppDropdownDirective = __decorate([
         Directive({
@@ -56,6 +57,6 @@ var AppDropdownDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [Router])
     ], AppDropdownDirective);
     return AppDropdownDirective;
-}());
+})();
 export { AppDropdownDirective };
 //# sourceMappingURL=dropdown.directive.js.map

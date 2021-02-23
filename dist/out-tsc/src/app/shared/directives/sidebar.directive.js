@@ -13,14 +13,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Directive, ElementRef, HostListener, Input, Inject } from '@angular/core';
 import { SidebarHelperService } from '../services/sidebar-helper.service';
 import { Utils } from '../utils';
-var SidebarContainerDirective = /** @class */ (function () {
-    function SidebarContainerDirective(el, _sidenavHelperService) {
-        this.el = el;
-        this._sidenavHelperService = _sidenavHelperService;
-        this.nativeEl = this.el.nativeElement;
-        this.nativeEl.className += ' sidebar-container';
-    }
-    SidebarContainerDirective.prototype.ngOnInit = function () {
+let SidebarContainerDirective = /** @class */ (() => {
+    let SidebarContainerDirective = class SidebarContainerDirective {
+        constructor(el, _sidenavHelperService) {
+            this.el = el;
+            this._sidenavHelperService = _sidenavHelperService;
+            this.nativeEl = this.el.nativeElement;
+            this.nativeEl.className += ' sidebar-container';
+        }
+        ngOnInit() {
+        }
     };
     __decorate([
         Input('appSidebarContainer'),
@@ -34,18 +36,20 @@ var SidebarContainerDirective = /** @class */ (function () {
             SidebarHelperService])
     ], SidebarContainerDirective);
     return SidebarContainerDirective;
-}());
+})();
 export { SidebarContainerDirective };
-var SidebarContentDirective = /** @class */ (function () {
-    function SidebarContentDirective(el, _sidenavHelperService, container) {
-        this.el = el;
-        this._sidenavHelperService = _sidenavHelperService;
-        this.container = container;
-        this.nativeEl = this.el.nativeElement;
-        this.container.content = this;
-        this.nativeEl.className += ' sidebar-content';
-    }
-    SidebarContentDirective.prototype.createBackdrop = function () {
+let SidebarContentDirective = /** @class */ (() => {
+    let SidebarContentDirective = class SidebarContentDirective {
+        constructor(el, _sidenavHelperService, container) {
+            this.el = el;
+            this._sidenavHelperService = _sidenavHelperService;
+            this.container = container;
+            this.nativeEl = this.el.nativeElement;
+            this.container.content = this;
+            this.nativeEl.className += ' sidebar-content';
+        }
+        createBackdrop() {
+        }
     };
     __decorate([
         Input('appSidebarContent'),
@@ -61,69 +65,71 @@ var SidebarContentDirective = /** @class */ (function () {
             SidebarContainerDirective])
     ], SidebarContentDirective);
     return SidebarContentDirective;
-}());
+})();
 export { SidebarContentDirective };
-var SidebarDirective = /** @class */ (function () {
-    function SidebarDirective(el, _sidenavHelperService, container) {
-        this.el = el;
-        this._sidenavHelperService = _sidenavHelperService;
-        this.container = container;
-        this.align = 'left';
-        this.mode = 'side';
-        this.nativeEl = this.el.nativeElement;
-        this.containerNativeEl = this.container.el.nativeElement;
-        this.contentNativeEl = this.container.content.el.nativeElement;
-        this.nativeEl.className += ' sidebar';
-    }
-    SidebarDirective.prototype.ngOnInit = function () {
-        this.width = this.el.nativeElement.offsetWidth + 'px';
-        this._sidenavHelperService.setSidenav(this.id, this);
-        this.initSidebar();
-    };
-    SidebarDirective.prototype.onResize = function (event) {
-        this.initSidebar();
-    };
-    SidebarDirective.prototype.initSidebar = function () {
-        this.closed = Utils.isMobile();
-        if (this.closed) {
-            this.close();
+let SidebarDirective = /** @class */ (() => {
+    let SidebarDirective = class SidebarDirective {
+        constructor(el, _sidenavHelperService, container) {
+            this.el = el;
+            this._sidenavHelperService = _sidenavHelperService;
+            this.container = container;
+            this.align = 'left';
+            this.mode = 'side';
+            this.nativeEl = this.el.nativeElement;
+            this.containerNativeEl = this.container.el.nativeElement;
+            this.contentNativeEl = this.container.content.el.nativeElement;
+            this.nativeEl.className += ' sidebar';
         }
-        else {
-            this.open();
+        ngOnInit() {
+            this.width = this.el.nativeElement.offsetWidth + 'px';
+            this._sidenavHelperService.setSidenav(this.id, this);
+            this.initSidebar();
         }
-    };
-    SidebarDirective.prototype.open = function () {
-        if (this.align === 'left') {
-            this.nativeEl.style.left = 0;
-            if (!Utils.isMobile()) {
-                this.contentNativeEl.style.marginLeft = this.width;
+        onResize(event) {
+            this.initSidebar();
+        }
+        initSidebar() {
+            this.closed = Utils.isMobile();
+            if (this.closed) {
+                this.close();
+            }
+            else {
+                this.open();
             }
         }
-        else if (this.align === 'right') {
-            this.nativeEl.style.right = 0;
-            if (!Utils.isMobile()) {
-                this.contentNativeEl.style.marginRight = this.width;
+        open() {
+            if (this.align === 'left') {
+                this.nativeEl.style.left = 0;
+                if (!Utils.isMobile()) {
+                    this.contentNativeEl.style.marginLeft = this.width;
+                }
             }
+            else if (this.align === 'right') {
+                this.nativeEl.style.right = 0;
+                if (!Utils.isMobile()) {
+                    this.contentNativeEl.style.marginRight = this.width;
+                }
+            }
+            this.closed = false;
         }
-        this.closed = false;
-    };
-    SidebarDirective.prototype.close = function () {
-        if (this.align === 'left') {
-            this.nativeEl.style.left = '-' + this.width;
-            this.contentNativeEl.style.marginLeft = 0;
+        close() {
+            if (this.align === 'left') {
+                this.nativeEl.style.left = '-' + this.width;
+                this.contentNativeEl.style.marginLeft = 0;
+            }
+            else if (this.align === 'right') {
+                this.nativeEl.style.right = '-' + this.width;
+                this.contentNativeEl.style.marginRight = 0;
+            }
+            this.closed = true;
         }
-        else if (this.align === 'right') {
-            this.nativeEl.style.right = '-' + this.width;
-            this.contentNativeEl.style.marginRight = 0;
-        }
-        this.closed = true;
-    };
-    SidebarDirective.prototype.toggle = function () {
-        if (this.closed) {
-            this.open();
-        }
-        else {
-            this.close();
+        toggle() {
+            if (this.closed) {
+                this.open();
+            }
+            else {
+                this.close();
+            }
         }
     };
     __decorate([
@@ -158,14 +164,16 @@ var SidebarDirective = /** @class */ (function () {
             SidebarContainerDirective])
     ], SidebarDirective);
     return SidebarDirective;
-}());
+})();
 export { SidebarDirective };
-var SidebarTogglerDirective = /** @class */ (function () {
-    function SidebarTogglerDirective(_sidenavHelperService) {
-        this._sidenavHelperService = _sidenavHelperService;
-    }
-    SidebarTogglerDirective.prototype.onClick = function () {
-        this._sidenavHelperService.getSidenav(this.id).toggle();
+let SidebarTogglerDirective = /** @class */ (() => {
+    let SidebarTogglerDirective = class SidebarTogglerDirective {
+        constructor(_sidenavHelperService) {
+            this._sidenavHelperService = _sidenavHelperService;
+        }
+        onClick() {
+            this._sidenavHelperService.getSidenav(this.id).toggle();
+        }
     };
     __decorate([
         Input('appSidebarToggler'),
@@ -184,6 +192,6 @@ var SidebarTogglerDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [SidebarHelperService])
     ], SidebarTogglerDirective);
     return SidebarTogglerDirective;
-}());
+})();
 export { SidebarTogglerDirective };
 //# sourceMappingURL=sidebar.directive.js.map

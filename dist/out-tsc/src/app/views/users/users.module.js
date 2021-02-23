@@ -26,9 +26,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskModule } from 'ngx-mask';
 //ViewCalendarComponent
-var UsersModule = /** @class */ (function () {
-    function UsersModule() {
-    }
+let UsersModule = /** @class */ (() => {
+    let UsersModule = class UsersModule {
+    };
     UsersModule = __decorate([
         NgModule({
             declarations: [UsersAddComponent, UsersEditComponent, ViewCalendarComponent, UsersListComponent, UsersViewComponent],
@@ -57,6 +57,6 @@ var UsersModule = /** @class */ (function () {
         })
     ], UsersModule);
     return UsersModule;
-}());
+})();
 export { UsersModule };
 //# sourceMappingURL=users.module.js.map

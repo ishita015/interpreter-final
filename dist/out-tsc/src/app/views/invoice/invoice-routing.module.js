@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
-var routes = [
+const routes = [
     {
         path: '',
         component: InvoiceListComponent
@@ -22,9 +22,9 @@ var routes = [
         component: InvoiceDetailComponent
     }
 ];
-var InvoiceRoutingModule = /** @class */ (function () {
-    function InvoiceRoutingModule() {
-    }
+let InvoiceRoutingModule = /** @class */ (() => {
+    let InvoiceRoutingModule = class InvoiceRoutingModule {
+    };
     InvoiceRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -32,6 +32,6 @@ var InvoiceRoutingModule = /** @class */ (function () {
         })
     ], InvoiceRoutingModule);
     return InvoiceRoutingModule;
-}());
+})();
 export { InvoiceRoutingModule };
 //# sourceMappingURL=invoice-routing.module.js.map

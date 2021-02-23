@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var FooterComponent = /** @class */ (function () {
-    function FooterComponent() {
-    }
-    FooterComponent.prototype.ngOnInit = function () {
+let FooterComponent = /** @class */ (() => {
+    let FooterComponent = class FooterComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     FooterComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var FooterComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], FooterComponent);
     return FooterComponent;
-}());
+})();
 export { FooterComponent };
 //# sourceMappingURL=footer.component.js.map

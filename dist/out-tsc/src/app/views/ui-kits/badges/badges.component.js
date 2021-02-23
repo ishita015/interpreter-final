@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var BadgesComponent = /** @class */ (function () {
-    function BadgesComponent() {
-    }
-    BadgesComponent.prototype.ngOnInit = function () {
+let BadgesComponent = /** @class */ (() => {
+    let BadgesComponent = class BadgesComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     BadgesComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var BadgesComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], BadgesComponent);
     return BadgesComponent;
-}());
+})();
 export { BadgesComponent };
 //# sourceMappingURL=badges.component.js.map

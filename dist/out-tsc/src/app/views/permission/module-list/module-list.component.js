@@ -14,52 +14,52 @@ import { ToastrService } from 'ngx-toastr';
 import { ValidationsService } from 'src/app/shared/services/validations.service';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { Router } from '@angular/router';
-var ModuleListComponent = /** @class */ (function () {
-    function ModuleListComponent(dl, modalService, toastr, validation, service, router) {
-        this.dl = dl;
-        this.modalService = modalService;
-        this.toastr = toastr;
-        this.validation = validation;
-        this.service = service;
-        this.router = router;
-    }
-    ModuleListComponent.prototype.ngOnInit = function () {
-        this.moduleList();
-    };
-    ModuleListComponent.prototype.moduleList = function () {
-        var _this = this;
-        this.service.getModuleList()
-            .subscribe(function (res) {
-            console.log("api response", res);
-            _this.list_Obj = res['data'];
-            console.log("listttttttt", _this.list_Obj);
-            // this.toastr.success(this.reg_Msg.msg,'', { timeOut: 2000 });
-            // this.router.navigate(['/login'])
-        });
-    };
-    ModuleListComponent.prototype.deleteModule = function (id, modal) {
-        var _this = this;
-        console.log("delete idddddddddd", id);
-        this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-            .result.then(function (result) {
-            _this.service.moduleDelete(id)
-                .subscribe(function (res) {
-                _this.language_msg = res;
-                console.log("api", res);
-                _this.toastr.success(_this.language_msg.message, '', { timeOut: 1000 });
-                _this.moduleList();
+let ModuleListComponent = /** @class */ (() => {
+    let ModuleListComponent = class ModuleListComponent {
+        constructor(dl, modalService, toastr, validation, service, router) {
+            this.dl = dl;
+            this.modalService = modalService;
+            this.toastr = toastr;
+            this.validation = validation;
+            this.service = service;
+            this.router = router;
+        }
+        ngOnInit() {
+            this.moduleList();
+        }
+        moduleList() {
+            this.service.getModuleList()
+                .subscribe(res => {
+                console.log("api response", res);
+                this.list_Obj = res['data'];
+                console.log("listttttttt", this.list_Obj);
+                // this.toastr.success(this.reg_Msg.msg,'', { timeOut: 2000 });
+                // this.router.navigate(['/login'])
             });
-        }, function (reason) {
-        });
-    };
-    ModuleListComponent.prototype.moduleAddEditOpen = function (type) {
-        console.log("XXXXXXXXXXXXXXX", type);
-        this.router.navigate(['/permission/' + type]);
-    };
-    ModuleListComponent.prototype.editModel = function (id, data) {
-        console.log("idd", id);
-        console.log("data", data);
-        localStorage.setItem('moduleData', JSON.stringify(data));
+        }
+        deleteModule(id, modal) {
+            console.log("delete idddddddddd", id);
+            this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+                .result.then((result) => {
+                this.service.moduleDelete(id)
+                    .subscribe(res => {
+                    this.language_msg = res;
+                    console.log("api", res);
+                    this.toastr.success(this.language_msg.message, '', { timeOut: 1000 });
+                    this.moduleList();
+                });
+            }, (reason) => {
+            });
+        }
+        moduleAddEditOpen(type) {
+            console.log("XXXXXXXXXXXXXXX", type);
+            this.router.navigate(['/permission/' + type]);
+        }
+        editModel(id, data) {
+            console.log("idd", id);
+            console.log("data", data);
+            localStorage.setItem('moduleData', JSON.stringify(data));
+        }
     };
     ModuleListComponent = __decorate([
         Component({
@@ -75,6 +75,6 @@ var ModuleListComponent = /** @class */ (function () {
             Router])
     ], ModuleListComponent);
     return ModuleListComponent;
-}());
+})();
 export { ModuleListComponent };
 //# sourceMappingURL=module-list.component.js.map

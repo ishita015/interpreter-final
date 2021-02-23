@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { HeaderSidebarCompactComponent } from './header-sidebar-compact.component';
-describe('HeaderSidebarCompactComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('HeaderSidebarCompactComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [HeaderSidebarCompactComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(HeaderSidebarCompactComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

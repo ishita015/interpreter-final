@@ -9,17 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { Validators } from "@angular/forms";
-var ValidationsService = /** @class */ (function () {
-    function ValidationsService() {
-        /*===========Validations Expression Start here ===========*/
-        this.notRequired_validator = [];
-        this.onlyRequired_validator = [Validators.required];
-        this.email_validator = [Validators.required, Validators.minLength(6), Validators.maxLength(50),
-            Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,25}$')];
-        this.password_validator = [Validators.required, Validators.minLength(6)];
-        this.mobile_validator = [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern('^[0-9]+$')];
-        this.name_validation = [Validators.required, Validators.minLength(2)];
-    }
+let ValidationsService = /** @class */ (() => {
+    let ValidationsService = class ValidationsService {
+        constructor() {
+            /*===========Validations Expression Start here ===========*/
+            this.notRequired_validator = [];
+            this.onlyRequired_validator = [Validators.required];
+            this.email_validator = [Validators.required, Validators.minLength(6), Validators.maxLength(50),
+                Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,25}$')];
+            this.password_validator = [Validators.required, Validators.minLength(6)];
+            this.mobile_validator = [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern('^[0-9]+$')];
+            this.name_validation = [Validators.required, Validators.minLength(2)];
+        }
+    };
     ValidationsService = __decorate([
         Injectable({
             providedIn: 'root'
@@ -27,6 +29,6 @@ var ValidationsService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ValidationsService);
     return ValidationsService;
-}());
+})();
 export { ValidationsService };
 //# sourceMappingURL=validations.service.js.map

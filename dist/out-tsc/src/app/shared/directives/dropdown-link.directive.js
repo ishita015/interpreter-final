@@ -12,31 +12,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 import { Directive, HostBinding, Inject, Input } from '@angular/core';
 import { AppDropdownDirective } from './dropdown.directive';
-var DropdownLinkDirective = /** @class */ (function () {
-    function DropdownLinkDirective(nav) {
-        this.nav = nav;
-    }
-    Object.defineProperty(DropdownLinkDirective.prototype, "open", {
-        get: function () {
+let DropdownLinkDirective = /** @class */ (() => {
+    let DropdownLinkDirective = class DropdownLinkDirective {
+        constructor(nav) {
+            this.nav = nav;
+        }
+        get open() {
             return this._open;
-        },
-        set: function (value) {
+        }
+        set open(value) {
             this._open = value;
             if (value) {
                 this.nav.closeOtherLinks(this);
             }
-        },
-        enumerable: false,
-        configurable: true
-    });
-    DropdownLinkDirective.prototype.ngOnInit = function () {
-        this.nav.addLink(this);
-    };
-    DropdownLinkDirective.prototype.ngOnDestroy = function () {
-        this.nav.removeGroup(this);
-    };
-    DropdownLinkDirective.prototype.toggle = function () {
-        this.open = !this.open;
+        }
+        ngOnInit() {
+            this.nav.addLink(this);
+        }
+        ngOnDestroy() {
+            this.nav.removeGroup(this);
+        }
+        toggle() {
+            this.open = !this.open;
+        }
     };
     __decorate([
         Input(),
@@ -56,6 +54,6 @@ var DropdownLinkDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [AppDropdownDirective])
     ], DropdownLinkDirective);
     return DropdownLinkDirective;
-}());
+})();
 export { DropdownLinkDirective };
 //# sourceMappingURL=dropdown-link.directive.js.map

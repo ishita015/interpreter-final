@@ -10,13 +10,16 @@ import { DashboadDefaultComponent } from './dashboad-default/dashboad-default.co
 import { DashboardV2Component } from './dashboard-v2/dashboard-v2.component';
 import { AddCalenderComponent } from './add-calender/add-calender.component';
 import { EditCalenderComponent } from './edit-calender/edit-calender.component';
-var routes = [
+const routes = [
     {
         path: 'v1',
         component: DashboadDefaultComponent
     },
     {
         path: 'v2',
+        component: DashboardV2Component
+    }, {
+        path: 'v3',
         component: DashboardV2Component
     },
     {
@@ -28,9 +31,9 @@ var routes = [
         component: EditCalenderComponent
     },
 ];
-var DashboardRoutingModule = /** @class */ (function () {
-    function DashboardRoutingModule() {
-    }
+let DashboardRoutingModule = /** @class */ (() => {
+    let DashboardRoutingModule = class DashboardRoutingModule {
+    };
     DashboardRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -38,6 +41,6 @@ var DashboardRoutingModule = /** @class */ (function () {
         })
     ], DashboardRoutingModule);
     return DashboardRoutingModule;
-}());
+})();
 export { DashboardRoutingModule };
 //# sourceMappingURL=dashboard-routing.module.js.map

@@ -4,10 +4,8 @@ import { CountryDB } from './countries';
 import { ChatDB } from './chat-db';
 import { InvoiceDB } from './invoices';
 import { UserDB } from './users';
-var InMemoryDataService = /** @class */ (function () {
-    function InMemoryDataService() {
-    }
-    InMemoryDataService.prototype.createDb = function () {
+export class InMemoryDataService {
+    createDb() {
         return {
             'products': ProductDB.products,
             'invoices': InvoiceDB.invoices,
@@ -18,8 +16,6 @@ var InMemoryDataService = /** @class */ (function () {
             'chat-user': ChatDB.user,
             'users': UserDB.users
         };
-    };
-    return InMemoryDataService;
-}());
-export { InMemoryDataService };
+    }
+}
 //# sourceMappingURL=inmemory-db.service.js.map

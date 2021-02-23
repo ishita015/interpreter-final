@@ -14,9 +14,9 @@ import { SearchModule } from './components/search/search.module';
 import { SharedComponentsModule } from './components/shared-components.module';
 import { SharedDirectivesModule } from './directives/shared-directives.module';
 import { SharedPipesModule } from './pipes/shared-pipes.module';
-var SharedModule = /** @class */ (function () {
-    function SharedModule() {
-    }
+let SharedModule = /** @class */ (() => {
+    let SharedModule = class SharedModule {
+    };
     SharedModule = __decorate([
         NgModule({
             imports: [
@@ -33,6 +33,6 @@ var SharedModule = /** @class */ (function () {
         })
     ], SharedModule);
     return SharedModule;
-}());
+})();
 export { SharedModule };
 //# sourceMappingURL=shared.module.js.map

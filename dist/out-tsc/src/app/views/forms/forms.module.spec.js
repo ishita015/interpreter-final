@@ -1,10 +1,10 @@
 import { FormsModule } from './forms.module';
-describe('FormsModule', function () {
-    var formsModule;
-    beforeEach(function () {
+describe('FormsModule', () => {
+    let formsModule;
+    beforeEach(() => {
         formsModule = new FormsModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(formsModule).toBeTruthy();
     });
 });

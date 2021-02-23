@@ -1,5 +1,5 @@
-var InvoiceDB = /** @class */ (function () {
-    function InvoiceDB() {
+let InvoiceDB = /** @class */ (() => {
+    class InvoiceDB {
     }
     InvoiceDB.invoices = [
         {
@@ -104,6 +104,6 @@ var InvoiceDB = /** @class */ (function () {
         }
     ];
     return InvoiceDB;
-}());
+})();
 export { InvoiceDB };
 //# sourceMappingURL=invoices.js.map

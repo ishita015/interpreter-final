@@ -18,9 +18,9 @@ import { LanguagesViewComponent } from './languages-view/languages-view.componen
 import { LanguagesAddEditComponent } from './languages-add-edit/languages-add-edit.component';
 import { LangimportComponent } from './langimport/langimport.component';
 import { InterpreterDetailsComponent } from './interpreter-details/interpreter-details.component';
-var LanguagesModule = /** @class */ (function () {
-    function LanguagesModule() {
-    }
+let LanguagesModule = /** @class */ (() => {
+    let LanguagesModule = class LanguagesModule {
+    };
     LanguagesModule = __decorate([
         NgModule({
             imports: [
@@ -40,6 +40,6 @@ var LanguagesModule = /** @class */ (function () {
         })
     ], LanguagesModule);
     return LanguagesModule;
-}());
+})();
 export { LanguagesModule };
 //# sourceMappingURL=languages.module.js.map

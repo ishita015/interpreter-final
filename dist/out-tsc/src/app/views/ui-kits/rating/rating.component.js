@@ -8,13 +8,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var RatingComponent = /** @class */ (function () {
-    function RatingComponent() {
-        this.currentRate = 8;
-        this.heartRating = 3;
-        this.demoRating = 4.4;
-    }
-    RatingComponent.prototype.ngOnInit = function () {
+let RatingComponent = /** @class */ (() => {
+    let RatingComponent = class RatingComponent {
+        constructor() {
+            this.currentRate = 8;
+            this.heartRating = 3;
+            this.demoRating = 4.4;
+        }
+        ngOnInit() {
+        }
     };
     RatingComponent = __decorate([
         Component({
@@ -25,6 +27,6 @@ var RatingComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], RatingComponent);
     return RatingComponent;
-}());
+})();
 export { RatingComponent };
 //# sourceMappingURL=rating.component.js.map

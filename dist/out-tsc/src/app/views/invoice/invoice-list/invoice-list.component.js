@@ -11,33 +11,33 @@ import { Component } from '@angular/core';
 import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-var InvoiceListComponent = /** @class */ (function () {
-    function InvoiceListComponent(dl, modalService, toastr) {
-        this.dl = dl;
-        this.modalService = modalService;
-        this.toastr = toastr;
-    }
-    InvoiceListComponent.prototype.ngOnInit = function () {
-        this.loadInvoices();
-    };
-    InvoiceListComponent.prototype.loadInvoices = function () {
-        var _this = this;
-        this.dl.getInvoices()
-            .subscribe(function (res) {
-            _this.invoices = res;
-        });
-    };
-    InvoiceListComponent.prototype.deleteInvoice = function (id, modal) {
-        var _this = this;
-        this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-            .result.then(function (result) {
-            _this.dl.deleteInvoice(id)
-                .subscribe(function (res) {
-                _this.toastr.success('Invoice Deleted!', 'Success!', { timeOut: 3000 });
-                _this.loadInvoices();
+let InvoiceListComponent = /** @class */ (() => {
+    let InvoiceListComponent = class InvoiceListComponent {
+        constructor(dl, modalService, toastr) {
+            this.dl = dl;
+            this.modalService = modalService;
+            this.toastr = toastr;
+        }
+        ngOnInit() {
+            this.loadInvoices();
+        }
+        loadInvoices() {
+            this.dl.getInvoices()
+                .subscribe(res => {
+                this.invoices = res;
             });
-        }, function (reason) {
-        });
+        }
+        deleteInvoice(id, modal) {
+            this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+                .result.then((result) => {
+                this.dl.deleteInvoice(id)
+                    .subscribe(res => {
+                    this.toastr.success('Invoice Deleted!', 'Success!', { timeOut: 3000 });
+                    this.loadInvoices();
+                });
+            }, (reason) => {
+            });
+        }
     };
     InvoiceListComponent = __decorate([
         Component({
@@ -50,6 +50,6 @@ var InvoiceListComponent = /** @class */ (function () {
             ToastrService])
     ], InvoiceListComponent);
     return InvoiceListComponent;
-}());
+})();
 export { InvoiceListComponent };
 //# sourceMappingURL=invoice-list.component.js.map

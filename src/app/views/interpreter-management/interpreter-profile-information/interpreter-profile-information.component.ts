@@ -167,6 +167,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
   docImage;
   platform_obj;
   showViewBtn = false;
+      secondFormGroup: FormGroup;
+      secondFormGroup1: FormGroup;
+
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -192,8 +195,18 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   ngOnInit() {
     // this.addBankInfo(); // add bank details
+ this.secondFormGroup = this.fb.group({
+            // arr: this.fb.array([this.createItem()])
+            arr: this.fb.array([])
 
+        })
+ this.secondFormGroup1 = this.fb.group({
+            // arr: this.fb.array([this.createItem()])
+            arr: this.fb.array([])
+
+        })
     this.GetLOB();
+    this.getAllPlatform();
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
@@ -228,12 +241,25 @@ export class InterpreterProfileInformationComponent implements OnInit {
       });
     });
     this.LanguageList();
-    this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
+    // this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
+    this.interId = window.location.href.split('interpreter-profile/')[1]
     this.detailProfile();
     this.createForm2();
     this.getUserLanguage();
     this.getPlatform();
   }
+
+
+createItem() {
+        return this.fb.group({
+            
+            hourly_rate: ['', Validators.required],
+            half_day_min_paid: ['', Validators.required],
+            half_day_pay_increment: ['', Validators.required],
+           
+        })
+    }
+
 
   getPlatform() {
     this.service.get('getRateSettingPlatforms/' + this.interId).subscribe(res => {
@@ -241,6 +267,12 @@ export class InterpreterProfileInformationComponent implements OnInit {
         this.platform_obj = res['data'];
       }
     });
+  }
+  platformData=[];
+  getAllPlatform() {
+    this.service.get('getAllPlatform').subscribe(res => {
+        this.platformData = res['data'];
+          });
   }
 
   /*========== Bank Routing Value Start Here========*/
@@ -475,6 +507,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
       this.vci_language = this.UserLangData[0].id;
       this.rsi_language = this.UserLangData[0].id;
       this.vci_opi_language = this.UserLangData[0].id;
+      this.languageId=res['data'][0].id
     });
   }
   check1() {
@@ -642,12 +675,15 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
   assignment() {
-    if (this.detail_Obj.interpreter_assignment_status == 1) {
+    // if (this.detail_Obj.interpreter_assignment_status == 1) {
       this.general_form = false;
       this.skills_form = false;
       this.assignment_form = true;
+      this.assignment_form = true;
       this.banking_form = false;
-    }
+      this.activeId = "";
+
+    // }
   }
 
   skills() {
@@ -679,7 +715,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name);
     this.generalForm.get('notes').patchValue(this.detail_Obj.about == 'null' ? '' : this.detail_Obj.about);
     this.generalForm.get('mobile').patchValue(this.detail_Obj.mobile);
-    this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code);
+    this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code == 0 ? '' :this.detail_Obj.country_code );
     this.generalForm.get('address').patchValue(this.detail_Obj.address);
     this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth);
     this.generalForm.get('international_phone_no').patchValue(this.detail_Obj.international_phone_no == 0 ? '' : this.detail_Obj.international_phone_no);
@@ -728,7 +764,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
       first_name: ['', this.validation.onlyRequired_validator],
       last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
-      mobile: [''],
+      mobile: ['', this.validation.onlyRequired_validator],
       international_phone_no: [''],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
@@ -976,8 +1012,27 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   /*==================assignment form start============================ */
 
-  onsiteShow() {
-    this.onsiteInfo = true;
+  onsiteShow(w) {
+    if(w == 1){
+      this.onsiteInfo = true;
+    }
+    if(w == 2){
+      this.opiInfo = true;
+    }
+    if(w == 3){
+      this.vriInfo = true;
+    }
+    if(w == 4){
+      this.vclInfo = true;
+    }
+    if(w == 5){
+      this.rsiInfo = true;
+    }
+    if(w == 6){
+      this.vci_opi = true;
+    }
+    
+
   }
   opiShow() {
     this.opiInfo = true;
@@ -997,57 +1052,57 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.vci_opi = true;
   }
 
+assignment_arr=[];
   assignmentFormCheck(event, eveKey) {
-
-    if (eveKey == '1') {
       if (event.target.checked) {
-        this.onsiteInfo = true;
+        // this.onsiteInfo = true;
+        this.assignment_arr.push(eveKey)
       } else {
-        this.onsiteInfo = false;
+        // this.onsiteInfo = false;
+         this.assignment_arr.splice(this.assignment_arr.indexOf(eveKey),1);
       }
-    }
+    
+    // if (eveKey == '2') {
+    //   if (event.target.checked) {
+    //     this.opiInfo = true;
+    //   } else {
+    //     this.opiInfo = false;
+    //   }
+    // }
 
-    if (eveKey == '2') {
-      if (event.target.checked) {
-        this.opiInfo = true;
-      } else {
-        this.opiInfo = false;
-      }
-    }
+    // if (eveKey == '3') {
+    //   if (event.target.checked) {
+    //     this.vriInfo = true;
+    //   } else {
+    //     this.vriInfo = false;
+    //   }
+    // }
 
-    if (eveKey == '3') {
-      if (event.target.checked) {
-        this.vriInfo = true;
-      } else {
-        this.vriInfo = false;
-      }
-    }
-
-    if (eveKey == '4') {
-      if (event.target.checked) {
-        this.vclInfo = true;
-      } else {
-        this.vclInfo = false;
-      }
-    }
+    // if (eveKey == '4') {
+    //   if (event.target.checked) {
+    //     this.vclInfo = true;
+    //   } else {
+    //     this.vclInfo = false;
+    //   }
+    // }
 
 
-    if (eveKey == '5') {
-      if (event.target.checked) {
-        this.rsiInfo = true;
-      } else {
-        this.rsiInfo = false;
-      }
-    }
-    console.log(eveKey)
-    console.log(event.target.checked)
-    if (eveKey == '6') {
-      if (event.target.checked) {
-        this.vci_opi = true;
-      } else {
-        this.vci_opi = false;
-      }
-    }
+    // if (eveKey == '5') {
+    //   if (event.target.checked) {
+    //     this.rsiInfo = true;
+    //   } else {
+    //     this.rsiInfo = false;
+    //   }
+    // }
+    // console.log(eveKey)
+    // console.log(event.target.checked)
+    // if (eveKey == '6') {
+    //   if (event.target.checked) {
+    //     this.vci_opi = true;
+    //   } else {
+    //     this.vci_opi = false;
+    //   }
+    // }
   }
 
   // Get Current Location Coordinates
@@ -1285,6 +1340,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
                   all_img2: event.target.result,
                   doc_type2: key,
                   types2: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
           });
         }
         if(type == '3') {
@@ -1292,6 +1348,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
                   all_img3: event.target.result,
                   doc_type3: key,
                   types3: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
           });
         }
         if(type == '4') {
@@ -1299,6 +1356,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
                   all_img4: event.target.result,
                   doc_type4: key,
                   types4: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
           });
         }
         if(type == '5') {
@@ -1306,6 +1364,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
                   all_img5: event.target.result,
                   doc_type5: key,
                   types5: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
           });
         }
         if(type == '6') {
@@ -1313,6 +1372,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
                   all_img6: event.target.result,
                   doc_type6: key,
                   types6: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
           });
         }
 				
@@ -1358,6 +1418,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
   uploadDocuments() {
+    console.log('assignment_arr',this.assignment_arr)
+
+      // return;
     this.submitted = true;
     if (this.interpreterSkillForm.invalid) {
       return;
@@ -1369,7 +1432,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     // }
 
 
-
+this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) => {return inputArray.indexOf(item) == index;});
 
     for (let img of this.arrImages) {
       formData.append(img.doc_type, img.all_img);
@@ -1378,6 +1441,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     }
 
     formData.append('interpreter_id', this.interId);
+    formData.append('assignment_arr', this.assignment_arr);
     formData.append('primary_language', this.priLanguageId);
     formData.append('secondary_language', JSON.stringify(this.lang));
 
@@ -1385,6 +1449,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
     formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
     this.service.interpreterDocupload(formData).subscribe(res => {
       this.skill_msg = res;
+                     this.arr = this.secondFormGroup.get('arr') as FormArray;
+                    this.arr.controls=[]
+        this.createDynamicForm()
       if (res['status'] == '1') {
         this.toastr.success(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
         this.assignment_form = true;
@@ -1392,7 +1459,6 @@ export class InterpreterProfileInformationComponent implements OnInit {
         this.skills_form = false;
         this.banking_form = false;
         this.detailProfile();
-        this.ngOnInit();
       } else {
         this.toastr.error(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
@@ -1556,173 +1622,181 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
 
-
-
+arr
+lobarr
+myPlatformData=[]
   getAssignmentSettingByInterpreterId() {
-    this.service.getAssignmentSettingByInterpreterId(this.interId).subscribe(res => {
-      console.log('dev------------------------------', res)
-      for (var i = 0; i < res.length; ++i) {
-        if (res[i].assignment_type == 1 && res[i].status == 1) {
-          this.onsiteInfo = true;
-          if (document.getElementById('on-site') != null) {
-            document.getElementById('on-site')['checked'] = true;
-          }
-          this.on_site_language_btn = res[i].language_id;
+           this.arr = this.secondFormGroup.get('arr') as FormArray;
+     this.service.get('getInterpreterPlatformIds/'+this.interId).subscribe(res => {
+       if(res['data'].length > 0){
+          
+         this.myPlatformData = res['data'][0].platform_ids.split(',');
+        this.myPlatformData = this.myPlatformData.map( (x) => {return parseInt(x, 10); });
+         this.assignment_arr = this.myPlatformData;
 
-
-          let langArr1 = <FormArray>this.assignmentForm.controls["assignment"];
-          langArr1.controls[0].patchValue({
-            id: res[i].id,
-            lob: res[i].lob,
-            language_id: res[i].language_id,
-            // hourly_rate: res[i].rates_on_duration_hourly,
-            hourly_rate_min_paid: res[i].min_paid_hourly,
-            hourly_rate_pay_increment: res[i].pay_increment_hourly,
-            half_day: res[i].rates_on_duration_half_day,
-            half_day_min_paid: res[i].min_paid_half_day,
-            half_day_pay_increment: res[i].pay_increment_half_day,
-            full_day: res[i].rates_on_duration_full_day,
-            full_day_min_paid: res[i].min_paid_full_day,
-            full_day_pay_increment: res[i].pay_increment_full_day
-          });
-          // Communityhourly_rate
-          // Medicalhourly_rate
-          for (var legalI = 0; legalI < res[i].settingsLob.length; ++legalI) {
-            if (res[i].settingsLob[legalI].lob == 'Legal') {
-              langArr1.controls[0].patchValue({ hourly_rate: res[i].settingsLob[legalI].rates_on_duration_hourly })
-            }
-            if (res[i].settingsLob[legalI].lob == 'Community') {
-              langArr1.controls[0].patchValue({ Communityhourly_rate: res[i].settingsLob[legalI].rates_on_duration_hourly })
-            }
-            if (res[i].settingsLob[legalI].lob == 'Medical') {
-              langArr1.controls[0].patchValue({ Medicalhourly_rate: res[i].settingsLob[legalI].rates_on_duration_hourly })
-            }
-          }
-        }
-
-        if (res[i].assignment_type == 2 && res[i].status == 1) {
-          this.opiInfo = true;
-          if (document.getElementById('opi') != null) {
-            document.getElementById('opi')['checked'] = true;
-          }
-          this.opi_language_btn = res[i].language_id;
-
-          let langArr2 = <FormArray>this.assignmentForm.controls["assignment_opi"];
-          langArr2.controls[0].patchValue({
-            opi_id: res[i].id,
-            opi_lob: res[i].lob,
-            opi_language_id: res[i].language_id,
-            opi_hourly_rate: res[i].rates_on_duration_hourly,
-            opi_hourly_rate_min_paid: res[i].min_paid_hourly,
-            opi_hourly_rate_pay_increment: res[i].pay_increment_hourly,
-            opi_half_day: res[i].rates_on_duration_half_day,
-            opi_half_day_min_paid: res[i].min_paid_half_day,
-            opi_half_day_pay_increment: res[i].pay_increment_half_day,
-            opi_full_day: res[i].rates_on_duration_full_day,
-            opi_full_day_min_paid: res[i].min_paid_full_day,
-            opi_full_day_pay_increment: res[i].pay_increment_full_day
-          });
-        }
-
-        if (res[i].assignment_type == 3 && res[i].status == 1) {
-          this.vriInfo = true;
-          if (document.getElementById('vri') != null) {
-            document.getElementById('vri')['checked'] = true;
-          }
-          this.vri_language_btn = res[i].language_id;
-
-          let langArr3 = <FormArray>this.assignmentForm.controls["assignment_vri"];
-          langArr3.controls[0].patchValue({
-            vri_id: res[i].id,
-            vri_lob: res[i].lob,
-            vri_language_id: res[i].language_id,
-            vri_hourly_rate: res[i].rates_on_duration_hourly,
-            vri_hourly_rate_min_paid: res[i].min_paid_hourly,
-            vri_hourly_rate_pay_increment: res[i].pay_increment_hourly,
-            vri_half_day: res[i].rates_on_duration_half_day,
-            vri_half_day_min_paid: res[i].min_paid_half_day,
-            vri_half_day_pay_increment: res[i].pay_increment_half_day,
-            vri_full_day: res[i].rates_on_duration_full_day,
-            vri_full_day_min_paid: res[i].min_paid_full_day,
-            vri_full_day_pay_increment: res[i].pay_increment_full_day
-          });
-        }
-
-        if (res[i].assignment_type == 4 && res[i].status == 1) {
-          this.vclInfo = true;
-          if (document.getElementById('vcl') != null) {
-            document.getElementById('vcl')['checked'] = true;
-          }
-          this.vci_language_btn = res[i].language_id;
-
-          let langArr4 = <FormArray>this.assignmentForm.controls["assignment_vcl"];
-          langArr4.controls[0].patchValue({
-            vcl_id: res[i].id,
-            vcl_lob: res[i].lob,
-            vcl_language_id: res[i].language_id,
-            vcl_hourly_rate: res[i].rates_on_duration_hourly,
-            vcl_hourly_rate_min_paid: res[i].min_paid_hourly,
-            vcl_hourly_rate_pay_increment: res[i].pay_increment_hourly,
-            vcl_half_day: res[i].rates_on_duration_half_day,
-            vcl_half_day_min_paid: res[i].min_paid_half_day,
-            vcl_half_day_pay_increment: res[i].pay_increment_half_day,
-            vcl_full_day: res[i].rates_on_duration_full_day,
-            vcl_full_day_min_paid: res[i].min_paid_full_day,
-            vcl_full_day_pay_increment: res[i].pay_increment_full_day
-          });
-        }
-
-        if (res[i].assignment_type == 5 && res[i].status == 1) {
-          this.rsiInfo = true;
-          if (document.getElementById('rsi') != null) {
-            document.getElementById('rsi')['checked'] = true;
-          }
-          this.rsi_language_btn = res[i].language_id;
-          let langArr5 = <FormArray>this.assignmentForm.controls["assignment_rsi"];
-          langArr5.controls[0].patchValue({
-            rsi_id: res[i].id,
-            rsi_lob: res[i].lob,
-            rsi_language_id: res[i].language_id,
-            rsi_hourly_rate: res[i].rates_on_duration_hourly,
-            rsi_hourly_rate_min_paid: res[i].min_paid_hourly,
-            rsi_hourly_rate_pay_increment: res[i].pay_increment_hourly,
-            rsi_half_day: res[i].rates_on_duration_half_day,
-            rsi_half_day_min_paid: res[i].min_paid_half_day,
-            rsi_half_day_pay_increment: res[i].pay_increment_half_day,
-            rsi_full_day: res[i].rates_on_duration_full_day,
-            rsi_full_day_min_paid: res[i].min_paid_full_day,
-            rsi_full_day_pay_increment: res[i].pay_increment_full_day
-          });
-        }
-
-        if (res[i].assignment_type == 6 && res[i].status == 1) {
-          this.vci_opi = true;
-          if (document.getElementById('vci_opi') != null) {
-            document.getElementById('vci_opi')['checked'] = true;
-          }
-
-
-          this.vci_opi_language_btn = res[i].language_id;
-
-          let langArr6 = <FormArray>this.assignmentForm.controls["assignment_vci_opi"];
-          langArr6.controls[0].patchValue({
-            vci_opi_id: res[i].id,
-            vci_opi_lob: res[i].lob,
-            vci_opi_language_id: res[i].language_id,
-            vci_opi_hourly_rate: res[i].rates_on_duration_hourly,
-            vci_opi_hourly_rate_min_paid: res[i].min_paid_hourly,
-            vci_opi_hourly_rate_pay_increment: res[i].pay_increment_hourly,
-            vci_opi_half_day: res[i].rates_on_duration_half_day,
-            vci_opi_half_day_min_paid: res[i].min_paid_half_day,
-            vci_opi_half_day_pay_increment: res[i].pay_increment_half_day,
-            vci_opi_full_day: res[i].rates_on_duration_full_day,
-            vci_opi_full_day_min_paid: res[i].min_paid_full_day,
-            vci_opi_full_day_pay_increment: res[i].pay_increment_full_day
-          });
-        }
-      }
+       }
     })
 
+  } 
+  newArr=[];
+ async createDynamicForm() {
+   this.newArr=[];
+    this.arr = this.secondFormGroup.get('arr') as FormArray;
+    this.arr.controls=[]
+
+    this.lobarr = this.secondFormGroup1.get('arr') as FormArray;
+    this.lobarr.controls=[]
+
+
+     this.service.get('getInterpreterPlatformIds/'+this.interId).subscribe(res => {
+       if(res['data'].length > 0){
+          
+         this.myPlatformData = res['data'][0].platform_ids.split(',');
+        this.myPlatformData = this.myPlatformData.map( (x) => {return parseInt(x, 10); });
+         this.assignment_arr = this.myPlatformData;
+
+
+         for (var i = 0; i < this.assignment_arr.length; ++i) {
+                    
+           this.service.get('getInterpreterPlatformName/'+this.assignment_arr[i]).subscribe(resdata => {
+           this.arr = this.secondFormGroup.get('arr') as FormArray;
+          this.arr.push(   this.fb.group({
+            name: [resdata['data'][0].platform,],
+            id: [resdata['data'][0].id,],
+            language_id: ['', Validators.required],
+          }))
+         
+         })
+         }
+
+
+                    
+       this.service.get('getlob').subscribe(lobdata => {
+        this.MasterLobData = lobdata['data'];
+                   this.lobarr = this.secondFormGroup1.get('arr') as FormArray;
+
+          for (var ikk = 0; ikk < this.MasterLobData.length; ++ikk) {
+               this.lobarr.push(   this.fb.group({
+            
+                  lob: [lobdata['data'][ikk].id],
+                  lobname: [lobdata['data'][ikk].name],
+                  rate: [''],
+                  minpaid: [''],
+                  increment: [''],
+                  travel_time: [''],
+                  mileage: [''],
+
+         }))
+          }
+           
+        
+          
+          })
+         
+
+
+       }
+    })
+
+  }
+showMileageCheck=true;
+showTimeTravelCheck=true;
+  showTravelTime(e){
+    this.showTimeTravelCheck=e
+  }
+  showMileageTime(e){
+    this.showMileageCheck=e
+  }
+
+  selectFormPlatform(e){
+    // this.createDynamicForm()
+
+
+
+    e.value.interpreter_id=this.interId;
+    e.value.language_id=this.UserLangData[0].id;
+     this.service.post('getInterpreterRateSettingNew',e.value).subscribe(resdata => {
+       console.log('ddddddddd',resdata)
+       console.log('aaaa',this.secondFormGroup1.value)
+if(resdata['data'].length > 0){
+  for (var i = 0; i < resdata['data'].length; ++i) {
+    this.languageId=resdata['data'][0].language_id
+
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:resdata['data'][i].increment })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:resdata['data'][i].mileage })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:resdata['data'][i].minpaid })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:resdata['data'][i].rate })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:resdata['data'][i].travel_time })
+
+  }
+}else{
+
+    for (var i = 0; i < this.secondFormGroup1.value.arr.length; ++i) {
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:''})
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:'' })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:'' })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:''})
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:'' })
+
+  }
+}
+
+     })
+  }
+
+  activeId: string = "";
+
+toggleAccordian(event) {
+    // If it is already open you will close it and if it is closed open it
+    this.activeId = this.activeId == event.panelId ? "" : event.panelId;
+}
+
+
+  languageId=0;
+selectLanguage(language_id,e){
+  // console.log('============>',language_id)
+  this.languageId=language_id;
+   e.value.interpreter_id=this.interId;
+    e.value.language_id=language_id;
+     this.service.post('getInterpreterRateSettingNew',e.value).subscribe(resdata => {
+       console.log('ddddddddd',resdata)
+       console.log('aaaa',this.secondFormGroup1.value)
+       
+       if(resdata['data'].length > 0){
+  for (var i = 0; i < resdata['data'].length; ++i) {
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:resdata['data'][i].increment })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:resdata['data'][i].mileage })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:resdata['data'][i].minpaid })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:resdata['data'][i].rate })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:resdata['data'][i].travel_time })
+
+  }
+}else{
+    for (var i = 0; i < this.secondFormGroup1.value.arr.length; ++i) {
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:''})
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:'' })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:'' })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:''})
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:'' })
+
+  }
+}
+
+     })
+}
+createItem1() {
+        return this.fb.group({
+            
+            hourly_rate: ['', Validators.required],
+            half_day_min_paid: ['', Validators.required],
+            half_day_pay_increment: ['', Validators.required],
+           
+        })
+    }
+
+
+  aaaa(a){
+    console.log(a)
   }
   addInterpreterAssignment(type) {
     this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
@@ -1751,6 +1825,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
             this.general_form = false;
             this.skills_form = false;
             this.banking_form = false;
+            this.activeId= "";
+
           }
           else {
             this.banking_form = true;
@@ -1789,87 +1865,112 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
 
-  addInterpreterAssignmentSave(type, data) {
+  addInterpreterAssignmentSave(type,aa) {
+    console.log('secondFormGroup1',this.secondFormGroup1.value)
+    console.log('this.languageId',this.languageId)
+    console.log('type',type)
 
-    // return
-    // console.log(type)
-    this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
-    this.assignmentForm.value.assignment_opi[0].opi_language_id = this.opi_language;
-    this.assignmentForm.value.assignment_vri[0].vri_language_id = this.vri_language;
-    this.assignmentForm.value.assignment_vcl[0].vcl_language_id = this.vci_language;
-    this.assignmentForm.value.assignment_rsi[0].rsi_language_id = this.rsi_language;
-    this.assignmentForm.value.assignment_vci_opi[0].vci_opi_language_id = this.vci_opi_language;
-
-    this.assignmentForm.value.interpreter_id = this.interId;
-    this.assignmentForm.value.onsiteInfo = this.onsiteInfo;
-    this.assignmentForm.value.opiInfo = this.opiInfo;
-    this.assignmentForm.value.vriInfo = this.vriInfo;
-    this.assignmentForm.value.vclInfo = this.vclInfo;
-    this.assignmentForm.value.rsiInfo = this.rsiInfo;
-    this.assignmentForm.value.vci_opi = this.vci_opi;
-    this.assignmentForm.value.type = type;
-    if (type == 'onsite' && this.assignmentForm.value.assignment[0].language_id == 0) {
-      this.toastr.warning('Please Select On Site Language');
-      return;
-    }
-    if (type == 'opi' && this.assignmentForm.value.assignment_opi[0].language_id == 0) {
-      this.toastr.warning('Please Select OPI Language');
-      return;
-    }
-
-    if (type == 'vri' && this.assignmentForm.value.assignment_vri[0].language_id == 0) {
-      this.toastr.warning('Please Select VRI Language');
-      return;
-    }
-
-    if (type == 'vcl' && this.assignmentForm.value.assignment_vcl[0].language_id == 0) {
-      this.toastr.warning('Please Select VCL Language');
-      return;
-    }
-
-    if (type == 'rsi' && this.assignmentForm.value.assignment_rsi[0].language_id == 0) {
-      this.toastr.warning('Please Select RSI Language');
-      return;
-    }
-
-    if (type == 'vci_opi' && this.assignmentForm.value.assignment_vci_opi[0].language_id == 0) {
-      this.toastr.warning('Please Select VCI+OPI language');
-      return;
-    }
-
-
-    this.service.post('update_Account_Setting_Interpreter_Profile', this.assignmentForm.value)
-      .subscribe(res => {
-        if (res['status'] == 1) {
-          this.ass_Obj = res
-          this.toastr.success(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-          if (type == 'skills') {
-            this.assignment_form = true;
+    console.log('secondFormGroup',this.secondFormGroup.value)
+    var setdata={  platformid:type.id,
+                   language_id:this.languageId,
+                   arr:this.secondFormGroup1.value.arr,
+                   interpreter_id:this.interId
+                 }
+    console.log('setdata',setdata)
+    this.service.post('updateIntrepeterSetingNew', setdata)
+       .subscribe(res => {
+           if(res['status'] == true){
+             this.toastr.success(res['msg']);
+             this.banking_form = true;
+            this.assignment_form = false;
+            this.general_form = false;
+            this.skills_form = false;
+           }else{
+             this.toastr.warning(res['msg']);
+              this.assignment_form = true;
             this.general_form = false;
             this.skills_form = false;
             this.banking_form = false;
 
+           }
+          })
+    // this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
+    // this.assignmentForm.value.assignment_opi[0].opi_language_id = this.opi_language;
+    // this.assignmentForm.value.assignment_vri[0].vri_language_id = this.vri_language;
+    // this.assignmentForm.value.assignment_vcl[0].vcl_language_id = this.vci_language;
+    // this.assignmentForm.value.assignment_rsi[0].rsi_language_id = this.rsi_language;
+    // this.assignmentForm.value.assignment_vci_opi[0].vci_opi_language_id = this.vci_opi_language;
 
-          }
-          else {
-            this.banking_form = true;
-            this.assignment_form = false;
-            this.general_form = false;
-            this.skills_form = false;
+    // this.assignmentForm.value.interpreter_id = this.interId;
+    // this.assignmentForm.value.onsiteInfo = this.onsiteInfo;
+    // this.assignmentForm.value.opiInfo = this.opiInfo;
+    // this.assignmentForm.value.vriInfo = this.vriInfo;
+    // this.assignmentForm.value.vclInfo = this.vclInfo;
+    // this.assignmentForm.value.rsiInfo = this.rsiInfo;
+    // this.assignmentForm.value.vci_opi = this.vci_opi;
+    // this.assignmentForm.value.type = type;
+    // if (type == 'onsite' && this.assignmentForm.value.assignment[0].language_id == 0) {
+    //   this.toastr.warning('Please Select On Site Language');
+    //   return;
+    // }
+    // if (type == 'opi' && this.assignmentForm.value.assignment_opi[0].language_id == 0) {
+    //   this.toastr.warning('Please Select OPI Language');
+    //   return;
+    // }
 
-          }
+    // if (type == 'vri' && this.assignmentForm.value.assignment_vri[0].language_id == 0) {
+    //   this.toastr.warning('Please Select VRI Language');
+    //   return;
+    // }
+
+    // if (type == 'vcl' && this.assignmentForm.value.assignment_vcl[0].language_id == 0) {
+    //   this.toastr.warning('Please Select VCL Language');
+    //   return;
+    // }
+
+    // if (type == 'rsi' && this.assignmentForm.value.assignment_rsi[0].language_id == 0) {
+    //   this.toastr.warning('Please Select RSI Language');
+    //   return;
+    // }
+
+    // if (type == 'vci_opi' && this.assignmentForm.value.assignment_vci_opi[0].language_id == 0) {
+    //   this.toastr.warning('Please Select VCI+OPI language');
+    //   return;
+    // }
 
 
-        } else {
-          this.ass_Obj = res
-          this.toastr.error(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+    // this.service.post('update_Account_Setting_Interpreter_Profile', this.assignmentForm.value)
+    //   .subscribe(res => {
+    //     if (res['status'] == 1) {
+    //       this.ass_Obj = res
+    //       this.toastr.success(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+    //       if (type == 'skills') {
+    //         this.assignment_form = true;
+    //         this.general_form = false;
+    //         this.skills_form = false;
+    //         this.banking_form = false;
 
 
-        }
-        this.showLegalLob = 1;
-        this.showCommunityLob = 0;
-        this.showMedicalLob = 0;
-      });
+    //       }
+    //       else {
+    //         this.banking_form = true;
+    //         this.assignment_form = false;
+    //         this.general_form = false;
+    //         this.skills_form = false;
+
+    //       }
+
+
+    //     } else {
+    //       this.ass_Obj = res
+    //       this.toastr.error(this.ass_Obj.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+
+
+    //     }
+    //     this.showLegalLob = 1;
+    //     this.showCommunityLob = 0;
+    //     this.showMedicalLob = 0;
+    //   });
   }
   // Radio button ssn and ein function
   ssnRadioBtn() {

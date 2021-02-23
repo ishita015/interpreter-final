@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ListPaginationComponent } from './list-pagination.component';
-describe('ListPaginationComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('ListPaginationComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ListPaginationComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(ListPaginationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

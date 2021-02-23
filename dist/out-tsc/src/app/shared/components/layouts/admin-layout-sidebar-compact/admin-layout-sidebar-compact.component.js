@@ -11,22 +11,23 @@ import { Component } from '@angular/core';
 import { NavigationService } from '../../../services/navigation.service';
 import { SearchService } from 'src/app/shared/services/search.service';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
-var AdminLayoutSidebarCompactComponent = /** @class */ (function () {
-    function AdminLayoutSidebarCompactComponent(navService, searchService, router) {
-        this.navService = navService;
-        this.searchService = searchService;
-        this.router = router;
-    }
-    AdminLayoutSidebarCompactComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.router.events.subscribe(function (event) {
-            if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
-                _this.moduleLoading = true;
-            }
-            if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
-                _this.moduleLoading = false;
-            }
-        });
+let AdminLayoutSidebarCompactComponent = /** @class */ (() => {
+    let AdminLayoutSidebarCompactComponent = class AdminLayoutSidebarCompactComponent {
+        constructor(navService, searchService, router) {
+            this.navService = navService;
+            this.searchService = searchService;
+            this.router = router;
+        }
+        ngOnInit() {
+            this.router.events.subscribe(event => {
+                if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
+                    this.moduleLoading = true;
+                }
+                if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
+                    this.moduleLoading = false;
+                }
+            });
+        }
     };
     AdminLayoutSidebarCompactComponent = __decorate([
         Component({
@@ -39,6 +40,6 @@ var AdminLayoutSidebarCompactComponent = /** @class */ (function () {
             Router])
     ], AdminLayoutSidebarCompactComponent);
     return AdminLayoutSidebarCompactComponent;
-}());
+})();
 export { AdminLayoutSidebarCompactComponent };
 //# sourceMappingURL=admin-layout-sidebar-compact.component.js.map

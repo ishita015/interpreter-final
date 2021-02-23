@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var UsersViewComponent = /** @class */ (function () {
-    function UsersViewComponent() {
-    }
-    UsersViewComponent.prototype.ngOnInit = function () {
+let UsersViewComponent = /** @class */ (() => {
+    let UsersViewComponent = class UsersViewComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     UsersViewComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var UsersViewComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], UsersViewComponent);
     return UsersViewComponent;
-}());
+})();
 export { UsersViewComponent };
 //# sourceMappingURL=users-view.component.js.map

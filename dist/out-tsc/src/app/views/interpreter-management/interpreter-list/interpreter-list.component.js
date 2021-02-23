@@ -7,26 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -34,153 +14,160 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormControl, FormGroup } from '@angular/forms';
-var InterpreterListComponent = /** @class */ (function () {
-    function InterpreterListComponent(productService, modalService, toastr, service, router, route) {
-        this.productService = productService;
-        this.modalService = modalService;
-        this.toastr = toastr;
-        this.service = service;
-        this.router = router;
-        this.route = route;
-        this.searchControl = new FormControl();
-        //search calendar
-        this.search_name = new FormControl();
-        this.range = new FormGroup({
-            start_date: new FormControl(),
-            end_date: new FormControl()
-        });
-    }
-    InterpreterListComponent.prototype.ngOnInit = function () {
-        this.id = this.route.snapshot.params.id ? this.route.snapshot.params.id : '0';
-        console.log("iddddddd", this.id);
-        this.type = this.route.snapshot.params.type ? this.route.snapshot.params.type : '0';
-        console.log("qqqqq", this.type);
-        this.userId = JSON.parse(localStorage.getItem('userId'));
-        this.roleId = JSON.parse(localStorage.getItem('roleId'));
-        this.interpreterList('1');
-        // this.searchControl.valueChanges
-        //   .pipe(debounceTime(200))
-        //   .subscribe(value => {
-        //     this.filerData(value);
-        //   });
-        this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
-        // this.array_Obj = this.roleData['data'][3]; 
-        // if(this.array_Obj.id){
-        //   this.array_Obj = this.roleData['data'][3];
-        //   // console.log("roleData", this.array_Obj);
-    };
-    // filerData(val) {
-    //   if (val) {
-    //     val = val.toLowerCase();
-    //   } else {
-    //     console.log("xxxxxxx", this.filteredUser);
-    //     return this.filteredUser = [... this.userData];
-    //   }
-    //   const columns = Object.keys(this.userData[0]);
-    //   if (!columns.length) {
-    //     return;
-    //   }
-    //   const rows = this.userData.filter(function (d) {
-    //     for (let i = 0; i <= columns.length; i++) {
-    //       const column = columns[i];
-    //       // console.log(d[column]);
-    //       if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-    //         return true;
-    //       }
-    //     }
-    //   });
-    //   this.filteredUser = rows;
-    // }
-    InterpreterListComponent.prototype.interpreterList = function (e) {
-        var _this = this;
-        this.allData = this.search_name.value;
-        this.startDate = this.range.value.start_date;
-        this.endDate = this.range.value.end_date;
-        this.service.getInterpreterList(this.id, this.type, this.allData, this.startDate, this.endDate)
-            // this.service.getInterpreterList(this.id,this.type)
-            .subscribe(function (res) {
-            if (res['status'] == 1) {
-                _this.list_Obj = res['data'];
-                _this.userData = __spread(res['data']);
-                _this.filteredUser = _this.list_Obj;
-                _this.role_id = _this.roleId;
-            }
-            else {
-                _this.list_Obj = [];
-                _this.userData = [];
-                _this.filteredUser = [];
-                // this.response_msg=res;
-                // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
-                _this.router.navigate(['/interpreter/interpreter-list']);
-            }
-        });
-    };
-    InterpreterListComponent.prototype.deleteInterpreter = function (id, modal) {
-        var _this = this;
-        console.log("delete idddddddddd", id);
-        this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-            .result.then(function (result) {
-            _this.service.getUserDelete(id)
-                .subscribe(function (res) {
-                _this.userdelete_msg = res;
-                console.log("api", res);
-                _this.toastr.success(_this.userdelete_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-                // this.languageList();
+let InterpreterListComponent = /** @class */ (() => {
+    let InterpreterListComponent = class InterpreterListComponent {
+        constructor(productService, modalService, toastr, service, router, route) {
+            this.productService = productService;
+            this.modalService = modalService;
+            this.toastr = toastr;
+            this.service = service;
+            this.router = router;
+            this.route = route;
+            this.searchControl = new FormControl();
+            //search calendar
+            this.search_name = new FormControl();
+            this.range = new FormGroup({
+                start_date: new FormControl(),
+                end_date: new FormControl()
             });
-        }, function (reason) {
-        });
-    };
-    InterpreterListComponent.prototype.addInterpreter = function () {
-        this.router.navigate(['/interpreter/interpreter-add']);
-    };
-    InterpreterListComponent.prototype.profileInterpreter = function (id) {
-        console.log("iddddd", id);
-        localStorage.setItem('userId', JSON.stringify(id));
-        this.router.navigate(['/interpreter/interpreter-profile', id]);
-    };
-    InterpreterListComponent.prototype.editInterpreter = function (id, data) {
-        var _this = this;
-        this.router.navigate(['/interpreter/interpreter-edit', id]);
-        console.log("permission idddddddddd", id);
-        console.log("data", data);
-        localStorage.setItem('editData', JSON.stringify(data));
-        localStorage.setItem('rowId', JSON.stringify(id));
-        this.service.getInterpreterDetail(id)
-            .subscribe(function (res) {
-            _this.user_Obj = res['data'];
-            _this.json_Obj = res['data']['0'];
-            console.log("edit api", _this.json_Obj.id);
-            // localStorage.setItem('editData', JSON.stringify(this.json_Obj));
-            // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
-            // this.router.navigate(['/permission/setpermission',id]);
-            // location.reload();
-        });
-    };
-    InterpreterListComponent.prototype.statusChange = function (target, status, id) {
-        var _this = this;
-        console.log("permission target", target);
-        console.log("permission status", status);
-        console.log("permission id", id);
-        this.service.statusUpdate(status, id)
-            .subscribe(function (res) {
-            _this.status_msg = res;
-            _this.toastr.success(_this.status_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-            _this.interpreterList('1');
-        });
-    };
-    InterpreterListComponent.prototype.userView = function (id) {
-        this.router.navigate(['/interpreter/interpreter-view', id]);
-    };
-    InterpreterListComponent.prototype.userInterpreter = function (id) {
-        var _this = this;
-        // localStorage.setItem('Id', JSON.stringify(id));
-        this.service.getInterpreterDetail(id).subscribe(function (res) {
-            // console.log("apiii", res);
-            _this.viewUser_obj = res['data'][0];
-            console.log("view object", _this.viewUser_obj);
-            localStorage.setItem('userViewData', JSON.stringify(_this.viewUser_obj));
-            _this.router.navigate(['/interpreter/interpreter-view', id]);
-        });
+        }
+        ngOnInit() {
+            this.id = this.route.snapshot.params.id ? this.route.snapshot.params.id : '0';
+            console.log("iddddddd", this.id);
+            this.type = this.route.snapshot.params.type ? this.route.snapshot.params.type : '0';
+            console.log("qqqqq", this.type);
+            this.userId = JSON.parse(localStorage.getItem('userId'));
+            this.roleId = JSON.parse(localStorage.getItem('roleId'));
+            this.rolePermission();
+            this.interpreterList('1');
+            // this.searchControl.valueChanges
+            //   .pipe(debounceTime(200))
+            //   .subscribe(value => {
+            //     this.filerData(value);
+            //   });
+            this.roleData = JSON.parse(localStorage.getItem('Allpermission'));
+            // this.array_Obj = this.roleData['data'][3]; 
+            // if(this.array_Obj.id){
+            //   this.array_Obj = this.roleData['data'][3];
+            //   // console.log("roleData", this.array_Obj);
+        }
+        rolePermission() {
+            this.service.get('get-user-role-permission/' + localStorage.getItem('roleId')).subscribe(res => {
+                for (var i = 0; i < res['data'].length; ++i) {
+                    if (res['data'][i].module_id == 9) {
+                        this.array_Obj = res['data'][i];
+                    }
+                }
+            });
+        }
+        // filerData(val) {
+        //   if (val) {
+        //     val = val.toLowerCase();
+        //   } else {
+        //     console.log("xxxxxxx", this.filteredUser);
+        //     return this.filteredUser = [... this.userData];
+        //   }
+        //   const columns = Object.keys(this.userData[0]);
+        //   if (!columns.length) {
+        //     return;
+        //   }
+        //   const rows = this.userData.filter(function (d) {
+        //     for (let i = 0; i <= columns.length; i++) {
+        //       const column = columns[i];
+        //       // console.log(d[column]);
+        //       if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+        //         return true;
+        //       }
+        //     }
+        //   });
+        //   this.filteredUser = rows;
+        // }
+        interpreterList(e) {
+            this.allData = this.search_name.value;
+            this.startDate = this.range.value.start_date;
+            this.endDate = this.range.value.end_date;
+            this.service.getInterpreterList(this.id, this.type, this.allData, this.startDate, this.endDate)
+                // this.service.getInterpreterList(this.id,this.type)
+                .subscribe(res => {
+                if (res['status'] == 1) {
+                    this.list_Obj = res['data'];
+                    this.userData = [...res['data']];
+                    this.filteredUser = this.list_Obj;
+                    this.role_id = this.roleId;
+                }
+                else {
+                    this.list_Obj = [];
+                    this.userData = [];
+                    this.filteredUser = [];
+                    // this.response_msg=res;
+                    // this.toastr.success(this.response_msg.msg,'', { timeOut: 2000 });
+                    this.router.navigate(['/interpreter/interpreter-list']);
+                }
+            });
+        }
+        deleteInterpreter(id, modal) {
+            console.log("delete idddddddddd", id);
+            this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+                .result.then((result) => {
+                this.service.getUserDelete(id)
+                    .subscribe(res => {
+                    this.userdelete_msg = res;
+                    console.log("api", res);
+                    this.toastr.success(this.userdelete_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+                    // this.languageList();
+                });
+            }, (reason) => {
+            });
+        }
+        addInterpreter() {
+            this.router.navigate(['/interpreter/interpreter-add']);
+        }
+        profileInterpreter(id) {
+            console.log("iddddd", id);
+            localStorage.setItem('userId', JSON.stringify(id));
+            this.router.navigate(['/interpreter/interpreter-profile', id]);
+        }
+        editInterpreter(id, data) {
+            this.router.navigate(['/interpreter/interpreter-edit', id]);
+            console.log("permission idddddddddd", id);
+            console.log("data", data);
+            localStorage.setItem('editData', JSON.stringify(data));
+            localStorage.setItem('rowId', JSON.stringify(id));
+            this.service.getInterpreterDetail(id)
+                .subscribe(res => {
+                this.user_Obj = res['data'];
+                this.json_Obj = res['data']['0'];
+                console.log("edit api", this.json_Obj.id);
+                // localStorage.setItem('editData', JSON.stringify(this.json_Obj));
+                // localStorage.setItem('interpreterInfo', JSON.stringify(this.user_Obj));
+                // this.router.navigate(['/permission/setpermission',id]);
+                // location.reload();
+            });
+        }
+        statusChange(target, status, id) {
+            console.log("permission target", target);
+            console.log("permission status", status);
+            console.log("permission id", id);
+            this.service.statusUpdate(status, id)
+                .subscribe(res => {
+                this.status_msg = res;
+                this.toastr.success(this.status_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+                this.interpreterList('1');
+            });
+        }
+        userView(id) {
+            this.router.navigate(['/interpreter/interpreter-view', id]);
+        }
+        userInterpreter(id) {
+            // localStorage.setItem('Id', JSON.stringify(id));
+            this.service.getInterpreterDetail(id).subscribe(res => {
+                // console.log("apiii", res);
+                this.viewUser_obj = res['data'][0];
+                console.log("view object", this.viewUser_obj);
+                localStorage.setItem('userViewData', JSON.stringify(this.viewUser_obj));
+                this.router.navigate(['/interpreter/interpreter-view', id]);
+            });
+        }
     };
     InterpreterListComponent = __decorate([
         Component({
@@ -196,6 +183,6 @@ var InterpreterListComponent = /** @class */ (function () {
             ActivatedRoute])
     ], InterpreterListComponent);
     return InterpreterListComponent;
-}());
+})();
 export { InterpreterListComponent };
 //# sourceMappingURL=interpreter-list.component.js.map

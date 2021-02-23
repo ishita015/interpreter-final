@@ -13,18 +13,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-var SetPermissionComponent = /** @class */ (function () {
-    //d={id:1,name:'Dev'}
-    function SetPermissionComponent(productService, modalService, toastr, service, router) {
-        this.productService = productService;
-        this.modalService = modalService;
-        this.toastr = toastr;
-        this.service = service;
-        this.router = router;
-    }
-    SetPermissionComponent.prototype.ngOnInit = function () {
-        this.dataRe = JSON.parse(localStorage.getItem('permissionInfo'));
-        console.log("yes is working", this.dataRe[0]);
+let SetPermissionComponent = /** @class */ (() => {
+    let SetPermissionComponent = class SetPermissionComponent {
+        //d={id:1,name:'Dev'}
+        constructor(productService, modalService, toastr, service, router) {
+            this.productService = productService;
+            this.modalService = modalService;
+            this.toastr = toastr;
+            this.service = service;
+            this.router = router;
+        }
+        ngOnInit() {
+            this.dataRe = JSON.parse(localStorage.getItem('permissionInfo'));
+            console.log("yes is working", this.dataRe[0]);
+        }
     };
     SetPermissionComponent = __decorate([
         Component({
@@ -39,6 +41,6 @@ var SetPermissionComponent = /** @class */ (function () {
             Router])
     ], SetPermissionComponent);
     return SetPermissionComponent;
-}());
+})();
 export { SetPermissionComponent };
 //# sourceMappingURL=set-permission.component.js.map

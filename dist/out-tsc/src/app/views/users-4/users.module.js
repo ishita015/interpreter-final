@@ -15,9 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-var UsersModule = /** @class */ (function () {
-    function UsersModule() {
-    }
+let UsersModule = /** @class */ (() => {
+    let UsersModule = class UsersModule {
+    };
     UsersModule = __decorate([
         NgModule({
             declarations: [UsersAddComponent, UsersEditComponent, UsersListComponent, UsersViewComponent],
@@ -33,6 +33,6 @@ var UsersModule = /** @class */ (function () {
         })
     ], UsersModule);
     return UsersModule;
-}());
+})();
 export { UsersModule };
 //# sourceMappingURL=users.module.js.map

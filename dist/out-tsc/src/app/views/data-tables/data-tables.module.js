@@ -15,9 +15,9 @@ import { FilterTableComponent } from './filter-table/filter-table.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ListPaginationComponent } from './list-pagination/list-pagination.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-var DataTablesModule = /** @class */ (function () {
-    function DataTablesModule() {
-    }
+let DataTablesModule = /** @class */ (() => {
+    let DataTablesModule = class DataTablesModule {
+    };
     DataTablesModule = __decorate([
         NgModule({
             imports: [
@@ -33,6 +33,6 @@ var DataTablesModule = /** @class */ (function () {
         })
     ], DataTablesModule);
     return DataTablesModule;
-}());
+})();
 export { DataTablesModule };
 //# sourceMappingURL=data-tables.module.js.map

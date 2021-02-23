@@ -9,18 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ContactService } from '../contact.service';
-var ContactGridComponent = /** @class */ (function () {
-    function ContactGridComponent(contactService) {
-        this.contactService = contactService;
-        this.page = 1;
-        this.contacts = [];
-    }
-    ContactGridComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.contactService.getContacts()
-            .subscribe(function (res) {
-            _this.contacts = res;
-        });
+let ContactGridComponent = /** @class */ (() => {
+    let ContactGridComponent = class ContactGridComponent {
+        constructor(contactService) {
+            this.contactService = contactService;
+            this.page = 1;
+            this.contacts = [];
+        }
+        ngOnInit() {
+            this.contactService.getContacts()
+                .subscribe((res) => {
+                this.contacts = res;
+            });
+        }
     };
     ContactGridComponent = __decorate([
         Component({
@@ -31,6 +32,6 @@ var ContactGridComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ContactService])
     ], ContactGridComponent);
     return ContactGridComponent;
-}());
+})();
 export { ContactGridComponent };
 //# sourceMappingURL=contact-grid.component.js.map

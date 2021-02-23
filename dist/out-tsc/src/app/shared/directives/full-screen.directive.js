@@ -8,46 +8,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Directive, HostListener } from '@angular/core';
-var FullScreenWindowDirective = /** @class */ (function () {
-    function FullScreenWindowDirective() {
-    }
-    // Full screen
-    FullScreenWindowDirective.prototype.cancelFullScreen = function (el) {
-        var requestMethod = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullscreen;
-        if (requestMethod) { // cancel full screen.
-            requestMethod.call(el);
+let FullScreenWindowDirective = /** @class */ (() => {
+    let FullScreenWindowDirective = class FullScreenWindowDirective {
+        // Full screen
+        cancelFullScreen(el) {
+            var requestMethod = el.cancelFullScreen || el.webkitCancelFullScreen || el.mozCancelFullScreen || el.exitFullscreen;
+            if (requestMethod) { // cancel full screen.
+                requestMethod.call(el);
+            }
+            // else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+            //     var wscript = new ActiveXObject("WScript.Shell");
+            //     if (wscript !== null) {
+            //         wscript.SendKeys("{F11}");
+            //     }
+            // }
         }
-        // else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-        //     var wscript = new ActiveXObject("WScript.Shell");
-        //     if (wscript !== null) {
-        //         wscript.SendKeys("{F11}");
-        //     }
-        // }
-    };
-    FullScreenWindowDirective.prototype.requestFullScreen = function (el) {
-        // Supports most browsers and their versions.
-        var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-        if (requestMethod) { // Native full screen.
-            requestMethod.call(el);
+        requestFullScreen(el) {
+            // Supports most browsers and their versions.
+            var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+            if (requestMethod) { // Native full screen.
+                requestMethod.call(el);
+            }
+            // else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+            //     var wscript = new ActiveXObject("WScript.Shell");
+            //     if (wscript !== null) {
+            //         wscript.SendKeys("{F11}");
+            //     }
+            // }
+            return false;
         }
-        // else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-        //     var wscript = new ActiveXObject("WScript.Shell");
-        //     if (wscript !== null) {
-        //         wscript.SendKeys("{F11}");
-        //     }
-        // }
-        return false;
-    };
-    FullScreenWindowDirective.prototype.toggleFullscreen = function () {
-        var elem = document.body;
-        var isInFullScreen = (document['fullScreenElement'] && document['fullScreenElement'] !== null) || (document['mozFullScreen'] || document['webkitIsFullScreen']);
-        if (isInFullScreen) {
-            this.cancelFullScreen(document);
+        toggleFullscreen() {
+            var elem = document.body;
+            var isInFullScreen = (document['fullScreenElement'] && document['fullScreenElement'] !== null) || (document['mozFullScreen'] || document['webkitIsFullScreen']);
+            if (isInFullScreen) {
+                this.cancelFullScreen(document);
+            }
+            else {
+                this.requestFullScreen(elem);
+            }
+            return false;
         }
-        else {
-            this.requestFullScreen(elem);
-        }
-        return false;
     };
     __decorate([
         HostListener('click', ['$event']),
@@ -61,6 +61,6 @@ var FullScreenWindowDirective = /** @class */ (function () {
         })
     ], FullScreenWindowDirective);
     return FullScreenWindowDirective;
-}());
+})();
 export { FullScreenWindowDirective };
 //# sourceMappingURL=full-screen.directive.js.map

@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RolesetComponent } from './roleset.component';
-var routes = [
+const routes = [
     { path: 'roleset/:id', component: RolesetComponent },
 ];
-var RolesetRoutingModule = /** @class */ (function () {
-    function RolesetRoutingModule() {
-    }
+let RolesetRoutingModule = /** @class */ (() => {
+    let RolesetRoutingModule = class RolesetRoutingModule {
+    };
     RolesetRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -20,6 +20,6 @@ var RolesetRoutingModule = /** @class */ (function () {
         })
     ], RolesetRoutingModule);
     return RolesetRoutingModule;
-}());
+})();
 export { RolesetRoutingModule };
 //# sourceMappingURL=roleset-routing.module.js.map

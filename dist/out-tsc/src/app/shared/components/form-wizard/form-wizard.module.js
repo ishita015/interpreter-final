@@ -8,9 +8,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WizardComponent } from './wizard/wizard.component';
 import { WizardStepComponent } from './wizard-step/wizard-step.component';
-var FormWizardModule = /** @class */ (function () {
-    function FormWizardModule() {
-    }
+let FormWizardModule = /** @class */ (() => {
+    let FormWizardModule = class FormWizardModule {
+    };
     FormWizardModule = __decorate([
         NgModule({
             imports: [
@@ -21,6 +21,6 @@ var FormWizardModule = /** @class */ (function () {
         })
     ], FormWizardModule);
     return FormWizardModule;
-}());
+})();
 export { FormWizardModule };
 //# sourceMappingURL=form-wizard.module.js.map

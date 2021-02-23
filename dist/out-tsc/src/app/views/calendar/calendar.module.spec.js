@@ -1,10 +1,10 @@
 import { CalendarModule } from './calendar.module';
-describe('CalendarModule', function () {
-    var calendarModule;
-    beforeEach(function () {
+describe('CalendarModule', () => {
+    let calendarModule;
+    beforeEach(() => {
         calendarModule = new CalendarModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(calendarModule).toBeTruthy();
     });
 });

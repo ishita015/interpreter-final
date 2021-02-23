@@ -1,10 +1,10 @@
 import { OthersModule } from './others.module';
-describe('OthersModule', function () {
-    var othersModule;
-    beforeEach(function () {
+describe('OthersModule', () => {
+    let othersModule;
+    beforeEach(() => {
         othersModule = new OthersModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(othersModule).toBeTruthy();
     });
 });

@@ -22,9 +22,9 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { InputMaskComponent } from './input-mask/input-mask.component';
 import { InputGroupsComponent } from './input-groups/input-groups.component';
 import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
-var AppFormsModule = /** @class */ (function () {
-    function AppFormsModule() {
-    }
+let AppFormsModule = /** @class */ (() => {
+    let AppFormsModule = class AppFormsModule {
+    };
     AppFormsModule = __decorate([
         NgModule({
             imports: [
@@ -44,6 +44,6 @@ var AppFormsModule = /** @class */ (function () {
         })
     ], AppFormsModule);
     return AppFormsModule;
-}());
+})();
 export { AppFormsModule };
 //# sourceMappingURL=forms.module.js.map

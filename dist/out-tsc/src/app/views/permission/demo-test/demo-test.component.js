@@ -8,12 +8,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var DemoTestComponent = /** @class */ (function () {
-    function DemoTestComponent() {
-    }
-    DemoTestComponent.prototype.ngOnInit = function () {
-        this.dataRe = JSON.parse(localStorage.getItem('permissionInfo'));
-        console.log("yes is working", this.dataRe[0]);
+let DemoTestComponent = /** @class */ (() => {
+    let DemoTestComponent = class DemoTestComponent {
+        constructor() { }
+        ngOnInit() {
+            this.dataRe = JSON.parse(localStorage.getItem('permissionInfo'));
+            console.log("yes is working", this.dataRe[0]);
+        }
     };
     DemoTestComponent = __decorate([
         Component({
@@ -24,6 +25,6 @@ var DemoTestComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], DemoTestComponent);
     return DemoTestComponent;
-}());
+})();
 export { DemoTestComponent };
 //# sourceMappingURL=demo-test.component.js.map

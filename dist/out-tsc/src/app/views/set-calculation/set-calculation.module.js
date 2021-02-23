@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
 import { SetCalculationRoutingModule } from './set-calculation-routing.module';
 import { SetCalculationAddComponent } from './set-calculation-add/set-calculation-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-var SetCalculationModule = /** @class */ (function () {
-    function SetCalculationModule() {
-    }
+let SetCalculationModule = /** @class */ (() => {
+    let SetCalculationModule = class SetCalculationModule {
+    };
     SetCalculationModule = __decorate([
         NgModule({
             declarations: [SetCalculationAddComponent],
@@ -24,6 +24,6 @@ var SetCalculationModule = /** @class */ (function () {
         })
     ], SetCalculationModule);
     return SetCalculationModule;
-}());
+})();
 export { SetCalculationModule };
 //# sourceMappingURL=set-calculation.module.js.map

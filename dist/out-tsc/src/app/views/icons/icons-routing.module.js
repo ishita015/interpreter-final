@@ -7,15 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconsmindComponent } from './iconsmind/iconsmind.component';
-var routes = [
+const routes = [
     {
         path: 'iconsmind',
         component: IconsmindComponent
     }
 ];
-var IconsRoutingModule = /** @class */ (function () {
-    function IconsRoutingModule() {
-    }
+let IconsRoutingModule = /** @class */ (() => {
+    let IconsRoutingModule = class IconsRoutingModule {
+    };
     IconsRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -23,6 +23,6 @@ var IconsRoutingModule = /** @class */ (function () {
         })
     ], IconsRoutingModule);
     return IconsRoutingModule;
-}());
+})();
 export { IconsRoutingModule };
 //# sourceMappingURL=icons-routing.module.js.map

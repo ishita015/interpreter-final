@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var PopoverComponent = /** @class */ (function () {
-    function PopoverComponent() {
-    }
-    PopoverComponent.prototype.ngOnInit = function () {
+let PopoverComponent = /** @class */ (() => {
+    let PopoverComponent = class PopoverComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     PopoverComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var PopoverComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], PopoverComponent);
     return PopoverComponent;
-}());
+})();
 export { PopoverComponent };
 //# sourceMappingURL=popover.component.js.map

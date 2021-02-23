@@ -10,30 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
-var ListPaginationComponent = /** @class */ (function () {
-    function ListPaginationComponent(dl) {
-        this.dl = dl;
-        this.viewMode = 'list';
-        this.page = 1;
-        this.pageSize = 8;
-        this.products = [];
-    }
-    ListPaginationComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.dl.getProducts()
-            .subscribe(function (products) {
-            _this.products = products;
-        });
-    };
-    ListPaginationComponent.prototype.selectAll = function (e) {
-        var _this = this;
-        this.products = this.products.map(function (p) {
-            p.isSelected = _this.allSelected;
-            return p;
-        });
-        if (this.allSelected) {
+let ListPaginationComponent = /** @class */ (() => {
+    let ListPaginationComponent = class ListPaginationComponent {
+        constructor(dl) {
+            this.dl = dl;
+            this.viewMode = 'list';
+            this.page = 1;
+            this.pageSize = 8;
+            this.products = [];
         }
-        console.log(this.allSelected);
+        ngOnInit() {
+            this.dl.getProducts()
+                .subscribe((products) => {
+                this.products = products;
+            });
+        }
+        selectAll(e) {
+            this.products = this.products.map(p => {
+                p.isSelected = this.allSelected;
+                return p;
+            });
+            if (this.allSelected) {
+            }
+            console.log(this.allSelected);
+        }
     };
     ListPaginationComponent = __decorate([
         Component({
@@ -45,6 +45,6 @@ var ListPaginationComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [DataLayerService])
     ], ListPaginationComponent);
     return ListPaginationComponent;
-}());
+})();
 export { ListPaginationComponent };
 //# sourceMappingURL=list-pagination.component.js.map

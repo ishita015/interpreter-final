@@ -1,6 +1,6 @@
 import { startOfDay } from 'date-fns';
-var CalendarAppEvent = /** @class */ (function () {
-    function CalendarAppEvent(data) {
+export class CalendarAppEvent {
+    constructor(data) {
         data = data || {};
         this.start = new Date(data.start) || startOfDay(new Date());
         this.end = data.end ? new Date(data.end) : null;
@@ -23,7 +23,5 @@ var CalendarAppEvent = /** @class */ (function () {
             notes: data.meta && data.meta.notes || ''
         };
     }
-    return CalendarAppEvent;
-}());
-export { CalendarAppEvent };
+}
 //# sourceMappingURL=calendar-event.model.js.map

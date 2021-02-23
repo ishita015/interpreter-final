@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-var PagesModule = /** @class */ (function () {
-    function PagesModule() {
-    }
+let PagesModule = /** @class */ (() => {
+    let PagesModule = class PagesModule {
+    };
     PagesModule = __decorate([
         NgModule({
             imports: [
@@ -23,6 +23,6 @@ var PagesModule = /** @class */ (function () {
         })
     ], PagesModule);
     return PagesModule;
-}());
+})();
 export { PagesModule };
 //# sourceMappingURL=pages.module.js.map

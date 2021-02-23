@@ -6,15 +6,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-var routes = [
+const routes = [
     {
         path: '',
-        loadChildren: function () { return import('./pages/pages.module').then(function (mod) { return mod.PagesModule; }); },
+        loadChildren: () => import('./pages/pages.module').then(mod => mod.PagesModule),
     },
 ];
-var AppRoutingModule = /** @class */ (function () {
-    function AppRoutingModule() {
-    }
+let AppRoutingModule = /** @class */ (() => {
+    let AppRoutingModule = class AppRoutingModule {
+    };
     AppRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forRoot(routes)],
@@ -22,6 +22,6 @@ var AppRoutingModule = /** @class */ (function () {
         })
     ], AppRoutingModule);
     return AppRoutingModule;
-}());
+})();
 export { AppRoutingModule };
 //# sourceMappingURL=app-routing.module.js.map

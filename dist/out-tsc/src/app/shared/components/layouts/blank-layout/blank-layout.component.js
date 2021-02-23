@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var BlankLayoutComponent = /** @class */ (function () {
-    function BlankLayoutComponent() {
-    }
-    BlankLayoutComponent.prototype.ngOnInit = function () {
+let BlankLayoutComponent = /** @class */ (() => {
+    let BlankLayoutComponent = class BlankLayoutComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     BlankLayoutComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var BlankLayoutComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], BlankLayoutComponent);
     return BlankLayoutComponent;
-}());
+})();
 export { BlankLayoutComponent };
 //# sourceMappingURL=blank-layout.component.js.map

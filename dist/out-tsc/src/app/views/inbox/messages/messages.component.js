@@ -12,19 +12,21 @@ import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComposeDialogComponent } from '../compose-dialog/compose-dialog.component';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
-var MessagesComponent = /** @class */ (function () {
-    function MessagesComponent(dl, modalService) {
-        this.dl = dl;
-        this.modalService = modalService;
-    }
-    MessagesComponent.prototype.ngOnInit = function () {
-        this.mails$ = this.dl.getMails();
-    };
-    MessagesComponent.prototype.select = function (mail) {
-        this.selected = mail;
-    };
-    MessagesComponent.prototype.openComposeModal = function () {
-        this.modalService.open(ComposeDialogComponent, { size: 'lg', centered: true });
+let MessagesComponent = /** @class */ (() => {
+    let MessagesComponent = class MessagesComponent {
+        constructor(dl, modalService) {
+            this.dl = dl;
+            this.modalService = modalService;
+        }
+        ngOnInit() {
+            this.mails$ = this.dl.getMails();
+        }
+        select(mail) {
+            this.selected = mail;
+        }
+        openComposeModal() {
+            this.modalService.open(ComposeDialogComponent, { size: 'lg', centered: true });
+        }
     };
     MessagesComponent = __decorate([
         Component({
@@ -37,6 +39,6 @@ var MessagesComponent = /** @class */ (function () {
             NgbModal])
     ], MessagesComponent);
     return MessagesComponent;
-}());
+})();
 export { MessagesComponent };
 //# sourceMappingURL=messages.component.js.map

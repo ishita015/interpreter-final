@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ImgCropperComponent } from './img-cropper.component';
-describe('ImgCropperComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('ImgCropperComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ImgCropperComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(ImgCropperComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

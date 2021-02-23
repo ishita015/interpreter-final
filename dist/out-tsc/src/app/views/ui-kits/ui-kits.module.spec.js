@@ -1,10 +1,10 @@
 import { UiKitsModule } from './ui-kits.module';
-describe('UiKitsModule', function () {
-    var uiKitsModule;
-    beforeEach(function () {
+describe('UiKitsModule', () => {
+    let uiKitsModule;
+    beforeEach(() => {
         uiKitsModule = new UiKitsModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(uiKitsModule).toBeTruthy();
     });
 });

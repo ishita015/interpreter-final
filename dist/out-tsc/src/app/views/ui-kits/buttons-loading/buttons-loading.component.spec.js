@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ButtonsLoadingComponent } from './buttons-loading.component';
-describe('ButtonsLoadingComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('ButtonsLoadingComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ButtonsLoadingComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(ButtonsLoadingComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

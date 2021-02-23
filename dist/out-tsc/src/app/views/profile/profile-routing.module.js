@@ -8,13 +8,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-var routes = [
+const routes = [
     { path: 'admin-profile', component: AdminProfileComponent },
     { path: 'change-password', component: ChangePasswordComponent },
 ];
-var ProfileRoutingModule = /** @class */ (function () {
-    function ProfileRoutingModule() {
-    }
+let ProfileRoutingModule = /** @class */ (() => {
+    let ProfileRoutingModule = class ProfileRoutingModule {
+    };
     ProfileRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -22,6 +22,6 @@ var ProfileRoutingModule = /** @class */ (function () {
         })
     ], ProfileRoutingModule);
     return ProfileRoutingModule;
-}());
+})();
 export { ProfileRoutingModule };
 //# sourceMappingURL=profile-routing.module.js.map

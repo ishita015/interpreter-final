@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var AuthLayoutComponent = /** @class */ (function () {
-    function AuthLayoutComponent() {
-    }
-    AuthLayoutComponent.prototype.ngOnInit = function () {
+let AuthLayoutComponent = /** @class */ (() => {
+    let AuthLayoutComponent = class AuthLayoutComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     AuthLayoutComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var AuthLayoutComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], AuthLayoutComponent);
     return AuthLayoutComponent;
-}());
+})();
 export { AuthLayoutComponent };
 //# sourceMappingURL=auth-layout.component.js.map

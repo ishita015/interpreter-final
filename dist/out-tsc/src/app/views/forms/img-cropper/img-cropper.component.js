@@ -10,29 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { CropperSettings } from 'ngx-img-cropper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-var AppImgCropperComponent = /** @class */ (function () {
-    function AppImgCropperComponent(modalService) {
-        this.modalService = modalService;
-        this.cropperSettings = new CropperSettings();
-        // this.cropperSettings.width = 100;
-        // this.cropperSettings.height = 100;
-        // this.cropperSettings.croppedWidth = 100;
-        // this.cropperSettings.croppedHeight = 100;
-        // this.cropperSettings.canvasWidth = 400;
-        // this.cropperSettings.canvasHeight = 300;
-        this.cropperSettings.cropperDrawSettings.lineDash = true;
-        this.cropperSettings.cropperDrawSettings.dragIconStrokeWidth = 0;
-        this.data = {};
-    }
-    AppImgCropperComponent.prototype.ngOnInit = function () {
-    };
-    AppImgCropperComponent.prototype.open = function (modal) {
-        this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title' })
-            .result.then(function (result) {
-            console.log(result);
-        }, function (reason) {
-            console.log('Err!', reason);
-        });
+let AppImgCropperComponent = /** @class */ (() => {
+    let AppImgCropperComponent = class AppImgCropperComponent {
+        constructor(modalService) {
+            this.modalService = modalService;
+            this.cropperSettings = new CropperSettings();
+            // this.cropperSettings.width = 100;
+            // this.cropperSettings.height = 100;
+            // this.cropperSettings.croppedWidth = 100;
+            // this.cropperSettings.croppedHeight = 100;
+            // this.cropperSettings.canvasWidth = 400;
+            // this.cropperSettings.canvasHeight = 300;
+            this.cropperSettings.cropperDrawSettings.lineDash = true;
+            this.cropperSettings.cropperDrawSettings.dragIconStrokeWidth = 0;
+            this.data = {};
+        }
+        ngOnInit() {
+        }
+        open(modal) {
+            this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title' })
+                .result.then((result) => {
+                console.log(result);
+            }, (reason) => {
+                console.log('Err!', reason);
+            });
+        }
     };
     AppImgCropperComponent = __decorate([
         Component({
@@ -43,6 +45,6 @@ var AppImgCropperComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [NgbModal])
     ], AppImgCropperComponent);
     return AppImgCropperComponent;
-}());
+})();
 export { AppImgCropperComponent };
 //# sourceMappingURL=img-cropper.component.js.map

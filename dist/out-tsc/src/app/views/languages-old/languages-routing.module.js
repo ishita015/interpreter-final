@@ -11,16 +11,16 @@ import { LanguagesListComponent } from './languages-list/languages-list.componen
 import { LanguagesEditComponent } from './languages-edit/languages-edit.component';
 import { LanguagesViewComponent } from './languages-view/languages-view.component';
 import { LangimportComponent } from './langimport/langimport.component';
-var routes = [
+const routes = [
     { path: 'list', component: LanguagesListComponent },
     { path: 'add', component: LanguagesAddComponent },
     { path: 'edit/:id', component: LanguagesEditComponent },
     { path: 'view/:id', component: LanguagesViewComponent },
     { path: 'excelImport', component: LangimportComponent },
 ];
-var LanguagesRoutingModule = /** @class */ (function () {
-    function LanguagesRoutingModule() {
-    }
+let LanguagesRoutingModule = /** @class */ (() => {
+    let LanguagesRoutingModule = class LanguagesRoutingModule {
+    };
     LanguagesRoutingModule = __decorate([
         NgModule({
             declarations: [],
@@ -29,6 +29,6 @@ var LanguagesRoutingModule = /** @class */ (function () {
         })
     ], LanguagesRoutingModule);
     return LanguagesRoutingModule;
-}());
+})();
 export { LanguagesRoutingModule };
 //# sourceMappingURL=languages-routing.module.js.map

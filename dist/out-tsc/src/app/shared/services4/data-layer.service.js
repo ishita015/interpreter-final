@@ -10,36 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Utils } from '../utils';
-var DataLayerService = /** @class */ (function () {
-    function DataLayerService(http) {
-        this.http = http;
-    }
-    DataLayerService.prototype.getInvoices = function () {
-        return this.http.get('/api/invoices');
-    };
-    DataLayerService.prototype.getInvoice = function (id) {
-        return this.http.get('/api/invoices/' + id);
-    };
-    DataLayerService.prototype.saveInvoice = function (invoice) {
-        if (invoice.id) {
-            return this.http.put('/api/invoices/' + invoice.id, invoice);
+let DataLayerService = /** @class */ (() => {
+    let DataLayerService = class DataLayerService {
+        constructor(http) {
+            this.http = http;
         }
-        else {
-            invoice.id = Utils.genId();
-            return this.http.post('/api/invoices/', invoice);
+        getInvoices() {
+            return this.http.get('/api/invoices');
         }
-    };
-    DataLayerService.prototype.deleteInvoice = function (id) {
-        return this.http.delete('/api/invoices/' + id);
-    };
-    DataLayerService.prototype.getMails = function () {
-        return this.http.get('/api/mails');
-    };
-    DataLayerService.prototype.getCountries = function () {
-        return this.http.get('/api/countries');
-    };
-    DataLayerService.prototype.getProducts = function () {
-        return this.http.get('api/products');
+        getInvoice(id) {
+            return this.http.get('/api/invoices/' + id);
+        }
+        saveInvoice(invoice) {
+            if (invoice.id) {
+                return this.http.put('/api/invoices/' + invoice.id, invoice);
+            }
+            else {
+                invoice.id = Utils.genId();
+                return this.http.post('/api/invoices/', invoice);
+            }
+        }
+        deleteInvoice(id) {
+            return this.http.delete('/api/invoices/' + id);
+        }
+        getMails() {
+            return this.http.get('/api/mails');
+        }
+        getCountries() {
+            return this.http.get('/api/countries');
+        }
+        getProducts() {
+            return this.http.get('api/products');
+        }
     };
     DataLayerService = __decorate([
         Injectable({
@@ -48,6 +50,6 @@ var DataLayerService = /** @class */ (function () {
         __metadata("design:paramtypes", [HttpClient])
     ], DataLayerService);
     return DataLayerService;
-}());
+})();
 export { DataLayerService };
 //# sourceMappingURL=data-layer.service.js.map

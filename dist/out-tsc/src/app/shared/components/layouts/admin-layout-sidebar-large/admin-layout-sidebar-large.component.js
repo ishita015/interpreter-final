@@ -12,22 +12,23 @@ import { NavigationService } from '../../../services/navigation.service';
 import { SearchService } from 'src/app/shared/services/search.service';
 import { Router, RouteConfigLoadStart, ResolveStart, RouteConfigLoadEnd, ResolveEnd } from '@angular/router';
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
-var AdminLayoutSidebarLargeComponent = /** @class */ (function () {
-    function AdminLayoutSidebarLargeComponent(navService, searchService, router) {
-        this.navService = navService;
-        this.searchService = searchService;
-        this.router = router;
-    }
-    AdminLayoutSidebarLargeComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.router.events.subscribe(function (event) {
-            if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
-                _this.moduleLoading = true;
-            }
-            if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
-                _this.moduleLoading = false;
-            }
-        });
+let AdminLayoutSidebarLargeComponent = /** @class */ (() => {
+    let AdminLayoutSidebarLargeComponent = class AdminLayoutSidebarLargeComponent {
+        constructor(navService, searchService, router) {
+            this.navService = navService;
+            this.searchService = searchService;
+            this.router = router;
+        }
+        ngOnInit() {
+            this.router.events.subscribe(event => {
+                if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
+                    this.moduleLoading = true;
+                }
+                if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
+                    this.moduleLoading = false;
+                }
+            });
+        }
     };
     __decorate([
         ViewChild(PerfectScrollbarDirective, { static: true }),
@@ -44,6 +45,6 @@ var AdminLayoutSidebarLargeComponent = /** @class */ (function () {
             Router])
     ], AdminLayoutSidebarLargeComponent);
     return AdminLayoutSidebarLargeComponent;
-}());
+})();
 export { AdminLayoutSidebarLargeComponent };
 //# sourceMappingURL=admin-layout-sidebar-large.component.js.map

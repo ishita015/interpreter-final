@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-var ProductService = /** @class */ (function () {
-    function ProductService(http) {
-        this.http = http;
-    }
-    ProductService.prototype.getProducts = function () {
-        return this.http.get('api/products');
+let ProductService = /** @class */ (() => {
+    let ProductService = class ProductService {
+        constructor(http) {
+            this.http = http;
+        }
+        getProducts() {
+            return this.http.get('api/products');
+        }
     };
     ProductService = __decorate([
         Injectable({
@@ -23,6 +25,6 @@ var ProductService = /** @class */ (function () {
         __metadata("design:paramtypes", [HttpClient])
     ], ProductService);
     return ProductService;
-}());
+})();
 export { ProductService };
 //# sourceMappingURL=product.service.js.map

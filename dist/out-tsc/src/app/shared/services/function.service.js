@@ -8,25 +8,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-var FunctionService = /** @class */ (function () {
-    function FunctionService() {
-    }
-    // ---------------------------- US date formate start----------------------------//
-    FunctionService.prototype.dateFormate = function () {
-        var today = new Date('dd/MM/yyyy');
-        console.log(today);
-        today.toLocaleDateString("en-US");
-    };
-    // ---------------------------- US date formate end----------------------------//
-    // ---------------------------- US mobile formate start----------------------------//
-    FunctionService.prototype.formatPhoneNumber = function (phoneNumberString) {
-        var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
-        var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
-        if (match) {
-            var intlCode = (match[1] ? '+1 ' : '');
-            return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+let FunctionService = /** @class */ (() => {
+    let FunctionService = class FunctionService {
+        constructor() { }
+        // ---------------------------- US date formate start----------------------------//
+        dateFormate() {
+            let today = new Date('dd/MM/yyyy');
+            console.log(today);
+            today.toLocaleDateString("en-US");
         }
-        return null;
+        // ---------------------------- US date formate end----------------------------//
+        // ---------------------------- US mobile formate start----------------------------//
+        formatPhoneNumber(phoneNumberString) {
+            var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+            var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+            if (match) {
+                var intlCode = (match[1] ? '+1 ' : '');
+                return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+            }
+            return null;
+        }
     };
     FunctionService = __decorate([
         Injectable({
@@ -35,6 +36,6 @@ var FunctionService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], FunctionService);
     return FunctionService;
-}());
+})();
 export { FunctionService };
 //# sourceMappingURL=function.service.js.map

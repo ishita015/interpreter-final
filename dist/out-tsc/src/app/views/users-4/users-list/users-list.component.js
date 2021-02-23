@@ -13,36 +13,37 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-var UsersListComponent = /** @class */ (function () {
-    function UsersListComponent(productService, modalService, toastr, service, router) {
-        this.productService = productService;
-        this.modalService = modalService;
-        this.toastr = toastr;
-        this.service = service;
-        this.router = router;
-    }
-    UsersListComponent.prototype.ngOnInit = function () {
-        this.products$ = this.productService.getProducts();
-    };
-    UsersListComponent.prototype.deleteUser = function (id, modal) {
-        var _this = this;
-        console.log("delete idddddddddd", id);
-        this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-            .result.then(function (result) {
-            _this.service.getUserDelete(id)
-                .subscribe(function (res) {
-                _this.userdelete_msg = res;
-                console.log("api", res);
-                _this.toastr.success(_this.userdelete_msg.message, '', { timeOut: 1000 });
-                // this.languageList();
+let UsersListComponent = /** @class */ (() => {
+    let UsersListComponent = class UsersListComponent {
+        constructor(productService, modalService, toastr, service, router) {
+            this.productService = productService;
+            this.modalService = modalService;
+            this.toastr = toastr;
+            this.service = service;
+            this.router = router;
+        }
+        ngOnInit() {
+            this.products$ = this.productService.getProducts();
+        }
+        deleteUser(id, modal) {
+            console.log("delete idddddddddd", id);
+            this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+                .result.then((result) => {
+                this.service.getUserDelete(id)
+                    .subscribe(res => {
+                    this.userdelete_msg = res;
+                    console.log("api", res);
+                    this.toastr.success(this.userdelete_msg.message, '', { timeOut: 1000 });
+                    // this.languageList();
+                });
+            }, (reason) => {
             });
-        }, function (reason) {
-        });
-    };
-    UsersListComponent.prototype.editUser = function (id, data) {
-        console.log("idd", id);
-        console.log("data", data);
-        localStorage.setItem('userData', JSON.stringify(data));
+        }
+        editUser(id, data) {
+            console.log("idd", id);
+            console.log("data", data);
+            localStorage.setItem('userData', JSON.stringify(data));
+        }
     };
     UsersListComponent = __decorate([
         Component({
@@ -57,6 +58,6 @@ var UsersListComponent = /** @class */ (function () {
             Router])
     ], UsersListComponent);
     return UsersListComponent;
-}());
+})();
 export { UsersListComponent };
 //# sourceMappingURL=users-list.component.js.map

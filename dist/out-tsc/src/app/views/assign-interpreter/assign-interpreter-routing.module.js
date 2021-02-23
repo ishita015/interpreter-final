@@ -6,10 +6,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-var routes = [];
-var AssignInterpreterRoutingModule = /** @class */ (function () {
-    function AssignInterpreterRoutingModule() {
-    }
+const routes = [];
+let AssignInterpreterRoutingModule = /** @class */ (() => {
+    let AssignInterpreterRoutingModule = class AssignInterpreterRoutingModule {
+    };
     AssignInterpreterRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -17,6 +17,6 @@ var AssignInterpreterRoutingModule = /** @class */ (function () {
         })
     ], AssignInterpreterRoutingModule);
     return AssignInterpreterRoutingModule;
-}());
+})();
 export { AssignInterpreterRoutingModule };
 //# sourceMappingURL=assign-interpreter-routing.module.js.map

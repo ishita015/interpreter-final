@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { FilterTableComponent } from './filter-table.component';
-describe('FilterTableComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('FilterTableComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [FilterTableComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(FilterTableComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

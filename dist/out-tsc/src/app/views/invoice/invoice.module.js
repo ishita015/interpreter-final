@@ -13,9 +13,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
-var InvoiceModule = /** @class */ (function () {
-    function InvoiceModule() {
-    }
+let InvoiceModule = /** @class */ (() => {
+    let InvoiceModule = class InvoiceModule {
+    };
     InvoiceModule = __decorate([
         NgModule({
             imports: [
@@ -31,6 +31,6 @@ var InvoiceModule = /** @class */ (function () {
         })
     ], InvoiceModule);
     return InvoiceModule;
-}());
+})();
 export { InvoiceModule };
 //# sourceMappingURL=invoice.module.js.map

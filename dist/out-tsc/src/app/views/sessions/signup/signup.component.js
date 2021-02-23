@@ -9,10 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
-var SignupComponent = /** @class */ (function () {
-    function SignupComponent() {
-    }
-    SignupComponent.prototype.ngOnInit = function () {
+let SignupComponent = /** @class */ (() => {
+    let SignupComponent = class SignupComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     SignupComponent = __decorate([
         Component({
@@ -24,6 +25,6 @@ var SignupComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], SignupComponent);
     return SignupComponent;
-}());
+})();
 export { SignupComponent };
 //# sourceMappingURL=signup.component.js.map

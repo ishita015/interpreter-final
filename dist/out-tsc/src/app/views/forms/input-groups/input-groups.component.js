@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var InputGroupsComponent = /** @class */ (function () {
-    function InputGroupsComponent() {
-    }
-    InputGroupsComponent.prototype.ngOnInit = function () {
+let InputGroupsComponent = /** @class */ (() => {
+    let InputGroupsComponent = class InputGroupsComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     InputGroupsComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var InputGroupsComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], InputGroupsComponent);
     return InputGroupsComponent;
-}());
+})();
 export { InputGroupsComponent };
 //# sourceMappingURL=input-groups.component.js.map

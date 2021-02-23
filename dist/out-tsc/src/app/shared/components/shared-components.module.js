@@ -15,13 +15,13 @@ import { SearchModule } from './search/search.module';
 import { SharedDirectivesModule } from '../directives/shared-directives.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { LayoutsModule } from './layouts/layouts.module';
-var components = [
+const components = [
     BtnLoadingComponent,
     FeatherIconComponent,
 ];
-var SharedComponentsModule = /** @class */ (function () {
-    function SharedComponentsModule() {
-    }
+let SharedComponentsModule = /** @class */ (() => {
+    let SharedComponentsModule = class SharedComponentsModule {
+    };
     SharedComponentsModule = __decorate([
         NgModule({
             imports: [
@@ -39,6 +39,6 @@ var SharedComponentsModule = /** @class */ (function () {
         })
     ], SharedComponentsModule);
     return SharedComponentsModule;
-}());
+})();
 export { SharedComponentsModule };
 //# sourceMappingURL=shared-components.module.js.map

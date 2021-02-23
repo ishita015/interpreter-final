@@ -12,16 +12,17 @@ import hljs from 'highlight.js';
 // import hljs from 'highlight.js/lib/highlight';
 // import javascript from 'highlight.js/lib/languages/javascript';
 // import typescript from 'highlight.js/lib/languages/typescript';
-var HighlightjsDirective = /** @class */ (function () {
-    function HighlightjsDirective(el) {
-        var _this = this;
-        this.el = el;
-        // this.registerLanguages();
-        this.nativeEl = this.el.nativeElement;
-        setTimeout(function () {
-            hljs.highlightBlock(_this.nativeEl);
-        });
-    }
+let HighlightjsDirective = /** @class */ (() => {
+    let HighlightjsDirective = class HighlightjsDirective {
+        constructor(el) {
+            this.el = el;
+            // this.registerLanguages();
+            this.nativeEl = this.el.nativeElement;
+            setTimeout(() => {
+                hljs.highlightBlock(this.nativeEl);
+            });
+        }
+    };
     __decorate([
         Input('highlight'),
         __metadata("design:type", Object)
@@ -33,6 +34,6 @@ var HighlightjsDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [ElementRef])
     ], HighlightjsDirective);
     return HighlightjsDirective;
-}());
+})();
 export { HighlightjsDirective };
 //# sourceMappingURL=highlightjs.directive.js.map

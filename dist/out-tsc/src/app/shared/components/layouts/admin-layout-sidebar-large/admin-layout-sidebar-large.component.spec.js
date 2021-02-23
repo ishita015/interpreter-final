@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AdminLayoutSidebarLargeComponent } from './admin-layout-sidebar-large.component';
-describe('AdminLayoutSidebarLargeComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('AdminLayoutSidebarLargeComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [AdminLayoutSidebarLargeComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(AdminLayoutSidebarLargeComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

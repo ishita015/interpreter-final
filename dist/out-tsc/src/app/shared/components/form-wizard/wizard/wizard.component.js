@@ -9,90 +9,67 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, ContentChildren, QueryList, EventEmitter, Output } from '@angular/core';
 import { WizardStepComponent } from '../wizard-step/wizard-step.component';
-var WizardComponent = /** @class */ (function () {
-    function WizardComponent() {
-        this._steps = [];
-        this._isCompleted = false;
-        this.onStepChanged = new EventEmitter();
-    }
-    WizardComponent.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this.wizardSteps.forEach(function (step) { return _this._steps.push(step); });
-        this.steps[0].isActive = true;
-    };
-    Object.defineProperty(WizardComponent.prototype, "steps", {
-        get: function () {
-            return this._steps.filter(function (step) { return !step.hidden; });
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(WizardComponent.prototype, "isCompleted", {
-        get: function () {
+let WizardComponent = /** @class */ (() => {
+    let WizardComponent = class WizardComponent {
+        constructor() {
+            this._steps = [];
+            this._isCompleted = false;
+            this.onStepChanged = new EventEmitter();
+        }
+        ngAfterContentInit() {
+            this.wizardSteps.forEach(step => this._steps.push(step));
+            this.steps[0].isActive = true;
+        }
+        get steps() {
+            return this._steps.filter(step => !step.hidden);
+        }
+        get isCompleted() {
             return this._isCompleted;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(WizardComponent.prototype, "activeStep", {
-        get: function () {
-            return this.steps.find(function (step) { return step.isActive; });
-        },
-        set: function (step) {
+        }
+        get activeStep() {
+            return this.steps.find(step => step.isActive);
+        }
+        set activeStep(step) {
             if (step !== this.activeStep && !step.isDisabled) {
                 this.activeStep.isActive = false;
                 step.isActive = true;
                 this.onStepChanged.emit(step);
             }
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(WizardComponent.prototype, "activeStepIndex", {
-        get: function () {
+        }
+        get activeStepIndex() {
             return this.steps.indexOf(this.activeStep);
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(WizardComponent.prototype, "hasNextStep", {
-        get: function () {
+        }
+        get hasNextStep() {
             return this.activeStepIndex < this.steps.length - 1;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(WizardComponent.prototype, "hasPrevStep", {
-        get: function () {
+        }
+        get hasPrevStep() {
             return this.activeStepIndex > 0;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    WizardComponent.prototype.goToStep = function (step) {
-        if (!this.isCompleted) {
-            this.activeStep = step;
         }
-    };
-    WizardComponent.prototype.next = function () {
-        if (this.hasNextStep) {
-            var nextStep = this.steps[this.activeStepIndex + 1];
-            this.activeStep.onNext.emit();
-            nextStep.isDisabled = false;
-            this.activeStep = nextStep;
+        goToStep(step) {
+            if (!this.isCompleted) {
+                this.activeStep = step;
+            }
         }
-    };
-    WizardComponent.prototype.previous = function () {
-        if (this.hasPrevStep) {
-            var prevStep = this.steps[this.activeStepIndex - 1];
-            this.activeStep.onPrev.emit();
-            prevStep.isDisabled = false;
-            this.activeStep = prevStep;
+        next() {
+            if (this.hasNextStep) {
+                const nextStep = this.steps[this.activeStepIndex + 1];
+                this.activeStep.onNext.emit();
+                nextStep.isDisabled = false;
+                this.activeStep = nextStep;
+            }
         }
-    };
-    WizardComponent.prototype.complete = function () {
-        this.activeStep.onComplete.emit();
-        this._isCompleted = true;
+        previous() {
+            if (this.hasPrevStep) {
+                const prevStep = this.steps[this.activeStepIndex - 1];
+                this.activeStep.onPrev.emit();
+                prevStep.isDisabled = false;
+                this.activeStep = prevStep;
+            }
+        }
+        complete() {
+            this.activeStep.onComplete.emit();
+            this._isCompleted = true;
+        }
     };
     __decorate([
         ContentChildren(WizardStepComponent),
@@ -111,6 +88,6 @@ var WizardComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], WizardComponent);
     return WizardComponent;
-}());
+})();
 export { WizardComponent };
 //# sourceMappingURL=wizard.component.js.map

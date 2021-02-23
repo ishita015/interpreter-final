@@ -21,9 +21,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { AddCalenderComponent } from './add-calender/add-calender.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditCalenderComponent } from './edit-calender/edit-calender.component';
-var DashboardModule = /** @class */ (function () {
-    function DashboardModule() {
-    }
+let DashboardModule = /** @class */ (() => {
+    let DashboardModule = class DashboardModule {
+    };
     DashboardModule = __decorate([
         NgModule({
             imports: [
@@ -45,6 +45,6 @@ var DashboardModule = /** @class */ (function () {
         })
     ], DashboardModule);
     return DashboardModule;
-}());
+})();
 export { DashboardModule };
 //# sourceMappingURL=dashboard.module.js.map

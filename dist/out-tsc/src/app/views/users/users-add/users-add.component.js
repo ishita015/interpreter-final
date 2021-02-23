@@ -22,176 +22,170 @@ import { MapsAPILoader } from '@agm/core';
 //
 import { DataLayerService } from 'src/app/shared/services/data-layer.service';
 import { FunctionService } from './../../../shared/services/function.service';
-var UsersAddComponent = /** @class */ (function () {
-    function UsersAddComponent(validation, fb, toastr, router, func, dl, service, mapsAPILoader, ngZone) {
-        this.validation = validation;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.func = func;
-        this.dl = dl;
-        this.service = service;
-        this.mapsAPILoader = mapsAPILoader;
-        this.ngZone = ngZone;
-        this.latlong = '';
-        this.items = ['Javascript', 'Typescript'];
-        this.title = 'AGM project';
-        this.tagsCtrl1 = new FormControl(this.items);
-        this.tagsCtrl2 = new FormControl([]);
-    }
-    UsersAddComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.createForm();
-        this.LanguageList();
-        this.userRoleList();
-        //load Places Autocomplete
-        this.mapsAPILoader.load().then(function () {
-            _this.setCurrentLocation();
-            _this.geoCoder = new google.maps.Geocoder;
-            var autocomplete = new google.maps.places.Autocomplete(_this.searchElementRef.nativeElement);
-            autocomplete.addListener("place_changed", function () {
-                _this.ngZone.run(function () {
-                    //get the place result
-                    var place = autocomplete.getPlace();
-                    _this.new_address = place['formatted_address'];
-                    //verify result
-                    if (place.geometry === undefined || place.geometry === null) {
-                        return;
-                    }
-                    // console.log("place-",place[0].formatted_address);
-                    //set latitude, longitude and zoom
-                    _this.latitude = place.geometry.location.lat();
-                    _this.longitude = place.geometry.location.lng();
-                    // console.log("latitude-",this.latitude);
-                    // console.log("longitude-",this.longitude);
-                    _this.zoom = 12;
-                });
-            });
-        });
-    };
-    UsersAddComponent.prototype.onChange = function (id) {
-        this.newlanguageVal = id.target.value;
-        console.log("iddddddddddd", this.newlanguageVal);
-    };
-    UsersAddComponent.prototype.onChangeRole = function (id) {
-        this.newrole = id.target.value;
-        console.log("iddddddddddd", this.newrole);
-    };
-    UsersAddComponent.prototype.onSelect = function (item) {
-        console.log('tag selected: value is' + item);
-    };
-    /*========== Form Value Start Here========*/
-    UsersAddComponent.prototype.createForm = function () {
-        this.userForm = this.fb.group({
-            first_name: ['', this.validation.name_validation],
-            last_name: ['', this.validation.name_validation],
-            email: ['', this.validation.onlyRequired_validator],
-            password: ['', this.validation.onlyRequired_validator],
-            mobile: ['', this.validation.onlyRequired_validator],
-            address: ['', this.validation.onlyRequired_validator],
-            apartment: ['', this.validation.onlyRequired_validator],
-            street: ['', this.validation.onlyRequired_validator],
-            gender: ['', this.validation.onlyRequired_validator],
-            languageid: [''],
-            latitude: [''],
-            longitude: [''],
-            primary_language: ['', this.validation.onlyRequired_validator],
-            user_role: ['', this.validation.onlyRequired_validator],
-            rate: [''],
-        });
-    };
-    /*========== Form Value End Here========*/
-    UsersAddComponent.prototype.saveUser = function () {
-        var _this = this;
-        this.submitted = true;
-        if (this.userForm.invalid) {
-            return;
+let UsersAddComponent = /** @class */ (() => {
+    let UsersAddComponent = class UsersAddComponent {
+        constructor(validation, fb, toastr, router, func, dl, service, mapsAPILoader, ngZone) {
+            this.validation = validation;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.func = func;
+            this.dl = dl;
+            this.service = service;
+            this.mapsAPILoader = mapsAPILoader;
+            this.ngZone = ngZone;
+            this.latlong = '';
+            this.items = ['Javascript', 'Typescript'];
+            this.title = 'AGM project';
+            this.tagsCtrl1 = new FormControl(this.items);
+            this.tagsCtrl2 = new FormControl([]);
         }
-        this.submitted = false;
-        this.userForm.value.latitude = this.latitude;
-        this.userForm.value.longitude = this.longitude;
-        this.userForm.value.address = this.new_address;
-        this.userForm.value.language = this.newlanguageVal;
-        this.userForm.value.role = this.newrole;
-        // this.func.formatPhoneNumber(this.userForm.value.mobile);
-        console.log("form value", this.userForm.value);
-        this.service.interpreterAdd(this.userForm.value)
-            .subscribe(function (res) {
-            // console.log("api response",res);
-            _this.user_Obj = res;
-            _this.user_Msg = res;
-            _this.toastr.success(_this.user_Msg.message, '', { timeOut: 1000 });
-            _this.router.navigate(['/users/user-list']);
-        });
-    };
-    UsersAddComponent.prototype.LanguageList = function () {
-        var _this = this;
-        this.service.getLanguageList()
-            .subscribe(function (res) {
-            // console.log("api response",res);
-            _this.language_Obj = res['data'];
-            console.log("my testing", _this.language_Obj);
-        });
-    };
-    UsersAddComponent.prototype.userRoleList = function () {
-        var _this = this;
-        this.service.roleList()
-            .subscribe(function (res) {
-            // console.log("api response",res);
-            _this.role_Obj = res['data'];
-            console.log("my testing", _this.role_Obj);
-        });
-    };
-    UsersAddComponent.prototype.checkEmail = function ($event, email) {
-        console.log("email-", email);
-        // console.log("event-",$event)
-        this.service.checkUserEmail(email)
-            .subscribe(function (res) {
-            if (res['status'] == '1') {
-                alert(res['message']);
-                // this.userForm.value.email = '';
-                $event.target.value = "";
+        ngOnInit() {
+            this.createForm();
+            this.LanguageList();
+            this.userRoleList();
+            //load Places Autocomplete
+            // this.mapsAPILoader.load().then(() => {
+            //     this.setCurrentLocation();
+            //     this.geoCoder = new google.maps.Geocoder;
+            //     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+            //     autocomplete.addListener("place_changed", () => {
+            //         this.ngZone.run(() => {
+            //             //get the place result
+            //             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            //             this.new_address = place['formatted_address'];
+            //             //verify result
+            //             if (place.geometry === undefined || place.geometry === null) {
+            //                 return;
+            //             }
+            //             // console.log("place-",place[0].formatted_address);
+            //             //set latitude, longitude and zoom
+            //             this.latitude = place.geometry.location.lat();
+            //             this.longitude = place.geometry.location.lng();
+            //             // console.log("latitude-",this.latitude);
+            //             // console.log("longitude-",this.longitude);
+            //             this.zoom = 12;
+            //         });
+            //     });
+            // });
+        }
+        onChange(id) {
+            this.newlanguageVal = id.target.value;
+            console.log("iddddddddddd", this.newlanguageVal);
+        }
+        onChangeRole(id) {
+            this.newrole = id.target.value;
+            console.log("iddddddddddd", this.newrole);
+        }
+        onSelect(item) {
+            console.log('tag selected: value is' + item);
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.userForm = this.fb.group({
+                id: [''],
+                first_name: ['', this.validation.name_validation],
+                last_name: ['', this.validation.name_validation],
+                email: ['', this.validation.onlyRequired_validator],
+                password: ['', this.validation.onlyRequired_validator],
+                mobile: ['', this.validation.onlyRequired_validator],
+                // address: ['', this.validation.onlyRequired_validator],
+                // apartment:['', this.validation.onlyRequired_validator],
+                // street:['', this.validation.onlyRequired_validator],
+                // gender: ['', this.validation.onlyRequired_validator],
+                // languageid: [''],
+                // latitude: [''],
+                // longitude: [''],
+                // primary_language: ['', this.validation.onlyRequired_validator],
+                user_role: ['', this.validation.onlyRequired_validator],
+            });
+        }
+        /*========== Form Value End Here========*/
+        saveUser() {
+            this.submitted = true;
+            if (this.userForm.invalid) {
+                return;
             }
-        });
-    };
-    // Get Current Location Coordinates
-    UsersAddComponent.prototype.setCurrentLocation = function () {
-        var _this = this;
-        if ('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                _this.latitude = position.coords.latitude;
-                _this.longitude = position.coords.longitude;
-                _this.zoom = 8;
-                _this.getAddress(_this.latitude, _this.longitude);
-            });
-        }
-    };
-    UsersAddComponent.prototype.markerDragEnd = function ($event) {
-        console.log($event);
-        this.latitude = $event.coords.lat;
-        this.longitude = $event.coords.lng;
-        console.log("latitude-", this.latitude);
-        console.log("longitude-", this.longitude);
-        this.getAddress(this.latitude, this.longitude);
-    };
-    UsersAddComponent.prototype.getAddress = function (latitude, longitude) {
-        var _this = this;
-        this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, function (results, status) {
-            console.log(results);
-            console.log(status);
-            if (status === 'OK') {
-                if (results[0]) {
-                    _this.zoom = 12;
-                    _this.address = results[0].formatted_address;
+            this.submitted = false;
+            this.service.post('add-edit-user', this.userForm.value)
+                .subscribe(res => {
+                if (res['status'] == true) {
+                    this.toastr.success(res['msg'], '', { timeOut: 1000 });
+                    this.router.navigateByUrl('/sessions/signin', { skipLocationChange: true }).then(() => {
+                        this.router.navigate(['/users/user-list/' + this.userForm.value.user_role]);
+                    });
+                    // location.reload();
                 }
                 else {
-                    window.alert('No results found');
+                    this.toastr.warning(res['msg'], '', { timeOut: 1000 });
                 }
+            });
+        }
+        LanguageList() {
+            this.service.getLanguageList()
+                .subscribe(res => {
+                // console.log("api response",res);
+                this.language_Obj = res['data'];
+                console.log("my testing", this.language_Obj);
+            });
+        }
+        userRoleList() {
+            this.service.roleList()
+                .subscribe(res => {
+                // console.log("api response",res);
+                this.role_Obj = res['data'];
+                console.log("my testing", this.role_Obj);
+            });
+        }
+        checkEmail($event, email) {
+            console.log("email-", email);
+            // console.log("event-",$event)
+            this.service.checkUserEmail(email)
+                .subscribe(res => {
+                if (res['status'] == '1') {
+                    this.toastr.warning(res['message']);
+                    // this.userForm.value.email = '';
+                    $event.target.value = "";
+                }
+            });
+        }
+        // Get Current Location Coordinates
+        setCurrentLocation() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.latitude = position.coords.latitude;
+                    this.longitude = position.coords.longitude;
+                    this.zoom = 8;
+                    this.getAddress(this.latitude, this.longitude);
+                });
             }
-            else {
-                window.alert('Geocoder failed due to: ' + status);
-            }
-        });
+        }
+        markerDragEnd($event) {
+            console.log($event);
+            this.latitude = $event.coords.lat;
+            this.longitude = $event.coords.lng;
+            console.log("latitude-", this.latitude);
+            console.log("longitude-", this.longitude);
+            this.getAddress(this.latitude, this.longitude);
+        }
+        getAddress(latitude, longitude) {
+            this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+                console.log(results);
+                console.log(status);
+                if (status === 'OK') {
+                    if (results[0]) {
+                        this.zoom = 12;
+                        this.address = results[0].formatted_address;
+                    }
+                    else {
+                        window.alert('No results found');
+                    }
+                }
+                else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+        }
     };
     __decorate([
         ViewChild('search'),
@@ -214,6 +208,6 @@ var UsersAddComponent = /** @class */ (function () {
             NgZone])
     ], UsersAddComponent);
     return UsersAddComponent;
-}());
+})();
 export { UsersAddComponent };
 //# sourceMappingURL=users-add.component.js.map

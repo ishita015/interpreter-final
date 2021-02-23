@@ -5,20 +5,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Pipe } from '@angular/core';
-var ExcerptPipe = /** @class */ (function () {
-    function ExcerptPipe() {
-    }
-    ExcerptPipe.prototype.transform = function (text, limit) {
-        if (limit === void 0) { limit = 5; }
-        if (text.length <= limit) {
-            return text;
+let ExcerptPipe = /** @class */ (() => {
+    let ExcerptPipe = class ExcerptPipe {
+        transform(text, limit = 5) {
+            if (text.length <= limit) {
+                return text;
+            }
+            return text.substring(0, limit) + '...';
         }
-        return text.substring(0, limit) + '...';
     };
     ExcerptPipe = __decorate([
         Pipe({ name: 'excerpt' })
     ], ExcerptPipe);
     return ExcerptPipe;
-}());
+})();
 export { ExcerptPipe };
 //# sourceMappingURL=excerpt.pipe.js.map

@@ -11,9 +11,9 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
-var ProfileModule = /** @class */ (function () {
-    function ProfileModule() {
-    }
+let ProfileModule = /** @class */ (() => {
+    let ProfileModule = class ProfileModule {
+    };
     ProfileModule = __decorate([
         NgModule({
             declarations: [AdminProfileComponent, ChangePasswordComponent],
@@ -27,6 +27,6 @@ var ProfileModule = /** @class */ (function () {
         })
     ], ProfileModule);
     return ProfileModule;
-}());
+})();
 export { ProfileModule };
 //# sourceMappingURL=profile.module.js.map

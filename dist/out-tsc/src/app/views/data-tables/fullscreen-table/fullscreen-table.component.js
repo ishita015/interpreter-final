@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/product.service';
-var FullscreenTableComponent = /** @class */ (function () {
-    function FullscreenTableComponent(productService) {
-        this.productService = productService;
-    }
-    FullscreenTableComponent.prototype.ngOnInit = function () {
-        this.products$ = this.productService.getProducts();
+let FullscreenTableComponent = /** @class */ (() => {
+    let FullscreenTableComponent = class FullscreenTableComponent {
+        constructor(productService) {
+            this.productService = productService;
+        }
+        ngOnInit() {
+            this.products$ = this.productService.getProducts();
+        }
     };
     FullscreenTableComponent = __decorate([
         Component({
@@ -25,6 +27,6 @@ var FullscreenTableComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ProductService])
     ], FullscreenTableComponent);
     return FullscreenTableComponent;
-}());
+})();
 export { FullscreenTableComponent };
 //# sourceMappingURL=fullscreen-table.component.js.map

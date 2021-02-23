@@ -7,15 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
-var routes = [
+const routes = [
     {
         path: '404',
         component: NotFoundComponent
     }
 ];
-var OthersRoutingModule = /** @class */ (function () {
-    function OthersRoutingModule() {
-    }
+let OthersRoutingModule = /** @class */ (() => {
+    let OthersRoutingModule = class OthersRoutingModule {
+    };
     OthersRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -23,6 +23,6 @@ var OthersRoutingModule = /** @class */ (function () {
         })
     ], OthersRoutingModule);
     return OthersRoutingModule;
-}());
+})();
 export { OthersRoutingModule };
 //# sourceMappingURL=others-routing.module.js.map

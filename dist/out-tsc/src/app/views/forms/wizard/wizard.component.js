@@ -9,22 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-var WizardComponent = /** @class */ (function () {
-    function WizardComponent(fb) {
-        this.fb = fb;
-        this.data = {
-            email: ''
-        };
-    }
-    WizardComponent.prototype.ngOnInit = function () {
-        this.step2Form = this.fb.group({
-            experience: [2]
-        });
+let WizardComponent = /** @class */ (() => {
+    let WizardComponent = class WizardComponent {
+        constructor(fb) {
+            this.fb = fb;
+            this.data = {
+                email: ''
+            };
+        }
+        ngOnInit() {
+            this.step2Form = this.fb.group({
+                experience: [2]
+            });
+        }
+        onStep1Next(e) { }
+        onStep2Next(e) { }
+        onStep3Next(e) { }
+        onComplete(e) { }
     };
-    WizardComponent.prototype.onStep1Next = function (e) { };
-    WizardComponent.prototype.onStep2Next = function (e) { };
-    WizardComponent.prototype.onStep3Next = function (e) { };
-    WizardComponent.prototype.onComplete = function (e) { };
     WizardComponent = __decorate([
         Component({
             selector: 'app-wizard',
@@ -34,6 +36,6 @@ var WizardComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [FormBuilder])
     ], WizardComponent);
     return WizardComponent;
-}());
+})();
 export { WizardComponent };
 //# sourceMappingURL=wizard.component.js.map

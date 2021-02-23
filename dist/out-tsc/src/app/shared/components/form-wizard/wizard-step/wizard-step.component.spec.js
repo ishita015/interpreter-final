@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { WizardStepComponent } from './wizard-step.component';
-describe('WizardStepComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('WizardStepComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [WizardStepComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(WizardStepComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

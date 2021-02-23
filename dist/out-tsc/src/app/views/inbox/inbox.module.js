@@ -13,9 +13,9 @@ import { ComposeDialogComponent } from './compose-dialog/compose-dialog.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuillModule } from 'ngx-quill';
 import { SharedDirectivesModule } from 'src/app/shared/directives/shared-directives.module';
-var InboxModule = /** @class */ (function () {
-    function InboxModule() {
-    }
+let InboxModule = /** @class */ (() => {
+    let InboxModule = class InboxModule {
+    };
     InboxModule = __decorate([
         NgModule({
             imports: [
@@ -30,6 +30,6 @@ var InboxModule = /** @class */ (function () {
         })
     ], InboxModule);
     return InboxModule;
-}());
+})();
 export { InboxModule };
 //# sourceMappingURL=inbox.module.js.map

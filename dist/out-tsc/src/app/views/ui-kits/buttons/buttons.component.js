@@ -8,15 +8,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var ButtonsComponent = /** @class */ (function () {
-    function ButtonsComponent() {
-        this.btnGroupModel = {
-            left: true,
-            middle: false,
-            right: false
-        };
-    }
-    ButtonsComponent.prototype.ngOnInit = function () { };
+let ButtonsComponent = /** @class */ (() => {
+    let ButtonsComponent = class ButtonsComponent {
+        constructor() {
+            this.btnGroupModel = {
+                left: true,
+                middle: false,
+                right: false
+            };
+        }
+        ngOnInit() { }
+    };
     ButtonsComponent = __decorate([
         Component({
             selector: 'app-buttons',
@@ -26,6 +28,6 @@ var ButtonsComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ButtonsComponent);
     return ButtonsComponent;
-}());
+})();
 export { ButtonsComponent };
 //# sourceMappingURL=buttons.component.js.map

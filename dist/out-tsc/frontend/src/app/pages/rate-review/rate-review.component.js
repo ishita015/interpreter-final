@@ -14,54 +14,55 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidationsService } from 'src/app/services/validations.service';
 import { ToastrService } from 'ngx-toastr';
-var RateReviewComponent = /** @class */ (function () {
-    function RateReviewComponent(route, service, fb, router, toastr, validation) {
-        this.route = route;
-        this.service = service;
-        this.fb = fb;
-        this.router = router;
-        this.toastr = toastr;
-        this.validation = validation;
-        this.currentRate = 0;
-    }
-    RateReviewComponent.prototype.ngOnInit = function () {
-        this.ratingkey = this.route.snapshot.params.uniqueCode;
-        console.log("verifykey", this.ratingkey);
-        this.createForm1();
-    };
-    /*==========Step Form Value Start Here========*/
-    RateReviewComponent.prototype.createForm1 = function () {
-        this.ratingForm = this.fb.group({
-            rating: ['', this.validation.onlyRequired_validator],
-            unique_code: [''],
-            review: [''],
-        });
-    };
-    /*==========Step Form Value End Here========*/
-    RateReviewComponent.prototype.submitForm1 = function () {
-        var _this = this;
-        console.log("form", this.ratingForm.value);
-        this.submitted = true;
-        if (this.ratingForm.invalid) {
-            return;
-        }
-        this.submitted = false;
-        this.ratingForm.value.unique_code = this.ratingkey;
-        console.log(this.ratingForm.value);
-        this.service.getRating(this.ratingForm.value)
-            .subscribe(function (res) {
-            console.log("api response", res);
-            if (res['status'] == 1) {
-                _this.rate_Obj = res;
-                console.log("ressss", _this.rate_Obj);
-                _this.toastr.success(_this.rate_Obj.message, '', { timeOut: 2000 });
-            }
-            else {
-                _this.toastr.error(res['message'], '', { timeOut: 2000 });
-            }
-        });
-    };
+let RateReviewComponent = /** @class */ (() => {
     var _a;
+    let RateReviewComponent = class RateReviewComponent {
+        constructor(route, service, fb, router, toastr, validation) {
+            this.route = route;
+            this.service = service;
+            this.fb = fb;
+            this.router = router;
+            this.toastr = toastr;
+            this.validation = validation;
+            this.currentRate = 0;
+        }
+        ngOnInit() {
+            this.ratingkey = this.route.snapshot.params.uniqueCode;
+            console.log("verifykey", this.ratingkey);
+            this.createForm1();
+        }
+        /*==========Step Form Value Start Here========*/
+        createForm1() {
+            this.ratingForm = this.fb.group({
+                rating: ['', this.validation.onlyRequired_validator],
+                unique_code: [''],
+                review: [''],
+            });
+        }
+        /*==========Step Form Value End Here========*/
+        submitForm1() {
+            console.log("form", this.ratingForm.value);
+            this.submitted = true;
+            if (this.ratingForm.invalid) {
+                return;
+            }
+            this.submitted = false;
+            this.ratingForm.value.unique_code = this.ratingkey;
+            console.log(this.ratingForm.value);
+            this.service.getRating(this.ratingForm.value)
+                .subscribe(res => {
+                console.log("api response", res);
+                if (res['status'] == 1) {
+                    this.rate_Obj = res;
+                    console.log("ressss", this.rate_Obj);
+                    this.toastr.success(this.rate_Obj.message, '', { timeOut: 2000 });
+                }
+                else {
+                    this.toastr.error(res['message'], '', { timeOut: 2000 });
+                }
+            });
+        }
+    };
     RateReviewComponent = __decorate([
         Component({
             selector: 'app-rate-review',
@@ -75,6 +76,6 @@ var RateReviewComponent = /** @class */ (function () {
             ToastrService, typeof (_a = typeof ValidationsService !== "undefined" && ValidationsService) === "function" ? _a : Object])
     ], RateReviewComponent);
     return RateReviewComponent;
-}());
+})();
 export { RateReviewComponent };
 //# sourceMappingURL=rate-review.component.js.map

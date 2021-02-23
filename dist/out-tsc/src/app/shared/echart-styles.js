@@ -1,16 +1,5 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var echartStyles = /** @class */ (function () {
-    function echartStyles() {
+let echartStyles = /** @class */ (() => {
+    class echartStyles {
     }
     echartStyles.smoothLine = {
         type: 'line',
@@ -51,8 +40,8 @@ var echartStyles = /** @class */ (function () {
             }
         }
     };
-    echartStyles.pieLineStyle = __assign({ color: 'rgba(0,0,0,0)', borderWidth: 2 }, echartStyles.lineShadow);
-    echartStyles.pieThikLineStyle = __assign({ color: 'rgba(0,0,0,0)', borderWidth: 12 }, echartStyles.lineShadow);
+    echartStyles.pieLineStyle = Object.assign({ color: 'rgba(0,0,0,0)', borderWidth: 2 }, echartStyles.lineShadow);
+    echartStyles.pieThikLineStyle = Object.assign({ color: 'rgba(0,0,0,0)', borderWidth: 12 }, echartStyles.lineShadow);
     echartStyles.gridAlignLeft = {
         show: false,
         top: 6,
@@ -141,6 +130,6 @@ var echartStyles = /** @class */ (function () {
         }
     };
     return echartStyles;
-}());
+})();
 export { echartStyles };
 //# sourceMappingURL=echart-styles.js.map

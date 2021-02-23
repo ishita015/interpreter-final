@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var InterpreterViewCalendarComponent = /** @class */ (function () {
-    function InterpreterViewCalendarComponent() {
-    }
-    InterpreterViewCalendarComponent.prototype.ngOnInit = function () {
+let InterpreterViewCalendarComponent = /** @class */ (() => {
+    let InterpreterViewCalendarComponent = class InterpreterViewCalendarComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     InterpreterViewCalendarComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var InterpreterViewCalendarComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], InterpreterViewCalendarComponent);
     return InterpreterViewCalendarComponent;
-}());
+})();
 export { InterpreterViewCalendarComponent };
 //# sourceMappingURL=interpreter-view-calendar.component.js.map

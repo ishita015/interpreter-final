@@ -13,7 +13,7 @@ import { ScrollToDirective } from './scroll-to.directive';
 import { SidebarDirective, SidebarContainerDirective, SidebarContentDirective, SidebarTogglerDirective } from './sidebar.directive';
 import { HighlightjsDirective } from './highlightjs.directive';
 import { FullScreenWindowDirective } from './full-screen.directive';
-var directives = [
+const directives = [
     DropdownAnchorDirective,
     DropdownLinkDirective,
     AppDropdownDirective,
@@ -25,9 +25,9 @@ var directives = [
     HighlightjsDirective,
     FullScreenWindowDirective
 ];
-var SharedDirectivesModule = /** @class */ (function () {
-    function SharedDirectivesModule() {
-    }
+let SharedDirectivesModule = /** @class */ (() => {
+    let SharedDirectivesModule = class SharedDirectivesModule {
+    };
     SharedDirectivesModule = __decorate([
         NgModule({
             imports: [
@@ -38,6 +38,6 @@ var SharedDirectivesModule = /** @class */ (function () {
         })
     ], SharedDirectivesModule);
     return SharedDirectivesModule;
-}());
+})();
 export { SharedDirectivesModule };
 //# sourceMappingURL=shared-directives.module.js.map

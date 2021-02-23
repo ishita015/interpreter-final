@@ -20,172 +20,162 @@ import { CalendarFormDialogComponent } from '../../calendar/calendar-form-dialog
 import { HttpService } from 'src/app/shared/services/http.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-var ViewCalendarComponent = /** @class */ (function () {
-    //-- Calendar variable End --//
-    function ViewCalendarComponent(modalService, service, router, calendarService) {
-        var _this = this;
-        this.modalService = modalService;
-        this.service = service;
-        this.router = router;
-        this.calendarService = calendarService;
-        this.view = 'month';
-        this.viewDate = new Date();
-        this.activeDayIsOpen = true;
-        this.refresh = new Subject();
-        //-- Calendar variable Start --//
-        this.pipe = new DatePipe('en-US');
-        this.actions = [{
-                label: '<i class="i-Edit m-1 text-secondary"></i>',
-                onClick: function (_a) {
-                    var event = _a.event;
-                    _this.handleEvent('edit', event);
+let ViewCalendarComponent = /** @class */ (() => {
+    let ViewCalendarComponent = class ViewCalendarComponent {
+        //-- Calendar variable End --//
+        constructor(modalService, service, router, calendarService) {
+            this.modalService = modalService;
+            this.service = service;
+            this.router = router;
+            this.calendarService = calendarService;
+            this.view = 'month';
+            this.viewDate = new Date();
+            this.activeDayIsOpen = true;
+            this.refresh = new Subject();
+            //-- Calendar variable Start --//
+            this.pipe = new DatePipe('en-US');
+            this.actions = [{
+                    label: '<i class="i-Edit m-1 text-secondary"></i>',
+                    onClick: ({ event }) => {
+                        this.handleEvent('edit', event);
+                    }
+                }, {
+                    label: '<i class="i-Close m-1 text-danger"></i>',
+                    onClick: ({ event }) => {
+                        this.removeEvent(event);
+                    }
+                }];
+        }
+        ngOnInit() {
+            this.roleName = JSON.parse(localStorage.getItem('roleName'));
+            this.userId = JSON.parse(localStorage.getItem('userId'));
+            this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));
+            // this.loadEvents();
+            this.getInterpreterRequestInfo();
+        }
+        // ================================ Calendar Function Start=============================== //
+        getInterpreterRequestInfo() {
+            this.service.interpreterDashboardData(this.calendar_Id)
+                .subscribe(res => {
+                if (res['status'] == '1') {
+                    this.cal_data = res['data'];
+                    this.events = [];
+                    for (let i = 0; i < this.cal_data.length; i++) {
+                        var dataArray = this.cal_data[i].date.split(/[ -]/);
+                        this.new_date = new Date(dataArray[0], dataArray[1] - 1, dataArray[2]);
+                        this.events.push({
+                            start: this.new_date,
+                            title: this.cal_data[i].title
+                        });
+                    }
                 }
-            }, {
-                label: '<i class="i-Close m-1 text-danger"></i>',
-                onClick: function (_a) {
-                    var event = _a.event;
-                    _this.removeEvent(event);
+            });
+        }
+        // ================================ Calendar Function End=============================== //
+        initEvents(events) {
+            return events.map(event => {
+                event.actions = this.actions;
+                return new CalendarAppEvent(event);
+            });
+        }
+        loadEvents() {
+            this.calendarService
+                .getEvents()
+                .subscribe((events) => {
+                this.events = this.initEvents(events);
+            });
+        }
+        removeEvent(event) {
+            this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
+                .result.then((result) => {
+                this.calendarService
+                    .deleteEvent(event._id)
+                    .subscribe(events => {
+                    this.events = this.initEvents(events);
+                    this.refresh.next();
+                });
+            }, (reason) => {
+            });
+        }
+        addEvent() {
+            const dialogRef = this.modalService.open(CalendarFormDialogComponent, { centered: true });
+            dialogRef.componentInstance.data = {
+                action: 'add',
+                date: new Date()
+            };
+            dialogRef.result
+                .then((res) => {
+                if (!res) {
+                    return;
                 }
-            }];
-    }
-    ViewCalendarComponent.prototype.ngOnInit = function () {
-        this.roleName = JSON.parse(localStorage.getItem('roleName'));
-        this.userId = JSON.parse(localStorage.getItem('userId'));
-        this.calendar_Id = JSON.parse(localStorage.getItem('calendarId'));
-        // this.loadEvents();
-        this.getInterpreterRequestInfo();
-    };
-    // ================================ Calendar Function Start=============================== //
-    ViewCalendarComponent.prototype.getInterpreterRequestInfo = function () {
-        var _this = this;
-        this.service.interpreterDashboardData(this.calendar_Id)
-            .subscribe(function (res) {
-            if (res['status'] == '1') {
-                _this.cal_data = res['data'];
-                _this.events = [];
-                for (var i = 0; i < _this.cal_data.length; i++) {
-                    var dataArray = _this.cal_data[i].date.split(/[ -]/);
-                    _this.new_date = new Date(dataArray[0], dataArray[1] - 1, dataArray[2]);
-                    _this.events.push({
-                        start: _this.new_date,
-                        title: _this.cal_data[i].title
+                const dialogAction = res.action;
+                const responseEvent = res.event;
+                responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
+                responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
+                this.calendarService
+                    .addEvent(responseEvent)
+                    .subscribe(events => {
+                    this.events = this.initEvents(events);
+                    this.refresh.next(true);
+                    console.log(this.events);
+                });
+            }).catch(e => {
+                console.log(e);
+            });
+        }
+        handleEvent(action, event) {
+            const dialogRef = this.modalService.open(CalendarFormDialogComponent, { centered: true });
+            dialogRef.componentInstance.data = { event, action };
+            dialogRef
+                .result
+                .then(res => {
+                if (!res) {
+                    return;
+                }
+                const dialogAction = res.action;
+                const responseEvent = res.event;
+                responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
+                responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
+                console.log(res);
+                if (dialogAction === 'save') {
+                    this.calendarService
+                        .updateEvent(responseEvent)
+                        .subscribe(events => {
+                        this.events = this.initEvents(events);
+                        this.refresh.next();
+                        console.log(this.events);
                     });
                 }
-            }
-        });
-    };
-    // ================================ Calendar Function End=============================== //
-    ViewCalendarComponent.prototype.initEvents = function (events) {
-        var _this = this;
-        return events.map(function (event) {
-            event.actions = _this.actions;
-            return new CalendarAppEvent(event);
-        });
-    };
-    ViewCalendarComponent.prototype.loadEvents = function () {
-        var _this = this;
-        this.calendarService
-            .getEvents()
-            .subscribe(function (events) {
-            _this.events = _this.initEvents(events);
-        });
-    };
-    ViewCalendarComponent.prototype.removeEvent = function (event) {
-        var _this = this;
-        this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
-            .result.then(function (result) {
-            _this.calendarService
-                .deleteEvent(event._id)
-                .subscribe(function (events) {
-                _this.events = _this.initEvents(events);
-                _this.refresh.next();
+                else if (dialogAction === 'delete') {
+                    this.removeEvent(event);
+                }
+            })
+                .catch(e => {
+                console.log(e);
             });
-        }, function (reason) {
-        });
-    };
-    ViewCalendarComponent.prototype.addEvent = function () {
-        var _this = this;
-        var dialogRef = this.modalService.open(CalendarFormDialogComponent, { centered: true });
-        dialogRef.componentInstance.data = {
-            action: 'add',
-            date: new Date()
-        };
-        dialogRef.result
-            .then(function (res) {
-            if (!res) {
-                return;
-            }
-            var dialogAction = res.action;
-            var responseEvent = res.event;
-            responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
-            responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
-            _this.calendarService
-                .addEvent(responseEvent)
-                .subscribe(function (events) {
-                _this.events = _this.initEvents(events);
-                _this.refresh.next(true);
-                console.log(_this.events);
-            });
-        }).catch(function (e) {
-            console.log(e);
-        });
-    };
-    ViewCalendarComponent.prototype.handleEvent = function (action, event) {
-        var _this = this;
-        var dialogRef = this.modalService.open(CalendarFormDialogComponent, { centered: true });
-        dialogRef.componentInstance.data = { event: event, action: action };
-        dialogRef
-            .result
-            .then(function (res) {
-            if (!res) {
-                return;
-            }
-            var dialogAction = res.action;
-            var responseEvent = res.event;
-            responseEvent.start = Utils.ngbDateToDate(responseEvent.start);
-            responseEvent.end = Utils.ngbDateToDate(responseEvent.end);
-            console.log(res);
-            if (dialogAction === 'save') {
-                _this.calendarService
-                    .updateEvent(responseEvent)
-                    .subscribe(function (events) {
-                    _this.events = _this.initEvents(events);
-                    _this.refresh.next();
-                    console.log(_this.events);
-                });
-            }
-            else if (dialogAction === 'delete') {
-                _this.removeEvent(event);
-            }
-        })
-            .catch(function (e) {
-            console.log(e);
-        });
-    };
-    ViewCalendarComponent.prototype.dayClicked = function (_a) {
-        var date = _a.date, events = _a.events;
-        if (isSameMonth(date, this.viewDate)) {
-            if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-                events.length === 0) {
-                this.activeDayIsOpen = false;
-            }
-            else {
-                this.activeDayIsOpen = true;
-                this.viewDate = date;
+        }
+        dayClicked({ date, events }) {
+            if (isSameMonth(date, this.viewDate)) {
+                if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+                    events.length === 0) {
+                    this.activeDayIsOpen = false;
+                }
+                else {
+                    this.activeDayIsOpen = true;
+                    this.viewDate = date;
+                }
             }
         }
-    };
-    ViewCalendarComponent.prototype.eventTimesChanged = function (_a) {
-        var _this = this;
-        var event = _a.event, newStart = _a.newStart, newEnd = _a.newEnd;
-        event.start = newStart;
-        event.end = newEnd;
-        this.calendarService
-            .updateEvent(event)
-            .subscribe(function (events) {
-            _this.events = _this.initEvents(events);
-            _this.refresh.next();
-        });
+        eventTimesChanged({ event, newStart, newEnd }) {
+            event.start = newStart;
+            event.end = newEnd;
+            this.calendarService
+                .updateEvent(event)
+                .subscribe(events => {
+                this.events = this.initEvents(events);
+                this.refresh.next();
+            });
+        }
     };
     __decorate([
         ViewChild('eventDeleteConfirm', { static: true }),
@@ -203,6 +193,6 @@ var ViewCalendarComponent = /** @class */ (function () {
             CalendarAppService])
     ], ViewCalendarComponent);
     return ViewCalendarComponent;
-}());
+})();
 export { ViewCalendarComponent };
 //# sourceMappingURL=view-calendar.component.js.map

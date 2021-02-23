@@ -16,9 +16,9 @@ import { ModuleEditComponent } from './module-edit/module-edit.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoTestComponent } from './demo-test/demo-test.component';
-var PermissionModule = /** @class */ (function () {
-    function PermissionModule() {
-    }
+let PermissionModule = /** @class */ (() => {
+    let PermissionModule = class PermissionModule {
+    };
     PermissionModule = __decorate([
         NgModule({
             declarations: [AddRoleComponent, RoleListComponent, RoleEditComponent, ModuleAddComponent, ModuleListComponent, ModuleEditComponent, DemoTestComponent],
@@ -32,6 +32,6 @@ var PermissionModule = /** @class */ (function () {
         })
     ], PermissionModule);
     return PermissionModule;
-}());
+})();
 export { PermissionModule };
 //# sourceMappingURL=permission.module.js.map

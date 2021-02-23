@@ -10,16 +10,16 @@ import { InterpreterListComponent } from './interpreter-list/interpreter-list.co
 import { PendingRequestComponent } from './pending-request/pending-request.component';
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { RequestListComponent } from './request-list/request-list.component';
-var routes = [
+const routes = [
     { path: 'list', component: RequestListComponent },
     // { path: 'request-list', component: RequestListComponent },
     { path: 'pending-request', component: PendingRequestComponent },
     { path: 'interpreter-view/:id', component: InterpreterListComponent },
     { path: 'request-view/:id', component: RequestDetailComponent },
 ];
-var UserRequestRoutingModule = /** @class */ (function () {
-    function UserRequestRoutingModule() {
-    }
+let UserRequestRoutingModule = /** @class */ (() => {
+    let UserRequestRoutingModule = class UserRequestRoutingModule {
+    };
     UserRequestRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -27,6 +27,6 @@ var UserRequestRoutingModule = /** @class */ (function () {
         })
     ], UserRequestRoutingModule);
     return UserRequestRoutingModule;
-}());
+})();
 export { UserRequestRoutingModule };
 //# sourceMappingURL=user-request-routing.module.js.map

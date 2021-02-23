@@ -13,43 +13,44 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var UsersAddComponent = /** @class */ (function () {
-    function UsersAddComponent(validation, fb, toastr, router, service) {
-        this.validation = validation;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.service = service;
-    }
-    UsersAddComponent.prototype.ngOnInit = function () {
-        this.createForm();
-    };
-    /*========== Form Value Start Here========*/
-    UsersAddComponent.prototype.createForm = function () {
-        this.userForm = this.fb.group({
-            name: ['', this.validation.onlyRequired_validator],
-            email: ['', this.validation.onlyRequired_validator],
-            password: ['', this.validation.onlyRequired_validator],
-            mobile: ['', this.validation.onlyRequired_validator],
-        });
-    };
-    /*========== Form Value End Here========*/
-    UsersAddComponent.prototype.addUser = function () {
-        var _this = this;
-        console.log("form value", this.userForm.value);
-        this.submitted = true;
-        if (this.userForm.invalid) {
-            return;
+let UsersAddComponent = /** @class */ (() => {
+    let UsersAddComponent = class UsersAddComponent {
+        constructor(validation, fb, toastr, router, service) {
+            this.validation = validation;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.service = service;
         }
-        this.submitted = false;
-        this.service.getUserAdd(this.userForm.value)
-            .subscribe(function (res) {
-            console.log("api response", res);
-            _this.user_Obj = res;
-            _this.user_Msg = res;
-            _this.toastr.success(_this.user_Msg.message, '', { timeOut: 1000 });
-            _this.router.navigate(['/users/user-list']);
-        });
+        ngOnInit() {
+            this.createForm();
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.userForm = this.fb.group({
+                name: ['', this.validation.onlyRequired_validator],
+                email: ['', this.validation.onlyRequired_validator],
+                password: ['', this.validation.onlyRequired_validator],
+                mobile: ['', this.validation.onlyRequired_validator],
+            });
+        }
+        /*========== Form Value End Here========*/
+        addUser() {
+            console.log("form value", this.userForm.value);
+            this.submitted = true;
+            if (this.userForm.invalid) {
+                return;
+            }
+            this.submitted = false;
+            this.service.getUserAdd(this.userForm.value)
+                .subscribe(res => {
+                console.log("api response", res);
+                this.user_Obj = res;
+                this.user_Msg = res;
+                this.toastr.success(this.user_Msg.message, '', { timeOut: 1000 });
+                this.router.navigate(['/users/user-list']);
+            });
+        }
     };
     UsersAddComponent = __decorate([
         Component({
@@ -64,6 +65,6 @@ var UsersAddComponent = /** @class */ (function () {
             HttpService])
     ], UsersAddComponent);
     return UsersAddComponent;
-}());
+})();
 export { UsersAddComponent };
 //# sourceMappingURL=users-add.component.js.map
