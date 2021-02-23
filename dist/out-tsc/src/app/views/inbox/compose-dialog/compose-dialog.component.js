@@ -9,11 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-var ComposeDialogComponent = /** @class */ (function () {
-    function ComposeDialogComponent(activeModal) {
-        this.activeModal = activeModal;
-    }
-    ComposeDialogComponent.prototype.ngOnInit = function () {
+let ComposeDialogComponent = /** @class */ (() => {
+    let ComposeDialogComponent = class ComposeDialogComponent {
+        constructor(activeModal) {
+            this.activeModal = activeModal;
+        }
+        ngOnInit() {
+        }
     };
     ComposeDialogComponent = __decorate([
         Component({
@@ -24,6 +26,6 @@ var ComposeDialogComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [NgbActiveModal])
     ], ComposeDialogComponent);
     return ComposeDialogComponent;
-}());
+})();
 export { ComposeDialogComponent };
 //# sourceMappingURL=compose-dialog.component.js.map

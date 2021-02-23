@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var ChatComponent = /** @class */ (function () {
-    function ChatComponent() {
-    }
-    ChatComponent.prototype.ngOnInit = function () {
+let ChatComponent = /** @class */ (() => {
+    let ChatComponent = class ChatComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     ChatComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var ChatComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ChatComponent);
     return ChatComponent;
-}());
+})();
 export { ChatComponent };
 //# sourceMappingURL=chat.component.js.map

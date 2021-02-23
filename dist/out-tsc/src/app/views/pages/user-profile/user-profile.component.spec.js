@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { UserProfileComponent } from './user-profile.component';
-describe('UserProfileComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('UserProfileComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [UserProfileComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(UserProfileComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

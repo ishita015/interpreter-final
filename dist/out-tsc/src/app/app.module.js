@@ -15,19 +15,20 @@ import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SocketIoModule } from 'ngx-socket-io';
+import { NgxSpinnerModule } from "ngx-spinner";
 // const config: SocketIoConfig = { url: 'http://192.168.0.69:3300', options: {} }; //mt local server
 // const config: SocketIoConfig = { url: 'http://192.168.0.4:3300', options: {} }; //live server(4004)
-var config = { url: 'http://103.15.67.78:3300', options: {} }; //live server(4004) final url
-var AppModule = /** @class */ (function () {
-    function AppModule() {
-    }
+const config = { url: 'http://103.15.67.78:3300', options: {} }; //live server(4004) final url
+let AppModule = /** @class */ (() => {
+    let AppModule = class AppModule {
+    };
     AppModule = __decorate([
         NgModule({
             declarations: [
                 AppComponent,
             ],
             imports: [
-                BrowserModule,
+                BrowserModule, NgxSpinnerModule,
                 SharedModule,
                 FormsModule,
                 HttpClientModule,
@@ -41,6 +42,6 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
-}());
+})();
 export { AppModule };
 //# sourceMappingURL=app.module.js.map

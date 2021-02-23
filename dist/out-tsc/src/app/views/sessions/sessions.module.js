@@ -10,11 +10,12 @@ import { SessionsRoutingModule } from './sessions-routing.module';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
-var SessionsModule = /** @class */ (function () {
-    function SessionsModule() {
-    }
+let SessionsModule = /** @class */ (() => {
+    let SessionsModule = class SessionsModule {
+    };
     SessionsModule = __decorate([
         NgModule({
             imports: [
@@ -24,10 +25,10 @@ var SessionsModule = /** @class */ (function () {
                 SharedComponentsModule,
                 SessionsRoutingModule
             ],
-            declarations: [SignupComponent, SigninComponent, ForgotComponent]
+            declarations: [SignupComponent, SigninComponent, ResetPasswordComponent, ForgotComponent]
         })
     ], SessionsModule);
     return SessionsModule;
-}());
+})();
 export { SessionsModule };
 //# sourceMappingURL=sessions.module.js.map

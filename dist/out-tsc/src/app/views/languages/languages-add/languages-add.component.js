@@ -13,67 +13,68 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var LanguagesAddComponent = /** @class */ (function () {
-    function LanguagesAddComponent(validation, fb, toastr, router, service) {
-        this.validation = validation;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.service = service;
-    }
-    LanguagesAddComponent.prototype.ngOnInit = function () {
-        this.createForm();
-    };
-    /*========== Form Value Start Here========*/
-    LanguagesAddComponent.prototype.createForm = function () {
-        this.langaugeForm = this.fb.group({
-            name: ['', this.validation.onlyRequired_validator],
-            code: ['', this.validation.onlyRequired_validator],
-            country: ['', this.validation.onlyRequired_validator],
-            description: [''],
-            base_rate: ['', this.validation.onlyRequired_validator]
-        });
-    };
-    /*========== Form Value End Here========*/
-    /*========== Add Api Start Here========*/
-    LanguagesAddComponent.prototype.addLanguage = function () {
-        var _this = this;
-        console.log("form value", this.langaugeForm.value);
-        this.submitted = true;
-        if (this.langaugeForm.invalid) {
-            return;
+let LanguagesAddComponent = /** @class */ (() => {
+    let LanguagesAddComponent = class LanguagesAddComponent {
+        constructor(validation, fb, toastr, router, service) {
+            this.validation = validation;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.service = service;
         }
-        this.submitted = false;
-        this.service.getLanguagAdd(this.langaugeForm.value)
-            .subscribe(function (res) {
-            if (res['status'] == '0') {
-                console.log("api response", res);
-                _this.language_Obj = res;
-                _this.language_Msg = res;
-                _this.toastr.success(_this.language_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-                _this.router.navigate(['/languages/list']);
+        ngOnInit() {
+            this.createForm();
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.langaugeForm = this.fb.group({
+                name: ['', this.validation.onlyRequired_validator],
+                code: ['', this.validation.onlyRequired_validator],
+                country: ['', this.validation.onlyRequired_validator],
+                description: [''],
+                base_rate: ['', this.validation.onlyRequired_validator]
+            });
+        }
+        /*========== Form Value End Here========*/
+        /*========== Add Api Start Here========*/
+        addLanguage() {
+            console.log("form value", this.langaugeForm.value);
+            this.submitted = true;
+            if (this.langaugeForm.invalid) {
+                return;
             }
-            else {
-                console.log("api response", res);
-                _this.language_Obj = res;
-                _this.language_Msg = res;
-                _this.toastr.success(_this.language_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-                // this.router.navigate(['/login'])
-                _this.router.navigate(['/languages/list']);
-            }
-        });
-    };
-    LanguagesAddComponent.prototype.check_language = function ($event, code) {
-        console.log("email-", code);
-        // console.log("event-",$event)
-        this.service.checkLanguage(code)
-            .subscribe(function (res) {
-            if (res['status'] == '1') {
-                alert(res['message']);
-                // this.userForm.value.email = '';
-                $event.target.value = "";
-            }
-        });
+            this.submitted = false;
+            this.service.getLanguagAdd(this.langaugeForm.value)
+                .subscribe(res => {
+                if (res['status'] == '0') {
+                    console.log("api response", res);
+                    this.language_Obj = res;
+                    this.language_Msg = res;
+                    this.toastr.success(this.language_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+                    this.router.navigate(['/languages/list']);
+                }
+                else {
+                    console.log("api response", res);
+                    this.language_Obj = res;
+                    this.language_Msg = res;
+                    this.toastr.success(this.language_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+                    // this.router.navigate(['/login'])
+                    this.router.navigate(['/languages/list']);
+                }
+            });
+        }
+        check_language($event, code) {
+            console.log("email-", code);
+            // console.log("event-",$event)
+            this.service.checkLanguage(code)
+                .subscribe(res => {
+                if (res['status'] == '1') {
+                    alert(res['message']);
+                    // this.userForm.value.email = '';
+                    $event.target.value = "";
+                }
+            });
+        }
     };
     LanguagesAddComponent = __decorate([
         Component({
@@ -88,6 +89,6 @@ var LanguagesAddComponent = /** @class */ (function () {
             HttpService])
     ], LanguagesAddComponent);
     return LanguagesAddComponent;
-}());
+})();
 export { LanguagesAddComponent };
 //# sourceMappingURL=languages-add.component.js.map

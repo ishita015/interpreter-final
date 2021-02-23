@@ -12,29 +12,31 @@ import { LocalStoreService } from "./local-store.service";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { delay } from "rxjs/operators";
-var AuthService = /** @class */ (function () {
-    function AuthService(store, router) {
-        this.store = store;
-        this.router = router;
-        //Only for demo purpose
-        this.authenticated = true;
-        this.checkAuth();
-    }
-    AuthService.prototype.checkAuth = function () {
-        // this.authenticated = this.store.getItem("demo_login_status");
-    };
-    AuthService.prototype.getuser = function () {
-        return of({});
-    };
-    AuthService.prototype.signin = function (credentials) {
-        this.authenticated = true;
-        this.store.setItem("demo_login_status", true);
-        return of({}).pipe(delay(1500));
-    };
-    AuthService.prototype.signout = function () {
-        this.authenticated = false;
-        this.store.setItem("demo_login_status", false);
-        this.router.navigateByUrl("/sessions/signin");
+let AuthService = /** @class */ (() => {
+    let AuthService = class AuthService {
+        constructor(store, router) {
+            this.store = store;
+            this.router = router;
+            //Only for demo purpose
+            this.authenticated = true;
+            this.checkAuth();
+        }
+        checkAuth() {
+            // this.authenticated = this.store.getItem("demo_login_status");
+        }
+        getuser() {
+            return of({});
+        }
+        signin(credentials) {
+            this.authenticated = true;
+            this.store.setItem("demo_login_status", true);
+            return of({}).pipe(delay(1500));
+        }
+        signout() {
+            this.authenticated = false;
+            this.store.setItem("demo_login_status", false);
+            this.router.navigateByUrl("/sessions/signin");
+        }
     };
     AuthService = __decorate([
         Injectable({
@@ -43,6 +45,6 @@ var AuthService = /** @class */ (function () {
         __metadata("design:paramtypes", [LocalStoreService, Router])
     ], AuthService);
     return AuthService;
-}());
+})();
 export { AuthService };
 //# sourceMappingURL=auth.service.js.map

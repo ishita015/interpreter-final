@@ -9,14 +9,14 @@ import { CommonModule } from '@angular/common';
 import { ExcerptPipe } from './excerpt.pipe';
 import { GetValueByKeyPipe } from './get-value-by-key.pipe';
 import { RelativeTimePipe } from './relative-time.pipe';
-var pipes = [
+const pipes = [
     ExcerptPipe,
     GetValueByKeyPipe,
     RelativeTimePipe
 ];
-var SharedPipesModule = /** @class */ (function () {
-    function SharedPipesModule() {
-    }
+let SharedPipesModule = /** @class */ (() => {
+    let SharedPipesModule = class SharedPipesModule {
+    };
     SharedPipesModule = __decorate([
         NgModule({
             imports: [
@@ -27,6 +27,6 @@ var SharedPipesModule = /** @class */ (function () {
         })
     ], SharedPipesModule);
     return SharedPipesModule;
-}());
+})();
 export { SharedPipesModule };
 //# sourceMappingURL=shared-pipes.module.js.map

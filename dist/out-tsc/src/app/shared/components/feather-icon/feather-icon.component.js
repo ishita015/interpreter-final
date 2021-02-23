@@ -8,13 +8,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input } from '@angular/core';
-var FeatherIconComponent = /** @class */ (function () {
-    function FeatherIconComponent() {
-    }
-    FeatherIconComponent.prototype.ngOnInit = function () {
-        setTimeout(function () {
-            feather.replace();
-        });
+let FeatherIconComponent = /** @class */ (() => {
+    let FeatherIconComponent = class FeatherIconComponent {
+        constructor() { }
+        ngOnInit() {
+            setTimeout(() => {
+                feather.replace();
+            });
+        }
     };
     __decorate([
         Input('name'),
@@ -29,6 +30,6 @@ var FeatherIconComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], FeatherIconComponent);
     return FeatherIconComponent;
-}());
+})();
 export { FeatherIconComponent };
 //# sourceMappingURL=feather-icon.component.js.map

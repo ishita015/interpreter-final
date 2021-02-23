@@ -199,6 +199,12 @@ app.post('/cesco/getPriceCalculation', interpreterController.getPriceCalculation
 app.post('/cesco/getLogPrice', interpreterController.getLogPrice);
 
 
+app.get('/cesco/getAllPlatform', interpreterController.getAllPlatform);
+app.post('/cesco/updateIntrepeterSetingNew', interpreterController.updateIntrepeterSetingNew);
+app.post('/cesco/getInterpreterRateSettingNew', interpreterController.getInterpreterRateSettingNew);
+app.post('/cesco/getLanguageRate', interpreterController.getLanguageRate);
+
+
 
 
 app.post('/cesco/updateBankingInfo', interpreterController.updateBankingInfo);
@@ -236,6 +242,10 @@ app.post('/cesco/baseRateDetail', interpreterController.baseRate);
 
 // app.post('/cesco/saveInterpreter', interpreterController.addInterpreter);
 app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
+
+
+app.get('/cesco/getInterpreterPlatformIds/:id', interpreterController.getInterpreterPlatformIds);
+app.get('/cesco/getInterpreterPlatformName/:id', interpreterController.getInterpreterPlatformName);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
@@ -1171,11 +1181,26 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     }
 
     let interpreter_id = req.body.interpreter_id;
+    let assignment_arr = req.body.assignment_arr;
     let type  = req.body.type;
     let other_doc_title  = req.body.other_doc_title ? req.body.other_doc_title : "";
     let primary_language  = req.body.primary_language ? req.body.primary_language : "";
     let secondary_language  = req.body.secondary_language ? req.body.secondary_language : "";
     
+    console.log('assignment_arr',assignment_arr)
+        try{
+            var checkPlatform = await commonDb.AsyncSellectAllWhere('interpreter_platform_setting',{interpreter_id:interpreter_id});
+            if(checkPlatform.length == 0){
+               await commonDb.AsyncInsert('interpreter_platform_setting',{interpreter_id:interpreter_id,platform_ids:assignment_arr})
+            }else{
+               await commonDb.AsyncUpdate('interpreter_platform_setting',{platform_ids:assignment_arr},{interpreter_id:interpreter_id})
+            }
+        }
+        catch(e){
+            console.log(e)
+        }
+                
+
 
     // //console.log("primary_language--",primary_language);
     // //console.log("secondary_language--",JSON.parse(secondary_language));

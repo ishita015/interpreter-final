@@ -13,42 +13,43 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var ModuleAddComponent = /** @class */ (function () {
-    function ModuleAddComponent(validation, fb, toastr, router, service) {
-        this.validation = validation;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.service = service;
-    }
-    ModuleAddComponent.prototype.ngOnInit = function () {
-        this.createForm();
-    };
-    /*========== Form Value Start Here========*/
-    ModuleAddComponent.prototype.createForm = function () {
-        this.moduleForm = this.fb.group({
-            module_name: ['', this.validation.onlyRequired_validator],
-        });
-    };
-    /*========== Form Value End Here========*/
-    /*========== Add Api Start Here========*/
-    ModuleAddComponent.prototype.addModule = function () {
-        var _this = this;
-        console.log("form value", this.moduleForm.value);
-        this.submitted = true;
-        if (this.moduleForm.invalid) {
-            return;
+let ModuleAddComponent = /** @class */ (() => {
+    let ModuleAddComponent = class ModuleAddComponent {
+        constructor(validation, fb, toastr, router, service) {
+            this.validation = validation;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.service = service;
         }
-        this.submitted = false;
-        this.service.moduleAdd(this.moduleForm.value)
-            .subscribe(function (res) {
-            console.log("api response", res);
-            _this.module_Obj = res;
-            _this.module_Msg = res;
-            _this.toastr.success(_this.module_Msg.message, '', { timeOut: 1000 });
-            // this.router.navigate(['/login'])
-            _this.router.navigate(['/permission/modulelist']);
-        });
+        ngOnInit() {
+            this.createForm();
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.moduleForm = this.fb.group({
+                module_name: ['', this.validation.onlyRequired_validator],
+            });
+        }
+        /*========== Form Value End Here========*/
+        /*========== Add Api Start Here========*/
+        addModule() {
+            console.log("form value", this.moduleForm.value);
+            this.submitted = true;
+            if (this.moduleForm.invalid) {
+                return;
+            }
+            this.submitted = false;
+            this.service.moduleAdd(this.moduleForm.value)
+                .subscribe(res => {
+                console.log("api response", res);
+                this.module_Obj = res;
+                this.module_Msg = res;
+                this.toastr.success(this.module_Msg.message, '', { timeOut: 1000 });
+                // this.router.navigate(['/login'])
+                this.router.navigate(['/permission/modulelist']);
+            });
+        }
     };
     ModuleAddComponent = __decorate([
         Component({
@@ -63,6 +64,6 @@ var ModuleAddComponent = /** @class */ (function () {
             HttpService])
     ], ModuleAddComponent);
     return ModuleAddComponent;
-}());
+})();
 export { ModuleAddComponent };
 //# sourceMappingURL=module-add.component.js.map

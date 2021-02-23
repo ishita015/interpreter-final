@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { TagInputsComponent } from './tag-inputs.component';
-describe('TagInputsComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('TagInputsComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [TagInputsComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(TagInputsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

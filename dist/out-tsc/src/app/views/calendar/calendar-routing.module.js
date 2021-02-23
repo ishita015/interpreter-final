@@ -7,15 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
-var routes = [
+const routes = [
     {
         path: '',
         component: CalendarComponent
     }
 ];
-var CalendarRoutingModule = /** @class */ (function () {
-    function CalendarRoutingModule() {
-    }
+let CalendarRoutingModule = /** @class */ (() => {
+    let CalendarRoutingModule = class CalendarRoutingModule {
+    };
     CalendarRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -23,6 +23,6 @@ var CalendarRoutingModule = /** @class */ (function () {
         })
     ], CalendarRoutingModule);
     return CalendarRoutingModule;
-}());
+})();
 export { CalendarRoutingModule };
 //# sourceMappingURL=calendar-routing.module.js.map

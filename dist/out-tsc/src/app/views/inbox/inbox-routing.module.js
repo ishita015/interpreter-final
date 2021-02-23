@@ -7,15 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MessagesComponent } from './messages/messages.component';
-var routes = [
+const routes = [
     {
         path: '',
         component: MessagesComponent
     }
 ];
-var InboxRoutingModule = /** @class */ (function () {
-    function InboxRoutingModule() {
-    }
+let InboxRoutingModule = /** @class */ (() => {
+    let InboxRoutingModule = class InboxRoutingModule {
+    };
     InboxRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -23,6 +23,6 @@ var InboxRoutingModule = /** @class */ (function () {
         })
     ], InboxRoutingModule);
     return InboxRoutingModule;
-}());
+})();
 export { InboxRoutingModule };
 //# sourceMappingURL=inbox-routing.module.js.map

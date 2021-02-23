@@ -8,12 +8,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input } from '@angular/core';
-var BtnLoadingComponent = /** @class */ (function () {
-    function BtnLoadingComponent() {
-        this.loadingText = 'Please wait';
-        this.type = 'submit';
-    }
-    BtnLoadingComponent.prototype.ngOnInit = function () {
+let BtnLoadingComponent = /** @class */ (() => {
+    let BtnLoadingComponent = class BtnLoadingComponent {
+        constructor() {
+            this.loadingText = 'Please wait';
+            this.type = 'submit';
+        }
+        ngOnInit() {
+        }
     };
     __decorate([
         Input('loading'),
@@ -40,6 +42,6 @@ var BtnLoadingComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], BtnLoadingComponent);
     return BtnLoadingComponent;
-}());
+})();
 export { BtnLoadingComponent };
 //# sourceMappingURL=btn-loading.component.js.map

@@ -13,42 +13,45 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var AddRoleComponent = /** @class */ (function () {
-    function AddRoleComponent(validation, fb, toastr, router, service) {
-        this.validation = validation;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.service = service;
-    }
-    AddRoleComponent.prototype.ngOnInit = function () {
-        this.createForm();
-    };
-    /*========== Form Value Start Here========*/
-    AddRoleComponent.prototype.createForm = function () {
-        this.roleForm = this.fb.group({
-            role_name: ['', this.validation.onlyRequired_validator],
-        });
-    };
-    /*========== Form Value End Here========*/
-    /*========== Add Api Start Here========*/
-    AddRoleComponent.prototype.addRole = function () {
-        var _this = this;
-        console.log("form value", this.roleForm.value);
-        this.submitted = true;
-        if (this.roleForm.invalid) {
-            return;
+let AddRoleComponent = /** @class */ (() => {
+    let AddRoleComponent = class AddRoleComponent {
+        constructor(validation, fb, toastr, router, service) {
+            this.validation = validation;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.service = service;
         }
-        this.submitted = false;
-        this.service.getRoleAdd(this.roleForm.value)
-            .subscribe(function (res) {
-            console.log("api response", res);
-            _this.role_Obj = res;
-            _this.role_Msg = res;
-            _this.toastr.success(_this.role_Msg.message, '', { timeOut: 1000 });
-            // this.router.navigate(['/login'])
-            _this.router.navigate(['/permission/rolelist']);
-        });
+        ngOnInit() {
+            this.createForm();
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.roleForm = this.fb.group({
+                role_name: ['', this.validation.onlyRequired_validator],
+            });
+        }
+        /*========== Form Value End Here========*/
+        /*========== Add Api Start Here========*/
+        addRole() {
+            console.log("form value", this.roleForm.value);
+            this.submitted = true;
+            if (this.roleForm.invalid) {
+                return;
+            }
+            this.submitted = false;
+            this.service.getRoleAdd(this.roleForm.value)
+                .subscribe(res => {
+                console.log("api response", res);
+                this.role_Obj = res;
+                this.role_Msg = res;
+                this.toastr.success(this.role_Msg.message, '', { timeOut: 1000 });
+                // this.router.navigate(['/login'])
+                this.router.navigateByUrl('/sessions/signin', { skipLocationChange: true }).then(() => {
+                    this.router.navigate(['/permission/rolelist']);
+                });
+            });
+        }
     };
     AddRoleComponent = __decorate([
         Component({
@@ -63,6 +66,6 @@ var AddRoleComponent = /** @class */ (function () {
             HttpService])
     ], AddRoleComponent);
     return AddRoleComponent;
-}());
+})();
 export { AddRoleComponent };
 //# sourceMappingURL=add-role.component.js.map

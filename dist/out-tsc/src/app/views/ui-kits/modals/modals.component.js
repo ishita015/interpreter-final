@@ -9,36 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-var ModalsComponent = /** @class */ (function () {
-    function ModalsComponent(modalService) {
-        this.modalService = modalService;
-    }
-    ModalsComponent.prototype.ngOnInit = function () {
-    };
-    ModalsComponent.prototype.open = function (content) {
-        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-            .result.then(function (result) {
-            console.log(result);
-        }, function (reason) {
-            console.log('Err!', reason);
-        });
-    };
-    ModalsComponent.prototype.openSmall = function (content) {
-        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' })
-            .result.then(function (result) {
-            console.log(result);
-        }, function (reason) {
-            console.log('Err!', reason);
-        });
-    };
-    ModalsComponent.prototype.confirm = function (content) {
-        var _this = this;
-        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true })
-            .result.then(function (result) {
-            _this.confirmResut = "Closed with: " + result;
-        }, function (reason) {
-            _this.confirmResut = "Dismissed with: " + reason;
-        });
+let ModalsComponent = /** @class */ (() => {
+    let ModalsComponent = class ModalsComponent {
+        constructor(modalService) {
+            this.modalService = modalService;
+        }
+        ngOnInit() {
+        }
+        open(content) {
+            this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+                .result.then((result) => {
+                console.log(result);
+            }, (reason) => {
+                console.log('Err!', reason);
+            });
+        }
+        openSmall(content) {
+            this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' })
+                .result.then((result) => {
+                console.log(result);
+            }, (reason) => {
+                console.log('Err!', reason);
+            });
+        }
+        confirm(content) {
+            this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true })
+                .result.then((result) => {
+                this.confirmResut = `Closed with: ${result}`;
+            }, (reason) => {
+                this.confirmResut = `Dismissed with: ${reason}`;
+            });
+        }
     };
     ModalsComponent = __decorate([
         Component({
@@ -49,6 +50,6 @@ var ModalsComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [NgbModal])
     ], ModalsComponent);
     return ModalsComponent;
-}());
+})();
 export { ModalsComponent };
 //# sourceMappingURL=modals.component.js.map

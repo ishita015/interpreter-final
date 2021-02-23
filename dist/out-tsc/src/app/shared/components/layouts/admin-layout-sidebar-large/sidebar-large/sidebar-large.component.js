@@ -13,107 +13,145 @@ import { Router, NavigationEnd } from '@angular/router';
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { filter } from 'rxjs/operators';
 import { Utils } from '../../../../utils';
-var SidebarLargeComponent = /** @class */ (function () {
-    function SidebarLargeComponent(router, navService) {
-        var _this = this;
-        this.router = router;
-        this.navService = navService;
-        setTimeout(function () {
-            _this.psContainerSecSidebar = _this.psContainers.toArray()[1];
-        });
-    }
-    SidebarLargeComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.updateSidebar();
-        // CLOSE SIDENAV ON ROUTE CHANGE
-        this.router.events
-            .pipe(filter(function (event) { return event instanceof NavigationEnd; }))
-            .subscribe(function (routeChange) {
-            _this.closeChildNav();
-            if (Utils.isMobile()) {
-                _this.navService.sidebarState.sidenavOpen = false;
-            }
-        });
-        this.navService.menuItems$.subscribe(function (items) {
-            var roleType = localStorage.getItem('roleId');
-            console.log('items', items);
-            if (roleType == '1') {
-                _this.nav = items.v1;
-            }
-            else {
-                _this.nav = items.v2;
-            }
-            // console.log('dev',this.nav)
-            // console.log('------',roleType)
-            _this.setActiveFlag();
-        });
-    };
-    SidebarLargeComponent.prototype.selectItem = function (item) {
-        var _this = this;
-        this.navService.sidebarState.childnavOpen = true;
-        this.navService.selectedItem = item;
-        this.setActiveMainItem(item);
-        // Scroll to top secondary sidebar
-        setTimeout(function () {
-            _this.psContainerSecSidebar.update();
-            _this.psContainerSecSidebar.scrollToTop(0, 400);
-        });
-    };
-    SidebarLargeComponent.prototype.closeChildNav = function () {
-        this.navService.sidebarState.childnavOpen = false;
-        this.setActiveFlag();
-    };
-    SidebarLargeComponent.prototype.onClickChangeActiveFlag = function (item) {
-        this.setActiveMainItem(item);
-    };
-    SidebarLargeComponent.prototype.setActiveMainItem = function (item) {
-        this.nav.forEach(function (i) {
-            i.active = false;
-        });
-        item.active = true;
-    };
-    SidebarLargeComponent.prototype.setActiveFlag = function () {
-        var _this = this;
-        if (window && window.location) {
-            var activeRoute_1 = window.location.hash || window.location.pathname;
-            this.nav.forEach(function (item) {
-                item.active = false;
-                if (activeRoute_1.indexOf(item.state) !== -1) {
-                    _this.navService.selectedItem = item;
-                    item.active = true;
+import { HttpService } from "../../../../../shared/services/http.service";
+let SidebarLargeComponent = /** @class */ (() => {
+    let SidebarLargeComponent = class SidebarLargeComponent {
+        constructor(service, router, navService) {
+            this.service = service;
+            this.router = router;
+            this.navService = navService;
+            setTimeout(() => {
+                this.psContainerSecSidebar = this.psContainers.toArray()[1];
+            });
+        }
+        ngOnInit() {
+            this.updateSidebar();
+            // CLOSE SIDENAV ON ROUTE CHANGE
+            this.router.events
+                .pipe(filter(event => event instanceof NavigationEnd))
+                .subscribe(routeChange => {
+                this.closeChildNav();
+                if (Utils.isMobile()) {
+                    this.navService.sidebarState.sidenavOpen = false;
                 }
-                if (item.sub) {
-                    item.sub.forEach(function (subItem) {
-                        subItem.active = false;
-                        if (activeRoute_1.indexOf(subItem.state) !== -1) {
-                            _this.navService.selectedItem = item;
+            });
+            this.navService.menuItems$.subscribe(items => {
+                var roleType = localStorage.getItem('roleId');
+                if (roleType == '1') {
+                    // this.nav = items.v1
+                    this.service.get('getAdminRoleMenus/' + roleType).subscribe(res => {
+                        for (var i = 0; i < res['data'].length; ++i) {
+                            if (res['data'][i].sub != null) {
+                                // res['data'][i].sub=JSON.parse(res['data'][i].sub)
+                            }
+                        }
+                        this.nav = res['data'];
+                    });
+                }
+                else {
+                    this.service.get('getUserRoleMenus/' + roleType).subscribe(res => {
+                        for (var i = 0; i < res['data'].length; ++i) {
+                            if (res['data'][i].sub != null) {
+                                // res['data'][i].sub=JSON.parse(res['data'][i].sub)
+                            }
+                        }
+                        this.nav = res['data'];
+                    });
+                }
+                // if(roleType == '2'){
+                //   this.nav = items.v2
+                //  }
+                //  if(roleType == '3'){
+                //    this.service.get('getUserRoleMenus/'+roleType).subscribe(res => {
+                //     for (var i = 0; i < res['data'].length; ++i) {
+                //        if(res['data'][i].sub != null){
+                //            // res['data'][i].sub=JSON.parse(res['data'][i].sub)
+                //        }
+                //     }
+                //   this.nav = res['data']
+                //   })
+                // }
+                // console.log('dev',this.nav)
+                // console.log('------',roleType)
+                this.setActiveFlag();
+            });
+        }
+        selectItem(item) {
+            this.navService.sidebarState.childnavOpen = true;
+            this.navService.selectedItem = item;
+            this.setActiveMainItem(item);
+            // Scroll to top secondary sidebar
+            setTimeout(() => {
+                this.psContainerSecSidebar.update();
+                this.psContainerSecSidebar.scrollToTop(0, 400);
+            });
+        }
+        closeChildNav() {
+            this.navService.sidebarState.childnavOpen = false;
+            this.setActiveFlag();
+        }
+        onClickChangeActiveFlag(item) {
+            this.setActiveMainItem(item);
+        }
+        openLink(link) {
+            this.router.navigate([link]);
+            //     window.location.href="http://192.168.0.56:4200/#/"+link
+            //     console.log(link);
+            this.router.navigateByUrl('/dashboard/v1', { skipLocationChange: true }).then(() => {
+                this.router.navigate([link]);
+            });
+        }
+        setActiveMainItem(item) {
+            this.nav.forEach(i => {
+                i.active = false;
+            });
+            item.active = true;
+        }
+        setActiveFlag() {
+            if (window && window.location) {
+                if (this.nav != undefined) {
+                    const activeRoute = window.location.hash || window.location.pathname;
+                    this.nav.forEach(item => {
+                        item.active = false;
+                        if (activeRoute.indexOf(item.state) !== -1) {
+                            this.navService.selectedItem = item;
                             item.active = true;
                         }
-                        if (subItem.sub) {
-                            subItem.sub.forEach(function (subChildItem) {
-                                if (activeRoute_1.indexOf(subChildItem.state) !== -1) {
-                                    _this.navService.selectedItem = item;
+                        if (item.sub != undefined) {
+                            // console.log('============item.sub==========', item.sub)
+                            item.sub.forEach(subItem => {
+                                subItem.active = false;
+                                if (activeRoute.indexOf(subItem.state) !== -1) {
+                                    this.navService.selectedItem = item;
                                     item.active = true;
-                                    subItem.active = true;
+                                }
+                                if (subItem.sub) {
+                                    subItem.sub.forEach(subChildItem => {
+                                        if (activeRoute.indexOf(subChildItem.state) !== -1) {
+                                            this.navService.selectedItem = item;
+                                            item.active = true;
+                                            subItem.active = true;
+                                        }
+                                    });
                                 }
                             });
                         }
                     });
                 }
-            });
+            }
         }
-    };
-    SidebarLargeComponent.prototype.updateSidebar = function () {
-        if (Utils.isMobile()) {
-            this.navService.sidebarState.sidenavOpen = false;
-            this.navService.sidebarState.childnavOpen = false;
+        updateSidebar() {
+            if (Utils.isMobile()) {
+                this.navService.sidebarState.sidenavOpen = false;
+                this.navService.sidebarState.childnavOpen = false;
+            }
+            else {
+                this.navService.sidebarState.sidenavOpen = true;
+            }
         }
-        else {
-            this.navService.sidebarState.sidenavOpen = true;
+        onResize(event) {
+            this.updateSidebar();
         }
-    };
-    SidebarLargeComponent.prototype.onResize = function (event) {
-        this.updateSidebar();
     };
     __decorate([
         ViewChildren(PerfectScrollbarDirective),
@@ -131,9 +169,10 @@ var SidebarLargeComponent = /** @class */ (function () {
             templateUrl: './sidebar-large.component.html',
             styleUrls: ['./sidebar-large.component.scss']
         }),
-        __metadata("design:paramtypes", [Router, NavigationService])
+        __metadata("design:paramtypes", [HttpService,
+            Router, NavigationService])
     ], SidebarLargeComponent);
     return SidebarLargeComponent;
-}());
+})();
 export { SidebarLargeComponent };
 //# sourceMappingURL=sidebar-large.component.js.map

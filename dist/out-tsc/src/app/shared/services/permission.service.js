@@ -8,12 +8,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-var PermissionService = /** @class */ (function () {
-    function PermissionService() {
-    }
-    PermissionService.prototype.getPermissions = function (userPermissionLevel) {
-    };
-    PermissionService.prototype.assignPermissions = function () {
+let PermissionService = /** @class */ (() => {
+    let PermissionService = class PermissionService {
+        constructor() { }
+        getPermissions(userPermissionLevel) {
+        }
+        assignPermissions() {
+        }
     };
     PermissionService = __decorate([
         Injectable({
@@ -22,6 +23,6 @@ var PermissionService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], PermissionService);
     return PermissionService;
-}());
+})();
 export { PermissionService };
 //# sourceMappingURL=permission.service.js.map

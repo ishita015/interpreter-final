@@ -8,27 +8,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-var LocalStoreService = /** @class */ (function () {
-    function LocalStoreService() {
-        this.ls = window.localStorage;
-    }
-    LocalStoreService.prototype.setItem = function (key, value) {
-        value = JSON.stringify(value);
-        this.ls.setItem(key, value);
-        return true;
-    };
-    LocalStoreService.prototype.getItem = function (key) {
-        var value = this.ls.getItem(key);
-        try {
-            return JSON.parse(value);
+let LocalStoreService = /** @class */ (() => {
+    let LocalStoreService = class LocalStoreService {
+        constructor() {
+            this.ls = window.localStorage;
         }
-        catch (e) {
-            // console.log(e)
-            return null;
+        setItem(key, value) {
+            value = JSON.stringify(value);
+            this.ls.setItem(key, value);
+            return true;
         }
-    };
-    LocalStoreService.prototype.clear = function () {
-        this.ls.clear();
+        getItem(key) {
+            const value = this.ls.getItem(key);
+            try {
+                return JSON.parse(value);
+            }
+            catch (e) {
+                // console.log(e)
+                return null;
+            }
+        }
+        clear() {
+            this.ls.clear();
+        }
     };
     LocalStoreService = __decorate([
         Injectable({
@@ -37,6 +39,6 @@ var LocalStoreService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], LocalStoreService);
     return LocalStoreService;
-}());
+})();
 export { LocalStoreService };
 //# sourceMappingURL=local-store.service.js.map

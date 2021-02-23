@@ -13,7 +13,8 @@ import { InterpreterRequestListComponent } from './interpreter-request-list/inte
 import { RejectRequestComponent } from './reject-reques/reject-request.component';
 import { AllRequestComponent } from './all-request/all-request.component';
 import { InterpreterHistoryListComponent } from './interpreter-history-list/interpreter-history-list.component';
-var routes = [
+import { StepFormsComponent } from './step-forms/step-forms.component';
+const routes = [
     { path: 'all-request-list', component: AllRequestComponent },
     { path: 'all-request-list/:id', component: AllRequestComponent },
     { path: 'list', component: InterpreterRequestListComponent },
@@ -22,10 +23,11 @@ var routes = [
     { path: 'cancelled-list', component: CancelledRequestComponent },
     { path: 'reject-list', component: RejectRequestComponent },
     { path: 'interpreter-history', component: InterpreterHistoryListComponent },
+    { path: 'step-form', component: StepFormsComponent },
 ];
-var InterpreterRequestRoutingModule = /** @class */ (function () {
-    function InterpreterRequestRoutingModule() {
-    }
+let InterpreterRequestRoutingModule = /** @class */ (() => {
+    let InterpreterRequestRoutingModule = class InterpreterRequestRoutingModule {
+    };
     InterpreterRequestRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -33,6 +35,6 @@ var InterpreterRequestRoutingModule = /** @class */ (function () {
         })
     ], InterpreterRequestRoutingModule);
     return InterpreterRequestRoutingModule;
-}());
+})();
 export { InterpreterRequestRoutingModule };
 //# sourceMappingURL=interpreter-request-routing.module.js.map

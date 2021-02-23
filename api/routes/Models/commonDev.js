@@ -17,7 +17,7 @@ var database = new function() {
             }
             counter++;
         }
-        // console.log("===dev",que)
+        console.log("===dev",que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
             // console.log('err',err)
@@ -105,7 +105,7 @@ this.AsyncUpdate = function(table,obj,where) {
         que += " WHERE " + key[0] + " = '" + where[key[0]] + "'";
         
             // //console.log(where)
-            //console.log(que)
+            console.log(que)
         return new Promise((resolve, reject) => {
         con.query(que, (err, response) => {
              if(err){
@@ -222,7 +222,7 @@ this.getAssignmentSettingsCheck =(onsitedata) =>{
      this.getInterpreterSeting = (obj) => {
         return new Promise(function(resolve, reject) {
             // var sql = "SELECT * FROM interpreter_assignment_settings WHERE Interpreter_id='"+obj.interpreter_id+"' AND assignment_type="+obj.assignment_type+" AND status=1 ORDER BY id ASC  LIMIT 1"; 
-            var sql = "SELECT ias.*, mp.platform FROM interpreter_assignment_settings AS ias LEFT JOIN master_platform as mp ON ias.assignment_type = mp.id WHERE Interpreter_id='"+obj.interpreter_id+"' AND ias.status=1 ORDER BY id ASC"; 
+            var sql = "SELECT ias.*, mp.platform FROM interpreter_assignment_settings AS ias LEFT JOIN master_platform as mp ON ias.platform_id = mp.id WHERE Interpreter_id='"+obj.interpreter_id+"' AND ias.status=1 ORDER BY id ASC"; 
            console.log("===============",sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {

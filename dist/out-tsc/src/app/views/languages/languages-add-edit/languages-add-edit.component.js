@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var LanguagesAddEditComponent = /** @class */ (function () {
-    function LanguagesAddEditComponent() {
-    }
-    LanguagesAddEditComponent.prototype.ngOnInit = function () {
+let LanguagesAddEditComponent = /** @class */ (() => {
+    let LanguagesAddEditComponent = class LanguagesAddEditComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     LanguagesAddEditComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var LanguagesAddEditComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], LanguagesAddEditComponent);
     return LanguagesAddEditComponent;
-}());
+})();
 export { LanguagesAddEditComponent };
 //# sourceMappingURL=languages-add-edit.component.js.map

@@ -14,9 +14,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { FormsModule } from '@angular/forms';
 import { SharedDirectivesModule } from 'src/app/shared/directives/shared-directives.module';
 import { SharedPipesModule } from 'src/app/shared/pipes/shared-pipes.module';
-var ChatModule = /** @class */ (function () {
-    function ChatModule() {
-    }
+let ChatModule = /** @class */ (() => {
+    let ChatModule = class ChatModule {
+    };
     ChatModule = __decorate([
         NgModule({
             imports: [
@@ -31,6 +31,6 @@ var ChatModule = /** @class */ (function () {
         })
     ], ChatModule);
     return ChatModule;
-}());
+})();
 export { ChatModule };
 //# sourceMappingURL=chat.module.js.map

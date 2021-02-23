@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { FormLayoutsComponent } from './form-layouts.component';
-describe('FormLayoutsComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('FormLayoutsComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [FormLayoutsComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(FormLayoutsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

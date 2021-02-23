@@ -1,10 +1,10 @@
 import { ChatModule } from './chat.module';
-describe('ChatModule', function () {
-    var chatModule;
-    beforeEach(function () {
+describe('ChatModule', () => {
+    let chatModule;
+    beforeEach(() => {
         chatModule = new ChatModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(chatModule).toBeTruthy();
     });
 });

@@ -12,43 +12,43 @@ import { User, ChatService } from '../chat.service';
 import { HttpService } from "../../../shared/services/http.service";
 import { Router } from '@angular/router';
 import { VariablesService } from 'src/app/shared/services/variables.service';
-var ChatLeftSidebarComponent = /** @class */ (function () {
-    function ChatLeftSidebarComponent(chatService, service, router, variable) {
-        this.chatService = chatService;
-        this.service = service;
-        this.router = router;
-        this.variable = variable;
-        this.isSidenavOpen = true;
-        this.currentUser = new User();
-    }
-    ChatLeftSidebarComponent.prototype.ngOnInit = function () {
-        this.login_data = JSON.parse(localStorage.getItem('loginData'));
-        this.userId = JSON.parse(localStorage.getItem('userId'));
-        this.getContactList();
-    };
-    ChatLeftSidebarComponent.prototype.getContactList = function () {
-        var _this = this;
-        this.service.getContactData(this.userId)
-            .subscribe(function (res) {
-            if (res['status'] == 1) {
-                _this.contacts = res['data'];
-            }
-        });
-    };
-    ChatLeftSidebarComponent.prototype.getChatByContact = function (contact) {
-        var _this = this;
-        this.variable.user_chat_img = true;
-        console.log("select contact", contact);
-        this.variable.loadingCollection = true;
-        this.service.changeMessage(contact);
-        if (contact.group_id == '0') {
-            console.log("group_id", contact.group_id);
-            // send request
-            this.service.requestSend(this.userId, contact.id).subscribe(function (res) {
+let ChatLeftSidebarComponent = /** @class */ (() => {
+    let ChatLeftSidebarComponent = class ChatLeftSidebarComponent {
+        constructor(chatService, service, router, variable) {
+            this.chatService = chatService;
+            this.service = service;
+            this.router = router;
+            this.variable = variable;
+            this.isSidenavOpen = true;
+            this.currentUser = new User();
+        }
+        ngOnInit() {
+            this.login_data = JSON.parse(localStorage.getItem('loginData'));
+            this.userId = JSON.parse(localStorage.getItem('userId'));
+            this.getContactList();
+        }
+        getContactList() {
+            this.service.getContactData(this.userId)
+                .subscribe(res => {
                 if (res['status'] == 1) {
-                    _this.getContactList();
+                    this.contacts = res['data'];
                 }
             });
+        }
+        getChatByContact(contact) {
+            this.variable.user_chat_img = true;
+            console.log("select contact", contact);
+            this.variable.loadingCollection = true;
+            this.service.changeMessage(contact);
+            if (contact.group_id == '0') {
+                console.log("group_id", contact.group_id);
+                // send request
+                this.service.requestSend(this.userId, contact.id).subscribe(res => {
+                    if (res['status'] == 1) {
+                        this.getContactList();
+                    }
+                });
+            }
         }
     };
     ChatLeftSidebarComponent = __decorate([
@@ -60,6 +60,6 @@ var ChatLeftSidebarComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ChatService, HttpService, Router, VariablesService])
     ], ChatLeftSidebarComponent);
     return ChatLeftSidebarComponent;
-}());
+})();
 export { ChatLeftSidebarComponent };
 //# sourceMappingURL=chat-left-sidebar.component.js.map

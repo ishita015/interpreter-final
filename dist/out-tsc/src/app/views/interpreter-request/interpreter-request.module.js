@@ -13,6 +13,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TagInputModule } from 'ngx-chips';
+import { AgmCoreModule } from '@agm/core';
 import { AcceptRequestComponent } from './accept-request/accept-request.component';
 import { CompleteRequestComponent } from './complete-request/complete-request.component';
 import { CancelledRequestComponent } from './cancelled-request/cancelled-request.component';
@@ -23,9 +24,10 @@ import { InterpreterHistoryListComponent } from './interpreter-history-list/inte
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-var InterpreterRequestModule = /** @class */ (function () {
-    function InterpreterRequestModule() {
-    }
+import { StepFormsComponent } from './step-forms/step-forms.component';
+let InterpreterRequestModule = /** @class */ (() => {
+    let InterpreterRequestModule = class InterpreterRequestModule {
+    };
     InterpreterRequestModule = __decorate([
         NgModule({
             declarations: [InterpreterRequestListComponent,
@@ -33,7 +35,7 @@ var InterpreterRequestModule = /** @class */ (function () {
                 CompleteRequestComponent,
                 CancelledRequestComponent,
                 RejectRequestComponent,
-                AllRequestComponent, InterpreterHistoryListComponent],
+                AllRequestComponent, InterpreterHistoryListComponent, StepFormsComponent],
             imports: [
                 CommonModule,
                 InterpreterRequestRoutingModule,
@@ -46,11 +48,15 @@ var InterpreterRequestModule = /** @class */ (function () {
                 ReactiveFormsModule,
                 SharedComponentsModule,
                 TagInputModule,
+                AgmCoreModule.forRoot({
+                    apiKey: 'AIzaSyBC_D6nmnxc-Og6sZJ_hfuxRbHcJB9Is38',
+                    libraries: ['places']
+                }),
                 NgbModule,
             ]
         })
     ], InterpreterRequestModule);
     return InterpreterRequestModule;
-}());
+})();
 export { InterpreterRequestModule };
 //# sourceMappingURL=interpreter-request.module.js.map

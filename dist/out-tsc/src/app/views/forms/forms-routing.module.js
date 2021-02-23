@@ -13,7 +13,7 @@ import { WizardComponent } from './wizard/wizard.component';
 import { InputMaskComponent } from './input-mask/input-mask.component';
 import { InputGroupsComponent } from './input-groups/input-groups.component';
 import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
-var routes = [
+const routes = [
     {
         path: 'basic',
         component: BasicFormComponent
@@ -43,9 +43,9 @@ var routes = [
         component: AppImgCropperComponent
     }
 ];
-var FormsRoutingModule = /** @class */ (function () {
-    function FormsRoutingModule() {
-    }
+let FormsRoutingModule = /** @class */ (() => {
+    let FormsRoutingModule = class FormsRoutingModule {
+    };
     FormsRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -53,6 +53,6 @@ var FormsRoutingModule = /** @class */ (function () {
         })
     ], FormsRoutingModule);
     return FormsRoutingModule;
-}());
+})();
 export { FormsRoutingModule };
 //# sourceMappingURL=forms-routing.module.js.map

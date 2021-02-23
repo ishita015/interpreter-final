@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { IconsmindComponent } from './iconsmind.component';
-describe('IconsmindComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('IconsmindComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [IconsmindComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(IconsmindComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

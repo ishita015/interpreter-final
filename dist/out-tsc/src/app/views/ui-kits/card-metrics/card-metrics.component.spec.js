@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { CardMetricsComponent } from './card-metrics.component';
-describe('CardMetricsComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('CardMetricsComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [CardMetricsComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(CardMetricsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

@@ -1,10 +1,10 @@
 import { SessionsModule } from './sessions.module';
-describe('SessionsModule', function () {
-    var sessionsModule;
-    beforeEach(function () {
+describe('SessionsModule', () => {
+    let sessionsModule;
+    beforeEach(() => {
         sessionsModule = new SessionsModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(sessionsModule).toBeTruthy();
     });
 });

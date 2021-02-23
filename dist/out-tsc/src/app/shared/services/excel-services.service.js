@@ -10,20 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-var EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-var EXCEL_EXTENSION = '.xlsx';
-var ExcelServicesService = /** @class */ (function () {
-    function ExcelServicesService() {
-    }
-    ExcelServicesService.prototype.exportAsExcelFile = function (json, excelFileName) {
-        var worksheet = XLSX.utils.json_to_sheet(json);
-        var workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        var excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, excelFileName);
-    };
-    ExcelServicesService.prototype.saveAsExcelFile = function (buffer, fileName) {
-        var data = new Blob([buffer], { type: EXCEL_TYPE });
-        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
+let ExcelServicesService = /** @class */ (() => {
+    let ExcelServicesService = class ExcelServicesService {
+        constructor() { }
+        exportAsExcelFile(json, excelFileName) {
+            const worksheet = XLSX.utils.json_to_sheet(json);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, excelFileName);
+        }
+        saveAsExcelFile(buffer, fileName) {
+            const data = new Blob([buffer], { type: EXCEL_TYPE });
+            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        }
     };
     ExcelServicesService = __decorate([
         Injectable({
@@ -32,6 +33,6 @@ var ExcelServicesService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ExcelServicesService);
     return ExcelServicesService;
-}());
+})();
 export { ExcelServicesService };
 //# sourceMappingURL=excel-services.service.js.map

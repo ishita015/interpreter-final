@@ -29,9 +29,9 @@ import { InterpreterProfileInformationComponent } from './interpreter-profile-in
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-var InterpreterManagementModule = /** @class */ (function () {
-    function InterpreterManagementModule() {
-    }
+let InterpreterManagementModule = /** @class */ (() => {
+    let InterpreterManagementModule = class InterpreterManagementModule {
+    };
     InterpreterManagementModule = __decorate([
         NgModule({
             declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent, InterpreterProfileInformationComponent],
@@ -60,6 +60,6 @@ var InterpreterManagementModule = /** @class */ (function () {
         })
     ], InterpreterManagementModule);
     return InterpreterManagementModule;
-}());
+})();
 export { InterpreterManagementModule };
 //# sourceMappingURL=interpreter-management.module.js.map

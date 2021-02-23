@@ -5,40 +5,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Pipe } from '@angular/core';
-var RelativeTimePipe = /** @class */ (function () {
-    function RelativeTimePipe() {
-    }
-    RelativeTimePipe.prototype.transform = function (value) {
-        if (!(value instanceof Date)) {
-            value = new Date(value);
+let RelativeTimePipe = /** @class */ (() => {
+    let RelativeTimePipe = class RelativeTimePipe {
+        transform(value) {
+            if (!(value instanceof Date)) {
+                value = new Date(value);
+            }
+            const seconds = Math.floor(((new Date()).getTime() - value.getTime()) / 1000);
+            let interval = Math.floor(seconds / 31536000);
+            if (interval > 1) {
+                return interval + ' years ago';
+            }
+            interval = Math.floor(seconds / 2592000);
+            if (interval > 1) {
+                return interval + ' months ago';
+            }
+            interval = Math.floor(seconds / 86400);
+            if (interval > 1) {
+                return interval + ' days ago';
+            }
+            interval = Math.floor(seconds / 3600);
+            if (interval > 1) {
+                return interval + ' hours ago';
+            }
+            interval = Math.floor(seconds / 60);
+            if (interval > 1) {
+                return interval + ' minutes ago';
+            }
+            return Math.floor(seconds) + ' seconds ago';
         }
-        var seconds = Math.floor(((new Date()).getTime() - value.getTime()) / 1000);
-        var interval = Math.floor(seconds / 31536000);
-        if (interval > 1) {
-            return interval + ' years ago';
-        }
-        interval = Math.floor(seconds / 2592000);
-        if (interval > 1) {
-            return interval + ' months ago';
-        }
-        interval = Math.floor(seconds / 86400);
-        if (interval > 1) {
-            return interval + ' days ago';
-        }
-        interval = Math.floor(seconds / 3600);
-        if (interval > 1) {
-            return interval + ' hours ago';
-        }
-        interval = Math.floor(seconds / 60);
-        if (interval > 1) {
-            return interval + ' minutes ago';
-        }
-        return Math.floor(seconds) + ' seconds ago';
     };
     RelativeTimePipe = __decorate([
         Pipe({ name: 'relativeTime' })
     ], RelativeTimePipe);
     return RelativeTimePipe;
-}());
+})();
 export { RelativeTimePipe };
 //# sourceMappingURL=relative-time.pipe.js.map

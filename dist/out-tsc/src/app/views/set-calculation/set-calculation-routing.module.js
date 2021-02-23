@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SetCalculationAddComponent } from './set-calculation-add/set-calculation-add.component';
-var routes = [
+const routes = [
     { path: 'set-calculation-add', component: SetCalculationAddComponent },
 ];
-var SetCalculationRoutingModule = /** @class */ (function () {
-    function SetCalculationRoutingModule() {
-    }
+let SetCalculationRoutingModule = /** @class */ (() => {
+    let SetCalculationRoutingModule = class SetCalculationRoutingModule {
+    };
     SetCalculationRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -20,6 +20,6 @@ var SetCalculationRoutingModule = /** @class */ (function () {
         })
     ], SetCalculationRoutingModule);
     return SetCalculationRoutingModule;
-}());
+})();
 export { SetCalculationRoutingModule };
 //# sourceMappingURL=set-calculation-routing.module.js.map

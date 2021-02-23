@@ -1,10 +1,10 @@
 import { InvoiceModule } from './invoice.module';
-describe('InvoiceModule', function () {
-    var invoiceModule;
-    beforeEach(function () {
+describe('InvoiceModule', () => {
+    let invoiceModule;
+    beforeEach(() => {
         invoiceModule = new InvoiceModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(invoiceModule).toBeTruthy();
     });
 });

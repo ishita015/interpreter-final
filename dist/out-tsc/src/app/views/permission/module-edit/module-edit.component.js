@@ -13,53 +13,54 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var ModuleEditComponent = /** @class */ (function () {
-    function ModuleEditComponent(validation, service, fb, toastr, router, route) {
-        this.validation = validation;
-        this.service = service;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.route = route;
-    }
-    ModuleEditComponent.prototype.ngOnInit = function () {
-        this.createForm();
-        this.data = JSON.parse(localStorage.getItem('moduleData'));
-        console.log("data", this.data);
-        this.patchValue();
-    };
-    /*========== Form Value Start Here========*/
-    ModuleEditComponent.prototype.createForm = function () {
-        this.moduleEditForm = this.fb.group({
-            module_name: ['', this.validation.onlyRequired_validator],
-            id: ['']
-        });
-    };
-    /*========== Form Value End Here========*/
-    /*========== Edit Input Value Start Here========*/
-    ModuleEditComponent.prototype.patchValue = function () {
-        this.moduleEditForm.get('module_name').patchValue(this.data.module_name);
-    };
-    /*==========Edit Input Value End Here========*/
-    ModuleEditComponent.prototype.submitEdit = function () {
-        var _this = this;
-        console.log("formmmmmmmmmmmm", this.moduleEditForm.value);
-        console.log("form value", this.moduleEditForm.value);
-        this.submitted = true;
-        if (this.moduleEditForm.invalid) {
-            return;
+let ModuleEditComponent = /** @class */ (() => {
+    let ModuleEditComponent = class ModuleEditComponent {
+        constructor(validation, service, fb, toastr, router, route) {
+            this.validation = validation;
+            this.service = service;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.route = route;
         }
-        this.submitted = false;
-        this.moduleEditForm.value.id = this.data.id;
-        this.service.moduleUpadte(this.moduleEditForm.value)
-            .subscribe(function (res) {
-            // console.log("api response",res);
-            _this.module_Obj = res;
-            _this.module_Msg = res;
-            // console.log("api response", this.module_Obj);
-            _this.toastr.success(_this.module_Msg.message, '', { timeOut: 1000 });
-            _this.router.navigate(['/permission/modulelist']);
-        });
+        ngOnInit() {
+            this.createForm();
+            this.data = JSON.parse(localStorage.getItem('moduleData'));
+            console.log("data", this.data);
+            this.patchValue();
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.moduleEditForm = this.fb.group({
+                module_name: ['', this.validation.onlyRequired_validator],
+                id: ['']
+            });
+        }
+        /*========== Form Value End Here========*/
+        /*========== Edit Input Value Start Here========*/
+        patchValue() {
+            this.moduleEditForm.get('module_name').patchValue(this.data.module_name);
+        }
+        /*==========Edit Input Value End Here========*/
+        submitEdit() {
+            console.log("formmmmmmmmmmmm", this.moduleEditForm.value);
+            console.log("form value", this.moduleEditForm.value);
+            this.submitted = true;
+            if (this.moduleEditForm.invalid) {
+                return;
+            }
+            this.submitted = false;
+            this.moduleEditForm.value.id = this.data.id;
+            this.service.moduleUpadte(this.moduleEditForm.value)
+                .subscribe(res => {
+                // console.log("api response",res);
+                this.module_Obj = res;
+                this.module_Msg = res;
+                // console.log("api response", this.module_Obj);
+                this.toastr.success(this.module_Msg.message, '', { timeOut: 1000 });
+                this.router.navigate(['/permission/modulelist']);
+            });
+        }
     };
     ModuleEditComponent = __decorate([
         Component({
@@ -73,6 +74,6 @@ var ModuleEditComponent = /** @class */ (function () {
             ActivatedRoute])
     ], ModuleEditComponent);
     return ModuleEditComponent;
-}());
+})();
 export { ModuleEditComponent };
 //# sourceMappingURL=module-edit.component.js.map

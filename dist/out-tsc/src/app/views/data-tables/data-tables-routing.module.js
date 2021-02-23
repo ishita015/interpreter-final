@@ -10,7 +10,7 @@ import { FullscreenTableComponent } from './fullscreen-table/fullscreen-table.co
 import { PagingTableComponent } from './paging-table/paging-table.component';
 import { FilterTableComponent } from './filter-table/filter-table.component';
 import { ListPaginationComponent } from './list-pagination/list-pagination.component';
-var routes = [
+const routes = [
     {
         path: 'list',
         component: ListPaginationComponent
@@ -28,9 +28,9 @@ var routes = [
         component: FilterTableComponent
     }
 ];
-var DataTablesRoutingModule = /** @class */ (function () {
-    function DataTablesRoutingModule() {
-    }
+let DataTablesRoutingModule = /** @class */ (() => {
+    let DataTablesRoutingModule = class DataTablesRoutingModule {
+    };
     DataTablesRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -38,6 +38,6 @@ var DataTablesRoutingModule = /** @class */ (function () {
         })
     ], DataTablesRoutingModule);
     return DataTablesRoutingModule;
-}());
+})();
 export { DataTablesRoutingModule };
 //# sourceMappingURL=data-tables-routing.module.js.map

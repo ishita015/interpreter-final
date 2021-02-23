@@ -1,10 +1,10 @@
 import { DataTablesModule } from './data-tables.module';
-describe('DataTablesModule', function () {
-    var dataTablesModule;
-    beforeEach(function () {
+describe('DataTablesModule', () => {
+    let dataTablesModule;
+    beforeEach(() => {
         dataTablesModule = new DataTablesModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(dataTablesModule).toBeTruthy();
     });
 });

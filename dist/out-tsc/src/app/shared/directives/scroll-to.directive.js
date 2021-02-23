@@ -11,75 +11,77 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { Directive, ElementRef, Attribute, HostListener } from '@angular/core';
-var ScrollToDirective = /** @class */ (function () {
-    function ScrollToDirective(elmID, el) {
-        this.elmID = elmID;
-        this.el = el;
-    }
-    ScrollToDirective.prototype.ngOnInit = function () { };
-    ScrollToDirective.prototype.currentYPosition = function () {
-        // Firefox, Chrome, Opera, Safari
-        if (self.pageYOffset) {
-            return self.pageYOffset;
+let ScrollToDirective = /** @class */ (() => {
+    let ScrollToDirective = class ScrollToDirective {
+        constructor(elmID, el) {
+            this.elmID = elmID;
+            this.el = el;
         }
-        // Internet Explorer 6 - standards mode
-        if (document.documentElement && document.documentElement.scrollTop) {
-            return document.documentElement.scrollTop;
+        ngOnInit() { }
+        currentYPosition() {
+            // Firefox, Chrome, Opera, Safari
+            if (self.pageYOffset) {
+                return self.pageYOffset;
+            }
+            // Internet Explorer 6 - standards mode
+            if (document.documentElement && document.documentElement.scrollTop) {
+                return document.documentElement.scrollTop;
+            }
+            // Internet Explorer 6, 7 and 8
+            if (document.body.scrollTop) {
+                return document.body.scrollTop;
+            }
+            return 0;
         }
-        // Internet Explorer 6, 7 and 8
-        if (document.body.scrollTop) {
-            return document.body.scrollTop;
+        elmYPosition(eID) {
+            const elm = document.getElementById(eID);
+            let y = elm.offsetTop;
+            let node = elm;
+            while (node.offsetParent && node.offsetParent != document.body) {
+                node = node.offsetParent;
+                y += node.offsetTop;
+            }
+            return y;
         }
-        return 0;
-    };
-    ScrollToDirective.prototype.elmYPosition = function (eID) {
-        var elm = document.getElementById(eID);
-        var y = elm.offsetTop;
-        var node = elm;
-        while (node.offsetParent && node.offsetParent != document.body) {
-            node = node.offsetParent;
-            y += node.offsetTop;
-        }
-        return y;
-    };
-    ScrollToDirective.prototype.smoothScroll = function () {
-        if (!this.elmID) {
-            return;
-        }
-        var startY = this.currentYPosition();
-        var stopY = this.elmYPosition(this.elmID);
-        var distance = stopY > startY ? stopY - startY : startY - stopY;
-        if (distance < 100) {
-            scrollTo(0, stopY);
-            return;
-        }
-        var speed = Math.round(distance / 50);
-        if (speed >= 20) {
-            speed = 20;
-        }
-        var step = Math.round(distance / 25);
-        var leapY = stopY > startY ? startY + step : startY - step;
-        var timer = 0;
-        if (stopY > startY) {
-            for (var i = startY; i < stopY; i += step) {
+        smoothScroll() {
+            if (!this.elmID) {
+                return;
+            }
+            const startY = this.currentYPosition();
+            const stopY = this.elmYPosition(this.elmID);
+            const distance = stopY > startY ? stopY - startY : startY - stopY;
+            if (distance < 100) {
+                scrollTo(0, stopY);
+                return;
+            }
+            let speed = Math.round(distance / 50);
+            if (speed >= 20) {
+                speed = 20;
+            }
+            const step = Math.round(distance / 25);
+            let leapY = stopY > startY ? startY + step : startY - step;
+            let timer = 0;
+            if (stopY > startY) {
+                for (let i = startY; i < stopY; i += step) {
+                    setTimeout('window.scrollTo(0, ' + leapY + ')', timer * speed);
+                    leapY += step;
+                    if (leapY > stopY) {
+                        leapY = stopY;
+                    }
+                    timer++;
+                }
+                return;
+            }
+            for (let i = startY; i > stopY; i -= step) {
                 setTimeout('window.scrollTo(0, ' + leapY + ')', timer * speed);
-                leapY += step;
-                if (leapY > stopY) {
+                leapY -= step;
+                if (leapY < stopY) {
                     leapY = stopY;
                 }
                 timer++;
             }
-            return;
+            return false;
         }
-        for (var i = startY; i > stopY; i -= step) {
-            setTimeout('window.scrollTo(0, ' + leapY + ')', timer * speed);
-            leapY -= step;
-            if (leapY < stopY) {
-                leapY = stopY;
-            }
-            timer++;
-        }
-        return false;
     };
     __decorate([
         HostListener('click', ['$event']),
@@ -93,6 +95,6 @@ var ScrollToDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [String, ElementRef])
     ], ScrollToDirective);
     return ScrollToDirective;
-}());
+})();
 export { ScrollToDirective };
 //# sourceMappingURL=scroll-to.directive.js.map

@@ -8,9 +8,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconsRoutingModule } from './icons-routing.module';
 import { IconsmindComponent } from './iconsmind/iconsmind.component';
-var IconsModule = /** @class */ (function () {
-    function IconsModule() {
-    }
+let IconsModule = /** @class */ (() => {
+    let IconsModule = class IconsModule {
+    };
     IconsModule = __decorate([
         NgModule({
             imports: [
@@ -21,6 +21,6 @@ var IconsModule = /** @class */ (function () {
         })
     ], IconsModule);
     return IconsModule;
-}());
+})();
 export { IconsModule };
 //# sourceMappingURL=icons.module.js.map

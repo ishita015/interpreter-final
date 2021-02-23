@@ -7,15 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
-var routes = [
+const routes = [
     {
         path: 'chat',
         component: ChatComponent
     }
 ];
-var ChatRoutingModule = /** @class */ (function () {
-    function ChatRoutingModule() {
-    }
+let ChatRoutingModule = /** @class */ (() => {
+    let ChatRoutingModule = class ChatRoutingModule {
+    };
     ChatRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -23,6 +23,6 @@ var ChatRoutingModule = /** @class */ (function () {
         })
     ], ChatRoutingModule);
     return ChatRoutingModule;
-}());
+})();
 export { ChatRoutingModule };
 //# sourceMappingURL=chat-routing.module.js.map

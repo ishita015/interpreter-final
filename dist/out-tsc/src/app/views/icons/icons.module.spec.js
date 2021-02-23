@@ -1,10 +1,10 @@
 import { IconsModule } from './icons.module';
-describe('IconsModule', function () {
-    var iconsModule;
-    beforeEach(function () {
+describe('IconsModule', () => {
+    let iconsModule;
+    beforeEach(() => {
         iconsModule = new IconsModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(iconsModule).toBeTruthy();
     });
 });

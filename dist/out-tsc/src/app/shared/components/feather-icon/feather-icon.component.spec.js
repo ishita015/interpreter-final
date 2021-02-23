@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { FeatherIconComponent } from './feather-icon.component';
-describe('FeatherIconComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('FeatherIconComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [FeatherIconComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(FeatherIconComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

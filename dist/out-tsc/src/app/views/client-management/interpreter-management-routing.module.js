@@ -11,7 +11,7 @@ import { InterpreterAddComponent } from './../client-management/interpreter-add/
 import { InterpreterEditComponent } from './../client-management/interpreter-edit/interpreter-edit.component';
 import { InterpreterViewComponent } from './../client-management/interpreter-view/interpreter-view.component';
 import { InterpreterProfileInformationComponent } from './interpreter-profile-information/interpreter-profile-information.component';
-var routes = [
+const routes = [
     { path: 'client-list', component: InterpreterListComponent },
     { path: 'client-list/:id/:type', component: InterpreterListComponent },
     { path: 'client-add', component: InterpreterAddComponent },
@@ -21,9 +21,9 @@ var routes = [
     { path: 'client-edit/:id', component: InterpreterEditComponent },
     { path: 'client-view/:id', component: InterpreterViewComponent },
 ];
-var InterpreterManagementRoutingModule = /** @class */ (function () {
-    function InterpreterManagementRoutingModule() {
-    }
+let InterpreterManagementRoutingModule = /** @class */ (() => {
+    let InterpreterManagementRoutingModule = class InterpreterManagementRoutingModule {
+    };
     InterpreterManagementRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -31,6 +31,6 @@ var InterpreterManagementRoutingModule = /** @class */ (function () {
         })
     ], InterpreterManagementRoutingModule);
     return InterpreterManagementRoutingModule;
-}());
+})();
 export { InterpreterManagementRoutingModule };
 //# sourceMappingURL=interpreter-management-routing.module.js.map

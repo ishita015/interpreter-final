@@ -10,29 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-var BasicFormComponent = /** @class */ (function () {
-    function BasicFormComponent(fb, toastr) {
-        this.fb = fb;
-        this.toastr = toastr;
-    }
-    BasicFormComponent.prototype.ngOnInit = function () {
-        this.buildFormBasic();
-        this.radioGroup = this.fb.group({
-            radio: []
-        });
-    };
-    BasicFormComponent.prototype.buildFormBasic = function () {
-        this.formBasic = this.fb.group({
-            experience: []
-        });
-    };
-    BasicFormComponent.prototype.submit = function () {
-        var _this = this;
-        this.loading = true;
-        setTimeout(function () {
-            _this.loading = false;
-            _this.toastr.success('Profile updated.', 'Success!', { progressBar: true });
-        }, 3000);
+let BasicFormComponent = /** @class */ (() => {
+    let BasicFormComponent = class BasicFormComponent {
+        constructor(fb, toastr) {
+            this.fb = fb;
+            this.toastr = toastr;
+        }
+        ngOnInit() {
+            this.buildFormBasic();
+            this.radioGroup = this.fb.group({
+                radio: []
+            });
+        }
+        buildFormBasic() {
+            this.formBasic = this.fb.group({
+                experience: []
+            });
+        }
+        submit() {
+            this.loading = true;
+            setTimeout(() => {
+                this.loading = false;
+                this.toastr.success('Profile updated.', 'Success!', { progressBar: true });
+            }, 3000);
+        }
     };
     BasicFormComponent = __decorate([
         Component({
@@ -44,6 +45,6 @@ var BasicFormComponent = /** @class */ (function () {
             ToastrService])
     ], BasicFormComponent);
     return BasicFormComponent;
-}());
+})();
 export { BasicFormComponent };
 //# sourceMappingURL=basic-form.component.js.map

@@ -8,29 +8,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-var WizardStepComponent = /** @class */ (function () {
-    function WizardStepComponent() {
-        this.hidden = false;
-        this.isValid = true;
-        this.showNext = true;
-        this.showPrev = true;
-        this.onNext = new EventEmitter();
-        this.onPrev = new EventEmitter();
-        this.onComplete = new EventEmitter();
-        this._isActive = false;
-        this.isDisabled = true;
-    }
-    Object.defineProperty(WizardStepComponent.prototype, "isActive", {
-        get: function () {
-            return this._isActive;
-        },
-        set: function (isActive) {
+let WizardStepComponent = /** @class */ (() => {
+    let WizardStepComponent = class WizardStepComponent {
+        constructor() {
+            this.hidden = false;
+            this.isValid = true;
+            this.showNext = true;
+            this.showPrev = true;
+            this.onNext = new EventEmitter();
+            this.onPrev = new EventEmitter();
+            this.onComplete = new EventEmitter();
+            this._isActive = false;
+            this.isDisabled = true;
+        }
+        set isActive(isActive) {
             this._isActive = isActive;
             this.isDisabled = false;
-        },
-        enumerable: false,
-        configurable: true
-    });
+        }
+        get isActive() {
+            return this._isActive;
+        }
+    };
     __decorate([
         Input(),
         __metadata("design:type", String)
@@ -71,11 +69,15 @@ var WizardStepComponent = /** @class */ (function () {
     WizardStepComponent = __decorate([
         Component({
             selector: 'wizard-step',
-            template: "\n    <div [hidden]=\"!isActive\">\n      <ng-content></ng-content>\n    </div>\n  "
+            template: `
+    <div [hidden]="!isActive">
+      <ng-content></ng-content>
+    </div>
+  `
         }),
         __metadata("design:paramtypes", [])
     ], WizardStepComponent);
     return WizardStepComponent;
-}());
+})();
 export { WizardStepComponent };
 //# sourceMappingURL=wizard-step.component.js.map

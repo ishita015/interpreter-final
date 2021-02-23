@@ -10,9 +10,9 @@ import { RolesetRoutingModule } from './roleset-routing.module';
 import { RolesetComponent } from './roleset.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-var RolesetModule = /** @class */ (function () {
-    function RolesetModule() {
-    }
+let RolesetModule = /** @class */ (() => {
+    let RolesetModule = class RolesetModule {
+    };
     RolesetModule = __decorate([
         NgModule({
             declarations: [RolesetComponent],
@@ -26,6 +26,6 @@ var RolesetModule = /** @class */ (function () {
         })
     ], RolesetModule);
     return RolesetModule;
-}());
+})();
 export { RolesetModule };
 //# sourceMappingURL=roleset.module.js.map

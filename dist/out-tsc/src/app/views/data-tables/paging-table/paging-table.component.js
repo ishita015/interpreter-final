@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/product.service';
-var PagingTableComponent = /** @class */ (function () {
-    function PagingTableComponent(productService) {
-        this.productService = productService;
-    }
-    PagingTableComponent.prototype.ngOnInit = function () {
-        this.products$ = this.productService.getProducts();
+let PagingTableComponent = /** @class */ (() => {
+    let PagingTableComponent = class PagingTableComponent {
+        constructor(productService) {
+            this.productService = productService;
+        }
+        ngOnInit() {
+            this.products$ = this.productService.getProducts();
+        }
     };
     PagingTableComponent = __decorate([
         Component({
@@ -25,6 +27,6 @@ var PagingTableComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ProductService])
     ], PagingTableComponent);
     return PagingTableComponent;
-}());
+})();
 export { PagingTableComponent };
 //# sourceMappingURL=paging-table.component.js.map

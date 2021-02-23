@@ -8,11 +8,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-var VariablesService = /** @class */ (function () {
-    function VariablesService() {
-        this.loadingCollection = false;
-        this.user_chat_img = false;
-    }
+let VariablesService = /** @class */ (() => {
+    let VariablesService = class VariablesService {
+        constructor() {
+            this.loadingCollection = false;
+            this.user_chat_img = false;
+        }
+    };
     VariablesService = __decorate([
         Injectable({
             providedIn: 'root'
@@ -20,6 +22,6 @@ var VariablesService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], VariablesService);
     return VariablesService;
-}());
+})();
 export { VariablesService };
 //# sourceMappingURL=variables.service.js.map

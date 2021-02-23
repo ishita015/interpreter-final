@@ -21,9 +21,9 @@ import { PendingRequestComponent } from './pending-request/pending-request.compo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-var UserRequestModule = /** @class */ (function () {
-    function UserRequestModule() {
-    }
+let UserRequestModule = /** @class */ (() => {
+    let UserRequestModule = class UserRequestModule {
+    };
     UserRequestModule = __decorate([
         NgModule({
             declarations: [
@@ -54,6 +54,6 @@ var UserRequestModule = /** @class */ (function () {
         })
     ], UserRequestModule);
     return UserRequestModule;
-}());
+})();
 export { UserRequestModule };
 //# sourceMappingURL=user-request.module.js.map

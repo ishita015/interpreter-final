@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var InterpreterListComponent = /** @class */ (function () {
-    function InterpreterListComponent() {
-    }
-    InterpreterListComponent.prototype.ngOnInit = function () {
+let InterpreterListComponent = /** @class */ (() => {
+    let InterpreterListComponent = class InterpreterListComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     InterpreterListComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var InterpreterListComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], InterpreterListComponent);
     return InterpreterListComponent;
-}());
+})();
 export { InterpreterListComponent };
 //# sourceMappingURL=interpreter-list.component.js.map

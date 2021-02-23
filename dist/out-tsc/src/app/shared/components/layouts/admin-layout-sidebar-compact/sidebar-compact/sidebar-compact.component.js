@@ -12,95 +12,95 @@ import { NavigationService } from "../../../../services/navigation.service";
 import { Router, NavigationEnd } from "@angular/router";
 import { filter } from "rxjs/operators";
 import { Utils } from "../../../../utils";
-var SidebarCompactComponent = /** @class */ (function () {
-    function SidebarCompactComponent(router, navService) {
-        this.router = router;
-        this.navService = navService;
-    }
-    SidebarCompactComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.updateSidebar();
-        // CLOSE SIDENAV ON ROUTE CHANGE
-        this.router.events
-            .pipe(filter(function (event) { return event instanceof NavigationEnd; }))
-            .subscribe(function (routeChange) {
-            _this.closeChildNav();
-            if (Utils.isMobile()) {
-                _this.navService.sidebarState.sidenavOpen = false;
-            }
-        });
-        this.navService.menuItems$.subscribe(function (items) {
-            // this.nav = items;
-            _this.setActiveFlag();
-        });
-    };
-    SidebarCompactComponent.prototype.selectItem = function (item) {
-        this.navService.sidebarState.childnavOpen = true;
-        this.selectedItem = item;
-        this.setActiveMainItem(item);
-    };
-    SidebarCompactComponent.prototype.closeChildNav = function () {
-        this.navService.sidebarState.childnavOpen = false;
-        this.setActiveFlag();
-    };
-    SidebarCompactComponent.prototype.onClickChangeActiveFlag = function (item) {
-        this.setActiveMainItem(item);
-    };
-    SidebarCompactComponent.prototype.setActiveMainItem = function (item) {
-        this.nav.forEach(function (item) {
-            item.active = false;
-        });
-        item.active = true;
-    };
-    SidebarCompactComponent.prototype.setActiveFlag = function () {
-        var _this = this;
-        if (window && window.location) {
-            var activeRoute_1 = window.location.hash || window.location.pathname;
-            this.nav.forEach(function (item) {
-                item.active = false;
-                if (activeRoute_1.indexOf(item.state) !== -1) {
-                    _this.selectedItem = item;
-                    item.active = true;
-                }
-                if (item.sub) {
-                    item.sub.forEach(function (subItem) {
-                        subItem.active = false;
-                        if (activeRoute_1.indexOf(subItem.state) !== -1) {
-                            _this.selectedItem = item;
-                            item.active = true;
-                            // subItem.active = true;
-                            // debugger;
-                        }
-                        if (subItem.sub) {
-                            subItem.sub.forEach(function (subChildItem) {
-                                if (activeRoute_1.indexOf(subChildItem.state) !== -1) {
-                                    _this.selectedItem = item;
-                                    item.active = true;
-                                    subItem.active = true;
-                                }
-                            });
-                        }
-                    });
+let SidebarCompactComponent = /** @class */ (() => {
+    let SidebarCompactComponent = class SidebarCompactComponent {
+        constructor(router, navService) {
+            this.router = router;
+            this.navService = navService;
+        }
+        ngOnInit() {
+            this.updateSidebar();
+            // CLOSE SIDENAV ON ROUTE CHANGE
+            this.router.events
+                .pipe(filter(event => event instanceof NavigationEnd))
+                .subscribe(routeChange => {
+                this.closeChildNav();
+                if (Utils.isMobile()) {
+                    this.navService.sidebarState.sidenavOpen = false;
                 }
             });
+            this.navService.menuItems$.subscribe(items => {
+                // this.nav = items;
+                this.setActiveFlag();
+            });
         }
-    };
-    SidebarCompactComponent.prototype.updateSidebar = function () {
-        if (Utils.isMobile()) {
-            this.navService.sidebarState.sidenavOpen = false;
+        selectItem(item) {
+            this.navService.sidebarState.childnavOpen = true;
+            this.selectedItem = item;
+            this.setActiveMainItem(item);
+        }
+        closeChildNav() {
             this.navService.sidebarState.childnavOpen = false;
+            this.setActiveFlag();
         }
-        else {
-            this.navService.sidebarState.sidenavOpen = true;
+        onClickChangeActiveFlag(item) {
+            this.setActiveMainItem(item);
         }
-    };
-    SidebarCompactComponent.prototype.toggelSidebar = function () {
-        var state = this.navService.sidebarState;
-        state.sidenavOpen = !state.sidenavOpen;
-        state.childnavOpen = !state.childnavOpen;
-    };
-    SidebarCompactComponent.prototype.onResize = function (event) {
-        this.updateSidebar();
+        setActiveMainItem(item) {
+            this.nav.forEach(item => {
+                item.active = false;
+            });
+            item.active = true;
+        }
+        setActiveFlag() {
+            if (window && window.location) {
+                const activeRoute = window.location.hash || window.location.pathname;
+                this.nav.forEach(item => {
+                    item.active = false;
+                    if (activeRoute.indexOf(item.state) !== -1) {
+                        this.selectedItem = item;
+                        item.active = true;
+                    }
+                    if (item.sub) {
+                        item.sub.forEach(subItem => {
+                            subItem.active = false;
+                            if (activeRoute.indexOf(subItem.state) !== -1) {
+                                this.selectedItem = item;
+                                item.active = true;
+                                // subItem.active = true;
+                                // debugger;
+                            }
+                            if (subItem.sub) {
+                                subItem.sub.forEach(subChildItem => {
+                                    if (activeRoute.indexOf(subChildItem.state) !== -1) {
+                                        this.selectedItem = item;
+                                        item.active = true;
+                                        subItem.active = true;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        updateSidebar() {
+            if (Utils.isMobile()) {
+                this.navService.sidebarState.sidenavOpen = false;
+                this.navService.sidebarState.childnavOpen = false;
+            }
+            else {
+                this.navService.sidebarState.sidenavOpen = true;
+            }
+        }
+        toggelSidebar() {
+            const state = this.navService.sidebarState;
+            state.sidenavOpen = !state.sidenavOpen;
+            state.childnavOpen = !state.childnavOpen;
+        }
+        onResize(event) {
+            this.updateSidebar();
+        }
     };
     __decorate([
         HostListener("window:resize", ["$event"]),
@@ -117,6 +117,6 @@ var SidebarCompactComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [Router, NavigationService])
     ], SidebarCompactComponent);
     return SidebarCompactComponent;
-}());
+})();
 export { SidebarCompactComponent };
 //# sourceMappingURL=sidebar-compact.component.js.map

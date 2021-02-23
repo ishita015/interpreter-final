@@ -27,9 +27,9 @@ import { ButtonsLoadingComponent } from './buttons-loading/buttons-loading.compo
 import { LaddaModule } from 'angular2-ladda';
 import { PopoverComponent } from './popover/popover.component';
 import { RatingComponent } from './rating/rating.component';
-var UiKitsModule = /** @class */ (function () {
-    function UiKitsModule() {
-    }
+let UiKitsModule = /** @class */ (() => {
+    let UiKitsModule = class UiKitsModule {
+    };
     UiKitsModule = __decorate([
         NgModule({
             imports: [
@@ -61,6 +61,6 @@ var UiKitsModule = /** @class */ (function () {
         })
     ], UiKitsModule);
     return UiKitsModule;
-}());
+})();
 export { UiKitsModule };
 //# sourceMappingURL=ui-kits.module.js.map

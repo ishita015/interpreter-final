@@ -1,10 +1,10 @@
 import { FormWizardModule } from './form-wizard.module';
-describe('FormWizardModule', function () {
-    var formWizardModule;
-    beforeEach(function () {
+describe('FormWizardModule', () => {
+    let formWizardModule;
+    beforeEach(() => {
         formWizardModule = new FormWizardModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(formWizardModule).toBeTruthy();
     });
 });

@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { PagingTableComponent } from './paging-table.component';
-describe('PagingTableComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('PagingTableComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [PagingTableComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(PagingTableComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

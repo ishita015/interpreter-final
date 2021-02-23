@@ -16,90 +16,93 @@ import { ValidationsService } from "../../../shared/services/validations.service
 import { HttpService } from "../../../shared/services/http.service";
 import { ToastrService } from 'ngx-toastr';
 import { PermissionService } from './../../../shared/services/permission.service';
-var SigninComponent = /** @class */ (function () {
-    function SigninComponent(fb, auth, router, toastr, validation, service, permission) {
-        this.fb = fb;
-        this.auth = auth;
-        this.router = router;
-        this.toastr = toastr;
-        this.validation = validation;
-        this.service = service;
-        this.permission = permission;
-        this.showHideNew = true;
-        this.createForm();
-    }
-    SigninComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.router.events.subscribe(function (event) {
-            if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
-                _this.loadingText = 'Loading Dashboard Module...';
-                _this.loading = true;
+let SigninComponent = /** @class */ (() => {
+    let SigninComponent = class SigninComponent {
+        constructor(fb, auth, router, toastr, validation, service, permission) {
+            this.fb = fb;
+            this.auth = auth;
+            this.router = router;
+            this.toastr = toastr;
+            this.validation = validation;
+            this.service = service;
+            this.permission = permission;
+            this.showHideNew = true;
+            this.createForm();
+        }
+        ngOnInit() {
+            if (localStorage.getItem('userId') != null) {
+                this.router.navigate(['dashboard/v1']);
             }
-            if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
-                _this.loading = false;
-            }
-        });
-    };
-    /*==========Create Form Function Start Here========*/
-    SigninComponent.prototype.createForm = function () {
-        this.signinForm = this.fb.group({
-            email: ['', this.validation.email_validator],
-            password: ['', this.validation.password_validator]
-        });
-    };
-    /*==========SigninForm Function End Here========*/
-    SigninComponent.prototype.signin = function () {
-        var _this = this;
-        this.loading = true;
-        this.submitted = true;
-        this.loadingText = 'Sigining in...';
-        console.log('kkkkkkk', this.signinForm.value);
-        this.auth.signin(this.signinForm.value)
-            .subscribe(function (res) {
-            console.log("login api", res);
-            _this.log_Obj = res;
-            _this.log_Msg = res;
-            console.log("log object", _this.log_Obj);
-            if (_this.signinForm.value.email === undefined || _this.signinForm.value.email === '' ||
-                _this.signinForm.value.password === undefined || _this.signinForm.value.password === '') {
-            }
-            if (_this.log_Obj.status == 0) {
-                _this.log_Msg = res;
-                _this.toastr.error(_this.log_Obj.message, '', { timeOut: 2000 });
-            }
-            else {
-                _this.log_Obj = res['data'][0];
-                _this.log_Msg = res;
-                console.log('log_Obj--', _this.log_Obj);
-                localStorage.setItem('loginData', JSON.stringify(_this.log_Obj));
-                _this.name = _this.log_Obj.first_name + " " + _this.log_Obj.last_name;
-                localStorage.setItem('userId', JSON.stringify(_this.log_Obj.id));
-                localStorage.setItem('roleId', JSON.stringify(_this.log_Obj.role_id));
-                localStorage.setItem('roleName', JSON.stringify(_this.log_Obj.role_name));
-                localStorage.setItem('loggeduser', JSON.stringify(_this.name));
-                _this.toastr.success(_this.log_Msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
-                if (_this.log_Obj.role_id == 1) {
-                    _this.router.navigate(['/dashboard/v1']);
+            this.router.events.subscribe(event => {
+                if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
+                    this.loadingText = 'Loading Dashboard Module...';
+                    this.loading = true;
+                }
+                if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
+                    this.loading = false;
+                }
+            });
+        }
+        /*==========Create Form Function Start Here========*/
+        createForm() {
+            this.signinForm = this.fb.group({
+                email: ['', this.validation.email_validator],
+                password: ['', this.validation.password_validator]
+            });
+        }
+        /*==========SigninForm Function End Here========*/
+        signin() {
+            this.loading = true;
+            this.submitted = true;
+            this.loadingText = 'Sigining in...';
+            console.log('kkkkkkk', this.signinForm.value);
+            this.auth.signin(this.signinForm.value)
+                .subscribe(res => {
+                console.log("login api", res);
+                this.log_Obj = res;
+                this.log_Msg = res;
+                console.log("log object", this.log_Obj);
+                if (this.signinForm.value.email === undefined || this.signinForm.value.email === '' ||
+                    this.signinForm.value.password === undefined || this.signinForm.value.password === '') {
+                }
+                if (this.log_Obj.status == 0) {
+                    this.log_Msg = res;
+                    this.toastr.error(this.log_Obj.message, '', { timeOut: 2000 });
                 }
                 else {
-                    _this.router.navigate(['/dashboard/v2']);
+                    this.log_Obj = res['data'][0];
+                    this.log_Msg = res;
+                    console.log('log_Obj--', this.log_Obj);
+                    localStorage.setItem('loginData', JSON.stringify(this.log_Obj));
+                    this.name = this.log_Obj.first_name + " " + this.log_Obj.last_name;
+                    localStorage.setItem('userId', JSON.stringify(this.log_Obj.id));
+                    localStorage.setItem('roleId', JSON.stringify(this.log_Obj.role_id));
+                    localStorage.setItem('roleName', JSON.stringify(this.log_Obj.role_name));
+                    localStorage.setItem('loggeduser', JSON.stringify(this.name));
+                    this.toastr.success(this.log_Msg.message, '', { timeOut: 2000, positionClass: 'toast-top-center' });
+                    this.router.navigate(['/dashboard/v1']);
+                    // if(this.log_Obj.role_id==1){
+                    //     this.router.navigate(['/dashboard/v1']);
+                    // }else{
+                    //     this.router.navigate(['/dashboard/v2']);
+                    // }
+                    // dashboard-v2
+                    this.service.editPemisssion(this.log_Obj.role_id)
+                        .subscribe(res => {
+                        console.log("apiiiiiiiiii response", res);
+                        this.role_obj = res;
+                        console.log("role_obj", this.role_obj);
+                        localStorage.setItem('Allpermission', JSON.stringify(this.role_obj));
+                        // this.router.navigate(['/permission/setpermission',id]);
+                    });
                 }
-                // dashboard-v2
-                _this.service.editPemisssion(_this.log_Obj.role_id)
-                    .subscribe(function (res) {
-                    console.log("apiiiiiiiiii response", res);
-                    _this.role_obj = res;
-                    console.log("role_obj", _this.role_obj);
-                    localStorage.setItem('Allpermission', JSON.stringify(_this.role_obj));
-                    // this.router.navigate(['/permission/setpermission',id]);
-                });
-            }
-            _this.loading = false;
-        });
-    };
-    /*==========Password Show/Hide Function Start Here========*/
-    SigninComponent.prototype.showHidePassword = function () {
-        this.showHideNew = this.showHideNew === false;
+                this.loading = false;
+            });
+        }
+        /*==========Password Show/Hide Function Start Here========*/
+        showHidePassword() {
+            this.showHideNew = this.showHideNew === false;
+        }
     };
     SigninComponent = __decorate([
         Component({
@@ -117,6 +120,6 @@ var SigninComponent = /** @class */ (function () {
             PermissionService])
     ], SigninComponent);
     return SigninComponent;
-}());
+})();
 export { SigninComponent };
 //# sourceMappingURL=signin.component.js.map

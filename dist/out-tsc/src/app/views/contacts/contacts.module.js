@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ContactsRoutingModule } from './contacts-routing.module';
 import { ContactGridComponent } from './contact-grid/contact-grid.component';
-var ContactsModule = /** @class */ (function () {
-    function ContactsModule() {
-    }
+let ContactsModule = /** @class */ (() => {
+    let ContactsModule = class ContactsModule {
+    };
     ContactsModule = __decorate([
         NgModule({
             declarations: [ContactGridComponent],
@@ -23,6 +23,6 @@ var ContactsModule = /** @class */ (function () {
         })
     ], ContactsModule);
     return ContactsModule;
-}());
+})();
 export { ContactsModule };
 //# sourceMappingURL=contacts.module.js.map

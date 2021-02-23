@@ -13,10 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SocketIoModule } from 'ngx-socket-io';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-var config = { url: 'http://192.168.0.4:3300', options: {} };
-var AppModule = /** @class */ (function () {
-    function AppModule() {
-    }
+const config = { url: 'http://192.168.0.4:3300', options: {} };
+let AppModule = /** @class */ (() => {
+    let AppModule = class AppModule {
+    };
     AppModule = __decorate([
         NgModule({
             declarations: [
@@ -35,6 +35,6 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
-}());
+})();
 export { AppModule };
 //# sourceMappingURL=app.module.js.map

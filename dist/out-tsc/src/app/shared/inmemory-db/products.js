@@ -1,5 +1,5 @@
-var ProductDB = /** @class */ (function () {
-    function ProductDB() {
+let ProductDB = /** @class */ (() => {
+    class ProductDB {
     }
     ProductDB.products = [
         {
@@ -697,6 +697,6 @@ var ProductDB = /** @class */ (function () {
         }
     ];
     return ProductDB;
-}());
+})();
 export { ProductDB };
 //# sourceMappingURL=products.js.map

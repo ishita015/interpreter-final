@@ -9,15 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-var ContactService = /** @class */ (function () {
-    function ContactService(http) {
-        this.http = http;
-    }
-    ContactService.prototype.ngOnInit = function () {
-        this.getContacts();
-    };
-    ContactService.prototype.getContacts = function () {
-        return this.http.get('api/users');
+let ContactService = /** @class */ (() => {
+    let ContactService = class ContactService {
+        constructor(http) {
+            this.http = http;
+        }
+        ngOnInit() {
+            this.getContacts();
+        }
+        getContacts() {
+            return this.http.get('api/users');
+        }
     };
     ContactService = __decorate([
         Injectable({
@@ -26,6 +28,6 @@ var ContactService = /** @class */ (function () {
         __metadata("design:paramtypes", [HttpClient])
     ], ContactService);
     return ContactService;
-}());
+})();
 export { ContactService };
 //# sourceMappingURL=contact.service.js.map

@@ -9,7 +9,8 @@ import { RouterModule } from '@angular/router';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { ForgotComponent } from './forgot/forgot.component';
-var routes = [
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+const routes = [
     {
         path: 'signup',
         component: SignupComponent
@@ -21,11 +22,15 @@ var routes = [
     {
         path: 'forgot',
         component: ForgotComponent
+    },
+    {
+        path: 'reset-password/:id',
+        component: ResetPasswordComponent
     }
 ];
-var SessionsRoutingModule = /** @class */ (function () {
-    function SessionsRoutingModule() {
-    }
+let SessionsRoutingModule = /** @class */ (() => {
+    let SessionsRoutingModule = class SessionsRoutingModule {
+    };
     SessionsRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -33,6 +38,6 @@ var SessionsRoutingModule = /** @class */ (function () {
         })
     ], SessionsRoutingModule);
     return SessionsRoutingModule;
-}());
+})();
 export { SessionsRoutingModule };
 //# sourceMappingURL=sessions-routing.module.js.map

@@ -12,41 +12,43 @@ import { LocalStoreService } from "./local-store.service";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-var AuthService = /** @class */ (function () {
-    function AuthService(store, http, router) {
-        this.store = store;
-        this.http = http;
-        this.router = router;
-        //Only for demo purpose
-        this.authenticated = true;
-        this.url = environment.apiUrl;
-        this.checkAuth();
-    }
-    AuthService.prototype.checkAuth = function () {
-        // this.authenticated = this.store.getItem("demo_login_status");
-    };
-    AuthService.prototype.isAuthenticated = function () {
-        var id = this.getUserId();
-        var x = false;
-        if (id) {
-            return true;
+let AuthService = /** @class */ (() => {
+    let AuthService = class AuthService {
+        constructor(store, http, router) {
+            this.store = store;
+            this.http = http;
+            this.router = router;
+            //Only for demo purpose
+            this.authenticated = true;
+            this.url = environment.apiUrl;
+            this.checkAuth();
         }
-        return false;
-    };
-    AuthService.prototype.getUserId = function () {
-        return JSON.parse(localStorage.getItem('userId'));
-    };
-    AuthService.prototype.signin = function (loginInfo) {
-        return this.http.post(this.url + '/cesco/userlogin', loginInfo, this.httpOptions);
-        // this.authenticated = true;
-        // this.store.setItem("demo_login_status", true);
-        // return of({}).pipe(delay(1500));
-    };
-    AuthService.prototype.signout = function () {
-        this.authenticated = false;
-        this.store.setItem("demo_login_status", false);
-        localStorage.clear();
-        this.router.navigateByUrl("/sessions/signin");
+        checkAuth() {
+            // this.authenticated = this.store.getItem("demo_login_status");
+        }
+        isAuthenticated() {
+            const id = this.getUserId();
+            let x = false;
+            if (id) {
+                return true;
+            }
+            return false;
+        }
+        getUserId() {
+            return JSON.parse(localStorage.getItem('userId'));
+        }
+        signin(loginInfo) {
+            return this.http.post(this.url + '/cesco/userlogin', loginInfo, this.httpOptions);
+            // this.authenticated = true;
+            // this.store.setItem("demo_login_status", true);
+            // return of({}).pipe(delay(1500));
+        }
+        signout() {
+            this.authenticated = false;
+            this.store.setItem("demo_login_status", false);
+            localStorage.clear();
+            this.router.navigateByUrl("/sessions/signin");
+        }
     };
     AuthService = __decorate([
         Injectable({
@@ -57,6 +59,6 @@ var AuthService = /** @class */ (function () {
             Router])
     ], AuthService);
     return AuthService;
-}());
+})();
 export { AuthService };
 //# sourceMappingURL=auth.service.js.map

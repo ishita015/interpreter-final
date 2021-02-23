@@ -23,7 +23,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { CustomizerComponent } from '../customizer/customizer.component';
 import { SharedDirectivesModule } from '../../directives/shared-directives.module';
 import { FormsModule } from '@angular/forms';
-var components = [
+const components = [
     HeaderSidebarCompactComponent,
     HeaderSidebarLargeComponent,
     SidebarLargeComponent,
@@ -35,9 +35,9 @@ var components = [
     AuthLayoutComponent,
     BlankLayoutComponent,
 ];
-var LayoutsModule = /** @class */ (function () {
-    function LayoutsModule() {
-    }
+let LayoutsModule = /** @class */ (() => {
+    let LayoutsModule = class LayoutsModule {
+    };
     LayoutsModule = __decorate([
         NgModule({
             imports: [
@@ -55,6 +55,6 @@ var LayoutsModule = /** @class */ (function () {
         })
     ], LayoutsModule);
     return LayoutsModule;
-}());
+})();
 export { LayoutsModule };
 //# sourceMappingURL=layouts.module.js.map

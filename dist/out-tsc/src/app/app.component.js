@@ -5,10 +5,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Component } from '@angular/core';
-var AppComponent = /** @class */ (function () {
-    function AppComponent() {
-        this.title = 'bootDash';
-    }
+let AppComponent = /** @class */ (() => {
+    let AppComponent = class AppComponent {
+        constructor() {
+            this.title = 'bootDash';
+        }
+    };
     AppComponent = __decorate([
         Component({
             selector: 'app-root',
@@ -17,6 +19,6 @@ var AppComponent = /** @class */ (function () {
         })
     ], AppComponent);
     return AppComponent;
-}());
+})();
 export { AppComponent };
 //# sourceMappingURL=app.component.js.map

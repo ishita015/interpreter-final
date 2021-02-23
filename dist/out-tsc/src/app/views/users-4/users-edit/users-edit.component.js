@@ -13,59 +13,60 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-var UsersEditComponent = /** @class */ (function () {
-    function UsersEditComponent(validation, service, fb, toastr, router, route) {
-        this.validation = validation;
-        this.service = service;
-        this.fb = fb;
-        this.toastr = toastr;
-        this.router = router;
-        this.route = route;
-    }
-    UsersEditComponent.prototype.ngOnInit = function () {
-        this.createForm();
-        this.data = JSON.parse(localStorage.getItem('userData'));
-        console.log("data", this.data);
-        this.patchValue();
-    };
-    /*========== Form Value Start Here========*/
-    UsersEditComponent.prototype.createForm = function () {
-        this.userEditForm = this.fb.group({
-            email: ['', this.validation.onlyRequired_validator],
-            name: ['', this.validation.onlyRequired_validator],
-            mobile: ['', this.validation.onlyRequired_validator],
-            password: ['', this.validation.onlyRequired_validator],
-            id: ['']
-        });
-    };
-    /*========== Form Value End Here========*/
-    /*========== Edit Input Value Start Here========*/
-    UsersEditComponent.prototype.patchValue = function () {
-        this.userEditForm.get('email').patchValue(this.data.email);
-        this.userEditForm.get('name').patchValue(this.data.name);
-        this.userEditForm.get('mobile').patchValue(this.data.mobile);
-        this.userEditForm.get('password').patchValue(this.data.password);
-    };
-    /*==========Edit Input Value End Here========*/
-    UsersEditComponent.prototype.submitUser = function () {
-        var _this = this;
-        console.log("formmmmmmmmmmmm", this.userEditForm.value);
-        console.log("form value", this.userEditForm.value);
-        this.submitted = true;
-        if (this.userEditForm.invalid) {
-            return;
+let UsersEditComponent = /** @class */ (() => {
+    let UsersEditComponent = class UsersEditComponent {
+        constructor(validation, service, fb, toastr, router, route) {
+            this.validation = validation;
+            this.service = service;
+            this.fb = fb;
+            this.toastr = toastr;
+            this.router = router;
+            this.route = route;
         }
-        this.submitted = false;
-        this.userEditForm.value.id = this.data.id;
-        this.service.getUserUpadte(this.userEditForm.value)
-            .subscribe(function (res) {
-            // console.log("api response",res);
-            _this.useredit_Obj = res;
-            _this.useredit_Msg = res;
-            console.log("api response", _this.useredit_Obj);
-            _this.toastr.success(_this.useredit_Msg.message, '', { timeOut: 1000 });
-            _this.router.navigate(['/users/user-list']);
-        });
+        ngOnInit() {
+            this.createForm();
+            this.data = JSON.parse(localStorage.getItem('userData'));
+            console.log("data", this.data);
+            this.patchValue();
+        }
+        /*========== Form Value Start Here========*/
+        createForm() {
+            this.userEditForm = this.fb.group({
+                email: ['', this.validation.onlyRequired_validator],
+                name: ['', this.validation.onlyRequired_validator],
+                mobile: ['', this.validation.onlyRequired_validator],
+                password: ['', this.validation.onlyRequired_validator],
+                id: ['']
+            });
+        }
+        /*========== Form Value End Here========*/
+        /*========== Edit Input Value Start Here========*/
+        patchValue() {
+            this.userEditForm.get('email').patchValue(this.data.email);
+            this.userEditForm.get('name').patchValue(this.data.name);
+            this.userEditForm.get('mobile').patchValue(this.data.mobile);
+            this.userEditForm.get('password').patchValue(this.data.password);
+        }
+        /*==========Edit Input Value End Here========*/
+        submitUser() {
+            console.log("formmmmmmmmmmmm", this.userEditForm.value);
+            console.log("form value", this.userEditForm.value);
+            this.submitted = true;
+            if (this.userEditForm.invalid) {
+                return;
+            }
+            this.submitted = false;
+            this.userEditForm.value.id = this.data.id;
+            this.service.getUserUpadte(this.userEditForm.value)
+                .subscribe(res => {
+                // console.log("api response",res);
+                this.useredit_Obj = res;
+                this.useredit_Msg = res;
+                console.log("api response", this.useredit_Obj);
+                this.toastr.success(this.useredit_Msg.message, '', { timeOut: 1000 });
+                this.router.navigate(['/users/user-list']);
+            });
+        }
     };
     UsersEditComponent = __decorate([
         Component({
@@ -79,6 +80,6 @@ var UsersEditComponent = /** @class */ (function () {
             ActivatedRoute])
     ], UsersEditComponent);
     return UsersEditComponent;
-}());
+})();
 export { UsersEditComponent };
 //# sourceMappingURL=users-edit.component.js.map

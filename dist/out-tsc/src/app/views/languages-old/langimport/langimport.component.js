@@ -12,45 +12,46 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/shared/services/http.service';
-var LangimportComponent = /** @class */ (function () {
-    // serviceEditForm: FormGroup;
-    // public data;
-    // formData;
-    // id;
-    // service_edit_Obj;
-    // service_edit_Msg;
-    // imageSrc;
-    // submitted: boolean;
-    function LangimportComponent(formBuilder, httpClient, router, service) {
-        this.formBuilder = formBuilder;
-        this.httpClient = httpClient;
-        this.router = router;
-        this.service = service;
-    }
-    LangimportComponent.prototype.ngOnInit = function () {
-        this.uploadForm = this.formBuilder.group({
-            file: ['']
-        });
-    };
-    LangimportComponent.prototype.onFileSelect = function (event) {
-        if (event.target.files.length > 0) {
-            var file = event.target.files[0];
-            this.uploadForm.get('file').setValue(file);
+let LangimportComponent = /** @class */ (() => {
+    let LangimportComponent = class LangimportComponent {
+        // serviceEditForm: FormGroup;
+        // public data;
+        // formData;
+        // id;
+        // service_edit_Obj;
+        // service_edit_Msg;
+        // imageSrc;
+        // submitted: boolean;
+        constructor(formBuilder, httpClient, router, service) {
+            this.formBuilder = formBuilder;
+            this.httpClient = httpClient;
+            this.router = router;
+            this.service = service;
         }
-    };
-    LangimportComponent.prototype.onSubmit = function () {
-        var _this = this;
-        // this.formData = new FormData();
-        // this.formData.append('file', this.uploadForm.get('file').value);
-        // console.log(this.formData);
-        this.service.importLanguage().subscribe(function (res) {
-            console.log("api response", res);
-            // this.language_Obj = res
-            // this.language_Msg = res
-            // this.toastr.success(this.language_Msg.message,'', { timeOut: 1000 });
-            // this.router.navigate(['/login'])
-            _this.router.navigate(['/languages/list']);
-        });
+        ngOnInit() {
+            this.uploadForm = this.formBuilder.group({
+                file: ['']
+            });
+        }
+        onFileSelect(event) {
+            if (event.target.files.length > 0) {
+                const file = event.target.files[0];
+                this.uploadForm.get('file').setValue(file);
+            }
+        }
+        onSubmit() {
+            // this.formData = new FormData();
+            // this.formData.append('file', this.uploadForm.get('file').value);
+            // console.log(this.formData);
+            this.service.importLanguage().subscribe(res => {
+                console.log("api response", res);
+                // this.language_Obj = res
+                // this.language_Msg = res
+                // this.toastr.success(this.language_Msg.message,'', { timeOut: 1000 });
+                // this.router.navigate(['/login'])
+                this.router.navigate(['/languages/list']);
+            });
+        }
     };
     LangimportComponent = __decorate([
         Component({
@@ -64,6 +65,6 @@ var LangimportComponent = /** @class */ (function () {
             HttpService])
     ], LangimportComponent);
     return LangimportComponent;
-}());
+})();
 export { LangimportComponent };
 //# sourceMappingURL=langimport.component.js.map

@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { DemoTestComponent } from './demo-test/demo-test.component';
 import { RoleEditComponent } from './role-edit/role-edit.component';
 import { ModuleEditComponent } from './module-edit/module-edit.component';
-var routes = [
+const routes = [
     { path: 'rolelist', component: RoleListComponent },
     { path: 'modulelist', component: ModuleListComponent },
     { path: 'role-add', component: AddRoleComponent },
@@ -25,9 +25,9 @@ var routes = [
     { path: 'editRole/:id', component: RoleEditComponent },
     { path: 'editModel/:id', component: ModuleEditComponent },
 ];
-var PermissionRoutingModule = /** @class */ (function () {
-    function PermissionRoutingModule() {
-    }
+let PermissionRoutingModule = /** @class */ (() => {
+    let PermissionRoutingModule = class PermissionRoutingModule {
+    };
     PermissionRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes), CommonModule],
@@ -35,6 +35,6 @@ var PermissionRoutingModule = /** @class */ (function () {
         })
     ], PermissionRoutingModule);
     return PermissionRoutingModule;
-}());
+})();
 export { PermissionRoutingModule };
 //# sourceMappingURL=permission-routing.module.js.map

@@ -66,7 +66,7 @@
         </div>
 
 
-        <div (click)="assignment();getAssignmentSettingByInterpreterId();getUserLanguage();"
+        <div (click)="assignment();createDynamicForm();getUserLanguage();"
             class="col-lg-3 col-md-6 col-sm-6 pro_info">
             <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4"
                 [ngClass]="assignment_form ? 'activegreen' : ''">
@@ -181,7 +181,7 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="email">Email <span class="error-msg"> * </span></label>
-                                            <input type="text" class="form-control" formControlName="email"
+                                            <input disabled="" type="text" class="form-control" formControlName="email"
                                                 placeholder="Email">
                                         </div>
 
@@ -212,7 +212,7 @@
                                             <div *ngIf=" generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['country_code'].errors.required">
-                                                    Code is required.</div>
+                                                  Country Code is required.</div>
                                             </div>
 
                                             <div *ngIf="generalForm.controls['mobile'].errors && (!generalForm.controls['mobile'].pristine || submitted ||generalForm.controls['mobile'].touched )"
@@ -701,7 +701,7 @@
                                                                         <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                             (click)="removeImage(i,'2')"></i>
                                                                         <img *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2' &&  i<=2"
-                                                                            [src]="url.all_img2"
+                                                                            [src]="url.img_url"
                                                                             style="width:100%; height:100%;">
                                                                     </div>
                                                                 </div>
@@ -748,7 +748,7 @@
                                                             <i *ngIf="z <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(z,'3')"></i>
                                                             <img *ngIf="url3.doc_type3 == 'court_doc' && url3.types3 == '3' && z<=2"
-                                                                [src]="url3.all_img3" style="width:100%; height:100%;">
+                                                                [src]="url3.img_url" style="width:100%; height:100%;">
                                                         </div>
                                                         <button *ngIf="showViewBtn" type="button"
                                                         class="btn btn-primary btnview"
@@ -784,7 +784,7 @@
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'4')"></i>
                                                             <img *ngIf="url4.doc_type4 == 'credential_doc' && url4.types4 == '4' && i<=2"
-                                                                [src]="url4.all_img4" style="width:100%; height:100%;">
+                                                                [src]="url4.img_url" style="width:100%; height:100%;">
                                                         </div>
                                                         <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}" -->
                                                         <!-- <img src="{{detail_Obj?.skillsCredentialDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsCredentialDoc}}"
@@ -829,7 +829,7 @@
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'5')"></i>
                                                             <img *ngIf="url5.doc_type5 == 'equipment_doc' && url5.types5 == '5' && i<=2"
-                                                                [src]="url5.all_img5" style="width:100%; height:100%;">
+                                                                [src]="url5.img_url" style="width:100%; height:100%;">
                                                         </div>
                                                         <button *ngIf="showViewBtn" type="button"
                                                         class="btn btn-primary btnview"
@@ -870,7 +870,7 @@
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'6')"></i>
                                                             <img *ngIf="url6.doc_type6 == 'legal_doc' && url6.types6 == '6' && i<=2"
-                                                                [src]="url6.all_img6" style="width:100%; height:100%;">
+                                                                [src]="url6.img_url" style="width:100%; height:100%;">
                                                         </div>
                                                         <button *ngIf="showViewBtn" type="button"
                                                         class="btn btn-primary btnview"
@@ -980,89 +980,25 @@
                                 </div>
                                 <div class="card-body h-100 u-fancy-scrollbar scrollable">
                                     <div class="card-body">
-                                        <div class="ul-widget1">
+                                        <div *ngFor="let platform of platformData;" class="ul-widget1">
                                             <div class="ul-widget2__item">
                                                 <label class="checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" class="mr-2" (click)="onsiteShow()"
-                                                        id="on-site" (change)="assignmentFormCheck($event,'1')"
+                                                    <input checked="{{myPlatformData.indexOf(platform.id) != -1 ? 'checked':''}}" type="checkbox" class="mr-2" (click)="onsiteShow(platform.id)"
+                                                        id="on-site" (change)="assignmentFormCheck($event,platform.id)"
                                                         name="on-site" value="On-Site"><span class="checkmark"></span>
                                                 </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">On-Site</a><a
+                                                <div class="ul-widget2__info"><a class="ul-widget2__title">{{platform.platform}}</a><a
                                                         class="ul-widget2__username"></a></div>
                                             </div>
                                         </div>
-                                        <div class="ul-widget1">
-                                            <div class="ul-widget2__item">
-                                                <label class="checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" (click)="opiShow()"
-                                                        (change)="assignmentFormCheck($event,'2')" class="mr-2" id="opi"
-                                                        name="opi" value="opi"><span class="checkmark"></span>
-                                                </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">OPI</a><a
-                                                        class="ul-widget2__username"></a></div>
-
-                                            </div>
-                                        </div>
-                                        <div class="ul-widget1">
-                                            <div class="ul-widget2__item">
-                                                <label class="checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" (click)="vriShow()"
-                                                        (change)="assignmentFormCheck($event,'3')" class="mr-2" id="vri"
-                                                        name="vri" value="VRI"><span class="checkmark"></span>
-                                                </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">VRI</a><a
-                                                        class="ul-widget2__username"></a></div>
-
-                                            </div>
-                                        </div>
-                                        <div class="ul-widget1">
-                                            <div class="ul-widget2__item">
-                                                <label class="checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" (click)="vclShow()"
-                                                        (change)="assignmentFormCheck($event,'4')" class="mr-2" id="vcl"
-                                                        name="vcl" value="VCL"><span class="checkmark"></span>
-                                                </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">VCI</a><a
-                                                        class="ul-widget2__username"></a></div>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="ul-widget1">
-                                            <div class="ul-widget2__item">
-                                                <label class="checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" (click)="rsiShow()"
-                                                        (change)="assignmentFormCheck($event,'5')" class="mr-2" id="rsi"
-                                                        name="rsi" value="RSI"><span class="checkmark"></span>
-                                                </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">RSI</a><a
-                                                        class="ul-widget2__username"></a></div>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="ul-widget1">
-                                            <div class="ul-widget2__item">
-                                                <label class="checkbox checkbox-outline-primary">
-                                                    <input type="checkbox" (click)="vci_opiShow()"
-                                                        (change)="assignmentFormCheck($event,'6')" class="mr-2"
-                                                        id="vci_opi" name="vci_opi" value="VCI + OPI"><span
-                                                        class="checkmark"></span>
-                                                </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">VCI +
-                                                        OPI</a><a class="ul-widget2__username"></a></div>
-
-                                            </div>
-                                        </div>
+                                      
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 mt-3 text-right">
-                            <button type="button" (click)="uploadDocuments();addInterpreterAssignment('skills')"
+                            <button type="button" (click)="uploadDocuments();"
                                 class="btn btn-primary">Save</button>
                         </div>
                     </div>
@@ -1070,321 +1006,7 @@
             </div>
 
 
-            <!--
-            <div class="card animate mb-4">
-                <div class="card-body">
-                    <form [formGroup]="interpreterSkillForm">
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="picker1">Primary Language</label>
-                                <select class="form-control" (change)="onChange($event)"
-                                    formControlName="primary_language">
-                                    <option value="">Select Language</option>
-                                    <option *ngFor="let lan of language_Obj" [value]="lan.id">
-                                        {{lan.name}}
-                                    </option>
-                                </select>
-
-                            </div>
-
-
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="Language">Secondary Language</label>
-                                <tag-input [formControl]="tagsCtrl2" class="new_sec"
-                                    formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'"
-                                    (onSelect)="onSelect($event)" theme="primary" placeholder="Secondary Language">
-                                    <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj"
-                                        displayBy="name" identifyBy="id">
-                                    </tag-input-dropdown>
-                                </tag-input>
-                            </div>
-                        </div>
-
-                        <form [formGroup]="assignmentForm">
-                            <h5>Platform</h5>
-                        <div class="row">
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" (click)="onsiteShow()" id="on-site"
-                                    (change)="assignmentFormCheck($event,'1')" name="on-site" value="On-Site">
-                                <label for="vehicle1"> On-Site</label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="opiShow()" (change)="assignmentFormCheck($event,'2')"
-                                    class="mr-2" id="opi" name="opi" value="opi">
-                                <label for="vehicle1"> OPI </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="vriShow()" (change)="assignmentFormCheck($event,'3')"
-                                    class="mr-2" id="vri" name="vri" value="VRI">
-                                <label for="vehicle1"> VRI</label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="vclShow()" (change)="assignmentFormCheck($event,'4')"
-                                    class="mr-2" id="vcl" name="vcl" value="VCL">
-                                <label for="vehicle1">VCI </label><br>
-                            </div>
-                        </div>
-                    </form>
-                    <br>
-
-                        <div class="row">
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="communityShow()" (change)="setCheck($event,'1')"
-                                    class="mr-2" id="community-interpreting" checked="{{ci == true ? 'checked' : ''}}" name="vehicle1" value=" On Site">
-                                <label for="vehicle1"> Community Interpreting </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" checked="{{cfi == true ? 'checked' : ''}}" (click)="conferenceShow()" (change)="setCheck($event,'2')"
-                                    class="mr-2" id="conference-interpreter" name="vehicle1" value="OPI">
-                                <label for="vehicle1"> Conference Interpreter</label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="certifiedShow()" checked="{{co == true ? 'checked' : ''}}" (change)="setCheck($event,'3')"
-                                    class="mr-2" id="court-certified" name="vehicle1" value="VRI">
-                                <label for="vehicle1">Court Certified </label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" checked="{{cto == true ? 'checked' : ''}}" (click)="courtShow()" id="court-credentialed"
-                                    (change)="setCheck($event,'4')" name="vehicle1" value="VCI">
-                                <label for="vehicle1"> Court Credentialed</label><br>
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" checked="{{eo == true ? 'checked' : ''}}"  (click)="qualifiedShow()" id="equipment-qualified"
-                                    (change)="setCheck($event,'equipment_qualified')" name="equipment_qualified"
-                                    (change)="setCheck($event,'5')" value="1">
-                                <label for="vehicle1"> Equipment Qualified </label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="legalShow()" checked="{{lo == true ? 'checked' : ''}}" class="mr-2"
-                                    (change)="setCheck($event,'6')" id="legal" name="vehicle1" value="ASL">
-                                <label for="vehicle1"> Legal </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="simultShow()" checked="{{so == true ? 'checked' : ''}}" class="mr-2" id="simultaneous"
-                                    (change)="setCheck($event,'7')" name="vehicle1" value="ASL">
-                                <label for="vehicle1"> Simultaneous </label><br>
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" checked="{{oo == true ? 'checked' : ''}}" (click)="othShow()" 
-                                (change)="setCheck($event,'8')" class="mr-2"
-                                    id="other" name="vehicle1" value="ASL">
-                                <label for="vehicle1"> Other </label><br>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3" *ngIf="communityinter">
-                                <label for="image">Community Interpreting</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="community_doc"
-                                    (change)="onSingleFileChange($event,'community_doc','1')">
-                            </div>
-
-
-                            <div class="col-md-3 form-group mb-3"
-                                *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsCommunityDoc}}"
-                                    class="mr-3" style="width:100px; height:100px;">
-
-                                <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3" *ngIf="conferenceinter">
-                                <label for="image">Conference Interpreter</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="conference_doc"
-                                    (change)="onSingleFileChange($event,'conference_doc','2')">
-                            </div>
-
-                            <div class="col-md-3 form-group mb-3"
-                                *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsConferenceDoc}}"
-                                    class="mr-3" style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillsConferenceDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3" *ngIf="court_open">
-                                <label for="image">Court Certified</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="court_doc"
-                                    (change)="onSingleFileChange($event,'court_doc','3')">
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsCourtDoc}}" class="mr-3"
-                                    style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillsCourtDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-
-                        </div>
-
-
-
-
-                        <div class="row">
-
-                            <div class="col-md-6 form-group mb-3" *ngIf="credent_open">
-                                <label for="image">Court Credentialed</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="credential_doc"
-                                    (change)="onSingleFileChange($event,'credential_doc','4')">
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3"
-                                *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}"
-                                    class="mr-3" style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillsCredentialDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3" *ngIf="equipment_open">
-                                <label for="image">Equipment Qualified</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="equipment_doc"
-                                    (change)="onSingleFileChange($event,'equipment_doc','5')">
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3"
-                                *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsEquipmentDoc}}"
-                                    class="mr-3" style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-
-
-                        </div>
-
-
-
-
-                        <div class="row">
-
-                            <div class="col-md-6 form-group mb-3" *ngIf="legal_open">
-                                <label for="image">Legal</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="legal_doc"
-                                    (change)="onSingleFileChange($event,'legal_doc','6')">
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsLegalDoc}}" class="mr-3"
-                                    style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillsLegalDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-md-6 form-group mb-3" *ngIf="simult_open">
-                                <label for="image">Simultaneous</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
-                                    (change)="onSingleFileChange($event,'simultaneous_doc','7')">
-                            </div>
-
-
-                            <div class="col-md-6 form-group mb-3"
-                                *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillSimultOpen}}"
-                                    class="mr-3" style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="row" *ngIf="other_open">
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="image">Other</label>
-                                <input type="text" class="form-control" accept=".png, .jpg, .pdf" formControlName="other_title">
-                            </div>
-
-
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="image">Other</label>
-                                <input type="file" class="form-control" accept=".png, .jpg, .pdf" formControlName="other_doc"
-                                    (change)="onSingleFileChange($event,'other_doc','8')">
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3"
-                            *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
-                            <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}"
-                                class="mr-3" style="width:100px; height:100px;">
-                            <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
-                                class="btn btn-primary mr-2">
-                                View Image
-                            </button>
-                        </div>
-
-                        </div>
-
-
-                        <div class="row"
-                            *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''">
-                            <div class="col-md-6 form-group mb-3">
-                                <h5>{{detail_Obj?.skillsOtherDocTitle}}</h5>
-                            </div>
-
-
-                            <div class="col-md-6 form-group mb-3">
-                                <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" class="mr-3"
-                                    style="width:100px; height:100px;">
-                                <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)"
-                                    class="btn btn-primary mr-2">
-                                    View Image
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <button type="button" (click)="uploadDocuments();addInterpreterAssignment()" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        -->
+           
 
         </div>
         <!-- skills form end -->
@@ -1394,182 +1016,94 @@
         <div *ngIf="assignment_form" class="col-md-12 profile_block_new">
             <div class="card animate mb-4">
                 <div class="card-body">
-                    <form [formGroup]="assignmentForm">
-                        <!--   <div class="row">
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" class="mr-2" (click)="onsiteShow()" id="on-site"
-                                    (change)="assignmentFormCheck($event,'1')" name="on-site" value="On-Site">
-                                <label for="vehicle1"> On-Site</label><br>
-                            </div>
 
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="opiShow()" (change)="assignmentFormCheck($event,'2')"
-                                    class="mr-2" id="opi" name="opi" value="opi">
-                                <label for="vehicle1"> OPI </label><br>
-                            </div>
 
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="vriShow()" (change)="assignmentFormCheck($event,'3')"
-                                    class="mr-2" id="vri" name="vri" value="VRI">
-                                <label for="vehicle1"> VRI</label><br>
-                            </div>
-                            <div class="col-md-3 form-group mb-3">
-                                <input type="checkbox" (click)="vclShow()" (change)="assignmentFormCheck($event,'4')"
-                                    class="mr-2" id="vcl" name="vcl" value="VCL">
-                                <label for="vehicle1">VCI </label><br>
-                            </div>
-                        </div> -->
 
-                        <!-- <div class="col-md-12">
-                                <h5>On Site </h5>
-                            </div> -->
-                        <div *ngIf="onsiteInfo">
+                    <form [formGroup]="secondFormGroup">
+                      <ngb-accordion [activeIds]="activeId"  (panelChange)="toggleAccordian($event)" formArrayName="arr" *ngFor="let a of secondFormGroup.get('arr').controls; let i = index"   #acc="ngbAccordion">
 
-                            <ngb-accordion #acc="ngbAccordion">
-
-                                <ngb-panel>
+                                <ngb-panel id="ngb-panel-{{i}}" >
                                     <ng-template ngbPanelTitle>
-                                        <span>On Site </span>
+                                        <div  (click)="selectFormPlatform(a)" style="width: 100%;height: 100%;">
+                                            
+
+                                        <span >{{a.value.name}}</span>
+                                        </div>
                                     </ng-template>
                                     <ng-template ngbPanelContent>
-                                        <div *ngFor="let group of assignmentArray.controls; let i = index;"
-                                            formArrayName="assignment">
+                                 <div [formGroupName]="i" >
+                            
+                                   
+                                             
 
-                                            <div [formGroupName]='i'>
-
-                                                <div class="row">
+                                             <div class="row">
                                                     <div class="col-md-12">
-                                                        <h5>On Site :
-                                                            <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                            <!-- <select class="form-control" formControlName="hourly_rate_min_paid">
-                                                <option selected="" disabled="">Select language</option>
-                                                <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                            </select> -->
-
-                                                            <!--    <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('on_site',lan.id)" value="{{lan.id}}"  class="btn btn-outline-primary m-1" type="button">{{lan.name}}</button> -->
+                                                        <h5>{{a.value.name}} :
+                                                            
                                                             <button id="btn_id_vci_opi_{{lan.id}}"
                                                                 *ngFor="let lan of UserLangData;"
-                                                                (click)="addLanguageOnAssignment('on_site',lan.id)"
+                                                                (click)="selectLanguage(lan.id,a);"
                                                                 value="{{lan.id}}"
-                                                                class=" {{on_site_language_btn == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
+                                                                class=" {{ languageId == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
                                                                 type="button">{{lan.name}}</button>
+
+                                                                 
+
+
 
                                                         </h5>
                                                     </div>
-                                                    <div class="col-md-12 p-0">
-                                                        <div class="col-md-4 mb-2">
-                                                            <label for="min_paid">LOB</label>
-                                                            <select class="form-control"
+                                                    </div>
+                                                <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
+                                                        <label>Travel Time</label><input checked="" (click)="showTravelTime(true)" type="radio" name="stepone"><span>Yes</span>
+                                                        <input (click)="showTravelTime(false)"  type="radio" name="stepone"><span>No</span>
+                                                    </div>
+
+                                                    <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
+                                                        <label>Mileage</label>
+                                                        <input checked="" style="    margin-left: 3%;" (click)="showMileageTime(true)" type="radio" name="stepone1"><span>Yes</span>
+                                                        <input  (click)="showMileageTime(false)" type="radio" name="stepone1"><span>No</span>
+                                                    </div>
+                                                    <form [formGroup]="secondFormGroup1">
+                                                <div  formArrayName="arr" class="row nomargin" *ngFor="let aa of secondFormGroup1.get('arr').controls;let j = index">
+                                                    <div class="row" [formGroupName]="j" >
+                                                   <!--  <div class="col-md-12 p-0"> -->
+
+                                                        
+                                                        
+
+                                                        <div class="col-md-2 mb-2">
+                                                            <label for="min_paid">Specialization</label>
+                                                            <input disabled="" class="form-control" type="text" value="{{aa.value.lobname}}">
+                                                            <!-- <select 
                                                                 (change)=logChange($event.target.value)
-                                                                formControlName="lob">
-                                                                <option disabled selected>Select</option>
-                                                                <option *ngFor="let lob of MasterLobData;"
-                                                                    value="{{lob.name}}">{{lob.name}}</option>
-                                                            </select>
+                                                                    formControlName="lob">
+                                                                <option disabled  *ngFor="let lob of MasterLobData;"
+                                                                    value="{{aa.value.lob}}" selected="">{{aa.value.lobname}}</option>
+                                                            </select> -->
+
+                                                            <!-- <input type="text" value="{{lob.name}}" name=""> -->
                                                         </div>
 
-                                                    </div>
+                                                    <!-- </div> -->
 
-                                                    <div *ngIf="showLegalLob == 1" class="col-md-4 mb-2">
-                                                        <label for="hourly_rate"> Hourly Rate </label>
+                                                    <!-- <div *ngIf="showLegalLob == 1" class="col-md-2 mb-2"> -->
+                                                    <div  class="col-md-2 mb-2">
+                                                        <label for="hourly_rate">  Rate </label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="hourly_rate"
+                                                            formControlName="rate"
                                                             placeholder="On-Site Hourly Rate">
                                                     </div>
 
-                                                    <div *ngIf="showCommunityLob == 1" class="col-md-4 mb-2">
-                                                        <label for="hourly_rate"> Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="Communityhourly_rate"
-                                                            placeholder="On-Site Hourly Rate">
-                                                    </div>
+                                                   
 
-                                                    <div *ngIf="showMedicalLob == 1" class="col-md-4 mb-2">
-                                                        <label for="hourly_rate"> Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="Medicalhourly_rate"
-                                                            placeholder="On-Site Hourly Rate">
-                                                    </div>
+                                                   
 
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
+                                                    <div class="col-md-2 mb-2">
+                                                        <label for="min_paid">Minimum  </label>
 
                                                         <select class="form-control"
-                                                            formControlName="half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="half_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-                                                    <!-- 
-                                        <div class="col-md-4 mb-2">
-                                            <label for="min_paid">Pay Increment </label>
-
-                                            <select class="form-control" formControlName="hourly_rate_pay_increment">
-                                                <option value="15 Min">15 Min</option>
-                                                <option value="30 Min">30 Min</option>
-                                                <option value="1 Hours">1 Hours</option>
-                                            </select>
-                                        </div> -->
-
-
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                                <label for="min_paid">Minimum Paid </label>
-                                                <input type="text" class="form-control" formControlName="hourly_rate_min_paid" placeholder="On-Site -Hourly Rate- Minimum Paid">
-                                            </div>
-            
-                                            <div class="col-md-4">
-                                                <label for="firstName">Pay Increment </label>
-                                                <input type="text" class="form-control" formControlName="hourly_rate_pay_increment" placeholder="On-Site -Hourly Rate- Pay Increment">
-                                            </div> -->
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Half Day Rates(Hourly Rate * 4)
-                                                        </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="half_day" placeholder="On-Site Half Day">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="half_day_min_paid">
+                                                            formControlName="minpaid">
                                                             <option value="1 Min">1 Min</option>
                                                             <option value="5 Min">5 Min</option>
                                                             <option value="15 Min">15 Min</option>
@@ -1585,1212 +1119,72 @@
                                                         </select>
                                                     </div>
 
+                                                     <div class="col-md-2 mb-2">
+                                                        <label for="min_paid"> Increment </label>
 
+                                                        <select class="form-control"
+                                                            formControlName="increment">
+                                                            <option value="15 Min">15 Min</option>
+                                                            <option value="30 Min">30 Min</option>
+                                                            <option value="1 Hours">1 Hours</option>
+                                                        </select>
+                                                    </div>
 
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                                <label for="min_paid">Minimum Paid </label>
-                                                <input type="text" class="form-control" formControlName="half_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
-                                            </div>
-            
-                                            <div class="col-md-4">
-                                                <label for="firstName">Pay Increment </label>
-                                                <input type="text" class="form-control" formControlName="half_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                            </div> -->
-
-
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Full Day Rates(Hourly Rate * 4)
-                                                        </label>
+                                                    <div *ngIf="showTimeTravelCheck == true && a.value.id == 1" class="col-md-2 mb-2">
+                                                        <label for="travel_time">  Travel time </label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="full_day" placeholder="On-Site Full Day">
-                                                    </div>
+                                                            formControlName="travel_time"
+                                                            placeholder="Travel time">
+                                                    </div> 
 
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-                                                        <select class="form-control"
-                                                            formControlName="full_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="full_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
+                                                    <div *ngIf="showMileageCheck == true && a.value.id == 1"  class="col-md-2 mb-2">
+                                                        <label for="mileage"> Mileage</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="mileage"
+                                                            placeholder="Mileage">
                                                     </div>
 
 
 
 
-                                                    <!-- <div class="col-md-4 mb-2">
-                                                <label for="min_paid"> Minimum Paid </label>
-                                                <input type="text" class="form-control" formControlName="full_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
                                             </div>
-            
-                                            <div class="col-md-4">
-                                                <label for="firstName">Pay Increment </label>
-                                                <input type="text" class="form-control" formControlName="full_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                            </div> -->
-                                                </div>
-
+                                            </div>
+                                        </form>
                                                 <div class="row">
                                                     <div class="col-md-12 text-right">
                                                         <button type="button"
-                                                            (click)="addInterpreterAssignmentSave(assign.platform,j)"
+                                                            (click)="addInterpreterAssignmentSave(a.value,a)"
                                                             class="btn btn-primary btn-lg">Save</button>
                                                     </div>
 
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
+                                             
+                                      
+                                            
+                                               
+                                            
+                                           
+                                             
+
+                                             
+                                            
+                                       
+                                   
+
+                                 </div>
+                                  </ng-template>
+                                    </ngb-panel>
 
                             </ngb-accordion>
-
-
-                        </div>
-                        <br><br>
-                        <!--on site end---->
-
-                        <!--opi start---->
-                        <div *ngIf="opiInfo">
-                            <ngb-accordion #acc="ngbAccordion">
-
-                                <ngb-panel>
-                                    <ng-template ngbPanelTitle>
-                                        <span>OPI</span>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <div *ngFor="let group1 of assignmentOpiArray.controls; let j = index;"
-                                            formArrayName="assignment_opi">
-
-                                            <div [formGroupName]='j'>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h5>OPI :
-                                                            <!--  {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                            <!-- <select class="form-control" formControlName="hourly_rate_min_paid">
-                                          <option selected="" disabled="">Select language</option>
-                                          <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                      </select> -->
-
-                                                            <!-- <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('opi',lan.id)" value="{{lan.id}}" class="btn btn-outline-primary m-1" type="button">{{lan.name}}</button> -->
-                                                            <button id="btn_id_vci_opi_{{lan.id}}"
-                                                                *ngFor="let lan of UserLangData;"
-                                                                (click)="addLanguageOnAssignment('opi',lan.id)"
-                                                                value="{{lan.id}}"
-                                                                class=" {{opi_language_btn == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
-                                                                type="button">{{lan.name}}</button>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-md-12 p-0">
-                                                        <div class="col-md-4 mb-2">
-                                                            <label for="min_paid">LOB</label>
-                                                            <select class="form-control" formControlName="opi_lob">
-                                                                <option>Select</option>
-                                                                <option value="Legal">Legal</option>
-                                                                <option value="Community">Community</option>
-                                                                <option value="Medical">Medical</option>
-
-                                                            </select>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="opi_hourly_rate"
-                                                            placeholder="Opi Hourly Rate">
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="opi_hourly_rate_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="opi_hourly_rate_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid"> Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="opi_hourly_rate_min_paid" placeholder="Opi -Hourly Rate- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="opi_hourly_rate_pay_increment "  placeholder="Opi -Hourly Rate- Pay Increment">
-                                      </div> -->
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Half Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="opi_half_day" placeholder="Opi Half Day">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="opi_half_day_min_paid"  placeholder="Opi -Half Day- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="opi_half_day_pay_increment" placeholder="Opi -Half Day- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="opi_half_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="opi_half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Full Day Rates</label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="opi_full_day" placeholder="Opi Full Day">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="opi_full_day_min_paid" placeholder="Opi -Full Day- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="opi_full_day_pay_increment" placeholder="Opi -Full Day- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="opi_full_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="opi_full_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 text-right">
-                                                        <button type="button"
-                                                            (click)="addInterpreterAssignmentSave('opi')"
-                                                            class="btn btn-primary btn-lg">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
-
-                            </ngb-accordion>
-
-                        </div>
-                        <br><br>
-                        <!--opi end-->
-
-
-                        <!--vri start---->
-                        <div *ngIf="vriInfo">
-
-                            <ngb-accordion #acc="ngbAccordion">
-
-                                <ngb-panel>
-                                    <ng-template ngbPanelTitle>
-                                        <span>VRI</span>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <div *ngFor="let group2 of assignmentVriArray.controls; let k = index;"
-                                            formArrayName="assignment_vri">
-
-                                            <div [formGroupName]='k'>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h5>VRI :
-                                                            <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                            <!--  <select class="form-control" formControlName="hourly_rate_min_paid">
-                                          <option selected="" disabled="">Select language</option>
-                                          <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                      </select> -->
-
-                                                            <!-- <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('vri',lan.id)" value="{{lan.id}}" class="btn btn-outline-primary m-1" type="button">{{lan.name}}</button> -->
-
-                                                            <button id="btn_id_vci_opi_{{lan.id}}"
-                                                                *ngFor="let lan of UserLangData;"
-                                                                (click)="addLanguageOnAssignment('vri',lan.id)"
-                                                                value="{{lan.id}}"
-                                                                class=" {{vri_language_btn == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
-                                                                type="button">{{lan.name}}</button>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-md-12 p-0">
-                                                        <div class="col-md-4 mb-2">
-                                                            <label for="min_paid">LOB</label>
-                                                            <select class="form-control" formControlName="vri_lob">
-                                                                <option>Select</option>
-                                                                <option value="Legal">Legal</option>
-                                                                <option value="Community">Community</option>
-                                                                <option value="Medical">Medical</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vri_hourly_rate"
-                                                            placeholder="Vri Hourly Rate">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid"> Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vri_hourly_rate_min_paid" placeholder="Vri -Hourly Rate- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vri_hourly_rate_pay_increment "  placeholder="Vri -Hourly Rate- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vri_hourly_rate_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vri_hourly_rate_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Half Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vri_half_day" placeholder="Vri Half Day">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vri_half_day_min_paid"  placeholder="Vri -Half Day- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vri_half_day_pay_increment" placeholder="Vri -Half Day- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vri_half_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vri_half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Full Day Rates</label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vri_full_day" placeholder="Vri Full Day">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vri_full_day_min_paid" placeholder="Vri -Full Day- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vri_full_day_pay_increment" placeholder="Vri -Full Day- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vri_full_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vri_full_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 text-right">
-                                                        <button type="button"
-                                                            (click)="addInterpreterAssignmentSave('vri')"
-                                                            class="btn btn-primary btn-lg">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
-
-                            </ngb-accordion>
-
-
-
-                        </div>
-                        <br><br>
-                        <!--vri end-->
-
-
-                        <!--vcl start---->
-                        <div *ngIf="vclInfo">
-
-                            <ngb-accordion #acc="ngbAccordion">
-
-                                <ngb-panel>
-                                    <ng-template ngbPanelTitle>
-                                        <span>VCI</span>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <div *ngFor="let group3 of assignmentVclArray.controls; let l = index;"
-                                            formArrayName="assignment_vcl">
-
-                                            <div [formGroupName]='l'>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h5>VCI :
-                                                            <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                            <!-- <select class="form-control" formControlName="hourly_rate_min_paid">
-                                          <option selected="" disabled="">Select language</option>
-                                          <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                      </select> -->
-
-                                                            <!--  <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('vci',lan.id)" value="{{lan.id}}" class="btn btn-outline-primary m-1" type="button">{{lan.name}}</button> -->
-                                                            <button id="btn_id_vci_opi_{{lan.id}}"
-                                                                *ngFor="let lan of UserLangData;"
-                                                                (click)="addLanguageOnAssignment('vci',lan.id)"
-                                                                value="{{lan.id}}"
-                                                                class=" {{vci_language_btn == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
-                                                                type="button">{{lan.name}}</button>
-
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-md-12 p-0">
-                                                        <div class="col-md-4 mb-2">
-                                                            <label for="min_paid">LOB</label>
-                                                            <select class="form-control" formControlName="vcl_lob">
-                                                                <option>Select</option>
-                                                                <option value="Legal">Legal</option>
-                                                                <option value="Community">Community</option>
-                                                                <option value="Medical">Medical</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vcl_hourly_rate"
-                                                            placeholder="Vcl Hourly Rate">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid"> Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vcl_hourly_rate_min_paid" placeholder="Vcl -Hourly Rate- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vcl_hourly_rate_pay_increment "  placeholder="Vcl -Hourly Rate- Pay Increment">
-                                      </div> -->
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vcl_hourly_rate_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vcl_hourly_rate_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Half Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vcl_half_day" placeholder="Vcl Half Day">
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vcl_half_day_min_paid"  placeholder="Vcl -Half Day- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vcl_half_day_pay_increment" placeholder="Vcl -Half Day- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vcl_half_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vcl_half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Full Day Rates</label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vcl_full_day" placeholder="Vcl Full Day">
-                                                    </div>
-                                                    <!-- 
-                                      <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vcl_full_day_min_paid" placeholder="Vcl -Full Day- Minimum Paid">
-                                      </div>
-
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vcl_full_day_pay_increment" placeholder="Vcl -Full Day- Pay Increment">
-                                      </div> -->
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vcl_full_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vcl_full_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 text-right">
-                                                        <button type="button"
-                                                            (click)="addInterpreterAssignmentSave('vcl')"
-                                                            class="btn btn-primary btn-lg">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
-
-                            </ngb-accordion>
-
-
-
-                        </div>
-                        <!--vcl end-->
-                        <div class="mt-5" *ngIf="rsiInfo">
-
-                            <ngb-accordion #acc="ngbAccordion">
-
-                                <ngb-panel>
-                                    <ng-template ngbPanelTitle>
-                                        <span>RSI</span>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <div *ngFor="let group of assignmentRsiArray.controls; let i = index;"
-                                            formArrayName="assignment_rsi">
-
-                                            <div [formGroupName]='i'>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h5>RSI :
-                                                            <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                            <!-- <select class="form-control" formControlName="rsi_hourly_rate_min_paid">
-                                          <option selected="" disabled="">Select language</option>
-                                          <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                      </select> -->
-
-                                                            <!-- <button *ngFor="let lan of UserLangData;" (click)="addLanguageOnAssignment('rsi',lan.id)" value="{{lan.id}}"  class="btn btn-outline-primary m-1" type="button">{{lan.name}}</button> -->
-                                                            <button id="btn_id_vci_opi_{{lan.id}}"
-                                                                *ngFor="let lan of UserLangData;"
-                                                                (click)="addLanguageOnAssignment('rsi',lan.id)"
-                                                                value="{{lan.id}}"
-                                                                class=" {{rsi_language_btn == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
-                                                                type="button">{{lan.name}}</button>
-
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-md-12 p-0">
-                                                        <div class="col-md-4 mb-2">
-                                                            <label for="min_paid">LOB</label>
-                                                            <select class="form-control" formControlName="rsi_lob">
-                                                                <option>Select</option>
-                                                                <option value="Legal">Legal</option>
-                                                                <option value="Community">Community</option>
-                                                                <option value="Medical">Medical</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate"> Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="rsi_hourly_rate"
-                                                            placeholder="On-Site Hourly Rate">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-                                                        <!-- <input value="15 min" id="plus" class="form-control" formControlName="rsi_hourly_rate_min_paid"/> -->
-                                                        <select class="form-control"
-                                                            formControlName="rsi_hourly_rate_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="rsi_hourly_rate_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="rsi_hourly_rate_min_paid" placeholder="On-Site -Hourly Rate- Minimum Paid">
-                                      </div>
-      
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="rsi_hourly_rate_pay_increment" placeholder="On-Site -Hourly Rate- Pay Increment">
-                                      </div> -->
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Half Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="rsi_half_day"
-                                                            placeholder="On-Site Half Day">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="rsi_half_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="rsi_half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="rsi_half_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
-                                      </div>
-      
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="rsi_half_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                      </div> -->
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Full Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="rsi_full_day"
-                                                            placeholder="On-Site Full Day">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="rsi_full_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="rsi_full_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid"> Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="rsi_full_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
-                                      </div>
-      
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="rsi_full_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                      </div> -->
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 text-right">
-                                                        <button type="button"
-                                                            (click)="addInterpreterAssignmentSave('rsi')"
-                                                            class="btn btn-primary btn-lg">Save</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
-
-                            </ngb-accordion>
-
-
-                        </div>
-
-                        <div *ngIf="vci_opi" class="mt-5">
-
-                            <ngb-accordion #acc="ngbAccordion">
-
-                                <ngb-panel>
-                                    <ng-template ngbPanelTitle>
-                                        <span>VCI + OPI</span>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <div *ngFor="let group of assignmentVcl_opiArray.controls; let i = index;"
-                                            formArrayName="assignment_vci_opi">
-
-                                            <div [formGroupName]='i'>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h5>VCI + OPI :
-                                                            <!-- {{detail_Obj.primay_lang_name ? detail_Obj.primay_lang_name : 'English'}} -->
-                                                            <!-- <select class="form-control" formControlName="vci_opi_hourly_rate_min_paid">
-                                          <option selected="" disabled="">Select language</option>
-                                          <option *ngFor="let lan of UserLangData;" value="{{lan.id}}">{{lan.name}}</option>
-                                      </select> -->
-
-                                                            <button id="btn_id_vci_opi_{{lan.id}}"
-                                                                *ngFor="let lan of UserLangData;"
-                                                                (click)="addLanguageOnAssignment('vci_opi',lan.id)"
-                                                                value="{{lan.id}}"
-                                                                class=" {{vci_opi_language_btn == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
-                                                                type="button">{{lan.name}}</button>
-
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-md-12 p-0">
-                                                        <div class="col-md-4 mb-2">
-                                                            <label for="min_paid">LOB</label>
-                                                            <select class="form-control" formControlName="vci_opi_lob">
-                                                                <option>Select</option>
-                                                                <option value="Legal">Legal</option>
-                                                                <option value="Community">Community</option>
-                                                                <option value="Medical">Medical</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate"> Hourly Rate </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vci_opi_hourly_rate"
-                                                            placeholder="On-Site Hourly Rate">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-                                                        <!-- <input value="15 min" id="plus" class="form-control" formControlName="vci_opi_hourly_rate_min_paid"/> -->
-                                                        <select class="form-control"
-                                                            formControlName="vci_opi_hourly_rate_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vci_opi_hourly_rate_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vci_opi_hourly_rate_min_paid" placeholder="On-Site -Hourly Rate- Minimum Paid">
-                                      </div>
-      
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vci_opi_hourly_rate_pay_increment" placeholder="On-Site -Hourly Rate- Pay Increment">
-                                      </div> -->
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Half Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vci_opi_half_day"
-                                                            placeholder="On-Site Half Day">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vci_opi_half_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vci_opi_half_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid">Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vci_opi_half_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
-                                      </div>
-      
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="vci_opi_half_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                      </div> -->
-                                                </div>
-
-
-                                                <div class="row">
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="hourly_rate">Full Day Rates </label>
-                                                        <input type="text" class="form-control"
-                                                            formControlName="vci_opi_full_day"
-                                                            placeholder="On-Site Full Day">
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Minimum Paid </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vci_opi_full_day_min_paid">
-                                                            <option value="1 Min">1 Min</option>
-                                                            <option value="5 Min">5 Min</option>
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                            <option value="2 Hours">2 Hours</option>
-                                                            <option value="3 Hours">3 Hours</option>
-                                                            <option value="4 Hours">4 Hours</option>
-                                                            <option value="5 Hours">5 Hours</option>
-                                                            <option value="6 Hours">6 Hours</option>
-                                                            <option value="7 Hours">7 Hours</option>
-                                                            <option value="8 Hours">8 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-                                                    <div class="col-md-4 mb-2">
-                                                        <label for="min_paid">Pay Increment </label>
-
-                                                        <select class="form-control"
-                                                            formControlName="vci_opi_full_day_pay_increment">
-                                                            <option value="15 Min">15 Min</option>
-                                                            <option value="30 Min">30 Min</option>
-                                                            <option value="1 Hours">1 Hours</option>
-                                                        </select>
-                                                    </div>
-
-
-
-                                                    <!-- <div class="col-md-4 mb-2">
-                                          <label for="min_paid"> Minimum Paid </label>
-                                          <input type="text" class="form-control" formControlName="vci_opi_full_day_min_paid" placeholder="On-Site -Half Day- Minimum Paid">
-                                      </div>
-      
-                                      <div class="col-md-4">
-                                          <label for="firstName">Pay Increment </label>
-                                          <input type="text" class="form-control" formControlName="full_day_pay_increment" placeholder="On-Site -Half Day- Pay Increment">
-                                      </div> -->
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 text-right">
-                                                        <button type="button"
-                                                            (click)="addInterpreterAssignmentSave('vci_opi')"
-                                                            class="btn btn-primary btn-lg">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
-
-                            </ngb-accordion>
-
-
-                        </div>
-                        <br><br>
-
-
-                        <!--  <div class="form-group row" *ngIf="opiInfo || vriInfo || vclInfo || onsiteInfo">
-                            <div class="col-sm-12">
-                                <button type="button" (click)="addInterpreterAssignment('assignment')"
-                                    class="btn btn-primary">Save</button>
-                            </div>
-                        </div> -->
+                          
+                   
+                      
+                      
                     </form>
+
+
+
+                    
 
                 </div>
             </div>
@@ -3020,7 +1414,7 @@
                     <div class="row">
                         <div *ngFor="let url2 of doc2; let y=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeImage(y)"></i>
-                            <img [src]="url2.all_img2" style="width:100%; height:100%;">
+                            <img [src]="url2.img_url" style="width:100%; height:100%;">
                         </div>
 
                     </div>
@@ -3029,7 +1423,7 @@
                     <div class="row">
                         <div *ngFor="let url3 of doc3; let i=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
-                            <img [src]="url3.all_img3" style="width:100%; height:100%;">
+                            <img [src]="url3.img_url" style="width:100%; height:100%;">
                         </div>
 
                     </div>
@@ -3038,7 +1432,7 @@
                     <div class="row">
                         <div *ngFor="let url4 of doc4; let i=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
-                            <img [src]="url4.all_img4" style="width:100%; height:100%;">
+                            <img [src]="url4.img_url" style="width:100%; height:100%;">
                         </div>
                     </div>
                 </div>
@@ -3046,7 +1440,7 @@
                     <div class="row">
                         <div *ngFor="let url5 of doc5; let i=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
-                            <img [src]="url5.all_img5" style="width:100%; height:100%;">
+                            <img [src]="url5.img_url" style="width:100%; height:100%;">
                         </div>
                     </div>
                 </div>
@@ -3054,7 +1448,7 @@
                     <div class="row">
                         <div *ngFor="let url6 of doc6; let i=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
-                            <img [src]="url6.all_img6" style="width:100%; height:100%;">
+                            <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
-var ChatDB = /** @class */ (function () {
-    function ChatDB() {
+let ChatDB = /** @class */ (() => {
+    class ChatDB {
     }
     ChatDB.user = [
         {
@@ -177,6 +177,6 @@ var ChatDB = /** @class */ (function () {
         }
     ];
     return ChatDB;
-}());
+})();
 export { ChatDB };
 //# sourceMappingURL=chat-db.js.map

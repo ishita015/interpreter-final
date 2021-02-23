@@ -10,15 +10,15 @@ import { UsersAddComponent } from './users-add/users-add.component';
 import { UsersEditComponent } from './users-edit/users-edit.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UsersViewComponent } from './users-view/users-view.component';
-var routes = [
+const routes = [
     { path: 'user-list', component: UsersListComponent },
     { path: 'user-add', component: UsersAddComponent },
     { path: 'user-edit/:id', component: UsersEditComponent },
     { path: 'user-view/:id', component: UsersViewComponent },
 ];
-var UsersRoutingModule = /** @class */ (function () {
-    function UsersRoutingModule() {
-    }
+let UsersRoutingModule = /** @class */ (() => {
+    let UsersRoutingModule = class UsersRoutingModule {
+    };
     UsersRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -26,6 +26,6 @@ var UsersRoutingModule = /** @class */ (function () {
         })
     ], UsersRoutingModule);
     return UsersRoutingModule;
-}());
+})();
 export { UsersRoutingModule };
 //# sourceMappingURL=users-routing.module.js.map

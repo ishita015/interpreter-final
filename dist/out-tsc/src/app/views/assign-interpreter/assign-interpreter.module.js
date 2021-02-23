@@ -8,9 +8,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssignInterpreterRoutingModule } from './assign-interpreter-routing.module';
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
-var AssignInterpreterModule = /** @class */ (function () {
-    function AssignInterpreterModule() {
-    }
+let AssignInterpreterModule = /** @class */ (() => {
+    let AssignInterpreterModule = class AssignInterpreterModule {
+    };
     AssignInterpreterModule = __decorate([
         NgModule({
             declarations: [InterpreterListComponent],
@@ -21,6 +21,6 @@ var AssignInterpreterModule = /** @class */ (function () {
         })
     ], AssignInterpreterModule);
     return AssignInterpreterModule;
-}());
+})();
 export { AssignInterpreterModule };
 //# sourceMappingURL=assign-interpreter.module.js.map

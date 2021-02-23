@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { BadgesComponent } from './badges.component';
-describe('BadgesComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('BadgesComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [BadgesComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(BadgesComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

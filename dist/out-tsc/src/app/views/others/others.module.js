@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
 import { OthersRoutingModule } from './others-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule } from '@angular/router';
-var OthersModule = /** @class */ (function () {
-    function OthersModule() {
-    }
+let OthersModule = /** @class */ (() => {
+    let OthersModule = class OthersModule {
+    };
     OthersModule = __decorate([
         NgModule({
             imports: [
@@ -23,6 +23,6 @@ var OthersModule = /** @class */ (function () {
         })
     ], OthersModule);
     return OthersModule;
-}());
+})();
 export { OthersModule };
 //# sourceMappingURL=others.module.js.map

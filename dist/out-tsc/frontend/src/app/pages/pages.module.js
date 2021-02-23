@@ -24,9 +24,9 @@ import { AgmCoreModule } from '@agm/core';
 import { InterpreterTrackingComponent } from './interpreter-tracking/interpreter-tracking.component';
 import { RateReviewComponent } from './rate-review/rate-review.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-var PagesModule = /** @class */ (function () {
-    function PagesModule() {
-    }
+let PagesModule = /** @class */ (() => {
+    let PagesModule = class PagesModule {
+    };
     PagesModule = __decorate([
         NgModule({
             declarations: [
@@ -61,6 +61,6 @@ var PagesModule = /** @class */ (function () {
         })
     ], PagesModule);
     return PagesModule;
-}());
+})();
 export { PagesModule };
 //# sourceMappingURL=pages.module.js.map

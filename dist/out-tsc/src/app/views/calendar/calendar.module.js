@@ -14,9 +14,9 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarFormDialogComponent } from './calendar-form-dialog/calendar-form-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
-var CalendarAppModule = /** @class */ (function () {
-    function CalendarAppModule() {
-    }
+let CalendarAppModule = /** @class */ (() => {
+    let CalendarAppModule = class CalendarAppModule {
+    };
     CalendarAppModule = __decorate([
         NgModule({
             imports: [
@@ -34,6 +34,6 @@ var CalendarAppModule = /** @class */ (function () {
         })
     ], CalendarAppModule);
     return CalendarAppModule;
-}());
+})();
 export { CalendarAppModule };
 //# sourceMappingURL=calendar.module.js.map

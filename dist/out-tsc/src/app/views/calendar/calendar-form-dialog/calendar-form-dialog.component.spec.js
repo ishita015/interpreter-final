@@ -1,20 +1,20 @@
 import { async, TestBed } from '@angular/core/testing';
 import { CalendarFormDialogComponent } from './calendar-form-dialog.component';
-describe('CalendarFormDialogComponent', function () {
-    var component;
-    var fixture;
-    beforeEach(async(function () {
+describe('CalendarFormDialogComponent', () => {
+    let component;
+    let fixture;
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [CalendarFormDialogComponent]
         })
             .compileComponents();
     }));
-    beforeEach(function () {
+    beforeEach(() => {
         fixture = TestBed.createComponent(CalendarFormDialogComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
-    it('should create', function () {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

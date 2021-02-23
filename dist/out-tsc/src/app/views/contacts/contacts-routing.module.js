@@ -7,15 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ContactGridComponent } from './contact-grid/contact-grid.component';
-var routes = [
+const routes = [
     {
         path: 'grid',
         component: ContactGridComponent
     }
 ];
-var ContactsRoutingModule = /** @class */ (function () {
-    function ContactsRoutingModule() {
-    }
+let ContactsRoutingModule = /** @class */ (() => {
+    let ContactsRoutingModule = class ContactsRoutingModule {
+    };
     ContactsRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -23,6 +23,6 @@ var ContactsRoutingModule = /** @class */ (function () {
         })
     ], ContactsRoutingModule);
     return ContactsRoutingModule;
-}());
+})();
 export { ContactsRoutingModule };
 //# sourceMappingURL=contacts-routing.module.js.map

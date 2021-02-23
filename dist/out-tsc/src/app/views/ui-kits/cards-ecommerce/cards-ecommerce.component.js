@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-var CardsEcommerceComponent = /** @class */ (function () {
-    function CardsEcommerceComponent() {
-    }
-    CardsEcommerceComponent.prototype.ngOnInit = function () {
+let CardsEcommerceComponent = /** @class */ (() => {
+    let CardsEcommerceComponent = class CardsEcommerceComponent {
+        constructor() { }
+        ngOnInit() {
+        }
     };
     CardsEcommerceComponent = __decorate([
         Component({
@@ -22,6 +23,6 @@ var CardsEcommerceComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], CardsEcommerceComponent);
     return CardsEcommerceComponent;
-}());
+})();
 export { CardsEcommerceComponent };
 //# sourceMappingURL=cards-ecommerce.component.js.map

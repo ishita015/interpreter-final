@@ -12,7 +12,7 @@ import { LanguagesEditComponent } from './languages-edit/languages-edit.componen
 import { LanguagesViewComponent } from './languages-view/languages-view.component';
 import { LangimportComponent } from './langimport/langimport.component';
 import { InterpreterDetailsComponent } from './interpreter-details/interpreter-details.component';
-var routes = [
+const routes = [
     { path: 'list', component: LanguagesListComponent },
     { path: 'add', component: LanguagesAddComponent },
     { path: 'edit/:id', component: LanguagesEditComponent },
@@ -20,9 +20,9 @@ var routes = [
     { path: 'excelImport', component: LangimportComponent },
     { path: 'interpreter-detail', component: InterpreterDetailsComponent },
 ];
-var LanguagesRoutingModule = /** @class */ (function () {
-    function LanguagesRoutingModule() {
-    }
+let LanguagesRoutingModule = /** @class */ (() => {
+    let LanguagesRoutingModule = class LanguagesRoutingModule {
+    };
     LanguagesRoutingModule = __decorate([
         NgModule({
             declarations: [],
@@ -31,6 +31,6 @@ var LanguagesRoutingModule = /** @class */ (function () {
         })
     ], LanguagesRoutingModule);
     return LanguagesRoutingModule;
-}());
+})();
 export { LanguagesRoutingModule };
 //# sourceMappingURL=languages-routing.module.js.map

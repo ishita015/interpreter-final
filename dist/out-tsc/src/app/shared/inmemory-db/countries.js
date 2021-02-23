@@ -1,5 +1,5 @@
-var CountryDB = /** @class */ (function () {
-    function CountryDB() {
+let CountryDB = /** @class */ (() => {
+    class CountryDB {
     }
     CountryDB.countries = [
         { display: 'Afghanistan', value: 'AF' },
@@ -247,6 +247,6 @@ var CountryDB = /** @class */ (function () {
         { display: 'Zimbabwe', value: 'ZW' }
     ];
     return CountryDB;
-}());
+})();
 export { CountryDB };
 //# sourceMappingURL=countries.js.map

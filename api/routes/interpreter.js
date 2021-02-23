@@ -4187,6 +4187,80 @@ module.exports.getlob = async function (req, res) {
  })
 
 }
+
+module.exports.getAllPlatform = async function (req, res) {
+ var data=  await  commonDb.AsyncSellectAllWhere('master_platform', {status: 1})
+ res.send({data:data})
+}
+module.exports.getInterpreterPlatformIds = async function (req, res) {
+ var data=  await  commonDb.AsyncSellectAllWhere('interpreter_platform_setting', {interpreter_id: req.params.id})
+ res.send({data:data})
+}
+module.exports.getLanguageRate = async function (req, res) {
+ var data=  await  commonDb.AsyncSellectAllWhere('language_assignment_settings', {destination_language: req.body.language_id})
+ res.send({data:data})
+}
+module.exports.getInterpreterRateSettingNew = async function (req, res) {
+    console.log(req.body)
+    try{
+        var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings',{language_id:req.body.language_id,Interpreter_id:req.body.interpreter_id,platform_id:req.body.id})
+        return res.send({data:data})
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+module.exports.updateIntrepeterSetingNew = async function (req, res) {
+
+var count = 0;
+    try{
+        for (var i = 0; i < req.body.arr.length; i++) {
+                count+=1;
+            var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings',
+            {
+                 platform_id:req.body.platformid,
+                Interpreter_id:req.body.interpreter_id,
+                lob:req.body.arr[i].lob,
+                language_id:req.body.language_id,
+            }
+                )
+            if(data.length == 0){
+                      commonDb.AsyncInsert('interpreter_assignment_settings',{
+                            Interpreter_id:req.body.interpreter_id,
+                            platform_id:req.body.platformid,
+                            language_id:req.body.language_id,
+                            lob:req.body.arr[i].lob,
+                            rate:req.body.arr[i].rate,
+                            minpaid:req.body.arr[i].minpaid,
+                            increment:req.body.arr[i].increment,
+                            travel_time:req.body.arr[i].travel_time,
+                            mileage:req.body.arr[i].mileage,
+                        })
+            }else{
+
+                       var sql = "UPDATE interpreter_assignment_settings SET language_id = '"+req.body.language_id+"', rate = '"+req.body.arr[i].rate+"', minpaid = '"+req.body.arr[i].minpaid+"', increment = '"+req.body.arr[i].increment+"', travel_time = '"+req.body.arr[i].travel_time+"', mileage = '"+req.body.arr[i].mileage+"' WHERE platform_id = "+req.body.platformid+" AND Interpreter_id="+req.body.interpreter_id+" AND lob="+req.body.arr[i].lob+"";
+                    con.query(sql, function (err, result, fields) {});
+            }    
+       
+        }
+               
+             if(count == req.body.arr.length){
+
+                    return   res.send({status:true,msg:'Update Successfully'})
+             }
+       
+
+
+    }
+    catch(e){
+         return   res.send({status:true,msg:'Update Failed'})
+        console.log(e)
+    }
+}
+module.exports.getInterpreterPlatformName = async function (req, res) {
+ var data=  await  commonDb.AsyncSellectAllWhere('master_platform', {id: req.params.id})
+ res.send({data:data})
+}
 module.exports.baseRate = async function (req, res) {
     // //console.log("baseRate",req);
     //validation start

@@ -12,12 +12,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 import { Directive, HostListener, Inject } from '@angular/core';
 import { DropdownLinkDirective } from './dropdown-link.directive';
-var DropdownAnchorDirective = /** @class */ (function () {
-    function DropdownAnchorDirective(navlink) {
-        this.navlink = navlink;
-    }
-    DropdownAnchorDirective.prototype.onClick = function (e) {
-        this.navlink.toggle();
+let DropdownAnchorDirective = /** @class */ (() => {
+    let DropdownAnchorDirective = class DropdownAnchorDirective {
+        constructor(navlink) {
+            this.navlink = navlink;
+        }
+        onClick(e) {
+            this.navlink.toggle();
+        }
     };
     __decorate([
         HostListener('click', ['$event']),
@@ -33,6 +35,6 @@ var DropdownAnchorDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [DropdownLinkDirective])
     ], DropdownAnchorDirective);
     return DropdownAnchorDirective;
-}());
+})();
 export { DropdownAnchorDirective };
 //# sourceMappingURL=dropdown-anchor.directive.js.map

@@ -1,10 +1,10 @@
 import { InboxModule } from './inbox.module';
-describe('InboxModule', function () {
-    var inboxModule;
-    beforeEach(function () {
+describe('InboxModule', () => {
+    let inboxModule;
+    beforeEach(() => {
         inboxModule = new InboxModule();
     });
-    it('should create an instance', function () {
+    it('should create an instance', () => {
         expect(inboxModule).toBeTruthy();
     });
 });

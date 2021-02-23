@@ -1,5 +1,5 @@
 import { trigger, animate, style, transition, state, animation, useAnimation } from '@angular/animations';
-var reusable = animation([
+const reusable = animation([
     style({
         opacity: '{{opacity}}',
         transform: 'scale({{scale}}) translate3d({{x}}, {{y}}, {{z}})'
@@ -16,7 +16,7 @@ var reusable = animation([
         z: '0'
     }
 });
-export var SharedAnimations = [
+export const SharedAnimations = [
     trigger('animate', [transition('void => *', [useAnimation(reusable)])]),
     trigger('fadeInOut', [
         state('0', style({

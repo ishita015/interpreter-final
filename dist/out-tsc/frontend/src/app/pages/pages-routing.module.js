@@ -20,7 +20,7 @@ import { Step11Component } from './registration/step11/step11.component';
 import { Step12Component } from './registration/step12/step12.component';
 import { InterpreterTrackingComponent } from './interpreter-tracking/interpreter-tracking.component';
 import { RateReviewComponent } from './rate-review/rate-review.component';
-var routes = [
+const routes = [
     { path: '', component: Step1Component },
     { path: 'step2', component: Step2Component },
     { path: 'step3', component: Step3Component },
@@ -37,9 +37,9 @@ var routes = [
     // { path: 'tracking/1',component: InterpreterTrackingComponent },
     { path: 'review/:uniqueCode', component: RateReviewComponent },
 ];
-var PagesRoutingModule = /** @class */ (function () {
-    function PagesRoutingModule() {
-    }
+let PagesRoutingModule = /** @class */ (() => {
+    let PagesRoutingModule = class PagesRoutingModule {
+    };
     PagesRoutingModule = __decorate([
         NgModule({
             imports: [RouterModule.forChild(routes)],
@@ -47,6 +47,6 @@ var PagesRoutingModule = /** @class */ (function () {
         })
     ], PagesRoutingModule);
     return PagesRoutingModule;
-}());
+})();
 export { PagesRoutingModule };
 //# sourceMappingURL=pages-routing.module.js.map
