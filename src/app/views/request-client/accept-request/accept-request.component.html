@@ -74,30 +74,41 @@
                   {{row.client_name}}
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
+              <ngx-datatable-column name="LOB" prop="lob_name">
                 <ng-template ngx-datatable-header-template>
-                  Contact Person
+                  LOB
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.name_of_contact_person}}
+                  {{row.lob_name}}
                 </ng-template>
               </ngx-datatable-column>
-               <ngx-datatable-column name="Appointment Type" prop="appointment_type">
+    
+              <ngx-datatable-column name="Assignment Type" prop="assignment_type">
                 <ng-template ngx-datatable-header-template>
-                  Appointment Type
+                  Assignment Type
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.appointment_type}}
+                  {{row.assignment_type}}
                 </ng-template>
               </ngx-datatable-column>
+              <ngx-datatable-column name="Language" prop="lang_name">
+                <ng-template ngx-datatable-header-template>
+                  Language
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                  {{row.lang_name}}
+                </ng-template>
+              </ngx-datatable-column>
+    
               <ngx-datatable-column name="Cell Phone" prop="cell_phone">
                 <ng-template ngx-datatable-header-template>
                   Cell Phone
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.cell_phone | mask: '(000) 000-0000'}}
+                  {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
                 </ng-template>
               </ngx-datatable-column>
+    
                 <!-- <ngx-datatable-column name="Requester" prop="requester_name">
                     <ng-template ngx-datatable-header-template>
                       Requester
@@ -106,21 +117,21 @@
                       {{row.requester_name}}
                     </ng-template>
                 </ngx-datatable-column> -->
-                <ngx-datatable-column name="Interpreter" prop="requester_name">
+                <ngx-datatable-column name="Interpreter Name" prop="interpreter_name">
                   <ng-template ngx-datatable-header-template>
                       Interpreter
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.name}}
+                      {{row.interpreter_name}}
                   </ng-template>  
               </ngx-datatable-column>
               
-              <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
+              <ngx-datatable-column name="Interpreter Mobile" prop="interpreter_mobile">
                 <ng-template ngx-datatable-header-template>
                   Interpreter Mobile
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.mobile | mask: '(000) 000-0000'}}
+                   {{row.interpreter_phoneCode}} {{row.interpreter_mobile | mask: '(000) 000-0000'}}
                 </ng-template>  
              </ngx-datatable-column>
 
@@ -133,16 +144,16 @@
               </ng-template>  
           </ngx-datatable-column>
 
-          <ngx-datatable-column>
+          <!-- <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
               <span title="Appointment date">Appointment date</span>
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <span title="{{row.date}}">{{row.date | date:'MM/dd/yyyy' }}</span>
             </ng-template>  
-        </ngx-datatable-column>
+        </ngx-datatable-column> -->
            
-            <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+            <ngx-datatable-column [width]="120" [sortable]="false">
               <ng-template ngx-datatable-header-template>Status
               </ng-template>
               
@@ -169,7 +180,11 @@
                 Tracking link
               </button>
 
-              <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.status==1" class="btn btn-outline-danger ml-2"
+              >
+                  Waiting for completed by Interpreter
+              </button>
+              <button *ngIf="roleId!='1' && row.status==2" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Completed
               </button>
@@ -198,18 +213,47 @@
     </div>
 </div>  
 <ng-template #completeConfirmModal let-modal>
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Alert</h4>
+  <div class="ratingheader modal-header">
+    <h4>Rating</h4>
       <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
-  <div class="modal-body">
-      <p><strong>Are you sure? you want to Completed task?</strong></p>
+  <div class="modal-body rating_star">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 outer-box">
+          <div class="well well-sm">
+                <div class="row">
+                    <div class="col-md-12">
+                      <form [formGroup]="ratingForm">
+                        <label class="">Your message</label>
+                        <div class="form-group text-center">
+                          <textarea class="form-control animated" formControlName="review" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea> 
+                        </div>
+                        <!-- <div *ngIf="ratingForm.controls['review'].errors && ( !ratingForm.controls['review'].pristine || submitted ||ratingForm.controls['review'].touched )" class="error-msg">
+                          <div [hidden]="!ratingForm.controls['review'].errors.required"><span class="spannew">Message is required.</span></div>
+                        </div> -->
+                      <label class="">Your rating</label>
+                       <div class="form-group">
+                          <ngb-rating class="newrating" [max]="5" formControlName="rating"></ngb-rating>
+                           
+                        </div>
+                        <!-- <div *ngIf="ratingForm.controls['rating'].errors && ( !ratingForm.controls['rating'].pristine || submitted ||ratingForm.controls['rating'].touched )" class="error-msg">
+                          <div [hidden]="!ratingForm.controls['rating'].errors.required"><span class="spannew">Rating is required.</span></div>
+                        </div> -->
+                      </form>
+                    </div>
+                </div>
+            </div> 
+             
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-      <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+      <button type="button" ngbAutofocus class="btn btn-primary btn-rounded" (click)="modal.close('Ok')">Ok</button>
   </div>
 </ng-template>
 

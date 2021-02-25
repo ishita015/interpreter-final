@@ -134,7 +134,7 @@ export class AcceptRequestComponent implements OnInit {
     console.log("idddddddddd", id);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
-        this.service.interpreterReqCompleted(id, this.userId)
+        this.service.interpreterReqCompleted({id:id, userId:this.userId})
           .subscribe(res => {
             this.msg = res;
             if (res['status'] == '1') {

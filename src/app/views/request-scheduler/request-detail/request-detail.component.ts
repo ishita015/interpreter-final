@@ -50,6 +50,7 @@ export class RequestDetailComponent implements OnInit {
   getRequestDetails() {
     this.service.get("getRequestDetails/" + this.id).subscribe((res) => {
       this.data = res['data'][0];
+      console.log("==========this.data",this.data);
       if (this.data.recurrent_assignment == "1") {
         if (this.data.repeats == "1" || this.data.repeats == "2") {
           this.event_at = this.data.event_at.split(",");

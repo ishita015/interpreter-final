@@ -71,3 +71,27 @@
   .travelblock input[type="radio"]{box-sizing: border-box; padding: 0; margin-right: 10px; margin-left: 10px; }
   .travelblock span{    position: relative; bottom: 2px;}
 .paddingzero{padding: 0 !important;}
+  .ratingheader{  background: #6929a9;
+    padding: 10px 20px !important;}
+    .ratingheader h4{color:#fff;    position: relative;
+        top: 3px;}
+    .ratingheader .close{    background: #fff;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        padding: 7px !important;
+        position: relative;
+        top: 13px;
+        right: 6px;}
+       .rating_star .ng-star-inserted{ font-size: 26px;    color: #6929a9;
+    margin-right: 10px;}
+    .newrating:focus {
+        outline: none !important;
+    }
+    .rating_star label {
+        font-size: 16px;
+    }
+    .rating_star .spannew{    font-size: 12px;
+        color: red;
+        position: relative;
+        bottom: 22px;}

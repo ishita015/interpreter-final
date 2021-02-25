@@ -100,14 +100,14 @@
                   </ng-template>
                 </ngx-datatable-column>
       
-                <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
                   <ng-template ngx-datatable-header-template name="Email" prop="email">
                       Email
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.email}}
                   </ng-template>  
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
                  
                 <!-- <ngx-datatable-column name="Requester" prop="requester_name">
                   <ng-template ngx-datatable-header-template>
@@ -177,7 +177,6 @@
                     </ng-template>  
                 </ngx-datatable-column> -->
 
-
                 <!-- <ngx-datatable-column>
                     <ng-template ngx-datatable-header-template name="Office Phone" prop="office_phone">
                         Office Phone
@@ -231,8 +230,8 @@
                     Status
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    <p *ngIf="row.is_reject == '0'">New</p>
-                    <!-- <p *ngIf="row.is_reject == '4'">Repeat</p> -->
+                    <p *ngIf="row.ris_status == '0'">New</p>
+                    <p *ngIf="row.ris_status == '4'">Repeat</p>
                 </ng-template>  
             </ngx-datatable-column>
 
@@ -242,7 +241,7 @@
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     <button class="btn btn-outline-secondary" (click)="viewDetail(row.id)">View</button>  
-                    <button class="btn btn-outline-secondary ml-2" *ngIf="roleId=='1'" (click)="assignMyNearbyInterpreter(row.id,row)">Broadcast</button>  
+                    <button class="btn btn-outline-secondary ml-2" *ngIf="roleId=='1' || roleId=='4'" (click)="assignMyNearbyInterpreter(row.id,row)">Broadcast</button>  
                     <!-- <button class="btn btn-outline-success ml-2" (click)="editUser(row.id,row)" [routerLink]="['/users/user-edit', row.id]">Assign</button> -->
                 </ng-template>
             </ngx-datatable-column>

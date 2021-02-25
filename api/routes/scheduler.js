@@ -178,13 +178,14 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
       delete req.body.event_duration;
       delete req.body.event_at;
     }
-    var ris = { scheduler_id: req.body.scheduler_id, email: req.body.email };
+    var ris = { scheduler_id: req.body.scheduler_id, client_id:req.body.client_id, email: req.body.email };
     if (ris.email == undefined) {
       delete ris.email;
     }
     var result = await commonDb.insert("request_information_services", ris);
     delete req.body.scheduler_id;
     delete req.body.email;
+    delete req.body.client_id;
     req.body.ris_id = result.insertId;
     var result01 = await commonDb.insert("appointment_information_services", req.body);
 

@@ -224,8 +224,10 @@ app.post('/cesco/interpreterCurrentLocation', interpreterController.getInterpret
 app.post('/cesco/changePassword', interpreterController.changePassword);
 
 app.post('/cesco/interpreterRequestComplete', interpreterController.interpreterRequestComplete);
+app.post('/cesco/reqCompletedByClient', interpreterController.reqCompletedByClient);
 app.post('/cesco/interpreterRequestReply', interpreterController.interpreterRequestReply);
 app.post('/cesco/getRequestForInterpreter', interpreterController.getRequestForInterpreter);
+app.post('/cesco/getCompleteReq', interpreterController.getCompleteReq);
 app.post('/cesco/requestSendtoInterpreter', interpreterController.requestSendtoInterpreter);
 app.post('/cesco/getNearbyInterpreter', interpreterController.getNearbyInterpreter);
 app.post('/cesco/statusUpdate', interpreterController.statusUpdate);

@@ -91,14 +91,14 @@
                     {{row.assignment_type}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Email" prop="email">
+                <!-- <ngx-datatable-column name="Email" prop="email">
                   <ng-template ngx-datatable-header-template>
                     Email
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     {{row.email}}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
       
                 <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
                   <ng-template ngx-datatable-header-template>
@@ -194,12 +194,12 @@
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   <button class="btn btn-outline-secondary" (click)="viewDetail(row.ris_id)">View</button>  
-                   <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+                   <button *ngIf="roleId != '1' && roleId != '4'" class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.ris_id,'1', acceptConfirmModal)">
                   Accept
                   </button>
 
-                  <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+                  <button *ngIf="roleId != '1' && roleId != '4'" class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.ris_id,'3', rejectConfirmModal)">
                   Reject
                   </button> 

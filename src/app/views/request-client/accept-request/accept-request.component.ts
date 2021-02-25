@@ -6,6 +6,9 @@ import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import { ValidationsService } from 'src/app/shared/services/validations.service';
+
 @Component({
   selector: 'app-accept-request',
   templateUrl: './accept-request.component.html',
@@ -44,6 +47,8 @@ export class AcceptRequestComponent implements OnInit {
   allData;
   startDate;
   endDate;
+  ratingForm;
+  submitted:boolean;
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
@@ -51,14 +56,16 @@ export class AcceptRequestComponent implements OnInit {
     private toastr: ToastrService,
     public service: HttpService,
     private router: Router,
-  ) { }
+    public config: NgbRatingConfig,
+    public validation: ValidationsService
+  ) { config.max = 5;}
 
 
   ngOnInit() {
 
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
-
+    this.createRatingForm();
     // console.log("userId-",this.userId)
     // console.log("roleId-",this.roleId)
 
@@ -127,18 +134,27 @@ export class AcceptRequestComponent implements OnInit {
       });
     console.log("=======================filter", this.filteredUser)
   }
-
+  createRatingForm() {
+    this.ratingForm = this.fb.group({
+      // rating: ['', this.validation.onlyRequired_validator],
+      // review:['',this.validation.onlyRequired_validator],
+      rating: ['', this.validation.onlyRequired_validator],
+      review:['',this.validation.onlyRequired_validator],
+    })
+  }
   // request completed by interpreter
   requestComplete(id, modal) {
     console.log("idddddddddd", id);
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
-        this.service.interpreterReqCompleted(id, this.userId)
+        this.ratingForm.value.id=id;
+      this.ratingForm.value.userId=this.userId;
+        this.service.post("reqCompletedByClient",this.ratingForm.value)
           .subscribe(res => {
             this.msg = res;
+            
             if (res['status'] == '1') {
               this.toastr.success(this.msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-
               this.router.navigate(['/interpreter-request/completed-list']);
             }
             // else{

@@ -1533,7 +1533,7 @@ module.exports.getInterpreterCurrentLocation = async function (req, res) {
 
 // add interpreter
 module.exports.assignAllInterpreter = async function (req, res) {
-    //console.log("all body", req.body)
+    console.log("all body====================", req.body)
     //validation start
     const v = new Validator(req.body, {
 
@@ -1569,7 +1569,7 @@ module.exports.assignAllInterpreter = async function (req, res) {
         var lastData = await usermodel.checkRequestSend(interpreter_id, service_id);
         if (lastData != "" && lastData != undefined) {
             // let updatesql = "UPDATE interpreter_request SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
-            let updatesql = "UPDATE interpreter_request SET status = '0' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
+            let updatesql = "UPDATE interpreter_request SET status = '0',is_reject ='0' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             let updatesql0 = "UPDATE request_information_services SET status = '1' WHERE job_id='" + service_id + "' && Interpreter_id='" + interpreter_id + "'";
             con.query(updatesql, function (err, result) { });
             con.query(updatesql0, function (err, result) { });
@@ -2518,19 +2518,18 @@ module.exports. interpreterRequestReply = async function (req, res) {
     if (res_type == '1') { // accept
         status = 2;
         isreject = 0;
-        pending = 0;
-        rejectreq = 0
+        pending = 1;
+        rejectreq = 0;
+        accepted_by_other=1;
         message = "Request accept successfully";
     } else if (res_type == '3') { // reject
         status = 4;
         isreject = 1;
-        pending = 1
+        pending = 0;
+        accepted_by_other=0;
         rejectreq = 1; //for inter request table
         message = "Request reject successfully";
     }
-
-        console.log("==========================res_type",res_type)
-        console.log("==========================isreject",isreject)
         console.log("==========================rejectreq",rejectreq)
     //update status
     // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
@@ -2547,7 +2546,11 @@ module.exports. interpreterRequestReply = async function (req, res) {
             message: "There was an error !!"
         });
         }else{
+            
             if(res_type == "1"){
+                let updatesql01 = "UPDATE interpreter_request SET accepted_by_other='" + accepted_by_other + "' WHERE job_id = '" + ris_id + "' && Interpreter_id != '" + user_id + "'";
+                con.query(updatesql01, function (err, result) {
+                })
              let sql = "UPDATE request_information_services SET status = '" + status + "' WHERE id = '" + ris_id + "'";
              con.query(sql, function (err, result) {
                 if(err){
@@ -2579,15 +2582,29 @@ module.exports. interpreterRequestReply = async function (req, res) {
                         message: "There was an error !!"
                     });   
                 }else{
-                console.log("res_type == 3")
-                    var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+                console.log("res_type == 3",ris_id)
+                    var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id +"'";
                     con.query(request_assign, function (err, insert) { 
-                        var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && status = '3' && is_reject = '1'  && pending_status = 1 ";
-                        con.query(request_rejecter, function (err, insert0) { 
-                            
-                        if(insert.length == insert0.length){
+                        // var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id;
+                        console.log("=errrrr",err);
+                        console.log("=request_assign",insert.length);
+                        var isRejected;
+                        for(var i=0; i < insert.length; i++){
+                            if(insert[i].is_reject == 1){
+                        console.log("=forloop",insert);
+                                
+                                isRejected = true;
+                            }else{
+                        console.log("=forloopaaa",insert);
+
+                                isRejected = false;
+                                break;
+                            }
+                        }
+                        if(isRejected){
                             let sql = "UPDATE request_information_services SET status = '4' WHERE id = '" + ris_id + "'";
-                            con.query(sql, function (err, insert01) { 
+                            con.query(sql, function (err, insert01) {
+
                                 if(insert01){
                                     return res.json({
                                         status: 1,
@@ -2605,7 +2622,6 @@ module.exports. interpreterRequestReply = async function (req, res) {
                                 message: message
                             }); 
                         }
-                    }); 
     });  
             }
         })
@@ -2686,15 +2702,12 @@ module.exports. interpreterRequestReply = async function (req, res) {
 }
 
 
-
-
 module.exports.interpreterRequestComplete = async function (req, res) {
     //validation start
     const v = new Validator(req.body, {
         id: 'required',
         userId: 'required'
     });
-
     const matched = await v.check();
 
     if (!matched) {
@@ -2730,12 +2743,31 @@ module.exports.interpreterRequestComplete = async function (req, res) {
         //update status
         let updatesql = "UPDATE interpreter_request SET status = '2', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
         //console.log("updatesql--", updatesql)
-        con.query(updatesql, function (err, result) { });
-
-        let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
-        //console.log("sql--", sql)
-        con.query(sql, function (err, result) { });
-
+        con.query(updatesql, function (err, result) {
+            if(err){
+                res.json({
+                    status: 0,
+                    error_code: 0,
+                    error_line: 6,
+                    message: "There was an error",
+                });
+            }else{
+                // let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
+                // con.query(sql, function (err, result) { 
+                //     if(err){
+                //         res.json({
+                //             status: 0,
+                //             error_code: 0,
+                //             error_line: 6,
+                //             message: "There was an error",
+                //         });
+                //     }else{
+        // var sql = "INSERT INTO interpreter_request(job_id,Interpreter_id,status)VALUES('" + service_id + "','" + interpreter_id + "','1')";
+        
+                        let sql = "INSERT INTO user_rate_review (request_id,user_id,rate,review)VALUES('"+ ris_id +"','"+ user_id + "','" + req.body.rating+ "','" + req.body.review +"')";
+                        con.query(sql, function (err, result) { 
+                      
+                            
         res.json({
             status: 1,
             error_code: 0,
@@ -2743,6 +2775,12 @@ module.exports.interpreterRequestComplete = async function (req, res) {
             message: "Request completed successfully",
         });
         return true;
+                        });
+                    }
+                });
+        //     }
+        //  });
+
     } else {
         res.json({
             status: 0,
@@ -2755,6 +2793,77 @@ module.exports.interpreterRequestComplete = async function (req, res) {
 
 };
 
+
+module.exports.reqCompletedByClient = async function (req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        id: 'required',
+        userId: 'required'
+    });
+    const matched = await v.check();
+
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let user_id = req.body.userId;
+    let ris_id = req.body.id;
+    var token = randtoken.generate(30);
+
+    var requestData = await usermodel.getCustomerInfo(user_id, ris_id);
+    //console.log("urequestDatapdatesql--", requestData)
+    if (requestData != "" && requestData != undefined) {
+
+        let requester_name = requestData[0].requester_name;
+        let email = requestData[0].email;
+        let interpreter = requestData[0].first_name + " " + requestData[0].last_name;
+
+        common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
+        let updatesql = "UPDATE interpreter_request SET status = '4' WHERE job_id = '" + ris_id + "' && pending_status = '1' && accepted_by_other= '0'";
+        con.query(updatesql, function (err, result) {
+            if(err){
+               return res.json({ status: 0,  message: "There was an error" });
+            }else{
+                let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
+                con.query(sql, function (err, result) {  });
+
+                        let sql01 = "INSERT INTO user_rate_review (request_id,user_id,rate,review)VALUES('"+ ris_id +"','"+ user_id + "','" + req.body.rating+ "','" + req.body.review +"')";
+                        con.query(sql01, function (err, result) { 
+                            
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            message: "Request completed successfully",
+        });
+        return true;
+                        });
+                    }
+                });
+        //     }
+        //  });
+
+    } else {
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Invalid details",
+        });
+        return true;
+    }
+
+};
 
 // get all request for interpreter
 module.exports.getRequestForInterpreter = async function (req, res) {
@@ -2806,6 +2915,55 @@ module.exports.getRequestForInterpreter = async function (req, res) {
     }
 };
 
+
+module.exports.getCompleteReq = async function (req, res) {
+    //validation start
+    const v = new Validator(req.body, {
+        role_id: 'required',
+        user_id: 'required',
+        status: 'required',
+    });
+
+    const matched = await v.check();
+
+    if (!matched) {
+        var error;
+        for (var i = 0; i <= Object.values(v.errors).length; i++) {
+            error = Object.values(v.errors)[0].message;
+            break;
+        }
+        res.json({
+            status: 0,
+            message: error
+        });
+        return true;
+    }
+
+    //validation end
+    let role_id = req.body.role_id;
+    let user_id = req.body.user_id ? req.body.user_id: '0';
+    let status = req.body.status;
+
+    var requestData = await usermodel.getCompleteReq(role_id, user_id, status);
+    if (requestData != "" && requestData != undefined) {
+        res.json({
+            status: 1,
+            error_code: 0,
+            error_line: 6,
+            data: requestData,
+            message: "Record Found",
+        });
+        return true;
+    } else {
+        res.json({
+            status: 0,
+            error_code: 0,
+            error_line: 6,
+            message: "Record Not Found",
+        });
+        return true;
+    }
+};
 
 
 
@@ -2912,6 +3070,9 @@ module.exports.getRejectDataInterpreter = async function (req, res) {
 
     var requestData = await usermodel.interpreterRejectData(role_id, user_id, status);
     if (requestData != "" && requestData != undefined) {
+        for(var i=0;  i < requestData.length; i++){
+            requestData[i].interpreter_name = requestData[i].first_name +" "+requestData[i].last_name;  
+         }
         res.json({
             status: 1,
             error_code: 0,

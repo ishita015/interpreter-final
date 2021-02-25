@@ -28,8 +28,6 @@
           <option class="bg-black text-white" value="1">Broadcasting</option>
           <option class="bg-primary text-white" value="2">In Progress</option>
           <option class="bg-success black-text" value="3">Completed</option>
-          <!-- <option class="bg-danger text-white" value="5">Cancelled</option> -->
-          <!-- <option class="bg-default black-text" value="6">Unable To Fill</option> -->
         </select>
       </div>
     </div>
@@ -86,23 +84,32 @@
               {{row.client_name}}
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
+          <ngx-datatable-column name="LOB" prop="lob_name">
             <ng-template ngx-datatable-header-template>
-              Contact Person
+              LOB
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.name_of_contact_person}}
+              {{row.lob_name}}
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Email" prop="email">
+          <ngx-datatable-column name="Assignment Type" prop="assignment_type">
+            <ng-template ngx-datatable-header-template>
+              Assignment Type
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              {{row.assignment_type}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <!-- <ngx-datatable-column name="Email" prop="email">
             <ng-template ngx-datatable-header-template>
               Email
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               {{row.email}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
 
           <ngx-datatable-column name="Language" prop="lang_name">
@@ -122,29 +129,28 @@
               Cell Phone
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.cell_phone | mask: '(000) 000-0000'}}
+              {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column>
+          <!-- <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
               <span title="Appointment date"> Appointment date</span>
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               <span title="{{row.date}}"> {{row.date | date:'MM/dd/yyyy' }}</span>
             </ng-template>
-          </ngx-datatable-column>
-
-          <ngx-datatable-column name="Site Contact" prop="site_contact">
+          </ngx-datatable-column> -->
+          <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
-              Site Contact
+              <span title="Requested date">Requested date</span>
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.site_contact | mask: '(000) 000-0000'}}
-            </ng-template>
-          </ngx-datatable-column>
+              <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy' }}</span>
+            </ng-template>  
+        </ngx-datatable-column>
 
-          <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+          <ngx-datatable-column name="Status" prop="status">
             <ng-template ngx-datatable-header-template>Status
             </ng-template>
 
@@ -155,7 +161,7 @@
               <span class="text-primary" *ngIf="row.status==3">In Progress</span>
               <span class="text-success" *ngIf="row.status==4">Completed</span>
               <span class="text-danger" *ngIf="row.status==5">Canceled</span> -->
-
+    
               <span class="text-warning" *ngIf="row.status==0">New Request</span>
               <span class="assign-color" *ngIf="row.status==1">Broadcasting</span>
               <span class="text-primary" *ngIf="row.status==2">In Progress</span>
@@ -173,7 +179,7 @@
             </ng-template>
 
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <button class="ClientViewId btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
+              <button class="ClientViewId btn btn-outline-secondary mr-1" (click)="viewDetail(row.ris_id)">View</button>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

@@ -6,6 +6,9 @@ import { HttpService } from 'src/app/shared/services/http.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import { ValidationsService } from 'src/app/shared/services/validations.service';
+
 @Component({
   selector: 'app-accept-request',
   templateUrl: './accept-request.component.html',
@@ -33,6 +36,7 @@ export class AcceptRequestComponent implements OnInit {
   resp_msg;
   ReadOnlyStyleGuideNotes: boolean =false;
   call_check:boolean = false;
+  currentRate = 0;
   // searchControl: FormControl = new FormControl();
 
   //search calendar
@@ -43,7 +47,9 @@ export class AcceptRequestComponent implements OnInit {
   });
   allData;
   startDate;
+  submitted:boolean;
   endDate;
+  ratingForm;
   constructor(
     private productService: ProductService,
     private modalService: NgbModal,
@@ -51,7 +57,11 @@ export class AcceptRequestComponent implements OnInit {
     private toastr: ToastrService,
     public service: HttpService,
     private router: Router,
-  ) { }
+    public config: NgbRatingConfig,
+    public validation: ValidationsService
+  ) {
+    config.max = 5;
+   }
 
 
   ngOnInit() {
@@ -60,7 +70,7 @@ export class AcceptRequestComponent implements OnInit {
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
     // console.log("userId-",this.userId)
     // console.log("roleId-",this.roleId)
-
+    this.createRatingForm();
     this.interpreterRequestData('1');
     // this.searchControl.valueChanges
     //   .pipe(debounceTime(200))
@@ -81,6 +91,14 @@ export class AcceptRequestComponent implements OnInit {
   this.noteForm = this.fb.group({
     notes:['']
   });
+}
+createRatingForm() {
+  this.ratingForm = this.fb.group({
+    // rating: ['', this.validation.onlyRequired_validator],
+    // review:['',this.validation.onlyRequired_validator],
+    rating: ['', this.validation.onlyRequired_validator],
+    review:['',this.validation.onlyRequired_validator],
+  })
 }
 /*========== Form Value End Here========*/
 
@@ -123,6 +141,7 @@ export class AcceptRequestComponent implements OnInit {
           this.userData = [...res['data']];
           // console.log("listttttttt", this.list_Obj);
           this.filteredUser = this.list_Obj;
+          console.log("========================this.filteredUser",this.filteredUser)
         }
 
       });
@@ -130,16 +149,23 @@ export class AcceptRequestComponent implements OnInit {
 
   // request completed by interpreter
   requestComplete(id, modal) {
-    console.log("idddddddddd", id);
+
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
-      .result.then((result) => {
-        this.service.interpreterReqCompleted(id, this.userId)
+     .result.then((result) => {
+      // this.submitted = true;
+      // if (this.ratingForm.invalid) {
+      //   return;
+      // }
+      // this.submitted = false;
+      this.ratingForm.value.id=id;
+      this.ratingForm.value.userId=this.userId;
+        this.service.interpreterReqCompleted(this.ratingForm.value)
           .subscribe(res => {
             this.msg = res;
             if (res['status'] == '1') {
               this.toastr.success(this.msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-
-              this.router.navigate(['/interpreter-request/completed-list']);
+              this.router.navigate(['/interpreter-request/accept-list']);
+              this.interpreterRequestData("1");
             }
             // else{
             //   this.toastr.success(this.status_msg.message,'', { timeOut: 1000 });
@@ -175,11 +201,12 @@ export class AcceptRequestComponent implements OnInit {
 
   // trackingLinkSend(row.ris_id, linkConfirmModal)
 
-  trackingLinkSend(id,risId,modal) {
-    console.log("iddddddd",id,risId);
+  trackingLinkSend(user_id,risId,modal) {
+    console.log("==================user_id",user_id)
+    console.log("==================risId",risId)
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
     .result.then((result) => {
-      this.service.interpreterTrackingLinkSend(id,risId).subscribe(res => {
+      this.service.interpreterTrackingLinkSend(user_id,risId).subscribe(res => {
           this.resp_msg = res;
           // this.msg.message = res;
           console.log("reminder form", this.reminder);
@@ -240,7 +267,8 @@ export class AcceptRequestComponent implements OnInit {
         this.view_obj = res['data'][0];
         console.log("api data",  this.view_obj);
         localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-        this.router.navigate(['/user-request/request-view',request_id]);
+        this.router.navigate(['/request-scheduler/details',request_id]);
+
       }else{
         this.resp_msg = res;
         this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });
