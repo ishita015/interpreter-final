@@ -1,20 +1,30 @@
 <div class="">
+    <div class="row">
+        <div class="col-sm-5">
     <div class="breadcrumb">
         <ul>
             <li><a class="heading"><b>{{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</b> Profile</a></li>
             <!-- <li>Version 1</li> -->
         </ul>
     </div>
-
-    <div class="separator-breadcrumb border-top"></div>
-    <div class="row dashboard_block">
-        <!-- ICON BG -->
-        <div class="col-md-12 text-right mb-2">
+</div>
+    <div class="col-md-7 text-right mb-2">
             <button *ngIf="showArroveBtn == 1" (click)="ApproveInterpreter()" class="btn btn-success m-1 btn-lg"
                 type="button">Approve</button>
             <button *ngIf="showArroveBtn == 0" disabled="" class="btn btn-success m-1 btn-lg"
                 type="button">Approve</button>
         </div>
+</div>
+
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="row dashboard_block">
+        <!-- ICON BG -->
+       <!--  <div class="col-md-12 text-right mb-2">
+            <button *ngIf="showArroveBtn == 1" (click)="ApproveInterpreter()" class="btn btn-success m-1 btn-lg"
+                type="button">Approve</button>
+            <button *ngIf="showArroveBtn == 0" disabled="" class="btn btn-success m-1 btn-lg"
+                type="button">Approve</button>
+        </div> -->
         <div (click)="general()" class="col-lg-3 col-md-6 col-sm-6 pro_info">
             <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4"
                 [ngClass]="general_form ? 'activegreen' : ''">
@@ -42,7 +52,7 @@
             </div>
         </div>
 
-        <div (click)="skills();getAssignmentSettingByInterpreterId();" class="col-lg-3 col-md-6 col-sm-6 pro_info">
+        <div (click)="skills();getAssignmentSettingByInterpreterId();getInterpreterFiles();" class="col-lg-3 col-md-6 col-sm-6 pro_info">
             <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 "
                 [ngClass]="skills_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
@@ -78,11 +88,11 @@
                         <p class="cardtext mb-0">Rate Settings</p>
                     </div>
 
-                    <div class="card-icon cardgreenn" *ngIf="detail_Obj?.interpreter_assignment_status=='1'">
+                    <div class="card-icon cardgreenn" *ngIf="resData?.interpreter_assignment_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </div>
 
-                    <div class="card-icon cardredd" *ngIf="detail_Obj?.interpreter_assignment_status!='1'">
+                    <div class="card-icon cardredd" *ngIf="resData?.interpreter_assignment_status!='1'">
                         <ion-icon name="close-outline"></ion-icon>
                     </div>
                 </div>
@@ -651,17 +661,36 @@
                                                             <div class="row imgblock">
                                                                 <div *ngFor="let url of doc;let i=index"
                                                                     class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                    <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                                style="width:100%; height:90px;"> -->
+                                                                   
                                                                     <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                         (click)="removeImage(i,'1')"></i>
                                                                     <img *ngIf="url.doc_type == 'community_doc' && url.types == '1' && i<=2"
                                                                         [src]="url.img_url"
                                                                         style="width:100%; height:100%;">
                                                                 </div>
-                                                                <button *ngIf="showViewBtn" type="button"
+                                                               
+
+                                                                    <!-- edit section start dev 25-02-21 -->
+                                                                    <div *ngFor="let url of CommunityInterpretingArr;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                   
+                                                                    <i *ngIf="doc.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                        (click)="removeUpdateImage(url)"></i>
+                                                                    <img (click)="openFile(url.doc_name)" [src]="url.fileurl" *ngIf="url.doc_type == 'community_doc' && url.type == '1' && doc.length == 0 ? i <= 2 : ''" style="width:100%; height:100%;">
+
+                                                                    <i *ngIf="doc.length == 1 ? i <= 2 :'' " class="fas fa-times timenew"
+                                                                        (click)="removeUpdateImage(url)"></i>
+                                                                    <img (click)="openFile(url.doc_name)" [src]="url.fileurl" *ngIf="url.doc_type == 'community_doc' && url.type == '1' && doc.length == 1 ? i <= 1 : ''" style="width:100%; height:100%;">
+
+                                                                    
+                                                                </div>
+                                                                <button *ngIf=" showViewBtn ||CommunityInterpretingArr.length > 0 " type="button"
                                                                     class="btn btn-primary btnview"
                                                                     (click)="imgview(detail_Obj?.skillsCommunityDoc,viewImgConfirmModal,'1')">View</button>
+
+                                                                    <!-- edit section start dev 25-02-21 -->
+
+
 
                                                             </div>
                                                         </div>
@@ -694,8 +723,7 @@
                                                             <div class="row imgblock">
                                                                 <div *ngFor="let url of doc2;let i=index"
                                                                     class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                    <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                                style="width:100%; height:90px;"> -->
+                                                                    
                                                                     <div
                                                                         *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2'">
                                                                         <i *ngIf="i <= 2" class="fas fa-times timenew"
@@ -705,7 +733,25 @@
                                                                             style="width:100%; height:100%;">
                                                                     </div>
                                                                 </div>
-                                                                <button *ngIf="showViewBtn" type="button"
+
+                                                                 <div *ngFor="let url of ConferenceArr;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                   <div
+                                                                        *ngIf="url.doc_type == 'conference_doc' && url.type == '2'">
+                                                                        <i *ngIf="doc2.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                             (click)="removeUpdateImage(url)"></i>
+                                                                        <img *ngIf="url.doc_type == 'conference_doc' && url.type == '2' &&  doc2.length == 0 ? i <= 2 : ''"
+                                                                            (click)="openFile(url.doc_name)" [src]="url.fileurl" 
+                                                                            style="width:100%; height:100%;">
+
+                                                                            <i *ngIf="doc.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                             (click)="removeUpdateImage(url)"></i>
+                                                                        <img *ngIf="url.doc_type == 'conference_doc' && url.type == '2' &&  doc2.length == 1 ? i <= 1 : ''"
+                                                                            (click)="openFile(url.doc_name)" [src]="url.fileurl" 
+                                                                            style="width:100%; height:100%;">
+                                                                    </div>
+                                                                </div>
+                                                                <button *ngIf="showViewBtn || ConferenceArr.length > 0" type="button"
                                                                     class="btn btn-primary btnview"
                                                                     (click)="imgview(detail_Obj?.skillsConferenceDoc,viewImgConfirmModal,'2')">View</button>
 
@@ -738,27 +784,32 @@
                                                         style="font-size: 10px;">
                                                     <div class="form-group mb-0"
                                                         *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsCourtDoc}}"   -->
-                                                        <!-- <img src="{{detail_Obj?.skillsCourtDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsCourtDoc}}"
-                                                            style="width:100%; height:90px;"> -->
+                                                       <div  class="row imgblock">
+                                                           
                                                         <div *ngFor="let url3 of doc3;let z=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                            <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                        style="width:100%; height:90px;"> -->
+                                                            
                                                             <i *ngIf="z <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(z,'3')"></i>
                                                             <img *ngIf="url3.doc_type3 == 'court_doc' && url3.types3 == '3' && z<=2"
                                                                 [src]="url3.img_url" style="width:100%; height:100%;">
                                                         </div>
-                                                        <button *ngIf="showViewBtn" type="button"
+
+                                                        <div *ngFor="let url of CourtCertified;let z=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="z <= 2" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && z<=2"
+                                                                (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                                                        </div>
+
+
+                                                        <button *ngIf="showViewBtn || CourtCertified.length > 0" type="button"
                                                         class="btn btn-primary btnview"
                                                         (click)="imgview(detail_Obj?.skillsCourtDoc,viewImgConfirmModal,'3')">View</button>
-                                                        <!-- <button type="button"
-                                                            (click)="imgview(detail_Obj?.skillsCourtDoc,viewImgConfirmModal,'3')"
-                                                            class="btn btn-primary mr-2"
-                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
-                                                            <i class="i-Eye" style="display: block;"></i>
-                                                        </button> -->
+                                                      
+                                                       </div>
                                                     </div>
                                                 </div>
 
@@ -777,27 +828,29 @@
                                                         style="font-size: 10px;">
                                                     <div class="form-group mb-0"
                                                         *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
+                                                        <div  class="row imgblock">
                                                         <div *ngFor="let url4 of doc4;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                            <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                    style="width:100%; height:90px;"> -->
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'4')"></i>
                                                             <img *ngIf="url4.doc_type4 == 'credential_doc' && url4.types4 == '4' && i<=2"
                                                                 [src]="url4.img_url" style="width:100%; height:100%;">
                                                         </div>
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsCredentialDoc}}" -->
-                                                        <!-- <img src="{{detail_Obj?.skillsCredentialDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsCredentialDoc}}"
-                                                            style="width:100%; height:90px;"> -->
+
+                                                        <div *ngFor="let url4 of CourtCredentialed;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                 (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && i<=2"
+                                                               (click)="openFile(url4.doc_name)" [src]="url4.fileurl" style="width:100%; height:100%;">
+                                                        </div>
+
+                                                        
                                                             <button *ngIf="showViewBtn" type="button"
-                                                            class="btn btn-primary btnview"
+                                                           class="btn btn-primary btnview"
                                                             (click)="imgview(detail_Obj?.skillsCredentialDoc,viewImgConfirmModal,'4')">View</button>
-                                                            <!-- <button type="button"
-                                                            (click)="imgview(detail_Obj?.skillsCredentialDoc)"
-                                                            class="btn btn-primary mr-2"
-                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
-                                                            <i class="i-Eye" style="display: block;"></i>
-                                                        </button> -->
+                                                            
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -814,32 +867,31 @@
                                                         accept=".png, .jpg, .pdf" formControlName="equipment_doc"
                                                         (change)="onSingleFileChange($event,'equipment_doc','5')"
                                                         style="font-size: 10px;">
-                                                    <!-- <button type="button" (click)="imgview(detail_Obj?.skillsCommunityDoc)" class="btn btn-primary mr-2">
-                                                                View Image
-                                                              </button> -->
+                                                    
                                                     <div class="form-group mb-0"
                                                         *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsEquipmentDoc}}" -->
-                                                        <!-- <img src="{{detail_Obj?.skillsEquipmentDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsEquipmentDoc}}"
-                                                            style="width:100%; height:90px;"> -->
+                                                       
+                                                             <div  class="row imgblock">
                                                         <div *ngFor="let url5 of doc5;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                            <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                    style="width:100%; height:90px;"> -->
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'5')"></i>
                                                             <img *ngIf="url5.doc_type5 == 'equipment_doc' && url5.types5 == '5' && i<=2"
                                                                 [src]="url5.img_url" style="width:100%; height:100%;">
+                                                        </div> 
+
+                                                        <div *ngFor="let url5 of EquipmentQualified;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url5)"></i>
+                                                            <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && i<=2"
+                                                                (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
                                                         </div>
-                                                        <button *ngIf="showViewBtn" type="button"
+                                                        <button *ngIf="showViewBtn || EquipmentQualified.length > 0" type="button"
                                                         class="btn btn-primary btnview"
                                                         (click)="imgview(detail_Obj?.skillsEquipmentDoc,viewImgConfirmModal,'5')">View</button>
-                                                        <!-- <button type="button"
-                                                            (click)="imgview(detail_Obj?.skillsEquipmentDoc)"
-                                                            class="btn btn-primary mr-2"
-                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
-                                                            <i class="i-Eye" style="display: block;"></i>
-                                                        </button> -->
+                                                    </div>
+                                                       
                                                     </div>
 
                                                 </div>
@@ -860,27 +912,31 @@
                                                         style="font-size: 10px;">
                                                     <div class="form-group mb-0"
                                                         *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsLegalDoc}}"  -->
-                                                        <!-- <img src="{{detail_Obj?.skillsLegalDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsLegalDoc}}"
-                                                            style="width:100%; height:90px;"> -->
+
+
                                                             <div *ngFor="let url6 of doc6;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                            <!-- <img  *ngIf="url.doc_type == 'community_doc' && url.types == '1'" [src]="url.all_img"
-                                                    style="width:100%; height:90px;"> -->
+                                                            
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'6')"></i>
                                                             <img *ngIf="url6.doc_type6 == 'legal_doc' && url6.types6 == '6' && i<=2"
                                                                 [src]="url6.img_url" style="width:100%; height:100%;">
                                                         </div>
-                                                        <button *ngIf="showViewBtn" type="button"
+
+                                                         <div *ngFor="let url6 of Legal;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type6 == 'legal_doc' && url6.types6 == '6' && i<=2"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+                                                        </div>
+
+
+                                                        <button *ngIf="showViewBtn || Legal.length > 0" type="button"
                                                         class="btn btn-primary btnview"
                                                         (click)="imgview(detail_Obj?.skillsLegalDoc,viewImgConfirmModal,'6')">View</button>
-                                                        <!-- <button type="button"
-                                                            (click)="imgview(detail_Obj?.skillsLegalDoc)"
-                                                            class="btn btn-primary mr-2"
-                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
-                                                            <i class="i-Eye" style="display: block;"></i>
-                                                        </button> -->
+                                                        
                                                     </div>
                                                 </div>
 
@@ -1066,7 +1122,7 @@
                                                     </div>
                                                     <form [formGroup]="secondFormGroup1">
                                                 <div  formArrayName="arr" class="row nomargin" *ngFor="let aa of secondFormGroup1.get('arr').controls;let j = index">
-                                                    <div class="row" [formGroupName]="j" >
+                                                    <div class="row row100" [formGroupName]="j" >
                                                    <!--  <div class="col-md-12 p-0"> -->
 
                                                         
@@ -1404,17 +1460,28 @@
                 <div *ngIf="docImage == 1">
                     <div class="row">
                         <div *ngFor="let url of doc;let i=index" class="col-md-3 m-10">
-                            <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'1')"></i>
                             <img [src]="url.img_url" style="width:100%; height:100%;">
                         </div>
+
+                        <div *ngFor="let url of CommunityInterpretingArr;let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
+                            <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                        </div>
+
 
                     </div>
                 </div>
                 <div *ngIf="docImage == 2">
                     <div class="row">
                         <div *ngFor="let url2 of doc2; let y=index" class="col-md-3 m-10">
-                            <i class="fas fa-times timenew" (click)="removeImage(y)"></i>
+                            <i class="fas fa-times timenew" (click)="removeImage(y,'2')"></i>
                             <img [src]="url2.img_url" style="width:100%; height:100%;">
+                        </div>
+
+                          <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
+                            <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
 
                     </div>
@@ -1422,8 +1489,13 @@
                 <div *ngIf="docImage == 3">
                     <div class="row">
                         <div *ngFor="let url3 of doc3; let i=index" class="col-md-3 m-10">
-                            <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'3')"></i>
                             <img [src]="url3.img_url" style="width:100%; height:100%;">
+                        </div>
+
+                        <div *ngFor="let url of CourtCertified; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
+                            <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
 
                     </div>
@@ -1431,23 +1503,36 @@
                 <div *ngIf="docImage == 4">
                     <div class="row">
                         <div *ngFor="let url4 of doc4; let i=index" class="col-md-3 m-10">
-                            <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'4')"></i>
                             <img [src]="url4.img_url" style="width:100%; height:100%;">
                         </div>
+
+                         <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
+                            <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                        </div>
+
+
                     </div>
                 </div>
                 <div *ngIf="docImage == 5">
                     <div class="row">
                         <div *ngFor="let url5 of doc5; let i=index" class="col-md-3 m-10">
-                            <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'5')"></i>
                             <img [src]="url5.img_url" style="width:100%; height:100%;">
                         </div>
+
+                        <div *ngFor="let url5 of EquipmentQualified; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url5)"></i>
+                            <img (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
+                        </div>
+
                     </div>
                 </div>
                 <div *ngIf="docImage == 6">
                     <div class="row">
                         <div *ngFor="let url6 of doc6; let i=index" class="col-md-3 m-10">
-                            <i class="fas fa-times timenew" (click)="removeImage(i)"></i>
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'6')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
                     </div>

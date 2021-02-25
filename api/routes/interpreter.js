@@ -4103,10 +4103,34 @@ module.exports.getLanguageRate = async function (req, res) {
  var data=  await  commonDb.AsyncSellectAllWhere('language_assignment_settings', {destination_language: req.body.language_id})
  res.send({data:data})
 }
+module.exports.getRateDetails = async function (req, res) {
+  try{
+        var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings',{Interpreter_id:req.params.id})
+        console.log("=========data=====",data);
+        var interpreter_assignment_status;
+        for(var i=0; i < data.length; i++){
+            if(data[i].rate != '' && data[i].minpaid != '' && data[i].increment != '' ){
+                  interpreter_assignment_status = '1';
+            }else{
+                 interpreter_assignment_status = '0';
+                break;
+            }
+        }
+        
+        return res.send({interpreter_assignment_status: interpreter_assignment_status})
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+
 module.exports.getInterpreterRateSettingNew = async function (req, res) {
-    console.log(req.body)
     try{
         var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings',{language_id:req.body.language_id,Interpreter_id:req.body.interpreter_id,platform_id:req.body.id})
+        console.log("=========data",data);
+       
+        
         return res.send({data:data})
     }
     catch(e){
@@ -4114,7 +4138,6 @@ module.exports.getInterpreterRateSettingNew = async function (req, res) {
     }
 }
 module.exports.updateIntrepeterSetingNew = async function (req, res) {
-
 var count = 0;
     try{
         for (var i = 0; i < req.body.arr.length; i++) {
@@ -4163,6 +4186,32 @@ var count = 0;
 module.exports.getInterpreterPlatformName = async function (req, res) {
  var data=  await  commonDb.AsyncSellectAllWhere('master_platform', {id: req.params.id})
  res.send({data:data})
+}
+
+
+module.exports.getInterpreterFiles = async function (req, res) {
+    try{
+        var data = await commonDb.AsyncSellectAllWhere('interpreter_skills_doc',{interpreter_id:req.params.id,status:1})
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].doc_name != null){
+                    data[i].doc_name=process.env.documents_path+data[i].doc_name;
+            }
+        }
+        return res.send({data:data,status:true})
+    }catch(e){
+        console.log(e)
+    }
+}
+
+
+module.exports.deleteFileInterpreter = async function (req, res) {
+    try{
+        await commonDb.AsyncUpdate('interpreter_skills_doc',{status:2},{id:req.params.id})
+        return res.send({status:true,msg:'File deleted successfully'})
+    }
+    catch(e){
+        return res.send({status:false,msg:'Something went wrong'})
+    }
 }
 module.exports.baseRate = async function (req, res) {
     // //console.log("baseRate",req);

@@ -71,3 +71,5 @@
   .travelblock input[type="radio"]{box-sizing: border-box; padding: 0; margin-right: 10px; margin-left: 10px; }
   .travelblock span{    position: relative; bottom: 2px;}
 .paddingzero{padding: 0 !important;}
+.row100{width: 100% !important;}
+.profile_block_new .card{    margin-bottom: 20px;}
