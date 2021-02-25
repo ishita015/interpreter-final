@@ -53,7 +53,8 @@ export class CompleteRequestComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
 
-    this.interpreterRequestData('1');
+    // this.interpreterRequestData('1');
+    this.getCompleteReq('1');
     // this.searchControl.valueChanges
     // .pipe(debounceTime(200))
     // .subscribe(value => {
@@ -87,24 +88,40 @@ export class CompleteRequestComponent implements OnInit {
   //   this.filteredUser = rows;
   // }
 
-  interpreterRequestData(e){
-    this.allData = this.search_name.value;
-    this.startDate = this.range.value.start_date;
-    this.endDate = this.range.value.end_date;
-    this.service.interpreterRequestList(this.roleId,this.userId,3,this.allData,
-    this.startDate,this.endDate)
-    .subscribe(res => {
-      if(res['status']=='1'){
-        console.log("api response",res);
-        this.list_Obj = res['data'];
-        this.userData = [...res['data']];
-        // console.log("listttttttt", this.list_Obj);
-        this.filteredUser = this.list_Obj;
-      }
+//   interpreterRequestData(e){
+//     this.allData = this.search_name.value;
+//     this.startDate = this.range.value.start_date;
+//     this.endDate = this.range.value.end_date;
+//     this.service.interpreterRequestList(this.roleId,this.userId,3,this.allData,
+//     this.startDate,this.endDate)
+//     .subscribe(res => {
+//       if(res['status']=='1'){
+//         console.log("api response",res);
+//         this.list_Obj = res['data'];
+//         this.userData = [...res['data']];
+//         // console.log("listttttttt", this.list_Obj);
+//         this.filteredUser = this.list_Obj;
+//       }
        
-    });
-}
+//     });
+// }
 
+getCompleteReq(e){
+  this.allData = this.search_name.value;
+  this.startDate = this.range.value.start_date;
+  this.endDate = this.range.value.end_date;
+  this.service.post("getCompleteReq",{role_id:this.roleId,user_id:this.userId,status:'4',search_info:this.allData,start_date: this.startDate,end_date:this.endDate})
+  .subscribe(res => {
+    if(res['status']=='1'){
+      console.log("api response=========================",res);
+      this.list_Obj = res['data'];
+      this.userData = [...res['data']];
+      // console.log("listttttttt", this.list_Obj);
+      this.filteredUser = this.list_Obj;
+    }
+     
+  });
+}
 viewDetail(request_id){
   console.log("id--",  request_id);
   this.service.getRequestDetail(request_id).subscribe(res => {

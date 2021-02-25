@@ -9,6 +9,7 @@ const smtp =
         pass: 'test@#321'
     }
 }
+
 let transporter = nodemailer.createTransport(smtp);
 
 var helper = new function () {
@@ -28,7 +29,8 @@ var helper = new function () {
         );
     }
 
-   
+    
+    
 }
 
 

@@ -1,44 +1,40 @@
 <div class="row">
-  <div class="col-md-4">
-      <div>
-          <label for="test"><b>Caseworker Name  :   </b></label>
-          <span>  {{assignInfo?.caseworker_name}}  </span>
-      </div>
-      <div>
-          <label for="test"><b>Requester Name  :   </b></label>
-          <span>  {{assignInfo?.requester_name}}  </span>
-      </div>
-      <div>
-          <label for="test"><b>Email  :   </b></label>
-          <span>  {{assignInfo?.email}}  </span>
-      </div>
-      <div>
-        <label for="test"><b>Mobile No. :   </b></label>
-        <span>  {{assignInfo?.office_phone | mask: '(000) 000-0000'}}  </span>
+    <div class="col-md-4">
+        <div>
+            <label for="test"><b>Client Name  :  </b></label>
+            <span>  {{assignInfo?.clientName}}  </span>
+        </div>
+        <div>
+            <label for="test"><b>Requested By  :   </b></label>
+            <span>  {{assignInfo?.requested_by}}  </span>
+        </div>
+        <div>
+            <label for="test"><b>Email  :   </b></label>
+            <span>  {{assignInfo?.email}}  </span>
+        </div>
+        <div>
+            <label for="test"><b>Mobile No. :   </b></label>
+            <span> {{assignInfo?.phone_code}} {{assignInfo?.contact_person_cellphone | mask: ' (000) 000-0000'}}  </span>
+        </div>
+
+        <button class="btn btn-outline-secondary" (click)="viewDetail()">View Detail</button>
+        <!-- <button class="btn btn-outline-secondary" *ngIf="requestBtn" (click)="requestDetail(id,info,requestConfirmModal)">Assign</button>   -->
+
+
     </div>
-
-    <button class="btn btn-outline-secondary" (click)="viewDetail()">View Detail</button>  
-      <!-- <button class="btn btn-outline-secondary" *ngIf="requestBtn" (click)="requestDetail(id,info,requestConfirmModal)">Assign</button>   -->
-     
-
-  </div>
-  <!-- {{markers[0]}} -->
-  <!-- [zoom]="zoom" -->
-  <!-- [zoomControl]="true" -->
-  <div class="col-md-8">
-    <agm-map [latitude]="lat" [longitude]="lng"  [disableDefaultUI]="true" 
-  (mapClick)="mapClicked($event)">
-  <agm-marker *ngFor="let m of markers; let i = index"
-      (markerClick)="clickedMarker(m.label,m.id,m,i,requestConfirmModal)" [latitude]="m.lat" [iconUrl]="m.icon"
-     [longitude]="m.lng"
-      [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
-    <agm-info-window>
-    <strong>{{m.label}}</strong>
-  </agm-info-window>    
-</agm-marker>
-<!-- [iconUrl]="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" -->
-</agm-map>
-<!-- <agm-map 
+    <!-- {{markers[0]}} -->
+    <!-- [zoom]="zoom" -->
+    <!-- [zoomControl]="true" -->
+    <div class="col-md-8">
+        <agm-map [latitude]="lat" [longitude]="lng" [disableDefaultUI]="true" (mapClick)="mapClicked($event)">
+            <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label,m.id,m,i,requestConfirmModal)" [latitude]="m.lat" [iconUrl]="m.icon" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+                <agm-info-window>
+                    <strong>{{m.label}}</strong>
+                </agm-info-window>
+            </agm-marker>
+            <!-- [iconUrl]="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" -->
+        </agm-map>
+        <!-- <agm-map 
 [latitude]="lat"
 [longitude]="lng" 
 [zoom]="zoom"
@@ -58,28 +54,28 @@
   
 </agm-marker>
 </agm-map> -->
-</div>
+    </div>
 </div>
 <br/>
 
 <div class="row">
-  <div class="col-md-2">
-    <div class="form-grup">
-      <input id="search" placeholder="Name/Email" [formControl]="search_name_email"  class="form-control form-control-rounded" type="text">
+    <div class="col-md-2">
+        <div class="form-grup">
+            <input id="search" placeholder="Name/Email" [formControl]="search_name_email" class="form-control form-control-rounded" type="text">
+        </div>
     </div>
-</div>
 
-<div class="col-md-2">
-  <div class="form-group">
-    <input id="search" placeholder="Distance" [formControl]="distances"  class="form-control form-control-rounded" type="text">
-  </div>
-</div> 
+    <div class="col-md-2">
+        <div class="form-group">
+            <input id="search" placeholder="Distance" [formControl]="distances" class="form-control form-control-rounded" type="text">
+        </div>
+    </div>
 
 
-<div class="col-md-2">
-  <div class="form-group">
+    <div class="col-md-2">
+        <div class="form-group">
 
-    <select class="form-control form-control-rounded" placeholder="Rate" [formControl]="rates">
+            <select class="form-control form-control-rounded" placeholder="Rate" [formControl]="rates">
       <option value="">Select Rate</option>
       <option value="10">$10/Hours</option>
       <option value="20">$20/Hours</option>
@@ -88,15 +84,15 @@
       <option value="50">$50/Hours</option>
 
   </select>
-  </div>
-</div>
+        </div>
+    </div>
 
 
 
-<div class="col-md-2">
-  <div class="form-group">
+    <div class="col-md-2">
+        <div class="form-group">
 
-    <select class="form-control form-control-rounded" placeholder="Rating" [formControl]="ratings">
+            <select class="form-control form-control-rounded" placeholder="Rating" [formControl]="ratings">
       <option value="">Select Rating</option>
       <option value="5">5</option>
       <option value="4">4</option>
@@ -105,107 +101,99 @@
       <option value="1">1</option>
 
   </select>
-  </div>
-</div>
+        </div>
+    </div>
 
 
-<div class="col-md-2">
-  <button class="btn btn-outline-secondary"  (click)="assignMyNearbyInterpreter()">Apply</button>  
-</div>
+    <div class="col-md-2">
+        <button class="btn btn-outline-secondary" (click)="assignMyNearbyInterpreter()">Apply</button>
+    </div>
 
-<div class="col-md-2">
-  <button class="btn btn-outline-secondary" (click)="assignAllInterpreter()" >Broadcast All</button>  
-</div>
-  <div class="col-md-12">
-      <div class="card  o-hidden">
-          <ngx-datatable *ngIf="filteredUser?.length"
-          style="height: 500px; box-shadow: none"
-          class="material fullscreen"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [rowHeight]="60"
-          [scrollbarV]="true"
-          [rows]="filteredUser">
-          <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
-            <ng-template ngx-datatable-header-template>
-             S.No
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                {{rowIndex +1}}
-            </ng-template>
-           </ngx-datatable-column>
+    <div class="col-md-2">
+        <button class="btn btn-outline-secondary" (click)="assignAllInterpreter()">Broadcast All</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card  o-hidden">
+            <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredUser">
+                <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                    <ng-template ngx-datatable-header-template>
+                        S.No
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                        {{rowIndex +1}}
+                    </ng-template>
+                </ngx-datatable-column>
 
-           <ngx-datatable-column name="Name" prop="name">
-              <ng-template ngx-datatable-header-template>
-                Name
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.name}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Email" prop="email">
-              <ng-template ngx-datatable-header-template>
-                Email
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.email}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Mobile" prop="mobile">
-              <ng-template ngx-datatable-header-template>
-                Mobile
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.mobile | mask: '(000) 000-0000'}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Gender" prop="gender">
-              <ng-template ngx-datatable-header-template>
-                Gender
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.gender}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Address" prop="address">
-              <ng-template ngx-datatable-header-template>
-                Address
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.address}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Distance" prop="distance">
-              <ng-template ngx-datatable-header-template>
-                  Distance
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.distance | number: '1.2-2' }} 
-              </ng-template>
-            </ngx-datatable-column>
+                <ngx-datatable-column name="Name" prop="name">
+                    <ng-template ngx-datatable-header-template>
+                        Name
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.name}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Email" prop="email">
+                    <ng-template ngx-datatable-header-template>
+                        Email
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.email}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Mobile" prop="mobile">
+                    <ng-template ngx-datatable-header-template>
+                        Mobile
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.mobile | mask: '(000) 000-0000'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Gender" prop="gender">
+                    <ng-template ngx-datatable-header-template>
+                        Gender
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.gender}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Address" prop="address">
+                    <ng-template ngx-datatable-header-template>
+                        Address
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.address}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Distance" prop="distance">
+                    <ng-template ngx-datatable-header-template>
+                        Distance
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.distance | number: '1.2-2' }}
+                    </ng-template>
+                </ngx-datatable-column>
 
-            <ngx-datatable-column name="Distance" prop="distance">
-              <ng-template ngx-datatable-header-template>
-                  Rating
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                {{row.rating}} 0
-              </ng-template>
-            </ngx-datatable-column>
+                <ngx-datatable-column name="Distance" prop="distance">
+                    <ng-template ngx-datatable-header-template>
+                        Rating
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.rating}} 0
+                    </ng-template>
+                </ngx-datatable-column>
 
-            <ngx-datatable-column name="Distance" prop="distance">
-              <ng-template ngx-datatable-header-template>
-                Reject
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                <p *ngIf="row.is_reject == '0'">No</p>
-                <p *ngIf="row.is_reject == '1'">Yes</p>
-              </ng-template>
-            </ngx-datatable-column>
+                <ngx-datatable-column name="Distance" prop="distance">
+                    <ng-template ngx-datatable-header-template>
+                        Reject
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <p *ngIf="row.is_reject == '0'">No</p>
+                        <p *ngIf="row.is_reject == '1'">Yes</p>
+                    </ng-template>
+                </ngx-datatable-column>
 
 
-            <!-- <ngx-datatable-column>
+                <!-- <ngx-datatable-column>
               <ng-template ngx-datatable-header-template>
                   Status
               </ng-template>
@@ -217,7 +205,7 @@
           </ngx-datatable-column> -->
 
 
-        <!-- <ngx-datatable-column [width]="150" [sortable]="false">
+                <!-- <ngx-datatable-column [width]="150" [sortable]="false">
           <ng-template ngx-datatable-header-template>
               Actions
           </ng-template>
@@ -226,36 +214,36 @@
           </ng-template>
       </ngx-datatable-column> -->
 
-        </ngx-datatable>
-      </div>
-    <ng-container *ngIf="list_Obj?.length <= 0">
-        No Data Found
-    </ng-container>
-  </div>
+            </ngx-datatable>
+        </div>
+        <ng-container *ngIf="list_Obj?.length <= 0">
+            No Data Found
+        </ng-container>
+    </div>
 </div>
 <ng-template #requestConfirmModal let-modal>
-<div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Details</h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Details</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
-</div>
-<div class="modal-body">
- <div>
-  <label class="mb-0"><b>Name</b></label>
-  <p>{{mapInfo.label}}</p>
-  <label class="map_label mb-0"><b>Email</b></label>
-  <span class="map_left">{{mapInfo.email}}</span>
+    </div>
+    <div class="modal-body">
+        <div>
+            <label class="mb-0"><b>Name</b></label>
+            <p>{{mapInfo.label}}</p>
+            <label class="map_label mb-0"><b>Email</b></label>
+            <span class="map_left">{{mapInfo.email}}</span>
 
-  <label class="mb-0"><b>Mobile</b></label>
-  <p>{{mapInfo.mobile}}</p>
-  <label class="mb-0"><b>Address</b></label>
-  <p>{{mapInfo.address}}</p>
-  </div>
-    <!-- <p><strong>Are you sure? you want to send request.</strong></p> -->
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
-</div>
+            <label class="mb-0"><b>Mobile</b></label>
+            <p>{{mapInfo.mobile}}</p>
+            <label class="mb-0"><b>Address</b></label>
+            <p>{{mapInfo.address}}</p>
+        </div>
+        <!-- <p><strong>Are you sure? you want to send request.</strong></p> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
 </ng-template>

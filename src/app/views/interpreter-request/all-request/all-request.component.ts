@@ -58,6 +58,7 @@ export class AllRequestComponent implements OnInit {
   ngOnInit(){
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
+    console.log("============this.role id",this.roleId);
     this.interpreterAllRequest('1');
     this.GetAllPagesPermission();
     this.searchControl.valueChanges
@@ -135,7 +136,7 @@ export class AllRequestComponent implements OnInit {
             this.view_obj = res['data'][0];
             console.log("api data",  this.view_obj);
             localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-            this.router.navigate(['/user-request/request-view',request_id]);
+            this.router.navigate(['/request-scheduler/details',request_id]);
           }else{
             this.resp_msg = res;
             this.toastr.error(this.resp_msg.message,'', { timeOut: 2000 , positionClass: 'toast-top-center' });

@@ -53,7 +53,8 @@ export class CompleteRequestComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('userId'));
     this.roleId = JSON.parse(localStorage.getItem('roleId'));
 
-    this.interpreterRequestData('1');
+    // this.interpreterRequestData('1');
+    this.getCompleteReq('1');
     // this.searchControl.valueChanges
     // .pipe(debounceTime(200))
     // .subscribe(value => {
@@ -87,22 +88,39 @@ export class CompleteRequestComponent implements OnInit {
   //   this.filteredUser = rows;
   // }
 
-  interpreterRequestData(e){
-    this.allData = this.search_name.value;
-    this.startDate = this.range.value.start_date;
-    this.endDate = this.range.value.end_date;
-    this.service.interpreterRequestList(this.roleId,this.userId,'4',this.allData,
-    this.startDate,this.endDate)
-    .subscribe(res => {
-      if(res['status']=='1'){
-        console.log("api response",res);
-        this.list_Obj = res['data'];
-        this.userData = [...res['data']];
-        // console.log("listttttttt", this.list_Obj);
-        this.filteredUser = this.list_Obj;
-      }
+//   interpreterRequestData(e){
+//     this.allData = this.search_name.value;
+//     this.startDate = this.range.value.start_date;
+//     this.endDate = this.range.value.end_date;
+//     this.service.interpreterRequestList(this.roleId,this.userId,'4',this.allData,
+//     this.startDate,this.endDate)
+//     .subscribe(res => {
+//       if(res['status']=='1'){
+//         console.log("api response",res);
+//         this.list_Obj = res['data'];
+//         this.userData = [...res['data']];
+//         // console.log("listttttttt", this.list_Obj);
+//         this.filteredUser = this.list_Obj;
+//       }
        
-    });
+//     });
+// }
+
+getCompleteReq(e){
+  this.allData = this.search_name.value;
+  this.startDate = this.range.value.start_date;
+  this.endDate = this.range.value.end_date;
+  this.service.post("getCompleteReq",{role_id:this.roleId,user_id:this.userId,status:'4',search_info:this.allData,start_date: this.startDate,end_date:this.endDate})
+  .subscribe(res => {
+    if(res['status']=='1'){
+      console.log("api response=========================",res);
+      this.list_Obj = res['data'];
+      this.userData = [...res['data']];
+      // console.log("listttttttt", this.list_Obj);
+      this.filteredUser = this.list_Obj;
+    }
+     
+  });
 }
 
 viewDetail(request_id){
@@ -112,7 +130,8 @@ viewDetail(request_id){
       this.view_obj = res['data'][0];
       console.log("api response",  this.view_obj);
       localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-      this.router.navigate(['/user-request/request-view',request_id])
+      this.router.navigate(['/request-scheduler/details',request_id]);
+
     }else{
       this.resp_msg = res;
       this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });

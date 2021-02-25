@@ -90,14 +90,14 @@
                   {{row.assignment_type}}
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Email" prop="email">
+              <!-- <ngx-datatable-column name="Email" prop="email">
                 <ng-template ngx-datatable-header-template>
                   Email
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   {{row.email}}
                 </ng-template>
-              </ngx-datatable-column>    
+              </ngx-datatable-column>     -->
               <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
                 <ng-template ngx-datatable-header-template>
                   Contact Person
@@ -130,7 +130,7 @@
                       {{row.requester_name}}
                     </ng-template>
                 </ngx-datatable-column> -->
-                <ngx-datatable-column name="Interpreter" prop="requester_name">
+                <ngx-datatable-column name="Interpreter Name" prop="interpreter_name">
                   <ng-template ngx-datatable-header-template>
                       Interpreter
                   </ng-template>
@@ -141,10 +141,10 @@
               
               <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
                 <ng-template ngx-datatable-header-template>
-                  Interpreter Mobile
+                  Interpreter Mobile 
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.mobile | mask: '(000) 000-0000'}}
+                   {{row.interpreter_phoneCode}} {{row.mobile | mask: '(000) 000-0000'}}
                 </ng-template>  
              </ngx-datatable-column>
 
@@ -166,7 +166,7 @@
             </ng-template>  
         </ngx-datatable-column> -->
            
-            <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+            <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1' || roleId=='4'">
               <ng-template ngx-datatable-header-template>Status
               </ng-template>
               
@@ -185,15 +185,15 @@
               <button class="btn btn-outline-secondary mr-1" 
               (click)="viewDetail(row.ris_id)">View</button>  
               
-              <button *ngIf="roleId=='1'" class="btn btn-outline-secondary" 
+              <button *ngIf="roleId=='1' || roleId == '4'" class="btn btn-outline-secondary" 
               (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
 
-              <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && roleId!='4'" class="btn btn-outline-danger ml-2"
               (click)="trackingLinkSend(row.user_id,row.ris_id, linkConfirmModal)">
                 Tracking link
               </button>
 
-              <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && roleId!='4'" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Completed
               </button>

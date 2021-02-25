@@ -114,14 +114,14 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Email" prop="email">
+          <!-- <ngx-datatable-column name="Email" prop="email">
             <ng-template ngx-datatable-header-template>
               Email
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               {{row.email}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
 
           <ngx-datatable-column name="Language" prop="lang_name">
@@ -168,7 +168,7 @@
               <span title="{{row.created_at}}"> {{row.created_at | date:'MM/dd/yyyy' }}</span>
             </ng-template>  
         </ngx-datatable-column>
-          <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+          <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1' || roleId=='4'">
             <ng-template ngx-datatable-header-template>Status
             </ng-template>
 

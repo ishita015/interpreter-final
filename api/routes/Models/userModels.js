@@ -274,10 +274,10 @@ class userClass {
     getPendingRequestList(serach,start_date,end_date,userId){
         return new Promise(function(resolve, reject) {
             // var sql = "SELECT ris.id as ris_id,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ris.status='2'";
-            var sql = "SELECT ris.id as ris_id,ais.ir, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language INNER JOIN master_lob ON master_lob.id = ais.lob";
+            var sql = "SELECT ris.id as ris_id,ris.status,ais.ir, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language LEFT JOIN master_lob ON master_lob.id = ais.lob ";
            
             if( userId != '0') {
-                sql += "INNER JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='1' AND ir.status = '0' AND ir.is_reject = '0' AND ir.pending_status = '0' AND Interpreter_id="+userId;
+                sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='1' AND ir.status = '0' AND ir.is_reject = '0' AND ir.pending_status = '0' AND ir.accepted_by_other = '0' AND Interpreter_id="+userId;
             }else{
                 sql += " WHERE ris.status='1'"
             }
@@ -291,7 +291,7 @@ class userClass {
             }
             sql += " ORDER BY ris.id DESC"; 
 
-            //console.log("check sql",sql);
+            console.log("check sql========================",sql);
             con.query(sql, function(err, result) {
                  if (result != "" && result != "undefined") {
                      resolve(result);
@@ -352,6 +352,19 @@ class userClass {
         });  
     }
 
+    getCustomerInfo(user_id,request_id){
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT ris.id as request_id,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ris.status,ais.appointment_type,ais.date,ais.start_time,ais.anticipated_end_time,ais.address,u.first_name,u.last_name FROM interpreter_request as ir INNER JOIN request_information_services as ris ON ris.id=ir.job_id INNER JOIN appointment_information_services as ais ON ais.ris_id=ris.id INNER JOIN user as u ON u.id=ir.Interpreter_id WHERE ris.client_id='"+user_id+"' && ris.id='"+request_id+"'";
+            //console.log("check sql 12",sql);
+            con.query(sql, function(err, result) {
+                 if (result != "" && result != "undefined") {
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
 
 
     checkLinkAlreadySent(user_id,request_id){
@@ -588,8 +601,6 @@ class userClass {
         });
     }
     
-
-
     // get all interpreter request
     interpreterRequestList(role_id,user_id,status){
         //console.log("role_id--",role_id)
@@ -597,14 +608,75 @@ class userClass {
         //console.log("status--",status)
         return new Promise(function(resolve, reject) {
             // var sql = "SELECT ir.status,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ir.is_reject, u.id as user_id,u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ir.status='"+status+"'";
-            var sql = "SELECT ir.status,ais.ir,master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.assignment_type, ais.client_name,ais.name_of_contact_person,ais.created_at, ir.is_reject, u.id as user_id,u.name , u.first_name, u.last_name, u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language  INNER JOIN master_lob ON master_lob.id = ais.lob WHERE ris.status='"+status+"'";
+            // var sql = "SELECT ir.status,ais.ir,master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.assignment_type, ais.client_name,ais.name_of_contact_person,ais.created_at, ir.is_reject, u.id as user_id,u.name , u.first_name, u.last_name, u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM interpreter_request AS ir LEFT JOIN user AS u ON u.id=ir.Interpreter_id LEFT JOIN request_information_services AS ris ON ris.id=ir.job_id LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language  LEFT JOIN master_lob ON master_lob.id = ais.lob ";
             // var sql = "SELECT ris.id as ris_id,ais.ir, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language INNER JOIN master_lob ON master_lob.id = ais.lob";
-            
-            if (role_id!=1) {
-                sql +=" && ir.Interpreter_id='"+user_id+"'";
-            }
+            var sql = "SELECT ris.id as ris_id,ais.ir,ir.Interpreter_id,u.first_name,u.last_name ,u.country_code as interpreter_phoneCode, u.mobile as interpreter_mobile, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code, ir.status FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language LEFT JOIN master_lob ON master_lob.id = ais.lob ";
+           
+            // if( role_id != 1) {
+            //     sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='2' AND (ir.status = '1' OR ir.status = '2' ) AND ir.is_reject = '0' AND ir.pending_status = '0' AND ir.Interpreter_id="+user_id;
+            // }else{
+            //     sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='2'";
+            // }
 
-            console.log("In Progress-==================",sql);
+            switch (role_id){
+                case 1:
+                case 4:
+                    sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id LEFT JOIN user AS u ON u.id = ir.Interpreter_id WHERE ris.status='2'";
+                    break;
+                case 2:
+                    sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id LEFT JOIN user AS u ON u.id = ir.Interpreter_id WHERE ris.status='2' AND (ir.status = '1' OR ir.status = '2' ) AND ir.is_reject = '0' AND ir.pending_status = '1' AND ir.accepted_by_other = '0' AND ir.Interpreter_id="+user_id;
+                    break;
+                case 3: 
+                    sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id  LEFT JOIN user AS u ON u.id = ir.Interpreter_id WHERE ris.status='2' AND (ir.status = '1' OR ir.status = '2' ) AND ir.is_reject = '0' AND ir.pending_status = '1' AND ir.accepted_by_other = '0' AND ris.client_id="+user_id;
+                    break;
+            }
+             sql += " GROUP BY ris_id ORDER BY ris_id DESC"; 
+
+            con.query(sql, function(err, result) {
+                console.log("errr",err);
+                 if (result != "" && result != "undefined") {
+                     for(var i=0;  i < result.length; i++){
+                        result[i].interpreter_name = result[i].first_name +" "+result[i].last_name;  
+                     }
+                     resolve(result);
+                 } else {
+                     resolve(false);
+                 }
+             });
+        });  
+    }
+
+    getCompleteReq(role_id,user_id,status){
+        //console.log("role_id--",role_id)
+        //console.log("user_id--",user_id)
+        //console.log("status--",status)
+        return new Promise(function(resolve, reject) {
+            // var sql = "SELECT ir.status,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,ir.is_reject, u.id as user_id,u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ir.status='"+status+"'";
+            // var sql = "SELECT ir.status,ais.ir,master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.assignment_type, ais.client_name,ais.name_of_contact_person,ais.created_at, ir.is_reject, u.id as user_id,u.name , u.first_name, u.last_name, u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM interpreter_request AS ir LEFT JOIN user AS u ON u.id=ir.Interpreter_id LEFT JOIN request_information_services AS ris ON ris.id=ir.job_id LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language  LEFT JOIN master_lob ON master_lob.id = ais.lob ";
+            // var sql = "SELECT ris.id as ris_id,ais.ir, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language INNER JOIN master_lob ON master_lob.id = ais.lob";
+            var sql = "SELECT ris.id as ris_id,ais.ir, u.first_name,u.last_name ,u.country_code as interpreter_phoneCode, u.mobile as interpreter_mobile, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code, ir.status FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language LEFT JOIN master_lob ON master_lob.id = ais.lob ";
+           
+            // if( role_id != 1) {
+            //     sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='3' AND ir.status = '4' AND ir.is_reject = '0' AND ir.pending_status = '0' AND ir.Interpreter_id="+user_id;
+            // }else{
+            //     sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id WHERE ris.status='3'";
+            // }
+
+            switch (role_id){
+                case 1:
+                case 4:
+                sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id LEFT JOIN user AS u ON u.id = ir.Interpreter_id WHERE ris.status='3'";
+                break;
+                
+                case 2:
+                sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id LEFT JOIN user AS u ON u.id = ir.Interpreter_id WHERE ris.status='3' AND ir.status = '4' AND ir.is_reject = '0' AND ir.pending_status = '1' AND ir.accepted_by_other = '0'  AND ir.Interpreter_id="+user_id;
+                break;
+
+                case 3: 
+                sql += " LEFT JOIN interpreter_request as ir ON ir.job_id = ris.id LEFT JOIN user AS u ON u.id = ir.Interpreter_id WHERE ris.status='3' AND ir.status = '4' AND ir.is_reject = '0' AND ir.pending_status = '1' AND ir.accepted_by_other = '0'  AND ris.client_id="+user_id;
+                break;
+            }
+            sql += " GROUP BY ris_id DESC"; 
             con.query(sql, function(err, result) {
                  if (result != "" && result != "undefined") {
                      for(var i=0;  i < result.length; i++){
@@ -618,9 +690,6 @@ class userClass {
         });  
     }
 
-
-
-
      // get all interpreter request
      interpreterRejectData(role_id,user_id,status){
         //console.log("role_id--",role_id)
@@ -628,14 +697,19 @@ class userClass {
         //console.log("status--",status)
         
         return new Promise(function(resolve, reject) {
-            var sql = "SELECT ir.status,ir.is_reject, u.id as user_id,u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,l.name as lang_name,l.code FROM interpreter_request AS ir INNER JOIN user AS u ON u.id=ir.Interpreter_id INNER JOIN request_information_services AS ris ON ris.id=ir.job_id INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages as l ON l.id=ais.language WHERE ir.is_reject='1'";
+            // var sql = "SELECT ir.status,ir.is_reject, u.id as user_id,u.name,u.mobile,ris.id as ris_id,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,l.name as lang_name,l.code FROM interpreter_request AS ir LEFT JOIN  user AS u ON u.id=ir.Interpreter_id LEFT JOIN  request_information_services AS ris ON ris.id=ir.job_id LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language WHERE ir.is_reject='1'";
+            var sql = "SELECT ris.id as ris_id,ais.ir,ais.assignment_type, u.first_name,u.last_name ,u.country_code as interpreter_phoneCode, u.mobile as interpreter_mobile, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code, ir.status FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language LEFT JOIN master_lob ON master_lob.id = ais.lob LEFT JOIN interpreter_request AS ir ON ir.job_id = ris.id LEFT JOIN user AS u ON u.id= ris.scheduler_id WHERE ir.is_reject='1'";
 
-            if (role_id!=1) {
+            if (role_id==2) {
                 sql +=" && ir.Interpreter_id='"+user_id+"'";
             }
-
+            
+            if (role_id==3) {
+                sql +=" && ris.client='"+user_id+"'";
+            }
             //console.log("check sql",sql);
             con.query(sql, function(err, result) {
+                console.log("=============err",err)
                  if (result != "" && result != "undefined") {
                      resolve(result);
                  } else {
@@ -663,7 +737,7 @@ class userClass {
     }
 
 
-    // var sql = "SELECT u.*,ur.role_name FROM user as u INNER JOIN user_roles as ur ON u.role_id=ur.id";
+    // var sql = "SELECT u.*,ur.role_name FROM user as  JOIN user_roles as ur ON u.role_id=ur.id";
 
     getInterpreterInfo(user_id){
         return new Promise(function(resolve, reject) {

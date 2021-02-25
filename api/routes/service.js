@@ -22,6 +22,7 @@ const usermodel = new userModel();
 //send tracking link 
 module.exports.sendTrackingLinkTocustomer = async function(req, res, next) {
     //validation start
+    console.log("===========================req.......",req.body);
     const v = new Validator(req.body, {
         request_id: 'required',
         user_id: 'required'
@@ -967,11 +968,6 @@ module.exports.getAllAssignment = async function(req, res) {
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
-    console.log("status-",status)
-    console.log("search_email-",search_email)
-    console.log("start_date-",start_date)
-    console.log("end_date-",end_date)
-
 
     var unfil_ids='';
     if(status=='6'){
@@ -999,9 +995,7 @@ module.exports.getAllAssignment = async function(req, res) {
 
 
     // var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
-    var sql = "SELECT ris.*,ais.language, ais.assignment_type, ais.ir, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.client_name,ais.name_of_contact_person, ais.created_at,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language INNER JOIN master_lob ON master_lob.id = ais.lob WHERE 1=1 ";
-
-
+    var sql = "SELECT ris.*,ais.language, ais.assignment_type, ais.ir, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.client_name,ais.name_of_contact_person, ais.created_at,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language LEFT JOIN master_lob ON master_lob.id = ais.lob WHERE 1=1 ";
     if(lang_id != '0' ) { 
         sql += " && ais.language='"+lang_id+"'";
     }
@@ -1096,8 +1090,8 @@ module.exports.getAllClientRequest = async function(req, res) {
 
 
     // var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE 1=1 ";
-    var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language WHERE ris.scheduler_id="+req.body.userId;
-
+    // var sql = "SELECT ris.*,ais.language, ais.ir, ais.client_name,ais.name_of_contact_person,ais.created_at, l.name as lang_name,ais.latitude,ais.longitude,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.scheduler_id="+req.body.userId;
+    var sql = "SELECT ris.id as ris_id,ris.status,ais.ir, ais.assignment_type, ais.client_name,ais.name_of_contact_person, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.created_at ,ris.caseworker_name,ris.requester_name,ris.office_phone,ris.cell_phone,ris.email,ais.name_of_person,ais.date,ais.appointment_type,ais.start_time,ais.start_time,anticipated_end_time,ais.created_at,l.name as lang_name,l.code FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages as l ON l.id=ais.language LEFT JOIN master_lob ON master_lob.id = ais.lob WHERE ris.client_id= "+ req.body.userId;
 
     if(lang_id != '0' ) { 
         sql += " && ais.language='"+lang_id+"'";
@@ -1162,7 +1156,7 @@ module.exports.getRequestData = function(req, res) {
     let start_date = req.body.start_date ? req.body.start_date : '0';
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
-    var sql = "SELECT ris.*,ais.language, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.ir,ais.assignment_type, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id INNER JOIN languages AS l ON l.id=ais.language  INNER JOIN master_lob ON master_lob.id = ais.lob WHERE ris.status='0'";
+    var sql = "SELECT ris.*,ais.language, ir.is_reject as ir_isReject, master_lob.name as lob_name, ais.phone_code as phoneCode ,ais.cell_phone as cellPhone, ais.ir,ais.assignment_type, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ris.status as ris_status,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language  LEFT JOIN master_lob ON master_lob.id = ais.lob LEFT JOIN interpreter_request as ir ON ir.job_id =  ris.id WHERE (ris.status='0' OR ris.status='4')";
     // var sql = "SELECT ris.*,ais.language,ais.ir, ais.client_name,ais.name_of_contact_person,DATE_FORMAT(ais.created_at, '%d-%m-%Y') as created_date,l.name as lang_name,ais.latitude,ais.longitude,ais.created_at,ais.date,ais.start_time,ais.anticipated_end_time FROM request_information_services AS ris INNER JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language WHERE ris.status='1'";
 
     if( serach != "") {
@@ -1174,10 +1168,11 @@ module.exports.getRequestData = function(req, res) {
         let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');      
         sql += " && ris.updated_at BETWEEN '"+sd+"' AND '"+ed+"'";
     }
-    sql += " ORDER BY ris.id DESC"; 
+    sql += " GROUP BY ris.scheduler_id ORDER BY ris.id DESC"; 
 
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
+        console.log("err-err",err)
 
         if (result && result.length > 0) {
             res.json({

@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <input id="search" (keyup)="interpreterRequestData($event.target.value)" placeholder="Search"
+        <input id="search" (keyup)="getCompleteReq($event.target.value)" placeholder="Search"
           [formControl]="search_name" class="form-control form-control-rounded" type="text">
       </div>
     </div>
@@ -20,9 +20,9 @@
       <mat-form-field appearance="fill">
         <!-- <mat-label>Enter a date range</mat-label> -->
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-          <input matStartDate formControlName="start_date" (dateChange)="interpreterRequestData($event.target.value)"
+          <input matStartDate formControlName="start_date" (dateChange)="getCompleteReq($event.target.value)"
             placeholder="Start date">
-          <input matEndDate formControlName="end_date" (dateChange)="interpreterRequestData($event.target.value)"
+          <input matEndDate formControlName="end_date" (dateChange)="getCompleteReq($event.target.value)"
             placeholder="End date">
 
         </mat-date-range-input>
@@ -86,14 +86,14 @@ Caseworker
               {{row.assignment_type}}
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Email" prop="email">
+          <!-- <ngx-datatable-column name="Email" prop="email">
             <ng-template ngx-datatable-header-template>
               Email
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               {{row.email}}
             </ng-template>
-          </ngx-datatable-column>  
+          </ngx-datatable-column>   -->
           <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
             <ng-template ngx-datatable-header-template>
               Contact Person
@@ -135,12 +135,12 @@ Requester
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
+          <ngx-datatable-column name="Interpreter Mobile" prop="interpreter_mobile">
             <ng-template ngx-datatable-header-template>
               Interpreter Mobile
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-             {{ro}} {{row.mobile | mask: '(000) 000-0000'}}
+             {{row.interpreter_phoneCode}} {{row.interpreter_mobile | mask: '(000) 000-0000'}}
             </ng-template>
           </ngx-datatable-column>
 

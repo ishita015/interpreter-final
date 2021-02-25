@@ -452,8 +452,8 @@ export class HttpService {
 
 
 
-  interpreterReqCompleted(id, userId): Observable<any> {
-    return this.http.post(this.url + '/cesco/interpreterRequestComplete', { id: id, userId: userId }, this.httpOptions);
+  interpreterReqCompleted(data): Observable<any> {
+    return this.http.post(this.url + '/cesco/interpreterRequestComplete', data, this.httpOptions);
   }
 
 

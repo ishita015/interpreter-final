@@ -69,7 +69,7 @@ export class AllRequestSchedularComponent implements OnInit {
   sec_address: string;
   new_address: string;
   provider_address: string;
-
+  client_id;
   private geoCoder;
   @ViewChild('search', { static: false }) searchElementRef: ElementRef;
   // maps the local data column to fields property
@@ -537,6 +537,8 @@ export class AllRequestSchedularComponent implements OnInit {
  /*==========Client Name Function start here ========*/
   changeClient(data, e) {
     this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
+    this.client_id = this.clientObj[e]['id'];
+
   }
 
   /*==========Client Name Function end here ========*/
@@ -663,6 +665,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
+    this.newRequestForm.value.client_id = this.client_id;
     if (this.showEductionForm) {
 
       this.newRequestForm.value.education = this.educationRequestForm.value;

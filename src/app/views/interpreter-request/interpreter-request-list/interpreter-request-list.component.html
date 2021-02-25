@@ -49,7 +49,47 @@
                       {{rowIndex +1}}
                   </ng-template>
                  </ngx-datatable-column>
-
+                 <ngx-datatable-column name="IR" prop="ir">
+                  <ng-template ngx-datatable-header-template>
+                    IR
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.ir}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Client Name" prop="client_name">
+                  <ng-template ngx-datatable-header-template>
+                    Client Name
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.client_name}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="LOB" prop="lob_name">
+                  <ng-template ngx-datatable-header-template>
+                    LOB
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.lob_name}}
+                  </ng-template>
+                </ngx-datatable-column>
+      
+                <ngx-datatable-column name="Assignment Type" prop="assignment_type">
+                  <ng-template ngx-datatable-header-template>
+                    Assignment Type
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.assignment_type}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Language" prop="lang_name">
+                  <ng-template ngx-datatable-header-template>
+                    Language
+                  </ng-template>
+                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.lang_name}}
+                  </ng-template>
+                </ngx-datatable-column>
                  <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
                   <ng-template ngx-datatable-header-template>
                     Caseworker
@@ -59,20 +99,20 @@
                   </ng-template>
                 </ngx-datatable-column> -->
 
-                 <ngx-datatable-column name="Appointment Type" prop="appointment_type">
+                 <!-- <ngx-datatable-column name="Appointment Type" prop="appointment_type">
                   <ng-template ngx-datatable-header-template>
                     Appointment Type
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                     {{row.appointment_type}}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
                 <ngx-datatable-column name="Cell Phone" prop="cell_phone">
                   <ng-template ngx-datatable-header-template>
                     Cell Phone
                   </ng-template>
                   <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                    {{row.cell_phone | mask: '(000) 000-0000'}}
+                    {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
                   </ng-template>
                 </ngx-datatable-column>
                   <!-- <ngx-datatable-column name="Requester" prop="requester_name">
@@ -83,14 +123,14 @@
                         {{row.requester_name}}
                       </ng-template>
                   </ngx-datatable-column> -->
-                  <ngx-datatable-column name="Interpreter" prop="requester_name" *ngIf="roleId=='1'">
+                  <!-- <ngx-datatable-column name="Interpreter" prop="requester_name" *ngIf="roleId=='1'">
                     <ng-template ngx-datatable-header-template>
                        No. Of Interpreter
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                         <span class="Cursor_Point" (click)="numOfInterpreter(row.ris_id,row.no_of_interpreter,interpreterConfirmModal)">{{row.no_of_interpreter}}</span>
                     </ng-template>  
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
                 
                 <!-- <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
                   <ng-template ngx-datatable-header-template>
@@ -108,23 +148,23 @@
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy' }}</span>
                 </ng-template>  
-              </ngx-datatable-column>
+            </ngx-datatable-column>
 
-            <ngx-datatable-column>
+            <!-- <ngx-datatable-column>
               <ng-template ngx-datatable-header-template>
                 <span title="Appointment date">Appointment date</span>
               </ng-template>
               <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                 <span title="{{row.date}}">{{row.date | date:'MM/dd/yyyy' }}</span>
               </ng-template>  
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
              
-              <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1'">
+              <ngx-datatable-column [width]="120" [sortable]="false">
                 <ng-template ngx-datatable-header-template>Status
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                  Pending Acceptance
+                  Pending
                 </ng-template>
                
             </ngx-datatable-column>
@@ -136,12 +176,12 @@
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                   <button class="btn btn-outline-secondary" (click)="viewDetail(row.ris_id)">View</button>  
-                   <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+                   <button *ngIf="roleId !='1' && roleId !='4' " class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.ris_id,'1', acceptConfirmModal)">
                   Accept
                   </button>
 
-                  <button *ngIf="roleId!='1'" class="btn btn-outline-danger ml-2"
+                  <button *ngIf="roleId != '1' && roleId !='4'" class="btn btn-outline-danger ml-2"
                   (click)="interpreterReply(row.ris_id,'3', rejectConfirmModal)">
                   Reject
                   </button> 
