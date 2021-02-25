@@ -39,6 +39,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
   doc4:  Array<any> = [];
   doc5:  Array<any> = [];
   doc6:  Array<any> = [];
+  doc7:  Array<any> = [];
+  doc8:  Array<any> = [];
 
   lang: Array<any> = [];
   selectedFile: File = null;
@@ -1313,6 +1315,8 @@ assignment_arr=[];
 	{
        this.arrImages.push({ all_img: event.target.files[i], doc_type: key, types: type });
     }
+
+
     let fileArray: File = event.target.files[0];
     let file: File = event.target.files
  
@@ -1368,10 +1372,28 @@ assignment_arr=[];
           });
         }
         if(type == '6') {
-          this.doc5.push({
+          this.doc6.push({
                   all_img6: event.target.result,
                   doc_type6: key,
                   types6: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
+          });
+        }
+
+         if(type == '7') {
+          this.doc7.push({
+                  all_img7: event.target.result,
+                  doc_type7: key,
+                  types7: type,
+                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
+          });
+        }
+
+        if(type == '8') {
+          this.doc8.push({
+                  all_img8: event.target.result,
+                  doc_type8: key,
+                  types8: type,
                   img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
           });
         }
@@ -1423,6 +1445,8 @@ CourtCertified=[];
 CourtCredentialed=[];
 EquipmentQualified=[];
 Legal=[];
+SimultaneousDoc=[];
+OtherDoc=[];
 getInterpreterFiles(){
   this.CommunityInterpretingArr=[];
   this.ConferenceArr=[];
@@ -1430,6 +1454,8 @@ getInterpreterFiles(){
   this.CourtCredentialed=[];
   this.EquipmentQualified=[];
   this.Legal=[];
+  this.SimultaneousDoc=[];
+  this.OtherDoc=[];
   this.service.get('getInterpreterFiles/'+this.interId).subscribe(res=>{
 
     console.log('getInterpreterFiles',res['data'])
@@ -1464,9 +1490,16 @@ getInterpreterFiles(){
       if(res['data'][i].doc_type == "legal_doc"){
         this.Legal.push(res['data'][i])
       }
+      if(res['data'][i].doc_type == "simultaneous_doc"){
+        this.SimultaneousDoc.push(res['data'][i])
+      }
+
+      if(res['data'][i].doc_type == "other_doc"){
+        this.OtherDoc.push(res['data'][i])
+      }
 
     }
-    console.log('CourtCredentialed',this.CourtCredentialed)
+    console.log('OtherDoc',this.OtherDoc)
 
   })
 }
@@ -1549,6 +1582,12 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
     }
     if(type == '6'){
       this.doc6.splice(i, 1);
+    }
+    if(type == '7'){
+      this.doc7.splice(i, 1);
+    }
+    if(type == '8'){
+      this.doc8.splice(i, 1);
     }
   
   }
