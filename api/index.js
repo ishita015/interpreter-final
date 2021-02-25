@@ -203,6 +203,7 @@ app.get('/cesco/getAllPlatform', interpreterController.getAllPlatform);
 app.post('/cesco/updateIntrepeterSetingNew', interpreterController.updateIntrepeterSetingNew);
 app.post('/cesco/getInterpreterRateSettingNew', interpreterController.getInterpreterRateSettingNew);
 app.post('/cesco/getLanguageRate', interpreterController.getLanguageRate);
+app.get('/cesco/getInterpreterFiles/:id', interpreterController.getInterpreterFiles);
 
 
 
@@ -248,6 +249,7 @@ app.post('/cesco/updateInterpreter', interpreterController.updateInterpreter);
 
 app.get('/cesco/getInterpreterPlatformIds/:id', interpreterController.getInterpreterPlatformIds);
 app.get('/cesco/getInterpreterPlatformName/:id', interpreterController.getInterpreterPlatformName);
+app.get('/cesco/getRateDetails/:id', interpreterController.getRateDetails);
 // app.post('/cesco/removelanguage', languageController.removeLanguage);
 
 //language route
@@ -386,7 +388,10 @@ let percentResult = percentage(20, 450);
 
 //calculation part end
 
+/**************************************************************************************************************************/
+app.get('/cesco/deleteFileInterpreter/:id', interpreterController.deleteFileInterpreter);
 
+/**************************************************************************************************************************/
 
 
 
@@ -1215,10 +1220,10 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
 
             //console.log("yes is working",req.files);
           
-            for(var i = 0; i < req.files.length; i++){
-                let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
-                con.query(sqlDelete, function(err, res_delete) {});
-            }
+            // for(var i = 0; i < req.files.length; i++){
+            //     let sqlDelete = "DELETE FROM interpreter_skills_doc WHERE interpreter_id='"+interpreter_id+"' && type='"+type[i]+"'";
+            //     con.query(sqlDelete, function(err, res_delete) {});
+            // }
             for (var i = 0; i < req.files.length; i++) {
                 // type[i]
                 var docfield = req.files[i].fieldname;

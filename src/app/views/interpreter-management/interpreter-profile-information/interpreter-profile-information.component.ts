@@ -210,6 +210,7 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
+
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
@@ -247,9 +248,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.createForm2();
     this.getUserLanguage();
     this.getPlatform();
+    this.getRateDetails(); 
   }
-
-
 createItem() {
         return this.fb.group({
             
@@ -666,12 +666,12 @@ createItem() {
   //====================gokul code end==========================//
 
   banking() {
-    if (this.detail_Obj.bank_profile_status == 1) {
+    // if (this.detail_Obj.bank_profile_status == 1) {
       this.general_form = false;
       this.skills_form = false;
       this.assignment_form = false;
       this.banking_form = true;
-    }
+    // }
   }
 
   assignment() {
@@ -1417,6 +1417,63 @@ assignment_arr=[];
     })
   }
 
+CommunityInterpretingArr=[];
+ConferenceArr=[];
+CourtCertified=[];
+CourtCredentialed=[];
+EquipmentQualified=[];
+Legal=[];
+getInterpreterFiles(){
+  this.CommunityInterpretingArr=[];
+  this.ConferenceArr=[];
+  this.CourtCertified=[];
+  this.CourtCredentialed=[];
+  this.EquipmentQualified=[];
+  this.Legal=[];
+  this.service.get('getInterpreterFiles/'+this.interId).subscribe(res=>{
+
+    console.log('getInterpreterFiles',res['data'])
+
+    for (var i = 0; i < res['data'].length; ++i) {
+      
+      if(res['data'][i].doc_name.split('.').pop() == 'pdf'){
+        res['data'][i].fileurl='./assets/images/pdf.jpeg'
+      }else{
+        res['data'][i].fileurl=res['data'][i].doc_name;
+      }
+
+      if(res['data'][i].doc_type == "community_doc"){
+        this.CommunityInterpretingArr.push(res['data'][i])
+      }
+
+      if(res['data'][i].doc_type == "conference_doc"){
+        this.ConferenceArr.push(res['data'][i])
+      }
+
+      if(res['data'][i].doc_type == "court_doc"){
+        this.CourtCertified.push(res['data'][i])
+      }
+
+       if(res['data'][i].doc_type == "credential_doc"){
+        this.CourtCredentialed.push(res['data'][i])
+      }
+
+      if(res['data'][i].doc_type == "equipment_doc"){
+        this.EquipmentQualified.push(res['data'][i])
+      }
+      if(res['data'][i].doc_type == "legal_doc"){
+        this.Legal.push(res['data'][i])
+      }
+
+    }
+    console.log('CourtCredentialed',this.CourtCredentialed)
+
+  })
+}
+openFile(url){
+    window.open(url)
+
+}
   uploadDocuments() {
     console.log('assignment_arr',this.assignment_arr)
 
@@ -1496,6 +1553,17 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
   
   }
 
+removeUpdateImage(data){
+  console.log(data)
+  this.service.get('deleteFileInterpreter/'+data.id).subscribe(res =>{
+    if(res['status'] == true){
+      this.toastr.success(res['msg']);
+      this.getInterpreterFiles();
+    }else{
+      this.toastr.warning(res['msg']);
+    }
+  })
+}
   private assignmentGroup(): FormGroup {
     return this.fb.group({
       id: [''],
@@ -1751,6 +1819,19 @@ toggleAccordian(event) {
     this.activeId = this.activeId == event.panelId ? "" : event.panelId;
 }
 
+resData
+getRateDetails(){
+  this.service.get('getRateDetails/'+this.interId).subscribe((res)=>{
+    console.log("=====================getres=========",res);
+    this.resData = res;
+    if(this.resData.interpreter_assignment_status=='1'){
+      this.banking_form = true;
+            this.assignment_form = false;
+            this.general_form = false;
+            this.skills_form = false;
+    }
+  })
+}
 
   languageId=0;
 selectLanguage(language_id,e){
@@ -1761,8 +1842,8 @@ selectLanguage(language_id,e){
      this.service.post('getInterpreterRateSettingNew',e.value).subscribe(resdata => {
        console.log('ddddddddd',resdata)
        console.log('aaaa',this.secondFormGroup1.value)
-       
        if(resdata['data'].length > 0){
+         this.getRateDetails();
   for (var i = 0; i < resdata['data'].length; ++i) {
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:resdata['data'][i].increment })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:resdata['data'][i].mileage })
@@ -1826,14 +1907,12 @@ createItem1() {
             this.skills_form = false;
             this.banking_form = false;
             this.activeId= "";
-
           }
           else {
             this.banking_form = true;
             this.assignment_form = false;
             this.general_form = false;
             this.skills_form = false;
-
           }
         } else {
           this.ass_Obj = res

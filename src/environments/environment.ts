@@ -8,7 +8,6 @@ export const environment = {
   // apiUrl: 'http://103.15.67.78:3300',
   apiUrl: 'http://192.168.0.24:3300',
 
-
   documentUrl:'http://103.15.67.78:3300/documents/',
   imageUrl:'http://103.15.67.78:3300/user/',
   // apiUrl: 'http://103.15.67.78:3300',
