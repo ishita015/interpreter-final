@@ -1645,12 +1645,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 2">
                     <div class="row">
-                        <div *ngFor="let url2 of doc2; let y=index" class="col-md-3 m-10">
+                        <div *ngFor="let url2 of doc2; let y=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(y,'2')"></i>
                             <img [src]="url2.img_url" style="width:100%; height:100%;">
                         </div>
 
-                          <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10">
+                          <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1659,12 +1659,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 3">
                     <div class="row">
-                        <div *ngFor="let url3 of doc3; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url3 of doc3; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'3')"></i>
                             <img [src]="url3.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url of CourtCertified; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url of CourtCertified; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1673,12 +1673,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 4">
                     <div class="row">
-                        <div *ngFor="let url4 of doc4; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url4 of doc4; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'4')"></i>
                             <img [src]="url4.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1688,12 +1688,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 5">
                     <div class="row">
-                        <div *ngFor="let url5 of doc5; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url5 of doc5; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'5')"></i>
                             <img [src]="url5.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url5 of EquipmentQualified; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url5 of EquipmentQualified; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url5)"></i>
                             <img (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1702,12 +1702,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 6">
                     <div class="row">
-                        <div *ngFor="let url6 of doc6; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url6 of doc6; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'6')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url6 of Legal; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url6 of Legal; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
                             <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1716,12 +1716,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                  <div *ngIf="docImage == 7">
                     <div class="row">
-                        <div *ngFor="let url6 of doc7; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url6 of doc7; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'7')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url6 of SimultaneousDoc; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url6 of SimultaneousDoc; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
                             <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1730,12 +1730,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                 <div *ngIf="docImage == 8">
                     <div class="row">
-                        <div *ngFor="let url6 of doc8; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url6 of doc8; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'8')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url6 of OtherDoc; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url6 of OtherDoc; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
                             <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                         </div>
