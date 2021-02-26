@@ -26,13 +26,14 @@ import { NgxMaskModule } from 'ngx-mask';
 import { InterpreterProfileComponent } from './interpreter-profile/interpreter-profile.component';
 
 import { InterpreterProfileInformationComponent } from './interpreter-profile-information/interpreter-profile-information.component';
+import { PhoneMaskDirective } from 'src/app/shared/services/phone-mask.directive';
 
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 @NgModule({
-  declarations: [InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent, InterpreterProfileInformationComponent],
+  declarations: [PhoneMaskDirective,InterpreterAddComponent, InterpreterEditComponent, InterpreterListComponent, InterpreterViewComponent, InterpreterProfileComponent, InterpreterProfileInformationComponent],
   imports: [
     CommonModule,
     FormsModule, ReactiveFormsModule,

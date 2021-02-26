@@ -65,7 +65,7 @@
                     <div class="profilecontent">
                         <ul class="list basic_info">
                             <li><a ><i class="i-Envelope"></i> {{data?.email}}</a></li>
-                            <li><a ><i class="i-Telephone"></i> {{data?.mobile | mask: '(000) 000-0000'}}</a></li>
+                            <li><a ><i class="i-Telephone"></i> +{{data?.country_code}} {{data?.mobile | mask: '(000) 000-0000'}}</a></li>
                             <li><a ><i class="i-Business-ManWoman"></i> {{data?.gender}}</a></li>
                             <li><a ><i class="i-Address-Book"></i> {{data?.address}}</a></li>
                         </ul>

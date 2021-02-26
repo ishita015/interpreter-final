@@ -1,30 +1,33 @@
 <div class="">
     <div class="row">
         <div class="col-sm-5">
-            <div class="breadcrumb">
-                <ul>
-                    <li><a class="heading"><b>{{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</b> Profile</a></li>
-                    <!-- <li>Version 1</li> -->
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-7 text-right mb-2">
-            <button *ngIf="showArroveBtn == 1" (click)="ApproveInterpreter()" class="btn btn-success m-1 btn-lg" type="button">Approve</button>
-            <button *ngIf="showArroveBtn == 0" disabled="" class="btn btn-success m-1 btn-lg" type="button">Approve</button>
-        </div>
+    <div class="breadcrumb">
+        <ul>
+            <li><a class="heading"><b>{{detail_Obj?.first_name}} {{detail_Obj?.last_name}}</b> Profile</a></li>
+            <!-- <li>Version 1</li> -->
+        </ul>
     </div>
+</div>
+    <div class="col-md-7 text-right mb-2">
+            <button *ngIf="showArroveBtn == 1" (click)="ApproveInterpreter()" class="btn btn-success m-1 btn-lg"
+                type="button">Approve</button>
+            <button *ngIf="showArroveBtn == 0" disabled="" class="btn btn-success m-1 btn-lg"
+                type="button">Approve</button>
+        </div>
+</div>
 
     <div class="separator-breadcrumb border-top"></div>
     <div class="row dashboard_block">
         <!-- ICON BG -->
-        <!--  <div class="col-md-12 text-right mb-2">
+       <!--  <div class="col-md-12 text-right mb-2">
             <button *ngIf="showArroveBtn == 1" (click)="ApproveInterpreter()" class="btn btn-success m-1 btn-lg"
                 type="button">Approve</button>
             <button *ngIf="showArroveBtn == 0" disabled="" class="btn btn-success m-1 btn-lg"
                 type="button">Approve</button>
         </div> -->
         <div (click)="general()" class="col-lg-3 col-md-6 col-sm-6 pro_info">
-            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="general_form ? 'activegreen' : ''">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4"
+                [ngClass]="general_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
                     <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
@@ -50,7 +53,8 @@
         </div>
 
         <div (click)="skills();getAssignmentSettingByInterpreterId();getInterpreterFiles();" class="col-lg-3 col-md-6 col-sm-6 pro_info">
-            <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 " [ngClass]="skills_form ? 'activegreen' : ''">
+            <div class="card card_redd card-icon-bg card-icon-bg-primary o-hidden mb-4 "
+                [ngClass]="skills_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
 
                     <div class="content">
@@ -72,8 +76,10 @@
         </div>
 
 
-        <div (click)="assignment();createDynamicForm();getUserLanguage();" class="col-lg-3 col-md-6 col-sm-6 pro_info">
-            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="assignment_form ? 'activegreen' : ''">
+        <div (click)="assignment();createDynamicForm();getUserLanguage();"
+            class="col-lg-3 col-md-6 col-sm-6 pro_info">
+            <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4"
+                [ngClass]="assignment_form ? 'activegreen' : ''">
                 <div class="card-body text-center">
                     <!-- <div class="card-icon cardred">
                         <ion-icon name="close-outline"></ion-icon>
@@ -94,7 +100,8 @@
         </div>
 
         <div (click)="banking()" class="col-lg-3 col-md-6 col-sm-6 pro_info">
-            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="banking_form ? 'activegreen' : ''">
+            <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4"
+                [ngClass]="banking_form ? 'activegreen' : ''">
                 <!-- <div *ngIf="detail_Obj.bank_profile_status!='1'" class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4" [ngClass]="banking_form ? 'activered' : ''">                 -->
                 <div class="card-body text-center">
 
@@ -151,9 +158,12 @@
                                                 <div class="col-md-10">
                                                     <label for="firstName">First Name<span class="error-msg"> *
                                                         </span></label>
-                                                    <input type="text" class="form-control" formControlName="first_name" placeholder="First Name">
-                                                    <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )" class="error-msg">
-                                                        <div [hidden]="!generalForm.controls['first_name'].errors.required">
+                                                    <input type="text" class="form-control" formControlName="first_name"
+                                                        placeholder="First Name">
+                                                    <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )"
+                                                        class="error-msg">
+                                                        <div
+                                                            [hidden]="!generalForm.controls['first_name'].errors.required">
                                                             First Name is required.</div>
                                                     </div>
                                                 </div>
@@ -161,9 +171,12 @@
                                         </div>
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Last">Last Name <span class="error-msg"> * </span></label>
-                                            <input type="text" class="form-control" formControlName="last_name" placeholder="Last Name">
-                                            <div *ngIf="generalForm.controls['last_name'].errors && (!generalForm.controls['last_name'].pristine || submitted ||generalForm.controls['last_name'].touched )" class="error-msg">
-                                                <div [hidden]="!generalForm.controls['last_name'].errors.required">Last Name is required.</div>
+                                            <input type="text" class="form-control" formControlName="last_name"
+                                                placeholder="Last Name">
+                                            <div *ngIf="generalForm.controls['last_name'].errors && (!generalForm.controls['last_name'].pristine || submitted ||generalForm.controls['last_name'].touched )"
+                                                class="error-msg">
+                                                <div [hidden]="!generalForm.controls['last_name'].errors.required">Last
+                                                    Name is required.</div>
                                             </div>
                                         </div>
 
@@ -172,12 +185,14 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Last">Nick Name</label>
-                                            <input type="text" class="form-control" formControlName="nick_name" placeholder="Nick Name">
+                                            <input type="text" class="form-control" formControlName="nick_name"
+                                                placeholder="Nick Name">
                                         </div>
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="email">Email <span class="error-msg"> * </span></label>
-                                            <input disabled="" type="text" class="form-control" formControlName="email" placeholder="Email">
+                                            <input disabled="" type="text" class="form-control" formControlName="email"
+                                                placeholder="Email">
                                         </div>
 
 
@@ -198,33 +213,43 @@
                                                 <div class="col-md-8">
                                                     <label for="MobileNo.">Mobile No. <span class="error-msg"> *
                                                         </span></label>
-                                                    <input type="text" mask="(000) 0000-00000000" class="form-control" formControlName="mobile" onkeypress="if(this.value.length==19) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Mobile">
+                                                    <input id="tel" phoneMask  [preValue]="generalForm.value.mobile"   [phoneControl]="generalForm.controls['mobile']"  class="form-control"
+                                                        formControlName="mobile"  maxlength="19" minlength="12"
+                                                        
+                                                        placeholder="Mobile">
                                                 </div>
+
+                                                <!--  Status: {{generalForm.get('mobile').status | json}} -->
                                             </div>
-                                            <div *ngIf=" generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )" class="error-msg">
+                                            <div *ngIf=" generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
+                                                class="error-msg">
                                                 <div [hidden]="!generalForm.controls['country_code'].errors.required">
-                                                    Country Code is required.</div>
+                                                  Country Code is required.</div>
                                             </div>
 
-                                            <div *ngIf="generalForm.controls['mobile'].errors && (!generalForm.controls['mobile'].pristine || submitted ||generalForm.controls['mobile'].touched )" class="error-msg">
-                                                <!--   <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile
-                                                    No. is required.</div> -->
-                                                <div *ngIf="generalForm.value.mobile.length < 8">Mobile No. should be 8 digits.
-                                                </div>
+                                            <div *ngIf="generalForm.controls['mobile'].errors && (!generalForm.controls['mobile'].pristine || submitted ||generalForm.controls['mobile'].touched )"
+                                                class="error-msg">
+                                                  <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile No. is required.</div> 
+
+                                                   <div [hidden]="generalForm.get('mobile').status == 'VALID'">Mobile No. should be in between 8 to 15 digits.</div>
+                                               
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Home Phone</label>
-                                            <input type="text" mask="(000) 0000-00000000" class="form-control" formControlName="international_phone_no" onkeypress="if(this.value.length==19) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                            <input phoneMask  [preValue]="generalForm.value.international_phone_no"   [phoneControl]="generalForm.controls['international_phone_no']" 
+maxlength="19" minlength="12"  id="tel1" class="form-control"
+                                                formControlName="international_phone_no"
+                                               
                                                 placeholder="Home Phone">
-                                            <div *ngIf="(!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )" class="error-msg">
+                                            <div *ngIf="(!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )"
+                                                class="error-msg">
                                                 <!-- <div
                                                     [hidden]="!generalForm.controls['international_phone_no'].errors.required">
                                                     Home Phone No. is required.</div> -->
                                                 <!-- <div [hidden]="!generalForm.controls['international_phone_no'].errors.minlength">Home Phone No. should be 8 digits.</div> -->
-                                                <div *ngIf="generalForm.value.international_phone_no.length < 8 && generalForm.value.international_phone_no.length > 0">
-                                                    Home Phone No. should be 8 digits.</div>
+                                                 <div [hidden]="generalForm.get('international_phone_no').status == 'VALID'">Phone No. should be in between 8 to 15 digits.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +259,18 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Address">Address <span class="error-msg"> * </span></label>
-                                            <input type="text" class="form-control" formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                                            <input type="text" class="form-control" formControlName="address"
+                                                (keydown.enter)="$event.preventDefault()"
+                                                placeholder="Search Nearest Location" autocorrect="off"
+                                                autocapitalize="off" spellcheck="off" type="text" #search>
+
+                                               <div *ngIf="generalForm.controls['address'].errors && (!generalForm.controls['address'].pristine || submitted ||generalForm.controls['address'].touched )"
+                                                class="error-msg">
+                                                <div [hidden]="!generalForm.controls['address'].errors.required">Address
+                                                    is required.</div>
+                                            </div>
+                                               
+
                                         </div>
 
 
@@ -264,12 +300,29 @@
                                                         placeholder="SSN" formControlName="ssn">
                                                 </label>
                                             </div>
-                                            <!-- <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )"
+                                            <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )"
                                                 class="error-msg">
                                                 <div
                                                     [hidden]="!generalForm.controls['social_security_no'].errors.required">
                                                     SSN/EIN is required.</div>
-                                            </div> -->
+                                                
+                                            </div>
+
+                                              <div *ngIf="generalForm.controls['ssn'].errors && (!generalForm.controls['ssn'].pristine || submitted ||generalForm.controls['ssn'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!generalForm.controls['ssn'].errors.minlength">
+                                                    SSN number should be 9 digits.</div>
+                                                
+                                            </div>
+
+                                              <div *ngIf="generalForm.controls['ein'].errors && (!generalForm.controls['ein'].pristine || submitted ||generalForm.controls['ein'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!generalForm.controls['ein'].errors.minlength">
+                                                    EIN number should be 9 digits.</div>
+                                                
+                                            </div>
                                         </div>
 
                                     </div>
@@ -280,7 +333,8 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Country">Country</label>
-                                            <select class="form-control" (click)="onCountryChange($event)" formControlName="country">
+                                            <select class="form-control" (click)="onCountryChange($event)"
+                                                formControlName="country">
                                                 <option value="" selected disabled>Country</option>
                                                 <option *ngFor="let isd of country_Obj; let i = index" [value]="isd.id">
                                                     {{isd?.name}}
@@ -294,7 +348,8 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="State">State</label>
-                                            <select class="form-control" (change)="onStateChange($event)" formControlName="state">
+                                            <select class="form-control" (change)="onStateChange($event)"
+                                                formControlName="state">
                                                 <option value="" selected disabled>State</option>
                                                 <option *ngFor="let isd of state_Obj; let j = index" [value]="isd.id">
                                                     {{isd?.name}}
@@ -310,7 +365,8 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="City">City</label>
-                                            <select class="form-control" (change)="onCityChange($event)" formControlName="city">
+                                            <select class="form-control" (change)="onCityChange($event)"
+                                                formControlName="city">
                                                 <option value="" selected disabled>City</option>
                                                 <option *ngFor="let isd of city_Obj; let k = index" [value]="isd.id">
                                                     {{isd?.name}}
@@ -324,12 +380,14 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="State">Zip Code</label>
-                                            <input type="text" class="form-control" onkeypress="if(this.value.length==25) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " formControlName="zipCode" placeholder="State">
-                                            <!-- <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )"
+                                            <input type="text" class="form-control"
+                                                onkeypress="if(this.value.length==25) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                                formControlName="zipCode" placeholder="State">
+                                            <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['zipCode'].errors.required">ZipCode
                                                     is required.</div>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
 
@@ -343,6 +401,9 @@
                                                     {{isd}}
                                                 </option>
                                             </select>
+                                             <div *ngIf="generalForm.controls['timezone'].errors && (!generalForm.controls['timezone'].pristine || submitted ||generalForm.controls['timezone'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['timezone'].errors.required">Timezone is required.</div> 
+                                                  </div>
                                             <!-- <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
                                                 <div *ngIf="generalForm.controls['timezone'].errors && (!generalForm.controls['timezone'].pristine || submitted ||generalForm.controls['timezone'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['timezone'].errors.required">Timezone is required.</div> 
@@ -351,12 +412,13 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Company Name</label>
-                                            <input type="text" class="form-control" formControlName="company_name" placeholder="Company Name">
-                                            <!-- <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )"
+                                            <input type="text" class="form-control" formControlName="company_name"
+                                                placeholder="Company Name">
+                                            <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['company_name'].errors.required">
                                                     Company Name is required.</div>
-                                            </div> -->
+                                            </div>
                                         </div>
 
                                     </div>
@@ -364,9 +426,12 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="dob">Date Of Birth <span class="error-msg"> * </span></label>
-                                            <input type="date" class="form-control" formControlName="dob" (change)="check_dob($event.target.value)" placeholder="Date Of Birth">
-                                            <div *ngIf="generalForm.controls['dob'].errors && (!generalForm.controls['dob'].pristine || submitted ||generalForm.controls['dob'].touched )" class="error-msg">
-                                                <div [hidden]="!generalForm.controls['dob'].errors.required">Date Of Birth is required.</div>
+                                            <input type="date" class="form-control" formControlName="dob"
+                                                (change)="check_dob($event.target.value)" placeholder="Date Of Birth">
+                                            <div *ngIf="generalForm.controls['dob'].errors && (!generalForm.controls['dob'].pristine || submitted ||generalForm.controls['dob'].touched )"
+                                                class="error-msg">
+                                                <div [hidden]="!generalForm.controls['dob'].errors.required">Date Of
+                                                    Birth is required.</div>
                                             </div>
                                         </div>
 
@@ -411,7 +476,8 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Notes</label>
-                                            <textarea type="text" class="form-control" formControlName="notes" placeholder="Notes">
+                                            <textarea type="text" class="form-control" formControlName="notes"
+                                                placeholder="Notes">
                                                 </textarea>
                                         </div>
                                     </div>
@@ -419,7 +485,8 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-12">
-                                            <button type="button" (click)="updateInterpreter()" class="btn btn-primary">Update</button>
+                                            <button type="button" (click)="updateInterpreter()"
+                                                class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -452,7 +519,8 @@
                                                 <!--  <select class="form-control">
                                                 <option value="">Select Language</option>
                                             </select> -->
-                                                <select class="form-control" (change)="onChange($event)" formControlName="primary_language">
+                                                <select class="form-control" (change)="onChange($event)"
+                                                    formControlName="primary_language">
                                                     <option value="">Select Language</option>
                                                     <option *ngFor="let lan of language_Obj" [value]="lan.id">
                                                         {{lan.name}}
@@ -464,8 +532,13 @@
                                                 <!--   <select class="form-control">
                                                 <option value="">Select Language</option>
                                             </select> -->
-                                                <tag-input [formControl]="tagsCtrl2" class="new_sec" formControlName="secondary_language" [identifyBy]="'id'" [displayBy]="'name'" (onSelect)="onSelect($event)" theme="primary" placeholder="Secondary Language">
-                                                    <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="language_Obj" displayBy="name" identifyBy="id">
+                                                <tag-input [formControl]="tagsCtrl2" class="new_sec"
+                                                    formControlName="secondary_language" [identifyBy]="'id'"
+                                                    [displayBy]="'name'" (onSelect)="onSelect($event)" theme="primary"
+                                                    placeholder="Secondary Language">
+                                                    <tag-input-dropdown [focusFirstElement]="true"
+                                                        [autocompleteItems]="language_Obj" displayBy="name"
+                                                        identifyBy="id">
                                                     </tag-input-dropdown>
                                                 </tag-input>
                                             </div>
@@ -490,9 +563,7 @@
                                                     value=" On Site"><span class="checkmark"></span>
                                             </label>
                                             <div class="ul-widget2__info"><a class="ul-widget2__title">Community
-                                                    Interpreting </a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                                    Interpreting </a><a class="ul-widget2__username"></a></div>
                                         </div>
                                     </div>
                                     <div class="ul-widget1">
@@ -504,9 +575,7 @@
                                                     value="OPI"><span class="checkmark"></span>
                                             </label>
                                             <div class="ul-widget2__info"><a class="ul-widget2__title">Conference
-                                                    Interpreter</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                                    Interpreter</a><a class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -519,9 +588,7 @@
                                                     name="vehicle1" value="VRI"><span class="checkmark"></span>
                                             </label>
                                             <div class="ul-widget2__info"><a class="ul-widget2__title">Court
-                                                    Certified</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                                    Certified</a><a class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -535,9 +602,7 @@
                                                     name="vehicle1" value="VCI"><span class="checkmark"></span>
                                             </label>
                                             <div class="ul-widget2__info"><a class="ul-widget2__title">Court
-                                                    Credentialed</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                                    Credentialed</a><a class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -552,9 +617,7 @@
                                                     value="1"><span class="checkmark"></span>
                                             </label>
                                             <div class="ul-widget2__info"><a class="ul-widget2__title">Equipment
-                                                    Qualified</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                                    Qualified</a><a class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -566,9 +629,8 @@
                                                     (change)="setCheck($event,'6')" id="legal" name="vehicle1"
                                                     value="ASL"><span class="checkmark"></span>
                                             </label>
-                                            <div class="ul-widget2__info"><a class="ul-widget2__title">Legal</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                            <div class="ul-widget2__info"><a class="ul-widget2__title">Legal</a><a
+                                                    class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -580,9 +642,9 @@
                                                     id="simultaneous" (change)="setCheck($event,'7')" name="vehicle1"
                                                     value="ASL"><span class="checkmark"></span>
                                             </label>
-                                            <div class="ul-widget2__info"><a class="ul-widget2__title">Simultaneous</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                            <div class="ul-widget2__info"><a
+                                                    class="ul-widget2__title">Simultaneous</a><a
+                                                    class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -595,9 +657,8 @@
                                                     id="other" name="vehicle1" value="ASL"><span
                                                     class="checkmark"></span>
                                             </label>
-                                            <div class="ul-widget2__info"><a class="ul-widget2__title">Other</a>
-                                                <a class="ul-widget2__username"></a>
-                                            </div>
+                                            <div class="ul-widget2__info"><a class="ul-widget2__title">Other</a><a
+                                                    class="ul-widget2__username"></a></div>
 
                                         </div>
                                     </div>
@@ -618,31 +679,45 @@
 
                                                 <div class="form-group">
                                                     <label for="image">Community Interpreting</label>
-                                                    <input type="file" multiple="multiple" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="community_doc" (change)="onSingleFileChange($event,'community_doc','1')" style="font-size: 10px;">
-                                                    <div class="form-group mb-0" *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
+                                                    <input type="file" multiple="multiple" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="community_doc"
+                                                        (change)="onSingleFileChange($event,'community_doc','1')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="communityinter && detail_Obj?.skillsCommunityDoc!=''">
+                                                        <div
+                                                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
                                                             <div class="row imgblock">
-                                                                <div *ngFor="let url of doc;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-
-                                                                    <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeImage(i,'1')"></i>
-                                                                    <img *ngIf="url.doc_type == 'community_doc' && url.types == '1' && i<=2" [src]="url.img_url" style="width:100%; height:100%;">
+                                                                <div *ngFor="let url of doc;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                   
+                                                                    <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                        (click)="removeImage(i,'1')"></i>
+                                                                    <img *ngIf="url.doc_type == 'community_doc' && url.types == '1' && i<=2"
+                                                                        [src]="url.img_url"
+                                                                        style="width:100%; height:100%;">
                                                                 </div>
+                                                               
 
-
-                                                                <!-- edit section start dev 25-02-21 -->
-                                                                <div *ngFor="let url of CommunityInterpretingArr;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-
-                                                                    <i *ngIf="doc.length == 0 ? i <= 2 : ''" class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
+                                                                    <!-- edit section start dev 25-02-21 -->
+                                                                    <div *ngFor="let url of CommunityInterpretingArr;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                   
+                                                                    <i *ngIf="doc.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                        (click)="removeUpdateImage(url)"></i>
                                                                     <img (click)="openFile(url.doc_name)" [src]="url.fileurl" *ngIf="url.doc_type == 'community_doc' && url.type == '1' && doc.length == 0 ? i <= 2 : ''" style="width:100%; height:100%;">
 
-                                                                    <i *ngIf="doc.length == 1 ? i <= 2 :'' " class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
+                                                                    <i *ngIf="doc.length == 1 ? i <= 2 :'' " class="fas fa-times timenew"
+                                                                        (click)="removeUpdateImage(url)"></i>
                                                                     <img (click)="openFile(url.doc_name)" [src]="url.fileurl" *ngIf="url.doc_type == 'community_doc' && url.type == '1' && doc.length == 1 ? i <= 1 : ''" style="width:100%; height:100%;">
 
-
+                                                                    
                                                                 </div>
-                                                                <button *ngIf=" showViewBtn ||CommunityInterpretingArr.length > 0 " type="button" class="btn btn-primary btnview" (click)="imgview(detail_Obj?.skillsCommunityDoc,viewImgConfirmModal,'1')">View</button>
+                                                                <button *ngIf=" showViewBtn ||CommunityInterpretingArr.length > 0 " type="button"
+                                                                    class="btn btn-primary btnview"
+                                                                    (click)="imgview(detail_Obj?.skillsCommunityDoc,viewImgConfirmModal,'1')">View</button>
 
-                                                                <!-- edit section start dev 25-02-21 -->
+                                                                    <!-- edit section start dev 25-02-21 -->
 
 
 
@@ -666,28 +741,48 @@
 
                                                 <div class="form-group mb-3">
                                                     <label for="image">Conference Interpreter</label>
-                                                    <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="conference_doc" (change)="onSingleFileChange($event,'conference_doc','2')" style="font-size: 10px;">
-                                                    <div class="form-group mb-0" *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="conference_doc"
+                                                        (change)="onSingleFileChange($event,'conference_doc','2')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="conferenceinter && detail_Obj?.skillsConferenceDoc!=''">
+                                                        <div
+                                                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
                                                             <div class="row imgblock">
-                                                                <div *ngFor="let url of doc2;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-
-                                                                    <div *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2'">
-                                                                        <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeImage(i,'2')"></i>
-                                                                        <img *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2' &&  i<=2" [src]="url.img_url" style="width:100%; height:100%;">
+                                                                <div *ngFor="let url of doc2;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                    
+                                                                    <div
+                                                                        *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2'">
+                                                                        <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                            (click)="removeImage(i,'2')"></i>
+                                                                        <img *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2' &&  i<=2"
+                                                                            [src]="url.img_url"
+                                                                            style="width:100%; height:100%;">
                                                                     </div>
                                                                 </div>
 
-                                                                <div *ngFor="let url of ConferenceArr;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                    <div *ngIf="url.doc_type == 'conference_doc' && url.type == '2'">
-                                                                        <i *ngIf="doc2.length == 0 ? i <= 2 : ''" class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
-                                                                        <img *ngIf="url.doc_type == 'conference_doc' && url.type == '2' &&  doc2.length == 0 ? i <= 2 : ''" (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                                                                 <div *ngFor="let url of ConferenceArr;let i=index"
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                   <div
+                                                                        *ngIf="url.doc_type == 'conference_doc' && url.type == '2'">
+                                                                        <i *ngIf="doc2.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                             (click)="removeUpdateImage(url)"></i>
+                                                                        <img *ngIf="url.doc_type == 'conference_doc' && url.type == '2' &&  doc2.length == 0 ? i <= 2 : ''"
+                                                                            (click)="openFile(url.doc_name)" [src]="url.fileurl" 
+                                                                            style="width:100%; height:100%;">
 
-                                                                        <i *ngIf="doc.length == 1 ? i <= 1 : ''" class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
-                                                                        <img *ngIf="url.doc_type == 'conference_doc' && url.type == '2' &&  doc2.length == 1 ? i <= 1 : ''" (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                                                                            <i *ngIf="doc.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                             (click)="removeUpdateImage(url)"></i>
+                                                                        <img *ngIf="url.doc_type == 'conference_doc' && url.type == '2' &&  doc2.length == 1 ? i <= 1 : ''"
+                                                                            (click)="openFile(url.doc_name)" [src]="url.fileurl" 
+                                                                            style="width:100%; height:100%;">
                                                                     </div>
                                                                 </div>
-                                                                <button *ngIf="showViewBtn || ConferenceArr.length > 0" type="button" class="btn btn-primary btnview" (click)="imgview(detail_Obj?.skillsConferenceDoc,viewImgConfirmModal,'2')">View</button>
+                                                                <button *ngIf="showViewBtn || ConferenceArr.length > 0" type="button"
+                                                                    class="btn btn-primary btnview"
+                                                                    (click)="imgview(detail_Obj?.skillsConferenceDoc,viewImgConfirmModal,'2')">View</button>
 
                                                             </div>
                                                         </div>
@@ -712,26 +807,43 @@
 
                                                 <div class="form-group" *ngIf="court_open">
                                                     <label for="image">Court Certified</label>
-                                                    <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="court_doc" (change)="onSingleFileChange($event,'court_doc','3')" style="font-size: 10px;">
-                                                    <div class="form-group mb-0" *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
-                                                        <div class="row imgblock">
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="court_doc"
+                                                        (change)="onSingleFileChange($event,'court_doc','3')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="court_open && detail_Obj?.skillsCourtDoc!=''">
+                                                       <div  class="row imgblock">
+                                                           
+                                                        <div *ngFor="let url3 of doc3;let z=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="z <= 2" class="fas fa-times timenew"
+                                                                (click)="removeImage(z,'3')"></i>
+                                                            <img *ngIf="url3.doc_type3 == 'court_doc' && url3.types3 == '3' && z<=2"
+                                                                [src]="url3.img_url" style="width:100%; height:100%;">
+                                                        </div>
 
-                                                            <div *ngFor="let url3 of doc3;let z=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-
-                                                                <i *ngIf="z <= 2" class="fas fa-times timenew" (click)="removeImage(z,'3')"></i>
-                                                                <img *ngIf="url3.doc_type3 == 'court_doc' && url3.types3 == '3' && z<=2" [src]="url3.img_url" style="width:100%; height:100%;">
-                                                            </div>
-
-                                                            <div *ngFor="let url of CourtCertified;let z=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-
-                                                                <i *ngIf="z <= 2" class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
-                                                                <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && z<=2" (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
-                                                            </div>
-
-
-                                                            <button *ngIf="showViewBtn || CourtCertified.length > 0" type="button" class="btn btn-primary btnview" (click)="imgview(detail_Obj?.skillsCourtDoc,viewImgConfirmModal,'3')">View</button>
+                                                        <div *ngFor="let url of CourtCertified;let z=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="doc3.length == 0 ? z <= 2 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && doc3.length == 0 ? z <= 2 : ''"
+                                                                (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                                                            <i *ngIf="doc3.length == 1 ? z <= 1 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && doc3.length == 1 ? z <= 1 : ''"
+                                                                (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
 
                                                         </div>
+
+
+                                                        <button *ngIf="showViewBtn || CourtCertified.length > 0" type="button"
+                                                        class="btn btn-primary btnview"
+                                                        (click)="imgview(detail_Obj?.skillsCourtDoc,viewImgConfirmModal,'3')">View</button>
+                                                      
+                                                       </div>
                                                     </div>
                                                 </div>
 
@@ -744,23 +856,43 @@
 
                                                 <div class="form-group">
                                                     <label for="image">Court Credentialed</label>
-                                                    <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="credential_doc" (change)="onSingleFileChange($event,'credential_doc','4')" style="font-size: 10px;">
-                                                    <div class="form-group mb-0" *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
-                                                        <div class="row imgblock">
-                                                            <div *ngFor="let url4 of doc4;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeImage(i,'4')"></i>
-                                                                <img *ngIf="url4.doc_type4 == 'credential_doc' && url4.types4 == '4' && i<=2" [src]="url4.img_url" style="width:100%; height:100%;">
-                                                            </div>
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="credential_doc"
+                                                        (change)="onSingleFileChange($event,'credential_doc','4')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
+                                                        <div  class="row imgblock">
+                                                        <div *ngFor="let url4 of doc4;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeImage(i,'4')"></i>
+                                                            <img *ngIf="url4.doc_type4 == 'credential_doc' && url4.types4 == '4' && i<=2"
+                                                                [src]="url4.img_url" style="width:100%; height:100%;">
+                                                        </div>
 
-                                                            <div *ngFor="let url4 of CourtCredentialed;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
-                                                                <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && i<=2" (click)="openFile(url4.doc_name)" [src]="url4.fileurl" style="width:100%; height:100%;">
-                                                            </div>
+                                                        <div *ngFor="let url4 of CourtCredentialed;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                             
+                                                             <i *ngIf=" doc4.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                 (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && doc4.length == 0 ? i <= 2 : ''"
+                                                               (click)="openFile(url4.doc_name)" [src]="url4.fileurl" style="width:100%; height:100%;">
 
+                                                            <i *ngIf="doc4.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                 (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && doc4.length == 1 ? i <= 1 : ''"
+                                                               (click)="openFile(url4.doc_name)" [src]="url4.fileurl" style="width:100%; height:100%;">
 
-                                                            <button *ngIf="showViewBtn" type="button" class="btn btn-primary btnview" (click)="imgview(detail_Obj?.skillsCredentialDoc,viewImgConfirmModal,'4')">View</button>
 
                                                         </div>
+
+                                                        
+                                                            <button *ngIf="showViewBtn" type="button"
+                                                           class="btn btn-primary btnview"
+                                                            (click)="imgview(detail_Obj?.skillsCredentialDoc,viewImgConfirmModal,'4')">View</button>
+                                                            
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -773,23 +905,42 @@
 
                                                 <div class="form-group">
                                                     <label for="image">Equipment Qualified</label>
-                                                    <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="equipment_doc" (change)="onSingleFileChange($event,'equipment_doc','5')" style="font-size: 10px;">
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="equipment_doc"
+                                                        (change)="onSingleFileChange($event,'equipment_doc','5')"
+                                                        style="font-size: 10px;">
+                                                    
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
+                                                       
+                                                             <div  class="row imgblock">
+                                                        <div *ngFor="let url5 of doc5;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeImage(i,'5')"></i>
+                                                            <img *ngIf="url5.doc_type5 == 'equipment_doc' && url5.types5 == '5' && i<=2"
+                                                                [src]="url5.img_url" style="width:100%; height:100%;">
+                                                        </div> 
 
-                                                    <div class="form-group mb-0" *ngIf="equipment_open && detail_Obj?.skillsEquipmentDoc!=''">
+                                                        <div *ngFor="let url5 of EquipmentQualified;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            <i *ngIf="doc5.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url5)"></i>
+                                                            <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && doc5.length == 0 ? i <= 2 : ''"
+                                                                (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
 
-                                                        <div class="row imgblock">
-                                                            <div *ngFor="let url5 of doc5;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeImage(i,'5')"></i>
-                                                                <img *ngIf="url5.doc_type5 == 'equipment_doc' && url5.types5 == '5' && i<=2" [src]="url5.img_url" style="width:100%; height:100%;">
-                                                            </div>
+                                                            <i *ngIf="doc5.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url5)"></i>
+                                                            <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && doc5.length == 1 ? i <= 1 : ''"
+                                                                (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
 
-                                                            <div *ngFor="let url5 of EquipmentQualified;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                                <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeUpdateImage(url5)"></i>
-                                                                <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && i<=2" (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
-                                                            </div>
-                                                            <button *ngIf="showViewBtn || EquipmentQualified.length > 0" type="button" class="btn btn-primary btnview" (click)="imgview(detail_Obj?.skillsEquipmentDoc,viewImgConfirmModal,'5')">View</button>
+
                                                         </div>
-
+                                                        <button *ngIf="showViewBtn || EquipmentQualified.length > 0" type="button"
+                                                        class="btn btn-primary btnview"
+                                                        (click)="imgview(detail_Obj?.skillsEquipmentDoc,viewImgConfirmModal,'5')">View</button>
+                                                    </div>
+                                                       
                                                     </div>
 
                                                 </div>
@@ -804,65 +955,211 @@
 
                                                 <div class="form-group">
                                                     <label for="image">Legal</label>
-                                                    <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="legal_doc" (change)="onSingleFileChange($event,'legal_doc','6')" style="font-size: 10px;">
-                                                    <div class="form-group mb-0" *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="legal_doc"
+                                                        (change)="onSingleFileChange($event,'legal_doc','6')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="legal_open && detail_Obj?.skillsLegalDoc!=''">
+                                                          <div  class="row imgblock">
 
-
-                                                        <div *ngFor="let url6 of doc6;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeImage(i,'6')"></i>
-                                                            <img *ngIf="url6.doc_type6 == 'legal_doc' && url6.types6 == '6' && i<=2" [src]="url6.img_url" style="width:100%; height:100%;">
+                                                            <div *ngFor="let url6 of doc6;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeImage(i,'6')"></i>
+                                                            <img *ngIf="url6.doc_type6 == 'legal_doc' && url6.types6 == '6' && i<=2"
+                                                                [src]="url6.img_url" style="width:100%; height:100%;">
                                                         </div>
 
-                                                        <div *ngFor="let url6 of Legal;let i=index" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                         <div *ngFor="let url6 of Legal;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="doc6.length == 0 ? i <= 2 : '' " class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'legal_doc' && url6.type == '6' && doc6.length == 0 ? i <= 2 : '' "
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
 
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
-                                                            <img *ngIf="url6.doc_type6 == 'legal_doc' && url6.types6 == '6' && i<=2" (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+                                                            <i *ngIf="doc6.length == 1 ? i <= 1 : '' " class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'legal_doc' && url6.type == '6' && doc6.length == 1 ? i <= 1 : '' "
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                                                         </div>
 
 
-                                                        <button *ngIf="showViewBtn || Legal.length > 0" type="button" class="btn btn-primary btnview" (click)="imgview(detail_Obj?.skillsLegalDoc,viewImgConfirmModal,'6')">View</button>
-
+                                                        <button *ngIf="showViewBtn || Legal.length > 0" type="button"
+                                                        class="btn btn-primary btnview"
+                                                        (click)="imgview(detail_Obj?.skillsLegalDoc,viewImgConfirmModal,'6')">View</button>
+                                                        
+                                                        </div>
                                                     </div>
                                                 </div>
 
 
                                             </div>
                                         </div>
-                                        <div *ngIf="simult_open" class="col-lg-12">
+
+                                         <div *ngIf="simult_open" class="col-lg-12">
+                                            <div class="card image-thumb-card p-2 form-group">
+
+
+                                                <div class="form-group">
+                                                    <label for="image">Simultaneous</label>
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
+                                                        (change)="onSingleFileChange($event,'simultaneous_doc','7')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
+                                                          <div  class="row imgblock">
+
+                                                            <div *ngFor="let url6 of doc7;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeImage(i,'7')"></i>
+                                                            <img *ngIf="url6.doc_type7 == 'simultaneous_doc' && url6.types7 == '7' && i<=2"
+                                                                [src]="url6.img_url" style="width:100%; height:100%;">
+                                                        </div>
+
+                                                         <div *ngFor="let url6 of SimultaneousDoc;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                           
+
+                                                            <i *ngIf="doc7.length == 0 ? i <= 2 :''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'simultaneous_doc' && url6.type == '7' && doc7.length == 0 ? i <= 2 :''"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+                                                             <i *ngIf="doc7.length == 1 ? i <= 1 :''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'simultaneous_doc' && url6.type == '7' && doc7.length == 1 ? i <= 1 :''"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+                                                        </div>
+
+
+                                                        <button *ngIf="showViewBtn || SimultaneousDoc.length > 0" type="button"
+                                                        class="btn btn-primary btnview"
+                                                        (click)="imgview(detail_Obj?.skillsLegalDoc,viewImgConfirmModal,'7')">View</button>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <!-- <div *ngIf="simult_open" class="col-lg-12">
                                             <div class="card image-thumb-card p-2 form-group">
                                                 <div class="form-group">
                                                     <label for="image">Simultaneous</label>
-                                                    <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="simultaneous_doc" (change)="onSingleFileChange($event,'simultaneous_doc','7')" style="font-size: 10px;">
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="simultaneous_doc"
+                                                        (change)="onSingleFileChange($event,'simultaneous_doc','7')"
+                                                        style="font-size: 10px;">
 
-                                                    <div class="form-group mb-0" *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillSimultOpen}}" -->
-                                                        <img src="{{detail_Obj?.skillSimultOpen.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillSimultOpen}}" style="width:100%; height:90px;">
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillSimultOpen)" class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="simult_open && detail_Obj?.skillSimultOpen!=''">
+                                                        <img src="{{detail_Obj?.skillSimultOpen.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillSimultOpen}}"
+                                                            style="width:100%; height:90px;">
+                                                        <button type="button"
+                                                            (click)="imgview(detail_Obj?.skillSimultOpen)"
+                                                            class="btn btn-primary mr-2"
+                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
                                                             <i class="i-Eye" style="display: block;"></i>
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div> -->
+
+
+
+
+                                            <div *ngIf="other_open" class="col-lg-12">
+                                            <div class="card image-thumb-card p-2 form-group">
+
+
+                                                <div class="form-group">
+                                                    <label for="image">Other</label>
+                                                    <input multiple="multiple" type="file" class="form-control mb-2"
+                                                        accept=".png, .jpg, .pdf" formControlName="other_title"
+                                                        (change)="onSingleFileChange($event,'other_doc','8')"
+                                                        style="font-size: 10px;">
+                                                    <div class="form-group mb-0"
+                                                         *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
+                                                          <div  class="row imgblock">
+
+                                                            <div *ngFor="let url6 of doc8;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                                (click)="removeImage(i,'8')"></i>
+                                                            <img *ngIf="url6.doc_type8 == 'other_doc' && url6.types8 == '8' && i<=2"
+                                                                [src]="url6.img_url" style="width:100%; height:100%;">
+                                                        </div>
+
+                                                         <div *ngFor="let url6 of OtherDoc;let i=index"
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            
+                                                            <i *ngIf="doc8.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'other_doc' && url6.type == '8' && doc8.length == 0 ? i <= 2 : ''"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+                                                             <i *ngIf="doc8.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'other_doc' && url6.type == '8' && doc8.length == 1 ? i <= 1 : ''"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+
+                                                        </div>
+
+
+                                                        <button *ngIf="showViewBtn || OtherDoc.length > 0" type="button"
+                                                        class="btn btn-primary btnview"
+                                                        (click)="imgview(detail_Obj?.skillsLegalDoc,viewImgConfirmModal,'8')">View</button>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
                                         </div>
-                                        <div *ngIf="other_open" class="col-lg-12">
+
+
+
+                                        <!-- <div *ngIf="other_open" class="col-lg-12">
                                             <div class="card image-thumb-card p-2 form-group">
                                                 <div>
                                                     <div class="form-group">
                                                         <label for="image">Other</label>
-                                                        <input type="text" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="other_title" style="font-size: 10px;">
+                                                        <input type="text" class="form-control mb-2"
+                                                            accept=".png, .jpg, .pdf" formControlName="other_title"
+                                                            style="font-size: 10px;">
                                                     </div>
 
 
                                                     <div class="form-group">
                                                         <label for="image">Other</label>
-                                                        <input multiple="multiple" type="file" class="form-control mb-2" accept=".png, .jpg, .pdf" formControlName="other_doc" (change)="onSingleFileChange($event,'other_doc','8')" style="font-size: 10px;">
+                                                        <input multiple="multiple" type="file" class="form-control mb-2"
+                                                            accept=".png, .jpg, .pdf" formControlName="other_doc"
+                                                            (change)="onSingleFileChange($event,'other_doc','8')"
+                                                            style="font-size: 10px;">
                                                     </div>
 
-                                                    <div class="form-group mb-0" *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" -->
-                                                        <img src="{{detail_Obj?.skillsOtherDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)" class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                    <div class="form-group mb-0"
+                                                        *ngIf="other_open && detail_Obj?.skillsOtherDoc!=''">
+                                                        <img src="{{detail_Obj?.skillsOtherDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsOtherDoc}}"
+                                                            style="width:100%; height:90px;">
+                                                        <button type="button"
+                                                            (click)="imgview(detail_Obj?.skillsOtherDoc)"
+                                                            class="btn btn-primary mr-2"
+                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
                                                             <i class="i-Eye" style="display: block;"></i>
                                                         </button>
                                                     </div>
@@ -870,7 +1167,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''" class="col-lg-12">
+                                        <div *ngIf="other_open && detail_Obj?.skillsOtherDocTitle!='' && detail_Obj?.skillsOtherDoc!=''"
+                                            class="col-lg-12">
                                             <div class="card image-thumb-card p-2 form-group">
                                                 <div>
                                                     <div class="form-group mb-3">
@@ -879,15 +1177,19 @@
 
 
                                                     <div class="form-group mb-0">
-                                                        <!-- <img src="{{documentUrl}}{{detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;"> -->
-                                                        <img src="{{detail_Obj?.skillsOtherDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsOtherDoc}}" style="width:100%; height:90px;">
-                                                        <button type="button" (click)="imgview(detail_Obj?.skillsOtherDoc)" class="btn btn-primary mr-2" style="position: absolute;right: 0;margin: 8px 0 0 0;">
+                                                       
+                                                        <img src="{{detail_Obj?.skillsOtherDoc.includes('.pdf') ? './assets/images/pdf.png' :  documentUrl+detail_Obj?.skillsOtherDoc}}"
+                                                            style="width:100%; height:90px;">
+                                                        <button type="button"
+                                                            (click)="imgview(detail_Obj?.skillsOtherDoc)"
+                                                            class="btn btn-primary mr-2"
+                                                            style="position: absolute;right: 0;margin: 8px 0 0 0;">
                                                             <i class="i-Eye" style="display: block;"></i>
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -906,26 +1208,26 @@
                                                         id="on-site" (change)="assignmentFormCheck($event,platform.id)"
                                                         name="on-site" value="On-Site"><span class="checkmark"></span>
                                                 </label>
-                                                <div class="ul-widget2__info"><a class="ul-widget2__title">{{platform.platform}}</a>
-                                                    <a class="ul-widget2__username"></a>
-                                                </div>
+                                                <div class="ul-widget2__info"><a class="ul-widget2__title">{{platform.platform}}</a><a
+                                                        class="ul-widget2__username"></a></div>
                                             </div>
                                         </div>
-
+                                      
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 mt-3 text-right">
-                            <button type="button" (click)="uploadDocuments();" class="btn btn-primary">Save</button>
+                            <button type="button" (click)="uploadDocuments();"
+                                class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </form>
             </div>
 
 
-
+           
 
         </div>
         <!-- skills form end -->
@@ -939,81 +1241,90 @@
 
 
                     <form [formGroup]="secondFormGroup">
-                        <ngb-accordion [activeIds]="activeId" (panelChange)="toggleAccordian($event)" formArrayName="arr" *ngFor="let a of secondFormGroup.get('arr').controls; let i = index" #acc="ngbAccordion">
+                      <ngb-accordion [activeIds]="activeId"  (panelChange)="toggleAccordian($event)" formArrayName="arr" *ngFor="let a of secondFormGroup.get('arr').controls; let i = index"   #acc="ngbAccordion">
 
-                            <ngb-panel id="ngb-panel-{{i}}">
-                                <ng-template ngbPanelTitle>
-                                    <div (click)="selectFormPlatform(a)" style="width: 100%;height: 100%;">
+                                <ngb-panel id="ngb-panel-{{i}}" >
+                                    <ng-template ngbPanelTitle>
+                                        <div  (click)="selectFormPlatform(a)" style="width: 100%;height: 100%;">
+                                            
 
-
-                                        <span>{{a.value.name}}</span>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent>
-                                    <div [formGroupName]="i">
-
-
-
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h5>{{a.value.name}} :
-
-                                                    <button id="btn_id_vci_opi_{{lan.id}}" *ngFor="let lan of UserLangData;" (click)="selectLanguage(lan.id,a);" value="{{lan.id}}" class=" {{ languageId == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}" type="button">{{lan.name}}</button>
-
-
-
-
-
-                                                </h5>
-                                            </div>
+                                        <span >{{a.value.name}}</span>
                                         </div>
-                                        <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
-                                            <label>Travel Time</label><input checked="" (click)="showTravelTime(true)" type="radio" name="stepone"><span>Yes</span>
-                                            <input (click)="showTravelTime(false)" type="radio" name="stepone"><span>No</span>
-                                        </div>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
+                                 <div [formGroupName]="i" >
+                            
+                                   
+                                             
 
-                                        <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
-                                            <label>Mileage</label>
-                                            <input checked="" style="margin-left: 3%;" (click)="showMileageTime(true)" type="radio" name="stepone1"><span>Yes</span>
-                                            <input (click)="showMileageTime(false)" type="radio" name="stepone1"><span>No</span>
-                                        </div>
-                                        <form [formGroup]="secondFormGroup1">
-                                            <div formArrayName="arr" class="row nomargin" *ngFor="let aa of secondFormGroup1.get('arr').controls;let j = index">
-                                                <div class="row row100" [formGroupName]="j">
-                                                    <!--  <div class="col-md-12 p-0"> -->
+                                             <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h5>{{a.value.name}} :
+                                                            
+                                                            <button id="btn_id_vci_opi_{{lan.id}}"
+                                                                *ngFor="let lan of UserLangData;"
+                                                                (click)="selectLanguage(lan.id,a);"
+                                                                value="{{lan.id}}"
+                                                                class=" {{ languageId == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
+                                                                type="button">{{lan.name}}</button>
+
+                                                                 
 
 
-                                                    <!-- <div class="col-md-3 mb-2"> -->
-                                                    <div [ngClass]="showTravelTime == true || showMileageCheck == true  ? 'col-md-2 mb-2': 'col-md-3 mb-2'">
-                                                        <label *ngIf="j == 0" for="min_paid">Specialization</label>
-                                                        <input disabled="" class="form-control" type="text" value="{{aa.value.lobname}}">
-                                                        <!-- <select 
+
+                                                        </h5>
+                                                    </div>
+                                                    </div>
+                                                <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
+                                                        <label>Travel Time</label><input checked="" (click)="showTravelTime(true)" type="radio" name="stepone"><span>Yes</span>
+                                                        <input (click)="showTravelTime(false)"  type="radio" name="stepone"><span>No</span>
+                                                    </div>
+
+                                                    <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
+                                                        <label>Mileage</label>
+                                                        <input checked="" style="    margin-left: 3%;" (click)="showMileageTime(true)" type="radio" name="stepone1"><span>Yes</span>
+                                                        <input  (click)="showMileageTime(false)" type="radio" name="stepone1"><span>No</span>
+                                                    </div>
+                                                    <form [formGroup]="secondFormGroup1">
+                                                <div  formArrayName="arr" class="row nomargin" *ngFor="let aa of secondFormGroup1.get('arr').controls;let j = index">
+                                                    <div class="row row100" [formGroupName]="j" >
+                                                   <!--  <div class="col-md-12 p-0"> -->
+
+                                                        
+                                                        
+
+                                                        <div class="col-md-2 mb-2">
+                                                            <label for="min_paid">Specialization</label>
+                                                            <input disabled="" class="form-control" type="text" value="{{aa.value.lobname}}">
+                                                            <!-- <select 
                                                                 (change)=logChange($event.target.value)
                                                                     formControlName="lob">
                                                                 <option disabled  *ngFor="let lob of MasterLobData;"
                                                                     value="{{aa.value.lob}}" selected="">{{aa.value.lobname}}</option>
                                                             </select> -->
 
-                                                        <!-- <input type="text" value="{{lob.name}}" name=""> -->
-                                                    </div>
+                                                            <!-- <input type="text" value="{{lob.name}}" name=""> -->
+                                                        </div>
 
                                                     <!-- </div> -->
 
                                                     <!-- <div *ngIf="showLegalLob == 1" class="col-md-2 mb-2"> -->
-                                                    <div [ngClass]="showTravelTime == true || showMileageCheck == true ? 'col-md-2 mb-2': 'col-md-3 mb-2'">
-                                                        <label *ngIf="j == 0" for="hourly_rate">  Rate </label>
-                                                        <input type="text" class="form-control" formControlName="rate" placeholder="On-Site Hourly Rate">
+                                                    <div  class="col-md-2 mb-2">
+                                                        <label for="hourly_rate">  Rate </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="rate"
+                                                            placeholder="On-Site Hourly Rate">
                                                     </div>
 
+                                                   
 
+                                                   
 
+                                                    <div class="col-md-2 mb-2">
+                                                        <label for="min_paid">Minimum  </label>
 
-
-                                                    <div [ngClass]="showTravelTime == true || showMileageCheck == true ? 'col-md-2 mb-2': 'col-md-3 mb-2'">
-                                                        <label *ngIf="j == 0" for="min_paid">Minimum  </label>
-
-                                                        <select class="form-control" formControlName="minpaid">
+                                                        <select class="form-control"
+                                                            formControlName="minpaid">
                                                             <option value="1 Min">1 Min</option>
                                                             <option value="5 Min">5 Min</option>
                                                             <option value="15 Min">15 Min</option>
@@ -1029,65 +1340,72 @@
                                                         </select>
                                                     </div>
 
-                                                    <div [ngClass]="showTravelTime == true || showMileageCheck == true ? 'col-md-2 mb-2': 'col-md-3 mb-2'">
-                                                        <label *ngIf="j == 0" for="min_paid"> Increment </label>
+                                                     <div class="col-md-2 mb-2">
+                                                        <label for="min_paid"> Increment </label>
 
-                                                        <select class="form-control" formControlName="increment">
+                                                        <select class="form-control"
+                                                            formControlName="increment">
                                                             <option value="15 Min">15 Min</option>
                                                             <option value="30 Min">30 Min</option>
                                                             <option value="1 Hours">1 Hours</option>
                                                         </select>
                                                     </div>
 
-                                                    <div *ngIf="showTimeTravelCheck == true && a.value.id == 1" [ngClass]="showTravelTime == true || showMileageCheck == true  ? 'col-md-2 mb-2': 'col-md-3 mb-2'">
-                                                        <label *ngIf="j == 0" for="travel_time">  Travel time </label>
-                                                        <input type="text" class="form-control" formControlName="travel_time" placeholder="Travel time">
+                                                    <div *ngIf="showTimeTravelCheck == true && a.value.id == 1" class="col-md-2 mb-2">
+                                                        <label for="travel_time">  Travel time </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="travel_time"
+                                                            placeholder="Travel time">
+                                                    </div> 
+
+                                                    <div *ngIf="showMileageCheck == true && a.value.id == 1"  class="col-md-2 mb-2">
+                                                        <label for="mileage"> Mileage</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="mileage"
+                                                            placeholder="Mileage">
                                                     </div>
 
-                                                    <div *ngIf="showMileageCheck == true && a.value.id == 1" [ngClass]="showTravelTime == true || showMileageCheck == true  ? 'col-md-2 mb-2': 'col-md-3 mb-2'">
-                                                        <label *ngIf="j == 0" for="mileage"> Mileage</label>
-                                                        <input type="text" class="form-control" formControlName="mileage" placeholder="Mileage">
-                                                    </div>
 
 
 
-
-                                                </div>
+                                            </div>
                                             </div>
                                         </form>
-                                        <div class="row">
-                                            <div class="col-md-12 text-right">
-                                                <button type="button" (click)="addInterpreterAssignmentSave(a.value,a)" class="btn btn-primary btn-lg">Save</button>
-                                            </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-right">
+                                                        <button type="button"
+                                                            (click)="addInterpreterAssignmentSave(a.value,a)"
+                                                            class="btn btn-primary btn-lg">Save</button>
+                                                    </div>
 
-                                        </div>
+                                                </div>
+                                             
+                                      
+                                            
+                                               
+                                            
+                                           
+                                             
 
+                                             
+                                            
+                                       
+                                   
 
+                                 </div>
+                                  </ng-template>
+                                    </ngb-panel>
 
-
-
-
-
-
-
-
-
-
-
-                                    </div>
-                                </ng-template>
-                            </ngb-panel>
-
-                        </ngb-accordion>
-
-
-
-
+                            </ngb-accordion>
+                          
+                   
+                      
+                      
                     </form>
 
 
 
-
+                    
 
                 </div>
             </div>
@@ -1110,11 +1428,16 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="payment">Bank Routing Number</label>
-                                            <input type="text" class="form-control" min="0" onkeypress="if(this.value.length==9) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " (keypress)="selectRoutingNo($event)" formControlName="bank_routing_no"
+                                            <input type="text" class="form-control" min="0"
+                                                onkeypress="if(this.value.length==9) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                                (keypress)="selectRoutingNo($event)" formControlName="bank_routing_no"
                                                 placeholder="Bank Routing Number">
-                                            <div *ngIf="bankingRoutingForm.controls['bank_routing_no'].errors && (!bankingRoutingForm.controls['bank_routing_no'].pristine || submitted ||bankingRoutingForm.controls['bank_routing_no'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['bank_routing_no'].errors.required">
-                                                    Bank Routing No. is required.</div>
+                                            <div *ngIf="bankingRoutingForm.controls['bank_routing_no'].errors && (!bankingRoutingForm.controls['bank_routing_no'].pristine || submitted ||bankingRoutingForm.controls['bank_routing_no'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['bank_routing_no'].errors.required">
+                                                    Bank Routing No.
+                                                    is required.</div>
                                             </div>
 
                                             <!-- <input type="text" class="form-control" formControlName="bank_routing_no"
@@ -1123,10 +1446,14 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Account">Bank Name</label>
-                                            <input type="text" class="form-control" formControlName="bank_name" placeholder="Bank Name">
-                                            <div *ngIf="bankingRoutingForm.controls['bank_name'].errors && (!bankingRoutingForm.controls['bank_name'].pristine || submitted ||bankingRoutingForm.controls['bank_name'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['bank_name'].errors.required">
-                                                    Bank Name is required.</div>
+                                            <input type="text" class="form-control" formControlName="bank_name"
+                                                placeholder="Bank Name">
+                                            <div *ngIf="bankingRoutingForm.controls['bank_name'].errors && (!bankingRoutingForm.controls['bank_name'].pristine || submitted ||bankingRoutingForm.controls['bank_name'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['bank_name'].errors.required">
+                                                    Bank Name
+                                                    is required.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1150,8 +1477,10 @@
                                                     Checking
                                                 </label>
                                             </div>
-                                            <div *ngIf="bankingRoutingForm.controls['account_type'].errors && (!bankingRoutingForm.controls['account_type'].pristine || submitted ||bankingRoutingForm.controls['account_type'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['account_type'].errors.required">
+                                            <div *ngIf="bankingRoutingForm.controls['account_type'].errors && (!bankingRoutingForm.controls['account_type'].pristine || submitted ||bankingRoutingForm.controls['account_type'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['account_type'].errors.required">
                                                     Account type required.</div>
                                             </div>
                                         </div>
@@ -1159,9 +1488,12 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Country">Country</label>
-                                            <input type="text" class="form-control" formControlName="bank_country" id="bank_country" placeholder="Country">
-                                            <div *ngIf="bankingRoutingForm.controls['bank_country'].errors && (!bankingRoutingForm.controls['bank_country'].pristine || submitted ||bankingRoutingForm.controls['bank_country'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['bank_country'].errors.required">
+                                            <input type="text" class="form-control" formControlName="bank_country"
+                                                id="bank_country" placeholder="Country">
+                                            <div *ngIf="bankingRoutingForm.controls['bank_country'].errors && (!bankingRoutingForm.controls['bank_country'].pristine || submitted ||bankingRoutingForm.controls['bank_country'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['bank_country'].errors.required">
                                                     Country is required.</div>
                                             </div>
                                         </div>
@@ -1175,19 +1507,26 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="country">Bank Account No</label>
-                                            <input type="text" class="form-control" formControlName="account_no" placeholder="Bank Account No">
-                                            <div *ngIf="bankingRoutingForm.controls['account_no'].errors && (!bankingRoutingForm.controls['account_no'].pristine || submitted ||bankingRoutingForm.controls['account_no'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['account_no'].errors.required">
-                                                    Bank Account No is required.</div>
+                                            <input type="text" class="form-control" formControlName="account_no"
+                                                placeholder="Bank Account No">
+                                            <div *ngIf="bankingRoutingForm.controls['account_no'].errors && (!bankingRoutingForm.controls['account_no'].pristine || submitted ||bankingRoutingForm.controls['account_no'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['account_no'].errors.required">
+                                                    Bank
+                                                    Account No is required.</div>
                                             </div>
                                         </div>
 
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Payment Method</label>
-                                            <input type="text" class="form-control" formControlName="payment_method" placeholder="Account is personal or business">
-                                            <div *ngIf="bankingRoutingForm.controls['payment_method'].errors && (!bankingRoutingForm.controls['payment_method'].pristine || submitted ||bankingRoutingForm.controls['payment_method'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['payment_method'].errors.required">
+                                            <input type="text" class="form-control" formControlName="payment_method"
+                                                placeholder="Account is personal or business">
+                                            <div *ngIf="bankingRoutingForm.controls['payment_method'].errors && (!bankingRoutingForm.controls['payment_method'].pristine || submitted ||bankingRoutingForm.controls['payment_method'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['payment_method'].errors.required">
                                                     Payment Method is required.</div>
                                             </div>
                                         </div>
@@ -1199,9 +1538,12 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="payment">Electronic/Paper/Wire</label>
-                                            <input type="text" class="form-control" formControlName="electronic" placeholder="Electronic/Paper/Wire">
-                                            <div *ngIf="bankingRoutingForm.controls['electronic'].errors && (!bankingRoutingForm.controls['electronic'].pristine || submitted ||bankingRoutingForm.controls['electronic'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['electronic'].errors.required">
+                                            <input type="text" class="form-control" formControlName="electronic"
+                                                placeholder="Electronic/Paper/Wire">
+                                            <div *ngIf="bankingRoutingForm.controls['electronic'].errors && (!bankingRoutingForm.controls['electronic'].pristine || submitted ||bankingRoutingForm.controls['electronic'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['electronic'].errors.required">
                                                     Electronic is required.</div>
                                             </div>
                                         </div>
@@ -1209,10 +1551,14 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Swift Code</label>
-                                            <input type="text" class="form-control" formControlName="SWIFT_code" placeholder="Swift Code">
-                                            <div *ngIf="bankingRoutingForm.controls['SWIFT_code'].errors && (!bankingRoutingForm.controls['SWIFT_code'].pristine || submitted ||bankingRoutingForm.controls['SWIFT_code'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['SWIFT_code'].errors.required">
-                                                    Swift Code is required.</div>
+                                            <input type="text" class="form-control" formControlName="SWIFT_code"
+                                                placeholder="Swift Code">
+                                            <div *ngIf="bankingRoutingForm.controls['SWIFT_code'].errors && (!bankingRoutingForm.controls['SWIFT_code'].pristine || submitted ||bankingRoutingForm.controls['SWIFT_code'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['SWIFT_code'].errors.required">
+                                                    Swift
+                                                    Code is required.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1221,9 +1567,12 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="payment">Bank Address</label>
-                                            <input type="text" class="form-control" formControlName="bank_address" placeholder="Bank Address">
-                                            <div *ngIf="bankingRoutingForm.controls['bank_address'].errors && (!bankingRoutingForm.controls['bank_address'].pristine || submitted ||bankingRoutingForm.controls['bank_address'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['bank_address'].errors.required">
+                                            <input type="text" class="form-control" formControlName="bank_address"
+                                                placeholder="Bank Address">
+                                            <div *ngIf="bankingRoutingForm.controls['bank_address'].errors && (!bankingRoutingForm.controls['bank_address'].pristine || submitted ||bankingRoutingForm.controls['bank_address'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['bank_address'].errors.required">
                                                     Bank Address is required.</div>
                                             </div>
                                         </div>
@@ -1231,9 +1580,12 @@
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Paypal Id/Paypal Account</label>
-                                            <input type="text" class="form-control" formControlName="paypal_id" placeholder="Paypal Id/Paypal Account">
-                                            <div *ngIf="bankingRoutingForm.controls['paypal_id'].errors && (!bankingRoutingForm.controls['paypal_id'].pristine || submitted ||bankingRoutingForm.controls['paypal_id'].touched )" class="error-msg">
-                                                <div [hidden]="!bankingRoutingForm.controls['paypal_id'].errors.required">
+                                            <input type="text" class="form-control" formControlName="paypal_id"
+                                                placeholder="Paypal Id/Paypal Account">
+                                            <div *ngIf="bankingRoutingForm.controls['paypal_id'].errors && (!bankingRoutingForm.controls['paypal_id'].pristine || submitted ||bankingRoutingForm.controls['paypal_id'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!bankingRoutingForm.controls['paypal_id'].errors.required">
                                                     Paypal Id is required.</div>
                                             </div>
                                         </div>
@@ -1241,13 +1593,15 @@
 
                                     <div class="form-group row" *ngIf="detail_Obj.banlking_id==null">
                                         <div class="col-sm-12">
-                                            <button type="button" (click)="addBankDetails()" class="btn btn-primary">Save</button>
+                                            <button type="button" (click)="addBankDetails()"
+                                                class="btn btn-primary">Save</button>
                                         </div>
                                     </div>
 
                                     <div class="form-group row" *ngIf="detail_Obj.banlking_id!=null">
                                         <div class="col-sm-12">
-                                            <button type="button" (click)="updateBankDetails()" class="btn btn-primary">Update</button>
+                                            <button type="button" (click)="updateBankDetails()"
+                                                class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
 
@@ -1262,7 +1616,8 @@
         <ng-template #viewImgConfirmModal let-modal>
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-title">Images View</h4>
-                <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                    (click)="modal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1289,7 +1644,7 @@
                             <img [src]="url2.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10">
+                          <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1317,7 +1672,7 @@
                             <img [src]="url4.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1345,6 +1700,39 @@
                             <i class="fas fa-times timenew" (click)="removeImage(i,'6')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
+
+                         <div *ngFor="let url6 of Legal; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
+                            <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+                        </div>
+                    </div>
+                </div>
+
+                 <div *ngIf="docImage == 7">
+                    <div class="row">
+                        <div *ngFor="let url6 of doc7; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'7')"></i>
+                            <img [src]="url6.img_url" style="width:100%; height:100%;">
+                        </div>
+
+                         <div *ngFor="let url6 of SimultaneousDoc; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
+                            <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="docImage == 8">
+                    <div class="row">
+                        <div *ngFor="let url6 of doc8; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeImage(i,'8')"></i>
+                            <img [src]="url6.img_url" style="width:100%; height:100%;">
+                        </div>
+
+                         <div *ngFor="let url6 of OtherDoc; let i=index" class="col-md-3 m-10">
+                            <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
+                            <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1357,7 +1745,7 @@
                 background-color: #639;
                 border-color: #639;
             }
-            
+
             .profile_block_new .pro_info .card {
                 min-height: auto !important;
                 padding-top: 0px !important;

@@ -81,6 +81,8 @@ async ngOnInit() {
 		try{
 			var result=  await this.service.get('get-user-detail/'+this.param).toPromise();
 			this.data=result['data'][0]
+			console.log("ppppppppppppppppppppppppppp",this.data);
+			
 		}
 		catch(e){
 			this.toastr.warning(environment.serverError);
