@@ -66,7 +66,19 @@ export class AllRequestListSchedularComponent implements OnInit {
         this.filerData(value);
       });
   } 
-
+  // <option class="black-text bg-warning" value="0">New Request</option>
+  // <option class="bg-black text-white" value="1">Broadcasting</option>
+  // <option class="bg-primary text-white" value="2">In Progress</option>
+  // <option class="bg-success black-text" value="3">Completed</option>
+  getRowClass = (row) => {    
+    return {
+      'newRequest': row.status == "0",
+      'broadcastRequest': row.status == "1",
+      'progressRequest': row.status == "2",
+      'completeRequest': row.status == "3",
+      'rejecteRequest': row.status == "4",
+    };
+   }
      /*========== Filter Start Here========*/
       filerData(val) {
         if (val) {

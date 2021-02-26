@@ -33,8 +33,7 @@
                             <h4>Enter New Interpreter Request</h4>
                         </div>
                         <div class="right-buttton float-right">
-                            <button routerLink="/client/client-add"
-                                class="botton-fst btn btn-primary mb-2 ml-2 float-right">+ Add Client</button>
+                            <button routerLink="/client/client-add" class="botton-fst btn btn-primary mb-2 ml-2 float-right">+ Add Client</button>
                             <button class="button-sec btn btn-primary mb-2  float-right">+ Add Requester</button>
                         </div>
                     </div>
@@ -44,8 +43,7 @@
                         <div class="col-md-5 form-group mb-3 firstir">
                             <label for="Last">IR #:</label>
                             <input type="text" class="form-control" formControlName="ir" placeholder="IR #" disabled>
-                            <div *ngIf="newRequestForm.controls['ir'].errors && (!newRequestForm.controls['ir'].pristine || submitted ||newRequestForm.controls['ir'].touched )"
-                                class="error-msg">
+                            <div *ngIf="newRequestForm.controls['ir'].errors && (!newRequestForm.controls['ir'].pristine || submitted ||newRequestForm.controls['ir'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['ir'].errors.required">IR is required.</div>
                             </div>
 
@@ -53,8 +51,7 @@
 
                         <div class="col-md-5 form-group mb-3 firstir">
                             <label for="Last">Entered By</label>
-                            <input type="text" class="form-control" formControlName="entered_by"
-                                placeholder="Entered By" disabled>
+                            <input type="text" class="form-control" formControlName="entered_by" placeholder="Entered By" disabled>
                             <!-- <div *ngIf="newRequestForm.controls['entered_by'].errors && (!newRequestForm.controls['entered_by'].pristine || submitted ||newRequestForm.controls['entered_by'].touched )"
                                 class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['entered_by'].errors.required">Entered By is
@@ -69,15 +66,12 @@
                             <!-- <div class="form-group form-field"> -->
                             <mat-form-field class="example-full-width ">
                                 <input type="text" matInput [matAutocomplete]="auto" formControlName="client_name">
-                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-                                    (keyup)="getRegions($event)">
-                                    <mat-option *ngFor="let option of clientObj; let i = index"
-                                        (click)="changeClient(option,i)" [value]="option.fullName">
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (keyup)="getRegions($event)">
+                                    <mat-option *ngFor="let option of clientObj; let i = index" (click)="changeClient(option,i)" [value]="option.fullName">
                                         {{ option.fullName }}
                                     </mat-option>
                                 </mat-autocomplete>
-                                <div *ngIf="newRequestForm.controls['client_name'].errors && ( !newRequestForm.controls['client_name'].pristine || submitted || newRequestForm.controls['client_name'].touched )"
-                                    class="error-msg">
+                                <div *ngIf="newRequestForm.controls['client_name'].errors && ( !newRequestForm.controls['client_name'].pristine || submitted || newRequestForm.controls['client_name'].touched )" class="error-msg">
                                     <div [hidden]="!newRequestForm.controls['client_name'].errors.required">Client Name is required.
                                     </div>
                                 </div>
@@ -98,21 +92,16 @@
                         <div class="col-sm-4 form-group mb-3 req_form">
                             <label>Requested By</label>
                             <div class="form-group form-field">
-                                <input type="text" class="form-control" formControlName="requested_by"
-                                    placeholder="Requested By" disabled>
-                                <div *ngIf="newRequestForm.controls['requested_by'].errors && (!newRequestForm.controls['requested_by'].pristine || submitted ||newRequestForm.controls['requested_by'].touched )"
-                                    class="error-msg">
-                                    <div [hidden]="!newRequestForm.controls['requested_by'].errors.required">Requested
-                                        By is required.</div>
+                                <input type="text" class="form-control" formControlName="requested_by" placeholder="Requested By" disabled>
+                                <div *ngIf="newRequestForm.controls['requested_by'].errors && (!newRequestForm.controls['requested_by'].pristine || submitted ||newRequestForm.controls['requested_by'].touched )" class="error-msg">
+                                    <div [hidden]="!newRequestForm.controls['requested_by'].errors.required">Requested By is required.</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 form-group mb-3 req_date">
                             <label>Request Date</label>
-                            <input type="date" name="setTodaysDate"  class="form-control" formControlName="request_date"
-                                placeholder="Date">
-                            <div *ngIf="newRequestForm.controls['request_date'].errors && ( !newRequestForm.controls['request_date'].pristine || submitted ||newRequestForm.controls['request_date'].touched )"
-                                class="error-msg">
+                            <input type="date" name="setTodaysDate" class="form-control" formControlName="request_date" placeholder="Date">
+                            <div *ngIf="newRequestForm.controls['request_date'].errors && ( !newRequestForm.controls['request_date'].pristine || submitted ||newRequestForm.controls['request_date'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['request_date'].errors.required">Request Date is required.</div>
                                 <!-- <div [hidden]="!newRequestForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
                             </div>
@@ -123,8 +112,7 @@
                         <div class="col-sm-2 form-group mb-3">
                             <label>LOB</label>
                             <div class="form-group form-field">
-                                <select class="form-control" (change)="onChangeLob($event)" formControlName="lob"
-                                    id="lob" name="lob">
+                                <select class="form-control" (change)="onChangeLob($event)" formControlName="lob" id="lob" name="lob">
                                     <!-- <option value="">LOB</option> -->
                                     <option *ngFor="let lob of lob_Obj" [value]="lob.id">
                                         {{lob?.name}}
@@ -132,17 +120,15 @@
                                 </select>
 
                             </div>
-                            <div *ngIf="newRequestForm.controls['lob'].errors && ( !newRequestForm.controls['lob'].pristine || submitted ||newRequestForm.controls['lob'].touched )"
-                                class="error-msg">
+                            <div *ngIf="newRequestForm.controls['lob'].errors && ( !newRequestForm.controls['lob'].pristine || submitted ||newRequestForm.controls['lob'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['lob'].errors.required">LOB is required.
                                 </div>
                             </div>
                         </div>
-                        <div  *ngIf="newRequestForm.value.lob == 'Others'" class="col-sm-2 form-group mb-3">
+                        <div *ngIf="newRequestForm.value.lob == 'Others'" class="col-sm-2 form-group mb-3">
                             <label> Type</label>
                             <div class="form-group form-field">
-                                <input type="text" class="form-control" 
-                                placeholder="">
+                                <input type="text" class="form-control" placeholder="">
 
                             </div>
                             <!-- <div *ngIf="newRequestForm.controls['assignment_type'].errors && ( !newRequestForm.controls['assignment_type'].pristine || submitted ||newRequestForm.controls['assignment_type'].touched )"
@@ -152,11 +138,10 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div  *ngIf="newRequestForm.value.lob != 'Others'" class="col-sm-2 form-group mb-3">
+                        <div *ngIf="newRequestForm.value.lob != 'Others'" class="col-sm-2 form-group mb-3">
                             <label>Assignment Type</label>
                             <div class="form-group form-field">
-                                <select class="form-control" (change)="onChangeAssign($event)"
-                                    formControlName="assignment_type" id="assignment_type" name="assignment_type">
+                                <select class="form-control" (change)="onChangeAssign($event)" formControlName="assignment_type" id="assignment_type" name="assignment_type">
                                     <option value="">Assignment Type</option>
                                     <option *ngFor="let assign of assignment_Obj" [value]="assign.assignment_name">
                                         {{assign?.assignment_name}}
@@ -164,8 +149,7 @@
                                 </select>
 
                             </div>
-                            <div *ngIf="newRequestForm.controls['assignment_type'].errors && ( !newRequestForm.controls['assignment_type'].pristine || submitted ||newRequestForm.controls['assignment_type'].touched )"
-                                class="error-msg">
+                            <div *ngIf="newRequestForm.controls['assignment_type'].errors && ( !newRequestForm.controls['assignment_type'].pristine || submitted ||newRequestForm.controls['assignment_type'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['assignment_type'].errors.required">Assignment Type is required.
                                 </div>
                             </div>
@@ -173,20 +157,18 @@
                         <div class="col-sm-4 form-group mb-3">
                             <label>Platform</label>
                             <div class="form-group form-field">
-                                <select class="form-control" (change)="newSimultaneous($event)"
-                                    formControlName="platform" id="platform" name="platform">
+                                <select class="form-control" (change)="newSimultaneous($event)" formControlName="platform" id="platform" name="platform">
                                     <option value="">Platform</option>
                                     <option *ngFor="let plat of platform_Obj" [value]="plat.platform">
                                         {{plat?.platform}}
                                     </option>
                                 </select>
                             </div>
-                            <div *ngIf="newRequestForm.controls['platform'].errors && ( !newRequestForm.controls['platform'].pristine || submitted ||newRequestForm.controls['platform'].touched )"
-                                class="error-msg">
+                            <div *ngIf="newRequestForm.controls['platform'].errors && ( !newRequestForm.controls['platform'].pristine || submitted ||newRequestForm.controls['platform'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['platform'].errors.required">Platform is required.</div>
                             </div>
                         </div>
-                        <div class="col-sm-2 form-group mb-3">
+                        <!-- <div class="col-sm-2 form-group mb-3">
                             <label>Simultaneous Interpreting?</label>
                             <div class="form-group form-field">
                                 <select class="form-control" (change)="newSimultaneous($event)"
@@ -200,12 +182,31 @@
                                 class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['receivers_required'].errors.required">Simultaneous Interpreting is required.</div>
                             </div>
+                        </div> -->
+                        <div class="col-sm- form-group mb-3">
+                            <label>Simultaneous Interpreting?</label>
+                            <div class="form-check">
+                                <label matTooltip="Simultaneous" class="form-check-label" for="simultaneous_radio1">
+                                        <input class="form-check-input radio-inline " (change)="newSimultaneous($event)"
+                                            formControlName="receivers_required" type="radio" id="simultaneous_radio1" value="1"
+                                            checked>
+                                        Yes
+                                    </label>
+                                <label matTooltip="Simultaneous" class="form-check-label pl-5" for="simultaneous_radio2">
+                                        <input class="form-check-input radio-inline" formControlName="receivers_required"
+                                            type="radio" id="simultaneous_radio2" (change)="newSimultaneous($event)" value="0">
+                                        No
+                                    </label>
+                            </div>
+
+                            <div *ngIf="newRequestForm.controls['receivers_required'].errors && ( !newRequestForm.controls['receivers_required'].pristine || submitted ||newRequestForm.controls['receivers_required'].touched )" class="error-msg">
+                                <div [hidden]="!newRequestForm.controls['receivers_required'].errors.required">Simultaneous Interpreting is required.</div>
+                            </div>
                         </div>
-                        <div *ngIf="newRequestForm.value.platform == 'On-Site' && newRequestForm.value.receivers_required == '1'"
-                            class="col-md-2 form-group mb-3">
+
+                        <div *ngIf="newRequestForm.value.platform == 'On-Site' && newRequestForm.value.receivers_required == '1'" class="col-md-2 form-group mb-3">
                             <label for="Last">How many recievers?</label>
-                            <input type="text" class="form-control" formControlName="how_many_receivers"
-                                placeholder="How many receivers?">
+                            <input type="text" class="form-control" formControlName="how_many_receivers" placeholder="How many receivers?">
                             <!-- <div *ngIf="newRequestForm.controls['recievers_reqiured'].errors && (!newRequestForm.controls['recievers_reqiured'].pristine || submitted ||newRequestForm.controls['recievers_reqiured'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['recievers_reqiured'].errors.required">Recievers is required.</div>
                             </div> -->
@@ -216,26 +217,22 @@
                         <div class="col-sm-4 form-group mb-3">
                             <label>Language</label>
                             <div class="form-group form-field">
-                                <select class="form-control" (change)="onChangeLanguage($event)"
-                                    formControlName="language" id="language" name="language">
+                                <select class="form-control" (change)="onChangeLanguage($event)" formControlName="language" id="language" name="language">
                                     <option value="">Language</option>
                                     <option *ngFor="let lang of language_Obj" [value]="lang.id">
                                         {{lang?.name}}
                                     </option>
                                 </select>
                             </div>
-                            <div *ngIf="newRequestForm.controls['language'].errors && ( !newRequestForm.controls['language'].pristine || submitted ||newRequestForm.controls['language'].touched )"
-                                class="error-msg">
+                            <div *ngIf="newRequestForm.controls['language'].errors && ( !newRequestForm.controls['language'].pristine || submitted ||newRequestForm.controls['language'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['language'].errors.required">Language is required.
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 form-group mb-3">
                             <label>Assignment Date</label>
-                            <input type="date" name="assignDate" class="form-control" formControlName="assignment_date"
-                                placeholder="Assignment Date">
-                            <div *ngIf="newRequestForm.controls['assignment_date'].errors && ( !newRequestForm.controls['assignment_date'].pristine || submitted ||newRequestForm.controls['assignment_date'].touched )"
-                                class="error-msg">
+                            <input type="date" name="assignDate" class="form-control" formControlName="assignment_date" placeholder="Assignment Date">
+                            <div *ngIf="newRequestForm.controls['assignment_date'].errors && ( !newRequestForm.controls['assignment_date'].pristine || submitted ||newRequestForm.controls['assignment_date'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['assignment_date'].errors.required">Assignment Date is required.</div>
 
                             </div>
@@ -245,15 +242,13 @@
                             <!-- <input type="time" class="form-control" id="txtStartTime" formControlName="from_time"
                                 placeholder="From Time"> -->
                             <div class="s_Time">
-                                <ejs-timepicker [format]='formatString' [step]='interval' id="txtStartTime"
-                                    placeholder="From Time" formControlName="from_time"></ejs-timepicker>
+                                <ejs-timepicker id="txtStartTime" placeholder="From Time" formControlName="from_time"></ejs-timepicker>
                             </div>
                             <!-- <ejs-timepicker 
                                 ></ejs-timepicker> -->
-                            <div *ngIf="newRequestForm.controls['from_time'].errors && ( !newRequestForm.controls['from_time'].pristine || submitted ||newRequestForm.controls['from_time'].touched )"
-                                class="error-msg">
-                                <div [hidden]="!newRequestForm.controls['from_time'].errors.required">From Time is
-                                    required.</div>
+                            <div *ngIf="newRequestForm.controls['from_time'].errors && ( !newRequestForm.controls['from_time'].pristine || submitted ||newRequestForm.controls['from_time'].touched )" class="error-msg">
+                                <div [hidden]="!newRequestForm.controls['from_time'].errors.required">From Time is required.
+                                </div>
                             </div>
                         </div>
 
@@ -262,12 +257,9 @@
                             <!-- <input type="time" class="form-control" id="txtEndTime" (change)="start_end_time($event)"
                                 formControlName="to_time" placeholder="To Time"> -->
                             <div class="e_Time">
-                                <ejs-timepicker [format]='formatString' [step]='interval'
-                                    [min]="newRequestForm.value.from_time" id="txtEndTime" placeholder="To Time"
-                                    formControlName="to_time"></ejs-timepicker>
+                                <ejs-timepicker [min]="newRequestForm.value.from_time" id="txtEndTime" placeholder="To Time" formControlName="to_time"></ejs-timepicker>
                             </div>
-                            <div *ngIf="newRequestForm.controls['to_time'].errors && ( !newRequestForm.controls['to_time'].pristine || submitted ||newRequestForm.controls['to_time'].touched )"
-                                class="error-msg">
+                            <div *ngIf="newRequestForm.controls['to_time'].errors && ( !newRequestForm.controls['to_time'].pristine || submitted ||newRequestForm.controls['to_time'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['to_time'].errors.required">To Time is required.
                                 </div>
                             </div>
@@ -312,8 +304,7 @@
 
                                     <div class="form-group form-field rep_lab">
                                         <label>Repeats</label>
-                                        <select class="form-control" (change)="newRepeat($event)"
-                                            formControlName="repeats">
+                                        <select class="form-control" (change)="newRepeat($event)" formControlName="repeats">
                                             <option value="1">Daily</option>
                                             <option value="2">Weekly</option>
                                             <option value="3">Monthly</option>
@@ -327,14 +318,11 @@
                                 <div *ngIf="every_show_hide" class="col-sm-12 form-group mb-3">
                                     <div class="form-group form-field border_label span_lab">
                                         <label>Every</label>
-                                        <input type="text" class="form-control" formControlName="every"
-                                            onkeypress="if(this.value.length==1) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                            placeholder="Every">
+                                        <input type="text" class="form-control" formControlName="every" onkeypress="if(this.value.length==1) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Every">
                                         <span>Week(s)</span>
-                                        <div *ngIf="newRequestForm.controls['every'].errors && (!newRequestForm.controls['every'].pristine || submitted ||newRequestForm.controls['every'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!newRequestForm.controls['every'].errors.required">Every is
-                                                required.</div>
+                                        <div *ngIf="newRequestForm.controls['every'].errors && (!newRequestForm.controls['every'].pristine || submitted ||newRequestForm.controls['every'].touched )" class="error-msg">
+                                            <div [hidden]="!newRequestForm.controls['every'].errors.required">Every is required.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -345,10 +333,8 @@
                                     <div class="form-check form-check-inline">
 
                                         <div *ngFor="let result of days_Obj;let i=index">
-                                            <input type="checkbox" id="result{{result.day_id}}"
-                                                (change)="changeCheckbox(i)" class="form-check-input" checked disabled>
-                                            <label for="result{{result.day_id}}"
-                                                class="newlabel  form-check-label checkbox-inline">
+                                            <input type="checkbox" id="result{{result.day_id}}" (change)="changeCheckbox(i)" class="form-check-input" checked disabled>
+                                            <label for="result{{result.day_id}}" class="newlabel  form-check-label checkbox-inline">
                                                 {{result.day}}
                                             </label>
                                         </div>
@@ -360,10 +346,8 @@
                                     <label>On</label>
                                     <div class="form-check form-check-inline">
                                         <div *ngFor="let result of days_Obj;let i=index">
-                                            <input type="checkbox" id="result{{result.day_id}}" class="form-check-input"
-                                                (change)="changeCheckbox(i)">
-                                            <label for="result{{result.day_id}}"
-                                                class="newlabel form-check-label checkbox-inline">
+                                            <input type="checkbox" id="result{{result.day_id}}" class="form-check-input" (change)="changeCheckbox(i)">
+                                            <label for="result{{result.day_id}}" class="newlabel form-check-label checkbox-inline">
                                                 {{result.day}}
                                             </label>
                                         </div>
@@ -376,10 +360,8 @@
                             <div class="row">
                                 <div class="col-sm-12 form-group mb-3 border_label">
                                     <label>Start Date</label>
-                                    <input type="date" class="form-control" id="StartTime"
-                                       (click)="startWithAssignment($event)" formControlName="event_start_date" name="event_start_d" placeholder="Start Time">
-                                    <div *ngIf="newRequestForm.controls['event_start_date'].errors && ( !newRequestForm.controls['event_start_date'].pristine || submitted ||newRequestForm.controls['event_start_date'].touched )"
-                                        class="error-msg">
+                                    <input type="date" class="form-control" id="StartTime" (click)="startWithAssignment($event)" formControlName="event_start_date" name="event_start_d" placeholder="Start Time">
+                                    <div *ngIf="newRequestForm.controls['event_start_date'].errors && ( !newRequestForm.controls['event_start_date'].pristine || submitted ||newRequestForm.controls['event_start_date'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_start_date'].errors.required">
                                             Start Date is required.</div>
                                     </div>
@@ -387,13 +369,9 @@
 
                                 <div class="col-sm-12 form-group mb-3 border_label">
                                     <label>End Date</label>
-                                    <input type="date" class="form-control" id="End Date"
-                                        (change)="start_end_date($event)" formControlName="event_end_date"
-                                        placeholder="End Date" (click)="endWithAssignment($event)" name="event_end_d">
-                                    <div *ngIf="newRequestForm.controls['event_end_date'].errors && ( !newRequestForm.controls['event_end_date'].pristine || submitted ||newRequestForm.controls['event_end_date'].touched )"
-                                        class="error-msg">
-                                        <div [hidden]="!newRequestForm.controls['event_end_date'].errors.required">End
-                                            Date is required.</div>
+                                    <input type="date" class="form-control" id="End Date" (change)="start_end_date($event)" formControlName="event_end_date" placeholder="End Date" (click)="endWithAssignment($event)" name="event_end_d">
+                                    <div *ngIf="newRequestForm.controls['event_end_date'].errors && ( !newRequestForm.controls['event_end_date'].pristine || submitted ||newRequestForm.controls['event_end_date'].touched )" class="error-msg">
+                                        <div [hidden]="!newRequestForm.controls['event_end_date'].errors.required">End Date is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -402,10 +380,9 @@
                                     <label>Start Time</label>
                                     <!-- <input type="time" class="form-control" id="StartTime"
                                         formControlName="event_start_time" placeholder="Start Time"> -->
-                                    <ejs-timepicker [format]='formatString' [step]='interval' id="StartTime"
-                                        placeholder="StartTime" formControlName="event_start_time"></ejs-timepicker>
-                                    <div *ngIf="newRequestForm.controls['event_start_time'].errors && ( !newRequestForm.controls['event_start_time'].pristine || submitted ||newRequestForm.controls['event_start_time'].touched )"
-                                        class="error-msg">
+                                    <ejs-timepicker id="StartTime" placeholder="StartTime" formControlName="event_start_time"></ejs-timepicker>
+                                    <!-- <ejs-timepicker [format]='formatString' [step]='interval' id="StartTime" placeholder="StartTime" formControlName="event_start_time"></ejs-timepicker> -->
+                                    <div *ngIf="newRequestForm.controls['event_start_time'].errors && ( !newRequestForm.controls['event_start_time'].pristine || submitted ||newRequestForm.controls['event_start_time'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_start_time'].errors.required">
                                             Start Time is required.</div>
                                     </div>
@@ -416,33 +393,29 @@
                                     <!-- <input type="time" class="form-control" id="EndTime"
                                         (change)="start_end_time_repeats($event)" formControlName="event_end_time"
                                         placeholder="End Time"> -->
-                                    <ejs-timepicker  [format]='formatString' [step]='interval'
-                                        [min]="newRequestForm.value.event_start_time" id="EndTime"
-                                        placeholder="End Time" formControlName="event_end_time"></ejs-timepicker>
-                                    <div *ngIf="newRequestForm.controls['event_end_time'].errors && ( !newRequestForm.controls['event_end_time'].pristine || submitted ||newRequestForm.controls['event_end_time'].touched )"
-                                        class="error-msg">
+                                    <ejs-timepicker [min]="newRequestForm.value.event_start_time" id="EndTime" placeholder="End Time" formControlName="event_end_time"></ejs-timepicker>
+                                    <!-- <ejs-timepicker [format]='formatString' [step]='interval' [min]="newRequestForm.value.event_start_time" id="EndTime" placeholder="End Time" formControlName="event_end_time"></ejs-timepicker> -->
+                                    <div *ngIf="newRequestForm.controls['event_end_time'].errors && ( !newRequestForm.controls['event_end_time'].pristine || submitted ||newRequestForm.controls['event_end_time'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_end_time'].errors.required">End Time is required.</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
-                </form>
-                    <!-----------------------------------LOB Education Start  -------------------------->
 
-                    <div *ngIf="showEductionForm">
-                        <form [formGroup]="educationRequestForm">
+                </form>
+                <!-----------------------------------LOB Education Start  -------------------------->
+
+                <div *ngIf="showEductionForm">
+                    <form [formGroup]="educationRequestForm">
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Contact Name</label>
-                                <input type="text" class="form-control" formControlName="name_of_contact_person"
-                                    placeholder="Contact Name">
-                                <div *ngIf="educationRequestForm.controls['name_of_contact_person'].errors && (!educationRequestForm.controls['name_of_contact_person'].pristine || submittedEdu ||educationRequestForm.controls['name_of_contact_person'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="name_of_contact_person" placeholder="Contact Name">
+                                <div *ngIf="educationRequestForm.controls['name_of_contact_person'].errors && (!educationRequestForm.controls['name_of_contact_person'].pristine || submittedEdu ||educationRequestForm.controls['name_of_contact_person'].touched )" class="error-msg">
                                     <div [hidden]="!educationRequestForm.controls['name_of_contact_person'].errors.required">
-                                        Contact Name is
-                                        required.</div>
+                                        Contact Name is required.
+                                    </div>
                                 </div>
                             </div>
 
@@ -456,73 +429,56 @@
                                                 {{isd?.name}} (+{{isd?.phonecode}})
                                             </option>
                                         </select>
-                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedEdu ||educationRequestForm.controls['phone_code'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code
-                                                is
-                                                required.</div>
+                                        <div *ngIf="educationRequestForm.controls['phone_code'].errors && ( !educationRequestForm.controls['phone_code'].pristine || submittedEdu ||educationRequestForm.controls['phone_code'].touched )" class="error-msg">
+                                            <div [hidden]="!educationRequestForm.controls['phone_code'].errors.required">Code is required.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <label for=" Phone No.">Cell Phone No.</label>
-                                        <input type="text" mask="(000) 000-0000" class="form-control"
-                                            formControlName="cell_phone"
-                                            onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                            placeholder="Cell Phone No.">
-                                        <div *ngIf="educationRequestForm.controls['cell_phone'].errors && (!educationRequestForm.controls['cell_phone'].pristine || submittedEdu ||educationRequestForm.controls['cell_phone'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!educationRequestForm.controls['cell_phone'].errors.required">Cell
-                                                Phone is required.</div>
+                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Cell Phone No.">
+                                        <div *ngIf="educationRequestForm.controls['cell_phone'].errors && (!educationRequestForm.controls['cell_phone'].pristine || submittedEdu ||educationRequestForm.controls['cell_phone'].touched )" class="error-msg">
+                                            <div [hidden]="!educationRequestForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            
+
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
                                     </label>
-                                <input type="text" class="form-control" formControlName="email"
-                                    placeholder="Email"> 
-                                <div *ngIf="educationRequestForm.controls['email'].errors && (!educationRequestForm.controls['email'].pristine || submitted ||educationRequestForm.controls['email'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email">
+                                <div *ngIf="educationRequestForm.controls['email'].errors && (!educationRequestForm.controls['email'].pristine || submitted ||educationRequestForm.controls['email'].touched )" class="error-msg">
                                     <div [hidden]="!educationRequestForm.controls['email'].errors.required">Email is required.
                                     </div>
                                 </div>
-                             </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">School/Building
                                     Name</label>
-                                <input type="text" class="form-control" formControlName="building_name"
-                                    placeholder="School/Building Name">
-                                <div *ngIf="educationRequestForm.controls['building_name'].errors && (!educationRequestForm.controls['building_name'].pristine || submittedEdu ||educationRequestForm.controls['building_name'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="building_name" placeholder="School/Building Name">
+                                <div *ngIf="educationRequestForm.controls['building_name'].errors && (!educationRequestForm.controls['building_name'].pristine || submittedEdu ||educationRequestForm.controls['building_name'].touched )" class="error-msg">
                                     <div [hidden]="!educationRequestForm.controls['building_name'].errors.required">
-                                        School/Building
-                                        Name is required.</div>
+                                        School/Building Name is required.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>School/Building
                                     Address</label>
-                                <input type="text" class="form-control" formControlName="building_address"
-                                    placeholder="Building Address">
-                                <div *ngIf="educationRequestForm.controls['building_address'].errors && (!educationRequestForm.controls['building_address'].pristine || submittedEdu ||educationRequestForm.controls['building_address'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="building_address" placeholder="Building Address">
+                                <div *ngIf="educationRequestForm.controls['building_address'].errors && (!educationRequestForm.controls['building_address'].pristine || submittedEdu ||educationRequestForm.controls['building_address'].touched )" class="error-msg">
                                     <div [hidden]="!educationRequestForm.controls['building_address'].errors.required">
-                                        Building
-                                        Address is required.</div>
+                                        Building Address is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Suite/Room/Room
                                     #</label>
-                                <input type="text" class="form-control" formControlName="room"
-                                    placeholder="Suite/Room/Room">
-                                <div *ngIf="educationRequestForm.controls['room'].errors && (!educationRequestForm.controls['room'].pristine || submittedEdu ||educationRequestForm.controls['room'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="room" placeholder="Suite/Room/Room">
+                                <div *ngIf="educationRequestForm.controls['room'].errors && (!educationRequestForm.controls['room'].pristine || submittedEdu ||educationRequestForm.controls['room'].touched )" class="error-msg">
                                     <div [hidden]="!educationRequestForm.controls['room'].errors.required">Room is required.
                                     </div>
                                 </div>
@@ -540,407 +496,343 @@
                         <div class="row">
                             <div class="col-sm-12 form-group mb-3">
                                 <label>IR General Notes</label>
-                                <textarea type="text" class="form-control" formControlName="notes"
-                                    placeholder="IR General Notes"></textarea>
-                                <div *ngIf="educationRequestForm.controls['notes'].errors && (!educationRequestForm.controls['notes'].pristine || submittedEdu ||educationRequestForm.controls['notes'].touched )"
-                                    class="error-msg">
-                                    <div [hidden]="!educationRequestForm.controls['notes'].errors.required">IR General Notes
-                                        is
-                                        required.</div>
+                                <textarea type="text" class="form-control" formControlName="notes" placeholder="IR General Notes"></textarea>
+                                <div *ngIf="educationRequestForm.controls['notes'].errors && (!educationRequestForm.controls['notes'].pristine || submittedEdu ||educationRequestForm.controls['notes'].touched )" class="error-msg">
+                                    <div [hidden]="!educationRequestForm.controls['notes'].errors.required">IR General Notes is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- <input type="hidden" class="form-control" formControlName="latitude">
                         <input type="hidden" class="form-control" formControlName="longitude"> -->
-                        </form>
-                    </div>
-                    <!-----------------------------------LOB Education End  -------------------------->
+                    </form>
+                </div>
+                <!-----------------------------------LOB Education End  -------------------------->
 
-                    <!-----------------------------------LOB Medical start  -------------------------->
-                    <div *ngIf="showMedicalForm">
-                        <form [formGroup]="medicalRequestForm">
+                <!-----------------------------------LOB Medical start  -------------------------->
+                <div *ngIf="showMedicalForm">
+                    <form [formGroup]="medicalRequestForm">
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Practice Name (Clinic, Hospital, ect)</label>
-                                <input type="text" class="form-control" formControlName="practice_name"
-                                    placeholder="Practice Name">
-                                <div *ngIf="medicalRequestForm.controls['practice_name'].errors && (!medicalRequestForm.controls['practice_name'].pristine || submittedMed ||medicalRequestForm.controls['practice_name'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="practice_name" placeholder="Practice Name">
+                                <div *ngIf="medicalRequestForm.controls['practice_name'].errors && (!medicalRequestForm.controls['practice_name'].pristine || submittedMed ||medicalRequestForm.controls['practice_name'].touched )" class="error-msg">
                                     <div [hidden]="!medicalRequestForm.controls['practice_name'].errors.required">
                                         Practice Name is required.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Provider Name</label>
-                                <input type="text" class="form-control" formControlName="provider_name"
-                                    placeholder="Provider Name">
-                                <div *ngIf="medicalRequestForm.controls['provider_name'].errors && (!medicalRequestForm.controls['provider_name'].pristine || submittedMed ||medicalRequestForm.controls['provider_name'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="provider_name" placeholder="Provider Name">
+                                <div *ngIf="medicalRequestForm.controls['provider_name'].errors && (!medicalRequestForm.controls['provider_name'].pristine || submittedMed ||medicalRequestForm.controls['provider_name'].touched )" class="error-msg">
                                     <div [hidden]="!medicalRequestForm.controls['provider_name'].errors.required">
                                         Provider Name is required.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Code</label>
-                                    <select class="form-control country_code" formControlName="phone_code">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Code</label>
+                                        <select class="form-control country_code" formControlName="phone_code">
                                         <option value="" selected disabled>Code</option>
                                         <option *ngFor="let isd of country_Obj" [value]="isd.id">
                                             {{isd?.name}} (+{{isd?.phonecode}})
                                         </option>
                                     </select>
-                                    <div *ngIf="medicalRequestForm.controls['phone_code'].errors && ( !medicalRequestForm.controls['phone_code'].pristine || submittedMed ||medicalRequestForm.controls['phone_code'].touched )"
-                                        class="error-msg">
-                                        <div [hidden]="!medicalRequestForm.controls['phone_code'].errors.required">Code
-                                            is
-                                            required.</div>
+                                        <div *ngIf="medicalRequestForm.controls['phone_code'].errors && ( !medicalRequestForm.controls['phone_code'].pristine || submittedMed ||medicalRequestForm.controls['phone_code'].touched )" class="error-msg">
+                                            <div [hidden]="!medicalRequestForm.controls['phone_code'].errors.required">Code is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for=" Phone No.">Cell Phone No.</label>
+                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Cell Phone No.">
+                                        <div *ngIf="medicalRequestForm.controls['cell_phone'].errors && (!medicalRequestForm.controls['cell_phone'].pristine || submittedMed ||medicalRequestForm.controls['cell_phone'].touched )" class="error-msg">
+                                            <div [hidden]="!medicalRequestForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <label for=" Phone No.">Cell Phone No.</label>
-                                    <input type="text" mask="(000) 000-0000" class="form-control"
-                                        formControlName="cell_phone"
-                                        onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                        placeholder="Cell Phone No.">
-                                    <div *ngIf="medicalRequestForm.controls['cell_phone'].errors && (!medicalRequestForm.controls['cell_phone'].pristine || submittedMed ||medicalRequestForm.controls['cell_phone'].touched )"
-                                        class="error-msg">
-                                        <div [hidden]="!medicalRequestForm.controls['cell_phone'].errors.required">Cell
-                                            Phone is required.</div>
-                                    </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-6 form-group mb-3">
                                 <label for="Address">Address</label>
-                                <input type="text" class="form-control" formControlName="address"
-                                    (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location"
-                                    autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                                <input type="text" class="form-control" formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
                             </div>
 
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Room</label>
-                                <input type="text" class="form-control" formControlName="room"
-                                    placeholder="Room">
-                                <div *ngIf="medicalRequestForm.controls['room'].errors && (!medicalRequestForm.controls['room'].pristine || submittedMed ||medicalRequestForm.controls['room'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="room" placeholder="Room">
+                                <div *ngIf="medicalRequestForm.controls['room'].errors && (!medicalRequestForm.controls['room'].pristine || submittedMed ||medicalRequestForm.controls['room'].touched )" class="error-msg">
                                     <div [hidden]="!medicalRequestForm.controls['room'].errors.required">
                                         Room is required.</div>
                                 </div>
                             </div>
-                           
+
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 form-group mb-3">
                                 <label>IR General Notes</label>
-                                <textarea type="text" class="form-control" formControlName="notes"
-                                    placeholder="IR General Notes"></textarea>
-                                <div *ngIf="medicalRequestForm.controls['notes'].errors && (!medicalRequestForm.controls['notes'].pristine || submittedMed ||medicalRequestForm.controls['notes'].touched )"
-                                    class="error-msg">
-                                    <div [hidden]="!medicalRequestForm.controls['notes'].errors.required">IR General Notes
-                                        is
-                                        required.</div>
+                                <textarea type="text" class="form-control" formControlName="notes" placeholder="IR General Notes"></textarea>
+                                <div *ngIf="medicalRequestForm.controls['notes'].errors && (!medicalRequestForm.controls['notes'].pristine || submittedMed ||medicalRequestForm.controls['notes'].touched )" class="error-msg">
+                                    <div [hidden]="!medicalRequestForm.controls['notes'].errors.required">IR General Notes is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" class="form-control" formControlName="latitude">
                         <input type="hidden" class="form-control" formControlName="longitude">
-                        </form>
-                    </div>
-                    <!-----------------------------------LOB Medical end  -------------------------->
+                    </form>
+                </div>
+                <!-----------------------------------LOB Medical end  -------------------------->
 
-                        <!-----------------------------------LOB Community start  -------------------------->
-                        <div *ngIf="showCommunityForm">
-                            <form [formGroup]="communityRequestForm">
-                            <div class="row">
-                                <div class="col-md-4 form-group mb-3">
-                                    <label for="Last">Case Worker First Name </label>
-                                    <input type="text" class="form-control" formControlName="caseworker_firstname"
-                                        placeholder="Case Worker First Name">
-                                    <div *ngIf="communityRequestForm.controls['caseworker_firstname'].errors && (!communityRequestForm.controls['caseworker_firstname'].pristine || submittedComm ||communityRequestForm.controls['caseworker_firstname'].touched )"
-                                        class="error-msg">
-                                        <div [hidden]="!communityRequestForm.controls['caseworker_firstname'].errors.required">
-                                           Contact Name at Assignment.</div>
-                                    </div>
+                <!-----------------------------------LOB Community start  -------------------------->
+                <div *ngIf="showCommunityForm">
+                    <form [formGroup]="communityRequestForm">
+                        <div class="row">
+                            <div class="col-md-4 form-group mb-3">
+                                <label for="Last">Case Worker First Name </label>
+                                <input type="text" class="form-control" formControlName="caseworker_firstname" placeholder="Case Worker First Name">
+                                <div *ngIf="communityRequestForm.controls['caseworker_firstname'].errors && (!communityRequestForm.controls['caseworker_firstname'].pristine || submittedComm ||communityRequestForm.controls['caseworker_firstname'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['caseworker_firstname'].errors.required">
+                                        Contact Name at Assignment.</div>
                                 </div>
-                                <div class="col-sm-4 form-group mb-3">
-                                    <label>Case Worker Last Name</label>
-                                    <input type="text" class="form-control" formControlName="caseworker_lastname"
-                                        placeholder="Case Worker Last Name">
-                                        <div *ngIf="communityRequestForm.controls['caseworker_lastname'].errors && (!communityRequestForm.controls['caseworker_lastname'].pristine || submittedComm ||communityRequestForm.controls['caseworker_lastname'].touched )"
-                                        class="error-msg">
-                                        <div [hidden]="!communityRequestForm.controls['caseworker_lastname'].errors.required">
-                                            Case Worker Last Name.</div>
-                                    </div>
+                            </div>
+                            <div class="col-sm-4 form-group mb-3">
+                                <label>Case Worker Last Name</label>
+                                <input type="text" class="form-control" formControlName="caseworker_lastname" placeholder="Case Worker Last Name">
+                                <div *ngIf="communityRequestForm.controls['caseworker_lastname'].errors && (!communityRequestForm.controls['caseworker_lastname'].pristine || submittedComm ||communityRequestForm.controls['caseworker_lastname'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['caseworker_lastname'].errors.required">
+                                        Case Worker Last Name.</div>
                                 </div>
-                                <div class="col-sm-4 form-group mb-3">
+                            </div>
+                            <div class="col-sm-4 form-group mb-3">
 
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Code</label>
-                                            <select class="form-control country_code" formControlName="phone_code">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Code</label>
+                                        <select class="form-control country_code" formControlName="phone_code">
                                                 <option value="" selected disabled>Code</option>
                                                 <option *ngFor="let isd of country_Obj" [value]="isd.id">
                                                     {{isd?.name}} (+{{isd?.phonecode}})
                                                 </option>
                                             </select>
-                                            <div *ngIf="communityRequestForm.controls['phone_code'].errors && ( !communityRequestForm.controls['phone_code'].pristine || submittedComm ||communityRequestForm.controls['phone_code'].touched )"
-                                                class="error-msg">
-                                                <div [hidden]="!communityRequestForm.controls['phone_code'].errors.required">Code
-                                                    is
-                                                    required.</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for=" Phone No.">Cell Phone No.</label>
-                                            <input type="text" mask="(000) 000-0000" class="form-control"
-                                                formControlName="cell_phone"
-                                                onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                                placeholder="Cell Phone No.">
-                                            <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedComm ||communityRequestForm.controls['cell_phone'].touched )"
-                                                class="error-msg">
-                                                <div [hidden]="!communityRequestForm.controls['cell_phone'].errors.required">Cell
-                                                    Phone is required.</div>
+                                        <div *ngIf="communityRequestForm.controls['phone_code'].errors && ( !communityRequestForm.controls['phone_code'].pristine || submittedComm ||communityRequestForm.controls['phone_code'].touched )" class="error-msg">
+                                            <div [hidden]="!communityRequestForm.controls['phone_code'].errors.required">Code is required.
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 form-group mb-3">
-                                        <label for="Last">Contact Name of Person at Assignment</label>
-                                        <input type="text" class="form-control" formControlName="name_of_contact_person"
-                                            placeholder="Contact Name of Person at Assignment">
-                                        <div *ngIf="communityRequestForm.controls['name_of_contact_person'].errors && (!communityRequestForm.controls['name_of_contact_person'].pristine || submittedComm ||communityRequestForm.controls['name_of_contact_person'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['name_of_contact_person'].errors.required">
-                                                Contact Name of Person at Assignment.</div>
+                                    <div class="col-md-8">
+                                        <label for=" Phone No.">Cell Phone No.</label>
+                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Cell Phone No.">
+                                        <div *ngIf="communityRequestForm.controls['cell_phone'].errors && (!communityRequestForm.controls['cell_phone'].pristine || submittedComm ||communityRequestForm.controls['cell_phone'].touched )" class="error-msg">
+                                            <div [hidden]="!communityRequestForm.controls['cell_phone'].errors.required">Cell Phone is required.</div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 form-group mb-3">
-                                        <label>Position</label>
-                                        <!-- <input type="text" class="form-control" formControlName="position"
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group mb-3">
+                                <label for="Last">Contact Name of Person at Assignment</label>
+                                <input type="text" class="form-control" formControlName="name_of_contact_person" placeholder="Contact Name of Person at Assignment">
+                                <div *ngIf="communityRequestForm.controls['name_of_contact_person'].errors && (!communityRequestForm.controls['name_of_contact_person'].pristine || submittedComm ||communityRequestForm.controls['name_of_contact_person'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['name_of_contact_person'].errors.required">
+                                        Contact Name of Person at Assignment.</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 form-group mb-3">
+                                <label>Position</label>
+                                <!-- <input type="text" class="form-control" formControlName="position"
                                             placeholder="Position"> -->
-                                            <select class="form-control"
-                                            formControlName="position">
+                                <select class="form-control" formControlName="position">
                                             <option value="">Position</option>
                                             <option value="Position 1">Position 1</option>
                                             <option value="Position 2">Position 2</option>
                                         </select>
-                                            <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['position'].errors.required">Position is required.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 form-group mb-3">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Code</label>
-                                                <select class="form-control country_code" formControlName="contact_person_phone_code">
+                                <div *ngIf="communityRequestForm.controls['position'].errors && (!communityRequestForm.controls['position'].pristine || submittedComm ||communityRequestForm.controls['position'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['position'].errors.required">Position is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group mb-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Code</label>
+                                        <select class="form-control country_code" formControlName="contact_person_phone_code">
                                                     <option value="" selected disabled>Code</option>
                                                     <option *ngFor="let isd of country_Obj" [value]="isd.id">
                                                         {{isd?.name}} (+{{isd?.phonecode}})
                                                     </option>
                                                 </select>
-                                                <div *ngIf="communityRequestForm.controls['contact_person_phone_code'].errors && ( !communityRequestForm.controls['contact_person_phone_code'].pristine || submittedComm ||communityRequestForm.controls['contact_person_phone_code'].touched )"
-                                                    class="error-msg">
-                                                    <div [hidden]="!communityRequestForm.controls['contact_person_phone_code'].errors.required">Code
-                                                        is
-                                                        required.</div>
-                                                </div>
+                                        <div *ngIf="communityRequestForm.controls['contact_person_phone_code'].errors && ( !communityRequestForm.controls['contact_person_phone_code'].pristine || submittedComm ||communityRequestForm.controls['contact_person_phone_code'].touched )" class="error-msg">
+                                            <div [hidden]="!communityRequestForm.controls['contact_person_phone_code'].errors.required">Code is required.
                                             </div>
-                                            <div class="col-md-8">
-                                                <label for=" Phone No.">Cell Phone No.</label>
-                                                <input type="text" mask="(000) 000-0000" class="form-control"
-                                                    formControlName="contact_person_cellphone"
-                                                    onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                                    placeholder="Cell Phone No.">
-                                                <div *ngIf="communityRequestForm.controls['contact_person_cellphone'].errors && (!communityRequestForm.controls['contact_person_cellphone'].pristine || submittedComm ||communityRequestForm.controls['contact_person_cellphone'].touched )"
-                                                    class="error-msg">
-                                                    <div [hidden]="!communityRequestForm.controls['contact_person_cellphone'].errors.required">Cell
-                                                        Phone is required.</div>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for=" Phone No.">Cell Phone No.</label>
+                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="contact_person_cellphone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                            placeholder="Cell Phone No.">
+                                        <div *ngIf="communityRequestForm.controls['contact_person_cellphone'].errors && (!communityRequestForm.controls['contact_person_cellphone'].pristine || submittedComm ||communityRequestForm.controls['contact_person_cellphone'].touched )" class="error-msg">
+                                            <div [hidden]="!communityRequestForm.controls['contact_person_cellphone'].errors.required">Cell Phone is required.</div>
                                         </div>
                                     </div>
                                 </div>
-    
-                                <div class="row">
-                                    <div class="col-md-3 form-group mb-3">
-                                        <label for="Last">Case Name</label>
-                                        <input type="text" class="form-control" formControlName="case_name"
-                                            placeholder="Case Name">
-                                        <div *ngIf="communityRequestForm.controls['case_name'].errors && (!communityRequestForm.controls['case_name'].pristine || submittedComm ||communityRequestForm.controls['case_name'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['case_name'].errors.required">
-                                                Case Name.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 form-group mb-3">
-                                        <label>Client First Name</label>
-                                        <input type="text" class="form-control" formControlName="client_firstname"
-                                            placeholder="Client First Name">
-                                        <div *ngIf="communityRequestForm.controls['client_firstname'].errors && (!communityRequestForm.controls['client_firstname'].pristine || submittedComm ||communityRequestForm.controls['client_firstname'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['client_firstname'].errors.required">
-                                                Client First Name is required.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 form-group mb-3">
-                                        <label for="Last">Client Last Name</label>
-                                        <input type="text" class="form-control" formControlName="client_lastname"
-                                            placeholder="Client Last Name">
-                                        <div *ngIf="communityRequestForm.controls['client_lastname'].errors && (!communityRequestForm.controls['client_lastname'].pristine || submittedComm ||communityRequestForm.controls['client_lastname'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['client_lastname'].errors.required">Client Last Name is required.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 form-group mb-3">
-                                        <label for="Last">Trails/Case Number</label>
-                                        <input type="text" class="form-control" formControlName="trails"
-                                            placeholder="Trails/Case Number">
-                                        <div *ngIf="communityRequestForm.controls['trails'].errors && (!communityRequestForm.controls['trails'].pristine || submittedComm ||communityRequestForm.controls['trails'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['trails'].errors.required">Trails/Case Number is required.
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="Last">Case Name</label>
+                                <input type="text" class="form-control" formControlName="case_name" placeholder="Case Name">
+                                <div *ngIf="communityRequestForm.controls['case_name'].errors && (!communityRequestForm.controls['case_name'].pristine || submittedComm ||communityRequestForm.controls['case_name'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['case_name'].errors.required">
+                                        Case Name.</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 form-group mb-3">
+                                <label>Client First Name</label>
+                                <input type="text" class="form-control" formControlName="client_firstname" placeholder="Client First Name">
+                                <div *ngIf="communityRequestForm.controls['client_firstname'].errors && (!communityRequestForm.controls['client_firstname'].pristine || submittedComm ||communityRequestForm.controls['client_firstname'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['client_firstname'].errors.required">
+                                        Client First Name is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="Last">Client Last Name</label>
+                                <input type="text" class="form-control" formControlName="client_lastname" placeholder="Client Last Name">
+                                <div *ngIf="communityRequestForm.controls['client_lastname'].errors && (!communityRequestForm.controls['client_lastname'].pristine || submittedComm ||communityRequestForm.controls['client_lastname'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['client_lastname'].errors.required">Client Last Name is required.
                                     </div>
                                 </div>
-    
-                                <div class="row">
-                                    <div class="col-sm-4 form-group mb-3">
-                                        <label>Home Visit?</label>
-                                        <div class="form-check">
-                                            <label class="form-check-label" for="gridRadios1">
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="Last">Trails/Case Number</label>
+                                <input type="text" class="form-control" formControlName="trails" placeholder="Trails/Case Number">
+                                <div *ngIf="communityRequestForm.controls['trails'].errors && (!communityRequestForm.controls['trails'].pristine || submittedComm ||communityRequestForm.controls['trails'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['trails'].errors.required">Trails/Case Number is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 form-group mb-3">
+                                <label>Home Visit?</label>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="gridRadios1">
                                                 <input class="form-check-input radio-inline " (change)="homevisit($event)"
                                                     formControlName="home_visit" type="radio" id="gridRadios11" value="1"
                                                     checked>
                                                 Yes
                                             </label>
-            
-                                            <label class="form-check-label pl-5" for="gridRadios2">
+
+                                    <label class="form-check-label pl-5" for="gridRadios2">
                                                 <input class="form-check-input radio-inline" formControlName="home_visit"
                                                     type="radio" id="gridRadios22" (change)="homevisit($event)" value="0">
                                                 No
                                             </label>
-                                        </div>
-                                        <div *ngIf="communityRequestForm.controls['home_visit'].errors && (!communityRequestForm.controls['home_visit'].pristine || submittedComm ||communityRequestForm.controls['home_visit'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['home_visit'].errors.required">Home Visit is required.
-                                            </div>
-                                        </div>
+                                </div>
+                                <div *ngIf="communityRequestForm.controls['home_visit'].errors && (!communityRequestForm.controls['home_visit'].pristine || submittedComm ||communityRequestForm.controls['home_visit'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['home_visit'].errors.required">Home Visit is required.
                                     </div>
-                                        <div  *ngIf="communityRequestForm.value.home_visit == '1'" class="col-sm-4 form-group mb-3">
-                                            <label for="Address">Address</label>
-                                            <input type="text" id="address02" class="form-control" formControlName="address"
-                                                (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location"
-                                                autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                                        </div>
-                                        <div  *ngIf="communityRequestForm.value.home_visit == '1'" class="col-md-4 form-group mb-3">
-                                            <label for="Last">Apt #</label>
-                                            <input type="text" class="form-control" formControlName="apt"
-                                                placeholder="Apt">
-                                            <!-- <div *ngIf="communityRequestForm.controls['trails'].errors && (!communityRequestForm.controls['trails'].pristine || submittedMed ||communityRequestForm.controls['trails'].touched )"
+                                </div>
+                            </div>
+                            <div *ngIf="communityRequestForm.value.home_visit == '1'" class="col-sm-4 form-group mb-3">
+                                <label for="Address">Address</label>
+                                <input type="text" id="address02" class="form-control" formControlName="address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                            </div>
+                            <div *ngIf="communityRequestForm.value.home_visit == '1'" class="col-md-4 form-group mb-3">
+                                <label for="Last">Apt #</label>
+                                <input type="text" class="form-control" formControlName="apt" placeholder="Apt">
+                                <!-- <div *ngIf="communityRequestForm.controls['trails'].errors && (!communityRequestForm.controls['trails'].pristine || submittedMed ||communityRequestForm.controls['trails'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!communityRequestForm.controls['trails'].errors.required">Room is required.
                                                 </div>
                                             </div> -->
-                                        </div>
-                                   
-                                </div>
-    
-                                <div class="row"  *ngIf="communityRequestForm.value.home_visit == '0'">
-                                    <div class="col-md-3 form-group mb-3">
-                                        <label for="Last">Practice Name (Clinic, Hospital,ect)</label>
-                                        <input type="text" class="form-control" formControlName="practice_name"
-                                            placeholder="Practice Name (Clinic, Hospital,ect)">
-                                        <!-- <div *ngIf="communityRequestForm.controls['case_name'].errors && (!communityRequestForm.controls['case_name'].pristine || submittedMed ||communityRequestForm.controls['case_name'].touched )"
+                            </div>
+
+                        </div>
+
+                        <div class="row" *ngIf="communityRequestForm.value.home_visit == '0'">
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="Last">Practice Name (Clinic, Hospital,ect)</label>
+                                <input type="text" class="form-control" formControlName="practice_name" placeholder="Practice Name (Clinic, Hospital,ect)">
+                                <!-- <div *ngIf="communityRequestForm.controls['case_name'].errors && (!communityRequestForm.controls['case_name'].pristine || submittedMed ||communityRequestForm.controls['case_name'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!communityRequestForm.controls['case_name'].errors.required">
                                                 School/Building
                                                 Name is required.</div>
                                         </div> -->
-                                    </div>
-                                    <div class="col-sm-3 form-group mb-3">
-                                        <label>Provider Name</label>
-                                        <input type="text" class="form-control" formControlName="provider_name"
-                                            placeholder="Provider Name">
-                                        <!-- <div *ngIf="newRequestForm.controls['client_firstname'].errors && (!newRequestForm.controls['client_firstname'].pristine || submittedMed ||newRequestForm.controls['client_firstname'].touched )"
+                            </div>
+                            <div class="col-sm-3 form-group mb-3">
+                                <label>Provider Name</label>
+                                <input type="text" class="form-control" formControlName="provider_name" placeholder="Provider Name">
+                                <!-- <div *ngIf="newRequestForm.controls['client_firstname'].errors && (!newRequestForm.controls['client_firstname'].pristine || submittedMed ||newRequestForm.controls['client_firstname'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!newRequestForm.controls['client_firstname'].errors.required">
                                               Position is required.</div>
                                         </div> -->
-                                    </div>
-                                    <div class="col-md-3 form-group mb-3">
-                                        <label for="Last">Address</label>
-                                        <input type="text" id="address03" class="form-control" formControlName="provider_address"
-                                        (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location"
-                                        autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                                        <!-- <div *ngIf="newRequestForm.controls['room'].errors && (!newRequestForm.controls['room'].pristine || submittedMed ||newRequestForm.controls['room'].touched )"
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="Last">Address</label>
+                                <input type="text" id="address03" class="form-control" formControlName="provider_address" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                                <!-- <div *ngIf="newRequestForm.controls['room'].errors && (!newRequestForm.controls['room'].pristine || submittedMed ||newRequestForm.controls['room'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!newRequestForm.controls['room'].errors.required">Room is required.
                                             </div>
                                         </div> -->
-                                    </div>
-                                    <div class="col-md-3 form-group mb-3">
-                                        <label for="Last">Suite/Room/Room #</label>
-                                        <input type="text" class="form-control" formControlName="room"
-                                            placeholder="Suite/Room/Room">
-                                        <!-- <div *ngIf="newRequestForm.controls['trails'].errors && (!newRequestForm.controls['trails'].pristine || submittedMed ||newRequestForm.controls['trails'].touched )"
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label for="Last">Suite/Room/Room #</label>
+                                <input type="text" class="form-control" formControlName="room" placeholder="Suite/Room/Room">
+                                <!-- <div *ngIf="newRequestForm.controls['trails'].errors && (!newRequestForm.controls['trails'].pristine || submittedMed ||newRequestForm.controls['trails'].touched )"
                                             class="error-msg">
                                             <div [hidden]="!newRequestForm.controls['trails'].errors.required">Room is required.
                                             </div>
                                         </div> -->
-                                    </div>
-                                </div>
-    
-    
-                                <div class="row">
-                                    <div class="col-sm-12 form-group mb-3">
-                                        <label>IR General Notes</label>
-                                        <textarea type="text" class="form-control" formControlName="notes"
-                                            placeholder="IR General Notes"></textarea>
-                                        <div *ngIf="communityRequestForm.controls['notes'].errors && (!communityRequestForm.controls['notes'].pristine || submittedComm ||communityRequestForm.controls['notes'].touched )"
-                                            class="error-msg">
-                                            <div [hidden]="!communityRequestForm.controls['notes'].errors.required">IR General Notes
-                                                is
-                                                required.</div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <input type="hidden" class="form-control" formControlName="latitude">
-                                <input type="hidden" class="form-control" formControlName="longitude">
-                                <input type="hidden" class="form-control" formControlName="provider_latitude">
-                                <input type="hidden" class="form-control" formControlName="provider_longitude">
-                                </form>
-                                
-                                </div>
-    
-                                
-    
-                               
-                      
-                           <!-----------------------------------LOB Community end  -------------------------->
+                            </div>
+                        </div>
 
-                     <!-----------------------------------LOB Legal start  -------------------------->
-                     <div *ngIf="showLegalForm">
-                        <form [formGroup]="legalRequestForm">
+
+                        <div class="row">
+                            <div class="col-sm-12 form-group mb-3">
+                                <label>IR General Notes</label>
+                                <textarea type="text" class="form-control" formControlName="notes" placeholder="IR General Notes"></textarea>
+                                <div *ngIf="communityRequestForm.controls['notes'].errors && (!communityRequestForm.controls['notes'].pristine || submittedComm ||communityRequestForm.controls['notes'].touched )" class="error-msg">
+                                    <div [hidden]="!communityRequestForm.controls['notes'].errors.required">IR General Notes is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" class="form-control" formControlName="latitude">
+                        <input type="hidden" class="form-control" formControlName="longitude">
+                        <input type="hidden" class="form-control" formControlName="provider_latitude">
+                        <input type="hidden" class="form-control" formControlName="provider_longitude">
+                    </form>
+
+                </div>
+
+
+
+
+
+                <!-----------------------------------LOB Community end  -------------------------->
+
+                <!-----------------------------------LOB Legal start  -------------------------->
+                <div *ngIf="showLegalForm">
+                    <form [formGroup]="legalRequestForm">
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Contact Name at Assignment</label>
-                                <input type="text" class="form-control" formControlName="name_of_contact_person"
-                                    placeholder="Contact Name at Assignment">
-                                <div *ngIf="legalRequestForm.controls['name_of_contact_person'].errors && (!legalRequestForm.controls['name_of_contact_person'].pristine || submittedLeg ||legalRequestForm.controls['name_of_contact_person'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="name_of_contact_person" placeholder="Contact Name at Assignment">
+                                <div *ngIf="legalRequestForm.controls['name_of_contact_person'].errors && (!legalRequestForm.controls['name_of_contact_person'].pristine || submittedLeg ||legalRequestForm.controls['name_of_contact_person'].touched )" class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['name_of_contact_person'].errors.required">
-                                       Contact Name at Assignment.</div>
+                                        Contact Name at Assignment.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
@@ -954,22 +846,17 @@
                                                 {{isd?.name}} (+{{isd?.phonecode}})
                                             </option>
                                         </select>
-                                        <div *ngIf="legalRequestForm.controls['phone_code'].errors && ( !legalRequestForm.controls['phone_code'].pristine || submittedLeg ||legalRequestForm.controls['phone_code'].touched )"
-                                            class="error-msg">
+                                        <div *ngIf="legalRequestForm.controls['phone_code'].errors && ( !legalRequestForm.controls['phone_code'].pristine || submittedLeg ||legalRequestForm.controls['phone_code'].touched )" class="error-msg">
                                             <div [hidden]="!legalRequestForm.controls['phone_code'].errors.required">Code is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <label for=" Phone No.">Cell Phone No.</label>
-                                        <input type="text" mask="(000) 000-0000" class="form-control"
-                                            formControlName="cell_phone"
-                                            onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                            placeholder="Cell Phone No.">
-                                            <div *ngIf="legalRequestForm.controls['cell_phone'].errors && (!legalRequestForm.controls['cell_phone'].pristine || submittedLeg ||legalRequestForm.controls['cell_phone'].touched )"
-                                            class="error-msg">
+                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Cell Phone No.">
+                                        <div *ngIf="legalRequestForm.controls['cell_phone'].errors && (!legalRequestForm.controls['cell_phone'].pristine || submittedLeg ||legalRequestForm.controls['cell_phone'].touched )" class="error-msg">
                                             <div [hidden]="!legalRequestForm.controls['cell_phone'].errors.required">
                                                 Cell Phone Number.</div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- <label>Cell Phone Number</label>
@@ -984,23 +871,19 @@
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
                                     </label>
-                                <input type="text" class="form-control" formControlName="email"
-                                    placeholder="Email">
-                                <div *ngIf="legalRequestForm.controls['email'].errors && (!legalRequestForm.controls['email'].pristine || submittedLeg ||legalRequestForm.controls['email'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email">
+                                <div *ngIf="legalRequestForm.controls['email'].errors && (!legalRequestForm.controls['email'].pristine || submittedLeg ||legalRequestForm.controls['email'].touched )" class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['email'].errors.required">Email is required.
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Building/Office Name</label>
-                                <input type="text" class="form-control" formControlName="building_name"
-                                    placeholder="Building/Office Name">
-                                <div *ngIf="legalRequestForm.controls['building_name'].errors && (!legalRequestForm.controls['building_name'].pristine || submittedLeg ||legalRequestForm.controls['building_name'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="building_name" placeholder="Building/Office Name">
+                                <div *ngIf="legalRequestForm.controls['building_name'].errors && (!legalRequestForm.controls['building_name'].pristine || submittedLeg ||legalRequestForm.controls['building_name'].touched )" class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['building_name'].errors.required">
                                         School/Building Name is required.</div>
                                 </div>
@@ -1008,21 +891,16 @@
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Building/Office
                                     Address</label>
-                                <input type="text" class="form-control" formControlName="building_address"
-                                    placeholder="Building/Office Address">
-                                <div *ngIf="legalRequestForm.controls['building_address'].errors && (!legalRequestForm.controls['building_address'].pristine || submittedLeg ||legalRequestForm.controls['building_address'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="building_address" placeholder="Building/Office Address">
+                                <div *ngIf="legalRequestForm.controls['building_address'].errors && (!legalRequestForm.controls['building_address'].pristine || submittedLeg ||legalRequestForm.controls['building_address'].touched )" class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['building_address'].errors.required">
-                                        Building
-                                        Address is required.</div>
+                                        Building Address is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Suite/Room/Room #</label>
-                                <input type="text" class="form-control" formControlName="room"
-                                    placeholder="Suite/Room/Room">
-                                <div *ngIf="legalRequestForm.controls['room'].errors && (!legalRequestForm.controls['room'].pristine || submittedLeg ||legalRequestForm.controls['room'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="room" placeholder="Suite/Room/Room">
+                                <div *ngIf="legalRequestForm.controls['room'].errors && (!legalRequestForm.controls['room'].pristine || submittedLeg ||legalRequestForm.controls['room'].touched )" class="error-msg">
                                     <div [hidden]="!legalRequestForm.controls['room'].errors.required">Room is required.
                                     </div>
                                 </div>
@@ -1032,32 +910,27 @@
                         <div class="row">
                             <div class="col-sm-12 form-group mb-3">
                                 <label>IR General Notes</label>
-                                <textarea type="text" class="form-control" formControlName="notes"
-                                    placeholder="IR General Notes"></textarea>
-                                <div *ngIf="legalRequestForm.controls['notes'].errors && (!legalRequestForm.controls['notes'].pristine || submittedLeg ||legalRequestForm.controls['notes'].touched )"
-                                    class="error-msg">
-                                    <div [hidden]="!legalRequestForm.controls['notes'].errors.required">IR General Notes
-                                        is
-                                        required.</div>
+                                <textarea type="text" class="form-control" formControlName="notes" placeholder="IR General Notes"></textarea>
+                                <div *ngIf="legalRequestForm.controls['notes'].errors && (!legalRequestForm.controls['notes'].pristine || submittedLeg ||legalRequestForm.controls['notes'].touched )" class="error-msg">
+                                    <div [hidden]="!legalRequestForm.controls['notes'].errors.required">IR General Notes is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </form>
-                    </div>
-                       <!-----------------------------------LOB Legal end  -------------------------->
-                     
-                          <!-----------------------------------LOB Community start  -------------------------->
-                     <div *ngIf="showOtherForm">
-                        <form [formGroup]="otherRequestForm">
+                    </form>
+                </div>
+                <!-----------------------------------LOB Legal end  -------------------------->
+
+                <!-----------------------------------LOB Community start  -------------------------->
+                <div *ngIf="showOtherForm">
+                    <form [formGroup]="otherRequestForm">
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Contact Name at Assignment</label>
-                                <input type="text" class="form-control" formControlName="name_of_contact_person"
-                                    placeholder="Contact Name at Assignment">
-                                <div *ngIf="otherRequestForm.controls['name_of_contact_person'].errors && (!otherRequestForm.controls['name_of_contact_person'].pristine || submittedOther ||otherRequestForm.controls['name_of_contact_person'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="name_of_contact_person" placeholder="Contact Name at Assignment">
+                                <div *ngIf="otherRequestForm.controls['name_of_contact_person'].errors && (!otherRequestForm.controls['name_of_contact_person'].pristine || submittedOther ||otherRequestForm.controls['name_of_contact_person'].touched )" class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['name_of_contact_person'].errors.required">
-                                       Contact Name at Assignment.</div>
+                                        Contact Name at Assignment.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
@@ -1072,22 +945,17 @@
                                                 {{isd?.name}} (+{{isd?.phonecode}})
                                             </option>
                                         </select>
-                                        <div *ngIf="otherRequestForm.controls['phone_code'].errors && ( !otherRequestForm.controls['phone_code'].pristine || submittedOther ||otherRequestForm.controls['phone_code'].touched )"
-                                            class="error-msg">
+                                        <div *ngIf="otherRequestForm.controls['phone_code'].errors && ( !otherRequestForm.controls['phone_code'].pristine || submittedOther ||otherRequestForm.controls['phone_code'].touched )" class="error-msg">
                                             <div [hidden]="!otherRequestForm.controls['phone_code'].errors.required">Code is required.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <label for=" Phone No.">Cell Phone No.</label>
-                                        <input type="text" mask="(000) 000-0000" class="form-control"
-                                            formControlName="cell_phone"
-                                            onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
-                                            placeholder="Cell Phone No.">
-                                            <div *ngIf="otherRequestForm.controls['cell_phone'].errors && (!otherRequestForm.controls['cell_phone'].pristine || submittedOther ||otherRequestForm.controls['cell_phone'].touched )"
-                                            class="error-msg">
+                                        <input type="text" mask="(000) 000-0000" class="form-control" formControlName="cell_phone" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 " placeholder="Cell Phone No.">
+                                        <div *ngIf="otherRequestForm.controls['cell_phone'].errors && (!otherRequestForm.controls['cell_phone'].pristine || submittedOther ||otherRequestForm.controls['cell_phone'].touched )" class="error-msg">
                                             <div [hidden]="!otherRequestForm.controls['cell_phone'].errors.required">
                                                 Cell Phone Number.</div>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- <label>Cell Phone Number</label>
@@ -1102,43 +970,35 @@
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Email
                                     </label>
-                                <input type="text" class="form-control" formControlName="email"
-                                    placeholder="Email">
-                                <div *ngIf="otherRequestForm.controls['email'].errors && (!otherRequestForm.controls['email'].pristine || submittedOther ||otherRequestForm.controls['email'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email">
+                                <div *ngIf="otherRequestForm.controls['email'].errors && (!otherRequestForm.controls['email'].pristine || submittedOther ||otherRequestForm.controls['email'].touched )" class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['email'].errors.required">Email is required.
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Building/Office Name</label>
-                                <input type="text" class="form-control" formControlName="building_name"
-                                    placeholder="Building/Office Name">
-                                <div *ngIf="otherRequestForm.controls['building_name'].errors && (!otherRequestForm.controls['building_name'].pristine || submittedOther ||otherRequestForm.controls['building_name'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="building_name" placeholder="Building/Office Name">
+                                <div *ngIf="otherRequestForm.controls['building_name'].errors && (!otherRequestForm.controls['building_name'].pristine || submittedOther ||otherRequestForm.controls['building_name'].touched )" class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['building_name'].errors.required">
                                         School/Building Name is required.</div>
                                 </div>
                             </div>
                             <div class="col-sm-4 form-group mb-3">
                                 <label>Building/Office Address</label>
-                                <input type="text" class="form-control" formControlName="building_address"
-                                    placeholder="Building/Office Address">
-                                <div *ngIf="otherRequestForm.controls['building_address'].errors && (!otherRequestForm.controls['building_address'].pristine || submittedOther ||otherRequestForm.controls['building_address'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="building_address" placeholder="Building/Office Address">
+                                <div *ngIf="otherRequestForm.controls['building_address'].errors && (!otherRequestForm.controls['building_address'].pristine || submittedOther ||otherRequestForm.controls['building_address'].touched )" class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['building_address'].errors.required">
                                         Building Address is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-4 form-group mb-3">
                                 <label for="Last">Suite/Room/Room #</label>
-                                <input type="text" class="form-control" formControlName="room"
-                                    placeholder="Suite/Room/Room">
-                                <div *ngIf="otherRequestForm.controls['room'].errors && (!otherRequestForm.controls['room'].pristine || submittedOther ||otherRequestForm.controls['room'].touched )"
-                                    class="error-msg">
+                                <input type="text" class="form-control" formControlName="room" placeholder="Suite/Room/Room">
+                                <div *ngIf="otherRequestForm.controls['room'].errors && (!otherRequestForm.controls['room'].pristine || submittedOther ||otherRequestForm.controls['room'].touched )" class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['room'].errors.required">Room is required.
                                     </div>
                                 </div>
@@ -1148,27 +1008,25 @@
                         <div class="row">
                             <div class="col-sm-12 form-group mb-3">
                                 <label>IR General Notes</label>
-                                <textarea type="text" class="form-control" formControlName="notes"
-                                    placeholder="IR General Notes"></textarea>
-                                <div *ngIf="otherRequestForm.controls['notes'].errors && (!otherRequestForm.controls['notes'].pristine || submittedOther ||otherRequestForm.controls['notes'].touched )"
-                                    class="error-msg">
+                                <textarea type="text" class="form-control" formControlName="notes" placeholder="IR General Notes"></textarea>
+                                <div *ngIf="otherRequestForm.controls['notes'].errors && (!otherRequestForm.controls['notes'].pristine || submittedOther ||otherRequestForm.controls['notes'].touched )" class="error-msg">
                                     <div [hidden]="!otherRequestForm.controls['notes'].errors.required">IR General Notes is required.</div>
                                 </div>
                             </div>
                         </div>
-                        </form>
-                    </div>
+                    </form>
+                </div>
 
-                 
-                       <!-----------------------------------LOB Community end  -------------------------->
 
-                  
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <button type="button" (click)="saveUser()" class="btn btn-primary float-right">Save</button>
-                        </div>
+                <!-----------------------------------LOB Community end  -------------------------->
+
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button type="button" (click)="saveUser()" class="btn btn-primary float-right">Save</button>
                     </div>
-               
+                </div>
+
             </div>
         </div>
     </div>

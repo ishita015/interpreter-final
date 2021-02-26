@@ -70,7 +70,11 @@ export class BroadcastRequestComponent implements OnInit {
     */
   }
 
-
+  getRowClass = (row) => {    
+    return {
+      'broadcastRequest': row.status == "1",
+    };
+   }
   /*========== Search Filter For Table Start Here========*/
   filerData(val) {
     if (val) {
@@ -111,7 +115,7 @@ export class BroadcastRequestComponent implements OnInit {
           this.userData = [...res['data']];
           // console.log("listttttttt", this.list_Obj);
           this.filteredUser = this.list_Obj;
-          console.log("=================",this.filteredUser);
+          console.log("================sss=",this.filteredUser);
         }
       });
   }

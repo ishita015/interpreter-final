@@ -1,28 +1,26 @@
 <div class="">
-  <div class="breadcrumb">
-    <ul class="heading">
-      <li><a>All Request</a></li>
-      <li>List</li>
-    </ul>
-  </div>
-
-
-  <div class="separator-breadcrumb border-top"></div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <input id="search" placeholder="Email" (keyup)="interpreterAllRequest($event.target.value)"
-          [formControl]="search_email" class="form-control form-control-rounded" type="text">
-      </div>
-
+    <div class="breadcrumb">
+        <ul class="heading">
+            <li><a>All Request</a></li>
+            <li>List</li>
+        </ul>
     </div>
 
 
-    <div class="col-md-2">
-      <div class="form-group">
-        <select class="form-control form-control-rounded" (change)="interpreterAllRequest($event.target.value)"
-          [formControl]="request_status">
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input id="search" placeholder="Email" (keyup)="interpreterAllRequest($event.target.value)" [formControl]="search_email" class="form-control form-control-rounded" type="text">
+            </div>
+
+        </div>
+
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <select class="form-control form-control-rounded" (change)="interpreterAllRequest($event.target.value)" [formControl]="request_status">
           <option value="">Select Status</option>
 
           <option class="black-text bg-warning" value="0">New Request</option>
@@ -32,62 +30,58 @@
           <!-- <option class="bg-danger text-white" value="5">Cancelled</option> -->
           <!-- <option class="bg-default black-text" value="6">Unable To Fill</option> -->
         </select>
-      </div>
-    </div>
+            </div>
+        </div>
 
-    <div class="col-md-4 dummy_text">
-      <mat-form-field appearance="fill">
-        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-          <input matStartDate formControlName="start_date" (dateChange)="interpreterAllRequest($event.target.value)"
-            placeholder="Start date">
-          <input matEndDate formControlName="end_date" (dateChange)="interpreterAllRequest($event.target.value)"
-            placeholder="End date">
+        <div class="col-md-4 dummy_text">
+            <mat-form-field appearance="fill">
+                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                    <input matStartDate formControlName="start_date" (dateChange)="interpreterAllRequest($event.target.value)" placeholder="Start date">
+                    <input matEndDate formControlName="end_date" (dateChange)="interpreterAllRequest($event.target.value)" placeholder="End date">
 
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-    </div>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
 
-    <div id="ClientAddId" class="col-md-2">
-      <button class="btn btn-primary float-right" (click)="newRequest()">Create New Request</button>
-    </div>
-    <!-- <div class="col-md-2">
+        <div id="ClientAddId" class="col-md-2">
+            <button class="btn btn-primary float-right" (click)="newRequest()">Create New Request</button>
+        </div>
+        <!-- <div class="col-md-2">
   <button class="btn btn-outline-secondary" (click)="interpreterAllRequest()">Apply</button>
   </div> -->
 
 
-    <div class="col-md-12 lang_block">
-      <div class="card o-hidden">
-        <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
-          [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-              [rows]="filteredUser">
-          <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
-            <ng-template ngx-datatable-header-template>
-              S.No  
-            </ng-template>
-            <ng-template  ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-              {{rowIndex +1}}
-            </ng-template>
-          </ngx-datatable-column>
+        <div class="col-md-12 lang_block">
+            <div class="card o-hidden">
+                <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredUser" [rowClass]="getRowClass">
+                    <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                        <ng-template ngx-datatable-header-template>
+                            S.No
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                            {{rowIndex +1}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
-          <ngx-datatable-column name="IR" prop="ir">
-            <ng-template ngx-datatable-header-template>
-              IR
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.ir}}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Client Name" prop="client_name">
-            <ng-template ngx-datatable-header-template>
-              Client Name
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.client_name}}
-            </ng-template>
-          </ngx-datatable-column>
-          <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
+                    <ngx-datatable-column name="IR" prop="ir">
+                        <ng-template ngx-datatable-header-template>
+                            IR
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.ir}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Client Name" prop="client_name">
+                        <ng-template ngx-datatable-header-template>
+                            Client Name
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.client_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
             <ng-template ngx-datatable-header-template>
               Contact Person
             </ng-template>
@@ -95,26 +89,26 @@
               {{row.name_of_contact_person}}
             </ng-template>
           </ngx-datatable-column> -->
-          
-          <ngx-datatable-column name="LOB" prop="lob_name">
-            <ng-template ngx-datatable-header-template>
-              LOB
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.lob_name}}
-            </ng-template>
-          </ngx-datatable-column>
 
-          <ngx-datatable-column name="Assignment Type" prop="assignment_type">
-            <ng-template ngx-datatable-header-template>
-              Assignment Type
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.assignment_type}}
-            </ng-template>
-          </ngx-datatable-column>
+                    <ngx-datatable-column name="LOB" prop="lob_name">
+                        <ng-template ngx-datatable-header-template>
+                            LOB
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.lob_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
-          <!-- <ngx-datatable-column name="Email" prop="email">
+                    <ngx-datatable-column name="Assignment Type" prop="assignment_type">
+                        <ng-template ngx-datatable-header-template>
+                            Assignment Type
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.assignment_type}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <!-- <ngx-datatable-column name="Email" prop="email">
             <ng-template ngx-datatable-header-template>
               Email
             </ng-template>
@@ -124,26 +118,26 @@
           </ngx-datatable-column> -->
 
 
-          <ngx-datatable-column name="Language" prop="lang_name">
-            <ng-template ngx-datatable-header-template>
-              Language
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              {{row.lang_name}}
-            </ng-template>
-          </ngx-datatable-column>
+                    <ngx-datatable-column name="Language" prop="lang_name">
+                        <ng-template ngx-datatable-header-template>
+                            Language
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.lang_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
 
-          <ngx-datatable-column name="Cell Phone" prop="cell_phone">
-            <ng-template ngx-datatable-header-template>
-              Cell Phone
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-             {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
-            </ng-template>
-          </ngx-datatable-column>
+                    <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+                        <ng-template ngx-datatable-header-template>
+                            Cell Phone
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
-          <!-- <ngx-datatable-column>
+                    <!-- <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
               <span title="Appointment date"> Appointment date</span>
             </ng-template>
@@ -152,7 +146,7 @@
             </ng-template>
           </ngx-datatable-column> -->
 
-          <!-- <ngx-datatable-column name="Site Contact" prop="site_contact">
+                    <!-- <ngx-datatable-column name="Site Contact" prop="site_contact">
             <ng-template ngx-datatable-header-template>
               Site Contact
             </ng-template>
@@ -160,58 +154,58 @@
               {{row.site_contact | mask: '(000) 000-0000'}}
             </ng-template>
           </ngx-datatable-column> -->
-          <ngx-datatable-column>
-            <ng-template ngx-datatable-header-template>
-              <span title="Requested date">Requested date</span>
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <span title="{{row.created_at}}"> {{row.created_at | date:'MM/dd/yyyy' }}</span>
-            </ng-template>  
-        </ngx-datatable-column>
-          <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1' || roleId=='4'">
-            <ng-template ngx-datatable-header-template>Status
-            </ng-template>
+                    <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                            <span title="Requested date">Requested date</span>
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <span title="{{row.created_at}}"> {{row.created_at | date:'MM/dd/yyyy' }}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1' || roleId=='4'">
+                        <ng-template ngx-datatable-header-template>Status
+                        </ng-template>
 
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-<!-- 
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <!-- 
               <span class="text-warning" *ngIf="row.status==1">New Request</span>
               <span class="assign-color" *ngIf="row.status==2">Broadcasting</span>
               <span class="text-primary" *ngIf="row.status==3">In Progress</span>
               <span class="text-success" *ngIf="row.status==4">Completed</span>
               <span class="text-danger" *ngIf="row.status==5">Canceled</span> -->
 
-              <span class="text-warning" *ngIf="row.status==0">New Request</span>
-              <span class="assign-color" *ngIf="row.status==1">Broadcasting</span>
-              <span class="text-primary" *ngIf="row.status==2">In Progress</span>
-              <span class="text-success" *ngIf="row.status==3">Completed</span>
-              <span class="text-danger" *ngIf="row.status==4">Reassign</span>
-              <span class="text-danger" *ngIf="row.status==5">Canceled</span>
-              <!-- <span class="text-danger" >Unable to fill</span> -->
-            </ng-template>
+                            <span *ngIf="row.status==0">New Request</span>
+                            <span *ngIf="row.status==1">Broadcasting</span>
+                            <span *ngIf="row.status==2">In Progress</span>
+                            <span *ngIf="row.status==3">Completed</span>
+                            <span *ngIf="row.status==4">Reassign</span>
+                            <!-- <span *ngIf="row.status==5">Canceled</span> -->
+                            <!-- <span class="text-danger" >Unable to fill</span> -->
+                        </ng-template>
 
-          </ngx-datatable-column>
+                    </ngx-datatable-column>
 
 
-          <ngx-datatable-column [width]="120" [sortable]="false">
-            <ng-template ngx-datatable-header-template>Action
-            </ng-template>
+                    <ngx-datatable-column [width]="120" [sortable]="false">
+                        <ng-template ngx-datatable-header-template>Action
+                        </ng-template>
 
-            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              <button class="ClientViewId btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
-      </div>
-      <ng-container *ngIf="list_Obj?.length <= 0">
-        No Data Found
-      </ng-container>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="ClientViewId btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            <ng-container *ngIf="list_Obj?.length <= 0">
+                No Data Found
+            </ng-container>
+        </div>
+
     </div>
-
-  </div>
 </div>
 
 <style type="text/css">
-  .displayNone {
-    display: none !important;
-  }
+    .displayNone {
+        display: none !important;
+    }
 </style>

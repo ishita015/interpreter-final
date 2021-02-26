@@ -62,7 +62,11 @@ export class CompleteRequestComponent implements OnInit {
     // });
    
   }
-
+  getRowClass = (row) => {    
+    return {
+      'completeRequest': row.status == "3",
+    };
+   }
   // filerData(val) {
   //   if (val) {
   //     val = val.toLowerCase();

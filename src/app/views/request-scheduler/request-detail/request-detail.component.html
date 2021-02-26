@@ -80,11 +80,10 @@
                                 </tr>
                                 <tr *ngIf="data?.recurrent_assignment == '1'">
                                     <td>Every</td>
-                                    <td>{{data?.every}}</td>
-                                    <!-- <td *ngIf ="data?.every == '1'">First Week</td>
-                                    <td *ngIf ="data?.every == '2'">Second Week</td>
-                                    <td *ngIf ="data?.every == '3'">Third Week</td>
-                                    <td *ngIf ="data?.every == '4'">Fourth Week</td> -->
+                                    <td *ngIf="data?.every == '1'">First Week</td>
+                                    <td *ngIf="data?.every == '2'">Second Week</td>
+                                    <td *ngIf="data?.every == '3'">Third Week</td>
+                                    <td *ngIf="data?.every == '4'">Fourth Week</td>
                                 </tr>
                                 <tr *ngIf="data?.event_at != null && data?.recurrent_assignment == '1'">
                                     <td>ON</td>
@@ -92,12 +91,12 @@
                                     <td *ngIf="len != 7">
                                         <span *ngFor="let a of event_at">
                                             <span *ngIf="a == '1'">Monday, </span>
-                                            <span *ngIf="a == '2'">Tuesday, </span>
-                                            <span *ngIf="a == '3'">Wednesay, </span>
-                                            <span *ngIf="a == '4'">Thursday, </span>
-                                            <span *ngIf="a == '5'">Friday, </span>
-                                            <span *ngIf="a == '6'">Saturday</span>
-                                            <span *ngIf="a == '0'">Sunday, </span>
+                                        <span *ngIf="a == '2'">Tuesday, </span>
+                                        <span *ngIf="a == '3'">Wednesay, </span>
+                                        <span *ngIf="a == '4'">Thursday, </span>
+                                        <span *ngIf="a == '5'">Friday, </span>
+                                        <span *ngIf="a == '6'">Saturday</span>
+                                        <span *ngIf="a == '0'">Sunday, </span>
 
                                         </span>
 
@@ -286,8 +285,8 @@
                             </tr>
                             <tr *ngIf="data?.contact_person_phone_code != null">
                                 <td>Contact Person</td>
-                                <td>{{data?.contact_person_phone_code}} {{data?.contact_person_cellphone | mask: '(000)
-                                    000-0000'}}</td>
+                                <td>{{data?.contact_person_phone_code}} {{data?.contact_person_cellphone | mask: '(000) 000-0000'}}
+                                </td>
                             </tr>
 
                             <tr *ngIf="data?.building_name != null">
