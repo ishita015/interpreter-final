@@ -16,9 +16,9 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <select class="form-control form-control-rounded"  (change)="userList()"
+        <select  class="form-control form-control-rounded"  (change)="userList()"
           [formControl]="searchUserRoll">
-          <option disabled value="Select Status">Select Status</option>
+          <option disabled selected [ngValue]="">Select Role</option>
           <option *ngFor="let role of userRole" value={{role.id}}>{{role.role_name}}</option>
           <!-- <option class="black-text bg-warning" value="0">New Request</option>
           <option class="bg-black text-white" value="1">Broadcasting</option>

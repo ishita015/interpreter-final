@@ -231,7 +231,7 @@ module.exports.getAllBasicTabList = async function(req, res) {
 module.exports.getRequestDetails = async function(req, res) {
         try {
             var result = await commonDb.getRequestDetails(req.params.id);
-            result[0].cellphone_contact_person = result[0].phone_code + " " + result[0].cellphone_contact_person;
+            result[0].cellphone_contact_persons = result[0].phone_code + " " + result[0].cellphone_contact_person;
             if (result[0].caseworker_name != null) {
                 result[0].caseworker_name = result[0].caseworker_name + " " + result[0].caseworker_lastname;
             }
