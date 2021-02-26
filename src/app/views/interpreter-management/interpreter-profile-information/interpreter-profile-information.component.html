@@ -27,7 +27,7 @@
         </div> -->
         <div (click)="general()" class="col-lg-3 col-md-6 col-sm-6 pro_info">
             <div class="card card_grr card-icon-bg card-icon-bg-primary o-hidden mb-4"
-                [ngClass]="general_form ? 'activegreen' : ''">
+                [ngClass]="general_form ? 'activegreen' : ''">  
                 <div class="card-body text-center">
                     <!-- <div class="card-icon cardgreenn" *ngIf="detail_Obj.user_profile_status=='1'">
                         <ion-icon name="checkmark-outline"></ion-icon>
@@ -1306,7 +1306,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                     <!-- </div> -->
 
                                                     <!-- <div *ngIf="showLegalLob == 1" class="col-md-2 mb-2"> -->
-                                                    <div  class="col-md-2 mb-2">
+                                                    <div  class="col-md-2 mb-2" [ngClass]="">
                                                         <label *ngIf="j==0" for="hourly_rate">  Rate </label>
                                                         <input type="text" class="form-control"
                                                             formControlName="rate"
