@@ -1168,7 +1168,8 @@ module.exports.getRequestData = function(req, res) {
         let ed = end_date.replace(/T/, ' ').replace(/\..+/, '');      
         sql += " && ris.updated_at BETWEEN '"+sd+"' AND '"+ed+"'";
     }
-    sql += " GROUP BY ris.scheduler_id ORDER BY ris.id DESC"; 
+    // sql += " GROUP BY ris.scheduler_id ORDER BY ris.id DESC"; 
+    sql += " ORDER BY ris.id DESC"; 
 
     console.log("request_information_services-",sql)
     con.query(sql, function(err, result, fields) {
