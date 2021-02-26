@@ -1290,7 +1290,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                    <!--  <div class="col-md-12 p-0"> -->
                                                         
 
-                                                        <div class="col-md-2 mb-2">
+                                                        <div class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
                                                             <label *ngIf="j==0" for="min_paid">Specialization</label>
                                                             <input disabled="" class="form-control" type="text" value="{{aa.value.lobname}}">
                                                             <!-- <select 
@@ -1306,7 +1306,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                     <!-- </div> -->
 
                                                     <!-- <div *ngIf="showLegalLob == 1" class="col-md-2 mb-2"> -->
-                                                    <div  class="col-md-2 mb-2" [ngClass]="">
+                                                    <div  class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}" [ngClass]="">
                                                         <label *ngIf="j==0" for="hourly_rate">  Rate </label>
                                                         <input type="text" class="form-control"
                                                             formControlName="rate"
@@ -1315,7 +1315,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                                                    
 
-                                                    <div class="col-md-2 mb-2">
+                                                    <div class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
                                                         <label *ngIf="j==0" for="min_paid">Minimum  </label>
 
                                                         <select class="form-control"
@@ -1335,7 +1335,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </select>
                                                     </div>
 
-                                                     <div class="col-md-2 mb-2">
+                                                     <div class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
                                                         <label *ngIf="j==0" for="min_paid"> Increment </label>
 
                                                         <select class="form-control"
