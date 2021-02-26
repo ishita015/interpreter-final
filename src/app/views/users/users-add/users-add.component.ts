@@ -43,6 +43,7 @@ export class UsersAddComponent implements OnInit {
     tagsCtrl1 = new FormControl(this.items);
     tagsCtrl2 = new FormControl([]);
 
+    public country_Obj;
 
     // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
     // name = 'Angular';
@@ -68,6 +69,7 @@ export class UsersAddComponent implements OnInit {
         this.createForm();
         this.LanguageList();
         this.userRoleList();
+        this.CountryList();
         //load Places Autocomplete
         // this.mapsAPILoader.load().then(() => {
         //     this.setCurrentLocation();
@@ -104,17 +106,28 @@ export class UsersAddComponent implements OnInit {
 
     onChange(id) {
         this.newlanguageVal = id.target.value;
-        console.log("iddddddddddd", this.newlanguageVal);
     }
 
     onChangeRole(id) {
         this.newrole = id.target.value;
-        console.log("iddddddddddd", this.newrole);
     }
 
     onSelect(item) {
         console.log('tag selected: value is' + item);
     }
+
+    /*========== Country Code for Mobile Start Here========*/
+
+  CountryList() {
+    this.service.getCountryMobileCode().subscribe(res => {
+      if (res['status'] == '1') {
+        console.log("api response", res);
+        this.country_Obj = res['data'];
+      }
+    });
+  }
+
+  /*==========  Country Code for Mobile End Here========*/
 
     /*========== Form Value Start Here========*/
     createForm() {
@@ -125,6 +138,7 @@ export class UsersAddComponent implements OnInit {
             email: ['', this.validation.onlyRequired_validator],
             password: ['', this.validation.onlyRequired_validator],
             mobile: ['', this.validation.onlyRequired_validator],
+            country_code: ['', this.validation.onlyRequired_validator],
             // address: ['', this.validation.onlyRequired_validator],
             // apartment:['', this.validation.onlyRequired_validator],
             // street:['', this.validation.onlyRequired_validator],

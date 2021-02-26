@@ -4,9 +4,15 @@
 
 export const environment = {
   production: false,
+<<<<<<< HEAD
   // apiUrl: 'http://192.168.0.56:3300',
   apiUrl: 'http://192.168.0.56:3300',
   // apiUrl: 'http://192.168.0.24:3300',
+=======
+  // apiUrl: 'http://103.15.67.78:3300',
+  // apiUrl: 'http://103.15.67.78:3300',
+  apiUrl: 'http://192.168.0.24:3300',
+>>>>>>> dde42fd40193c61f7e090f16b2bd2233ca79c08b
 
   documentUrl:'http://192.168.0.56:3300/documents/',
   imageUrl:'http://192.168.0.56:3300/user/',

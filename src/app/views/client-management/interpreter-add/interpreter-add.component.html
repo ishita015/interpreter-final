@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for="MobileNo.">Mobile No.</label>
-                                    <input type="number"  class="form-control" formControlName="mobile"   placeholder="Mobile">
+                                    <input type="text"  mask="(000) 000-0000"  class="form-control" formControlName="mobile"   placeholder="Mobile">
                                 </div>
                             </div>
                             <div *ngIf="userForm.controls['country_code'].errors && ( !userForm.controls['country_code'].pristine || submitted ||userForm.controls['country_code'].touched )" class="error-msg">
@@ -211,7 +211,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for="MobileNo.">Mobile No.</label>
-                                    <input type="number"  class="form-control" formControlName="contact_mobile_no"   placeholder="Mobile">
+                                    <input  type="text"  mask="(000) 000-0000"  class="form-control" formControlName="contact_mobile_no"   placeholder="Mobile">
                                 </div>
                             </div>
                             
