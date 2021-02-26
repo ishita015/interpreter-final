@@ -90,12 +90,15 @@ module.exports.getDays = async function(req, res) {
 //***** ADD NEW BASIC TAB START *****//
 
 module.exports.enterNewInterpreterRequestBasicTab = async function(req, res) {
+            console.log(req.body)
         try {
             var medical = req.body.medical;
             var community = req.body.community;
             var education = req.body.education;
             var legal = req.body.legal;
             var others = req.body.others;
+
+            
             if (education != undefined) {
                 delete req.body.education;
                 req.body.name_of_contact_person = education.name_of_contact_person;
@@ -145,9 +148,9 @@ module.exports.enterNewInterpreterRequestBasicTab = async function(req, res) {
                 req.body.notes = community.notes;
                 req.body.room = community.room;
                 req.body.home_visit = community.home_visit;
-                req.body.address = community.address;
-                req.body.latitude = community.latitude;
-                req.body.longitude = community.longitude;
+                // req.body.address = community.address;
+                // req.body.latitude = community.latitude;
+                // req.body.longitude = community.longitude;
                 if (community.home_visit == '1') {
                     req.body.apt = community.apt;
                 }
@@ -158,11 +161,11 @@ module.exports.enterNewInterpreterRequestBasicTab = async function(req, res) {
                 req.body.provider_name = medical.provider_name;
                 req.body.phone_code = "+" + medical.phone_code;
                 req.body.cell_phone = medical.cell_phone;
-                req.body.address = medical.address;
+                // req.body.address = medical.address;
                 req.body.room = medical.room;
                 req.body.notes = medical.notes;
-                req.body.latitude = medical.latitude;
-                req.body.longitude = medical.longitude;
+                // req.body.latitude = medical.latitude;
+                // req.body.longitude = medical.longitude;
             }
             if (req.body.recurrent_assignment == '0' || req.body.recurrent_assignment == '') {
                 req.body.recurrent_assignment == 0;
@@ -190,6 +193,7 @@ module.exports.enterNewInterpreterRequestBasicTab = async function(req, res) {
             return res.json({ status: true, msg: 'Add successfully!' });
 
         } catch (err) {
+            console.log(err)
             return res.json({ status: false, msg: 'There was an error in add!' });
         }
     }
