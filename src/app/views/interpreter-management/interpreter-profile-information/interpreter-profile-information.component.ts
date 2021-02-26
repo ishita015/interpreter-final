@@ -246,11 +246,11 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.LanguageList();
     // this.interId = JSON.parse(localStorage.getItem('userId')); //interpreter id
     this.interId = window.location.href.split('interpreter-profile/')[1]
+    this.getRateDetails(); 
     this.detailProfile();
     this.createForm2();
     this.getUserLanguage();
     this.getPlatform();
-    this.getRateDetails(); 
   }
 createItem() {
         return this.fb.group({
@@ -669,36 +669,46 @@ createItem() {
 
   //====================gokul code end==========================//
 
+  checkProfileStatus(){
+    if (this.detail_Obj.user_profile_status == 1) {
+      this.skills_form = true;
+    }
+    if (this.detail_Obj.skill_complete == 1) {
+      this.skills_form = true;
+      this.assignment_form = false;
+    }
+  }
   banking() {
-    // if (this.detail_Obj.bank_profile_status == 1) {
+    if (this.resData.rate_status == 1) {
       this.general_form = false;
       this.skills_form = false;
       this.assignment_form = false;
       this.banking_form = true;
-    // }
+    }
   }
 
   assignment() {
     // if (this.detail_Obj.interpreter_assignment_status == 1) {
-      this.general_form = false;
-      this.skills_form = false;
-      this.assignment_form = true;
-      this.assignment_form = true;
-      this.banking_form = false;
-      this.activeId = "";
+      if (this.detail_Obj.user_profile_status == 1 && this.detail_Obj.skill_complete == 1) {
+        this.assignment_form = true;
+        this.general_form = false;
+        this.skills_form = false;
+        this.banking_form = false;
+        this.activeId = "";
+      } 
 
     // }
   }
 
   skills() {
-    if (this.detail_Obj.skill_complete == 1) {
-      this.general_form = false;
+    if (this.detail_Obj.user_profile_status == 1) {
       this.skills_form = true;
+      this.general_form = false;
       this.assignment_form = false;
       this.banking_form = false;
+
     }
   }
-
   general() {
     this.general_form = true;
     this.skills_form = false;
@@ -806,7 +816,11 @@ createItem() {
         this.detail_Obj = res['data'][0];
         this.role_idAPI = this.detail_Obj.role_id
         console.log("detail_Obj=============", this.detail_Obj);
+        //  if(this.detail_Obj.user_profile_status == '1'){
+        //   console.log
+        //   this.skills_form == true;
 
+        //  } 
         if (this.detail_Obj.skillsCommunityDoc != '' && this.detail_Obj.skillsCommunityDoc != undefined) {
           this.communityinter = true;
           this.ci = true;
@@ -862,7 +876,7 @@ createItem() {
         this.detail_Obj = res;
       }
 
-      if (this.detail_Obj?.bank_profile_status == '1' && this.detail_Obj?.interpreter_assignment_status == '1' && this.detail_Obj?.user_profile_status == '1' && this.detail_Obj?.skill_complete == '1') {
+      if (this.detail_Obj.bank_profile_status == '1' && this.resData.rate_status == '1' && this.detail_Obj.user_profile_status == '1' && this.detail_Obj?.skill_complete == '1') {
         this.showArroveBtn = 1
       } else {
         this.showArroveBtn = 0
@@ -920,8 +934,10 @@ createItem() {
       this.gen_Msg = res;
       if (res['status'] == 1) {
         this.toastr.success(this.gen_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-        this.skills_form = true;
-        this.general_form = false;
+        if(this.detail_Obj.user_profile_status == '1'){
+          this.skills_form = true;
+          this.general_form = false;
+        }
         this.detailProfile();
       } else {
         this.toastr.error(this.gen_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
@@ -1010,6 +1026,9 @@ createItem() {
           console.log("api response", res);
           this.banking_Obj = res
           this.banking_Msg = res
+          if(this.detail_Obj.bank_profile_status=='1'){
+            this.showArroveBtn = 1
+          }
           this.toastr.success(this.banking_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
           // this.router.navigate(['/languages/list']);  
         } else {
@@ -1556,10 +1575,15 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
         this.createDynamicForm()
       if (res['status'] == '1') {
         this.toastr.success(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-        this.assignment_form = true;
-        this.general_form = false;
-        this.skills_form = false;
-        this.banking_form = false;
+      
+        if(this.detail_Obj.skill_complete == '1'){
+          this.assignment_form = true;
+          this.general_form = false;
+          this.skills_form = false;
+          this.banking_form = false;
+        }
+        this.getInterpreterFiles();
+
         this.interpreterSkillForm.reset();  
         this.detailProfile();
         this.resetFileVariable();
@@ -1829,6 +1853,7 @@ myPlatformData=[]
                   increment: [''],
                   travel_time: [''],
                   mileage: [''],
+                  flatFee: [''],
 
          }))
           }
@@ -1845,13 +1870,29 @@ myPlatformData=[]
   }
 showMileageCheck=true;
 showTimeTravelCheck=true;
-  showTravelTime(e){
+flatFeeCheck=false;
+showTravelTime(e){
     this.showTimeTravelCheck=e
+    if(e==true){
+      this.flatFeeCheck=false;
+    }
   }
   showMileageTime(e){
     this.showMileageCheck=e
+    if(e==true){
+      this.flatFeeCheck=false;
+    }
   }
-
+  flatFee(e){
+    this.flatFeeCheck=e;
+    if(e==true){
+      this.showMileageCheck=false;
+      this.showTimeTravelCheck=false;
+    }else{
+      this.showMileageCheck=true;
+      this.showTimeTravelCheck=true;
+    }
+  }
   selectFormPlatform(e){
     // this.createDynamicForm()
 
@@ -1871,6 +1912,7 @@ if(resdata['data'].length > 0){
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:resdata['data'][i].minpaid })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:resdata['data'][i].rate })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:resdata['data'][i].travel_time })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({flatFee:resdata['data'][i].flatFee })
 
   }
 }else{
@@ -1881,6 +1923,7 @@ if(resdata['data'].length > 0){
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:'' })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:''})
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:'' })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({flatFee:'' })
 
   }
 }
@@ -1900,12 +1943,12 @@ getRateDetails(){
   this.service.get('getRateDetails/'+this.interId).subscribe((res)=>{
     console.log("=====================getres=========",res);
     this.resData = res;
-    if(this.resData.interpreter_assignment_status=='1'){
-      this.banking_form = true;
-            this.assignment_form = false;
-            this.general_form = false;
-            this.skills_form = false;
-    }
+    // if(this.resData.interpreter_assignment_status=='1'){
+    //   this.banking_form = true;
+    //         this.assignment_form = false;
+    //         this.general_form = false;
+    //         this.skills_form = false;
+    // }
   })
 }
 
@@ -2024,7 +2067,6 @@ createItem1() {
     console.log('secondFormGroup1',this.secondFormGroup1.value)
     console.log('this.languageId',this.languageId)
     console.log('type',type)
-
     console.log('secondFormGroup',this.secondFormGroup.value)
     var setdata={  platformid:type.id,
                    language_id:this.languageId,
@@ -2034,18 +2076,23 @@ createItem1() {
     console.log('setdata',setdata)
     this.service.post('updateIntrepeterSetingNew', setdata)
        .subscribe(res => {
+          this.getRateDetails();
            if(res['status'] == true){
-             this.toastr.success(res['msg']);
-             this.banking_form = true;
-            this.assignment_form = false;
-            this.general_form = false;
-            this.skills_form = false;
+              this.toastr.success(res['msg']);
+           setTimeout(() => {
+            if(this.resData.rate_status=='1'){
+              this.banking_form = true;
+              this.assignment_form = false;
+              this.general_form = false;
+              this.skills_form = false;
+            }
+           }, 100);
            }else{
              this.toastr.warning(res['msg']);
               this.assignment_form = true;
-            this.general_form = false;
-            this.skills_form = false;
-            this.banking_form = false;
+              this.general_form = false;
+              this.skills_form = false;
+              this.banking_form = false;
 
            }
           })

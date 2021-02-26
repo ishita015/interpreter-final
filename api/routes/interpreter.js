@@ -4364,17 +4364,16 @@ module.exports.getLanguageRate = async function(req, res) {
 module.exports.getRateDetails = async function(req, res) {
     try {
         var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', { Interpreter_id: req.params.id })
-        var interpreter_assignment_status;
+        var rate_status = '0';
+        console.log("=========data====", data);
         for (var i = 0; i < data.length; i++) {
             if (data[i].rate != '' && data[i].minpaid != '' && data[i].increment != '') {
-                interpreter_assignment_status = '1';
-            } else {
-                interpreter_assignment_status = '0';
+                rate_status = '1';
                 break;
-            }
+            } 
         }
 
-        return res.send({ interpreter_assignment_status: interpreter_assignment_status })
+        return res.send({ rate_status: rate_status })
     } catch (e) {
         console.log(e)
     }
@@ -4384,7 +4383,6 @@ module.exports.getRateDetails = async function(req, res) {
 module.exports.getInterpreterRateSettingNew = async function(req, res) {
     try {
         var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', { language_id: req.body.language_id, Interpreter_id: req.body.interpreter_id, platform_id: req.body.id })
-        console.log("=========data", data);
 
 
         return res.send({ data: data })
@@ -4414,10 +4412,11 @@ module.exports.updateIntrepeterSetingNew = async function(req, res) {
                     increment: req.body.arr[i].increment,
                     travel_time: req.body.arr[i].travel_time,
                     mileage: req.body.arr[i].mileage,
+                    flatFee: req.body.arr[i].flatFee,
                 })
             } else {
 
-                var sql = "UPDATE interpreter_assignment_settings SET language_id = '" + req.body.language_id + "', rate = '" + req.body.arr[i].rate + "', minpaid = '" + req.body.arr[i].minpaid + "', increment = '" + req.body.arr[i].increment + "', travel_time = '" + req.body.arr[i].travel_time + "', mileage = '" + req.body.arr[i].mileage + "' WHERE platform_id = " + req.body.platformid + " AND Interpreter_id=" + req.body.interpreter_id + " AND lob=" + req.body.arr[i].lob + "";
+                var sql = "UPDATE interpreter_assignment_settings SET language_id = '" + req.body.language_id + "', rate = '" + req.body.arr[i].rate + "', minpaid = '" + req.body.arr[i].minpaid + "', increment = '" + req.body.arr[i].increment + "', travel_time = '" + req.body.arr[i].travel_time + "', mileage = '" + req.body.arr[i].mileage + "', flatFee = '" + req.body.arr[i].flatFee + "' WHERE platform_id = " + req.body.platformid + " AND Interpreter_id=" + req.body.interpreter_id + " AND lob=" + req.body.arr[i].lob + "";
                 con.query(sql, function(err, result, fields) {});
             }
 
