@@ -1,10 +1,11 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 // import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { HttpService } from "../../../shared/services/http.service";
 import { ValidationsService } from 'src/app/shared/services/validations.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 import { HttpClient } from '@angular/common/http';
@@ -20,9 +21,12 @@ enableRipple(true);
 @Component({
   selector: 'app-all-request-schedular',
   templateUrl: './all-request-schedular.component.html',
-  styleUrls: ['./all-request-schedular.component.scss']
+  styleUrls: ['./all-request-schedular.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class AllRequestSchedularComponent implements OnInit {
+
+
+export class AllRequestSchedularComponent implements OnInit { 
   public clientObj: string[] = [];
   public assignment_Obj;
   public platform_Obj;
@@ -42,6 +46,7 @@ export class AllRequestSchedularComponent implements OnInit {
   public save_obj;
   public save_Msg;
   public recurrent;
+  default_code;
   assignment_var = false;
   days = false;
   public dailyData;
@@ -115,7 +120,7 @@ export class AllRequestSchedularComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.CountryList();
     this.createForm1();
     this.createForm2();
     this.createForm3();
@@ -127,7 +132,6 @@ export class AllRequestSchedularComponent implements OnInit {
     // this.allAssignmentTypeList();
     this.allPlatformList();
     this.allLanguageList();
-    this.CountryList();
     this.allDayList();
     this.date_func();
     this.assign_date_func();
@@ -249,7 +253,7 @@ export class AllRequestSchedularComponent implements OnInit {
       building_address: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
-      phone_code: ['', this.validation.onlyRequired_validator],
+      phone_code: [233, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
     })
   }
@@ -259,8 +263,8 @@ export class AllRequestSchedularComponent implements OnInit {
       caseworker_firstname: ['', this.validation.onlyRequired_validator],
       caseworker_lastname: ['', this.validation.onlyRequired_validator],
       position: ['', this.validation.onlyRequired_validator],
-      contact_person_phone_code: ['', this.validation.onlyRequired_validator],
-      contact_person_cellphone: ['', this.validation.onlyRequired_validator],
+      contact_person_phone_code: [233, this.validation.onlyRequired_validator],
+      contact_person_cellphone: [233, this.validation.onlyRequired_validator],
       phone_code: ['', this.validation.onlyRequired_validator],
       name_of_contact_person: ['', this.validation.onlyRequired_validator],
       cell_phone: ['', this.validation.onlyRequired_validator],
@@ -287,7 +291,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.medicalRequestForm = this.fb.group({
       practice_name: ['', this.validation.onlyRequired_validator],
       provider_name: ['', this.validation.onlyRequired_validator],
-      phone_code: ['', this.validation.onlyRequired_validator],
+      phone_code: [233, this.validation.onlyRequired_validator],
       cell_phone: ['', this.validation.onlyRequired_validator],
       address: [''],
       room: ['', this.validation.onlyRequired_validator],
@@ -305,7 +309,7 @@ export class AllRequestSchedularComponent implements OnInit {
       building_address: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
-      phone_code: ['', this.validation.onlyRequired_validator],
+      phone_code: [233, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
     })
   }
@@ -317,7 +321,7 @@ export class AllRequestSchedularComponent implements OnInit {
       building_address: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
-      phone_code: ['', this.validation.onlyRequired_validator],
+      phone_code: [233, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
     })
   }
@@ -334,11 +338,12 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   /*========== IR end Here========*/
   /*========== Country Code for Mobile Start Here========*/
-
   CountryList() {
     this.service.getCountryMobileCode().subscribe(res => {
       if (res['status'] == '1') {
         this.country_Obj = res['data'];
+        console.log("======this.country_Obj===============",this.country_Obj);
+        this.default_code = this.country_Obj[233].id;
       }
     });
   }
@@ -659,10 +664,11 @@ export class AllRequestSchedularComponent implements OnInit {
         return;
       }
     }
-    this.newRequestForm.value.from_time = moment(this.newRequestForm.value.from_time).format("HH:mm");;
-    this.newRequestForm.value.to_time = moment(this.newRequestForm.value.to_time).format("HH:mm");
-    this.newRequestForm.value.event_start_time = moment(this.newRequestForm.value.event_start_date).format("HH:mm");
-    this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
+
+    this.newRequestForm.value.from_time = moment(this.newRequestForm.value.from_time).format("LT");;
+    this.newRequestForm.value.to_time = moment(this.newRequestForm.value.to_time).format("LT");
+    this.newRequestForm.value.event_start_time = moment(this.newRequestForm.value.event_start_date).format("LT");
+    this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("LT");
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     this.newRequestForm.value.client_id = this.client_id;

@@ -2985,6 +2985,7 @@ module.exports.getAllPendingRequest = async function(req, res) {
             mainObj = {
                 client_name: resultdata[i].client_name,
                 ir: resultdata[i].ir,
+                status: resultdata[i].status,
                 name_of_contact_person: resultdata[i].name_of_contact_person,
                 created_date: resultdata[i].created_date,
                 ris_id: resultdata[i].ris_id,
@@ -3203,7 +3204,6 @@ module.exports.requestSendtoInterpreter = async function(req, res) {
 // get interpreter
 module.exports.getNearbyInterpreter = async function(req, res, next) {
     //validation start
-    console.log("-================getNearbyInterpreter req.body,", req.body)
     const v = new Validator(req.body, {
         service_id: 'required',
         language: 'required'
@@ -3531,8 +3531,6 @@ module.exports.getInterpreter = async function(req, res, next) {
 
 // get All User
 module.exports.getAllUser = function(req, res, next) {
-    console.log("==================req.params.userRoll==============", req.params.userRoll);
-    console.log("==================req.params.userName==============", req.params.userName);
     if (req.params.id == 'all') {
         var sql = "SELECT u.*,ur.role_name FROM user as u LEFT JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id != 1";
     } else {
@@ -3980,7 +3978,6 @@ module.exports.addInterpreter = async function(req, res) {
 
 
 module.exports.updateInterpreter = async function(req, res) {
-    console.log("req.body==============================", req.body);
     //validation start
     const v = new Validator(req.body, {
         interpreter_id: 'required',
@@ -4367,7 +4364,6 @@ module.exports.getLanguageRate = async function(req, res) {
 module.exports.getRateDetails = async function(req, res) {
     try {
         var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', { Interpreter_id: req.params.id })
-        console.log("=========data=====", data);
         var interpreter_assignment_status;
         for (var i = 0; i < data.length; i++) {
             if (data[i].rate != '' && data[i].minpaid != '' && data[i].increment != '') {

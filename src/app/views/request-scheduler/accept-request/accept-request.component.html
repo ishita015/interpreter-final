@@ -1,55 +1,46 @@
 <div class="">
-  <div class="breadcrumb">
-    <ul class="heading">
-        <li><a>In Progress</a></li>
-        <li>List</li>
-    </ul>
-</div>
-  
+    <div class="breadcrumb">
+        <ul class="heading">
+            <li><a>In Progress</a></li>
+            <li>List</li>
+        </ul>
+    </div>
+
     <div class="separator-breadcrumb border-top"></div>
 
     <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <input id="search" (keyup)="interpreterRequestData($event.target.value)" placeholder="Search" [formControl]="search_name"  class="form-control form-control-rounded" type="text">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input id="search" (keyup)="interpreterRequestData($event.target.value)" placeholder="Search" [formControl]="search_name" class="form-control form-control-rounded" type="text">
+            </div>
+
         </div>
-       
-  </div>
-  <div class="col-md-4 dummy_text">
-    <mat-form-field appearance="fill">
-      <!-- <mat-label>Enter a date range</mat-label> -->
-      <mat-date-range-input [formGroup]="range" 
-      [rangePicker]="picker">
-        <input matStartDate formControlName="start_date" (dateChange)="interpreterRequestData($event.target.value)" placeholder="Start date">
-        <input matEndDate formControlName="end_date" (dateChange)="interpreterRequestData($event.target.value)" placeholder="End date">
+        <div class="col-md-4 dummy_text">
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>Enter a date range</mat-label> -->
+                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                    <input matStartDate formControlName="start_date" (dateChange)="interpreterRequestData($event.target.value)" placeholder="Start date">
+                    <input matEndDate formControlName="end_date" (dateChange)="interpreterRequestData($event.target.value)" placeholder="End date">
 
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
-  </div>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
 
-      <div class="col-md-12 lang_block bluetable bluetablenew">
-          <div class="card  o-hidden">
-            <ngx-datatable *ngIf="filteredUser?.length"
-              style="height: 500px; box-shadow: none"
-              class="material fullscreen"
-              [columnMode]="'force'"
-              [headerHeight]="50"
-              [footerHeight]="50"
-              [rowHeight]="60"
-              [scrollbarV]="true"
-              [rows]="filteredUser">
-              <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
-                <ng-template ngx-datatable-header-template>
-                 S.No
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
-                    {{rowIndex +1}}
-                </ng-template>
-               </ngx-datatable-column>
+        <div class="col-md-12 lang_block bluetable bluetablenew">
+            <div class="card  o-hidden">
+                <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [rows]="filteredUser" [rowClass]="getRowClass">
+                    <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+                        <ng-template ngx-datatable-header-template>
+                            S.No
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+                            {{rowIndex +1}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
-               <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
+                    <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
                 <ng-template ngx-datatable-header-template>
                   Caseworker
                 </ng-template>
@@ -57,40 +48,40 @@
                   {{row.caseworker_name}}
                 </ng-template>
               </ngx-datatable-column> -->
-              <ngx-datatable-column name="IR" prop="ir">
-                <ng-template ngx-datatable-header-template>
-                  IR
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.ir}}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Client Name" prop="client_name">
-                <ng-template ngx-datatable-header-template>
-                  Client Name
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.client_name}}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="LOB" prop="lob_name">
-                <ng-template ngx-datatable-header-template>
-                  LOB
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.lob_name}}
-                </ng-template>
-              </ngx-datatable-column>
-    
-              <ngx-datatable-column name="Assignment Type" prop="assignment_type">
-                <ng-template ngx-datatable-header-template>
-                  Assignment Type
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.assignment_type}}
-                </ng-template>
-              </ngx-datatable-column>
-              <!-- <ngx-datatable-column name="Email" prop="email">
+                    <ngx-datatable-column name="IR" prop="ir">
+                        <ng-template ngx-datatable-header-template>
+                            IR
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.ir}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Client Name" prop="client_name">
+                        <ng-template ngx-datatable-header-template>
+                            Client Name
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.client_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="LOB" prop="lob_name">
+                        <ng-template ngx-datatable-header-template>
+                            LOB
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.lob_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Assignment Type" prop="assignment_type">
+                        <ng-template ngx-datatable-header-template>
+                            Assignment Type
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.assignment_type}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column name="Email" prop="email">
                 <ng-template ngx-datatable-header-template>
                   Email
                 </ng-template>
@@ -98,7 +89,7 @@
                   {{row.email}}
                 </ng-template>
               </ngx-datatable-column>     -->
-              <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
+                    <!-- <ngx-datatable-column name="Name Of Contact Person" prop="name_of_contact_person">
                 <ng-template ngx-datatable-header-template>
                   Contact Person
                 </ng-template>
@@ -106,7 +97,7 @@
                   {{row.name_of_contact_person}}
                 </ng-template>
               </ngx-datatable-column> -->
-               <!-- <ngx-datatable-column name="Appointment Type" prop="appointment_type">
+                    <!-- <ngx-datatable-column name="Appointment Type" prop="appointment_type">
                 <ng-template ngx-datatable-header-template>
                   Appointment Type
                 </ng-template>
@@ -114,15 +105,15 @@
                   {{row.appointment_type}}
                 </ng-template>
               </ngx-datatable-column> -->
-              <ngx-datatable-column name="Cell Phone" prop="cell_phone">
-                <ng-template ngx-datatable-header-template>
-                  Cell Phone
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                  {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
-                </ng-template>
-              </ngx-datatable-column>
-                <!-- <ngx-datatable-column name="Requester" prop="requester_name">
+                    <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+                        <ng-template ngx-datatable-header-template>
+                            Cell Phone
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column name="Requester" prop="requester_name">
                     <ng-template ngx-datatable-header-template>
                       Requester
                     </ng-template>
@@ -130,34 +121,34 @@
                       {{row.requester_name}}
                     </ng-template>
                 </ngx-datatable-column> -->
-                <ngx-datatable-column name="Interpreter Name" prop="interpreter_name">
-                  <ng-template ngx-datatable-header-template>
-                      Interpreter
-                  </ng-template>
-                  <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      {{row.interpreter_name}}
-                  </ng-template>  
-              </ngx-datatable-column>
-              
-              <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
-                <ng-template ngx-datatable-header-template>
-                  Interpreter Mobile 
-                </ng-template>
-                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                   {{row.interpreter_phoneCode}} {{row.mobile | mask: '(000) 000-0000'}}
-                </ng-template>  
-             </ngx-datatable-column>
+                    <ngx-datatable-column name="Interpreter Name" prop="interpreter_name">
+                        <ng-template ngx-datatable-header-template>
+                            Interpreter
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.interpreter_name}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
-             <ngx-datatable-column>
-              <ng-template ngx-datatable-header-template>
-                <span title="Requested date">Requested date</span>
-              </ng-template>
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy' }}</span>
-              </ng-template>  
-          </ngx-datatable-column>
+                    <ngx-datatable-column name="Interpreter Mobile" prop="mobile">
+                        <ng-template ngx-datatable-header-template>
+                            Interpreter Mobile
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            {{row.interpreter_phoneCode}} {{row.mobile | mask: '(000) 000-0000'}}
+                        </ng-template>
+                    </ngx-datatable-column>
 
-          <!-- <ngx-datatable-column>
+                    <ngx-datatable-column>
+                        <ng-template ngx-datatable-header-template>
+                            <span title="Requested date">Requested date</span>
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <span title="{{row.created_at}}">{{row.created_at | date:'MM/dd/yyyy' }}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <!-- <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
               <span title="Appointment date">Appointment date</span>
             </ng-template>
@@ -165,42 +156,38 @@
               <span title="{{row.date}}">{{row.date | date:'MM/dd/yyyy' }}</span>
             </ng-template>  
         </ngx-datatable-column> -->
-           
-            <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1' || roleId=='4'">
-              <ng-template ngx-datatable-header-template>Status
-              </ng-template>
-              
-              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                  In Progress
-              </ng-template>
-             
-          </ngx-datatable-column>
-          
-          
-          <ngx-datatable-column [width]="120" [sortable]="false" >
-            <ng-template ngx-datatable-header-template>Action
-            </ng-template>
-            
-            <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" >
-              <button class="btn btn-outline-secondary mr-1" 
-              (click)="viewDetail(row.ris_id)">View</button>  
-              
-              <button *ngIf="roleId=='1' || roleId == '4'" class="btn btn-outline-secondary" 
-              (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
 
-              <button *ngIf="roleId!='1' && roleId!='4'" class="btn btn-outline-danger ml-2"
-              (click)="trackingLinkSend(row.user_id,row.ris_id, linkConfirmModal)">
+                    <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId=='1' || roleId=='4'">
+                        <ng-template ngx-datatable-header-template>Status
+                        </ng-template>
+
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            In Progress
+                        </ng-template>
+
+                    </ngx-datatable-column>
+
+
+                    <ngx-datatable-column [width]="120" [sortable]="false">
+                        <ng-template ngx-datatable-header-template>Action
+                        </ng-template>
+
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                            <button class="btn btn-outline-secondary mr-1" (click)="viewDetail(row.ris_id)">View</button>
+
+                            <button *ngIf="roleId=='1' || roleId == '4'" class="btn btn-outline-secondary" (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>
+
+                            <button *ngIf="roleId!='1' && roleId!='4'" class="btn btn-outline-danger ml-2" (click)="trackingLinkSend(row.user_id,row.ris_id, linkConfirmModal)">
                 Tracking link
               </button>
 
-              <button *ngIf="roleId!='1' && roleId!='4'" class="btn btn-outline-danger ml-2"
-              (click)="requestComplete(row.ris_id, completeConfirmModal)">
+                            <button *ngIf="roleId!='1' && roleId!='4'" class="btn btn-outline-danger ml-2" (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Completed
               </button>
-            </ng-template>
-          </ngx-datatable-column>
+                        </ng-template>
+                    </ngx-datatable-column>
 
-           <!-- <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId!='1'">
+                    <!-- <ngx-datatable-column [width]="120" [sortable]="false" *ngIf="roleId!='1'">
               <ng-template ngx-datatable-header-template>Action
               </ng-template>
               
@@ -209,90 +196,90 @@
                 <button class="btn btn-outline-secondary ml-2" (click)="interpreterReply(row.user_id,row.ris_id,'3')">Reject</button>  
             </ng-template>
           </ngx-datatable-column> -->
-          
-          
 
-          </ngx-datatable>
+
+
+                </ngx-datatable>
+            </div>
+            <ng-container *ngIf="list_Obj?.length <= 0">
+                No Data Found
+            </ng-container>
         </div>
-        <ng-container *ngIf="list_Obj?.length <= 0">
-            No Data Found
-        </ng-container>
-      </div>
-        
+
     </div>
-</div>  
+</div>
 <ng-template #completeConfirmModal let-modal>
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Alert</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alert</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
-  </div>
-  <div class="modal-body">
-      <p><strong>Are you sure? you want to Completed task?</strong></p>
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-      <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
-  </div>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure? you want to Completed task?</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
 </ng-template>
 
 <ng-template #reminderConfirmModal let-modal>
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Reminder</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Reminder</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
-  </div>
-  <div class="modal-body">
+    </div>
+    <div class="modal-body">
 
-    <form [formGroup]="noteForm">
-      <div class="form-group">
-        <label>Note</label>
-        <textarea class="form-control" formControlName="notes" rows="3" placeholder="Optional"></textarea>
-      </div>
-      <div class="form-group check_box">
+        <form [formGroup]="noteForm">
+            <div class="form-group">
+                <label>Note</label>
+                <textarea class="form-control" formControlName="notes" rows="3" placeholder="Optional"></textarea>
+            </div>
+            <div class="form-group check_box">
 
-      <label class="container">Email
+                <label class="container">Email
         <input  [disabled]="ReadOnlyStyleGuideNotes" (click) ="email_check()" id="check1" type="checkbox">
         <span class="checkmark"></span>
       </label>
-      <label class="container">Sms
+                <label class="container">Sms
         <input  [disabled]="ReadOnlyStyleGuideNotes" (click) ="sms_check()" id="check2" type="checkbox">
         <span class="checkmark"></span>
       </label>
-      <label class="container">Push
+                <label class="container">Push
         <input [disabled]="ReadOnlyStyleGuideNotes" (click) ="push_check()" id="check3" type="checkbox">
         <span class="checkmark"></span>
       </label>
-      <label class="container">Call
+                <label class="container">Call
         <input [disabled]="call_check"  id="check4" (click)="call_Check()" type="checkbox">
         <span class="checkmark"></span>
       </label>
-      </div>
-    </form>
-  
+            </div>
+        </form>
+
     </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-      <button type="button" ngbAutofocus class="btn btn-wide btn-success btn-rounded" (click)="modal.close('Ok')">Send</button>
-  </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-success btn-rounded" (click)="modal.close('Ok')">Send</button>
+    </div>
 </ng-template>
 
 
 
 <ng-template #linkConfirmModal let-modal>
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Alert</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alert</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
-  </div>
-  <div class="modal-body">
-      <p><strong>Are you sure? you want to send tracking link?</strong></p>
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
-      <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
-  </div>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure? you want to send tracking link?</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
 </ng-template>

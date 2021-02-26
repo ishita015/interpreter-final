@@ -77,6 +77,12 @@ export class AcceptRequestComponent implements OnInit {
     }
     */
   }
+
+  getRowClass = (row) => {    
+    return {
+      'progressRequest': row.status == "2",
+    };
+   }
   /*========== Form Value Start Here========*/
   createForm() {
     this.noteForm = this.fb.group({
