@@ -58,7 +58,7 @@
       <div class="card o-hidden">
         <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-          [rows]="filteredUser">
+          [rows]="filteredUser" [rowClass]="getRowClass">
           <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
             <ng-template ngx-datatable-header-template>
               S.No
@@ -162,12 +162,12 @@
               <span class="text-success" *ngIf="row.status==4">Completed</span>
               <span class="text-danger" *ngIf="row.status==5">Canceled</span> -->
     
-              <span class="text-warning" *ngIf="row.status==0">New Request</span>
-              <span class="assign-color" *ngIf="row.status==1">Broadcasting</span>
-              <span class="text-primary" *ngIf="row.status==2">In Progress</span>
-              <span class="text-success" *ngIf="row.status==3">Completed</span>
-              <span class="text-danger" *ngIf="row.status==4">Reassign</span>
-              <span class="text-danger" *ngIf="row.status==5">Canceled</span>
+              <span  *ngIf="row.status==0">New Request</span>
+              <span  *ngIf="row.status==1">Broadcasting</span>
+              <span  *ngIf="row.status==2">In Progress</span>
+              <span  *ngIf="row.status==3">Completed</span>
+              <span *ngIf="row.status==4">Reassign</span>
+              <span *ngIf="row.status==5">Canceled</span>
               <!-- <span class="text-danger" >Unable to fill</span> -->
             </ng-template>
 

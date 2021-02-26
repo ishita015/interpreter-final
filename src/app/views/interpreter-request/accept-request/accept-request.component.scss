@@ -31,4 +31,11 @@
    .dummy_text ::ng-deep .mat-input-element::placeholder{
    color: #9b9b9b;
    }
+   .lang_block .datatable-header .datatable-header-inner .datatable-row-center > .datatable-header-cell:last-child {
+    min-width: 300px !important;
+}
+.lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center > .datatable-body-cell:last-child {
+    min-width: 300px !important;
+    min-height: auto !important;
+}
    // -------------- search calendar End --------------------//

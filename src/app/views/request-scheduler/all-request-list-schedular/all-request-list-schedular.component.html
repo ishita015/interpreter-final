@@ -21,7 +21,7 @@
         <div class="col-md-2">
             <div class="form-group">
                 <select class="form-control form-control-rounded" (change)="interpreterAllRequest($event.target.value)" [formControl]="request_status">
-          <option value="">Select Status</option>
+          <option disabled value="select">Select Status</option>
 
           <option class="black-text bg-warning" value="0">New Request</option>
           <option class="bg-black text-white" value="1">Broadcasting</option>
@@ -192,6 +192,8 @@
 
                         <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                             <button class="ClientViewId btn btn-outline-secondary mr-1" (click)="viewDetail(row.id)">View</button>
+
+                            <button class="btn btn-outline-secondary ml-2" *ngIf=" row.status == 0 && (roleId =='1' || roleId == '4')" (click)="assignMyNearbyInterpreter(row.id,row)">Broadcast</button>
                         </ng-template>
                     </ngx-datatable-column>
                 </ngx-datatable>

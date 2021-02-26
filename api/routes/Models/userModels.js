@@ -549,7 +549,8 @@ class userClass {
             // let lat = 22.7261762;
             // let lang = 76.1305457; 
 
-            var sql = "SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '" + lat + "' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '" + lat + "' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '" + lang + "' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='" + language_id + "'";
+            // var sql = "SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '" + lat + "' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '" + lat + "' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '" + lang + "' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id WHERE u.role_id='2' && u.primary_language='" + language_id + "'";
+            var sql = "SELECT u.*,ur.role_name FROM ( SELECT *, ( ( ( acos( sin(( '" + lat + "' * pi() / 180)) * sin(( `latitude` * pi() / 180)) + cos(( '" + lat + "' * pi() /180 )) * cos(( `latitude` * pi() / 180)) * cos((( '" + lang + "' - `longitude`) * pi()/180))) ) * 180/pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM `user` ) u INNER JOIN user_roles as ur ON u.role_id=ur.id INNER JOIN interpreter_language ON u.id=interpreter_language.user_id WHERE u.role_id='2' && interpreter_language.language_id='" + language_id + "'";
             // SELECT CONCAT(first_name, ' ', last_name) AS 'CUSTOMER NAME' FROM user
             if (distance != 0) {
                 sql += " && u.distance <= '" + distance + "'";
@@ -573,7 +574,7 @@ class userClass {
 
             sql += " ORDER BY u.distance ASC";
 
-
+            console.log('dev',sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);

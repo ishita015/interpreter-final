@@ -19,7 +19,7 @@
 
     <div class="col-md-12">
       <div class="card o-hidden">
-        <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
+        <ngx-datatable  [rowClass]="getRowClass" *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
           [rows]="filteredUser">
           <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">

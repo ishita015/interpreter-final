@@ -35,12 +35,12 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   doc: Array<any> = [];
   doc2: Array<any> = [];
-  doc3:  Array<any> = [];
-  doc4:  Array<any> = [];
-  doc5:  Array<any> = [];
-  doc6:  Array<any> = [];
-  doc7:  Array<any> = [];
-  doc8:  Array<any> = [];
+  doc3: Array<any> = [];
+  doc4: Array<any> = [];
+  doc5: Array<any> = [];
+  doc6: Array<any> = [];
+  doc7: Array<any> = [];
+  doc8: Array<any> = [];
 
   lang: Array<any> = [];
   selectedFile: File = null;
@@ -169,8 +169,8 @@ export class InterpreterProfileInformationComponent implements OnInit {
   docImage;
   platform_obj;
   showViewBtn = false;
-      secondFormGroup: FormGroup;
-      secondFormGroup1: FormGroup;
+  secondFormGroup: FormGroup;
+  secondFormGroup1: FormGroup;
 
   constructor(public validation: ValidationsService,
     private fb: FormBuilder,
@@ -197,16 +197,16 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   ngOnInit() {
     // this.addBankInfo(); // add bank details
- this.secondFormGroup = this.fb.group({
-            // arr: this.fb.array([this.createItem()])
-            arr: this.fb.array([])
+    this.secondFormGroup = this.fb.group({
+      // arr: this.fb.array([this.createItem()])
+      arr: this.fb.array([])
 
-        })
- this.secondFormGroup1 = this.fb.group({
-            // arr: this.fb.array([this.createItem()])
-            arr: this.fb.array([])
+    })
+    this.secondFormGroup1 = this.fb.group({
+      // arr: this.fb.array([this.createItem()])
+      arr: this.fb.array([])
 
-        })
+    })
     this.GetLOB();
     this.getAllPlatform();
     this.skillsForm();
@@ -252,16 +252,16 @@ export class InterpreterProfileInformationComponent implements OnInit {
     this.getUserLanguage();
     this.getPlatform();
   }
-createItem() {
-        return this.fb.group({
-            
-            hourly_rate: ['', Validators.required],
-            half_day_min_paid: ['', Validators.required],
-            half_day_pay_increment: ['', Validators.required],
-           
-        })
-    }
 
+  createItem() {
+    return this.fb.group({
+
+      hourly_rate: ['', Validators.required],
+      half_day_min_paid: ['', Validators.required],
+      half_day_pay_increment: ['', Validators.required],
+
+    })
+  }
 
   getPlatform() {
     this.service.get('getRateSettingPlatforms/' + this.interId).subscribe(res => {
@@ -270,11 +270,11 @@ createItem() {
       }
     });
   }
-  platformData=[];
+  platformData = [];
   getAllPlatform() {
     this.service.get('getAllPlatform').subscribe(res => {
-        this.platformData = res['data'];
-          });
+      this.platformData = res['data'];
+    });
   }
 
   /*========== Bank Routing Value Start Here========*/
@@ -503,14 +503,14 @@ createItem() {
       //     Communityhourly_rate: this.UserLangData[0].base_rate,
       //     Medicalhourly_rate: this.UserLangData[0].base_rate,
       //   })
-      if(this.UserLangData.length > 0){
-      this.on_site_language = this.UserLangData[0].id;
-      this.opi_language = this.UserLangData[0].id;
-      this.vri_language = this.UserLangData[0].id;
-      this.vci_language = this.UserLangData[0].id;
-      this.rsi_language = this.UserLangData[0].id;
-      this.vci_opi_language = this.UserLangData[0].id;
-      this.languageId=res['data'][0].id
+      if (this.UserLangData.length > 0) {
+        this.on_site_language = this.UserLangData[0].id;
+        this.opi_language = this.UserLangData[0].id;
+        this.vri_language = this.UserLangData[0].id;
+        this.vci_language = this.UserLangData[0].id;
+        this.rsi_language = this.UserLangData[0].id;
+        this.vci_opi_language = this.UserLangData[0].id;
+        this.languageId = res['data'][0].id
       }
     });
   }
@@ -685,6 +685,7 @@ createItem() {
       this.assignment_form = false;
       this.banking_form = true;
     }
+
   }
 
   assignment() {
@@ -696,7 +697,6 @@ createItem() {
         this.banking_form = false;
         this.activeId = "";
       } 
-
     // }
   }
 
@@ -726,12 +726,12 @@ createItem() {
     this.generalForm.get('last_name').patchValue(this.detail_Obj.last_name);
     // this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
     // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
-    this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name == 0 ? '' :this.detail_Obj.nick_name);
+    this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name == 0 ? '' : this.detail_Obj.nick_name);
     this.generalForm.get('notes').patchValue(this.detail_Obj.about == 'null' ? '' : this.detail_Obj.about);
     this.generalForm.get('mobile').patchValue(this.detail_Obj.mobile);
-    this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code == 0 ? '' :this.detail_Obj.country_code );
+    this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code == 0 ? '' : this.detail_Obj.country_code);
     this.generalForm.get('address').patchValue(this.detail_Obj.address == 0 ? '' : this.detail_Obj.address);
-    this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth == 0 ? '' : this.detail_Obj.date_of_birth );
+    this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth == 0 ? '' : this.detail_Obj.date_of_birth);
     this.generalForm.get('international_phone_no').patchValue(this.detail_Obj.international_phone_no == 0 ? '' : this.detail_Obj.international_phone_no);
 
     this.generalForm.get('country').patchValue(this.detail_Obj.country);
@@ -741,20 +741,20 @@ createItem() {
     }
     this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
     this.generalForm.get('city').patchValue(this.detail_Obj.city);
-    this.generalForm.get('zipCode').patchValue(this.detail_Obj.zipCode == 0 ? '':this.detail_Obj.zipCode);
+    this.generalForm.get('zipCode').patchValue(this.detail_Obj.zipCode == 0 ? '' : this.detail_Obj.zipCode);
     this.generalForm.get('timezone').patchValue(this.detail_Obj.timezone);
     this.generalForm.get('other_gender').patchValue(this.detail_Obj.other_gender);
-    this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name == 0 ? '':this.detail_Obj.company_name);
+    this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name == 0 ? '' : this.detail_Obj.company_name);
     if (this.detail_Obj.social_security_no == "EIN") {
       this.einshowInput = true;
-      this.generalForm.controls['ein'].setValidators([Validators.minLength(9)]); 
+      this.generalForm.controls['ein'].setValidators([Validators.minLength(9)]);
       this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no == 0 ? '' : this.detail_Obj.social_security_no);
     }
     else {
       this.ssnshowInput = true;
 
-      this.generalForm.controls['ssn'].setValidators([Validators.minLength(9)]);   
-      this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no == 0 ? '':this.detail_Obj.social_security_no);
+      this.generalForm.controls['ssn'].setValidators([Validators.minLength(9)]);
+      this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no == 0 ? '' : this.detail_Obj.social_security_no);
     }
     this.generalForm.get('ssn').patchValue(this.detail_Obj.ssn_no);
     this.generalForm.get('ein').patchValue(this.detail_Obj.ein_no);
@@ -781,15 +781,15 @@ createItem() {
       first_name: ['', this.validation.onlyRequired_validator],
       last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
-      mobile: ['', [Validators.pattern(/^(\d{0,3})(\d{0,4})(.*)/),Validators.required]],
-      international_phone_no: ['',Validators.pattern(/^(\d{0,3})(\d{0,4})(.*)/)],
+      mobile: ['', [Validators.pattern(/^(\d{0,3})(\d{0,4})(.*)/), Validators.required]],
+      international_phone_no: ['', Validators.pattern(/^(\d{0,3})(\d{0,4})(.*)/)],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
       country_code: ['', this.validation.onlyRequired_validator],
       address: ['', this.validation.onlyRequired_validator],
       // address: [''],
       company_name: ['', this.validation.onlyRequired_validator],
-      social_security_no: ['',Validators.required],
+      social_security_no: ['', Validators.required],
       // apartment:['', this.validation.onlyRequired_validator],
       gender: [''],
       latitude: [''],
@@ -800,7 +800,7 @@ createItem() {
       city: [''],
       state: [''],
       zipCode: ['', this.validation.onlyRequired_validator],
-      timezone: ['',this.validation.onlyRequired_validator],
+      timezone: ['', this.validation.onlyRequired_validator],
       image: [''],
       other_gender: [''],
       notes: [''],
@@ -899,8 +899,8 @@ createItem() {
   //update interpreter value
   updateInterpreter() {
 
-    console.log('-------------',this.generalForm)
-    this.submitted = true; 
+    console.log('-------------', this.generalForm)
+    this.submitted = true;
     if (this.generalForm.invalid) {
       return;
     }
@@ -965,10 +965,13 @@ createItem() {
   selectRoutingNo(e) {
     this.routingNoValue = e.target.value;
     // if(this.routingNoValue.length == 9) {
+    this.spinner.show();
     this.service.getRoutingNumber(this.routingNoValue).subscribe(res => {
+      this.spinner.hide();
       if (res['code'] == 200) {
         this.routingNo = res;
         console.log("api respone for routing no", this.routingNo);
+
         // this.bankingRoutingForm.get('routing_number').patchValue(this.routingNo.routing_number);
         this.bankingRoutingForm.get('bank_name').patchValue(this.routingNo.customer_name);
         this.bankingRoutingForm.get('bank_address').patchValue(this.routingNo.address);
@@ -1046,25 +1049,25 @@ createItem() {
   /*==================assignment form start============================ */
 
   onsiteShow(w) {
-    if(w == 1){
+    if (w == 1) {
       this.onsiteInfo = true;
     }
-    if(w == 2){
+    if (w == 2) {
       this.opiInfo = true;
     }
-    if(w == 3){
+    if (w == 3) {
       this.vriInfo = true;
     }
-    if(w == 4){
+    if (w == 4) {
       this.vclInfo = true;
     }
-    if(w == 5){
+    if (w == 5) {
       this.rsiInfo = true;
     }
-    if(w == 6){
+    if (w == 6) {
       this.vci_opi = true;
     }
-    
+
 
   }
   opiShow() {
@@ -1085,16 +1088,16 @@ createItem() {
     this.vci_opi = true;
   }
 
-assignment_arr=[];
+  assignment_arr = [];
   assignmentFormCheck(event, eveKey) {
-      if (event.target.checked) {
-        // this.onsiteInfo = true;
-        this.assignment_arr.push(eveKey)
-      } else {
-        // this.onsiteInfo = false;
-         this.assignment_arr.splice(this.assignment_arr.indexOf(eveKey),1);
-      }
-    
+    if (event.target.checked) {
+      // this.onsiteInfo = true;
+      this.assignment_arr.push(eveKey)
+    } else {
+      // this.onsiteInfo = false;
+      this.assignment_arr.splice(this.assignment_arr.indexOf(eveKey), 1);
+    }
+
     // if (eveKey == '2') {
     //   if (event.target.checked) {
     //     this.opiInfo = true;
@@ -1334,132 +1337,154 @@ assignment_arr=[];
   }
 
   onSingleFileChange(event, key, type) {
-    console.log("event",event);
-    console.log("key",key);
-    console.log("type",type);
-    
+    console.log("event", event);
+    console.log("key", key);
+    console.log("type", type);
+
     // let file: File = event.target.files[0];
     // this.selectedFile = file;
     // this.addDocInArray(this.selectedFile, key, type);
     var filesAmount = event.target.files.length;
-	for (var i = 0; i < filesAmount; i++) 
-	{
-       this.arrImages.push({ all_img: event.target.files[i], doc_type: key, types: type });
+    for (var i = 0; i < filesAmount; i++) {
+      this.arrImages.push({ all_img: event.target.files[i], doc_type: key, types: type });
     }
 
 
     let fileArray: File = event.target.files[0];
     let file: File = event.target.files
- 
-	// if(type == '1')
-	// {
-		if (file && fileArray) 
-		{
-			for (let i = 0; i < filesAmount; i++) {
-				var reader = new FileReader();
-				this.showViewBtn = true;
-				reader.onload = (event: any) => {
-				
-        if(type == '1') {
-    console.log('ik',event.target.result.indexOf(":image/"))
-  
-          this.doc.push({
-            all_img: event.target.result,
-            doc_type: key,
-            types: type,
-            img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
-        if(type == '2') {
-          this.doc2.push({
-                  all_img2: event.target.result,
-                  doc_type2: key,
-                  types2: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
-        if(type == '3') {
-          this.doc3.push({
-                  all_img3: event.target.result,
-                  doc_type3: key,
-                  types3: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
-        if(type == '4') {
-          this.doc4.push({
-                  all_img4: event.target.result,
-                  doc_type4: key,
-                  types4: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
-        if(type == '5') {
-          this.doc5.push({
-                  all_img5: event.target.result,
-                  doc_type5: key,
-                  types5: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
-        if(type == '6') {
-          this.doc6.push({
-                  all_img6: event.target.result,
-                  doc_type6: key,
-                  types6: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
 
-         if(type == '7') {
-          this.doc7.push({
-                  all_img7: event.target.result,
-                  doc_type7: key,
-                  types7: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
-        }
+    // if(type == '1')
+    // {
+    if (file && fileArray) {
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        // this.showViewBtn = true;
+        reader.onload = (event: any) => {
 
-        if(type == '8') {
-          this.doc8.push({
-                  all_img8: event.target.result,
-                  doc_type8: key,
-                  types8: type,
-                  img_url:event.target.result.indexOf(":image/") != -1  ?  event.target.result : './assets/images/pdf.jpeg' 
-          });
+          if (type == '1') {
+            console.log('ik', event.target.result.indexOf(":image/"))
+            if (this.doc.length >= 3) {
+              console.log("doc");
+              this.showViewBtn = true;
+            }
+            this.doc.push({
+              all_img: event.target.result,
+              doc_type: key,
+              types: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+          if (type == '2') {
+            if (this.doc2.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc2.push({
+              all_img2: event.target.result,
+              doc_type2: key,
+              types2: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+          if (type == '3') {
+            if (this.doc3.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc3.push({
+              all_img3: event.target.result,
+              doc_type3: key,
+              types3: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+          if (type == '4') {
+            if (this.doc4.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc4.push({
+              all_img4: event.target.result,
+              doc_type4: key,
+              types4: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+          if (type == '5') {
+            if (this.doc5.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc5.push({
+              all_img5: event.target.result,
+              doc_type5: key,
+              types5: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+          if (type == '6') {
+            if (this.doc6.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc6.push({
+              all_img6: event.target.result,
+              doc_type6: key,
+              types6: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+
+          if (type == '7') {
+            if (this.doc7.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc7.push({
+              all_img7: event.target.result,
+              doc_type7: key,
+              types7: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+
+          if (type == '8') {
+            if (this.doc8.length >= 3) {
+              this.showViewBtn = true;
+            }
+            this.doc8.push({
+              all_img8: event.target.result,
+              doc_type8: key,
+              types8: type,
+              img_url: event.target.result.indexOf(":image/") != -1 ? event.target.result : './assets/images/pdf.jpeg'
+            });
+          }
+
         }
-				
-				}
-				reader.readAsDataURL(event.target.files[i]);
-			}
-		}
-	// 	return false;
-	// }	
-	// if(type == '2')
-	// {
-	// 	if (file && fileArray) 
-	// 	{
-	// 		for (let i = 0; i < filesAmount; i++) {
-	// 			var reader = new FileReader();
-	// 			this.showViewBtn = true;
-	// 			reader.onload = (event: any) => {
-	// 			console.log("======event", type)
-	// 			this.doc2.push({
-	// 				all_img2: event.target.result,
-	// 				doc_type2: key,
-	// 				types2: type,
-	// 			});
-	// 			}
-	// 			reader.readAsDataURL(event.target.files[i]);
-	// 		}
-	// 	}
-	// 	return false;
-	// }
-	console.log("===========this.doc", this.doc)
-	console.log("===========this.doc1111", this.doc2)
-	
-	
-	
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+    // 	return false;
+    // }	
+    // if(type == '2')
+    // {
+    // 	if (file && fileArray) 
+    // 	{
+    // 		for (let i = 0; i < filesAmount; i++) {
+    // 			var reader = new FileReader();
+    // 			this.showViewBtn = true;
+    // 			reader.onload = (event: any) => {
+    // 			console.log("======event", type)
+    // 			this.doc2.push({
+    // 				all_img2: event.target.result,
+    // 				doc_type2: key,
+    // 				types2: type,
+    // 			});
+    // 			}
+    // 			reader.readAsDataURL(event.target.files[i]);
+    // 		}
+    // 	}
+    // 	return false;
+    // }
+    console.log("===========this.doc", this.doc)
+    console.log("===========this.doc1111", this.doc2)
+
+
+
   }
 
   addDocInArray(event, key, type) {
@@ -1470,78 +1495,78 @@ assignment_arr=[];
     })
   }
 
-CommunityInterpretingArr=[];
-ConferenceArr=[];
-CourtCertified=[];
-CourtCredentialed=[];
-EquipmentQualified=[];
-Legal=[];
-SimultaneousDoc=[];
-OtherDoc=[];
-getInterpreterFiles(){
-  this.CommunityInterpretingArr=[];
-  this.ConferenceArr=[];
-  this.CourtCertified=[];
-  this.CourtCredentialed=[];
-  this.EquipmentQualified=[];
-  this.Legal=[];
-  this.SimultaneousDoc=[];
-  this.OtherDoc=[];
-  this.service.get('getInterpreterFiles/'+this.interId).subscribe(res=>{
+  CommunityInterpretingArr = [];
+  ConferenceArr = [];
+  CourtCertified = [];
+  CourtCredentialed = [];
+  EquipmentQualified = [];
+  Legal = [];
+  SimultaneousDoc = [];
+  OtherDoc = [];
+  getInterpreterFiles() {
+    this.CommunityInterpretingArr = [];
+    this.ConferenceArr = [];
+    this.CourtCertified = [];
+    this.CourtCredentialed = [];
+    this.EquipmentQualified = [];
+    this.Legal = [];
+    this.SimultaneousDoc = [];
+    this.OtherDoc = [];
+    this.service.get('getInterpreterFiles/' + this.interId).subscribe(res => {
 
-    console.log('getInterpreterFiles',res['data'])
+      console.log('getInterpreterFiles', res['data'])
 
-    for (var i = 0; i < res['data'].length; ++i) {
-      
-      if(res['data'][i].doc_name.split('.').pop() == 'pdf'){
-        res['data'][i].fileurl='./assets/images/pdf.jpeg'
-      }else{
-        res['data'][i].fileurl=res['data'][i].doc_name;
+      for (var i = 0; i < res['data'].length; ++i) {
+
+        if (res['data'][i].doc_name.split('.').pop() == 'pdf') {
+          res['data'][i].fileurl = './assets/images/pdf.jpeg'
+        } else {
+          res['data'][i].fileurl = res['data'][i].doc_name;
+        }
+
+        if (res['data'][i].doc_type == "community_doc") {
+          this.CommunityInterpretingArr.push(res['data'][i])
+        }
+
+        if (res['data'][i].doc_type == "conference_doc") {
+          this.ConferenceArr.push(res['data'][i])
+        }
+
+        if (res['data'][i].doc_type == "court_doc") {
+          this.CourtCertified.push(res['data'][i])
+        }
+
+        if (res['data'][i].doc_type == "credential_doc") {
+          this.CourtCredentialed.push(res['data'][i])
+        }
+
+        if (res['data'][i].doc_type == "equipment_doc") {
+          this.EquipmentQualified.push(res['data'][i])
+        }
+        if (res['data'][i].doc_type == "legal_doc") {
+          this.Legal.push(res['data'][i])
+        }
+        if (res['data'][i].doc_type == "simultaneous_doc") {
+          this.SimultaneousDoc.push(res['data'][i])
+        }
+
+        if (res['data'][i].doc_type == "other_doc") {
+          this.OtherDoc.push(res['data'][i])
+        }
+
       }
+      console.log('OtherDoc', this.OtherDoc)
 
-      if(res['data'][i].doc_type == "community_doc"){
-        this.CommunityInterpretingArr.push(res['data'][i])
-      }
-
-      if(res['data'][i].doc_type == "conference_doc"){
-        this.ConferenceArr.push(res['data'][i])
-      }
-
-      if(res['data'][i].doc_type == "court_doc"){
-        this.CourtCertified.push(res['data'][i])
-      }
-
-       if(res['data'][i].doc_type == "credential_doc"){
-        this.CourtCredentialed.push(res['data'][i])
-      }
-
-      if(res['data'][i].doc_type == "equipment_doc"){
-        this.EquipmentQualified.push(res['data'][i])
-      }
-      if(res['data'][i].doc_type == "legal_doc"){
-        this.Legal.push(res['data'][i])
-      }
-      if(res['data'][i].doc_type == "simultaneous_doc"){
-        this.SimultaneousDoc.push(res['data'][i])
-      }
-
-      if(res['data'][i].doc_type == "other_doc"){
-        this.OtherDoc.push(res['data'][i])
-      }
-
-    }
-    console.log('OtherDoc',this.OtherDoc)
-
-  })
-}
-openFile(url){
+    })
+  }
+  openFile(url) {
     window.open(url)
 
-}
+  }
   uploadDocuments() {
-    console.log('assignment_arr',this.assignment_arr)
+    console.log('assignment_arr', this.assignment_arr)
 
-      // return;
+    // return;
     this.submitted = true;
     if (this.interpreterSkillForm.invalid) {
       return;
@@ -1553,7 +1578,7 @@ openFile(url){
     // }
 
 
-this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) => {return inputArray.indexOf(item) == index;});
+    this.assignment_arr = this.assignment_arr.filter((item, index, inputArray) => { return inputArray.indexOf(item) == index; });
 
     for (let img of this.arrImages) {
       formData.append(img.doc_type, img.all_img);
@@ -1570,12 +1595,11 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
     formData.append('other_doc_title', this.interpreterSkillForm.value.other_title);
     this.service.interpreterDocupload(formData).subscribe(res => {
       this.skill_msg = res;
-                     this.arr = this.secondFormGroup.get('arr') as FormArray;
-                    this.arr.controls=[]
-        this.createDynamicForm()
+      this.arr = this.secondFormGroup.get('arr') as FormArray;
+      this.arr.controls = []
+      this.createDynamicForm()
       if (res['status'] == '1') {
         this.toastr.success(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
-      
         if(this.detail_Obj.skill_complete == '1'){
           this.assignment_form = true;
           this.general_form = false;
@@ -1583,13 +1607,9 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
           this.banking_form = false;
         }
         this.getInterpreterFiles();
-
-        this.interpreterSkillForm.reset();  
         this.detailProfile();
         this.resetFileVariable();
         this.interpreterSkillForm.reset();
-        
-
 
       } else {
         this.toastr.error(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
@@ -1597,73 +1617,96 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
     });
   }
 
-resetFileVariable(){
-        this.doc=[]
-        this.doc2=[]
-        this.doc3=[]
-        this.doc4=[]
-        this.doc5=[]
-        this.doc6=[]
-        this.doc7=[]
-        this.doc8=[]
+  resetFileVariable() {
+    this.doc = []
+    this.doc2 = []
+    this.doc3 = []
+    this.doc4 = []
+    this.doc5 = []
+    this.doc6 = []
+    this.doc7 = []
+    this.doc8 = []
 
-        this.CommunityInterpretingArr=[];
-        this.ConferenceArr=[];
-        this.CourtCertified=[];
-        this.CourtCredentialed=[];
-        this.EquipmentQualified=[];
-        this.Legal=[];
-        this.SimultaneousDoc=[];
-        this.OtherDoc=[];
-}
-  imgview(e: string,modal,type) 
-  {
-    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true})
-	   // console.log("images", e);
+    this.CommunityInterpretingArr = [];
+    this.ConferenceArr = [];
+    this.CourtCertified = [];
+    this.CourtCredentialed = [];
+    this.EquipmentQualified = [];
+    this.Legal = [];
+    this.SimultaneousDoc = [];
+    this.OtherDoc = [];
+  }
+  imgview(e: string, modal, type) {
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
+    // console.log("images", e);
     // window.open(this.documentUrl + e);
     this.docImage = type;
-	console.log("==============this.doc ",this.doc);
+    console.log("==============this.doc ", this.doc);
 
-}
-  removeImage(i,type){
-    if(type == '1'){
+  }
+  removeImage(i, type) {
+    if (type == '1') {
+      if (this.doc.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc.splice(i, 1);
     }
-    if(type == '2'){
+    if (type == '2') {
+      if (this.doc2.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc2.splice(i, 1);
     }
-    if(type == '3'){
+    if (type == '3') {
+      if (this.doc3.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc3.splice(i, 1);
     }
-    if(type == '4'){
+    if (type == '4') {
+      if (this.doc4.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc4.splice(i, 1);
     }
-    if(type == '5'){
+    if (type == '5') {
+      if (this.doc5.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc5.splice(i, 1);
     }
-    if(type == '6'){
+    if (type == '6') {
+      if (this.doc6.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc6.splice(i, 1);
     }
-    if(type == '7'){
+    if (type == '7') {
+      if (this.doc7.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc7.splice(i, 1);
     }
-    if(type == '8'){
+    if (type == '8') {
+      if (this.doc8.length >= 2) {
+        this.showViewBtn = false;
+      }
       this.doc8.splice(i, 1);
     }
-  
+
   }
 
-removeUpdateImage(data){
-  console.log(data)
-  this.service.get('deleteFileInterpreter/'+data.id).subscribe(res =>{
-    if(res['status'] == true){
-      this.toastr.success(res['msg']);
-      this.getInterpreterFiles();
-    }else{
-      this.toastr.warning(res['msg']);
-    }
-  })
-}
+  removeUpdateImage(data) {
+    console.log(data)
+    this.service.get('deleteFileInterpreter/' + data.id).subscribe(res => {
+      if (res['status'] == true) {
+        this.toastr.success(res['msg']);
+        this.getInterpreterFiles();
+      } else {
+        this.toastr.warning(res['msg']);
+      }
+    })
+  }
   private assignmentGroup(): FormGroup {
     return this.fb.group({
       id: [''],
@@ -1790,58 +1833,58 @@ removeUpdateImage(data){
   }
 
 
-arr
-lobarr
-myPlatformData=[]
+  arr
+  lobarr
+  myPlatformData = []
   getAssignmentSettingByInterpreterId() {
-           this.arr = this.secondFormGroup.get('arr') as FormArray;
-     this.service.get('getInterpreterPlatformIds/'+this.interId).subscribe(res => {
-       if(res['data'].length > 0){
-          
-         this.myPlatformData = res['data'][0].platform_ids.split(',');
-        this.myPlatformData = this.myPlatformData.map( (x) => {return parseInt(x, 10); });
-         this.assignment_arr = this.myPlatformData;
+    this.arr = this.secondFormGroup.get('arr') as FormArray;
+    this.service.get('getInterpreterPlatformIds/' + this.interId).subscribe(res => {
+      if (res['data'].length > 0) {
 
-       }
+        this.myPlatformData = res['data'][0].platform_ids.split(',');
+        this.myPlatformData = this.myPlatformData.map((x) => { return parseInt(x, 10); });
+        this.assignment_arr = this.myPlatformData;
+
+      }
     })
 
-  } 
-  newArr=[];
- async createDynamicForm() {
-   this.newArr=[];
+  }
+  newArr = [];
+  async createDynamicForm() {
+    this.newArr = [];
     this.arr = this.secondFormGroup.get('arr') as FormArray;
-    this.arr.controls=[]
+    this.arr.controls = []
 
     this.lobarr = this.secondFormGroup1.get('arr') as FormArray;
-    this.lobarr.controls=[]
+    this.lobarr.controls = []
 
 
-     this.service.get('getInterpreterPlatformIds/'+this.interId).subscribe(res => {
-       if(res['data'].length > 0){
-          
-         this.myPlatformData = res['data'][0].platform_ids.split(',');
-        this.myPlatformData = this.myPlatformData.map( (x) => {return parseInt(x, 10); });
-         this.assignment_arr = this.myPlatformData;
+    this.service.get('getInterpreterPlatformIds/' + this.interId).subscribe(res => {
+      if (res['data'].length > 0) {
+
+        this.myPlatformData = res['data'][0].platform_ids.split(',');
+        this.myPlatformData = this.myPlatformData.map((x) => { return parseInt(x, 10); });
+        this.assignment_arr = this.myPlatformData;
 
 
-         for (var i = 0; i < this.assignment_arr.length; ++i) {
-                    
-           this.service.get('getInterpreterPlatformName/'+this.assignment_arr[i]).subscribe(resdata => {
-           this.arr = this.secondFormGroup.get('arr') as FormArray;
-          this.arr.push(   this.fb.group({
-            name: [resdata['data'][0].platform,],
-            id: [resdata['data'][0].id,],
-            language_id: ['', Validators.required],
-          }))
-         
-         })
-         }
+        for (var i = 0; i < this.assignment_arr.length; ++i) {
+
+          this.service.get('getInterpreterPlatformName/' + this.assignment_arr[i]).subscribe(resdata => {
+            this.arr = this.secondFormGroup.get('arr') as FormArray;
+            this.arr.push(this.fb.group({
+              name: [resdata['data'][0].platform,],
+              id: [resdata['data'][0].id,],
+              language_id: ['', Validators.required],
+            }))
+
+          })
+        }
 
 
-                    
-       this.service.get('getlob').subscribe(lobdata => {
-        this.MasterLobData = lobdata['data'];
-                   this.lobarr = this.secondFormGroup1.get('arr') as FormArray;
+
+        this.service.get('getlob').subscribe(lobdata => {
+          this.MasterLobData = lobdata['data'];
+          this.lobarr = this.secondFormGroup1.get('arr') as FormArray;
 
           for (var ikk = 0; ikk < this.MasterLobData.length; ++ikk) {
                this.lobarr.push(   this.fb.group({
@@ -1856,15 +1899,16 @@ myPlatformData=[]
                   flatFee: [''],
 
          }))
+
           }
-           
-        
-          
-          })
-         
 
 
-       }
+
+        })
+
+
+
+      }
     })
 
   }
@@ -1898,14 +1942,14 @@ showTravelTime(e){
 
 
 
-    e.value.interpreter_id=this.interId;
-    e.value.language_id=this.UserLangData[0].id;
-     this.service.post('getInterpreterRateSettingNew',e.value).subscribe(resdata => {
-       console.log('ddddddddd',resdata)
-       console.log('aaaa',this.secondFormGroup1.value)
-if(resdata['data'].length > 0){
-  for (var i = 0; i < resdata['data'].length; ++i) {
-    this.languageId=resdata['data'][0].language_id
+    e.value.interpreter_id = this.interId;
+    e.value.language_id = this.UserLangData[0].id;
+    this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
+      console.log('ddddddddd', resdata)
+      console.log('aaaa', this.secondFormGroup1.value)
+      if (resdata['data'].length > 0) {
+        for (var i = 0; i < resdata['data'].length; ++i) {
+          this.languageId = resdata['data'][0].language_id
 
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:resdata['data'][i].increment })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:resdata['data'][i].mileage })
@@ -1914,8 +1958,8 @@ if(resdata['data'].length > 0){
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:resdata['data'][i].travel_time })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({flatFee:resdata['data'][i].flatFee })
 
-  }
-}else{
+        }
+      } else {
 
     for (var i = 0; i < this.secondFormGroup1.value.arr.length; ++i) {
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:''})
@@ -1925,18 +1969,18 @@ if(resdata['data'].length > 0){
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:'' })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({flatFee:'' })
 
-  }
-}
+        }
+      }
 
-     })
+    })
   }
 
   activeId: string = "";
 
-toggleAccordian(event) {
+  toggleAccordian(event) {
     // If it is already open you will close it and if it is closed open it
     this.activeId = this.activeId == event.panelId ? "" : event.panelId;
-}
+  }
 
 resData
 getRateDetails(){
@@ -1952,50 +1996,50 @@ getRateDetails(){
   })
 }
 
-  languageId=0;
-selectLanguage(language_id,e){
-  // console.log('============>',language_id)
-  this.languageId=language_id;
-   e.value.interpreter_id=this.interId;
-    e.value.language_id=language_id;
-     this.service.post('getInterpreterRateSettingNew',e.value).subscribe(resdata => {
-       console.log('ddddddddd',resdata)
-       console.log('aaaa',this.secondFormGroup1.value)
-       if(resdata['data'].length > 0){
-         this.getRateDetails();
-  for (var i = 0; i < resdata['data'].length; ++i) {
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:resdata['data'][i].increment })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:resdata['data'][i].mileage })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:resdata['data'][i].minpaid })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:resdata['data'][i].rate })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:resdata['data'][i].travel_time })
+  languageId = 0;
+  selectLanguage(language_id, e) {
+    // console.log('============>',language_id)
+    this.languageId = language_id;
+    e.value.interpreter_id = this.interId;
+    e.value.language_id = language_id;
+    this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
+      console.log('ddddddddd', resdata)
+      console.log('aaaa', this.secondFormGroup1.value)
+      if (resdata['data'].length > 0) {
+        this.getRateDetails();
+        for (var i = 0; i < resdata['data'].length; ++i) {
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ increment: resdata['data'][i].increment })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ mileage: resdata['data'][i].mileage })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ minpaid: resdata['data'][i].minpaid })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ rate: resdata['data'][i].rate })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ travel_time: resdata['data'][i].travel_time })
 
+        }
+      } else {
+        for (var i = 0; i < this.secondFormGroup1.value.arr.length; ++i) {
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ increment: '' })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ mileage: '' })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ minpaid: '' })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ rate: '' })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ travel_time: '' })
+
+        }
+      }
+
+    })
   }
-}else{
-    for (var i = 0; i < this.secondFormGroup1.value.arr.length; ++i) {
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:''})
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:'' })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:'' })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:''})
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:'' })
+  createItem1() {
+    return this.fb.group({
 
+      hourly_rate: ['', Validators.required],
+      half_day_min_paid: ['', Validators.required],
+      half_day_pay_increment: ['', Validators.required],
+
+    })
   }
-}
-
-     })
-}
-createItem1() {
-        return this.fb.group({
-            
-            hourly_rate: ['', Validators.required],
-            half_day_min_paid: ['', Validators.required],
-            half_day_pay_increment: ['', Validators.required],
-           
-        })
-    }
 
 
-  aaaa(a){
+  aaaa(a) {
     console.log(a)
   }
   addInterpreterAssignment(type) {
@@ -2025,7 +2069,7 @@ createItem1() {
             this.general_form = false;
             this.skills_form = false;
             this.banking_form = false;
-            this.activeId= "";
+            this.activeId = "";
           }
           else {
             this.banking_form = true;
@@ -2094,8 +2138,8 @@ createItem1() {
               this.skills_form = false;
               this.banking_form = false;
 
-           }
-          })
+        }
+      })
     // this.assignmentForm.value.assignment[0].language_id = this.on_site_language;
     // this.assignmentForm.value.assignment_opi[0].opi_language_id = this.opi_language;
     // this.assignmentForm.value.assignment_vri[0].vri_language_id = this.vri_language;
@@ -2178,14 +2222,14 @@ createItem1() {
   ssnRadioBtn() {
     this.einshowInput = false;
     this.ssnshowInput = true;
-    
- this.generalForm.controls['ssn'].setValidators([Validators.minLength(9)]);              
+
+    this.generalForm.controls['ssn'].setValidators([Validators.minLength(9)]);
 
   }
   einRadioBtn() {
     this.einshowInput = true;
     this.ssnshowInput = false;
-     this.generalForm.controls['ein'].setValidators([Validators.minLength(9)]);              
+    this.generalForm.controls['ein'].setValidators([Validators.minLength(9)]);
 
   }
   ApproveInterpreter() {

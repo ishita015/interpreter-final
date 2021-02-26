@@ -40,7 +40,7 @@
                 [footerHeight]="50"
                 [rowHeight]="60"
                 [scrollbarV]="true"
-                [rows]="filteredUser">
+                [rows]="filteredUser" [rowClass]="getRowClass">
                 <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
                   <ng-template ngx-datatable-header-template>
                    S.No
@@ -164,7 +164,11 @@
                 </ng-template>
                 
                 <ng-template ngx-datatable-cell-template let-value="value" let-row="row" >
-                  Pending
+                             <span *ngIf="row.status==0">New Request</span>
+                            <span *ngIf="row.status==1">Broadcasting</span>
+                            <span *ngIf="row.status==2">In Progress</span>
+                            <span *ngIf="row.status==3">Completed</span>
+                            <span *ngIf="row.status==4">Reassign</span>
                 </ng-template>
                
             </ngx-datatable-column>

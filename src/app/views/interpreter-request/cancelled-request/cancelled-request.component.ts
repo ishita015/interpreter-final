@@ -115,5 +115,9 @@ export class CancelledRequestComponent implements OnInit {
       }
     })
   }
-
+ getRowClass = (row) => {    
+    return {
+      'rejecteRequest': 1 == 1,
+    };
+   }
 }

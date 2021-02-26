@@ -35,7 +35,7 @@ export class AllRequestListSchedularComponent implements OnInit {
   status_formdata;
   searchEmail = '';
   searchStatus = '';
-  request_status: FormControl = new FormControl();
+  request_status: FormControl = new FormControl('select');
   searchControl: FormControl = new FormControl();
   search_email: FormControl = new FormControl();
 
@@ -48,6 +48,8 @@ export class AllRequestListSchedularComponent implements OnInit {
   allData;
   startDate;
   endDate;
+    public interval: number = 5;
+
   constructor(  private productService: ProductService,
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -119,7 +121,7 @@ export class AllRequestListSchedularComponent implements OnInit {
          this.searchEmail = this.email_formdata ;
         //  alert(this.status);
 
-         this.service.interpreterAllRequestList(this.searchStatus,this.searchEmail,this.startDate,this.endDate)
+         this.service.interpreterAllRequestList(this.searchStatus == 'select' ? '' : this.searchStatus,this.searchEmail,this.startDate,this.endDate)
           .subscribe(res => {
             console.log("============interpreterAllRequestList",res);
             if (res['status'] == '1') {
@@ -194,4 +196,23 @@ export class AllRequestListSchedularComponent implements OnInit {
        newRequest(){
         this.router.navigate(['/request-scheduler/all-request-schedular']);
        }
+
+ searchNameEmail = '';
+  distance = '';
+  rate = '';
+  rating = '';
+  interpreter_obj
+         //assign
+  assignMyNearbyInterpreter(service_id,info){
+    
+    // localStorage.setItem('assignData', JSON.stringify(info));
+    // localStorage.setItem('serviceId', JSON.stringify(service_id));
+    this.service.myNearbyInterpreter(service_id,info.language,this.searchNameEmail,this.distance,this.rate,this.rating).subscribe(res => {
+        this.interpreter_obj = res['data'];
+        console.log("interpreter_obj",  this.interpreter_obj);
+        // localStorage.setItem('viewDatainMap', JSON.stringify(this.view_interpreter));
+        this.router.navigate(['/request-scheduler/interpreter-view',service_id])
+    })
+  }
+
 }
