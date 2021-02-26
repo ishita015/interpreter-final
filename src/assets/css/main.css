@@ -21,10 +21,14 @@
     color: #000;
     background-color: #fff;
 }
-
+.form-control {
+    -webkit-appearance: auto !important;
+    -moz-appearance: auto !important;
+    appearance: auto !important;
+    }
 .form-field select.form-control {
-    -webkit-appearance: none;
-    appearance: auto;
+    -webkit-appearance: auto !important;
+    appearance: auto !important;
 }
 
 .firstir label {
@@ -195,4 +199,31 @@
 
 .profile_block_new .card {
     margin-bottom: 20px;
+}
+
+.e-input-group-icon.e-time-icon.e-icons {
+
+    color: #639 !important;
+
+}
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after {
+
+    background: #639 !important;
+
+}
+.lang_block.accept_table .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center > .datatable-body-cell {
+    min-width: 100px !important;
+    min-height: auto !important;
+}
+.accept_table .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center > .datatable-body-cell:last-child {
+    min-width: 300px !important;
+    }
+
+
+    .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+    background-color: #ffffff !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: #ffffff !important;
 }

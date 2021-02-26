@@ -164,7 +164,15 @@ interpreterReply(ris_id,res_type,modal){
   });
 }
 /*========== Accept/Declined Through Interpreter End Here========*/
-
+ getRowClass = (row) => {    
+    return {
+      'newRequest': row.status == "0",
+      'broadcastRequest': row.status == "1",
+      'progressRequest': row.status == "2",
+      'completeRequest': row.status == "3",
+      'rejecteRequest': row.status == "4",
+    };
+   }
 /*========== Show Details Start Here========*/
 
 viewDetail(request_id){
@@ -174,7 +182,7 @@ viewDetail(request_id){
       this.view_obj = res['data'][0];
       console.log("view object",  this.view_obj);
       localStorage.setItem('userViewData', JSON.stringify(this.view_obj));
-      this.router.navigate(['/user-request/request-view',request_id])
+      this.router.navigate(['/request-scheduler/details',request_id])
     }else{
       this.resp_msg = res;
       this.toastr.error(this.resp_msg.message,'', { timeOut: 2000, positionClass: 'toast-top-center' });

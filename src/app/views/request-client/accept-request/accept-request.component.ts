@@ -116,7 +116,14 @@ export class AcceptRequestComponent implements OnInit {
   //   });
   //   this.filteredUser = rows;
   // }
-
+commningSoon(){
+  this.toastr.warning('commning Soon')
+}
+getRowClass = (row) => {    
+    return {
+      'progressRequest': row.status == "2",
+    };
+   }
   interpreterRequestData(e) {
     this.allData = this.search_name.value;
     this.startDate = this.range.value.start_date;

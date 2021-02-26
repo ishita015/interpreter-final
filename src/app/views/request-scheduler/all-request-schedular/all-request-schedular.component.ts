@@ -136,6 +136,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.date_func();
     this.assign_date_func();
     this.getIRList();
+    this.getGooleAddress1();
     this.allLobList();
 
     this.scheduler_id = JSON.parse(localStorage.getItem('userId'));
@@ -145,7 +146,7 @@ export class AllRequestSchedularComponent implements OnInit {
   }
 
    /*==========google api load Places Autocomplete function start here========*/
-  getGooleAddress() {
+  getGooleAddress1() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -238,9 +239,9 @@ export class AllRequestSchedularComponent implements OnInit {
       scheduler_id: [''],
       requested_by: [''],
       lob: ['', this.validation.onlyRequired_validator],
-      // latitude: [''],
-      // longitude: [''],
-      // address: [''],
+      latitude: [''],
+      longitude: [''],
+      address: [''],
 
     })
   }
@@ -255,6 +256,9 @@ export class AllRequestSchedularComponent implements OnInit {
       notes: ['', this.validation.onlyRequired_validator],
       phone_code: [233, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
+      address: [''],
+      latitude: [''],
+      longitude: [''],
     })
   }
 
@@ -293,9 +297,9 @@ export class AllRequestSchedularComponent implements OnInit {
       provider_name: ['', this.validation.onlyRequired_validator],
       phone_code: [233, this.validation.onlyRequired_validator],
       cell_phone: ['', this.validation.onlyRequired_validator],
-      address: [''],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
+      address: [''],
       latitude: [''],
       longitude: [''],
     })
@@ -423,7 +427,7 @@ export class AllRequestSchedularComponent implements OnInit {
     if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
       setTimeout(() => {
         console.log("=====", this.searchElementRef);
-        this.getGooleAddress();
+        // this.getGooleAddress1();
       }, 500);
     }
     if(e.target.value == '1'){
@@ -458,7 +462,7 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showOtherForm = false;
       setTimeout(() => {
         console.log("=====", this.searchElementRef);
-        this.getGooleAddress();
+        // this.getGooleAddress();
       }, 500);
     }
     if (e.target.value == '2') {
@@ -672,7 +676,14 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     this.newRequestForm.value.client_id = this.client_id;
+
+     this.newRequestForm.value.latitude = this.latitude;
+      this.newRequestForm.value.longitude = this.longitude;
+      this.newRequestForm.value.address = this.new_address;
+
+
     if (this.showEductionForm) {
+
 
       this.newRequestForm.value.education = this.educationRequestForm.value;
     }
@@ -683,17 +694,19 @@ export class AllRequestSchedularComponent implements OnInit {
       this.newRequestForm.value.others = this.otherRequestForm.value;
     }
     if (this.showMedicalForm) {
-      this.medicalRequestForm.value.latitude = this.latitude;
-      this.medicalRequestForm.value.longitude = this.longitude;
-      this.medicalRequestForm.value.address = this.new_address;
+      // this.medicalRequestForm.value.latitude = this.latitude;
+      // this.medicalRequestForm.value.longitude = this.longitude;
+      // this.medicalRequestForm.value.address = this.new_address;
       this.newRequestForm.value.medical = this.medicalRequestForm.value;
     }
     if (this.showCommunityForm) {
-      this.communityRequestForm.value.latitude = this.latitude;
-      this.communityRequestForm.value.longitude = this.longitude;
-      this.communityRequestForm.value.address = this.new_address;
+      // this.communityRequestForm.value.latitude = this.latitude;
+      // this.communityRequestForm.value.longitude = this.longitude;
+      // this.communityRequestForm.value.address = this.new_address;
       this.newRequestForm.value.community = this.communityRequestForm.value;
     }
+
+
     console.log("formccc", this.newRequestForm.value);
     this.service.post('enterNewInterpreterRequestBasicTab', this.newRequestForm.value).subscribe(res => {
       if (res['status'] == true) {

@@ -112,5 +112,13 @@ export class CancelledRequestComponent implements OnInit {
       }
     })
   }
-
+getRowClass = (row) => {    
+    return {
+      'newRequest': row.status == "0",
+      'broadcastRequest': row.status == "1",
+      'progressRequest': row.status == "2",
+      'completeRequest': row.status == "3",
+      'rejecteRequest': row.status == "4",
+    };
+   }
 }

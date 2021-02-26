@@ -6,6 +6,8 @@ import { debounceTime } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2'
+
 interface marker {
   lat: number;
   lng: number;
@@ -304,11 +306,23 @@ export class InterpreterListComponent implements OnInit {
   assignAllInterpreter() {
     
     // this.service.requestAssignAllInterpreter(this.serviceid, this.list_Obj).subscribe(res => {
-      this.service.requestAssignAllInterpreter(this.serviceid, this.filteredUser).subscribe(res => {
+     
+
+
+       Swal.fire({
+  title: 'Are you sure want to Broadcast?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
+  if (result.isConfirmed) {
+     this.service.requestAssignAllInterpreter(this.serviceid, this.filteredUser).subscribe(res => {
       console.log("res====", res)
       this.requestStatus = res;
       if (res['status'] == '1') {
-        this.router.navigate(['/request-scheduler/request-list-schedular'])
+        this.router.navigate(['/request-scheduler/broadcast-list-schedular'])
         this.toastr.success(this.requestStatus.message, '', { timeOut: 2000 });
       } else {
         // this.router.navigate(['/user-request/list'])
@@ -316,8 +330,14 @@ export class InterpreterListComponent implements OnInit {
       }
 
     });
+  }
+})
+
+
 
   }
+
+
 
   // viewDetail(){
   //   this.router.navigate(['/user-request/request-view',this.assignInfo.id])

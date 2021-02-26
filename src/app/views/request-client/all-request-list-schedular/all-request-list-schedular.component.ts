@@ -93,7 +93,15 @@ export class AllRequestListSchedularComponent implements OnInit {
         this.filteredUser = rows;
       }
        /*========== Filter End Here========*/
-
+getRowClass = (row) => {    
+    return {
+      'newRequest': row.status == "0",
+      'broadcastRequest': row.status == "1",
+      'progressRequest': row.status == "2",
+      'completeRequest': row.status == "3",
+      'rejecteRequest': row.status == "4",
+    };
+   }
        /*========== All Request List Start Here========*/
       interpreterAllRequest(e) {
         // this.allData = this.search_name.value;

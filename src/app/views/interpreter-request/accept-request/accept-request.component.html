@@ -40,7 +40,7 @@
               [footerHeight]="50"
               [rowHeight]="60"
               [scrollbarV]="true"
-              [rows]="filteredUser">
+              [rows]="filteredUser" [rowClass]="progressRequest">
               <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
                 <ng-template ngx-datatable-header-template>
                  S.No
@@ -186,14 +186,23 @@
               <button class="btn btn-outline-secondary mr-1" 
               (click)="viewDetail(row.ris_id)">View</button>  
               
-              <button *ngIf="(roleId=='1' || roleId=='4') && row.status == 1" class="btn btn-outline-secondary" 
+             <!--  <button *ngIf="(roleId=='1' || roleId=='4') && row.status == 1" class="btn btn-outline-secondary" 
               (click)="reminder_popup_open(row.user_id,row.ris_id,reminderConfirmModal)">Reminder</button>  
 
               <button *ngIf="roleId!='1' && row.status == 1" class="btn btn-outline-danger ml-2"
               (click)="trackingLinkSend(row.Interpreter_id,row.ris_id, linkConfirmModal)">
-              <!-- (click)="trackingLinkSend(row.user_id,row.ris_id, linkConfirmModal)"> -->
+                Tracking link
+              </button> -->
+
+               <button *ngIf="(roleId=='1' || roleId=='4') && row.status == 1" class="btn btn-outline-secondary" 
+              (click)="commingSoon()">Reminder</button>  
+
+              <button *ngIf="roleId!='1' && row.status == 1" class="btn btn-outline-danger ml-2"
+              (click)="commingSoon()">
                 Tracking link
               </button>
+
+
 
               <button *ngIf="roleId!='1' && row.status == 1" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
@@ -239,6 +248,12 @@
                 <div class="row">
                     <div class="col-md-12">
                       <form [formGroup]="ratingForm">
+
+                        <label class="">Your rating</label>
+                       <div class="form-group">
+                          <ngb-rating class="newrating" [max]="5" formControlName="rating"></ngb-rating>
+                           
+                        </div>
                         <label class="">Your message</label>
                         <div class="form-group text-center">
                           <textarea class="form-control animated" formControlName="review" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea> 
@@ -246,11 +261,7 @@
                         <!-- <div *ngIf="ratingForm.controls['review'].errors && ( !ratingForm.controls['review'].pristine || submitted ||ratingForm.controls['review'].touched )" class="error-msg">
                           <div [hidden]="!ratingForm.controls['review'].errors.required"><span class="spannew">Message is required.</span></div>
                         </div> -->
-                      <label class="">Your rating</label>
-                       <div class="form-group">
-                          <ngb-rating class="newrating" [max]="5" formControlName="rating"></ngb-rating>
-                           
-                        </div>
+                      
                         <!-- <div *ngIf="ratingForm.controls['rating'].errors && ( !ratingForm.controls['rating'].pristine || submitted ||ratingForm.controls['rating'].touched )" class="error-msg">
                           <div [hidden]="!ratingForm.controls['rating'].errors.required"><span class="spannew">Rating is required.</span></div>
                         </div> -->

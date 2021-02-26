@@ -105,7 +105,11 @@ export class CompleteRequestComponent implements OnInit {
        
 //     });
 // }
-
+ getRowClass = (row) => {    
+    return {
+      'completeRequest': row.status == "3",
+    };
+   }
 getCompleteReq(e){
   this.allData = this.search_name.value;
   this.startDate = this.range.value.start_date;

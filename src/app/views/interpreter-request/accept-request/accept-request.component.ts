@@ -100,6 +100,21 @@ createRatingForm() {
     review:['',this.validation.onlyRequired_validator],
   })
 }
+commingSoon(){
+    this.toastr.warning('Comming Soon')
+
+}
+ getRowClass = (row) => {    
+    return {
+      'newRequest': row.status == "0",
+      'broadcastRequest': row.status == "1",
+      'progressRequest': row.status == "2",
+      'completeRequest': row.status == "3",
+      'rejecteRequest': row.status == "4",
+    };
+   }
+
+   
 /*========== Form Value End Here========*/
 
   // filerData(val) {

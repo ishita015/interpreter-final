@@ -15,7 +15,7 @@
     height: 34px;
     width: 470px !important;
     position: relative;
-    bottom: 16px;
+    bottom: 0px;
     border-radius: 0.25rem;
 }
 
@@ -90,6 +90,11 @@
     bottom: 21px !important;
 }
 
- ::ng-deep .cdk-overlay-pane {
-    top: 242px !important;
+//  ::ng-deep .cdk-overlay-pane {
+//     top: 350px !important;
+// }
+  .cdk-overlay-pane {
+
+    top: 395px !important;
+
 }

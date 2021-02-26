@@ -326,12 +326,12 @@
 }
 
 .lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:last-child {
-    min-width: 230px !important;
+    min-width: 300px !important;
     min-height: auto !important;
 }
 
 .lang_block .datatable-header .datatable-header-inner .datatable-row-center>.datatable-header-cell:last-child {
-    min-width: 230px !important;
+    min-width: 300px !important;
 }
 
 .lang_block .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center>.datatable-body-cell:first-child {
@@ -411,7 +411,7 @@
 } */
 
 .rejecteRequest {
-    background: rgb(76 175 80 / 38%);
+    background: #f2dede;
 }
 
 

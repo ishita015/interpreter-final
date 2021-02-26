@@ -35,7 +35,7 @@
       <div class="card o-hidden">
         <ngx-datatable *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
-          [rows]="filteredUser">
+          [rows]="filteredUser" [rowClass]="getRowClass">
           <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
             <ng-template ngx-datatable-header-template>
               S.No
@@ -111,7 +111,7 @@ Requester
 {{row.requester_name}}
 </ng-template>
 </ngx-datatable-column> -->
-          <ngx-datatable-column name="Interpreter Name" prop="interpreter_name">
+         <!--  <ngx-datatable-column name="Interpreter Name" prop="interpreter_name">
             <ng-template ngx-datatable-header-template>
               Interpreter
             </ng-template>
@@ -127,7 +127,7 @@ Requester
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               {{row.interpreter_phoneCode}} {{row.interpreter_mobile | mask: '(000) 000-0000'}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
           <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
