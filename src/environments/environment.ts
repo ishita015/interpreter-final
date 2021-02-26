@@ -4,18 +4,9 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://192.168.0.56:3300',
-  // apiUrl: 'http://192.168.0.56:3300',
-  // apiUrl: 'http://192.168.0.56:3300',
-  // apiUrl: 'http://192.168.0.56:3300',
-
-  // apiUrl: 'http://192.168.0.56:3300',
-  // apiUrl: 'http://192.168.0.56:3300',
   apiUrl: 'http://192.168.0.56:3300',
-
   documentUrl:'http://192.168.0.56:3300/documents/',
   imageUrl:'http://192.168.0.56:3300/user/',
-  // apiUrl: 'http://192.168.0.56:3300',
   serverError:'Something went wrong from server/api'
 };
 

@@ -689,7 +689,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                             class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
                                                             <div class="row imgblock">
                                                                 <div *ngFor="let url of doc;let i=index"
-                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                                    
                                                                     <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                         (click)="removeImage(i,'1')"></i>
@@ -701,7 +701,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                                                                     <!-- edit section start dev 25-02-21 -->
                                                                     <div *ngFor="let url of CommunityInterpretingArr;let i=index"
-                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                                    
                                                                     <i *ngIf="doc.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                         (click)="removeUpdateImage(url)"></i>
@@ -737,7 +737,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                             </div>
                                         </div>
                                         <div class="col-lg-12" *ngIf="conferenceinter">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
                                                 <div class="form-group mb-3">
                                                     <label for="image">Conference Interpreter</label>
@@ -751,7 +751,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                             class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 license-number">
                                                             <div class="row imgblock">
                                                                 <div *ngFor="let url of doc2;let i=index"
-                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                                     
                                                                     <div
                                                                         *ngIf="url.doc_type2 == 'conference_doc' && url.types2 == '2'">
@@ -764,7 +764,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                                 </div>
 
                                                                  <div *ngFor="let url of ConferenceArr;let i=index"
-                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                                    class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                                    <div
                                                                         *ngIf="url.doc_type == 'conference_doc' && url.type == '2'">
                                                                         <i *ngIf="doc2.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
@@ -803,7 +803,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                             </div>
                                         </div>
                                         <div *ngIf="court_open" class="col-lg-12">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
                                                 <div class="form-group" *ngIf="court_open">
                                                     <label for="image">Court Certified</label>
@@ -816,7 +816,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                        <div  class="row imgblock">
                                                            
                                                         <div *ngFor="let url3 of doc3;let z=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="z <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(z,'3')"></i>
@@ -825,7 +825,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </div>
 
                                                         <div *ngFor="let url of CourtCertified;let z=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="doc3.length == 0 ? z <= 2 : ''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url)"></i>
@@ -852,7 +852,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                             </div>
                                         </div>
                                         <div *ngIf="credent_open" class="col-lg-12">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
                                                 <div class="form-group">
                                                     <label for="image">Court Credentialed</label>
@@ -864,7 +864,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         *ngIf="credent_open && detail_Obj?.skillsCredentialDoc!=''">
                                                         <div  class="row imgblock">
                                                         <div *ngFor="let url4 of doc4;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                              <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'4')"></i>
                                                             <img *ngIf="url4.doc_type4 == 'credential_doc' && url4.types4 == '4' && i<=2"
@@ -872,7 +872,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </div>
 
                                                         <div *ngFor="let url4 of CourtCredentialed;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                              
                                                              <i *ngIf=" doc4.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                  (click)="removeUpdateImage(url)"></i>
@@ -901,7 +901,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                             </div>
                                         </div>
                                         <div *ngIf="equipment_open" class="col-lg-12">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
                                                 <div class="form-group">
                                                     <label for="image">Equipment Qualified</label>
@@ -915,7 +915,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                        
                                                              <div  class="row imgblock">
                                                         <div *ngFor="let url5 of doc5;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'5')"></i>
                                                             <img *ngIf="url5.doc_type5 == 'equipment_doc' && url5.types5 == '5' && i<=2"
@@ -923,7 +923,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </div> 
 
                                                         <div *ngFor="let url5 of EquipmentQualified;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             <i *ngIf="doc5.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url5)"></i>
                                                             <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && doc5.length == 0 ? i <= 2 : ''"
@@ -950,7 +950,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                             </div>
                                         </div>
                                         <div *ngIf="legal_open" class="col-lg-12">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
 
                                                 <div class="form-group">
@@ -964,7 +964,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                           <div  class="row imgblock">
 
                                                             <div *ngFor="let url6 of doc6;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'6')"></i>
@@ -973,7 +973,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </div>
 
                                                          <div *ngFor="let url6 of Legal;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="doc6.length == 0 ? i <= 2 : '' " class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url6)"></i>
@@ -1000,7 +1000,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                         </div>
 
                                          <div *ngIf="simult_open" class="col-lg-12">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
 
                                                 <div class="form-group">
@@ -1014,7 +1014,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                           <div  class="row imgblock">
 
                                                             <div *ngFor="let url6 of doc7;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'7')"></i>
@@ -1023,7 +1023,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </div>
 
                                                          <div *ngFor="let url6 of SimultaneousDoc;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                            
 
@@ -1080,7 +1080,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
 
                                             <div *ngIf="other_open" class="col-lg-12">
-                                            <div class="card image-thumb-card p-2 form-group">
+                                            <div class="card image-thumb-card p-2 form-group min_block-height">
 
 
                                                 <div class="form-group">
@@ -1094,7 +1094,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                           <div  class="row imgblock">
 
                                                             <div *ngFor="let url6 of doc8;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
                                                                 (click)="removeImage(i,'8')"></i>
@@ -1103,7 +1103,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </div>
 
                                                          <div *ngFor="let url6 of OtherDoc;let i=index"
-                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
+                                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
                                                             
                                                             <i *ngIf="doc8.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url6)"></i>
@@ -1488,8 +1488,14 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Country">Country</label>
-                                            <input type="text" class="form-control" formControlName="bank_country"
-                                                id="bank_country" placeholder="Country">
+                                            <select class="form-control" formControlName="bank_country">
+                                                <option value="" selected disabled>Country</option>
+                                                <option *ngFor="let isd of country_Obj" [value]="isd.id">
+                                                    {{isd?.name}}
+                                                </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" formControlName="bank_country"
+                                                id="bank_country" placeholder="Country"> -->
                                             <div *ngIf="bankingRoutingForm.controls['bank_country'].errors && (!bankingRoutingForm.controls['bank_country'].pristine || submitted ||bankingRoutingForm.controls['bank_country'].touched )"
                                                 class="error-msg">
                                                 <div
@@ -1624,12 +1630,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
             <div class="modal-body img_view_new">
                 <div *ngIf="docImage == 1">
                     <div class="row">
-                        <div *ngFor="let url of doc;let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url of doc;let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'1')"></i>
                             <img [src]="url.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url of CommunityInterpretingArr;let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url of CommunityInterpretingArr;let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1639,12 +1645,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 2">
                     <div class="row">
-                        <div *ngFor="let url2 of doc2; let y=index" class="col-md-3 m-10">
+                        <div *ngFor="let url2 of doc2; let y=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(y,'2')"></i>
                             <img [src]="url2.img_url" style="width:100%; height:100%;">
                         </div>
 
-                          <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10">
+                          <div *ngFor="let url of ConferenceArr; let y=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1653,12 +1659,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 3">
                     <div class="row">
-                        <div *ngFor="let url3 of doc3; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url3 of doc3; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'3')"></i>
                             <img [src]="url3.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url of CourtCertified; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url of CourtCertified; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1667,12 +1673,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 4">
                     <div class="row">
-                        <div *ngFor="let url4 of doc4; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url4 of doc4; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'4')"></i>
                             <img [src]="url4.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url of CourtCredentialed; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url)"></i>
                             <img (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1682,12 +1688,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 5">
                     <div class="row">
-                        <div *ngFor="let url5 of doc5; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url5 of doc5; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'5')"></i>
                             <img [src]="url5.img_url" style="width:100%; height:100%;">
                         </div>
 
-                        <div *ngFor="let url5 of EquipmentQualified; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url5 of EquipmentQualified; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url5)"></i>
                             <img (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1696,12 +1702,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                 </div>
                 <div *ngIf="docImage == 6">
                     <div class="row">
-                        <div *ngFor="let url6 of doc6; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url6 of doc6; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'6')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url6 of Legal; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url6 of Legal; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
                             <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1710,12 +1716,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                  <div *ngIf="docImage == 7">
                     <div class="row">
-                        <div *ngFor="let url6 of doc7; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url6 of doc7; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'7')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url6 of SimultaneousDoc; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url6 of SimultaneousDoc; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
                             <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                         </div>
@@ -1724,12 +1730,12 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                 <div *ngIf="docImage == 8">
                     <div class="row">
-                        <div *ngFor="let url6 of doc8; let i=index" class="col-md-3 m-10">
+                        <div *ngFor="let url6 of doc8; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeImage(i,'8')"></i>
                             <img [src]="url6.img_url" style="width:100%; height:100%;">
                         </div>
 
-                         <div *ngFor="let url6 of OtherDoc; let i=index" class="col-md-3 m-10">
+                         <div *ngFor="let url6 of OtherDoc; let i=index" class="col-md-3 m-10 view_img">
                             <i class="fas fa-times timenew" (click)="removeUpdateImage(url6)"></i>
                             <img (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                         </div>
