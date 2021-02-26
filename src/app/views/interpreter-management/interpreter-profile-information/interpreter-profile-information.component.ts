@@ -503,6 +503,7 @@ createItem() {
       //     Communityhourly_rate: this.UserLangData[0].base_rate,
       //     Medicalhourly_rate: this.UserLangData[0].base_rate,
       //   })
+      if(this.UserLangData.length > 0){
       this.on_site_language = this.UserLangData[0].id;
       this.opi_language = this.UserLangData[0].id;
       this.vri_language = this.UserLangData[0].id;
@@ -510,6 +511,7 @@ createItem() {
       this.rsi_language = this.UserLangData[0].id;
       this.vci_opi_language = this.UserLangData[0].id;
       this.languageId=res['data'][0].id
+      }
     });
   }
   check1() {
@@ -714,12 +716,12 @@ createItem() {
     this.generalForm.get('last_name').patchValue(this.detail_Obj.last_name);
     // this.generalForm.get('apartment').patchValue( this.detail_Obj.apartment);
     // this.generalForm.get('middle_name').patchValue( this.detail_Obj.middle_name);
-    this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name);
+    this.generalForm.get('nick_name').patchValue(this.detail_Obj.nick_name == 0 ? '' :this.detail_Obj.nick_name);
     this.generalForm.get('notes').patchValue(this.detail_Obj.about == 'null' ? '' : this.detail_Obj.about);
     this.generalForm.get('mobile').patchValue(this.detail_Obj.mobile);
     this.generalForm.get('country_code').patchValue(this.detail_Obj.country_code == 0 ? '' :this.detail_Obj.country_code );
-    this.generalForm.get('address').patchValue(this.detail_Obj.address);
-    this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth);
+    this.generalForm.get('address').patchValue(this.detail_Obj.address == 0 ? '' : this.detail_Obj.address);
+    this.generalForm.get('dob').patchValue(this.detail_Obj.date_of_birth == 0 ? '' : this.detail_Obj.date_of_birth );
     this.generalForm.get('international_phone_no').patchValue(this.detail_Obj.international_phone_no == 0 ? '' : this.detail_Obj.international_phone_no);
 
     this.generalForm.get('country').patchValue(this.detail_Obj.country);
@@ -729,17 +731,20 @@ createItem() {
     }
     this.generalForm.get('gender').patchValue(this.detail_Obj.gender);
     this.generalForm.get('city').patchValue(this.detail_Obj.city);
-    this.generalForm.get('zipCode').patchValue(this.detail_Obj.zipCode);
+    this.generalForm.get('zipCode').patchValue(this.detail_Obj.zipCode == 0 ? '':this.detail_Obj.zipCode);
     this.generalForm.get('timezone').patchValue(this.detail_Obj.timezone);
     this.generalForm.get('other_gender').patchValue(this.detail_Obj.other_gender);
-    this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name);
+    this.generalForm.get('company_name').patchValue(this.detail_Obj.company_name == 0 ? '':this.detail_Obj.company_name);
     if (this.detail_Obj.social_security_no == "EIN") {
       this.einshowInput = true;
-      this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no);
+      this.generalForm.controls['ein'].setValidators([Validators.minLength(9)]); 
+      this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no == 0 ? '' : this.detail_Obj.social_security_no);
     }
     else {
       this.ssnshowInput = true;
-      this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no);
+
+      this.generalForm.controls['ssn'].setValidators([Validators.minLength(9)]);   
+      this.generalForm.get('social_security_no').patchValue(this.detail_Obj.social_security_no == 0 ? '':this.detail_Obj.social_security_no);
     }
     this.generalForm.get('ssn').patchValue(this.detail_Obj.ssn_no);
     this.generalForm.get('ein').patchValue(this.detail_Obj.ein_no);
@@ -766,15 +771,15 @@ createItem() {
       first_name: ['', this.validation.onlyRequired_validator],
       last_name: ['', this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
-      mobile: ['', this.validation.onlyRequired_validator],
-      international_phone_no: [''],
+      mobile: ['', [Validators.pattern(/^(\d{0,3})(\d{0,4})(.*)/),Validators.required]],
+      international_phone_no: ['',Validators.pattern(/^(\d{0,3})(\d{0,4})(.*)/)],
       // username: [''],
       dob: ['', this.validation.onlyRequired_validator],
       country_code: ['', this.validation.onlyRequired_validator],
       address: ['', this.validation.onlyRequired_validator],
       // address: [''],
-      company_name: [''],
-      social_security_no: [''],
+      company_name: ['', this.validation.onlyRequired_validator],
+      social_security_no: ['',Validators.required],
       // apartment:['', this.validation.onlyRequired_validator],
       gender: [''],
       latitude: [''],
@@ -784,13 +789,13 @@ createItem() {
       country: [''],
       city: [''],
       state: [''],
-      zipCode: [''],
-      timezone: [''],
+      zipCode: ['', this.validation.onlyRequired_validator],
+      timezone: ['',this.validation.onlyRequired_validator],
       image: [''],
       other_gender: [''],
       notes: [''],
-      ssn: [''],
-      ein: [''],
+      ssn: ['',],
+      ein: ['',],
 
     });
   }
@@ -879,18 +884,25 @@ createItem() {
 
   //update interpreter value
   updateInterpreter() {
-    // this.submitted = true; 
-    // if (this.generalForm.invalid) {
-    //   return;
-    // }
 
-    // this.submitted = false;
-    if (this.generalForm.value.mobile.length < 8) {
-      return
+    console.log('-------------',this.generalForm)
+    this.submitted = true; 
+    if (this.generalForm.invalid) {
+      return;
     }
-    if (this.generalForm.value.international_phone_no.length < 8 && this.generalForm.value.international_phone_no.length > 0) {
-      return
-    }
+
+    this.submitted = false;
+
+    // alert('dev');
+    // return;
+
+
+    // if (this.generalForm.value.mobile.length < 8) {
+    //   return
+    // }
+    // if (this.generalForm.value.international_phone_no.length < 8 && this.generalForm.value.international_phone_no.length > 0) {
+    //   return
+    // }
     this.spinner.show();
     if (this.latitude != undefined && this.longitude != undefined) {
       this.generalForm.value.address = this.new_address;
@@ -1548,13 +1560,38 @@ this.assignment_arr = this.assignment_arr.filter( ( item, index, inputArray ) =>
         this.general_form = false;
         this.skills_form = false;
         this.banking_form = false;
+        this.interpreterSkillForm.reset();  
         this.detailProfile();
+        this.resetFileVariable();
+        this.interpreterSkillForm.reset();
+        
+
+
       } else {
         this.toastr.error(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
     });
   }
 
+resetFileVariable(){
+        this.doc=[]
+        this.doc2=[]
+        this.doc3=[]
+        this.doc4=[]
+        this.doc5=[]
+        this.doc6=[]
+        this.doc7=[]
+        this.doc8=[]
+
+        this.CommunityInterpretingArr=[];
+        this.ConferenceArr=[];
+        this.CourtCertified=[];
+        this.CourtCredentialed=[];
+        this.EquipmentQualified=[];
+        this.Legal=[];
+        this.SimultaneousDoc=[];
+        this.OtherDoc=[];
+}
   imgview(e: string,modal,type) 
   {
     this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true})
@@ -2094,10 +2131,15 @@ createItem1() {
   ssnRadioBtn() {
     this.einshowInput = false;
     this.ssnshowInput = true;
+    
+ this.generalForm.controls['ssn'].setValidators([Validators.minLength(9)]);              
+
   }
   einRadioBtn() {
     this.einshowInput = true;
     this.ssnshowInput = false;
+     this.generalForm.controls['ein'].setValidators([Validators.minLength(9)]);              
+
   }
   ApproveInterpreter() {
     alert('dev')

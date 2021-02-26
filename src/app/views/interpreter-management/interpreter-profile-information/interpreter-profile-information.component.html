@@ -213,11 +213,13 @@
                                                 <div class="col-md-8">
                                                     <label for="MobileNo.">Mobile No. <span class="error-msg"> *
                                                         </span></label>
-                                                    <input type="text" mask="(000) 0000-00000000" class="form-control"
-                                                        formControlName="mobile"
-                                                        onkeypress="if(this.value.length==19) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                                    <input id="tel" phoneMask  [preValue]="generalForm.value.mobile"   [phoneControl]="generalForm.controls['mobile']"  class="form-control"
+                                                        formControlName="mobile"  maxlength="19" minlength="12"
+                                                        
                                                         placeholder="Mobile">
                                                 </div>
+
+                                                <!--  Status: {{generalForm.get('mobile').status | json}} -->
                                             </div>
                                             <div *ngIf=" generalForm.controls['country_code'].errors && ( !generalForm.controls['country_code'].pristine || submitted ||generalForm.controls['country_code'].touched )"
                                                 class="error-msg">
@@ -227,18 +229,19 @@
 
                                             <div *ngIf="generalForm.controls['mobile'].errors && (!generalForm.controls['mobile'].pristine || submitted ||generalForm.controls['mobile'].touched )"
                                                 class="error-msg">
-                                                <!--   <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile
-                                                    No. is required.</div> -->
-                                                <div *ngIf="generalForm.value.mobile.length < 8">Mobile No. should be 8
-                                                    digits.</div>
+                                                  <div [hidden]="!generalForm.controls['mobile'].errors.required">Mobile No. is required.</div> 
+
+                                                   <div [hidden]="generalForm.get('mobile').status == 'VALID'">Mobile No. should be in between 8 to 15 digits.</div>
+                                               
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Home Phone</label>
-                                            <input type="text" mask="(000) 0000-00000000" class="form-control"
+                                            <input phoneMask  [preValue]="generalForm.value.international_phone_no"   [phoneControl]="generalForm.controls['international_phone_no']" 
+maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                 formControlName="international_phone_no"
-                                                onkeypress="if(this.value.length==19) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
+                                               
                                                 placeholder="Home Phone">
                                             <div *ngIf="(!generalForm.controls['international_phone_no'].pristine || submitted ||generalForm.controls['international_phone_no'].touched )"
                                                 class="error-msg">
@@ -246,9 +249,7 @@
                                                     [hidden]="!generalForm.controls['international_phone_no'].errors.required">
                                                     Home Phone No. is required.</div> -->
                                                 <!-- <div [hidden]="!generalForm.controls['international_phone_no'].errors.minlength">Home Phone No. should be 8 digits.</div> -->
-                                                <div
-                                                    *ngIf="generalForm.value.international_phone_no.length < 8 && generalForm.value.international_phone_no.length > 0">
-                                                    Home Phone No. should be 8 digits.</div>
+                                                 <div [hidden]="generalForm.get('international_phone_no').status == 'VALID'">Phone No. should be in between 8 to 15 digits.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -262,6 +263,14 @@
                                                 (keydown.enter)="$event.preventDefault()"
                                                 placeholder="Search Nearest Location" autocorrect="off"
                                                 autocapitalize="off" spellcheck="off" type="text" #search>
+
+                                               <div *ngIf="generalForm.controls['address'].errors && (!generalForm.controls['address'].pristine || submitted ||generalForm.controls['address'].touched )"
+                                                class="error-msg">
+                                                <div [hidden]="!generalForm.controls['address'].errors.required">Address
+                                                    is required.</div>
+                                            </div>
+                                               
+
                                         </div>
 
 
@@ -291,12 +300,29 @@
                                                         placeholder="SSN" formControlName="ssn">
                                                 </label>
                                             </div>
-                                            <!-- <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )"
+                                            <div *ngIf="generalForm.controls['social_security_no'].errors && (!generalForm.controls['social_security_no'].pristine || submitted ||generalForm.controls['social_security_no'].touched )"
                                                 class="error-msg">
                                                 <div
                                                     [hidden]="!generalForm.controls['social_security_no'].errors.required">
                                                     SSN/EIN is required.</div>
-                                            </div> -->
+                                                
+                                            </div>
+
+                                              <div *ngIf="generalForm.controls['ssn'].errors && (!generalForm.controls['ssn'].pristine || submitted ||generalForm.controls['ssn'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!generalForm.controls['ssn'].errors.minlength">
+                                                    SSN number should be 9 digits.</div>
+                                                
+                                            </div>
+
+                                              <div *ngIf="generalForm.controls['ein'].errors && (!generalForm.controls['ein'].pristine || submitted ||generalForm.controls['ein'].touched )"
+                                                class="error-msg">
+                                                <div
+                                                    [hidden]="!generalForm.controls['ein'].errors.minlength">
+                                                    EIN number should be 9 digits.</div>
+                                                
+                                            </div>
                                         </div>
 
                                     </div>
@@ -357,11 +383,11 @@
                                             <input type="text" class="form-control"
                                                 onkeypress="if(this.value.length==25) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == '.' || event.charCode == 250 "
                                                 formControlName="zipCode" placeholder="State">
-                                            <!-- <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )"
+                                            <div *ngIf="generalForm.controls['zipCode'].errors && (!generalForm.controls['zipCode'].pristine || submitted ||generalForm.controls['zipCode'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['zipCode'].errors.required">ZipCode
                                                     is required.</div>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
 
@@ -375,6 +401,9 @@
                                                     {{isd}}
                                                 </option>
                                             </select>
+                                             <div *ngIf="generalForm.controls['timezone'].errors && (!generalForm.controls['timezone'].pristine || submitted ||generalForm.controls['timezone'].touched )" class="error-msg">
+                                                    <div [hidden]="!generalForm.controls['timezone'].errors.required">Timezone is required.</div> 
+                                                  </div>
                                             <!-- <input type="text" class="form-control" formControlName="timezone" placeholder="Timezone">
                                                 <div *ngIf="generalForm.controls['timezone'].errors && (!generalForm.controls['timezone'].pristine || submitted ||generalForm.controls['timezone'].touched )" class="error-msg">
                                                     <div [hidden]="!generalForm.controls['timezone'].errors.required">Timezone is required.</div> 
@@ -385,11 +414,11 @@
                                             <label>Company Name</label>
                                             <input type="text" class="form-control" formControlName="company_name"
                                                 placeholder="Company Name">
-                                            <!-- <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )"
+                                            <div *ngIf="generalForm.controls['company_name'].errors && (!generalForm.controls['company_name'].pristine || submitted ||generalForm.controls['company_name'].touched )"
                                                 class="error-msg">
                                                 <div [hidden]="!generalForm.controls['company_name'].errors.required">
                                                     Company Name is required.</div>
-                                            </div> -->
+                                            </div>
                                         </div>
 
                                     </div>
@@ -798,10 +827,15 @@
                                                         <div *ngFor="let url of CourtCertified;let z=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
                                                             
-                                                            <i *ngIf="z <= 2" class="fas fa-times timenew"
+                                                            <i *ngIf="doc3.length == 0 ? z <= 2 : ''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url)"></i>
-                                                            <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && z<=2"
+                                                            <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && doc3.length == 0 ? z <= 2 : ''"
                                                                 (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+                                                            <i *ngIf="doc3.length == 1 ? z <= 1 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url.doc_type == 'court_doc' && url.type == '3' && doc3.length == 1 ? z <= 1 : ''"
+                                                                (click)="openFile(url.doc_name)" [src]="url.fileurl" style="width:100%; height:100%;">
+
                                                         </div>
 
 
@@ -839,10 +873,18 @@
 
                                                         <div *ngFor="let url4 of CourtCredentialed;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                             <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                             
+                                                             <i *ngIf=" doc4.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                  (click)="removeUpdateImage(url)"></i>
-                                                            <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && i<=2"
+                                                            <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && doc4.length == 0 ? i <= 2 : ''"
                                                                (click)="openFile(url4.doc_name)" [src]="url4.fileurl" style="width:100%; height:100%;">
+
+                                                            <i *ngIf="doc4.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                 (click)="removeUpdateImage(url)"></i>
+                                                            <img *ngIf="url4.doc_type == 'credential_doc' && url4.type == '4' && doc4.length == 1 ? i <= 1 : ''"
+                                                               (click)="openFile(url4.doc_name)" [src]="url4.fileurl" style="width:100%; height:100%;">
+
+
                                                         </div>
 
                                                         
@@ -882,10 +924,17 @@
 
                                                         <div *ngFor="let url5 of EquipmentQualified;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                            <i *ngIf="doc5.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url5)"></i>
-                                                            <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && i<=2"
+                                                            <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && doc5.length == 0 ? i <= 2 : ''"
                                                                 (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
+
+                                                            <i *ngIf="doc5.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url5)"></i>
+                                                            <img *ngIf="url5.doc_type == 'equipment_doc' && url5.type == '5' && doc5.length == 1 ? i <= 1 : ''"
+                                                                (click)="openFile(url5.doc_name)" [src]="url5.fileurl" style="width:100%; height:100%;">
+
+
                                                         </div>
                                                         <button *ngIf="showViewBtn || EquipmentQualified.length > 0" type="button"
                                                         class="btn btn-primary btnview"
@@ -926,9 +975,14 @@
                                                          <div *ngFor="let url6 of Legal;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
                                                             
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                            <i *ngIf="doc6.length == 0 ? i <= 2 : '' " class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url6)"></i>
-                                                            <img *ngIf="url6.doc_type == 'legal_doc' && url6.type == '6' && i<=2"
+                                                            <img *ngIf="url6.doc_type == 'legal_doc' && url6.type == '6' && doc6.length == 0 ? i <= 2 : '' "
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+                                                            <i *ngIf="doc6.length == 1 ? i <= 1 : '' " class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'legal_doc' && url6.type == '6' && doc6.length == 1 ? i <= 1 : '' "
                                                                 (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                                                         </div>
 
@@ -971,9 +1025,16 @@
                                                          <div *ngFor="let url6 of SimultaneousDoc;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
                                                             
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                           
+
+                                                            <i *ngIf="doc7.length == 0 ? i <= 2 :''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url6)"></i>
-                                                            <img *ngIf="url6.doc_type == 'simultaneous_doc' && url6.type == '7' && i<=2"
+                                                            <img *ngIf="url6.doc_type == 'simultaneous_doc' && url6.type == '7' && doc7.length == 0 ? i <= 2 :''"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+                                                             <i *ngIf="doc7.length == 1 ? i <= 1 :''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'simultaneous_doc' && url6.type == '7' && doc7.length == 1 ? i <= 1 :''"
                                                                 (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
                                                         </div>
 
@@ -1044,10 +1105,17 @@
                                                          <div *ngFor="let url6 of OtherDoc;let i=index"
                                                             class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero">
                                                             
-                                                            <i *ngIf="i <= 2" class="fas fa-times timenew"
+                                                            <i *ngIf="doc8.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                 (click)="removeUpdateImage(url6)"></i>
-                                                            <img *ngIf="url6.doc_type == 'other_doc' && url6.type == '8' && i<=2"
+                                                            <img *ngIf="url6.doc_type == 'other_doc' && url6.type == '8' && doc8.length == 0 ? i <= 2 : ''"
                                                                 (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+                                                             <i *ngIf="doc8.length == 1 ? i <= 1 : ''" class="fas fa-times timenew"
+                                                                (click)="removeUpdateImage(url6)"></i>
+                                                            <img *ngIf="url6.doc_type == 'other_doc' && url6.type == '8' && doc8.length == 1 ? i <= 1 : ''"
+                                                                (click)="openFile(url6.doc_name)" [src]="url6.fileurl" style="width:100%; height:100%;">
+
+
                                                         </div>
 
 
