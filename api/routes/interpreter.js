@@ -105,6 +105,8 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
     var mainArr = [];
 
     var resultData = await usermodel.getInterpreterProfileData(interpreter_id);
+    console.log("============ddddddd",resultData)
+
     if (resultData != "" && resultData != undefined) {
         var mainObj = {};
         // var recipeid = urlRecipeResult[0].id;
@@ -123,7 +125,6 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         //get interpreter upload documents
         var document = await usermodel.getInterpreterDoc(interpreter_id);
         // var docArr = [];
-
         if (document != "" && document != undefined) {
             // docArr = document;
             for (var i = 0; i < document.length; i++) {
@@ -150,7 +151,7 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         }
 
 
-        if ((communityDoc != "" && communityDoc != undefined) && (conferenceDoc != "" && conferenceDoc != undefined) && (courtDoc != "" && courtDoc != undefined) && (credentialDoc != "" && credentialDoc != undefined) && (equipmentDoc != "" && equipmentDoc != undefined) && (legalDoc != "" && legalDoc != undefined) && (simultOpen != "" && simultOpen != undefined)) {
+        if (( resultData[0].platform_ids != "" && resultData[0].platform_ids != undefined)&&( communityDoc != "" && communityDoc != undefined) && (conferenceDoc != "" && conferenceDoc != undefined) && (courtDoc != "" && courtDoc != undefined) && (credentialDoc != "" && credentialDoc != undefined) && (equipmentDoc != "" && equipmentDoc != undefined) && (legalDoc != "" && legalDoc != undefined) && (simultOpen != "" && simultOpen != undefined)) {
             skill_complete = '1';
         }
 
