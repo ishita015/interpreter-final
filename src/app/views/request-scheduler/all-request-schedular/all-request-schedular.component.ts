@@ -106,6 +106,9 @@ export class AllRequestSchedularComponent implements OnInit {
   communityRequestForm: FormGroup;
   medicalRequestForm: FormGroup;
   otherRequestForm: FormGroup;
+  keyword = 'name';
+  minDate=new Date() 
+
   // form name end here
   constructor(
     public validation: ValidationsService,
@@ -119,6 +122,7 @@ export class AllRequestSchedularComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
   ) { }
 
+   
   ngOnInit() {
     this.CountryList();
     this.createForm1();
@@ -354,10 +358,20 @@ export class AllRequestSchedularComponent implements OnInit {
   /*==========  Country Code for Mobile End Here========*/
 
   /*==========Client name list start Here========*/
-
+ public countries = [
+    {
+      id: 1,
+      name: 'Albania',
+    },
+    
+  ];
   allClientList() {
 
-    this.service.get('getAllClients').subscribe(res => { this.clientObj = res['data'] });
+    this.service.get('getAllClients').subscribe(res => { 
+      this.clientObj = res['data']
+      console.log('this',this.clientObj)
+
+       });
     this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(startWith(''),
       map(value => this.getRegions(value)));
 
@@ -641,6 +655,8 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*======================All Form submitted function start here==============================*/
   saveUser() {
+    console.log(this.newRequestForm.value);
+    // return
     this.submitted = true;
     if (this.showEductionForm) {
       this.submittedEdu = true;
@@ -675,7 +691,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("LT");
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
-    this.newRequestForm.value.client_id = this.client_id;
+    this.newRequestForm.value.client_id = this.newRequestForm.value.client_name.id;
 
      this.newRequestForm.value.latitude = this.latitude;
       this.newRequestForm.value.longitude = this.longitude;

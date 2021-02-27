@@ -62,8 +62,36 @@
                     </div>
                     <div class="row dummy_text">
                         <div class="col-sm-4 form-group mb-3">
-                            <label>Client Name</label>
-                            <!-- <div class="form-group form-field"> -->
+                           
+  <ng-autocomplete
+    [data]="clientObj"
+    [searchKeyword]="keyword"
+    placeholder="Enter the Country Name"
+    (selected)='selectEvent($event)'
+    (inputChanged)='onChangeSearch($event)'
+    (inputFocused)='onFocused($event)'
+    historyIdentifier="clientObj"
+    [itemTemplate]="itemTemplate"
+    [notFoundTemplate]="notFoundTemplate"
+
+    formControlName="client_name"
+    >
+  </ng-autocomplete>
+
+  <ng-template #itemTemplate let-item>
+    <a [innerHTML]="item.fullName"></a>
+  </ng-template>
+
+  <ng-template #notFoundTemplate let-notFound>
+    <div [innerHTML]="notFound"></div>
+  </ng-template>
+
+ <div *ngIf="newRequestForm.controls['client_name'].errors && ( !newRequestForm.controls['client_name'].pristine || submitted || newRequestForm.controls['client_name'].touched )" class="error-msg">
+                                    <div [hidden]="!newRequestForm.controls['client_name'].errors.required">Client Name is required.
+ </div>
+ </div>
+
+                           <!--  <label>Client Name</label>
                             <mat-form-field class="example-full-width ">
                                 <input type="text" matInput [matAutocomplete]="auto" formControlName="client_name">
                                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (keyup)="getRegions($event)">
@@ -75,7 +103,7 @@
                                     <div [hidden]="!newRequestForm.controls['client_name'].errors.required">Client Name is required.
                                     </div>
                                 </div>
-                            </mat-form-field>
+                            </mat-form-field> -->
                             <!-- <ejs-autocomplete  [dataSource]='clientObj' [fields]='localFields' ></ejs-autocomplete> -->
                             <!-- <select class="form-control" (change)="onChangeClient($event)"
                                     formControlName="client_name" id="client_name" name="client_name">
@@ -100,7 +128,14 @@
                         </div>
                         <div class="col-sm-4 form-group mb-3 req_date">
                             <label>Request Date</label>
-                            <input type="date" name="setTodaysDate" class="form-control" formControlName="request_date" placeholder="Date">
+                           <!--  <input type="date" name="setTodaysDate" class="form-control" formControlName="request_date" placeholder="Date"> -->
+
+                            <mat-form-field appearance="none">
+                              <input [max]="minDate" (click)="picker.open()" matInput [matDatepicker]="picker" formControlName="request_date" >
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
                             <div *ngIf="newRequestForm.controls['request_date'].errors && ( !newRequestForm.controls['request_date'].pristine || submitted ||newRequestForm.controls['request_date'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['request_date'].errors.required">Request Date is required.</div>
                                 <!-- <div [hidden]="!newRequestForm.controls.caseworker_name.hasError('minlength')">caseworker_name length should be minimum 2 characters.</div> -->
@@ -231,9 +266,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4 form-group mb-3">
+                            <div class="col-sm-4 form-group mb-3 ">
+
                             <label>Assignment Date</label>
-                            <input type="date" name="assignDate" class="form-control" formControlName="assignment_date" placeholder="Assignment Date">
+
+                           <!--  <input type="date" name="assignDate" class="form-control" formControlName="assignment_date" placeholder="Assignment Date"> -->
+
+                             <mat-form-field appearance="none">
+                              <input [min]="minDate" (click)="pickerr.open()" matInput [matDatepicker]="pickerr" formControlName="assignment_date" >
+                              <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
+                              <mat-datepicker #pickerr></mat-datepicker>
+                            </mat-form-field>
+
+
+
                             <div *ngIf="newRequestForm.controls['assignment_date'].errors && ( !newRequestForm.controls['assignment_date'].pristine || submitted ||newRequestForm.controls['assignment_date'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['assignment_date'].errors.required">Assignment Date is required.</div>
 
@@ -367,7 +413,15 @@
                             <div class="row">
                                 <div class="col-sm-12 form-group mb-3 border_label">
                                     <label>Start Date</label>
-                                    <input type="date" class="form-control" id="StartTime" (click)="startWithAssignment($event)" formControlName="event_start_date" name="event_start_d" placeholder="Start Time">
+                                    <!-- <input type="date" class="form-control" id="StartTime" (click)="startWithAssignment($event)" formControlName="event_start_date" name="event_start_d" placeholder="Start Time"> -->
+
+                                     <mat-form-field appearance="none">
+                                      <input [min]="minDate" (click)="picker2.open()"  id="StartTime" (click)="startWithAssignment($event)"  matInput [matDatepicker]="picker2" formControlName="event_start_date" name="event_start_d"  >
+                                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+
+
                                     <div *ngIf="newRequestForm.controls['event_start_date'].errors && ( !newRequestForm.controls['event_start_date'].pristine || submitted ||newRequestForm.controls['event_start_date'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_start_date'].errors.required">
                                             Start Date is required.</div>
@@ -376,7 +430,15 @@
 
                                 <div class="col-sm-12 form-group mb-3 border_label">
                                     <label>End Date</label>
-                                    <input type="date" class="form-control" id="End Date" (change)="start_end_date($event)" formControlName="event_end_date" placeholder="End Date" (click)="endWithAssignment($event)" name="event_end_d">
+                                <!--     <input type="date" class="form-control" id="End Date" (change)="start_end_date($event)" formControlName="event_end_date" placeholder="End Date" (click)="endWithAssignment($event)" name="event_end_d"> -->
+
+                                     <mat-form-field appearance="none">
+                                      <input [min]="minDate" (click)="picker3.open()"  (change)="start_end_date($event)" id="End" (click)="endWithAssignment($event)"  matInput [matDatepicker]="picker3" formControlName="event_end_date" name="event_end_d"  >
+                                      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker3></mat-datepicker>
+                                    </mat-form-field>
+
+
                                     <div *ngIf="newRequestForm.controls['event_end_date'].errors && ( !newRequestForm.controls['event_end_date'].pristine || submitted ||newRequestForm.controls['event_end_date'].touched )" class="error-msg">
                                         <div [hidden]="!newRequestForm.controls['event_end_date'].errors.required">End Date is required.</div>
                                     </div>
