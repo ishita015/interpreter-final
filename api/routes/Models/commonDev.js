@@ -246,6 +246,19 @@ this.GetLanguageAssignmentSettings = () => {
             });
         });
     }
+    this.AsyncSellectAllRoleInAdmin = (table,data) => {
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT * FROM `role_module` WHERE id != 12 AND id != 15 AND id != 17  AND status=1 AND parent_id =0"; 
+           // console.log(sql)
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve([]);
+                }
+            });
+        });
+    }
 
  
 }

@@ -74,8 +74,10 @@
 
                         <div class="col-md-6 form-group mb-3">
                             <label for="email">Password</label>
-                            <input type="password" class="form-control" formControlName="password"
+                            <input type="password" class="form-control"  [type]="showHideNew ? 'password' : 'text'" formControlName="password"
                                 placeholder="password">
+                                <a href="javascript:void(0);" (click)="showHideNewPassword()" id="show"><span class="eye-icon"
+                                    [ngClass]="{'fa': true, 'fa-eye': (!showHideNew), 'fa-eye-slash': (showHideNew)}"></span></a>
                             <div *ngIf="userForm.controls['password'].errors && (!userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )"
                                 class="error-msg">
                                 <div [hidden]="!userForm.controls['password'].errors.required">Password is required.

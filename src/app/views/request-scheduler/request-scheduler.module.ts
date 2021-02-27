@@ -23,6 +23,7 @@ import { MaterialModule } from '../../material.module';
 
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { InterpreterListComponent } from './interpreter-list/interpreter-list.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { InterpreterListComponent } from './interpreter-list/interpreter-list.co
   ],
   imports: [
     CommonModule,
-    MaterialModule,
+    MaterialModule,AutocompleteLibModule,
     RequestSchedulerRoutingModule,
     FormsModule,
     ReactiveFormsModule,

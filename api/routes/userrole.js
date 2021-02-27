@@ -471,7 +471,7 @@ module.exports.getAdminRoleMenus = async function(req, res) {
     // });
 
     try{
-        var data = await commonDb.AsyncSellectAllWhere('role_module',{status:1,parent_id:0});
+        var data = await commonDb.AsyncSellectAllRoleInAdmin('role_module',{status:1,parent_id:0});
         for (var i = 0; i < data.length; i++) {
             if(data[i].type == 'link'){
                 delete data[i].sub;
