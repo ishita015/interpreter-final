@@ -1600,15 +1600,18 @@ export class InterpreterProfileInformationComponent implements OnInit {
       this.createDynamicForm()
       if (res['status'] == '1') {
         this.toastr.success(this.skill_msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+       
+        this.getInterpreterFiles();
+        this.detailProfile();
+        this.resetFileVariable();
+       setTimeout(()=>{
         if(this.detail_Obj.skill_complete == '1'){
           this.assignment_form = true;
           this.general_form = false;
           this.skills_form = false;
           this.banking_form = false;
         }
-        this.getInterpreterFiles();
-        this.detailProfile();
-        this.resetFileVariable();
+       },100)
         this.interpreterSkillForm.reset();
 
       } else {
