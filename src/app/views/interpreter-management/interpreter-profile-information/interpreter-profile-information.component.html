@@ -75,7 +75,6 @@
             </div>
         </div>
 
-
         <div (click)="assignment();createDynamicForm();getUserLanguage();"
             class="col-lg-3 col-md-6 col-sm-6 pro_info">
             <div class="card card_red card-icon-bg card-icon-bg-primary o-hidden mb-4"
@@ -133,9 +132,6 @@
         <div *ngIf="general_form" class="col-md-12 ">
 
 
-
-
-
             <div class="card animate">
                 <div class="card-body">
                     <div id="print-area">
@@ -158,7 +154,7 @@
                                                 <div class="col-md-10">
                                                     <label for="firstName">First Name<span class="error-msg"> *
                                                         </span></label>
-                                                    <input type="text" class="form-control" formControlName="first_name"
+                                                    <input type="text" class="form-control"  formControlName="first_name" onKeyPress="if(this.value.length==100) return false;"
                                                         placeholder="First Name">
                                                     <div *ngIf="generalForm.controls['first_name'].errors && (!generalForm.controls['first_name'].pristine || submitted ||generalForm.controls['first_name'].touched )"
                                                         class="error-msg">
@@ -171,7 +167,7 @@
                                         </div>
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Last">Last Name <span class="error-msg"> * </span></label>
-                                            <input type="text" class="form-control" formControlName="last_name"
+                                            <input type="text" class="form-control" formControlName="last_name" onKeyPress="if(this.value.length==100) return false;"
                                                 placeholder="Last Name">
                                             <div *ngIf="generalForm.controls['last_name'].errors && (!generalForm.controls['last_name'].pristine || submitted ||generalForm.controls['last_name'].touched )"
                                                 class="error-msg">
@@ -185,7 +181,7 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Last">Nick Name</label>
-                                            <input type="text" class="form-control" formControlName="nick_name"
+                                            <input type="text" class="form-control" formControlName="nick_name" onKeyPress="if(this.value.length==100) return false;"
                                                 placeholder="Nick Name">
                                         </div>
 
@@ -194,7 +190,6 @@
                                             <input disabled="" type="text" class="form-control" formControlName="email"
                                                 placeholder="Email">
                                         </div>
-
 
                                     </div>
                                     <div class="row">
@@ -534,9 +529,9 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                             </select> -->
                                                 <tag-input [formControl]="tagsCtrl2" class="new_sec"
                                                     formControlName="secondary_language" [identifyBy]="'id'"
-                                                    [displayBy]="'name'" (onSelect)="onSelect($event)" theme="primary"
+                                                    [displayBy]="'name'" theme="primary"
                                                     placeholder="Secondary Language">
-                                                    <tag-input-dropdown [focusFirstElement]="true"
+                                                    <tag-input-dropdown (change)="onSelect($event)" [focusFirstElement]="true"
                                                         [autocompleteItems]="language_Obj" displayBy="name"
                                                         identifyBy="id">
                                                     </tag-input-dropdown>
@@ -702,7 +697,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                                     <!-- edit section start dev 25-02-21 -->
                                                                     <div *ngFor="let url of CommunityInterpretingArr;let i=index"
                                                                     class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-20 paddingzero flexview">
-                                                                   
+                                                                    
                                                                     <i *ngIf="doc.length == 0 ? i <= 2 : ''" class="fas fa-times timenew"
                                                                         (click)="removeUpdateImage(url)"></i>
                                                                     <img (click)="openFile(url.doc_name)" [src]="url.fileurl" *ngIf="url.doc_type == 'community_doc' && url.type == '1' && doc.length == 0 ? i <= 2 : ''" style="width:100%; height:100%;">
@@ -1212,8 +1207,6 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         class="ul-widget2__username"></a></div>
                                             </div>
                                         </div>
-                                      
-
                                     </div>
                                 </div>
                             </div>

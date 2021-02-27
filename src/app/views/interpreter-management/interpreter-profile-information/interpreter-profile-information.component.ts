@@ -570,9 +570,13 @@ export class InterpreterProfileInformationComponent implements OnInit {
   }
 
   onSelect(item) {
+    console.log("======================item",item);
+    console.log("======================skillFomr",this.interpreterSkillForm.value.secondary_language);
+
     for (let i = 0; i < item; i++) {
       this.lang.push(item[i]);
     }
+    console.log("======================this.lang",this.lang);
 
   }
 
@@ -1564,22 +1568,31 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   }
   uploadDocuments() {
-    console.log('assignment_arr', this.assignment_arr)
 
-    // return;
-    this.submitted = true;
-    if (this.interpreterSkillForm.invalid) {
-      return;
-    }
-    this.submitted = false;
-    const formData: any = new FormData();
-    this.lang = this.interpreterSkillForm.value.secondary_language
-    // for (let a of this.lang) {
+    // this.submitted = true;
+    // if (this.interpreterSkillForm.invalid) {
+    //   return;
     // }
-
-
+    // this.submitted = false;
+    if(this.interpreterSkillForm.value.primary_language == null || this.interpreterSkillForm.value.primary_language == ''){
+      this.toastr.success("Primary language is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+    return
+  }
+    if(this.interpreterSkillForm.value.secondary_language.length == 0 ){
+        this.toastr.success("Secondary language is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      return
+    }
+    console.log("=============this.arrimages",this.arrImages);
+    
+    if(this.arrImages.length < 7 ){
+      this.toastr.success("Education documents are required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      return
+    }
+    this.lang = this.interpreterSkillForm.value.secondary_language
+    
     this.assignment_arr = this.assignment_arr.filter((item, index, inputArray) => { return inputArray.indexOf(item) == index; });
-
+console.log("============assignment_arr",this.assignment_arr)
+    const formData: any = new FormData();
     for (let img of this.arrImages) {
       formData.append(img.doc_type, img.all_img);
       formData.append('doc_name', img.doc_type);
