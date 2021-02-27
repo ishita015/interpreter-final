@@ -45,6 +45,7 @@ export class UsersAddComponent implements OnInit {
 
     public country_Obj;
 
+    public showHideNew = true;
     // @ViewChild('content1', {static: false}) content1 !: TemplateRef<any>;
     // name = 'Angular';
 
@@ -251,5 +252,11 @@ export class UsersAddComponent implements OnInit {
 
         });
     }
+     /*==========Password Show/Hide Function Start Here========*/
+   showHideNewPassword(){
+    this.showHideNew = this.showHideNew === false;
+  }
+  /*==========Password Show/Hide Function End Here========*/
+
 
 }
