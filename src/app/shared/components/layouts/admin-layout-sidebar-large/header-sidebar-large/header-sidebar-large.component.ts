@@ -4,6 +4,7 @@ import { SearchService } from '../../../../services/search.service';
 import { AuthService } from '../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { HttpService } from 'src/app/shared/services/http.service';
 
 @Component({
   selector: 'app-header-sidebar-large',
@@ -19,7 +20,8 @@ export class HeaderSidebarLargeComponent implements OnInit {
       private navService: NavigationService,
       public searchService: SearchService,
       private router: Router,
-      private auth: AuthService
+      private auth: AuthService,
+      public service: HttpService,
     ) {
       this.notifications = [
         {
@@ -69,8 +71,9 @@ export class HeaderSidebarLargeComponent implements OnInit {
     }
   
     ngOnInit() {
-      this.updatedata = JSON.parse(localStorage.getItem('loginData'));
-      console.log("update data", this.updatedata.profile_img);
+    this.service.get('getUserDetails/'+localStorage.getItem('userId')).subscribe(res=>{
+      this.updatedata = res['data'][0]
+    })
       
     }
   
