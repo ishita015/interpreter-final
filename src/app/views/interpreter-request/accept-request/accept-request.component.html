@@ -40,15 +40,15 @@
               [footerHeight]="50"
               [rowHeight]="60"
               [scrollbarV]="true"
-              [rows]="filteredUser" [rowClass]="progressRequest">
-              <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+              [rows]="filteredUser" [rowClass]="getRowClass">
+             <!--  <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
                 <ng-template ngx-datatable-header-template>
                  S.No
                 </ng-template>
                 <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
                     {{rowIndex +1}}
                 </ng-template>
-               </ngx-datatable-column>
+               </ngx-datatable-column> -->
                   <ngx-datatable-column name="IR" prop="ir">
                     <ng-template ngx-datatable-header-template>
                       IR
@@ -91,14 +91,14 @@
                     </ng-template>
                   </ngx-datatable-column>
         
-                  <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+                <!--   <ngx-datatable-column name="Cell Phone" prop="cell_phone">
                     <ng-template ngx-datatable-header-template>
                       Cell Phone
                     </ng-template>
                     <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
                       {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
                     </ng-template>
-                  </ngx-datatable-column>
+                  </ngx-datatable-column> -->
         
                <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
                 <ng-template ngx-datatable-header-template>
@@ -183,7 +183,7 @@
             </ng-template>
             
             <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" >
-              <button class="btn btn-outline-secondary mr-1" 
+              <button class=" btn whitebutton mr-1 " 
               (click)="viewDetail(row.ris_id)">View</button>  
               
              <!--  <button *ngIf="(roleId=='1' || roleId=='4') && row.status == 1" class="btn btn-outline-secondary" 
@@ -194,21 +194,21 @@
                 Tracking link
               </button> -->
 
-               <button *ngIf="(roleId=='1' || roleId=='4') && row.status == 1" class="btn btn-outline-secondary" 
+               <button *ngIf="(roleId=='1' || roleId=='4') && row.ir_status == 1" class="btn whitebutton mr-1 " 
               (click)="commingSoon()">Reminder</button>  
 
-              <button *ngIf="roleId!='1' && row.status == 1" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status == 1" class="btn whitebutton mr-1 "
               (click)="commingSoon()">
                 Tracking link
               </button>
 
 
 
-              <button *ngIf="roleId!='1' && row.status == 1" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status == 1" class="btn whitebutton mr-1 "
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Mark as completed
               </button>
-              <button *ngIf="roleId!='1' && row.status == 2" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status == 2" class="btn whitebutton mr-1 "
               >
                   Wating for completed by client side
               </button>
@@ -226,9 +226,13 @@
           </ngx-datatable-column> -->
           </ngx-datatable>
         </div>
-        <ng-container *ngIf="list_Obj?.length <= 0">
+       <!--  <ng-container *ngIf="list_Obj?.length <= 0">
             No Data Found
-        </ng-container>
+        </ng-container> -->
+         <div class="col-md-12 text-center findnew" *ngIf="list_Obj?.length <= 0">
+                <img src="../assets/images/nosearch.png"><br><br>
+                <h5><b>We couldn't find what you're looking for</b></h5>
+ </div>
       </div>
     </div>
 </div>  

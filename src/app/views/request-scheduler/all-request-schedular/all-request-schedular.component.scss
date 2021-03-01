@@ -93,11 +93,11 @@
 //  ::ng-deep .cdk-overlay-pane {
 //     top: 350px !important;
 // }
-  .cdk-overlay-pane {
+//   .cdk-overlay-pane {
 
-    top: 395px !important;
+//     top: 395px !important;
 
-}
+// }
 
 .heading {
     display: none;
@@ -107,4 +107,79 @@
 }
  .mat-input-underline {
     display: none;
+}
+.all_request .date_view{width: 100%;}
+.assign_date .mat-form-field-infix {
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 352px;
+    border-top: 0;
+    padding: 0px 0;
+}
+.assign_date .mat-input-element {
+    font: inherit;
+    background: #f8f9fa;
+    color: currentColor;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    vertical-align: bottom;
+    text-align: inherit;
+    border: 1px solid #c5c5c5;
+    height: 33px;
+}
+.assign_date .mat-datepicker-toggle {
+    color: rgba(0,0,0,.54);
+    position: absolute;
+    z-index: 99;
+    bottom: -3px;
+    right: 2px;
+}
+
+.req_form .form-control {
+    width: 100%;
+}
+.borderfull .mat-input-element {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    height: 34px;
+}
+.borderfull .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+    display: block;
+    font-size: inherit;
+    width: 2.5em;
+    height: 2.5em;
+    position: absolute;
+   bottom: -2px;
+    right: -1px;
+}
+.borderfull  button:focus {
+    outline: none;
+    outline: none;
+}
+.borderfull label{width: 100%;}
+.rep_lab .form-control {
+
+    display: inline-block;
+    width: 100%;
+
+}
+.borderfull .form-check-inline .form-check-input {
+
+    height: 20px;
+    width: 30px;
+}
+.border_label .mat-form-field-infix {
+
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 350px;
+
 }

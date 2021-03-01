@@ -258,7 +258,7 @@ export class AllRequestSchedularComponent implements OnInit {
       building_address: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
-      phone_code: [233, this.validation.onlyRequired_validator],
+      phone_code: [1, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
       address: [''],
       latitude: [''],
@@ -271,9 +271,9 @@ export class AllRequestSchedularComponent implements OnInit {
       caseworker_firstname: ['', this.validation.onlyRequired_validator],
       caseworker_lastname: ['', this.validation.onlyRequired_validator],
       position: ['', this.validation.onlyRequired_validator],
-      contact_person_phone_code: [233, this.validation.onlyRequired_validator],
-      contact_person_cellphone: [233, this.validation.onlyRequired_validator],
-      phone_code: ['', this.validation.onlyRequired_validator],
+      contact_person_phone_code: [1, this.validation.onlyRequired_validator],
+      contact_person_cellphone: [, this.validation.onlyRequired_validator],
+      phone_code: [1, this.validation.onlyRequired_validator],
       name_of_contact_person: ['', this.validation.onlyRequired_validator],
       cell_phone: ['', this.validation.onlyRequired_validator],
       case_name: ['', this.validation.onlyRequired_validator],
@@ -299,7 +299,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.medicalRequestForm = this.fb.group({
       practice_name: ['', this.validation.onlyRequired_validator],
       provider_name: ['', this.validation.onlyRequired_validator],
-      phone_code: [233, this.validation.onlyRequired_validator],
+      phone_code: [1, this.validation.onlyRequired_validator],
       cell_phone: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
@@ -317,7 +317,7 @@ export class AllRequestSchedularComponent implements OnInit {
       building_address: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
-      phone_code: [233, this.validation.onlyRequired_validator],
+      phone_code: [1, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
     })
   }
@@ -329,7 +329,7 @@ export class AllRequestSchedularComponent implements OnInit {
       building_address: ['', this.validation.onlyRequired_validator],
       room: ['', this.validation.onlyRequired_validator],
       notes: ['', this.validation.onlyRequired_validator],
-      phone_code: [233, this.validation.onlyRequired_validator],
+      phone_code: [1, this.validation.onlyRequired_validator],
       email: ['', this.validation.onlyRequired_validator],
     })
   }
@@ -351,7 +351,7 @@ export class AllRequestSchedularComponent implements OnInit {
       if (res['status'] == '1') {
         this.country_Obj = res['data'];
         console.log("======this.country_Obj===============",this.country_Obj);
-        this.default_code = this.country_Obj[233].id;
+        this.default_code = this.country_Obj[1].id;
       }
     });
   }
@@ -558,9 +558,10 @@ export class AllRequestSchedularComponent implements OnInit {
    /*==========platform Function end here ========*/
 
  /*==========Client Name Function start here ========*/
-  changeClient(data, e) {
+  changeClient(data) {
+    console.log(data)
     this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
-    this.client_id = this.clientObj[e]['id'];
+    // this.client_id = this.clientObj[e]['id'];
 
   }
 
@@ -692,6 +693,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     this.newRequestForm.value.client_id = this.newRequestForm.value.client_name.id;
+    this.newRequestForm.value.client_name = this.newRequestForm.value.client_name.fullName;
 
      this.newRequestForm.value.latitude = this.latitude;
       this.newRequestForm.value.longitude = this.longitude;
@@ -782,6 +784,7 @@ export class AllRequestSchedularComponent implements OnInit {
    /*==========================Google Api function end here==========================*/
   selectEvent(item) {
     // do something with selected item
+    this.newRequestForm.get('requested_by').patchValue(item.contact_person_name);
   }
 
   onChangeSearch(search: string) {

@@ -259,6 +259,18 @@ this.GetLanguageAssignmentSettings = () => {
             });
         });
     }
+    this.getRatings = (id) => {
+        return new Promise(function(resolve, reject) {
+            var sql = "SELECT  user.first_name,user.last_name,user_rate_review.*,user.profile_img FROM user_rate_review LEFT JOIN user ON user_rate_review.user_id = user.id WHERE user_rate_review.request_id="+id; 
+            con.query(sql, function(err, result) {
+                if (result != "" && result != "undefined") {
+                    resolve(result);
+                } else {
+                    resolve([]);
+                }
+            });
+        });
+    }
 
  
 }

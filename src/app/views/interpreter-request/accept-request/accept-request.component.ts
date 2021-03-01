@@ -96,7 +96,7 @@ createRatingForm() {
   this.ratingForm = this.fb.group({
     // rating: ['', this.validation.onlyRequired_validator],
     // review:['',this.validation.onlyRequired_validator],
-    rating: ['', this.validation.onlyRequired_validator],
+    rating: ['1', this.validation.onlyRequired_validator],
     review:['',this.validation.onlyRequired_validator],
   })
 }

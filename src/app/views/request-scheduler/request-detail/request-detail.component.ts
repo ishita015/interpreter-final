@@ -12,12 +12,14 @@ export class RequestDetailComponent implements OnInit {
   id;
   event_at = [];
   len;
+  userId = localStorage.getItem('userId');
   constructor(public service: HttpService, private router: Router, private route: ActivatedRoute) {
     this.id = route.snapshot.params['id'];
   }
 
   ngOnInit(): void {
     this.getRequestDetails();
+    this.getRatings();
   }
 
   GetAllPagesPermission() {
@@ -57,6 +59,20 @@ export class RequestDetailComponent implements OnInit {
           this.len = this.event_at.length
         }
       }
+    })
+  }
+  showFalse=0;
+ratingsArr=[];
+  getRatings() {
+    this.service.get("getRatings/" + this.id).subscribe((res) => {
+      this.ratingsArr = res['data']
+      
+      for (var i = 0; i < res['data'].length; ++i) {
+        if(res['data'][i].user_id == this.userId){
+          this.showFalse = 1;
+        }
+      }
+
     })
   }
 }

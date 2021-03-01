@@ -189,11 +189,11 @@
               </button>
 
 
-              <button *ngIf="roleId!='1' && row.status==1" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status==1" class="btn btn-outline-danger ml-2"
               >
                   Waiting for completed by Interpreter
               </button>
-              <button *ngIf="roleId!='1' && row.status==2" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status==2" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Mark As Completed
               </button>

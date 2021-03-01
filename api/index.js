@@ -390,6 +390,8 @@ let percentResult = percentage(20, 450);
 
 /**************************************************************************************************************************/
 app.get('/cesco/deleteFileInterpreter/:id', interpreterController.deleteFileInterpreter);
+app.get('/cesco/getRatings/:id', schedulerController.getRatings);
+app.get('/cesco/getUserDetails/:id', schedulerController.getUserDetails);
 
 /**************************************************************************************************************************/
 

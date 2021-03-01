@@ -10,6 +10,7 @@ const { Validator } = require('node-input-validator');
 const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
 var commonDb = require('./Models/commonAdnan');
+var Database = require('./Models/commonDev');
 const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
@@ -273,4 +274,28 @@ module.exports.getUsersRole = async function(req, res) {
             return res.json({ status: false, data: '', msg: 'No data found!' });
         }
     }
+
+    module.exports.getUserDetails = async function(req, res) {
+        try {
+            var data = await Database.AsyncSellectAllWhere("user",{id:req.params.id});
+            for (var i = 0; i < data.length; i++) {
+            data[i].profile_img = data[i].profile_img == null ? data[i].profile_img : process.env.image_path+data[i].profile_img;
+        }
+            return res.json({ status: true, msg: 'Data Found!', data: data });
+        } catch (err) {
+            return res.json({ status: false, data: '', msg: 'No data found!' });
+        }
+    }
     //***** GET USERS ROLE END *****//
+module.exports.getRatings = async function(req, res) {
+    try{
+        var data = await Database.getRatings(req.params.id);
+        for (var i = 0; i < data.length; i++) {
+            data[i].profile_img = data[i].profile_img == null ? data[i].profile_img : process.env.image_path+data[i].profile_img;
+        }
+        return res.send({status:false,data:data});
+    }
+    catch(e){
+        return res.send({status:false,data:[]});
+    }
+}
