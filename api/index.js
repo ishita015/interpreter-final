@@ -130,8 +130,6 @@ app.post('/cesco/userlogin', loginController.userlogin);
 // for admin dashboard
 app.get('/cesco/getTotalLanguage', interpreterController.getTotalLanguage);
 
-
-
 app.get('/cesco/getTotalInterpreter', interpreterController.getTotalInterpreter);
 app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 app.get('/cesco/getAllRequest', serviceController.getAllRequest);
@@ -358,7 +356,7 @@ app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
 app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
 app.get('/cesco/getRateSettingPlatforms/:id', schedulerController.getRateSettingPlatforms);
 app.get('/cesco/getUsersRole', schedulerController.getUsersRole);
-
+app.get('/cesco/getLanguageById/:id', languageController.getLanguageById);
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 
 ////////////////////////////////////////////////////////////////////Adnan end/////////////////////////////////////////////////////////////////////

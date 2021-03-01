@@ -658,3 +658,16 @@ module.exports.LanguageAssignmentChangeStatus = async function (req, res) {
    
     
 };
+
+module.exports.getLanguageById = async function (req, res) {
+    try{
+      var data = await commonDb.AsyncSellectAllWhere('languages',{id:req.params.id});
+      
+      if(data) return res.send({status:true,msg:'Data Found!',data:data});
+      else return res.send({status:true,msg:'No Data Found!',data:[]});
+   
+    }
+    catch{
+       return res.send({status:false,msg:'Something Went Wrong'});
+   }
+};

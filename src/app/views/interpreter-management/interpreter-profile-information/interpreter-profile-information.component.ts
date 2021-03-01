@@ -105,6 +105,9 @@ export class InterpreterProfileInformationComponent implements OnInit {
 
   country_Obj;
   arrImages = [];
+showMileageCheck='true';
+showTimeTravelCheck='true';
+flatFeeCheck='false'; 
   public priLanguageId;
   language_Obj;
 
@@ -1575,30 +1578,30 @@ export class InterpreterProfileInformationComponent implements OnInit {
     // }
     // this.submitted = false;
     if(this.interpreterSkillForm.value.primary_language == null || this.interpreterSkillForm.value.primary_language == ''){
-      this.toastr.success("Primary language is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      this.toastr.error("Primary language is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
     return
   }
     if(this.interpreterSkillForm.value.secondary_language.length == 0 ){
-        this.toastr.success("Secondary language is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        this.toastr.error("Secondary language is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
       return
     }
     console.log("=============this.arrimages",this.arrImages);
-    
     if(this.arrImages.length < 7 ){
-      this.toastr.success("Education documents are required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      this.toastr.error("Education documents are required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      return
+    }
+    if(this.assignment_arr.length == 0 ){
+      this.toastr.error("Platform is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
       return
     }
     this.lang = this.interpreterSkillForm.value.secondary_language
-    
     this.assignment_arr = this.assignment_arr.filter((item, index, inputArray) => { return inputArray.indexOf(item) == index; });
-console.log("============assignment_arr",this.assignment_arr)
     const formData: any = new FormData();
     for (let img of this.arrImages) {
       formData.append(img.doc_type, img.all_img);
       formData.append('doc_name', img.doc_type);
       formData.append('type', img.types);
     }
-
     formData.append('interpreter_id', this.interId);
     formData.append('assignment_arr', this.assignment_arr);
     formData.append('primary_language', this.priLanguageId);
@@ -1914,6 +1917,7 @@ console.log("============assignment_arr",this.assignment_arr)
                   mileage: [''],
                   flatFee: [''],
 
+
          }))
 
           }
@@ -1928,45 +1932,48 @@ console.log("============assignment_arr",this.assignment_arr)
     })
 
   }
-showMileageCheck=true;
-showTimeTravelCheck=true;
-flatFeeCheck=false;
+
 showTravelTime(e){
     this.showTimeTravelCheck=e
-    if(e==true){
-      this.flatFeeCheck=false;
+    if(e=='true'){
+      this.flatFeeCheck="false";
     }
   }
   showMileageTime(e){
     this.showMileageCheck=e
-    if(e==true){
-      this.flatFeeCheck=false;
+    if(e=='true'){
+      this.flatFeeCheck="false";
     }
   }
   flatFee(e){
     this.flatFeeCheck=e;
-    if(e==true){
-      this.showMileageCheck=false;
-      this.showTimeTravelCheck=false;
+    if(e=='true'){
+      this.showMileageCheck="false";
+      this.showTimeTravelCheck="false";
     }else{
-      this.showMileageCheck=true;
-      this.showTimeTravelCheck=true;
+      this.showMileageCheck='true';
+      this.showTimeTravelCheck='true';
     }
   }
   selectFormPlatform(e){
     // this.createDynamicForm()
-
-
-
+    
     e.value.interpreter_id = this.interId;
     e.value.language_id = this.UserLangData[0].id;
+    this.service.get("getLanguageById/"+this.UserLangData[0].id).subscribe((res)=>{
+      this.baseRate = res['data'][0].base_rate;
+      this.halfBaseRate = this.baseRate/2; 
+    });
     this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
-      console.log('ddddddddd', resdata)
       console.log('aaaa', this.secondFormGroup1.value)
       if (resdata['data'].length > 0) {
+        
         for (var i = 0; i < resdata['data'].length; ++i) {
-          this.languageId = resdata['data'][0].language_id
-
+          this.showMileageCheck=resdata['data'][i].mileage_status;
+          this.showTimeTravelCheck=resdata['data'][i].travel_time_status;
+          this.flatFeeCheck=resdata['data'][i].flat_fee_status; 
+        
+    this.languageId = resdata['data'][0].language_id
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:resdata['data'][i].increment })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:resdata['data'][i].mileage })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:resdata['data'][i].minpaid })
@@ -1981,8 +1988,8 @@ showTravelTime(e){
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({increment:''})
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({mileage:'' })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({minpaid:'' })
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:''})
-    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:'' })
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({rate:this.baseRate})
+    this.secondFormGroup1.controls['arr']['controls'][i].patchValue({travel_time:this.halfBaseRate })
     this.secondFormGroup1.controls['arr']['controls'][i].patchValue({flatFee:'' })
 
         }
@@ -2001,7 +2008,6 @@ showTravelTime(e){
 resData
 getRateDetails(){
   this.service.get('getRateDetails/'+this.interId).subscribe((res)=>{
-    console.log("=====================getres=========",res);
     this.resData = res;
     // if(this.resData.interpreter_assignment_status=='1'){
     //   this.banking_form = true;
@@ -2013,36 +2019,47 @@ getRateDetails(){
 }
 
   languageId = 0;
+  baseRate;
+  halfBaseRate;
   selectLanguage(language_id, e) {
-    // console.log('============>',language_id)
+    console.log('============>',language_id)
     this.languageId = language_id;
     e.value.interpreter_id = this.interId;
     e.value.language_id = language_id;
+    this.service.get("getLanguageById/"+this.languageId).subscribe((res)=>{
+      this.baseRate = res['data'][0].base_rate;
+      this.halfBaseRate = this.baseRate/2; 
+    });
     this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
-      console.log('ddddddddd', resdata)
-      console.log('aaaa', this.secondFormGroup1.value)
+        console.log("=============res",resdata);
       if (resdata['data'].length > 0) {
         this.getRateDetails();
         for (var i = 0; i < resdata['data'].length; ++i) {
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ increment: resdata['data'][i].increment })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ mileage: resdata['data'][i].mileage })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ minpaid: resdata['data'][i].minpaid })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ rate: resdata['data'][i].rate })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ travel_time: resdata['data'][i].travel_time })
-
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ increment: resdata['data'][i].increment });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ mileage: resdata['data'][i].mileage });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ minpaid: resdata['data'][i].minpaid });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ rate: resdata['data'][i].rate });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ travel_time: resdata['data'][i].travel_time });
+          this.showTimeTravelCheck = resdata['data'][i].travel_time_status;
+          this.showMileageCheck = resdata['data'][i].mileage_status;
+          this.flatFeeCheck = resdata['data'][i].flat_fee_status;
         }
       } else {
         for (var i = 0; i < this.secondFormGroup1.value.arr.length; ++i) {
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ increment: '' })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ mileage: '' })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ minpaid: '' })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ rate: '' })
-          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ travel_time: '' })
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ increment: '' });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ mileage: '' });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ minpaid: '' });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ rate: this.baseRate });
+          this.secondFormGroup1.controls['arr']['controls'][i].patchValue({ travel_time: this.halfBaseRate });
+          this.showTimeTravelCheck = 'true';
+          this.showMileageCheck = 'true';
+          this.flatFeeCheck = 'false';
 
         }
       }
 
     })
+   
   }
   createItem1() {
     return this.fb.group({
@@ -2124,16 +2141,56 @@ getRateDetails(){
 
 
   addInterpreterAssignmentSave(type,aa) {
-    console.log('secondFormGroup1',this.secondFormGroup1.value)
-    console.log('this.languageId',this.languageId)
-    console.log('type',type)
-    console.log('secondFormGroup',this.secondFormGroup.value)
     var setdata={  platformid:type.id,
                    language_id:this.languageId,
                    arr:this.secondFormGroup1.value.arr,
                    interpreter_id:this.interId
                  }
-    console.log('setdata',setdata)
+                 console.log("===========setdata",setdata)
+                 var count=0;
+    for(var i=0; i < setdata.arr.length; i++){
+     
+      if(setdata.arr[i].rate ==''){
+        this.toastr.error( setdata.arr[i].lobname + "Rate is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        count = 1;
+        break;
+      }
+      if(setdata.arr[i].minpaid ==''){
+        this.toastr.error( setdata.arr[i].lobname +  " Minimum is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        count = 1;
+        break;
+      }
+      if(setdata.arr[i].increment ==''){
+        this.toastr.error( setdata.arr[i].lobname + " Increment is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        count = 1;
+        break;
+      }
+      if(setdata.arr[i].travel_time_status == "true" && setdata.arr[i].travel_time == ""){
+        this.toastr.error( setdata.arr[i].lobname +  "Travel time is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        count = 1;
+        break;
+      }
+      if(setdata.arr[i].mileage_status == 'true' && setdata.arr[i].mileage == ""){
+        alert(1);
+        this.toastr.error( setdata.arr[i].lobname +  "Mileage is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        count = 1;
+        break;
+      }
+      if(setdata.arr[i].flat_fee_status == 'true' && setdata.arr[i].flatFee == ""){
+        this.toastr.error( setdata.arr[i].lobname +  "Flat fee is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+        count = 1;
+        break;
+      }
+      setdata.arr[i].travel_time_status = this.showTimeTravelCheck;
+      setdata.arr[i].mileage_status = this.showMileageCheck;
+      setdata.arr[i].flat_fee_status = this.flatFeeCheck;
+
+    }
+    console.log("===========setdata",setdata)
+
+    if(count == 1){
+      return
+    }
     this.service.post('updateIntrepeterSetingNew', setdata)
        .subscribe(res => {
           this.getRateDetails();

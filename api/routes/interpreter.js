@@ -4385,7 +4385,6 @@ module.exports.getInterpreterRateSettingNew = async function(req, res) {
     try {
         var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', { language_id: req.body.language_id, Interpreter_id: req.body.interpreter_id, platform_id: req.body.id })
 
-
         return res.send({ data: data })
     } catch (e) {
         console.log(e)
@@ -4414,10 +4413,13 @@ module.exports.updateIntrepeterSetingNew = async function(req, res) {
                     travel_time: req.body.arr[i].travel_time,
                     mileage: req.body.arr[i].mileage,
                     flatFee: req.body.arr[i].flatFee,
+                    travel_time_status: req.body.arr[i].travel_time_status,
+                    mileage_status: req.body.arr[i].mileage_status,
+                    flat_fee_status: req.body.arr[i].flat_fee_status,
                 })
             } else {
-
-                var sql = "UPDATE interpreter_assignment_settings SET language_id = '" + req.body.language_id + "', rate = '" + req.body.arr[i].rate + "', minpaid = '" + req.body.arr[i].minpaid + "', increment = '" + req.body.arr[i].increment + "', travel_time = '" + req.body.arr[i].travel_time + "', mileage = '" + req.body.arr[i].mileage + "', flatFee = '" + req.body.arr[i].flatFee + "' WHERE platform_id = " + req.body.platformid + " AND Interpreter_id=" + req.body.interpreter_id + " AND lob=" + req.body.arr[i].lob + "";
+                
+                var sql = "UPDATE interpreter_assignment_settings SET language_id = '" + req.body.language_id + "', rate = '" + req.body.arr[i].rate + "', minpaid = '" + req.body.arr[i].minpaid + "', increment = '" + req.body.arr[i].increment + "', travel_time = '" + req.body.arr[i].travel_time + "', mileage = '" + req.body.arr[i].mileage + "', flatFee = '" + req.body.arr[i].flatFee + "', travel_time_status = '" + req.body.arr[i].travel_time_status + "', mileage_status = '" + req.body.arr[i].mileage_status + "', flat_fee_status = '" + req.body.arr[i].flat_fee_status + "' WHERE platform_id = " + req.body.platformid + " AND Interpreter_id=" + req.body.interpreter_id + " AND lob=" + req.body.arr[i].lob + "";
                 con.query(sql, function(err, result, fields) {});
             }
 

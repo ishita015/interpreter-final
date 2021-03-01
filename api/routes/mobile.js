@@ -16,169 +16,179 @@ const usermodel = new userModel();
 const ct = require('countries-and-timezones');
 var otpGenerator = require('otp-generator');
 
-
 // interpreter login //
-module.exports.interpreterlogin = async function(req, res, next) {
+module.exports.interpreterlogin = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         email: 'required',
         password: 'required'
     });
-    
+
     const matched = await v.check();
-    
+
     if (!matched) {
         var error;
         for (var i = 0; i <= Object.values(v.errors).length; i++) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({status: 0,message: error});
+        res.json({ status: 0, message: error });
         return true;
     }
-    let email    = req.body.email;
-    let password  = req.body.password;
-    var array = {};
-    var resultData  = await usermodel.emailCheck(email);
+    let email = req.body.email;
+    let password = req.body.password;
+    // var array = {};
+    var resultData = await usermodel.emailCheck(email);
     if (resultData != "" && resultData != undefined) {
-        var  logedIntpreterId= resultData[0].id;
+        var logedIntpreterId = resultData[0].id;
         const decryptedString = cryptr.decrypt(resultData[0].password);
-            if(password == decryptedString){
-                var get_interpreter_data = "SELECT * FROM user WHERE id ='"+logedIntpreterId+"' && role_id=2";
-                con.query(get_interpreter_data,async function(err, response) {
-                    if(response){
-                        array = response[0];
+        if (password == decryptedString) {
+            var get_interpreter_data = "SELECT * FROM user WHERE id ='" + logedIntpreterId + "' && role_id=2";
+            con.query(get_interpreter_data, async function (err, response) {
+                if (response) {
+                        if(response[0].profile_img == null && response[0].profile_img == '' ){
+                            response[0].profile_img = this.process.env.image_path+'avatar.jpg';
+                        }else{
+                            response[0].profile_img = process.env.image_path+response[0].profile_img;
+                        }
 
-                       return res.json({ status: true, message :"Login Successfully", resultData :array });
-                    }else{
-                       return res.json({ status: false, message: "Server error" });
-                    }
-                });
-            }else{
-               return res.json({status: false,message: "Invalid password"});  
-            }
-    }else{
-       return res.json({status:false, message: "Invalid Email"});
+                    return res.json({ status: true, message: "Login Successfully", resultData: response });
+                } else {
+                    return res.json({ status: false, message: "Server error" });
+                }
+            });
+        } else {
+            return res.json({ status: false, message: "Invalid password" });
+        }
+    } else {
+        return res.json({ status: false, message: "Invalid Email" });
     }
 };
 
 
 // interpreter send otp on mail  //
-module.exports.sendOtp = async function(req, res, next) {
+module.exports.sendOtp = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         email: 'required',
-        id: 'required'
+        // id: 'required'
     });
-    
+
     const matched = await v.check();
-    
     if (!matched) {
         var error;
         for (var i = 0; i <= Object.values(v.errors).length; i++) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({status: 0,message: error});
+        res.json({ status: 0, message: error });
         return true;
     }
-    let email    = req.body.email;
+    let email = req.body.email;
     //let iD       = req.body.id;
-    var resultData  = await usermodel.emailCheck(email);//,iD);
+    var resultData = await usermodel.emailCheck(email);//,iD);
     if (resultData != "" && resultData != undefined) {
-    	var  logedIntpreterId= resultData[0].id;
-	    var getOtp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
-	    var otp_update = "UPDATE user SET mobile_otp='"+getOtp+"', status=0  WHERE id ='"+logedIntpreterId+"'";
-        con.query(otp_update, async function(err, results) {
-            if(results.affectedRows == 1){
-                 common.sendOtpInterpreterEmail(getOtp,email);
-               	return res.json({status: true,message :"Otp Send Successfully"});
-            }else{
-                return res.json({status: false,message: "Server error"});
+        var logedIntpreterId = resultData[0].id;
+        var getOtp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+        var otp_update = "UPDATE user SET mobile_otp='" + getOtp + "', status=0  WHERE id ='" + logedIntpreterId + "'";
+        con.query(otp_update, async function (err, results) {
+            if (results.affectedRows == 1) {
+                common.sendOtpInterpreterEmail(getOtp, email);
+                return res.json({ status: true, message: "Otp Send Successfully" });
+            } else {
+                return res.json({ status: false, message: "Server error" });
             }
         });
-    }else{
-    	return res.json({status:false,message: "Invalid Email"});
+    } else {
+        return res.json({ status: false, message: "Invalid Email" });
     }
 };
 
 // Check otp and password reset interpreter //
-module.exports.resetPassword = async function(req, res, next) {
+module.exports.resetPassword = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         otp: 'required',
         newpassword: 'required',
         confirmpassword: 'required'
     });
-    
+
     const matched = await v.check();
-    
+
     if (!matched) {
         var error;
         for (var i = 0; i <= Object.values(v.errors).length; i++) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({status: 0,message: error});
+        res.json({ status: 0, message: error });
         return true;
     }
-    let otp    = req.body.otp;
+
+    let otp = req.body.otp;
     let newpassword = req.body.newpassword;
     let confirmpassword = req.body.confirmpassword;
     let password = await cryptr.encrypt(req.body.newpassword, 10);
-    var resultData  = await usermodel.otpCheck(otp);
+    var resultData = await usermodel.otpCheck(otp);
     if (resultData != "" && resultData != undefined) {
-         if (newpassword == confirmpassword) {
-        	var  logedIntpreterId= resultData[0].id;
-    	    var password_update = "UPDATE user SET password='"+password+"',status=1 WHERE id ='"+logedIntpreterId+"'";
-            con.query(password_update, async function(err, results) {
-                if(results.affectedRows == 1){
-                    var sql = "UPDATE user SET  mobile_otp = 0 WHERE id ='"+logedIntpreterId+"'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
+        // if(resultData[0].){}
+
+        if (newpassword == confirmpassword) {
+            var logedIntpreterId = resultData[0].id;
+            var password_update = "UPDATE user SET password='" + password + "',status=1 WHERE id ='" + logedIntpreterId + "'";
+            con.query(password_update, async function (err, results) {
+                if (results.affectedRows == 1) {
+                    var sql = "UPDATE user SET  mobile_otp = 0 WHERE id ='" + logedIntpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
                     //console.log(sql)
-                    con.query(sql, function(err, result) {});
-                   	return res.json({status: true,message :"Your password Reset Successfully"});
-                }else{
-                    return res.json({status: false,message: "Server error"});
+                    con.query(sql, function (err, result) { });
+                    return res.json({ status: true, message: "Your password Reset Successfully" });
+                } else {
+                    return res.json({ status: false, message: "Server error" });
                 }
             });
-        }else{
-            return res.json({status: false,message: "Your New Password & Confirm Password not match"});
+        } else {
+            return res.json({ status: false, message: "Your New Password & Confirm Password not match" });
         }
-    }else{
-    	return res.json({status:false,message: "Invalid Otp"});
+    } else {
+        return res.json({ status: false, message: "Invalid Otp" });
     }
 
 };
 // get interpreter data for profile update
-module.exports.getInterpreterData = function(req, res) {
+module.exports.getInterpreterData = function (req, res) {
     //console.log('gfdggfdgd======>',req.params.id)
-	var interpreterId=parseInt(req.params.id);
+    var interpreterId = parseInt(req.params.id);
 
-    var sql = "SELECT * FROM user WHERE id ='"+interpreterId+"' && role_id=2";
+    var sql = "SELECT * FROM user WHERE id ='" + interpreterId + "' && role_id=2";
     // console.log(sql)
-    con.query(sql, function(err, result, fields) {
+    con.query(sql, function (err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {
-            result[0].profile_img=process.env.image_path+result[0].profile_img
-            return res.json({status:true, data: result});
+            if(result[0].profile_img == null && result[0].profile_img == '' ){
+                result[0].profile_img = this.process.env.image_path+'avatar.jpg';
+            }else{
+                result[0].profile_img = process.env.image_path+result[0].profile_img;
+            }
+            // result[0].profile_img = process.env.image_path + result[0].profile_img
+            return res.json({ status: true, data: result });
         } else {
-            return res.json({status: false, message: "No record found", data:'' });
+            return res.json({ status: false, message: "No record found", data: '' });
         }
     });
 };
 
 // get interpreter new request count
-module.exports.getRequestCount = function(req, res) {
-    var interpreterId=parseInt(req.params.id);
-    var sql = "SELECT count(id) as request_send FROM interpreter_request WHERE status=1 && Interpreter_id= '"+interpreterId+"'";
-     console.log(sql)
-    con.query(sql, function(err, result) {
-        console.log("result-",result[0].total)
+module.exports.getRequestCount = function (req, res) {
+    var interpreterId = parseInt(req.params.id);
+    var sql = "SELECT count(id) as request_send FROM interpreter_request WHERE status=1 && Interpreter_id= '" + interpreterId + "'";
+    console.log(sql)
+    con.query(sql, function (err, result) {
+        console.log("result-", result[0].total)
         if (result && result[0].request_send > 0) {
-            result=result[0].request_send
-            return res.json({status:true, data: result});
+            result = result[0].request_send
+            return res.json({ status: true, data: result });
         } else {
-            return res.json({status: false, message: "No record found",data:''});
+            return res.json({ status: false, message: "No record found", data: '' });
         }
     });
 };
@@ -199,7 +209,7 @@ module.exports.getRequestCancelled = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        return res.json({status: true,message: error});
+        return res.json({ status: true, message: error });
     }
 
     //validation end
@@ -210,12 +220,13 @@ module.exports.getRequestCancelled = async function (req, res, next) {
     con.query(sql, function (err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {
-            result=result[0].cancel_request
+            result = result[0].cancel_request
             //res.json({status: true,data: result});
             return true;
         } else {
             res.json({
-                status: false, message: "No record found"});
+                status: false, message: "No record found"
+            });
             return true;
         }
     });
@@ -237,7 +248,7 @@ module.exports.getCompleteRequest = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        return res.json({status: true,message: error});
+        return res.json({ status: true, message: error });
     }
 
     //validation end
@@ -248,11 +259,12 @@ module.exports.getCompleteRequest = async function (req, res, next) {
     con.query(sql, function (err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {
-            res.json({status: true,data: result});
+            res.json({ status: true, data: result });
             return true;
         } else {
             res.json({
-                status: false, message: "No record found"});
+                status: false, message: "No record found"
+            });
             return true;
         }
     });
@@ -275,7 +287,7 @@ module.exports.getInprogressRequest = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        return res.json({status: true,message: error});
+        return res.json({ status: true, message: error });
     }
 
     //validation end
@@ -286,41 +298,42 @@ module.exports.getInprogressRequest = async function (req, res, next) {
     con.query(sql, function (err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {
-            res.json({status: true,data: result});
+            res.json({ status: true, data: result });
             return true;
         } else {
             res.json({
-                status: false, message: "No record found"});
+                status: false, message: "No record found"
+            });
             return true;
         }
     });
 };
 // get interpreter request list
-module.exports.getRequestList = function(req, res) {
-    var interpreterId=parseInt(req.params.id);
-    var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=1 && u.role_id=2 && Interpreter_id='"+interpreterId+"'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
-     //console.log(sql)
-    con.query(sql, function(err, result) {
+module.exports.getRequestList = function (req, res) {
+    var interpreterId = parseInt(req.params.id);
+    var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=1 && u.role_id=2 && Interpreter_id='" + interpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
+    //console.log(sql)
+    con.query(sql, function (err, result) {
         //console.log("result-",result.length)
         if (result && result.length > 0) {
-            return res.json({status:true, data: result});
+            return res.json({ status: true, data: result });
         } else {
-            return res.json({status: false, message: "No record found",data:''});
+            return res.json({ status: false, message: "No record found", data: '' });
         }
     });
 };
 
 // get interpreter inProgress list
-module.exports.getInProgressList = function(req, res) {
-    var interpreterId=parseInt(req.params.id);
-    var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=2 && u.role_id=2 && Interpreter_id= '"+interpreterId+"'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
-     //console.log(sql)
-    con.query(sql, function(err, result) {
+module.exports.getInProgressList = function (req, res) {
+    var interpreterId = parseInt(req.params.id);
+    var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=2 && u.role_id=2 && Interpreter_id= '" + interpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
+    //console.log(sql)
+    con.query(sql, function (err, result) {
         //console.log("result-",result.length)
         if (result && result.length > 0) {
-            return res.json({status:true, data: result});
+            return res.json({ status: true, data: result });
         } else {
-            return res.json({status: false, message: "No record found",data:''});
+            return res.json({ status: false, message: "No record found", data: '' });
         }
     });
 };
@@ -340,7 +353,7 @@ module.exports.interpreterCompleteRequest = async function (req, res) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({status: true,message: error});
+        res.json({ status: true, message: error });
         return true;
     }
 
@@ -369,16 +382,18 @@ module.exports.interpreterCompleteRequest = async function (req, res) {
         con.query(sql, function (err, result) { });
 
         return res.json({
-            status: true,message: "Request completed successfully"});
+            status: true, message: "Request completed successfully"
+        });
     } else {
         return res.json({
-            status: false,message: "Invalid details"});
+            status: false, message: "Invalid details"
+        });
     }
 
 };
 //request Accepted successfully
 
-module.exports.interpreterAcceptRequest = async function(req, res,next) {
+module.exports.interpreterAcceptRequest = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         id: 'required',
@@ -393,7 +408,7 @@ module.exports.interpreterAcceptRequest = async function(req, res,next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({status: true,message: error});
+        res.json({ status: true, message: error });
         return true;
     }
 
@@ -421,15 +436,15 @@ module.exports.interpreterAcceptRequest = async function(req, res,next) {
         //console.log("sql--", sql)
         con.query(sql, function (err, result) { });
 
-        return res.json({status: true,message: "Request accepted successfully"});
+        return res.json({ status: true, message: "Request accepted successfully" });
     } else {
-        return res.json({status: false,message: "Invalid details"});
+        return res.json({ status: false, message: "Invalid details" });
     }
 
 };
 
 // request Rejected successfully
-module.exports.interpreterRejectRequest = async function(req, res,next) {
+module.exports.interpreterRejectRequest = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         id: 'required',
@@ -444,7 +459,7 @@ module.exports.interpreterRejectRequest = async function(req, res,next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({status: true,message: error});
+        res.json({ status: true, message: error });
         return true;
     }
 
@@ -472,9 +487,9 @@ module.exports.interpreterRejectRequest = async function(req, res,next) {
         //console.log("sql--", sql)
         con.query(sql, function (err, result) { });
 
-        return res.json({status: true,message: "Request accepted successfully"});
+        return res.json({ status: true, message: "Request accepted successfully" });
     } else {
-        return res.json({status: false,message: "Invalid details"});
+        return res.json({ status: false, message: "Invalid details" });
     }
 };
 

@@ -1242,9 +1242,6 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                     </ng-template>
                                     <ng-template ngbPanelContent>
                                  <div [formGroupName]="i" >
-                            
-                                   
-                                             
 
                                              <div class="row">
                                                     <div class="col-md-12">
@@ -1256,25 +1253,24 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                                 value="{{lan.id}}"
                                                                 class=" {{ languageId == lan.id ?  'btn btn-outline-primary m-1 selectedBtnClass':'btn btn-outline-primary m-1' }}"
                                                                 type="button">{{lan.name}}</button>
-
-                                                        </h5>
-                                                    </div>
+                                                            </h5>
+                                                        </div>
                                                     </div>
                                                 <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
-                                                        <label>Travel Time</label><input [checked]=" showTimeTravelCheck == true"  (click)="showTravelTime(true)" type="radio" name="stepone"><span>Yes</span>
-                                                        <input [checked]=" showTimeTravelCheck == false"  (click)="showTravelTime(false)"  type="radio" name="stepone"><span>No</span>
+                                                        <label>Travel Time</label><input [checked]=" showTimeTravelCheck == 'true'"  (click)="showTravelTime('true')" type="radio" name="stepone"><span>Yes</span>
+                                                        <input [checked]=" showTimeTravelCheck == 'false'"  (click)="showTravelTime('false')"  type="radio" name="stepone"><span>No</span>
                                                     </div>
 
                                                     <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
                                                         <label>Mileage</label>
-                                                        <input [checked]="showMileageCheck == true" style="margin-left: 3%;" (click)="showMileageTime(true)" type="radio" name="stepone1"><span>Yes</span>
-                                                        <input [checked]="showMileageCheck == false" (click)="showMileageTime(false)" type="radio" name="stepone1"><span>No</span>
+                                                        <input [checked]="showMileageCheck == 'true'" style="margin-left: 3%;" (click)="showMileageTime('true')" type="radio" name="stepone1"><span>Yes</span>
+                                                        <input [checked]="showMileageCheck == 'false'" (click)="showMileageTime('false')" type="radio" name="stepone1"><span>No</span>
                                                     </div>
 
                                                     <div *ngIf="a.value.id == 1" class="col-md-12 mb-2 travelblock paddingzero">
                                                         <label>Flat Fee</label>
-                                                        <input [checked]="flatFeeCheck == true"  style="margin-left: 3%;" (click)="flatFee(true)" type="radio" name="stepone2"><span>Yes</span>
-                                                        <input [checked]="flatFeeCheck == false" (click)="flatFee(false)" type="radio" name="stepone2"><span>No</span>
+                                                        <input [checked]="flatFeeCheck == 'true'"  style="margin-left: 3%;" (click)="flatFee('true')" type="radio" name="stepone2"><span>Yes</span>
+                                                        <input [checked]="flatFeeCheck == 'false'" (click)="flatFee('false')" type="radio" name="stepone2"><span>No</span>
                                                     </div>
                                                     
                                                     <form [formGroup]="secondFormGroup1">
@@ -1283,7 +1279,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                    <!--  <div class="col-md-12 p-0"> -->
                                                         
 
-                                                        <div class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
+                                                        <div class="{{showTimeTravelCheck == 'false' && showMileageCheck == 'false' && flatFeeCheck == 'false' ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
                                                             <label *ngIf="j==0" for="min_paid">Specialization</label>
                                                             <input disabled="" class="form-control" type="text" value="{{aa.value.lobname}}">
                                                             <!-- <select 
@@ -1299,16 +1295,14 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                     <!-- </div> -->
 
                                                     <!-- <div *ngIf="showLegalLob == 1" class="col-md-2 mb-2"> -->
-                                                    <div  class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}" [ngClass]="">
+                                                    <div  class="{{showTimeTravelCheck == 'false' && showMileageCheck == 'false' && flatFeeCheck == 'false' ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}" [ngClass]="">
                                                         <label *ngIf="j==0" for="hourly_rate">  Rate </label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="rate"
+                                                            formControlName="rate" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == 46 || event.charCode == 250 "
                                                             placeholder="On-Site Hourly Rate">
                                                     </div>
 
-                                                   
-
-                                                    <div class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
+                                                    <div class="{{showTimeTravelCheck == 'false' && showMileageCheck == 'false' && flatFeeCheck == 'false' ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
                                                         <label *ngIf="j==0" for="min_paid">Minimum  </label>
 
                                                         <select class="form-control"
@@ -1328,7 +1322,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                         </select>
                                                     </div>
 
-                                                     <div class="{{showTimeTravelCheck == false && showMileageCheck == false && flatFeeCheck == false ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
+                                                     <div class="{{showTimeTravelCheck == 'false' && showMileageCheck == 'false' && flatFeeCheck == 'false' ? 'col-md-3 mb-2': 'col-md-2 mb-2'}}">
                                                         <label *ngIf="j==0" for="min_paid"> Increment </label>
 
                                                         <select class="form-control"
@@ -1338,24 +1332,22 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                                             <option value="1 Hours">1 Hours</option>
                                                         </select>
                                                     </div>
-
-                                                    <div *ngIf="showTimeTravelCheck == true && flatFeeCheck == false && a.value.id == 1" class="col-md-2 mb-2">
+                                                    <div *ngIf="showTimeTravelCheck == 'true' && flatFeeCheck == 'false' && a.value.id == 1" class="col-md-2 mb-2">
                                                         <label *ngIf="j==0" for="travel_time">  Travel time </label>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" class="form-control" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == 46 || event.charCode == 250"
                                                             formControlName="travel_time"
                                                             placeholder="Travel time">
                                                     </div> 
-
-                                                    <div  *ngIf="showMileageCheck == true && flatFeeCheck == false && a.value.id == 1"  class="col-md-2 mb-2">
+                                                    <div  *ngIf="showMileageCheck == 'true' && flatFeeCheck == 'false' && a.value.id == 1"  class="col-md-2 mb-2">
                                                         <label *ngIf="j==0" for="mileage"> Mileage</label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="mileage"
+                                                            formControlName="mileage" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == 46 || event.charCode == 250"
                                                             placeholder="Mileage">
                                                     </div>
-                                                    <div  *ngIf="flatFeeCheck == true && a.value.id == 1"  class="col-md-2 mb-2">
+                                                    <div  *ngIf="flatFeeCheck == 'true' && a.value.id == 1"  class="col-md-2 mb-2">
                                                         <label *ngIf="j==0" for="flatFee"> Flat Fee</label>
                                                         <input type="text" class="form-control"
-                                                            formControlName="flatFee"
+                                                            formControlName="flatFee" onkeypress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57 ||event.charCode == 46 || event.charCode == 250"
                                                             placeholder="Flat Fee">
                                                     </div>
 
@@ -1425,7 +1417,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="Account">Bank Name</label>
                                             <input type="text" class="form-control" formControlName="bank_name"
-                                                placeholder="Bank Name">
+                                                placeholder="Bank Name" onKeyPress="if(this.value.length==100) return false;">
                                             <div *ngIf="bankingRoutingForm.controls['bank_name'].errors && (!bankingRoutingForm.controls['bank_name'].pristine || submitted ||bankingRoutingForm.controls['bank_name'].touched )"
                                                 class="error-msg">
                                                 <div
@@ -1492,20 +1484,19 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="country">Bank Account No</label>
                                             <input type="text" class="form-control" formControlName="account_no"
-                                                placeholder="Bank Account No">
+                                                placeholder="Bank Account No" onKeyPress="if(this.value.length==100) return false;">
                                             <div *ngIf="bankingRoutingForm.controls['account_no'].errors && (!bankingRoutingForm.controls['account_no'].pristine || submitted ||bankingRoutingForm.controls['account_no'].touched )"
                                                 class="error-msg">
                                                 <div
                                                     [hidden]="!bankingRoutingForm.controls['account_no'].errors.required">
-                                                    Bank
-                                                    Account No is required.</div>
+                                                    Bank Account No is required.</div>
                                             </div>
                                         </div>
 
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Payment Method</label>
-                                            <input type="text" class="form-control" formControlName="payment_method"
+                                            <input type="text" class="form-control" onKeyPress="if(this.value.length==100) return false;" formControlName="payment_method"
                                                 placeholder="Account is personal or business">
                                             <div *ngIf="bankingRoutingForm.controls['payment_method'].errors && (!bankingRoutingForm.controls['payment_method'].pristine || submitted ||bankingRoutingForm.controls['payment_method'].touched )"
                                                 class="error-msg">
@@ -1523,7 +1514,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="payment">Electronic/Paper/Wire</label>
                                             <input type="text" class="form-control" formControlName="electronic"
-                                                placeholder="Electronic/Paper/Wire">
+                                                placeholder="Electronic/Paper/Wire" onKeyPress="if(this.value.length==100) return false;">
                                             <div *ngIf="bankingRoutingForm.controls['electronic'].errors && (!bankingRoutingForm.controls['electronic'].pristine || submitted ||bankingRoutingForm.controls['electronic'].touched )"
                                                 class="error-msg">
                                                 <div
@@ -1535,7 +1526,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Swift Code</label>
-                                            <input type="text" class="form-control" formControlName="SWIFT_code"
+                                            <input type="text" class="form-control" onKeyPress="if(this.value.length==100) return false;" formControlName="SWIFT_code"
                                                 placeholder="Swift Code">
                                             <div *ngIf="bankingRoutingForm.controls['SWIFT_code'].errors && (!bankingRoutingForm.controls['SWIFT_code'].pristine || submitted ||bankingRoutingForm.controls['SWIFT_code'].touched )"
                                                 class="error-msg">
@@ -1551,8 +1542,8 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
                                     <div class="row">
                                         <div class="col-md-6 form-group mb-3">
                                             <label for="payment">Bank Address</label>
-                                            <input type="text" class="form-control" formControlName="bank_address"
-                                                placeholder="Bank Address">
+                                            <input type="text" class="form-control" onKeyPress="if(this.value.length==100) return false;" formControlName="bank_address"
+                                                placeholder="Bank Address" onKeyPress="if(this.value.length==120) return false;">
                                             <div *ngIf="bankingRoutingForm.controls['bank_address'].errors && (!bankingRoutingForm.controls['bank_address'].pristine || submitted ||bankingRoutingForm.controls['bank_address'].touched )"
                                                 class="error-msg">
                                                 <div
@@ -1564,7 +1555,7 @@ maxlength="19" minlength="12"  id="tel1" class="form-control"
 
                                         <div class="col-md-6 form-group mb-3">
                                             <label>Paypal Id/Paypal Account</label>
-                                            <input type="text" class="form-control" formControlName="paypal_id"
+                                            <input type="text" class="form-control" formControlName="paypal_id" onKeyPress="if(this.value.length==100) return false;" 
                                                 placeholder="Paypal Id/Paypal Account">
                                             <div *ngIf="bankingRoutingForm.controls['paypal_id'].errors && (!bankingRoutingForm.controls['paypal_id'].pristine || submitted ||bankingRoutingForm.controls['paypal_id'].touched )"
                                                 class="error-msg">
