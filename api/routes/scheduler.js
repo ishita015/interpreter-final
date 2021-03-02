@@ -192,6 +192,8 @@ module.exports.enterNewInterpreterRequestBasicTab = async function (req, res) {
             delete req.body.vci_opi_cell_phone;
             delete req.body.vci_opi_phone_code;
             delete req.body.line;    
+        }else{
+            req.body.vci_opi_phone_code = '+'+req.body.vci_opi_phone_code    
         }
         var result01 = await commonDb.insert("appointment_information_services", req.body);
 
