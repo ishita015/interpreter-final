@@ -299,3 +299,16 @@ module.exports.getRatings = async function(req, res) {
         return res.send({status:false,data:[]});
     }
 }
+
+//***** GET ALL BASIC TAB LIST START *****//
+module.exports.getDataByAssignmentDate = async function(req, res) {
+
+    try {
+        req.body.from_time
+        var result = await commonDb.getDataByAssignmentDate(req.body.assignment_date,req.body.from_time);
+        return res.json({ status: true, msg: 'Data Found!', data: result });
+    } catch (err) {
+        return res.json({ status: false, data: '', msg: 'No data found!' });
+    }
+}
+//***** GET ALL BASIC TAB LIST END *****//

@@ -17,6 +17,13 @@ var connection = mysql.createConnection({
 	database  : 'interpreter'
 });
 
+// var connection = mysql.createConnection({
+// 	host : '192.168.0.6',
+// 	user :  'interpreter_staging',
+// 	password : '8bFjwR0gmsb16M55',
+// 	database  : 'interpreter_staging'
+// });
+
 
 
 

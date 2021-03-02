@@ -5,7 +5,7 @@ import { ValidationsService } from 'src/app/shared/services/validations.service'
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +26,7 @@ enableRipple(true);
 })
 
 
-export class AllRequestSchedularComponent implements OnInit { 
+export class AllRequestSchedularComponent implements OnInit {
   public clientObj: string[] = [];
   public assignment_Obj;
   public platform_Obj;
@@ -42,7 +42,7 @@ export class AllRequestSchedularComponent implements OnInit {
   submittedComm: boolean;
   submittedLeg: boolean;
   submittedOther: boolean;
-   // validation form variable end
+  // validation form variable end
   public save_obj;
   public save_Msg;
   public recurrent;
@@ -89,7 +89,7 @@ export class AllRequestSchedularComponent implements OnInit {
   data1: string[] = [];
 
   myControl = new FormControl();
-
+  vci_opi = false;
 
   // show hide variable start
   showEductionForm = false;
@@ -97,9 +97,9 @@ export class AllRequestSchedularComponent implements OnInit {
   showLegalForm = false;
   showCommunityForm = false;
   showOtherForm = false;
- // show hide variable end
+  // show hide variable end
 
- // form name start here
+  // form name start here
   newRequestForm: FormGroup;
   educationRequestForm: FormGroup;
   legalRequestForm: FormGroup;
@@ -107,7 +107,7 @@ export class AllRequestSchedularComponent implements OnInit {
   medicalRequestForm: FormGroup;
   otherRequestForm: FormGroup;
   keyword = 'name';
-  minDate=new Date() 
+  minDate = new Date()
 
   // form name end here
   constructor(
@@ -122,7 +122,7 @@ export class AllRequestSchedularComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
   ) { }
 
-   
+
   ngOnInit() {
     this.CountryList();
     this.createForm1();
@@ -149,7 +149,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.editId = JSON.parse(localStorage.getItem('rowId'));
   }
 
-   /*==========google api load Places Autocomplete function start here========*/
+  /*==========google api load Places Autocomplete function start here========*/
   getGooleAddress1() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
@@ -183,7 +183,7 @@ export class AllRequestSchedularComponent implements OnInit {
       });
     });
   }
- /*==========google api load Places Autocomplete function end here========*/
+  /*==========google api load Places Autocomplete function end here========*/
 
   /*==========Step Form Value Start Here========*/
   createForm1() {
@@ -246,6 +246,10 @@ export class AllRequestSchedularComponent implements OnInit {
       latitude: [''],
       longitude: [''],
       address: [''],
+      vci_opi_phone_code: [1],
+      vci_opi_cell_phone: [''],
+      line: [''],
+
 
     })
   }
@@ -280,7 +284,7 @@ export class AllRequestSchedularComponent implements OnInit {
       client_firstname: ['', this.validation.onlyRequired_validator],
       client_lastname: ['', this.validation.onlyRequired_validator],
       trails: ['', this.validation.onlyRequired_validator],
-      home_visit: ['',this.validation.onlyRequired_validator],
+      home_visit: ['', this.validation.onlyRequired_validator],
       apt: [''],
       address: [''],
       practice_name: [''],
@@ -350,7 +354,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.service.getCountryMobileCode().subscribe(res => {
       if (res['status'] == '1') {
         this.country_Obj = res['data'];
-        console.log("======this.country_Obj===============",this.country_Obj);
+        console.log("=================", this.country_Obj);
         this.default_code = this.country_Obj[1].id;
       }
     });
@@ -358,20 +362,20 @@ export class AllRequestSchedularComponent implements OnInit {
   /*==========  Country Code for Mobile End Here========*/
 
   /*==========Client name list start Here========*/
- public countries = [
+  public countries = [
     {
       id: 1,
       name: 'Albania',
     },
-    
+
   ];
   allClientList() {
 
-    this.service.get('getAllClients').subscribe(res => { 
+    this.service.get('getAllClients').subscribe(res => {
       this.clientObj = res['data']
-      console.log('this',this.clientObj)
+      console.log('this', this.clientObj)
 
-       });
+    });
     this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(startWith(''),
       map(value => this.getRegions(value)));
 
@@ -405,9 +409,11 @@ export class AllRequestSchedularComponent implements OnInit {
   // }
   /*==========Assignment Type list end Here========*/
   /*==========Platform start Here========*/
-
   allPlatformList() {
-    this.service.get('getAllPlatforms').subscribe(res => { this.platform_Obj = res['data'] });
+    this.service.get('getAllPlatforms').subscribe(res => {
+      this.platform_Obj = res['data'];
+    });
+
   }
   /*==========Platform end Here========*/
   /*==========Language start Here========*/
@@ -436,7 +442,7 @@ export class AllRequestSchedularComponent implements OnInit {
   onChangeLanguage($event) {
 
   }
-   /*==========Home visit function start Here========*/
+  /*==========Home visit function start Here========*/
   homevisit(e) {
     if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
       setTimeout(() => {
@@ -444,11 +450,11 @@ export class AllRequestSchedularComponent implements OnInit {
         // this.getGooleAddress1();
       }, 500);
     }
-    if(e.target.value == '1'){
+    if (e.target.value == '1') {
       this.communityRequestForm.controls['address'].setValue('');
       this.communityRequestForm.controls['apt'].setValue('');
     }
-    if(e.target.value == '0'){
+    if (e.target.value == '0') {
       this.communityRequestForm.controls['practice_name'].setValue('');
       this.communityRequestForm.controls['provider_name'].setValue('');
       this.communityRequestForm.controls['room'].setValue('');
@@ -456,9 +462,9 @@ export class AllRequestSchedularComponent implements OnInit {
     }
   }
 
-   /*==========Home visit function end Here========*/
+  /*==========Home visit function end Here========*/
 
-    /*==========LOB function start Here========*/
+  /*==========LOB function start Here========*/
   onChangeLob(e) {
     this.service.get('getAllAssignmentTypes/' + this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
     if (e.target.value == '8') {
@@ -501,7 +507,7 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showOtherForm = true;
     }
   }
- /*==========LOB function end Here========*/
+  /*==========LOB function end Here========*/
   /*========== Recurrent Assignment function start here ========*/
   newRecurrent(ev) {
     this.recurrent = ev.target.value;
@@ -512,9 +518,9 @@ export class AllRequestSchedularComponent implements OnInit {
       this.assignment_var = false;
     }
   }
-   /*========== Recurrent Assignment function end here ========*/
+  /*========== Recurrent Assignment function end here ========*/
 
-     /*==========Repeats Function start here ========*/
+  /*==========Repeats Function start here ========*/
   newRepeat(event) {
     this.dailyData = event.target.value;
     if (this.dailyData == '1') {
@@ -542,22 +548,28 @@ export class AllRequestSchedularComponent implements OnInit {
       this.every_show_hide = true;
     }
   }
-    /*==========Repeats Function end here ========*/
+  /*==========Repeats Function end here ========*/
 
-    /*==========Platform Function start here ========*/
+  /*==========Platform Function start here ========*/
+  vciOPILine(e) {
+    if (e.target.value == "VCI + OPI") this.vci_opi = true;
+    else this.vci_opi = false;
+  }
   newSimultaneous(e) {
     console.log(e.target.value);
     this.myvar = e.target.value
+
     if (this.myvar == 1 && this.newRequestForm.value.platform == 'On-Site') {
       this.simultaneous_var = true;
     }
     else {
       this.simultaneous_var = false;
     }
-  }
-   /*==========platform Function end here ========*/
 
- /*==========Client Name Function start here ========*/
+  }
+  /*==========platform Function end here ========*/
+
+  /*==========Client Name Function start here ========*/
   changeClient(data) {
     console.log(data)
     this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
@@ -569,7 +581,26 @@ export class AllRequestSchedularComponent implements OnInit {
   changeCheckbox(i) {
 
   }
-
+  async getLineDetails() {
+    var newTime = moment(this.newRequestForm.value.from_time).add(30, 'm').toDate();
+    this.newRequestForm.value.from_time = moment(newTime).format("LT");;
+    if (this.newRequestForm.value.assignment_date != '' && this.newRequestForm.value.platform == "VCI + OPI") {
+      try{
+        var result=  await this.service.post('getDataByAssignmentDate',{assignment_date:this.newRequestForm.value.assignment_date, from_time:this.newRequestForm.value.from_time}).toPromise();
+            if(result['status'] == true){
+              this.toastr.success(result['msg']);
+              this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
+                  this.router.navigate(['sessions/forgot']);
+              }); 	
+            }else{
+              this.toastr.warning(result['msg'])
+            }
+      }
+      catch(err){
+        this.toastr.warning('Something went wrong from server/api');
+        }
+    }
+  }
   /*==========Today and future date function start here========*/
   date_func() {
     if (document.getElementsByName("setTodaysDate") != null) {
@@ -656,8 +687,8 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*======================All Form submitted function start here==============================*/
   saveUser() {
-    console.log(this.newRequestForm.value);
-    // return
+    console.log("=============Form",this.newRequestForm.value);
+
     this.submitted = true;
     if (this.showEductionForm) {
       this.submittedEdu = true;
@@ -688,16 +719,17 @@ export class AllRequestSchedularComponent implements OnInit {
 
     this.newRequestForm.value.from_time = moment(this.newRequestForm.value.from_time).format("LT");;
     this.newRequestForm.value.to_time = moment(this.newRequestForm.value.to_time).format("LT");
-    this.newRequestForm.value.event_start_time = moment(this.newRequestForm.value.event_start_date).format("LT");
+    this.newRequestForm.value.event_start_time = moment(this.newRequestForm.value.event_start_time).format("LT");
     this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("LT");
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     this.newRequestForm.value.client_id = this.newRequestForm.value.client_name.id;
+    this.newRequestForm.value.client_id = this.newRequestForm.value.client_name.id;
     this.newRequestForm.value.client_name = this.newRequestForm.value.client_name.fullName;
 
-     this.newRequestForm.value.latitude = this.latitude;
-      this.newRequestForm.value.longitude = this.longitude;
-      this.newRequestForm.value.address = this.new_address;
+    this.newRequestForm.value.latitude = this.latitude;
+    this.newRequestForm.value.longitude = this.longitude;
+    this.newRequestForm.value.address = this.new_address;
 
 
     if (this.showEductionForm) {
@@ -723,9 +755,6 @@ export class AllRequestSchedularComponent implements OnInit {
       // this.communityRequestForm.value.address = this.new_address;
       this.newRequestForm.value.community = this.communityRequestForm.value;
     }
-
-
-    console.log("formccc", this.newRequestForm.value);
     this.service.post('enterNewInterpreterRequestBasicTab', this.newRequestForm.value).subscribe(res => {
       if (res['status'] == true) {
         this.save_obj = res;
@@ -736,10 +765,10 @@ export class AllRequestSchedularComponent implements OnInit {
     });
   }
 
-    /*==========================All Form submitted function end here==========================*/
-  
-    /*==========================Google Api function start here==========================*/
-    // Get Current Location Coordinates
+  /*==========================All Form submitted function end here==========================*/
+
+  /*==========================Google Api function start here==========================*/
+  // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -781,7 +810,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
     });
   }
-   /*==========================Google Api function end here==========================*/
+  /*==========================Google Api function end here==========================*/
   selectEvent(item) {
     // do something with selected item
     this.newRequestForm.get('requested_by').patchValue(item.contact_person_name);

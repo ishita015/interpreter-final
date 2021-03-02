@@ -359,7 +359,11 @@ app.get('/cesco/getLastRISEntry', schedulerController.getLastRISEntry);
 app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
 app.get('/cesco/getRateSettingPlatforms/:id', schedulerController.getRateSettingPlatforms);
 app.get('/cesco/getUsersRole', schedulerController.getUsersRole);
+app.post('/cesco/getDataByAssignmentDate', schedulerController.getDataByAssignmentDate);
+
+
 app.get('/cesco/getLanguageById/:id', languageController.getLanguageById);
+
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 
 ////////////////////////////////////////////////////////////////////Adnan end/////////////////////////////////////////////////////////////////////
