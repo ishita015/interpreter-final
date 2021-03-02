@@ -597,14 +597,14 @@ export class AllRequestSchedularComponent implements OnInit {
             }
             if (result['data'][i].line == i + 1) {
               this.lineData = result['data'][i].line + 1;
-              this.newRequestForm.get('line').patchValue(this.lineData);
+              this.newRequestForm.get('line').patchValue('RingCentral '+this.lineData);
               break;
             }
           }
           this.toastr.success(result['msg']);
         } else {
           this.lineData = 1;
-          this.newRequestForm.get('line').patchValue(this.lineData);
+          this.newRequestForm.get('line').patchValue('RingCentral '+this.lineData);
           this.toastr.warning(result['msg'])
         }
       }
