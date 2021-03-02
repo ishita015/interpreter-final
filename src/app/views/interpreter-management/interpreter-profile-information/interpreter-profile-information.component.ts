@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { th } from 'date-fns/locale';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-interpreter-profile-information',
@@ -215,6 +216,8 @@ flatFeeCheck='false';
     this.skillsForm();
     this.updateGeneralInfo();
     this.countryList();
+    this.getRateDetails();
+    this.getUserDetails();
 
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -272,6 +275,22 @@ flatFeeCheck='false';
         this.platform_obj = res['data'];
       }
     });
+  }
+  profile_status=0;
+  getUserDetails() {
+
+    this.service.get('getUserDetails/' + window.location.href.split('interpreter-profile/')[1]).subscribe(res => {
+      if (res['data'].length > 0) {
+        this.profile_status=res['data'][0].profile_status;
+          if(res['data'][0].profile_status == 1){
+            this.showArroveBtn = 2;
+          }else{
+            this.showArroveBtn = res['data'][0].bankdata.length == 0 ? 0:1 ;
+
+          }
+      }
+    });
+    
   }
   platformData = [];
   getAllPlatform() {
@@ -560,6 +579,7 @@ flatFeeCheck='false';
   //gokul code start  ------interpreter skills-------
   // ==============================get language list============================ //
   LanguageList() {
+    // alert(this.interpreterSkillForm.value.primary_language)
     this.service.getLanguageList().subscribe(res => {
       if (res['status'] == '1') {
         this.language_Obj = res['data'];
@@ -671,6 +691,20 @@ flatFeeCheck='false';
 
   //====================gokul code end==========================//
 
+resData
+getRateDetails(){
+  if(this.interId != undefined){
+  this.service.get('getRateDetails/'+this.interId).subscribe((res)=>{
+    this.resData = res;
+    // if(this.resData.interpreter_assignment_status=='1'){
+    //   this.banking_form = true;
+    //         this.assignment_form = false;
+    //         this.general_form = false;
+    //         this.skills_form = false;
+    // }
+  })
+  }
+}
   checkProfileStatus(){
     if (this.detail_Obj.user_profile_status == 1) {
       this.skills_form = true;
@@ -876,9 +910,9 @@ flatFeeCheck='false';
       }
 
       if (this.detail_Obj.bank_profile_status == '1' && this.resData.rate_status == '1' && this.detail_Obj.user_profile_status == '1' && this.detail_Obj?.skill_complete == '1') {
-        this.showArroveBtn = 1
+        // this.showArroveBtn = 1
       } else {
-        this.showArroveBtn = 0
+        // this.showArroveBtn = 0
 
       }
     });
@@ -926,16 +960,18 @@ flatFeeCheck='false';
       this.generalForm.value.longitude = this.detail_Obj.longitude
     }
     this.generalForm.value.interpreter_id = this.interId;
-    console.log("inside", this.generalForm.value);
     this.service.updateInterpreter(this.generalForm.value).subscribe(res => {
       this.spinner.hide();
       this.gen_Msg = res;
       if (res['status'] == 1) {
         this.toastr.success(this.gen_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
+         this.skills_form = true;
+          this.general_form = false;
         if(this.detail_Obj.user_profile_status == '1'){
           this.skills_form = true;
           this.general_form = false;
         }
+        this.getUserDetails();
         this.detailProfile();
       } else {
         this.toastr.error(this.gen_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
@@ -961,11 +997,13 @@ flatFeeCheck='false';
   // }
   // banking routing number
   selectRoutingNo(e) {
-    this.routingNoValue = e.target.value;
-    // if(this.routingNoValue.length == 9) {
-    this.spinner.show();
+
+    this.routingNoValue = this.bankingRoutingForm.value.bank_routing_no;
+    if(this.routingNoValue != null) {
+    // this.spinner.show();
+    // try{
     this.service.getRoutingNumber(this.routingNoValue).subscribe(res => {
-      this.spinner.hide();
+      // this.spinner.hide();
       if (res['code'] == 200) {
         this.routingNo = res;
         console.log("api respone for routing no", this.routingNo);
@@ -975,14 +1013,21 @@ flatFeeCheck='false';
         this.bankingRoutingForm.get('bank_address').patchValue(this.routingNo.address);
       }
       else {
+        this.toastr.warning('No bank data found')
         this.routingNo = res;
         this.bankingRoutingForm.get('bank_name').patchValue('');
         this.bankingRoutingForm.get('bank_address').patchValue('');
         // this.toastr.error( this.routingNo.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
       }
     });
-    //  return false;
     // }
+    // catch(e){
+    //         // this.spinner.hide();
+
+    //   alert('def')
+    // }
+    }
+    
 
 
   }
@@ -997,6 +1042,7 @@ flatFeeCheck='false';
     this.bankingRoutingForm.value.user_id = this.interId;
     this.service.getBankingAdd(this.bankingRoutingForm.value)
       .subscribe(res => {
+        this.getUserDetails();
         if (res['status'] == 1) {
           this.banking_Obj = res
           this.banking_Msg = res
@@ -1023,12 +1069,13 @@ flatFeeCheck='false';
     this.bankingRoutingForm.value.user_id = this.interId;
     this.service.bankingUpdate(this.bankingRoutingForm.value)
       .subscribe(res => {
+        this.getUserDetails();
         if (res['status'] == 1) {
           console.log("api response", res);
           this.banking_Obj = res
           this.banking_Msg = res
           if(this.detail_Obj.bank_profile_status=='1'){
-            this.showArroveBtn = 1
+            // this.showArroveBtn = 1
           }
           this.toastr.success(this.banking_Msg.message, '', { timeOut: 1000, positionClass: 'toast-top-center' });
           // this.router.navigate(['/languages/list']);  
@@ -1585,7 +1632,7 @@ flatFeeCheck='false';
       this.toastr.error("Platform is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
       return
     }
-    return
+    // return
     this.lang = this.interpreterSkillForm.value.secondary_language
     this.assignment_arr = this.assignment_arr.filter((item, index, inputArray) => { return inputArray.indexOf(item) == index; });
     const formData: any = new FormData();
@@ -1611,6 +1658,8 @@ flatFeeCheck='false';
        
         this.getInterpreterFiles();
         this.detailProfile();
+        this.getUserLanguage();
+        this.getUserDetails();
         this.resetFileVariable();
        setTimeout(()=>{
         if(this.detail_Obj.skill_complete == '1'){
@@ -1945,16 +1994,28 @@ showTravelTime(e){
       this.showTimeTravelCheck='true';
     }
   }
-  selectFormPlatform(e){
+  selectFormPlatform(e,event){
     // this.createDynamicForm()
-    
+   e.value.interpreter_id = this.interId,
+    e.value.language_id = this.UserLangData[0].id
+        this.activeId = this.activeId == event.panelId ? "" : event.panelId;
+
     e.value.interpreter_id = this.interId;
     e.value.language_id = this.UserLangData[0].id;
-    this.service.get("getLanguageById/"+this.UserLangData[0].id).subscribe((res)=>{
-      this.baseRate = res['data'][0].base_rate;
+    this.service.get("getLanguageById/"+this.UserLangData[0].id+'/'+this.interpreterSkillForm.value.primary_language).subscribe((res)=>{
+     if(res['data'].length > 0){
+
+      this.baseRate = res['data'][0].rate;
       this.halfBaseRate = this.baseRate/2; 
-    });
-    this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
+     }else{
+       this.baseRate = 0
+      this.halfBaseRate = 0
+     }
+       })
+    this.service.post('getInterpreterRateSettingNew',
+    e.value
+
+    ).subscribe(resdata => {
       if (resdata['data'].length > 0) {
         
         for (var i = 0; i < resdata['data'].length; ++i) {
@@ -1984,7 +2045,8 @@ showTravelTime(e){
         }
       }
 
-    })
+  
+    });
   }
 
   activeId: string = "";
@@ -1994,30 +2056,23 @@ showTravelTime(e){
     // this.activeId = this.activeId == event.panelId ? "" : event.panelId;
   }
 
-resData
-getRateDetails(){
-  this.service.get('getRateDetails/'+this.interId).subscribe((res)=>{
-    this.resData = res;
-    // if(this.resData.interpreter_assignment_status=='1'){
-    //   this.banking_form = true;
-    //         this.assignment_form = false;
-    //         this.general_form = false;
-    //         this.skills_form = false;
-    // }
-  })
-}
 
   languageId = 0;
   baseRate;
   halfBaseRate;
   selectLanguage(language_id, e) {
+    // alert('d')
     this.languageId = language_id;
     e.value.interpreter_id = this.interId;
     e.value.language_id = language_id;
-    this.service.get("getLanguageById/"+this.languageId).subscribe((res)=>{
-      this.baseRate = res['data'][0].base_rate;
+    this.service.get("getLanguageById/"+this.languageId+'/'+this.interpreterSkillForm.value.primary_language).subscribe((res)=>{
+      if(res['data'].length > 0){
+      this.baseRate = res['data'][0].rate;
       this.halfBaseRate = this.baseRate/2; 
-    });
+      }else{
+        this.baseRate=0;
+        this.halfBaseRate=0
+      }
     this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
       if (resdata['data'].length > 0) {
         this.getRateDetails();
@@ -2046,6 +2101,7 @@ getRateDetails(){
       }
 
     })
+    });
    
   }
   createItem1() {
@@ -2136,34 +2192,34 @@ getRateDetails(){
                  var count=0;
     for(var i=0; i < setdata.arr.length; i++){
      
-      if(setdata.arr[i].rate ==''){
-        this.toastr.error( setdata.arr[i].lobname + "Rate is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      if(setdata.arr[0].rate ==''){
+        this.toastr.error( setdata.arr[0].lobname + " Rate is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
         count = 1;
         break;
       }
-      if(setdata.arr[i].minpaid ==''){
-        this.toastr.error( setdata.arr[i].lobname +  " Minimum is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      if(setdata.arr[0].minpaid ==''){
+        this.toastr.error( setdata.arr[0].lobname +  " Minimum is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
         count = 1;
         break;
       }
-      if(setdata.arr[i].increment ==''){
-        this.toastr.error( setdata.arr[i].lobname + " Increment is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      if(setdata.arr[0].increment ==''){
+        this.toastr.error( setdata.arr[0].lobname + " Increment is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
         count = 1;
         break;
       }
-      if(setdata.arr[i].travel_time_status == "true" && setdata.arr[i].travel_time == ""){
-        this.toastr.error( setdata.arr[i].lobname +  "Travel time is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      if(type.id == 1 && setdata.arr[0].travel_time_status == "true" && setdata.arr[0].travel_time == ""){
+        this.toastr.error( setdata.arr[0].lobname +  " Travel time is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
         count = 1;
         break;
       }
-      if(setdata.arr[i].mileage_status == 'true' && setdata.arr[i].mileage == ""){
-        alert(1);
-        this.toastr.error( setdata.arr[i].lobname +  "Mileage is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      if(type.id == 1 && setdata.arr[0].mileage_status == 'true' && setdata.arr[0].mileage == ""){
+        // alert(1);
+        this.toastr.error( setdata.arr[i].lobname +  " Mileage is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
         count = 1;
         break;
       }
-      if(setdata.arr[i].flat_fee_status == 'true' && setdata.arr[i].flatFee == ""){
-        this.toastr.error( setdata.arr[i].lobname +  "Flat fee is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+      if(type.id == 1 && setdata.arr[0].flat_fee_status == 'true' && setdata.arr[0].flatFee == ""){
+        this.toastr.error( setdata.arr[i].lobname +  " Flat fee is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
         count = 1;
         break;
       }
@@ -2179,6 +2235,7 @@ getRateDetails(){
     this.service.post('updateIntrepeterSetingNew', setdata)
        .subscribe(res => {
           this.getRateDetails();
+          this.getUserDetails();
            if(res['status'] == true){
               this.toastr.success(res['msg']);
            setTimeout(() => {
@@ -2291,7 +2348,28 @@ getRateDetails(){
 
   }
   ApproveInterpreter() {
-    alert('dev')
+    Swal.fire({
+  title: 'Are you sure want to Approve this account?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
+  if (result.isConfirmed) {
+      this.service.get('ActivateInterpreter/' + window.location.href.split('interpreter-profile/')[1]).subscribe(res => {
+        if(res['status'] == true){
+
+          this.toastr.success(res['msg'])
+          this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['interpreter/interpreter-profile/'+window.location.href.split('interpreter-profile/')[1]]);
+        }); 
+        }else{
+          this.toastr.warning(res['msg'])
+        }
+    });
+  }
+})
   }
 
 }

@@ -150,10 +150,13 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
         }
 
 
-        if (( resultData[0].platform_ids != "" && resultData[0].platform_ids != undefined)&&( communityDoc != "" && communityDoc != undefined) && (conferenceDoc != "" && conferenceDoc != undefined) && (courtDoc != "" && courtDoc != undefined) && (credentialDoc != "" && credentialDoc != undefined) && (equipmentDoc != "" && equipmentDoc != undefined) && (legalDoc != "" && legalDoc != undefined) && (simultOpen != "" && simultOpen != undefined)) {
+        // if (( resultData[0].platform_ids != "" && resultData[0].platform_ids != undefined)&&( communityDoc != "" && communityDoc != undefined) && (conferenceDoc != "" && conferenceDoc != undefined) && (courtDoc != "" && courtDoc != undefined) && (credentialDoc != "" && credentialDoc != undefined) && (equipmentDoc != "" && equipmentDoc != undefined) && (legalDoc != "" && legalDoc != undefined) && (simultOpen != "" && simultOpen != undefined)) {
+        //     skill_complete = '1';
+        // }
+
+         if ( resultData[0].platform_ids != "" && resultData[0].platform_ids != undefined) {
             skill_complete = '1';
         }
-
 
         //get interpreter language
         var sec_lang = await usermodel.getInterpreterSecLanguage(interpreter_id);
@@ -4097,7 +4100,7 @@ module.exports.updateInterpreter = async function(req, res) {
     // let latitude = req.body.latitude ? req.body.latitude : old_latitude;
     // let longitude = req.body.longitude ? req.body.longitude : old_longitude;
 
-    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',ssn_no ='" + ssn_no + "',ein_no ='" + ein_no + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',address ='" + address + "',latitude ='" + latitude + "',longitude ='" + longitude + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',profile_status='1',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
+    let sql = "UPDATE user SET first_name ='" + first_name + "',about ='" + about + "',ssn_no ='" + ssn_no + "',ein_no ='" + ein_no + "',nick_name ='" + nick_name + "',last_name ='" + last_name + "',address ='" + address + "',latitude ='" + latitude + "',longitude ='" + longitude + "',mobile ='" + mobile + "',zipCode ='" + zipCode + "',timezone ='" + timezone + "',social_security_no ='" + social_security_no + "',gender ='" + gender + "',country ='" + country + "',state ='" + state + "',apartment ='" + apartment + "',city ='" + city + "',international_phone_no ='" + international_phone_no + "',company_name ='" + company_name + "',date_of_birth ='" + dob + "',country_code ='" + country_code + "',title ='" + title + "',other_gender='" + other_gender + "' WHERE id = '" + id + "'";
 
     // //console.log("sql-update", sql)
     con.query(sql, function(err, result) {
@@ -4494,6 +4497,17 @@ module.exports.deleteFileInterpreter = async function(req, res) {
         return res.send({ status: true, msg: 'File deleted successfully' })
     } catch (e) {
         return res.send({ status: false, msg: 'Something went wrong' })
+    }
+}
+module.exports.ActivateInterpreter = async function(req, res) {
+    try{
+        commonDb.AsyncUpdate('user',{profile_status:1},{id:req.params.id});
+       return res.send({ status: true, msg: 'Interpreter Approved Successfully' })
+
+    }
+    catch(e){
+     return res.send({ status: false, msg: 'Something went wrong' })
+
     }
 }
 module.exports.baseRate = async function(req, res) {

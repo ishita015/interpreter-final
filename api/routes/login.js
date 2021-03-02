@@ -47,6 +47,9 @@ module.exports.login = async function(req, res, next) {
     var main_array = {};
     var resultData  = await usermodel.loginCheck(email,password);
     if (resultData != "" && resultData != undefined) {
+
+
+       
         var  logedUserId= resultData[0].id;
         var token = randtoken.generate(30);
         //,device_token='"+devicetoken+"',device_type='"+devicetype+"'
@@ -56,12 +59,7 @@ module.exports.login = async function(req, res, next) {
                 var get_data = "SELECT * FROM user WHERE id ='"+logedUserId+"' && auth_token='"+token+"'";
                 con.query(get_data,async function(err, response) {
                     if(response){
-                        // var user_type="";
-                        // if(response[0].role_id=="2"){
-                        //     user_type="Cook";
-                        // }else if(response[0].role_id=="3"){
-                        //     user_type="Foodie";
-                        // }
+                      
                         main_array = response[0];
 
                         res.json({
@@ -93,6 +91,7 @@ module.exports.login = async function(req, res, next) {
             }
 
         });
+    
     }else{
         res.json({
             status:0,
@@ -136,28 +135,35 @@ module.exports.userlogin = async function(req, res) {
     let password  = req.body.password;
 
     var sql = "SELECT u.*,ur.role_name FROM user AS u INNER JOIN user_roles AS ur ON u.role_id=ur.id WHERE u.email='"+email+"'";
-    //console.log(sql)
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
-            const decryptedString = cryptr.decrypt(result[0].password);
-            if (password == decryptedString) {
-                res.json({
-                    status: 1,
-                    error_code: 0,
-                    error_line: 1,
-                    data: result,
-                    message: "Login successfully"
-                });
-                return true;
+    console.log('resultresultresultresult',result[0].profile_status)
+
+        if(result[0].profile_status == 1 ){
+
+                        const decryptedString = cryptr.decrypt(result[0].password);
+                        if (password == decryptedString) {
+                             return   res.json({status: 1, error_code: 0, error_line: 1, data: result, message: "Login successfully"});
+                        }else{
+                           return res.json({status: 0, error_code: 0, error_line: 6, message: "Password are invalid"});
+                        }
             }else{
-                res.json({
-                    status: 0,
-                    error_code: 0,
-                    error_line: 6,
-                    message: "Password are invalid"
-                });
-                return true;
-            }
+                if(result[0].role_id != 2){
+                        const decryptedString = cryptr.decrypt(result[0].password);
+                        if (password == decryptedString) {
+                             return   res.json({status: 1, error_code: 0, error_line: 1, data: result, message: "Login successfully"});
+                        }else{
+                           return res.json({status: 0, error_code: 0, error_line: 6, message: "Password are invalid"});
+                        }
+                }else{
+                    const decryptedString = cryptr.decrypt(result[0].password);
+                        if (password == decryptedString) {
+                    return res.json({status:0, error_code: 0, error_line: 2, message: "Profile is not approved by Admin."});
+                        }else{
+                           return res.json({status: 0, error_code: 0, error_line: 6, message: "Password are invalid"});
+                        }
+                }
+    }
         } else {
             res.json({
                 status: 0,

@@ -281,16 +281,29 @@ module.exports.getUsersRole = async function (req, res) {
     }
 }
 
-module.exports.getUserDetails = async function (req, res) {
-    try {
-        var data = await Database.AsyncSellectAllWhere("user", { id: req.params.id });
-        for (var i = 0; i < data.length; i++) {
-            data[i].profile_img = data[i].profile_img == null ? data[i].profile_img : process.env.image_path + data[i].profile_img;
+    module.exports.getUserDetails = async function(req, res) {
+        try {
+            var data = await Database.AsyncSellectAllWhere("user",{id:req.params.id});
+            for (var i = 0; i < data.length; i++) {
+            data[i].bankdata = await Database.AsyncSellectAllWhere("banking_detail",{user_id:req.params.id});
+
+            data[i].profile_img = data[i].profile_img == null ? data[i].profile_img : process.env.image_path+data[i].profile_img;
         }
-        return res.json({ status: true, msg: 'Data Found!', data: data });
-    } catch (err) {
-        return res.json({ status: false, data: '', msg: 'No data found!' });
-    }
+            return res.json({ status: true, msg: 'Data Found!', data: data });
+        } catch (err) {
+            return res.json({ status: false, data: '', msg: 'No data found!' });
+        }
+
+// module.exports.getUserDetails = async function (req, res) {
+//     try {
+//         var data = await Database.AsyncSellectAllWhere("user", { id: req.params.id });
+//         for (var i = 0; i < data.length; i++) {
+//             data[i].profile_img = data[i].profile_img == null ? data[i].profile_img : process.env.image_path + data[i].profile_img;
+//         }
+//         return res.json({ status: true, msg: 'Data Found!', data: data });
+//     } catch (err) {
+//         return res.json({ status: false, data: '', msg: 'No data found!' });
+//     }
 }
 //***** GET USERS ROLE END *****//
 module.exports.getRatings = async function (req, res) {
@@ -311,10 +324,10 @@ module.exports.getDataByAssignmentDate = async function (req, res) {
     try {
         var result = await commonDb.getDataByAssignmentDate(req.body.assignment_date, req.body.from_time);
         if (result.length != 0) return res.json({ status: true, msg: 'Data Found!', data: result });
-        else return res.json({ status: false, data: '', msg: 'No data found!' });
+        else return res.json({ status: false, data: '', msg: 'No line found!' });
 
     } catch (err) {
-        return res.json({ status: false, data: '', msg: 'No data found!' });
+        return res.json({ status: false, data: '', msg: 'No line found!' });
     }
 }
 //***** GET ALL BASIC TAB LIST END *****//

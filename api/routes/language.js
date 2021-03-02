@@ -671,3 +671,16 @@ module.exports.getLanguageById = async function (req, res) {
        return res.send({status:false,msg:'Something Went Wrong'});
    }
 };
+module.exports.getLanguageById1 = async function (req, res) {
+    console.log(req.params)
+    try{
+      var data = await commonDb.AsyncSellectAllWhere('language_assignment_settings',{source_language:req.params.primary,destination_language:req.params.id});
+      
+      if(data) return res.send({status:true,msg:'Data Found!',data:data});
+      else return res.send({status:true,msg:'No Data Found!',data:[]});
+   
+    }
+    catch{
+       return res.send({status:false,msg:'Something Went Wrong'});
+   }
+};

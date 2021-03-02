@@ -239,7 +239,7 @@
                             <label class="date_view">Assignment Date</label>
                             <!--  <input type="date" name="assignDate" class="form-control" formControlName="assignment_date" placeholder="Assignment Date"> -->
                             <mat-form-field appearance="none">
-                                <input [min]="minDate" (click)="pickerr.open()" matInput [matDatepicker]="pickerr" formControlName="assignment_date">
+                                <input (selectedChanged)="getLineDetails();" [min]="minDate" (click)="pickerr.open()" matInput [matDatepicker]="pickerr" formControlName="assignment_date">
                                 <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
                                 <mat-datepicker #pickerr></mat-datepicker>
                             </mat-form-field>

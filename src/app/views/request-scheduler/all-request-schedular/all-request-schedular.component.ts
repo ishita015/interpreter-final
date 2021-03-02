@@ -583,9 +583,10 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   lineData;
   async getLineDetails() {
+    console.log(this.newRequestForm.value)
+    if (this.newRequestForm.value.assignment_date != '' && this.newRequestForm.value.from_time != '' &&  this.newRequestForm.value.platform == "VCI + OPI") {
     var newTime = moment(this.newRequestForm.value.from_time).add(30, 'm').toDate();
-    this.newRequestForm.value.from_time = moment(newTime).format("LT");;
-    if (this.newRequestForm.value.assignment_date != '' && this.newRequestForm.value.platform == "VCI + OPI") {
+    this.newRequestForm.value.from_time = moment(newTime).format("LT");
       try {
         var result = await this.service.post('getDataByAssignmentDate', { assignment_date: this.newRequestForm.value.assignment_date, from_time: this.newRequestForm.value.from_time }).toPromise();
         if (result['status'] == true) {
