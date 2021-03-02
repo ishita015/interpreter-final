@@ -360,6 +360,7 @@ app.get('/cesco/getRequestDetails/:id', schedulerController.getRequestDetails);
 app.get('/cesco/getRateSettingPlatforms/:id', schedulerController.getRateSettingPlatforms);
 app.get('/cesco/getUsersRole', schedulerController.getUsersRole);
 app.get('/cesco/getLanguageById/:id', languageController.getLanguageById);
+app.get('/cesco/getLanguageById/:id/:primary', languageController.getLanguageById1);
 // app.get('/cesco/getAllNewInterpreterRequestBasicTab', schedulerController.getAllNewInterpreterRequestBasicTab);
 
 ////////////////////////////////////////////////////////////////////Adnan end/////////////////////////////////////////////////////////////////////
@@ -396,6 +397,7 @@ let percentResult = percentage(20, 450);
 app.get('/cesco/deleteFileInterpreter/:id', interpreterController.deleteFileInterpreter);
 app.get('/cesco/getRatings/:id', schedulerController.getRatings);
 app.get('/cesco/getUserDetails/:id', schedulerController.getUserDetails);
+app.get('/cesco/ActivateInterpreter/:id', interpreterController.ActivateInterpreter);
 
 /**************************************************************************************************************************/
 

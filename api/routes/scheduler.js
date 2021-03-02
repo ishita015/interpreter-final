@@ -279,6 +279,8 @@ module.exports.getUsersRole = async function(req, res) {
         try {
             var data = await Database.AsyncSellectAllWhere("user",{id:req.params.id});
             for (var i = 0; i < data.length; i++) {
+            data[i].bankdata = await Database.AsyncSellectAllWhere("banking_detail",{user_id:req.params.id});
+
             data[i].profile_img = data[i].profile_img == null ? data[i].profile_img : process.env.image_path+data[i].profile_img;
         }
             return res.json({ status: true, msg: 'Data Found!', data: data });
