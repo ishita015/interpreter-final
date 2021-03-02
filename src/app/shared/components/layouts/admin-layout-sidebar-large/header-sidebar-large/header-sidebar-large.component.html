@@ -107,7 +107,7 @@
     
         <div ngbDropdown [placement]="'bottom-right'" class="user col align-self-end">
             <!-- <img src="http://192.168.0.69:3300/user/{{updatedata.profile_img}}" id="userDropdown" ngbDropdownToggle alt=""> -->
-               <img src="{{imageUrl}}{{updatedata.profile_img}}"   onerror="this.src='assets/images/avatar.jpg'"  id="userDropdown" ngbDropdownToggle alt="">  
+             {{updatedata?.first_name}}  <img src="{{updatedata?.profile_img}}"   onerror="this.src='assets/images/avatar.jpg'"  id="userDropdown" ngbDropdownToggle alt="">  
             <div ngbDropdownMenu aria-labelledby="userDropdown" class="header-account-dropdown">
                 <!-- <div class="dropdown-header">
                     <i class="i-Lock-User mr-1"></i> Timothy Carlson

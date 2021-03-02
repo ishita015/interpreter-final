@@ -137,7 +137,7 @@ export class InterpreterRequestListComponent implements OnInit {
 
 // requestComplete(id, modal) {
 interpreterReply(ris_id,res_type,modal){
-  
+ 
   this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
         this.service.interpreterReqReply(this.userId,ris_id,res_type)
@@ -148,10 +148,10 @@ interpreterReply(ris_id,res_type,modal){
                 this.toastr.success(this.status_msg.message,'', { timeOut: 1000, positionClass: 'toast-top-center' });
                 // location.reload();
 
-                if(res_type=='2'){
+                if(res_type=='1'){
                   this.router.navigate(['/interpreter-request/accept-list']);
                 }else{
-                  this.router.navigate(['/interpreter-request/reject-list']);
+                  this.router.navigate(['/interpreter-request/cancelled-list']);
                 }
                 
                 // this.interpreterRequestData();

@@ -1,7 +1,7 @@
 <div class="">
   <div class="breadcrumb">
     <ul class="heading">
-        <li><a>In Progresssss</a></li>
+        <li><a>In Progress</a></li>
         <li>List</li>
     </ul>
 </div>
@@ -189,11 +189,11 @@
               </button>
 
 
-              <button *ngIf="roleId!='1' && row.status==1" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status==1" class="btn btn-outline-danger ml-2"
               >
                   Waiting for completed by Interpreter
               </button>
-              <button *ngIf="roleId!='1' && row.status==2" class="btn btn-outline-danger ml-2"
+              <button *ngIf="roleId!='1' && row.ir_status==2" class="btn btn-outline-danger ml-2"
               (click)="requestComplete(row.ris_id, completeConfirmModal)">
                   Mark As Completed
               </button>
@@ -214,9 +214,14 @@
 
           </ngx-datatable>
         </div>
-        <ng-container *ngIf="list_Obj?.length <= 0">
+       <!--  <ng-container *ngIf="list_Obj?.length <= 0">
             No Data Found
-        </ng-container>
+        </ng-container> -->
+         <div class="col-md-12 text-center findnew" *ngIf="list_Obj?.length <= 0">
+                <img src="../assets/images/nosearch.png"><br><br>
+                <h5><b>We couldn't find what you're looking for</b></h5>
+ </div>
+ 
       </div>
         
     </div>

@@ -118,7 +118,7 @@
 .newlabel {
     display: block;
     position: relative;
-    left: 4px;
+   left: 7px;
     font-weight: bold;
 }
 
@@ -219,6 +219,16 @@
     min-width: 300px !important;
     }
 
+.requesttable .datatable-header .datatable-header-inner .datatable-row-center > .datatable-header-cell:last-child {
+    min-width: 190px !important;
+}
+.requesttable  .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center > .datatable-body-cell:last-child {
+    min-width: 190px !important;
+    min-height: auto !important;
+}
+.requesttable  .datatable-body .datatable-row-wrapper .datatable-body-row .datatable-row-center > .datatable-body-cell:last-child .datatable-body-cell-label {
+   display: inline-flex;
+}
 
     .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
     background-color: #ffffff !important;
@@ -226,4 +236,52 @@
 
 .mat-form-field-appearance-legacy .mat-form-field-underline {
     background-color: #ffffff !important;
+}
+.autocomplete-container .input-container input {
+    font-size: 14px;
+    box-sizing: border-box;
+    border: none;
+    box-shadow: none;
+    outline: 0;
+    background-color: #f8f9fa !important; 
+    color: rgba(0,0,0,.87);
+    width: 100%;
+    padding: 0 15px;
+    line-height: 40px;
+    height:35px !important;
+    border: 1px solid #e6e6e6 !important;
+}
+.autocomplete-container {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+    position: relative;
+    overflow: visible;
+    height: 30px !important;
+}
+.mat-datepicker-content .mat-calendar {
+    width: 296px;
+    height: 354px;
+    background: #fff !important;
+}
+.req_date .mat-datepicker-toggle {
+    color: rgba(0,0,0,.54);
+    position: absolute;
+    z-index: 99;
+    bottom: 3px;
+    right: 2px;
+}
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover, .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+    background-color: none !important;}
+    .datatable-row-center.datatable-row-group.ng-star-inserted:hover {
+background-color: none !important;
+transition-property: none !important;
+transition-duration: 0.3s;
+transition-timing-function: linear;
+}
+.findnew{margin-top: 50px;}
+.ratingdetails span {
+    font-size: 22px;
+}
+.whitebutton{
+    background: #fff;
+border: 1px;
 }

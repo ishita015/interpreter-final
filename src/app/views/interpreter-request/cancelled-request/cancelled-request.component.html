@@ -22,14 +22,14 @@
         <ngx-datatable  [rowClass]="getRowClass" *ngIf="filteredUser?.length" style="height: 500px; box-shadow: none" class="material fullscreen"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
           [rows]="filteredUser">
-          <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
+        <!--   <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="100">
             <ng-template ngx-datatable-header-template>
               S.No
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
               {{rowIndex +1}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
 
           <!-- <ngx-datatable-column name="Caseworker" prop="caseworker_name">
 <ng-template ngx-datatable-header-template>
@@ -81,14 +81,14 @@ Caseworker
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Cell Phone" prop="cell_phone">
+          <!-- <ngx-datatable-column name="Cell Phone" prop="cell_phone">
             <ng-template ngx-datatable-header-template>
               Cell Phone
             </ng-template>
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
               {{row.phoneCode}} {{row.cellPhone | mask: '(000) 000-0000'}}
             </ng-template>
-          </ngx-datatable-column>
+          </ngx-datatable-column> -->
           <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
               <span title="Requested date">Requested date</span>
@@ -162,7 +162,7 @@ Requester
             </ng-template>
 
             <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-              Rejected Request
+              Canceled
             </ng-template>
 
           </ngx-datatable-column>
@@ -199,9 +199,13 @@ Requester
 -->
         </ngx-datatable>
       </div>
-      <ng-container *ngIf="list_Obj?.length <= 0">
+      <!-- <ng-container *ngIf="list_Obj?.length <= 0">
         No Data Found
-      </ng-container>
+      </ng-container> -->
+        <div class="col-md-12 text-center findnew" *ngIf="list_Obj?.length <= 0">
+                <img src="../assets/images/nosearch.png"><br><br>
+                <h5><b>We couldn't find what you're looking for</b></h5>
+ </div>
     </div>
 
   </div>
