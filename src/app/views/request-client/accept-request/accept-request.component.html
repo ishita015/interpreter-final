@@ -1,7 +1,7 @@
 <div class="">
   <div class="breadcrumb">
     <ul class="heading">
-        <li><a>In Progresssss</a></li>
+        <li><a>In Progress</a></li>
         <li>List</li>
     </ul>
 </div>
@@ -214,9 +214,14 @@
 
           </ngx-datatable>
         </div>
-        <ng-container *ngIf="list_Obj?.length <= 0">
+       <!--  <ng-container *ngIf="list_Obj?.length <= 0">
             No Data Found
-        </ng-container>
+        </ng-container> -->
+         <div class="col-md-12 text-center findnew" *ngIf="list_Obj?.length <= 0">
+                <img src="../assets/images/nosearch.png"><br><br>
+                <h5><b>We couldn't find what you're looking for</b></h5>
+ </div>
+ 
       </div>
         
     </div>
