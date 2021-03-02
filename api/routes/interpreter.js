@@ -2146,7 +2146,10 @@ module.exports.getNewRequestCount = async function(req, res, next) {
 
     //validation end
     let user_id = req.body.userId;
+    // var sql = "SELECT COUNT(id) as new_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && status='1'";
+  //=============ishita changes
     var sql = "SELECT COUNT(id) as new_request FROM interpreter_request WHERE Interpreter_id='" + user_id + "' && status='1'";
+
     //console.log("sql 1-", sql)
     con.query(sql, function(err, result, fields) {
         // //console.log("result-",result)
@@ -2171,7 +2174,72 @@ module.exports.getNewRequestCount = async function(req, res, next) {
 };
 
 
+// =======================ishita changes ======================//
+module.exports.getAllRequestList = async function(req, res, next) {
+  //validation start
+  const v = new Validator(req.body, {
+    // userId: 'required',
+    status: 'required'
+});
 
+const matched = await v.check();
+
+if (!matched) {
+    var error;
+    for (var i = 0; i <= Object.values(v.errors).length; i++) {
+        error = Object.values(v.errors)[0].message;
+        break;
+    }
+    res.json({
+        status: 0,
+        message: error
+    });
+    return true;
+}
+
+//validation end
+// let user_id = req.body.userId;
+let status = req.body.status;
+let serach = req.body.search_info ? req.body.search_info : ""; 
+// console.log("user_id",user_id);
+console.log("status",status);
+// var sql = "SELECT * FROM request_information_services LEFT JOIN appointment_information_services ON appointment_information_services.ris_id = request_information_services.id ";
+var sql = "SELECT ais.*,l.name,m_lob.name as lob_name,ris.status FROM request_information_services as ris LEFT JOIN appointment_information_services ON appointment_information_services.ris_id = ris.id  LEFT JOIN appointment_information_services AS ais ON ais.ris_id=ris.id LEFT JOIN languages AS l ON l.id=ais.language LEFT JOIN master_lob AS m_lob ON m_lob.id=ais.lob";
+if(status != '' && status != '5' ) { 
+    sql += " WHERE ris.status='"+status+"'";
+}
+console.log("rrrrrrrrrrrrrrrrrrrrrrrrrr",sql);
+if( serach != "") {
+    sql += " && (appointment_information_services.client_name LIKE  '%" + serach + "%')";
+    // sql += " && (u.first_name LIKE  '%" + serach + "%' || u.last_name LIKE  '%" + serach + "%' || u.email LIKE  '%" + serach + "%') ";          
+}
+console.log("sql 1-", sql)
+con.query(sql, function(err, result, fields) {
+    console.log("result-",result)
+    console.log("errrrrrrr",err);
+    if (result) {
+    res.json({
+        data: result,
+        status: true,
+        error_code: 0,
+        error_line: 6,
+        message: "Data Found!"
+    });
+    return true;
+}
+    else {
+        res.json({
+            data:[],
+            status: false,
+            error_code: 0,
+            error_line: 6,
+            message: "No record found"
+        });
+        return true;
+    }
+});
+
+};
 
 
 
@@ -3333,15 +3401,8 @@ module.exports.getTotalInterpreter = function(req, res, next) {
     });
 };
 
-
-
-
-
-
-
 module.exports.getTotalUser = function(req, res, next) {
-    var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id !='1' && role_id !='2'";
-    //console.log(sql)
+    var sql = "SELECT COUNT(id) as total_user FROM user WHERE role_id !='1'";
     con.query(sql, function(err, result, fields) {
         // //console.log("result-",result)
         if (result && result.length > 0) {

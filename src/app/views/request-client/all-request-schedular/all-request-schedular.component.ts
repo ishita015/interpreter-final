@@ -38,7 +38,7 @@ export class AllRequestSchedularComponent implements OnInit {
   submittedComm: boolean;
   submittedLeg: boolean;
   submittedOther: boolean;
-   // validation form variable end
+  // validation form variable end
   public save_obj;
   public save_Msg;
   public recurrent;
@@ -92,9 +92,9 @@ export class AllRequestSchedularComponent implements OnInit {
   showLegalForm = false;
   showCommunityForm = false;
   showOtherForm = false;
- // show hide variable end
+  // show hide variable end
 
- // form name start here
+  // form name start here
   newRequestForm: FormGroup;
   educationRequestForm: FormGroup;
   legalRequestForm: FormGroup;
@@ -102,6 +102,8 @@ export class AllRequestSchedularComponent implements OnInit {
   medicalRequestForm: FormGroup;
   otherRequestForm: FormGroup;
   // form name end here
+  client_name_obj;
+  role_id;
   constructor(
     public validation: ValidationsService,
     private fb: FormBuilder,
@@ -133,14 +135,16 @@ export class AllRequestSchedularComponent implements OnInit {
     this.assign_date_func();
     this.getIRList();
     this.allLobList();
-
+    
     this.scheduler_id = JSON.parse(localStorage.getItem('userId'));
     this.entry_By_data = JSON.parse(localStorage.getItem('loginData'));
     this.newRequestForm.get('entered_by').patchValue(this.entry_By_data.first_name);
     this.editId = JSON.parse(localStorage.getItem('rowId'));
+    this.detailClientName(); 
+
   }
 
-   /*==========google api load Places Autocomplete function start here========*/
+  /*==========google api load Places Autocomplete function start here========*/
   getGooleAddress() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
@@ -174,7 +178,7 @@ export class AllRequestSchedularComponent implements OnInit {
       });
     });
   }
- /*==========google api load Places Autocomplete function end here========*/
+  /*==========google api load Places Autocomplete function end here========*/
 
   /*==========Step Form Value Start Here========*/
   createForm1() {
@@ -268,7 +272,7 @@ export class AllRequestSchedularComponent implements OnInit {
       client_firstname: ['', this.validation.onlyRequired_validator],
       client_lastname: ['', this.validation.onlyRequired_validator],
       trails: ['', this.validation.onlyRequired_validator],
-      home_visit: ['',this.validation.onlyRequired_validator],
+      home_visit: ['', this.validation.onlyRequired_validator],
       apt: [''],
       address: [''],
       practice_name: [''],
@@ -346,9 +350,11 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*==========Client name list start Here========*/
 
-  allClientList() {
 
-    this.service.get('getAllClients').subscribe(res => { this.clientObj = res['data'] });
+  allClientList() {
+    this.service.get('getAllClients').subscribe(res => {
+      this.clientObj = res['data']
+    });
     this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(startWith(''),
       map(value => this.getRegions(value)));
 
@@ -413,7 +419,7 @@ export class AllRequestSchedularComponent implements OnInit {
   onChangeLanguage($event) {
 
   }
-   /*==========Home visit function start Here========*/
+  /*==========Home visit function start Here========*/
   homevisit(e) {
     if (this.communityRequestForm.value.home_visit == '1' || this.communityRequestForm.value.home_visit == '0') {
       setTimeout(() => {
@@ -421,11 +427,11 @@ export class AllRequestSchedularComponent implements OnInit {
         this.getGooleAddress();
       }, 500);
     }
-    if(e.target.value == '1'){
+    if (e.target.value == '1') {
       this.communityRequestForm.controls['address'].setValue('');
       this.communityRequestForm.controls['apt'].setValue('');
     }
-    if(e.target.value == '0'){
+    if (e.target.value == '0') {
       this.communityRequestForm.controls['practice_name'].setValue('');
       this.communityRequestForm.controls['provider_name'].setValue('');
       this.communityRequestForm.controls['room'].setValue('');
@@ -433,9 +439,9 @@ export class AllRequestSchedularComponent implements OnInit {
     }
   }
 
-   /*==========Home visit function end Here========*/
+  /*==========Home visit function end Here========*/
 
-    /*==========LOB function start Here========*/
+  /*==========LOB function start Here========*/
   onChangeLob(e) {
     this.service.get('getAllAssignmentTypes/' + this.newRequestForm.value.lob).subscribe(res => { this.assignment_Obj = res['data'] });
     if (e.target.value == '8') {
@@ -478,7 +484,7 @@ export class AllRequestSchedularComponent implements OnInit {
       this.showOtherForm = true;
     }
   }
- /*==========LOB function end Here========*/
+  /*==========LOB function end Here========*/
   /*========== Recurrent Assignment function start here ========*/
   newRecurrent(ev) {
     this.recurrent = ev.target.value;
@@ -489,9 +495,9 @@ export class AllRequestSchedularComponent implements OnInit {
       this.assignment_var = false;
     }
   }
-   /*========== Recurrent Assignment function end here ========*/
+  /*========== Recurrent Assignment function end here ========*/
 
-     /*==========Repeats Function start here ========*/
+  /*==========Repeats Function start here ========*/
   newRepeat(event) {
     this.dailyData = event.target.value;
     if (this.dailyData == '1') {
@@ -519,9 +525,9 @@ export class AllRequestSchedularComponent implements OnInit {
       this.every_show_hide = true;
     }
   }
-    /*==========Repeats Function end here ========*/
+  /*==========Repeats Function end here ========*/
 
-    /*==========Platform Function start here ========*/
+  /*==========Platform Function start here ========*/
   newSimultaneous(e) {
     console.log(e.target.value);
     this.myvar = e.target.value
@@ -532,13 +538,24 @@ export class AllRequestSchedularComponent implements OnInit {
       this.simultaneous_var = false;
     }
   }
-   /*==========platform Function end here ========*/
+  /*==========platform Function end here ========*/
 
- /*==========Client Name Function start here ========*/
-  changeClient(data, e) {
-    this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
-    this.client_id = this.clientObj[e]['id'];
+  /*==========Client Name Function start here ========*/
+  detailClientName() {
+    this.service.get('client-detail/'+ this.scheduler_id).subscribe(res => {
+      if (res['status'] == true) {
+        this.client_name_obj = res['data']['0'];
+        console.log("client name",this.client_name_obj);
+        this.newRequestForm.get('requested_by').patchValue(this.client_name_obj.name);
+        this.newRequestForm.get('client_name').patchValue(this.client_name_obj.first_name + ' ' + this.client_name_obj.last_name);
+      }
+    });
   }
+
+  // changeClient(data, e) {
+  //   this.newRequestForm.get('requested_by').patchValue(data.contact_person_name);
+  //   this.client_id = this.clientObj[e]['id'];
+  // }
 
   /*==========Client Name Function end here ========*/
   changeCheckbox(i) {
@@ -664,7 +681,7 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_end_time = moment(this.newRequestForm.value.event_end_time).format("HH:mm");
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
-    this.newRequestForm.value.client_id = this.client_id;
+    this.newRequestForm.value.client_id = this.scheduler_id;
 
     if (this.showEductionForm) {
 
@@ -689,7 +706,7 @@ export class AllRequestSchedularComponent implements OnInit {
       this.newRequestForm.value.community = this.communityRequestForm.value;
     }
     console.log("formccc", this.newRequestForm.value);
-    this.service.post('enterNewInterpreterRequestBasicTab', this.newRequestForm.value).subscribe(res => {
+    this.service.post('enterNewClientRequestBasicTab', this.newRequestForm.value).subscribe(res => {
       if (res['status'] == true) {
         this.save_obj = res;
         this.save_Msg = res;
@@ -699,10 +716,10 @@ export class AllRequestSchedularComponent implements OnInit {
     });
   }
 
-    /*==========================All Form submitted function end here==========================*/
-  
-    /*==========================Google Api function start here==========================*/
-    // Get Current Location Coordinates
+  /*==========================All Form submitted function end here==========================*/
+
+  /*==========================Google Api function start here==========================*/
+  // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -744,7 +761,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
     });
   }
-   /*==========================Google Api function end here==========================*/
+  /*==========================Google Api function end here==========================*/
   selectEvent(item) {
     // do something with selected item
   }
