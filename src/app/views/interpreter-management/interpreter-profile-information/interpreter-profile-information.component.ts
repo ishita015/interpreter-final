@@ -898,7 +898,6 @@ flatFeeCheck='false';
   //update interpreter value
   updateInterpreter() {
 
-    console.log('-------------', this.generalForm)
     this.submitted = true;
     if (this.generalForm.invalid) {
       return;
@@ -1066,7 +1065,6 @@ flatFeeCheck='false';
     if (w == 6) {
       this.vci_opi = true;
     }
-
 
   }
   opiShow() {
