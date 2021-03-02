@@ -239,7 +239,7 @@
                             <label class="date_view">Assignment Date</label>
                             <!--  <input type="date" name="assignDate" class="form-control" formControlName="assignment_date" placeholder="Assignment Date"> -->
                             <mat-form-field appearance="none">
-                                <input [min]="minDate" (click)="pickerr.open()"  matInput [matDatepicker]="pickerr" formControlName="assignment_date">
+                                <input [min]="minDate" (click)="pickerr.open()" matInput [matDatepicker]="pickerr" formControlName="assignment_date">
                                 <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
                                 <mat-datepicker #pickerr></mat-datepicker>
                             </mat-form-field>
@@ -304,7 +304,7 @@
                             </div> -->
                         </div>
                         <div *ngIf="vci_opi == true" class="col-md-2">
-                            <label>VCI+OPI Code</label>
+                            <label>Country Code</label>
                             <select class="form-control country_code" formControlName="vci_opi_phone_code">
                                 <option value="" selected disabled>Code</option>
                                 <option  value="1">United States</option>
@@ -329,7 +329,7 @@
                     <div *ngIf="vci_opi == true" class="row">
                         <div class="col-md-4">
                             <label for=" line">Line</label>
-                            <input type="text" class="form-control" formControlName="line" placeholder="Line">
+                            <input disabled type="text" class="form-control" formControlName="line" placeholder="Line">
                             <div *ngIf="newRequestForm.controls['line'].errors && (!newRequestForm.controls['line'].pristine || submittedEdu ||newRequestForm.controls['line'].touched )" class="error-msg">
                                 <div [hidden]="!newRequestForm.controls['line'].errors.required">Line is required.</div>
                             </div>

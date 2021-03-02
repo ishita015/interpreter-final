@@ -373,11 +373,11 @@ export class AllRequestSchedularComponent implements OnInit {
 
     this.service.get('getAllClients').subscribe(res => {
       this.clientObj = res['data']
-      console.log('this', this.clientObj)
 
     });
     this.filterRegions = this.newRequestForm.get('client_name').valueChanges.pipe(startWith(''),
       map(value => this.getRegions(value)));
+
 
   }
 
@@ -581,24 +581,35 @@ export class AllRequestSchedularComponent implements OnInit {
   changeCheckbox(i) {
 
   }
+  lineData;
   async getLineDetails() {
     var newTime = moment(this.newRequestForm.value.from_time).add(30, 'm').toDate();
     this.newRequestForm.value.from_time = moment(newTime).format("LT");;
     if (this.newRequestForm.value.assignment_date != '' && this.newRequestForm.value.platform == "VCI + OPI") {
-      try{
-        var result=  await this.service.post('getDataByAssignmentDate',{assignment_date:this.newRequestForm.value.assignment_date, from_time:this.newRequestForm.value.from_time}).toPromise();
-            if(result['status'] == true){
-              this.toastr.success(result['msg']);
-              this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() => {
-                  this.router.navigate(['sessions/forgot']);
-              }); 	
-            }else{
-              this.toastr.warning(result['msg'])
+      try {
+        var result = await this.service.post('getDataByAssignmentDate', { assignment_date: this.newRequestForm.value.assignment_date, from_time: this.newRequestForm.value.from_time }).toPromise();
+        if (result['status'] == true) {
+          for (var i = 0; i < result['data'].length; i++) {
+            if (i == 16) {
+              this.toastr.success("Lines are already in use");
+              break;
             }
-      }
-      catch(err){
-        this.toastr.warning('Something went wrong from server/api');
+            if (result['data'][i].line == i + 1) {
+              this.lineData = result['data'][i].line + 1;
+              this.newRequestForm.get('line').patchValue(this.lineData);
+              break;
+            }
+          }
+          this.toastr.success(result['msg']);
+        } else {
+          this.lineData = 1;
+          this.newRequestForm.get('line').patchValue(this.lineData);
+          this.toastr.warning(result['msg'])
         }
+      }
+      catch (err) {
+        this.toastr.warning('Something went wrong from server/api');
+      }
     }
   }
   /*==========Today and future date function start here========*/
@@ -687,7 +698,7 @@ export class AllRequestSchedularComponent implements OnInit {
 
   /*======================All Form submitted function start here==============================*/
   saveUser() {
-    console.log("=============Form",this.newRequestForm.value);
+    console.log("=============Form", this.newRequestForm.value);
 
     this.submitted = true;
     if (this.showEductionForm) {
@@ -724,13 +735,11 @@ export class AllRequestSchedularComponent implements OnInit {
     this.newRequestForm.value.event_at = this.event_at;
     this.newRequestForm.value.scheduler_id = this.scheduler_id;
     this.newRequestForm.value.client_id = this.newRequestForm.value.client_name.id;
-    this.newRequestForm.value.client_id = this.newRequestForm.value.client_name.id;
     this.newRequestForm.value.client_name = this.newRequestForm.value.client_name.fullName;
 
     this.newRequestForm.value.latitude = this.latitude;
     this.newRequestForm.value.longitude = this.longitude;
     this.newRequestForm.value.address = this.new_address;
-
 
     if (this.showEductionForm) {
 
@@ -755,6 +764,7 @@ export class AllRequestSchedularComponent implements OnInit {
       // this.communityRequestForm.value.address = this.new_address;
       this.newRequestForm.value.community = this.communityRequestForm.value;
     }
+    console.log("============form",this.newRequestForm.value);
     this.service.post('enterNewInterpreterRequestBasicTab', this.newRequestForm.value).subscribe(res => {
       if (res['status'] == true) {
         this.save_obj = res;

@@ -71,7 +71,6 @@ commonModel.selectAllWhere = (table, obj) => {
         }
         counter++;
     }
-    console.log("=========que", que);
     return runSQLquery(que);
 }
 //***** Select all where query end *****//
@@ -93,8 +92,6 @@ commonModel.selectAllWhereOrderBy = (table, obj, orderBy) => {
 }
 //***** Update query start *****//
 commonModel.update = (table, obj, where) => {
-    console.log("=====obj====",obj)
-    console.log("=====where====",where)
 
     var que = "UPDATE " + table + " SET ";
     var counter = 1;
@@ -117,7 +114,6 @@ commonModel.update = (table, obj, where) => {
         }
         counter01++;
     }
-    console.log("=====quequequeque====",que)
     return runSQLquery(que);
 }
 //***** Update query end *****//
@@ -207,4 +203,10 @@ commonModel.requestRejectedReassign = (id) => {
 
 //***** Interpreter progress request end *****//
 
+
+commonModel.getDataByAssignmentDate = (date,time) => {
+    let que = "SELECT * FROM appointment_information_services WHERE assignment_date = '" + date + "' AND from_time = '" + time + "'";
+    console.log("================queeee",que);
+    return runSQLquery(que);
+}
 module.exports = commonModel;
