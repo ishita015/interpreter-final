@@ -64,6 +64,7 @@ export class AllRequestSchedularComponent implements OnInit {
   latitude: number;
   longitude: number;
 
+  vci_opi;
   zoom: number;
   address: string;
   sec_address: string;
@@ -241,6 +242,9 @@ export class AllRequestSchedularComponent implements OnInit {
       // latitude: [''],
       // longitude: [''],
       // address: [''],
+      vci_opi_phone_code: [1],
+      vci_opi_cell_phone: [''],
+      line: [''],
 
     })
   }
@@ -528,6 +532,11 @@ export class AllRequestSchedularComponent implements OnInit {
   /*==========Repeats Function end here ========*/
 
   /*==========Platform Function start here ========*/
+  vciOPILine(e){
+    console.log("========$event",e)
+    if (e.target.value == "VCI + OPI") this.vci_opi = true;
+    else this.vci_opi = false;
+  }
   newSimultaneous(e) {
     console.log(e.target.value);
     this.myvar = e.target.value
@@ -537,6 +546,7 @@ export class AllRequestSchedularComponent implements OnInit {
     else {
       this.simultaneous_var = false;
     }
+    
   }
   /*==========platform Function end here ========*/
 
