@@ -43,6 +43,14 @@
                                     <td>Platform</td>
                                     <td>{{data?.platform}}</td>
                                 </tr>
+                                <tr *ngIf="data?.platform == 'VCI + OPI'">
+                                    <td>Mobile</td>
+                                    <td>{{data?.vci_opi_phone_code}} {{data?.vci_opi_cell_phone | mask: '(000) 000-0000'}}</td>
+                                </tr>
+                                <tr *ngIf="data?.platform == 'VCI + OPI'">
+                                    <td>Line</td>
+                                    <td>{{data?.line}}</td>
+                                </tr>
                                 <tr>
                                     <td>Simultaneous Interpreting?</td>
                                     <td>{{data?.receivers_required ? 'Yes' : 'No'}}</td>
