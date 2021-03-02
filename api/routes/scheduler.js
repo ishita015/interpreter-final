@@ -322,10 +322,10 @@ module.exports.getDataByAssignmentDate = async function (req, res) {
     try {
         var result = await commonDb.getDataByAssignmentDate(req.body.assignment_date, req.body.from_time);
         if (result.length != 0) return res.json({ status: true, msg: 'Data Found!', data: result });
-        else return res.json({ status: false, data: '', msg: 'No line found!' });
+        else return res.json({ status: false, data: '', msg: '' });
 
     } catch (err) {
-        return res.json({ status: false, data: '', msg: 'No line found!' });
+        return res.json({ status: false, data: '', msg: '' });
     }
 }
 //***** GET ALL BASIC TAB LIST END *****//
