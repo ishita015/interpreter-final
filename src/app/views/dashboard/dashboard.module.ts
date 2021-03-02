@@ -19,13 +19,30 @@ import { AddCalenderComponent } from './add-calender/add-calender.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditCalenderComponent } from './edit-calender/edit-calender.component';
+import { AllRequestListsComponent } from './all-request-lists/all-request-lists.component';
+
+import { NgxMaskModule } from 'ngx-mask';
+
+
+import { TimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   imports: [
     CommonModule,
     SharedComponentsModule,
     NgxEchartsModule,
     NgxDatatableModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,        
+    MatNativeDateModule,           
+    MatInputModule,
     NgbModule,
+    NgxMaskModule.forRoot(),
+    TimePickerModule,
     FormsModule,
     ReactiveFormsModule,
     ColorPickerModule,
@@ -35,6 +52,6 @@ import { EditCalenderComponent } from './edit-calender/edit-calender.component';
     }),
     DashboardRoutingModule
   ],
-  declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component, AddCalenderComponent, EditCalenderComponent]
+  declarations: [DashboadDefaultComponent, DashboardV2Component, DashboardV3Component, DashboardV4Component, AddCalenderComponent, EditCalenderComponent, AllRequestListsComponent]
 })
 export class DashboardModule { }

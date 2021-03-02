@@ -129,7 +129,7 @@ module.exports.sendTrackingLinkTocustomer = async function(req, res, next) {
 
 module.exports.getTotalNewRequest = function(req, res, next) {
 
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='0'";
     console.log("sql 1-",sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
@@ -158,573 +158,58 @@ module.exports.getTotalNewRequest = function(req, res, next) {
 
 
 
-module.exports.getTotalNewRequest = function(req, res, next) {
+// module.exports.getTotalNewRequest = function(req, res, next) {
 
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
+//     var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+//     console.log("sql 1-",sql)
+//     con.query(sql, function(err, result, fields) {
+//         // console.log("result-",result)
+//         if (result && result.length > 0) {
+//             res.json({
+//                 status: 1,
+//                 error_code: 0,
+//                 error_line: 1,
+//                 data: result
+//             });
+//             return true;
+//         } else {
+//             res.json({
+//                 status: 0,
+//                 error_code: 0,
+//                 error_line: 6,
+//                 message: "No record found"
+//             });
+//             return true;
+//         }
+//     });
+// };
 
 
-module.exports.getTotalNewRequest = function(req, res, next) {
+// module.exports.getTotalNewRequest = function(req, res, next) {
 
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
-module.exports.getTotalNewRequest = function(req, res, next) {
-
-    var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
-    console.log("sql 1-",sql)
-    con.query(sql, function(err, result, fields) {
-        // console.log("result-",result)
-        if (result && result.length > 0) {
-            res.json({
-                status: 1,
-                error_code: 0,
-                error_line: 1,
-                data: result
-            });
-            return true;
-        } else {
-            res.json({
-                status: 0,
-                error_code: 0,
-                error_line: 6,
-                message: "No record found"
-            });
-            return true;
-        }
-    });
-};
-
-
+//     var sql = "SELECT COUNT(id) as total_request FROM request_information_services WHERE status='1'";
+//     console.log("sql 1-",sql)
+//     con.query(sql, function(err, result, fields) {
+//         // console.log("result-",result)
+//         if (result && result.length > 0) {
+//             res.json({
+//                 status: 1,
+//                 error_code: 0,
+//                 error_line: 1,
+//                 data: result
+//             });
+//             return true;
+//         } else {
+//             res.json({
+//                 status: 0,
+//                 error_code: 0,
+//                 error_line: 6,
+//                 message: "No record found"
+//             });
+//             return true;
+//         }
+//     });
+// };
 module.exports.getAllRequest = function(req, res, next) {
 
     var sql = "SELECT COUNT(id) as allrequest FROM request_information_services";
@@ -758,7 +243,7 @@ module.exports.getAllRequest = function(req, res, next) {
 
 module.exports.getTotalAssign = function(req, res, next) {
 
-    var sql = "SELECT COUNT(id) as total_assign FROM request_information_services WHERE status='2'";
+    var sql = "SELECT COUNT(id) as total_assign FROM request_information_services WHERE status='1'";
     console.log("sql 2-",sql)
     con.query(sql, function(err, result, fields) {
         // console.log("result-",result)
@@ -815,7 +300,7 @@ module.exports.getTotalinprogress = function(req, res, next) {
 
 
 module.exports.getTotalComplete = function(req, res, next) {
-    var sql = "SELECT COUNT(id) as total_complete FROM request_information_services WHERE status='4'";
+    var sql = "SELECT COUNT(id) as total_complete FROM request_information_services WHERE status='3'";
     // var sql = "SELECT COUNT(id) as total_complete FROM interpreter_request WHERE status='4'";
     console.log("sql 4-",sql)
     con.query(sql, function(err, result, fields) {
@@ -845,7 +330,7 @@ module.exports.getTotalComplete = function(req, res, next) {
 
 
 module.exports.getTotalCancelled = function(req, res, next) {
-    var sql = "SELECT COUNT(id) as total_cancelled FROM request_information_services WHERE status='5'";
+    var sql = "SELECT COUNT(id) as total_cancelled FROM request_information_services WHERE status='4'";
     // var sql = "SELECT COUNT(id) as total_cancelled FROM interpreter_request WHERE status='3'";
     console.log("sql 5-",sql)
     con.query(sql, function(err, result, fields) {
@@ -1061,7 +546,7 @@ module.exports.getAllClientRequest = async function(req, res) {
     let end_date = req.body.end_date ? req.body.end_date : '0';
 
    
-    console.log("enddec_date-",req.body)
+    
 
 
     var unfil_ids='';
@@ -1070,8 +555,7 @@ module.exports.getAllClientRequest = async function(req, res) {
         var resultdata = await usermodel.getLangIds(); 
         if (resultdata != "" && resultdata != undefined) {
             unfil_ids =resultdata.toString();
-            console.log("resultdata", resultdata.toString());
-
+          
             
             // var langid = resultdata[0].lang_id;
             // var tdata1 = await usermodel.getUnfilLangIds(langid); 
@@ -1123,7 +607,6 @@ module.exports.getAllClientRequest = async function(req, res) {
     sql += " ORDER BY ris.id DESC";  
 
 
-    console.log("request_information_services-",sql);
     con.query(sql, function(err, result, fields) {
         if (result && result.length > 0) {
             res.json({
@@ -1171,10 +654,9 @@ module.exports.getRequestData = function(req, res) {
     // sql += " GROUP BY ris.scheduler_id ORDER BY ris.id DESC"; 
     sql += " ORDER BY ris.id DESC"; 
 
-    console.log("request_information_services-",sql)
+   
     con.query(sql, function(err, result, fields) {
-        console.log("err-err",err)
-
+        
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -1206,7 +688,7 @@ module.exports.getRequestData = function(req, res) {
 
 
 module.exports.addServiceOne = async function(req, res) {
-    console.log('total request-',req.body);
+  
     //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
@@ -1247,20 +729,11 @@ module.exports.addServiceOne = async function(req, res) {
     let school_name ="";
     let notes =req.body.notes ? req.body.notes : "";
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('1','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-
-    console.log('sql-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-
-
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql1-',sql1)
             con.query(sql1, function(err, insert) {});
- 
             res.json({
                 status: 1,
                 error_code: 0,
@@ -1285,8 +758,6 @@ module.exports.addServiceOne = async function(req, res) {
 
 
 module.exports.addServiceTwo = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.adams_county ? req.body.adams_county : "";
@@ -1323,18 +794,11 @@ module.exports.addServiceTwo = async function(req, res) {
     let school_name ="";
     let notes =req.body.notes ? req.body.notes : "";
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('2','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql2-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql2-',sql1)
             con.query(sql1, function(err, insert) {});
- 
             res.json({
                 status: 1,
                 error_code: 0,
@@ -1361,8 +825,6 @@ module.exports.addServiceTwo = async function(req, res) {
 
 
 module.exports.addServiceThree = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.adams_county ? req.body.adams_county : "";
@@ -1399,16 +861,11 @@ module.exports.addServiceThree = async function(req, res) {
     let school_name =req.body.location1 ? req.body.location1 : "";;
     let notes =req.body.notes ? req.body.notes : "";
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('3','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql3-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
 
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql31-',sql1)
             con.query(sql1, function(err, insert) {});
  
             res.json({
@@ -1434,8 +891,6 @@ module.exports.addServiceThree = async function(req, res) {
 
 
 module.exports.addServiceFour = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.adams_county ? req.body.adams_county : "";
@@ -1472,18 +927,11 @@ module.exports.addServiceFour = async function(req, res) {
     let school_name =req.body.location1 ? req.body.location1 : "";;
     let notes =req.body.notes ? req.body.notes : "";
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('4','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql4-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql41-',sql1)
             con.query(sql1, function(err, insert) {});
- 
             res.json({
                 status: 1,
                 error_code: 0,
@@ -1505,8 +953,6 @@ module.exports.addServiceFour = async function(req, res) {
 
 
 module.exports.addServiceFive = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.department ? req.body.department : "";
@@ -1543,16 +989,11 @@ module.exports.addServiceFive = async function(req, res) {
     let school_name =req.body.location1 ? req.body.location1 : "";;
     let notes =req.body.notes ? req.body.notes : "";
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('5','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql5-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
 
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql51-',sql1)
             con.query(sql1, function(err, insert) {});
  
             res.json({
@@ -1578,8 +1019,6 @@ module.exports.addServiceFive = async function(req, res) {
 
 
 module.exports.addServiceSix = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.department ? req.body.department : "";
@@ -1616,18 +1055,11 @@ module.exports.addServiceSix = async function(req, res) {
     let school_name =req.body.location1 ? req.body.location1 : "";;
     let notes =req.body.notes ? req.body.notes : "";
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('5','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql5-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
-
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql51-',sql1)
             con.query(sql1, function(err, insert) {});
- 
             res.json({
                 status: 1,
                 error_code: 0,
@@ -1652,8 +1084,6 @@ module.exports.addServiceSix = async function(req, res) {
 
 
 module.exports.addServiceSeven = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.department ? req.body.department : "";
@@ -1692,16 +1122,11 @@ module.exports.addServiceSeven = async function(req, res) {
     let notes =req.body.notes ? req.body.notes : "";
     
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('7','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql7-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
 
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql71-',sql1)
             con.query(sql1, function(err, insert) {});
  
             res.json({
@@ -1725,8 +1150,6 @@ module.exports.addServiceSeven = async function(req, res) {
 
 
 module.exports.addServiceEight = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.department ? req.body.department : "";
@@ -1765,16 +1188,11 @@ module.exports.addServiceEight = async function(req, res) {
     let notes =req.body.notes ? req.body.notes : "";
     
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('8','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql8-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){
 
             var sql1 = "INSERT INTO appointment_information_services(ris_id,case_name,client_name,name_of_contact_person,cell_phone,name_of_person,doctor,patient,claim_number,school_name,trails,appointment_type,date,start_time,anticipated_end_time,service_requested,receivers_required,address,language,notes)VALUES('"+last_id+"','"+case_name+"','"+client_name+"','"+name_of_contact_person+"','"+cell_phone2+"','"+name_of_person+"','"+doctor+"','"+patient+"','"+claim_number+"','"+school_name+"','"+trails+"','"+appointment_type+"','"+date+"','"+start_time+"','"+anticipated_end_time+"','"+service_requested+"','"+receivers_required+"','"+address+"','"+language+"','"+notes+"')";
-
-
-            console.log('sql81-',sql1)
             con.query(sql1, function(err, insert) {});
  
             res.json({
@@ -1799,8 +1217,6 @@ module.exports.addServiceEight = async function(req, res) {
 
 
 module.exports.addServiceNine = async function(req, res) {
-    console.log('total request-',req.body);
-    //sql 1
     let caseworker_name = req.body.caseworker_name ? req.body.caseworker_name : "";
     let requester_name = req.body.requester_name ? req.body.requester_name : "";
     let health_department = req.body.department ? req.body.department : "";
@@ -1839,8 +1255,6 @@ module.exports.addServiceNine = async function(req, res) {
     let notes =req.body.notes ? req.body.notes : "";
     
     var sql = "INSERT INTO request_information_services(type,caseworker_name,business_bill,requester_name,health_department,north_metro_community_service,human_services,ahs_department,office_phone,cell_phone,email,site_contact)VALUES('9','"+caseworker_name+"','"+business_bill+"','"+requester_name+"','"+health_department+"','"+north_metro_community_service+"','"+human_services+"','"+ahs_department+"','"+office_phone+"','"+cell_phone+"','"+email+"','"+site_contact+"')";
-
-    console.log('sql9-',sql)
     con.query(sql, function(err, insert) {
         let last_id= insert.insertId;
         if(!err){

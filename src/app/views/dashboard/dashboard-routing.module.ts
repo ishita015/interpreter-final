@@ -7,6 +7,7 @@ import { DashboardV4Component } from './dashboard-v4/dashboard-v4.component';
 import { AuthGaurd } from 'src/app/shared/services/auth.gaurd';
 import { AddCalenderComponent } from './add-calender/add-calender.component';
 import { EditCalenderComponent } from './edit-calender/edit-calender.component';
+import { AllRequestListsComponent } from './all-request-lists/all-request-lists.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'edit',
     component: EditCalenderComponent
+  },
+  {
+    path: 'all-request/:id',
+    component: AllRequestListsComponent
   },
   // {
   //   path: 'v3',

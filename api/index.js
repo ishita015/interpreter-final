@@ -88,7 +88,7 @@ var mobileController = require('./routes/mobile');
 var lobController = require('./routes/lob');
 
 var schedulerController = require('./routes/scheduler');
-  
+var clientRequestController = require('./routes/clientRequest')
 // api start
 
 /*forget-password*/
@@ -178,8 +178,10 @@ app.post('/cesco/getRejectDataInterpreter', interpreterController.getRejectDataI
 app.post('/cesco/getInterpreterEvents', interpreterController.getInterpreterEvents);
 app.post('/cesco/deleteLocalEvent', interpreterController.deleteLocalEvent);
 
+// ==========================ishita changes =========================//
+app.post('/cesco/getAllRequestList', interpreterController.getAllRequestList);
 
-
+// ==========================ishita changes =========================//
 app.post('/cesco/addInterpreterLanguage', interpreterController.addInterpreterLanguage);
 app.post('/cesco/addBankingInfo', interpreterController.saveBankingInfo);
 app.post('/cesco/assignAllInterpreter', interpreterController.assignAllInterpreter);
@@ -364,7 +366,10 @@ app.get('/cesco/getLanguageById/:id', languageController.getLanguageById);
 
 // api end
 
-
+// ======================================ishita start ===============================//
+app.post('/cesco/enterNewClientRequestBasicTab', clientRequestController.enterNewClientRequestBasicTab);
+app.get('/cesco/client-detail/:id', clientRequestController.clientDetail);
+// ======================================ishita end ===============================//
 // 10% in After hours (5 pm to 8 am)
 // 15% in Weekend
 // 20% on Holidays

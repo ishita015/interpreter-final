@@ -21,14 +21,14 @@ import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { FormBuilder, FormGroup } from '@angular/forms';
 declare var $;
 @Component({
-	selector: 'app-dashboad-default',
-	templateUrl: './dashboad-default.component.html',
-	styleUrls: ['./dashboad-default.component.css']
+    selector: 'app-dashboad-default',
+    templateUrl: './dashboad-default.component.html',
+    styleUrls: ['./dashboad-default.component.css']
 })
 export class DashboadDefaultComponent implements OnInit {
-	chartLineOption1: EChartOption;
-	chartLineOption2: EChartOption;
-	chartLineOption3: EChartOption;
+    chartLineOption1: EChartOption;
+    chartLineOption2: EChartOption;
+    chartLineOption3: EChartOption;
     salesChartBar: EChartOption;
     salesChartPie: EChartOption;
 
@@ -43,7 +43,7 @@ export class DashboadDefaultComponent implements OnInit {
     public totalcomplete_obj;
     public allreq_obj;
 
-    roleId=localStorage.getItem('roleId')
+    roleId = localStorage.getItem('roleId')
 
 
 
@@ -79,17 +79,19 @@ export class DashboadDefaultComponent implements OnInit {
     local_data;
     viewObj;
     /////v2/////
-	constructor(
+
+    id;
+    constructor(
         private productService: ProductService
-        ,public service:HttpService,
+        , public service: HttpService,
         private router: Router,
         private fb: FormBuilder,
         private modalService: NgbModal,
         private calendarService: CalendarAppService,
         private toastr: ToastrService
-        ) { 
+    ) {
 
-    this.actions = [{
+        this.actions = [{
             label: '<i class="i-Edit m-1 text-secondary"></i>',
             onClick: ({ event }: { event: CalendarEvent }): void => {
                 this.handleEvent('edit', event);
@@ -103,8 +105,7 @@ export class DashboadDefaultComponent implements OnInit {
 
     }
 
-	ngOnInit() {
-        // alert(this.roleId)
+    ngOnInit() {
         this.totalUserList(1);
         this.totalLanguageList();
 
@@ -119,145 +120,142 @@ export class DashboadDefaultComponent implements OnInit {
 
 
         this.roleName = JSON.parse(localStorage.getItem('roleName'));
-    this.userId = JSON.parse(localStorage.getItem('userId'));
-    this.new_request();
-    this.accept_request();
-    this.reject_request();
-    this.complete_request();
-    this.cancelled_request();
-    // this.loadEvents();
-    //get admin assign
-    this.getInterpreterRequestInfo();
-	}
+        this.userId = JSON.parse(localStorage.getItem('userId'));
+        this.new_request();
+        this.accept_request();
+        this.reject_request();
+        // this.complete_request();
+        // this.cancelled_request();
+        // this.loadEvents();
+        //get admin assign
+        this.getInterpreterRequestInfo();
+    }
 
-    totalUserList(id){
+    totalUserList(id) {
         this.service.getdashboardUsers()
-        .subscribe(res => {
-          console.log("apiiiiiiiiii response user", res);
-            this.totaluser_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totaluser_obj = res['data'][0];
+            })
     }
 
 
 
-    total_interpreter(){
+    total_interpreter() {
         this.service.getdashboardInterpreter()
-        .subscribe(res => {
-        //   console.log("apiiiiiiiiii response service", res);
-            this.totalinter_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totalinter_obj = res['data'][0];
+            })
     }
 
 
 
 
-    totalLanguageList(){
+    totalLanguageList() {
         this.service.getdashboardLanguage()
-        .subscribe(res => {
-          console.log("apiiiiiiiiii response service", res);
-            this.totallanguage_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totallanguage_obj = res['data'][0];
+            })
     }
 
 
 
-    
-   
-    getallRequest(){
+
+
+    getallRequest() {
         this.service.allRequest()
-        .subscribe(res => {
-        //   console.log("apiiiiiiiiii response service", res);
-            this.allreq_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.allreq_obj = res['data'][0];
+                console.log("allllllllllllllll",  this.allreq_obj);
+            })
     }
 
 
 
 
-    totalNewRequest(){
+    totalNewRequest() {
         this.service.totalRequest()
-        .subscribe(res => {
-        //   console.log("apiiiiiiiiii response service", res);
-            this.totalrequest_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totalrequest_obj = res['data'][0];
+            })
     }
 
 
-    total_assign(){
+    total_assign() {
         this.service.totalAssign()
-        .subscribe(res => {
-          console.log("apiiiiiiiiii response service", res);
-            this.totalassign_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totalassign_obj = res['data'][0];
+            })
     }
 
 
-    total_inprogress(){
+    total_inprogress() {
         this.service.totalInprogress()
-        .subscribe(res => {
-          console.log("apiiiiiiiiii response service", res);
-            this.totalinprogress_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totalinprogress_obj = res['data'][0];
+            })
     }
 
 
-    total_complete(){
+    total_complete() {
         this.service.totalComplete()
-        .subscribe(res => {
-          console.log("apiiiiiiiiii response service", res);
-            this.totalcomplete_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totalcomplete_obj = res['data'][0];
+            })
     }
 
 
-    total_cancelled(){
+    total_cancelled() {
         this.service.totalCancelled()
-        .subscribe(res => {
-          console.log("apiiiiiiiiii response service", res);
-            this.totalcancel_obj = res['data'][0];
-        })
+            .subscribe(res => {
+                this.totalcancel_obj = res['data'][0];
+            })
     }
 
 
 
-    
 
 
 
 
-    users(){
-        this.router.navigate(['/users/user-list']);
+
+    users() {
+        this.router.navigate(['/users/user-list/all']);
     }
-    interpreter(){
+    interpreter() {
         this.router.navigate(['/interpreter/interpreter-list']);
     }
 
-    language(){
+    language() {
         this.router.navigate(['/languages/list']);
     }
 
-    all_requ(){
-        this.router.navigate(['/interpreter-request/all-request-list']);
+    all_requ(e) {
+        this.id = e
+        console.log("eeeeeeeeeeeeeeeeee", this.id);
+        // this.router.navigate(['/interpreter-request/all-request-list']);
+        this.router.navigate(['/dashboard/all-request/' + this.id]);
     }
-    
+
 
     // new_request(){
     //     this.router.navigate(['/user-request/list']);
     // }
 
 
-    assign_request(){
-        this.router.navigate(['/interpreter-request/list']);
+    assign_request(e) {
+        this.id = e
+        this.router.navigate(['/dashboard/all-request/' + this.id]);
+        // this.router.navigate(['/interpreter-request/list']);
     }
-    
+
     // accept_request(){
     //     this.router.navigate(['/interpreter-request/accept-list']);
     // }
-    
+
     // complete_request(){
     //     this.router.navigate(['/interpreter-request/completed-list']);
     // }
-    cancel_request(){
+    cancel_request() {
         this.router.navigate(['/interpreter-request/cancelled-list']);
     }
 
@@ -265,33 +263,31 @@ export class DashboadDefaultComponent implements OnInit {
 
 
     ////////////////v2///////////////////
-      // get admin assign
-  getInterpreterRequestInfo(){
-    this.service.interpreterDashboardData(this.userId)
-    .subscribe(res => {
-        if(res['status']=='1'){
-            this.cal_data = res['data'];
-            console.log("cal_data",this.cal_data)
+    // get admin assign
+    getInterpreterRequestInfo() {
+        this.service.interpreterDashboardData(this.userId)
+            .subscribe(res => {
+                if (res['status'] == '1') {
+                    this.cal_data = res['data'];
+                    this.events = [];
+                    for (let i = 0; i < this.cal_data.length; i++) {
+                        var dataArray = this.cal_data[i].date.split(/[ -]/);
+                        this.new_date = new Date(dataArray[0], dataArray[1] - 1, dataArray[2]);
+                        this.events.push({
+                            start: this.new_date,
+                            title: this.cal_data[i].title,
+                            _id: this.cal_data[i].id,
+                            request_id: this.cal_data[i].request_id,
+                            color: {
+                                primary: this.cal_data[i].id == "0" ? "#77a024" : "#1153e3",
+                                secondary: this.cal_data[i].id == "0" ? "#11e3ad" : "#9c24a0",
+                            }
+                        });
+                    }
+                }
+            })
+    }
 
-            this.events = [];    
-            for(let i=0; i < this.cal_data.length; i++){ 
-                var dataArray = this.cal_data[i].date.split(/[ -]/);
-                this.new_date = new Date( dataArray[0],dataArray[1]-1,dataArray[2]);
-                this.events.push ({
-                    start: this.new_date,
-                    title: this.cal_data[i].title,
-                    _id:this.cal_data[i].id,
-                    request_id:this.cal_data[i].request_id,
-                    color: {
-                        primary: this.cal_data[i].id=="0" ? "#77a024" : "#1153e3",
-                        secondary: this.cal_data[i].id =="0" ? "#11e3ad" : "#9c24a0",
-                      }
-                });
-            }
-        }        
-    })
-  }
-    
 
 
 
@@ -301,53 +297,40 @@ export class DashboadDefaultComponent implements OnInit {
         this.service
             .interpreterViewEvents(this.userId, e.event._id)
             .subscribe(result => {
-                if(result['status']=='1'){
-                    console.log("result", result);
+                if (result['status'] == '1') {
                     this.viewObj = result;
-                    console.log("response ", this.viewObj);
-
                     this.modalService.open(this.eventViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
                         .result.then((result) => {
-                    });
-                }else{
-                    
-                    this.router.navigate(['/user-request/request-view/'+e.event.request_id]);
-                    // this.modalService.open(this.requestViewConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
-                    //     .result.then((result) => {
-                    // });
+                        });
+                } else {
+
+                    this.router.navigate(['/user-request/request-view/' + e.event.request_id]);
                 }
-                
+
             });
-            
+
 
     }
 
     editCalender(data, id) {
-        console.log("idddddddddddddd",data, id);
         localStorage.setItem('editData', JSON.stringify(data));
         this.router.navigate(['/dashboard/edit']);
     }
 
 
     public removeEvent(e) {
-    console.log("idddddddd",e);
-    
         this.modalService.open(this.eventDeleteConfirm, { ariaLabelledBy: 'modal-basic-title', centered: true })
             .result.then((result) => {
                 this.service.interpreterLocalEvents(this.userId)
-                this.service.removeLocalEvents(this.userId,e)
+                this.service.removeLocalEvents(this.userId, e)
                     .subscribe(res => {
-                        // this.events = this.initEvents(events);
-                        console.log("resp",res)
-                        this.toastr.success(res.message,'', { timeOut: 1000 });
-                        // this.refresh.next();
+                        this.toastr.success(res.message, '', { timeOut: 1000 });
                         this.getInterpreterRequestInfo();
                     });
             }, (reason) => {
 
-        });
+            });
     }
-
 
 
 
@@ -358,7 +341,6 @@ export class DashboadDefaultComponent implements OnInit {
                 this.newrequest_obj = res['data'][0];
             })
     }
-
 
     accept_request() {
         this.service.acceptRequestCount(this.userId)
@@ -376,40 +358,57 @@ export class DashboadDefaultComponent implements OnInit {
     }
 
 
-    complete_request() {
-        this.service.completeRequestCount(this.userId)
-            .subscribe(res => {
-                this.totalcomplete_obj = res['data'][0];
-            })
+    // complete_request() {
+    //     this.service.completeRequestCount(this.userId)
+    //         .subscribe(res => {
+    //             this.totalcomplete_obj = res['data'][0];
+    //             console.log("xxxxxxxxxxxxxxxxxx", this.totalcomplete_obj);
+
+    //         })
+    // }
+
+
+    // cancelled_request() {
+    //     this.service.cancelledRequestCount(this.userId)
+    //         .subscribe(res => {
+    //             this.totalcancel_obj = res['data'][0];
+    //         })
+    // }
+
+
+    all_new_request(e) {
+        this.id = e
+        console.log("aaaaaaaaaa", this.id);
+        this.router.navigate(['/dashboard/all-request/' + this.id]);
     }
-
-
-    cancelled_request() {
-        this.service.cancelledRequestCount(this.userId)
-            .subscribe(res => {
-                this.totalcancel_obj = res['data'][0];
-            })
-    }
-
 
     newRequest() {
         this.router.navigate(['/interpreter-request/list']);
     }
 
 
-    acceptRquest() {
-        this.router.navigate(['/interpreter-request/accept-list']);
+    acceptRquest(e) {
+        this.id = e
+        console.log("acceptRquest", this.id);
+        this.router.navigate(['/dashboard/all-request/' + this.id]);
+        // this.router.navigate(['/interpreter-request/accept-list']);
     }
 
     RejectRequest() {
         this.router.navigate(['/interpreter-request/reject-list']);
     }
 
-    completeRequest() {
-        this.router.navigate(['/interpreter-request/completed-list']);
+    completeRequest(e) {
+        this.id = e
+        console.log("completeRequest", this.id);
+        this.router.navigate(['/dashboard/all-request/' + this.id]);
+        // this.router.navigate(['/interpreter-request/completed-list']);
     }
-    cancelRequest() {
-        this.router.navigate(['/interpreter-request/cancelled-list']);
+    cancelRequest(e) {
+        this.id = e
+        console.log("cancelRequest", this.id);
+        this.router.navigate(['/dashboard/all-request/' + this.id]);
+        // this.router.navigate(['/interpreter-request/cancelled-list']);
     }
 
     // ================================ calendar =============================== //
@@ -506,7 +505,7 @@ export class DashboadDefaultComponent implements OnInit {
                 (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
                 events.length === 0
             ) {
-            
+
                 this.activeDayIsOpen = false;
             } else {
                 this.activeDayIsOpen = true;
