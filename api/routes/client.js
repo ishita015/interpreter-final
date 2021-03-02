@@ -145,11 +145,11 @@ module.exports.addClient = async function (req, res) {
       try {
         var checkUser = await commonDb.AsyncSellectAllWhere('user',{email:req.body.email});
         if(checkUser.length == 0){
+          req.body.country_code = '+'+req.body.country_code
           await commonDb.AsyncInsert('user',req.body);
-        return res.send({status:true,msg:'User Added Successfully'})
+          return res.send({status:true,msg:'User Added Successfully'})
         }else{
-        return res.send({status:false,msg:'User Already exists'})
-
+          return res.send({status:false,msg:'User Already exists'})
         } 
         
         } catch (e) {

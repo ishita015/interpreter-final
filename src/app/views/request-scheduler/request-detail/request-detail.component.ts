@@ -47,8 +47,6 @@ export class RequestDetailComponent implements OnInit {
     })
   }
 
-
-
   getRequestDetails() {
     this.service.get("getRequestDetails/" + this.id).subscribe((res) => {
       this.data = res['data'][0];

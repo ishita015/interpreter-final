@@ -49,7 +49,6 @@ class userClass {
         return new Promise(function(resolve, reject) {
             var sql = "SELECT u.*,c.name as countryName,c.sortname,ips.platform_ids,ct.name as cityName,s.name as stateName,l.id as primay_lang_id,l.name as primay_lang_name,bd.id as banlking_id,bd.bank_name,bd.account_type,bd.bank_country,bd.account_no,bd.bank_routing_no,bd.payment_method,bd.electronic,bd.SWIFT_code,bd.bank_address,bd.paypal_id,bd.is_complete FROM user AS u LEFT JOIN banking_detail AS bd ON bd.user_id=u.id LEFT JOIN languages as l ON l.id=u.primary_language LEFT JOIN countries as c ON c.id=u.country LEFT JOIN states as s ON s.id=u.state LEFT JOIN cities as ct ON ct.id=u.city LEFT JOIN interpreter_platform_setting as ips ON ips.interpreter_id=u.id WHERE u.id='" + interpreter_id + "' && u.role_id='2'";
             con.query(sql, function(err, result) {
-                console.log("==========err",err);
                 if (result != "" && result != "undefined") {
                     resolve(result);
                 } else {
@@ -575,7 +574,6 @@ class userClass {
 
             sql += " ORDER BY u.distance ASC";
 
-            console.log('dev',sql)
             con.query(sql, function(err, result) {
                 if (result != "" && result != "undefined") {
                     resolve(result);

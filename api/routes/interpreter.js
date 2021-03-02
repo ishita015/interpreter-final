@@ -105,7 +105,6 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
     var mainArr = [];
 
     var resultData = await usermodel.getInterpreterProfileData(interpreter_id);
-    console.log("============ddddddd",resultData)
 
     if (resultData != "" && resultData != undefined) {
         var mainObj = {};
@@ -331,7 +330,6 @@ module.exports.getInterpreterProfile = async function(req, res, next) {
 
 
 module.exports.addAssignmentSetting = async function(req, res) {
-    console.log('devd---------------------------------dd', req.body);
     if (req.body.onsiteInfo == true) {
         for (var i = 0; i < req.body.assignment.length; i++) {
             var onsitedata = {
@@ -1350,10 +1348,6 @@ module.exports.getstate = async function(req, res, next) {
 
 
 
-
-
-
-
 module.exports.getCity = async function(req, res, next) {
     //validation start
     const v = new Validator(req.body, {
@@ -1474,12 +1468,6 @@ module.exports.addRateReview = async function(req, res) {
 
 
 
-
-
-
-
-
-
 // get interpreter current location
 module.exports.getInterpreterCurrentLocation = async function(req, res) {
     //validation start
@@ -1533,7 +1521,6 @@ module.exports.getInterpreterCurrentLocation = async function(req, res) {
 
 // add interpreter
 module.exports.assignAllInterpreter = async function(req, res) {
-    console.log("all body====================", req.body)
         //validation start
     const v = new Validator(req.body, {
 
@@ -1968,7 +1955,6 @@ module.exports.adminReminderForinterpreter = async function(req, res, next) {
 
 
     var resultData = await usermodel.getRequestDetails(user_id, ris_id);
-    console.log("remderrrrrrr", resultData);
     if (resultData != "" && resultData != undefined) {
         var name = resultData[0].last_name + " " + resultData[0].first_name;
         var date = resultData[0].date;
@@ -2530,7 +2516,6 @@ module.exports.interpreterRequestReply = async function(req, res) {
         rejectreq = 1; //for inter request table
         message = "Request reject successfully";
     }
-    console.log("==========================rejectreq", rejectreq)
         //update status
         // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status='1', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "' && pending_status='0'";
         // let updatesql = "UPDATE interpreter_request SET status = '" + res_type + "',pending_status ='" + pending + "', is_reject='" + rejectreq + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
@@ -2570,7 +2555,6 @@ module.exports.interpreterRequestReply = async function(req, res) {
                 })
             }
             if (res_type == "3") {
-                console.log("res_type == 3")
                 let sql = "UPDATE request_information_services SET status = '" + status + "' WHERE id = '" + ris_id + "'";
                 con.query(updatesql, function(err, result) {
                     if (err) {
@@ -2581,21 +2565,14 @@ module.exports.interpreterRequestReply = async function(req, res) {
                             message: "There was an error !!"
                         });
                     } else {
-                        console.log("res_type == 3", ris_id)
                         var request_assign = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "'";
                         con.query(request_assign, function(err, insert) {
                             // var request_rejecter = "SELECT * FROM interpreter_request WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id;
-                            console.log("=errrrr", err);
-                            console.log("=request_assign", insert.length);
                             var isRejected;
                             for (var i = 0; i < insert.length; i++) {
                                 if (insert[i].is_reject == 1) {
-                                    console.log("=forloop", insert);
-
                                     isRejected = true;
                                 } else {
-                                    console.log("=forloopaaa", insert);
-
                                     isRejected = false;
                                     break;
                                 }
@@ -3553,7 +3530,6 @@ module.exports.getAllUser = function(req, res, next) {
 
     sql += " ORDER BY u.id DESC";
     con.query(sql, function(err, result, fields) {
-        console.log("=========err", err)
         if (result && result.length > 0) {
             res.json({
                 status: 1,
@@ -3573,11 +3549,6 @@ module.exports.getAllUser = function(req, res, next) {
         }
     });
 };
-
-
-
-
-
 
 
 
@@ -4147,7 +4118,6 @@ module.exports.update_Account_Setting_Interpreter_Profile = async function(req, 
     //console.log(req.body);
 
     // return
-    console.log("===============type", req.body)
 
     if (req.body.type == 'On-Site') {
         for (var i = 0; i < req.body.assignment.length; i++) {
@@ -4366,7 +4336,6 @@ module.exports.getRateDetails = async function(req, res) {
     try {
         var data = await commonDb.AsyncSellectAllWhere('interpreter_assignment_settings', { Interpreter_id: req.params.id })
         var rate_status = '0';
-        console.log("=========data====", data);
         for (var i = 0; i < data.length; i++) {
             if (data[i].rate != '' && data[i].minpaid != '' && data[i].increment != '') {
                 rate_status = '1';

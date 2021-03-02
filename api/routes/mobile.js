@@ -10,11 +10,15 @@ var randtoken = require('rand-token');
 const { Validator } = require('node-input-validator');
 const cryptr = new Cryptr('myTotalySecretKey');
 var userModel = require('./Models/userModels');
-var commonDb = require('./Models/commonDev');
+// var commonDb = require('./Models/commonDev');
+const commonDb = require('./Models/commonAdnan');
+const mail = require('../helper/mail');
 const e = require('express');
 const usermodel = new userModel();
 const ct = require('countries-and-timezones');
 var otpGenerator = require('otp-generator');
+const { getAllRequest } = require('./service');
+const helper = require('../helper/mail');
 
 // interpreter login //
 module.exports.interpreterlogin = async function (req, res, next) {
@@ -46,11 +50,11 @@ module.exports.interpreterlogin = async function (req, res, next) {
             var get_interpreter_data = "SELECT * FROM user WHERE id ='" + logedIntpreterId + "' && role_id=2";
             con.query(get_interpreter_data, async function (err, response) {
                 if (response) {
-                        if(response[0].profile_img == null && response[0].profile_img == '' ){
-                            response[0].profile_img = this.process.env.image_path+'avatar.jpg';
-                        }else{
-                            response[0].profile_img = process.env.image_path+response[0].profile_img;
-                        }
+                    if (response[0].profile_img == null && response[0].profile_img == '') {
+                        response[0].profile_img = this.process.env.image_path + 'avatar.jpg';
+                    } else {
+                        response[0].profile_img = process.env.image_path + response[0].profile_img;
+                    }
 
                     return res.json({ status: true, message: "Login Successfully", resultData: response });
                 } else {
@@ -164,12 +168,11 @@ module.exports.getInterpreterData = function (req, res) {
     con.query(sql, function (err, result, fields) {
         // console.log("result-",result)
         if (result && result.length > 0) {
-            if(result[0].profile_img == null && result[0].profile_img == '' ){
-                result[0].profile_img = this.process.env.image_path+'avatar.jpg';
-            }else{
-                result[0].profile_img = process.env.image_path+result[0].profile_img;
+            if (result[0].profile_img == null && result[0].profile_img == '') {
+                result[0].profile_img = this.process.env.image_path + 'avatar.jpg';
+            } else {
+                result[0].profile_img = process.env.image_path + result[0].profile_img;
             }
-            // result[0].profile_img = process.env.image_path + result[0].profile_img
             return res.json({ status: true, data: result });
         } else {
             return res.json({ status: false, message: "No record found", data: '' });
@@ -209,7 +212,7 @@ module.exports.getRequestCancelled = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        return res.json({ status: true, message: error });
+        return res.json({ status: false, message: error });
     }
 
     //validation end
@@ -248,7 +251,7 @@ module.exports.getCompleteRequest = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        return res.json({ status: true, message: error });
+        return res.json({ status: false, message: error });
     }
 
     //validation end
@@ -287,7 +290,7 @@ module.exports.getInprogressRequest = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        return res.json({ status: true, message: error });
+        return res.json({ status: false, message: error });
     }
 
     //validation end
@@ -309,33 +312,45 @@ module.exports.getInprogressRequest = async function (req, res, next) {
     });
 };
 // get interpreter request list
-module.exports.getRequestList = function (req, res) {
-    var interpreterId = parseInt(req.params.id);
-    var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=1 && u.role_id=2 && Interpreter_id='" + interpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
-    //console.log(sql)
-    con.query(sql, function (err, result) {
-        //console.log("result-",result.length)
-        if (result && result.length > 0) {
-            return res.json({ status: true, data: result });
-        } else {
-            return res.json({ status: false, message: "No record found", data: '' });
-        }
-    });
-};
+module.exports.getRequestList = async function (req, res) {
+    // var interpreterId = parseInt(req.params.id);
+    // var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=1 && u.role_id=2 && Interpreter_id='" + interpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
+    // //console.log(sql)
 
+    // con.query(sql, function (err, result) {
+    //     //console.log("result-",result.length)
+    //     if (result && result.length > 0) {
+    //         return res.json({ status: true, data: result });
+    //     } else {
+    //         return res.json({ status: false, message: "No record found", data: '' });
+    //     }
+    // });
+    try {
+        var result = await commonDb.getAllInterpreterReqList(req.params.id);
+        return res.json({ status: true, msg: 'Data Found!', data: result });
+    } catch (err) {
+        return res.json({ status: false, msg: 'NO Data Found!', data: [] });
+    }
+};
 // get interpreter inProgress list
-module.exports.getInProgressList = function (req, res) {
-    var interpreterId = parseInt(req.params.id);
-    var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=2 && u.role_id=2 && Interpreter_id= '" + interpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
-    //console.log(sql)
-    con.query(sql, function (err, result) {
-        //console.log("result-",result.length)
-        if (result && result.length > 0) {
-            return res.json({ status: true, data: result });
-        } else {
-            return res.json({ status: false, message: "No record found", data: '' });
-        }
-    });
+module.exports.getInProgressList = async function (req, res) {
+    // var interpreterId = parseInt(req.params.id);
+    // var sql = "SELECT u.* FROM user as u INNER JOIN interpreter_request as iu ON u.id=iu.interpreter_id WHERE iu.status=2 && u.role_id=2 && Interpreter_id= '" + interpreterId + "'";//"SELECT count(*) as total FROM interpreter_request WHERE status=1";
+    // //console.log(sql)
+    // con.query(sql, function (err, result) {
+    //     //console.log("result-",result.length)
+    //     if (result && result.length > 0) {
+    //         return res.json({ status: true, data: result });
+    //     } else {
+    //         return res.json({ status: false, message: "No record found", data: '' });
+    //     }
+    // });
+    try {
+        var result = await commonDb.getInterpreterProgressReq(req.params.id);
+        return res.json({ status: true, msg: 'Data Found!', data: result });
+    } catch (err) {
+        return res.json({ status: false, msg: 'NO Data Found!', data: [] });
+    }
 };
 // request complete successfully
 module.exports.interpreterCompleteRequest = async function (req, res) {
@@ -397,9 +412,8 @@ module.exports.interpreterAcceptRequest = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         id: 'required',
-        userId: 'required'
+        // userId: 'required'
     });
-
     const matched = await v.check();
 
     if (!matched) {
@@ -408,38 +422,55 @@ module.exports.interpreterAcceptRequest = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({ status: true, message: error });
+        res.json({ status: false, message: error });
         return true;
     }
 
     //validation end
-    let user_id = req.body.userId;
-    let ris_id = req.body.id;
-    var token = randtoken.generate(30);
-
-    var requestData = await usermodel.getInterpreterAndCustomerInfo(user_id, ris_id);
-    if (requestData != "" && requestData != undefined) {
-
-        let requester_name = requestData[0].requester_name;
-        let email = requestData[0].email;
-        let interpreter = requestData[0].first_name + " " + requestData[0].last_name;
-
-
-        common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
-
-        //update status
-        let updatesql = "UPDATE interpreter_request SET status = '2', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
-        //console.log("updatesql--", updatesql)
-        con.query(updatesql, function (err, result) { });
-
-        let sql = "UPDATE request_information_services SET status = '2' WHERE id = '" + ris_id + "'";
-        //console.log("sql--", sql)
-        con.query(sql, function (err, result) { });
-
-        return res.json({ status: true, message: "Request accepted successfully" });
-    } else {
-        return res.json({ status: false, message: "Invalid details" });
+    try {
+        var clientData = await commonDb.clientData(req.body.id);
+        var interpreterData = await commonDb.selectAllWhere("user", { id: req.params.id });
+        var result = await commonDb.getRequest(req.body.id);
+        if (result.length != 0) {
+            var result01 = await commonDb.update("interpreter_request", { status: "1", pending_status: "1" }, { Interpreter_id: req.params.id, job_id: req.body.id });
+            var result02 = await commonDb.update("request_information_services", { status: "2" }, { id: req.body.id });
+            var result03 = await commonDb.acceptByOther(req.params.id, req.body.id);
+            mail.interpreterAcceptReq({ client_first_name: clientData[0].first_name, client_last_name: clientData[0].last_name, email: clientData[0].email, interpreter_first_name: interpreterData[0].first_name, interpreter_last_name: interpreterData[0].last_name, mobile: interpreterData[0].country_code + interpreterData[0].mobile }, (err, sendmail) => { });
+            return res.json({ status: true, message: "Request accepted successfully" });
+        } else {
+            return res.json({ status: false, message: "There was an error" });
+        }
+    } catch (err) {
+        console.log("==err", err)
+        return res.json({ status: false, message: "Somthing went wrong!" });
     }
+    // let user_id = req.body.userId;
+    // let ris_id = req.body.id;
+    // var token = randtoken.generate(30);
+
+    // var requestData = await usermodel.getInterpreterAndCustomerInfo(user_id, ris_id);
+    // if (requestData != "" && requestData != undefined) {
+
+    //     let requester_name = requestData[0].requester_name;
+    //     let email = requestData[0].email;
+    //     let interpreter = requestData[0].first_name + " " + requestData[0].last_name;
+
+
+    //     common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
+
+    //     //update status
+    //     let updatesql = "UPDATE interpreter_request SET status = '2', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+    //     //console.log("updatesql--", updatesql)
+    //     con.query(updatesql, function (err, result) { });
+
+    //     let sql = "UPDATE request_information_services SET status = '2' WHERE id = '" + ris_id + "'";
+    //     //console.log("sql--", sql)
+    //     con.query(sql, function (err, result) { });
+
+    //     return res.json({ status: true, message: "Request accepted successfully" });
+    // } else {
+    //     return res.json({ status: false, message: "Invalid details" });
+    // }
 
 };
 
@@ -448,9 +479,8 @@ module.exports.interpreterRejectRequest = async function (req, res, next) {
     //validation start
     const v = new Validator(req.body, {
         id: 'required',
-        userId: 'required'
+        // userId: 'required'
     });
-
     const matched = await v.check();
 
     if (!matched) {
@@ -459,38 +489,76 @@ module.exports.interpreterRejectRequest = async function (req, res, next) {
             error = Object.values(v.errors)[0].message;
             break;
         }
-        res.json({ status: true, message: error });
+        res.json({ status: false, message: error });
         return true;
     }
+    try {
+        var clientData = await commonDb.clientData(req.body.id);
+        var interpreterData = await commonDb.selectAllWhere("user", { id: req.params.id });
+        var result = await commonDb.getRequest(req.body.id);
+        if (result.length != 0) {
+            var result01 = await commonDb.update("interpreter_request", { status: "3", is_reject: "1" }, { Interpreter_id: req.params.id, job_id: req.body.id });
+            var result02 = await commonDb.selectAllWhere("request_reject_history", { Interpreter_id: req.params.id, request_id: req.body.id });
+            if (result02.length != 0) {
+                var result03 = await commonDb.update("request_reject_history", { status: '0' }, { Interpreter_id: req.params.id, request_id: req.body.id });
+            } else {
+                var result04 = await commonDb.insert("request_reject_history", { Interpreter_id: req.params.id, request_id: req.body.id });
+            }
 
-    //validation end
-    let user_id = req.body.userId;
-    let ris_id = req.body.id;
-    var token = randtoken.generate(30);
+            var result05 = await commonDb.getAssignRequest(req.body.id);
+            if (result05.length != 0) {
+                var isRejected;
+                for (var i = 0; i < result05.length; i++) {
+                    if (result05[i].is_reject == 1) {
+                        isRejected = true;
+                    } else {
+                        isRejected = false;
+                        break;
+                    }
+                }
+                if (isRejected) {
+                    // When all interpreter rejected request
+                    var result06 = await commonDb.requestRejectedByAllInterpreter(req.body.id);
+                    var result07 = await commonDb.requestRejectedReassign(req.body.id);
+                }
+            }
+            return res.json({ status: true, message: "Request rejected successfully" });
 
-    var requestData = await usermodel.getInterpreterAndCustomerInfo(user_id, ris_id);
-    if (requestData != "" && requestData != undefined) {
-
-        let requester_name = requestData[0].requester_name;
-        let email = requestData[0].email;
-        let interpreter = requestData[0].first_name + " " + requestData[0].last_name;
-
-
-        common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
-
-        //update status
-        let updatesql = "UPDATE interpreter_request SET status = '3', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
-        //console.log("updatesql--", updatesql)
-        con.query(updatesql, function (err, result) { });
-
-        let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
-        //console.log("sql--", sql)
-        con.query(sql, function (err, result) { });
-
-        return res.json({ status: true, message: "Request accepted successfully" });
-    } else {
-        return res.json({ status: false, message: "Invalid details" });
+        } else {
+            return res.json({ status: false, message: "There was an error" });
+        }
+    } catch (err) {
+        return res.json({ status: false, message: "Somthing went wrong!" });
     }
+    // //validation end
+    // let user_id = req.body.userId;
+    // let ris_id = req.body.id;
+    // var token = randtoken.generate(30);
+
+    // var requestData = await usermodel.getInterpreterAndCustomerInfo(user_id, ris_id);
+    // if (requestData != "" && requestData != undefined) {
+
+    //     let requester_name = requestData[0].requester_name;
+    //     let email = requestData[0].email;
+    //     let interpreter = requestData[0].first_name + " " + requestData[0].last_name;
+
+
+    //     common.sendRatingPageLinkEmail(requester_name, email, interpreter, token);
+
+    //     //update status
+    //     let updatesql = "UPDATE interpreter_request SET status = '3', unique_code='" + token + "' WHERE job_id = '" + ris_id + "' && Interpreter_id = '" + user_id + "'";
+    //     //console.log("updatesql--", updatesql)
+    //     con.query(updatesql, function (err, result) { });
+
+    //     let sql = "UPDATE request_information_services SET status = '3' WHERE id = '" + ris_id + "'";
+    //     //console.log("sql--", sql)
+    //     con.query(sql, function (err, result) { });
+
+    //     return res.json({ status: true, message: "Request accepted successfully" });
+    // } else {
+    //     return res.json({ status: false, message: "Invalid details" });
+    // }
+
 };
 
 

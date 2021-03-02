@@ -141,6 +141,7 @@ app.get('/cesco/getTotalCancelled', serviceController.getTotalCancelled);
 // app.get('/cesco/getTotalUser', interpreterController.getTotalUser);
 
 //interpreter login api by lukesh  
+// Adnan
 app.post('/cesco/interpreterlogin', mobileController.interpreterlogin);
 app.post('/cesco/interpreterForgetPassword', mobileController.sendOtp);
 app.post('/cesco/interpreterResetPassword', mobileController.resetPassword);
@@ -148,10 +149,10 @@ app.get('/cesco/getInterpreterData/:id', mobileController.getInterpreterData);
 app.get('/cesco/getRequestList/:id',mobileController.getRequestList);
 app.get('/cesco/getInProgressList/:id',mobileController.getInProgressList);
 
-app.post('/cesco/interpreterRejectRequest', mobileController.interpreterRejectRequest);
-app.post('/cesco/interpreterAcceptRequest', mobileController.interpreterAcceptRequest);
-app.post('/cesco/interpreterCompleteRequest',mobileController.interpreterCompleteRequest
-);//send mail
+
+app.post('/cesco/interpreterAcceptRequest/:id', mobileController.interpreterAcceptRequest);
+app.post('/cesco/interpreterRejectRequest/:id', mobileController.interpreterRejectRequest);
+app.post('/cesco/interpreterCompleteRequest',mobileController.interpreterCompleteRequest);//send mail
 app.post('/cesco/getCancelledRequestCount',mobileController.getRequestCancelled);
 app.post('/cesco/getCompleteRequestCount',mobileController.getCompleteRequest);
 app.post('/cesco/getInprogressRequestCount',mobileController.getInprogressRequest);
@@ -557,9 +558,7 @@ app.post('/cesco/userRoleAdd',async function(req, res) {
 
 
        try{
-      console.log(i)
     let sql = "UPDATE user_module_permission SET view_permission ='"+data[i].view_permission+"',add_permission ='"+data[i].add_permission+"',status ='"+data[i].status+"', edit_permission ='"+data[i].edit_permission+"', delete_permission='"+data[i].delete_permission+"',status_permission ='"+data[i].status_permission+"' WHERE userRoleId = "+data[i].roleId+" AND module_id="+data[i].id+"";  
-    console.log('yes-',sql)
     var query = con.query(sql, function(err, result) {});
               // await commonDb.AsyncUpdate('user_module_permission',{
               //     userRoleId:data[i].roleId,module_id:data[i].id,
@@ -1194,7 +1193,6 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     let primary_language  = req.body.primary_language ? req.body.primary_language : "";
     let secondary_language  = req.body.secondary_language ? req.body.secondary_language : "";
     
-    console.log('assignment_arr',assignment_arr)
         try{
             var checkPlatform = await commonDb.AsyncSellectAllWhere('interpreter_platform_setting',{interpreter_id:interpreter_id});
             if(checkPlatform.length == 0){
@@ -1213,7 +1211,6 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
     // //console.log("secondary_language--",JSON.parse(secondary_language));
 
     secondary_language=JSON.parse(secondary_language)
-    console.log("===================req.files",req.files);
     if (typeof req.files !== 'undefined' && req.files.length > 0) {
         if (req.files[0].filename != 'undefined' && req.files[0].filename != "") {
             // let documents=req.files[0].filename;
@@ -1250,8 +1247,6 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
         for (var i = 0; i < secondary_language.length; i++) {
             // //console.log("secondary-language-id",secondary_language[i].language_id);    
             secLang = secondary_language[i];
-            
-
             if (secLang.id != undefined) {
                 // //console.log("finsaly 1",secLang.id)
                 seclangid=secLang.id;    
@@ -1260,13 +1255,13 @@ app.post('/cesco/uploadInterpreterDoc', docUpload.any(),async function(req, res,
                 seclangid=secLang.language_id;
             }
 
-
             var resultData  = await commonmodel.checkPrimarylang(interpreter_id,seclangid);
-            if (resultData != "" && resultData != undefined) {
-            }else{
+            // if (resultData != "" && resultData != undefined) {
+
+            // }else{
                 var sql = "INSERT INTO interpreter_language(user_id,language_id)VALUES('"+interpreter_id+"','"+seclangid+"')";
-                con.query(sql, function(err, insert) {});
-            }
+                con.query(sql, function(err, insert) { });
+            // }
         }
     }
     

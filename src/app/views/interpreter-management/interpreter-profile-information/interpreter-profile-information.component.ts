@@ -573,14 +573,9 @@ flatFeeCheck='false';
   }
 
   onSelect(item) {
-    console.log("======================item",item);
-    console.log("======================skillFomr",this.interpreterSkillForm.value.secondary_language);
-
     for (let i = 0; i < item; i++) {
       this.lang.push(item[i]);
     }
-    console.log("======================this.lang",this.lang);
-
   }
 
   communityShow() {
@@ -692,9 +687,7 @@ flatFeeCheck='false';
       this.assignment_form = false;
       this.banking_form = true;
     }
-
   }
-
   assignment() {
     // if (this.detail_Obj.interpreter_assignment_status == 1) {
       if (this.detail_Obj.user_profile_status == 1 && this.detail_Obj.skill_complete == 1) {
@@ -726,7 +719,6 @@ flatFeeCheck='false';
   /*====================== interpreter general information view and edit  bankingForm ==============*/
 
   patchValue() {
-    console.log('===============', this.detail_Obj)
     this.generalForm.get('title').patchValue(this.detail_Obj.title);
     this.generalForm.get('email').patchValue(this.detail_Obj.email);
     this.generalForm.get('first_name').patchValue(this.detail_Obj.first_name);
@@ -1586,14 +1578,16 @@ flatFeeCheck='false';
       return
     }
     console.log("=============this.arrimages",this.arrImages);
-    if(this.arrImages.length < 7 ){
-      this.toastr.error("Education documents are required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
-      return
-    }
+    console.log("=============this.assignment_arr",this.assignment_arr);
+    // if(this.arrImages.length < 7 ){
+    //   this.toastr.error("Education documents are required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
+    //   return
+    // }
     if(this.assignment_arr.length == 0 ){
       this.toastr.error("Platform is required", '', { timeOut: 1000, positionClass: 'toast-top-center' });
       return
     }
+    return
     this.lang = this.interpreterSkillForm.value.secondary_language
     this.assignment_arr = this.assignment_arr.filter((item, index, inputArray) => { return inputArray.indexOf(item) == index; });
     const formData: any = new FormData();
@@ -1866,7 +1860,6 @@ flatFeeCheck='false';
 
       }
     })
-
   }
   newArr = [];
   async createDynamicForm() {
@@ -1884,7 +1877,6 @@ flatFeeCheck='false';
         this.myPlatformData = res['data'][0].platform_ids.split(',');
         this.myPlatformData = this.myPlatformData.map((x) => { return parseInt(x, 10); });
         this.assignment_arr = this.myPlatformData;
-
 
         for (var i = 0; i < this.assignment_arr.length; ++i) {
 
@@ -1965,7 +1957,6 @@ showTravelTime(e){
       this.halfBaseRate = this.baseRate/2; 
     });
     this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
-      console.log('aaaa', this.secondFormGroup1.value)
       if (resdata['data'].length > 0) {
         
         for (var i = 0; i < resdata['data'].length; ++i) {
@@ -2002,7 +1993,7 @@ showTravelTime(e){
 
   toggleAccordian(event) {
     // If it is already open you will close it and if it is closed open it
-    this.activeId = this.activeId == event.panelId ? "" : event.panelId;
+    // this.activeId = this.activeId == event.panelId ? "" : event.panelId;
   }
 
 resData
@@ -2022,7 +2013,6 @@ getRateDetails(){
   baseRate;
   halfBaseRate;
   selectLanguage(language_id, e) {
-    console.log('============>',language_id)
     this.languageId = language_id;
     e.value.interpreter_id = this.interId;
     e.value.language_id = language_id;
@@ -2031,7 +2021,6 @@ getRateDetails(){
       this.halfBaseRate = this.baseRate/2; 
     });
     this.service.post('getInterpreterRateSettingNew', e.value).subscribe(resdata => {
-        console.log("=============res",resdata);
       if (resdata['data'].length > 0) {
         this.getRateDetails();
         for (var i = 0; i < resdata['data'].length; ++i) {
@@ -2146,7 +2135,6 @@ getRateDetails(){
                    arr:this.secondFormGroup1.value.arr,
                    interpreter_id:this.interId
                  }
-                 console.log("===========setdata",setdata)
                  var count=0;
     for(var i=0; i < setdata.arr.length; i++){
      
@@ -2186,7 +2174,6 @@ getRateDetails(){
       setdata.arr[i].flat_fee_status = this.flatFeeCheck;
 
     }
-    console.log("===========setdata",setdata)
 
     if(count == 1){
       return

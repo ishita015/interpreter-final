@@ -21,7 +21,6 @@ const ct = require('countries-and-timezones');
 
 
 module.exports.AddEditLob = async function (req, res) {
-    console.log(req.body)
     if(req.body.id == ''){
         try{
             await commonDb.AsyncInsert('master_lob',{name:req.body.name});

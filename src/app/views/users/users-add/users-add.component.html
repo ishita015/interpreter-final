@@ -12,8 +12,6 @@
         <div class="card mb-4">
             <div class="card-body">
                 <form [formGroup]="userForm" (ngSubmit)="saveUser()">
-
-
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">
                             <label for="picker1">Select Role</label>
@@ -28,8 +26,6 @@
                                 <div [hidden]="!userForm.controls['user_role'].errors.required">Role is required.</div>
                             </div>
                         </div>
-
-
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName">First Name</label>
                             <input type="text" class="form-control" formControlName="first_name"

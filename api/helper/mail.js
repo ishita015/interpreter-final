@@ -21,7 +21,7 @@ var helper = new function () {
         );
     }
 
-     this.resetPasswordMail = async function (value, cb) {
+    this.resetPasswordMail = async function (value, cb) {
           var  subject ='Reset Password ';
           var  html = '<!DOCTYPE html> <html> <head> <title></title> </head> <body> Hello '+value.first_name+' '+value.last_name+'<br>You have successfully reset password.<br/> You can now login with your new password .<br/><br/><br/>Regards,<br/>Team Interpreter<br/>Thank you </body> </html>';
         transporter.sendMail({ from: smtp.auth.user, to: value.email, subject: subject, html: html })
@@ -29,7 +29,13 @@ var helper = new function () {
         );
     }
 
-    
+    this.interpreterAcceptReq = async function (value, cb) {
+        var subject ='Request Accepted';
+        var html = '<!DOCTYPE html> <html> <head> <title></title> </head> <body> Hello '+value.client_first_name+' '+value.client_last_name+'<br>Your request has been accepted by '+ value.interpreter_first_name + " " + value.interpreter_last_name + "Contact No:" +  value.mobile + '<br/><br/><br/>Regards,<br/>Team Interpreter<br/>Thank you </body> </html>';
+            transporter.sendMail({ from: smtp.auth.user, to: value.email, subject: subject, html: html })
+            .then(info => { cb(true) }).catch((err) => cb(false)
+        );
+  }
     
 }
 
