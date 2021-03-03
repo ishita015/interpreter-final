@@ -823,7 +823,10 @@ export class AllRequestSchedularComponent implements OnInit {
   }
   /*==========================Google Api function end here==========================*/
   selectEvent(item) {
+            console.log(item)
+
     // do something with selected item
+    this.newRequestForm.get('client_name').patchValue(item);
     this.newRequestForm.get('requested_by').patchValue(item.contact_person_name);
   }
 
@@ -833,6 +836,7 @@ export class AllRequestSchedularComponent implements OnInit {
   }
 
   onFocused(e) {
+
     // do something
   }
 }

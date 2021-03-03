@@ -50,6 +50,7 @@ var base_url = "";
 var room = []
 
 
+
 app.all('/*', function(req, res, next) {
      // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -67,7 +68,13 @@ app.all('/*', function(req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+// app.use(express.static(path.join(__dirname + "/../dist"), {
+//     maxAge: 43200000
+// }));
 
+// app.use("*", function(req, res) {
+//     res.sendFile(path.join(__dirname + "/../dist/index.html"));
+// });
 var common = require('./routes/common');
 
 var commonModel = require('./routes/Models/commonModel');
